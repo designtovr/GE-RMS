@@ -13,6 +13,7 @@ class CreateProductMasterTable extends Migration
 			$table->bigIncrements('id');
 			$table->string('part_no', 15);
 			$table->string('description', 50);
+			$table->bigInteger('type');
 			$table->tinyInteger('created_by');
 			$table->tinyInteger('updated_by');
 			$table->timestamps();
@@ -21,6 +22,6 @@ class CreateProductMasterTable extends Migration
 
 	public function down()
 	{
-		//Schema::dropIfExists('ma_product');
+		
 	}
 }

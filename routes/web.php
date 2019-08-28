@@ -182,4 +182,28 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
 	Route::get('/material-types','MaterialTypeController@MaterialTypes');
 	Route::get('/manufactures','ManufactureController@Manufactures');
 	Route::get('/users','UserController@Users');
+	Route::get('/roles','RoleController@Roles');
+
+	Route::post('/addcustomers', 'CustomerController@AddCustomer');
+	Route::get('/getcustomer/{id}', 'CustomerController@GetCustomer');
+
+	Route::post('/addproducttype', 'ProductTypeController@AddProductType');
+
+	Route::post('/addproduct', 'ProductController@AddProduct');
+
+	Route::post('/addlocation', 'LocationController@AddLocation');
+
+	Route::post('/addracktype', 'RackTypeController@AddRackType');
+
+	Route::post('/addrack', 'RackController@AddRack');
+
+	Route::post('/addpackingstyle', 'PackingStyleController@AddPackingStyle');
+
+	Route::post('/addmaterialtype', 'MaterialTypeController@AddMaterialType');
+
+	Route::post('/addmanufacture', 'ManufactureController@AddManufacture');
+
+	Route::post('/adduser', 'UserController@AddUser');
+
+	Route::post('/addmaterial', 'MaterialController@AddMaterial');
 });

@@ -13,7 +13,6 @@ app.controller('LoginController', function($scope, $http){
 				'email': $scope.logindata.email,
 				'password': $scope.logindata.password,
 			},
-			contentType:"application/json; charset=utf-8",
 		}).then(function success(response){
 			var data = response.data;
 			if (data.status == 'success')

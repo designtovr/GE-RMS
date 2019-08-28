@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Role;
+use App\Models\RoleUser;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\AddUserRequest;
 
 class UserController extends Controller
 {
@@ -42,7 +45,24 @@ class UserController extends Controller
 
     public function Users(Request $request)
     {
-        $users = User::all();
+        $users = User::selectRaw('users.id, users.name, users.email, ro.name as role')->leftJoin('role_user as ru', 'users.id', 'ru.user_id')->leftJoin('roles as ro', 'ro.id', 'ru.role_id')->orderBy('users.id')->get();
         return response()->json(['data' => $users, 'status' => 'success']);
+    }
+
+    public function AddUser(AddUserRequest $request)
+    {
+        $user = $request->get('user');
+        $US = new User();
+        $US->name = $user['name'];
+        $US->email = $user['email'];
+        $US->password = bcrypt($user['password']);
+        $US->save();
+
+        $RU = new RoleUser();
+        $RU->user_id = $US->id;
+        $RU->role_id = $user['role'];
+        $RU->save();
+
+        return response()->json(['data' => $US, 'status' => 'success', 'messagae' => 'User Added Successfully'], 200);
     }
 }

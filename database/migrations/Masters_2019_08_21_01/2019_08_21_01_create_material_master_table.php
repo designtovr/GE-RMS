@@ -13,6 +13,7 @@ class CreateMaterialMasterTable extends Migration
 			$table->bigIncrements('id');
 			$table->string('part_no', 15);
 			$table->string('description', 50);
+			$table->int('type');
 			$table->tinyInteger('created_by');
 			$table->tinyInteger('updated_by');
 			$table->timestamps();

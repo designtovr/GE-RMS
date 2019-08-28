@@ -13,6 +13,7 @@ class CreateRackMasterTable extends Migration
 			$table->bigIncrements('id');
 			$table->string('code', 15);
 			$table->string('name', 20);
+			$table->int('type');
 			$table->tinyInteger('created_by');
 			$table->tinyInteger('updated_by');
 			$table->timestamps();
@@ -21,6 +22,6 @@ class CreateRackMasterTable extends Migration
 
 	public function down()
 	{
-		//Schema::dropIfExists('ma_rack');
+
 	}
 }
