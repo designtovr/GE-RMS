@@ -1,4 +1,4 @@
-var app = angular.module("ge", [], function($interpolateProvider){
+var app = angular.module("ge", ['ui.bootstrap','dataGrid', 'pagination'], function($interpolateProvider){
 	/*$interpolateProvider.startSymbol('<%');
     $interpolateProvider.endSymbol('%>');*/
 });
@@ -6,12 +6,14 @@ var app = angular.module("ge", [], function($interpolateProvider){
 app.factory('HttpInterceptor', function($q){
 	return {
 		'request': function(config) {
+			NProgress.start();
 			return config;
 		},
 		'requestError': function(rejection) {
 	      return $q.reject(rejection);
 	    },
     	'response': function(response) {
+    		NProgress.done();
 	      return response;
 	    },
 	   'responseError': function(rejection) {

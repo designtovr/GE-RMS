@@ -1,252 +1,149 @@
 @extends('layouts.app')
 @section('title', 'RMS List')
 @section('content')
-<div class="section__content section__content--p30">
-    <div class="container-fluid">
-    	<div class="row">
-			<div class="col-md-12">
-		        <div class="overview-wrap">
-		            <h6 class="pb-4 display-5">RMS List</h6>
-		            <button type="button" class="btn btn-primary btn-sm">
-                        <i class="fa fa-plus"></i>&nbsp; <a href="{{url('add-rms')}}" class="white-text">Add Item</a></button>
-		        </div>
-		    </div>
-		    <div class="col-md-12">
-		    	<div class="table-responsive">
-                    <table class="table table-borderless table-data3 table-custom">
-                    	<thead>
-                            <tr>
-                                <th>
-	                                <input type="text" id="se-rid" name="se-rid" placeholder="RID" class="form-control-sm form-control">
-                            	</th>
-                                <th>
-                                	<input type="text" id="se-rack" name="se-rack" placeholder="Rack" class="form-control-sm form-control">
-                                </th>
-                                <th>
-                                	<select name="se-date" id="se-date" class="form-control-sm form-control">
-                                        <option value="0">Date</option>
-                                        <option value="1">Yes</option>
-                                        <option value="2">No</option>
-                                        <option value="2">Customer</option>
-                                    </select>
-                                </th>
-                                <th>
-                                	<button type="button" class="btn btn-outline-secondary btn-sm">Reset</button>
-                                </th>
-                                <th>
-                                	<button type="button" class="btn btn-outline-primary btn-sm">
-                                            <i class="fa fa-search"></i>&nbsp; Search</button>
-                                </th>
-                            </tr>
-                        </thead>
-                    </table>
+<div class="main-content" ng-controller="RelayMovementController">
+	<div class="section__content section__content--p30">
+	    <div class="container-fluid">
+	    	<div class="row">
+				<div class="col-md-12">
+			        <div class="overview-wrap">
+			            <h6 class="pb-4 display-5">RMS List</h6>
+			        </div>
+			    </div>
+			    <div class="col-md-12">
+			    	<div class="table-responsive">
+	                    <table class="table table-borderless table-data3 table-custom">
+	                    	<thead>
+	                            <tr>
+	                                <th>
+		                                <input type="text" id="se-rid" name="se-rid" placeholder="RID" class="form-control-sm form-control">
+	                            	</th>
+	                                <th>
+	                                	<input type="text" id="se-rack" name="se-rack" placeholder="Rack" class="form-control-sm form-control">
+	                                </th>
+	                                <th>
+	                                	<select name="se-date" id="se-date" class="form-control-sm form-control">
+	                                        <option value="0">Date</option>
+	                                        <option value="1">Yes</option>
+	                                        <option value="2">No</option>
+	                                        <option value="2">Customer</option>
+	                                    </select>
+	                                </th>
+	                                <th>
+	                                	<button type="button" class="btn btn-outline-secondary btn-sm">Reset</button>
+	                                </th>
+	                                <th>
+	                                	<button type="button" class="btn btn-outline-primary btn-sm">
+	                                            <i class="fa fa-search"></i>&nbsp; Search</button>
+	                                </th>
+	                            </tr>
+	                        </thead>
+	                    </table>
+	                </div>
+			    </div>
+			    <!-- <div class="col-md-12 p-b-20">
+			    	<button type="button" class="btn btn-primary btn-md float-right" ng-click="OpenRMSModal();">
+	                   <i class="fa fa-plus"></i>&nbsp;Relay Movement
+	                </button>
+			    </div> -->
+	            <div class="col-md-12">
+	                <!-- DATA TABLE-->
+	                <div grid-data grid-options="gridOptions" grid-actions="gridActions" class="table-responsive">
+		                 <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
+		                 <table class="table table-borderless table-data3">
+		                     <thead>
+		                     <tr>
+		                         <th sortable="placed" class="sortable">
+		                             RID No
+		                         </th>
+		                         <th sortable="purchaseOrderNumber" class="sortable">
+		                             Rack
+		                         </th>
+		                         <th sortable='total.value' class="sortable">
+		                             Date
+		                         </th>
+		                         <th>
+		                         	Actions
+		                         </th>
+		                     </tr>
+		                     </thead>
+		                     <tbody>
+		                     <tr grid-item>
+		                         <td ng-bind="item.rid_no"></td>
+		                         <td ng-bind="item.rack"></td>
+		                         <td ng-bind="item.date"></td>
+		                         <td>
+		                         	<div class="table-data-feature">
+			                         	<button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="OpenRMSModal();">
+	                                        <i class="zmdi zmdi-edit"></i>
+	                                    </button>
+	                                </div>
+		                         </td>
+		                     </tr>
+		                     </tbody>
+		                 </table>
+					 </div>
+	                <!-- END DATA TABLE-->
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	<!-- modal scroll -->
+    <div class="modal fade" id="rmsmodal" tabindex="-1" role="dialog" aria-labelledby="rmsmodalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="rmsmodalLabel">@{{rmsmodal.title}}</h5>
+                    <button type="button" class="close" ng-click="CloseRMSModal();" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-		    </div>
-            <div class="col-md-12">
-                <!-- DATA TABLE-->
-                <div class="table-responsive m-b-40">
-                    <table class="table table-borderless table-data3">
-                        <thead>
-                            <tr>
-                                <th>date</th>
-                                <th>type</th>
-                                <th>description</th>
-                                <th>status</th>
-                                <th>price</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>2018-09-29 05:57</td>
-                                <td>Mobile</td>
-                                <td>iPhone X 64Gb Grey</td>
-                                <td class="process">Processed</td>
-                                <td>$999.00</td>
-                                <td>
-	                                <div class="table-data-feature">
-	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
-	                                        <i class="zmdi zmdi-mail-send"></i>
-	                                    </button>
-	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-	                                        <i class="zmdi zmdi-edit"></i>
-	                                    </button>
-	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-	                                        <i class="zmdi zmdi-delete"></i>
-	                                    </button>
-	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-	                                        <i class="zmdi zmdi-more"></i>
-	                                    </button>
-	                                </div>
-	                            </td>
-                            </tr>
-                            <tr>
-                                <td>2018-09-28 01:22</td>
-                                <td>Mobile</td>
-                                <td>Samsung S8 Black</td>
-                                <td class="process">Processed</td>
-                                <td>$756.00</td>
-                                <td>
-	                                <div class="table-data-feature">
-	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
-	                                        <i class="zmdi zmdi-mail-send"></i>
-	                                    </button>
-	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-	                                        <i class="zmdi zmdi-edit"></i>
-	                                    </button>
-	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-	                                        <i class="zmdi zmdi-delete"></i>
-	                                    </button>
-	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-	                                        <i class="zmdi zmdi-more"></i>
-	                                    </button>
-	                                </div>
-	                            </td>
-                            </tr>
-                            <tr>
-                                <td>2018-09-27 02:12</td>
-                                <td>Game</td>
-                                <td>Game Console Controller</td>
-                                <td class="denied">Denied</td>
-                                <td>$22.00</td>
-                                <td>
-	                                <div class="table-data-feature">
-	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
-	                                        <i class="zmdi zmdi-mail-send"></i>
-	                                    </button>
-	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-	                                        <i class="zmdi zmdi-edit"></i>
-	                                    </button>
-	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-	                                        <i class="zmdi zmdi-delete"></i>
-	                                    </button>
-	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-	                                        <i class="zmdi zmdi-more"></i>
-	                                    </button>
-	                                </div>
-	                            </td>
-                            </tr>
-                            <tr>
-                                <td>2018-09-26 23:06</td>
-                                <td>Mobile</td>
-                                <td>iPhone X 256Gb Black</td>
-                                <td class="denied">Denied</td>
-                                <td>$1199.00</td>
-                                <td>
-	                                <div class="table-data-feature">
-	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
-	                                        <i class="zmdi zmdi-mail-send"></i>
-	                                    </button>
-	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-	                                        <i class="zmdi zmdi-edit"></i>
-	                                    </button>
-	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-	                                        <i class="zmdi zmdi-delete"></i>
-	                                    </button>
-	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-	                                        <i class="zmdi zmdi-more"></i>
-	                                    </button>
-	                                </div>
-	                            </td>
-                            </tr>
-                            <tr>
-                                <td>2018-09-25 19:03</td>
-                                <td>Accessories</td>
-                                <td>USB 3.0 Cable</td>
-                                <td class="process">Processed</td>
-                                <td>$10.00</td>
-                                <td>
-	                                <div class="table-data-feature">
-	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
-	                                        <i class="zmdi zmdi-mail-send"></i>
-	                                    </button>
-	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-	                                        <i class="zmdi zmdi-edit"></i>
-	                                    </button>
-	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-	                                        <i class="zmdi zmdi-delete"></i>
-	                                    </button>
-	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-	                                        <i class="zmdi zmdi-more"></i>
-	                                    </button>
-	                                </div>
-	                            </td>
-                            </tr>
-                            <tr>
-                                <td>2018-09-29 05:57</td>
-                                <td>Accesories</td>
-                                <td>Smartwatch 4.0 LTE Wifi</td>
-                                <td class="denied">Denied</td>
-                                <td>$199.00</td>
-                                <td>
-	                                <div class="table-data-feature">
-	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
-	                                        <i class="zmdi zmdi-mail-send"></i>
-	                                    </button>
-	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-	                                        <i class="zmdi zmdi-edit"></i>
-	                                    </button>
-	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-	                                        <i class="zmdi zmdi-delete"></i>
-	                                    </button>
-	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-	                                        <i class="zmdi zmdi-more"></i>
-	                                    </button>
-	                                </div>
-	                            </td>
-                            </tr>
-                            <tr>
-                                <td>2018-09-24 19:10</td>
-                                <td>Camera</td>
-                                <td>Camera C430W 4k</td>
-                                <td class="process">Processed</td>
-                                <td>$699.00</td>
-                                <td>
-	                                <div class="table-data-feature">
-	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
-	                                        <i class="zmdi zmdi-mail-send"></i>
-	                                    </button>
-	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-	                                        <i class="zmdi zmdi-edit"></i>
-	                                    </button>
-	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-	                                        <i class="zmdi zmdi-delete"></i>
-	                                    </button>
-	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-	                                        <i class="zmdi zmdi-more"></i>
-	                                    </button>
-	                                </div>
-	                            </td>
-                            </tr>
-                            <tr>
-                                <td>2018-09-22 00:43</td>
-                                <td>Computer</td>
-                                <td>Macbook Pro Retina 2017</td>
-                                <td class="process">Processed</td>
-                                <td>$10.00</td>
-                                <td>
-	                                <div class="table-data-feature">
-	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
-	                                        <i class="zmdi zmdi-mail-send"></i>
-	                                    </button>
-	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-	                                        <i class="zmdi zmdi-edit"></i>
-	                                    </button>
-	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-	                                        <i class="zmdi zmdi-delete"></i>
-	                                    </button>
-	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-	                                        <i class="zmdi zmdi-more"></i>
-	                                    </button>
-	                                </div>
-	                            </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <form action="" method="post" class="form-horizontal" name="AddUserForm" id="AddUserForm" novalidate>
+		                		<div class="row">
+		                			<div class="col-md-12">
+		                				<div class="row form-group">
+			                                <div class="col col-md-3">
+			                                    <label for="comment" class=" form-control-label"><b>RID</b> <span class="mandatory">*</span></label>
+			                                </div>
+			                                <div class="col-12 col-md-9">
+			                                    <input type="text" id="comment" name="comment" placeholder="RID" class="form-control">
+			                                    <span class="help-block">Please Enter RID</span>
+			                                </div>
+			                            </div>
+		                			</div>
+		                			<div class="col-md-12">
+		                				<div class="row form-group">
+			                                <div class="col col-md-3">
+			                                    <label for="comment" class=" form-control-label"><b>Rack Id</b> <span class="mandatory">*</span></label>
+			                                </div>
+			                                <div class="col-12 col-md-9">
+			                                    <input type="text" id="comment" name="comment" placeholder="Rack Id" class="form-control">
+			                                    <span class="help-block">Please Enter Rack Id</span>
+			                                </div>
+			                            </div>
+		                			</div>
+		                		</div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <!-- END DATA TABLE-->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger btn-sm" ng-click="CloseRMSModal();">
+                        <i class="fa fa-ban"></i> Close
+                    </button>
+                    <button type="submit" class="btn btn-primary btn-sm" ng-disabled="AddUserForm.$invalid" ng-click="AddUser();">
+                        <i class="fa fa-dot-circle-o"></i> Save
+                    </button>
+                </div>
             </div>
         </div>
     </div>
+    <!-- end modal scroll -->
 </div>
+@endsection
+@section('scripts')
+	<script type="text/javascript" src="{{url('public/js/controllers/RelayMovementController.js')}}"></script>
 @endsection

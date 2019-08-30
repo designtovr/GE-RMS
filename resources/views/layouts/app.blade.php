@@ -29,6 +29,7 @@
     <link href="{{url('public/vendor/slick/slick.css')}}" rel="stylesheet" media="all">
     <link href="{{url('public/vendor/select2/select2.min.css')}}" rel="stylesheet" media="all">
     <link href="{{url('public/vendor/perfect-scrollbar/perfect-scrollbar.css')}}" rel="stylesheet" media="all">
+    <link rel="stylesheet" type="text/css" href="{{url('public/bower_components/nprogress/nprogress.css')}}">
 
     <!-- Main CSS-->
     <!-- <link href="css/theme.css" rel="stylesheet" media="all"> -->
@@ -444,9 +445,7 @@
             <!-- HEADER DESKTOP-->
 
             <!-- MAIN CONTENT-->
-            <div class="main-content">
                 @yield('content')
-            </div>
 
             <!-- END MAIN CONTENT-->
             <!-- END PAGE CONTAINER-->
@@ -475,6 +474,10 @@
     <script src="{{url('public/vendor/chartjs/Chart.bundle.min.js')}}"></script>
     <script src="{{url('public/vendor/select2/select2.min.js')}}">
     </script>
+    <script src="{{url('public/bower_components/nprogress/nprogress.js')}}"></script>
+    <script type="text/javascript" src="{{url('public/bower_components/angular-data-grid/src/js/dataGrid.js')}}"></script>
+    <script type="text/javascript" src="{{url('public/bower_components/angular-data-grid/src/js/pagination.js')}}"></script>
+    <script type="text/javascript" src="{{url('public/bower_components/angular-bootstrap/ui-bootstrap.min.js')}}"></script>
 
     <!-- Main JS-->
     <script src="{{url('public/js/main.js')}}"></script>
