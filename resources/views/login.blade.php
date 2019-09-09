@@ -90,7 +90,7 @@
 
     </div>
 
-    <script type="text/javascript" src="{{url('public/bower_components/angular/angular.min.js')}}"></script>
+    <script type="text/javascript" src="{{url('public/bower_components/angular/angular.js')}}"></script>
     <!-- Jquery JS-->
     <script src="{{url('public/vendor/jquery-3.2.1.min.js')}}"></script>
     <!-- Bootstrap JS-->
@@ -114,6 +114,9 @@
     <script type="text/javascript" src="{{url('public/bower_components/nprogress/nprogress.js')}}"></script>
      <script type="text/javascript" src="{{url('public/bower_components/angular-data-grid/src/js/dataGrid.js')}}"></script>
     <script type="text/javascript" src="{{url('public/bower_components/angular-data-grid/src/js/pagination.js')}}"></script>
+    <script type="text/javascript" src="{{url('public/bower_components/angular-bootstrap/ui-bootstrap.js')}}"></script>
+    <script type="text/javascript" src="{{url('public/bower_components/angular-animate/angular-animate.min.js')}}"></script>
+    <script type="text/javascript" src="{{url('public/bower_components/angular-sanitize/angular-sanitize.min.js')}}"></script>
 
     <!-- Main JS-->
     <script src="{{url('public/js/main.js')}}"></script>

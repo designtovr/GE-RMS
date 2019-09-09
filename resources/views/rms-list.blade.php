@@ -41,11 +41,11 @@
 	                    </table>
 	                </div>
 			    </div>
-			    <!-- <div class="col-md-12 p-b-20">
+			    <div class="col-md-12 p-b-20">
 			    	<button type="button" class="btn btn-primary btn-md float-right" ng-click="OpenRMSModal();">
-	                   <i class="fa fa-plus"></i>&nbsp;Relay Movement
+	                        <i class="fa fa-plus"></i>&nbsp;Add
 	                </button>
-			    </div> -->
+			    </div>
 	            <div class="col-md-12">
 	                <!-- DATA TABLE-->
 	                <div grid-data grid-options="gridOptions" grid-actions="gridActions" class="table-responsive">
@@ -62,9 +62,6 @@
 		                         <th sortable='total.value' class="sortable">
 		                             Date
 		                         </th>
-		                         <th>
-		                         	Actions
-		                         </th>
 		                     </tr>
 		                     </thead>
 		                     <tbody>
@@ -72,13 +69,6 @@
 		                         <td ng-bind="item.rid_no"></td>
 		                         <td ng-bind="item.rack"></td>
 		                         <td ng-bind="item.date"></td>
-		                         <td>
-		                         	<div class="table-data-feature">
-			                         	<button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="OpenRMSModal();">
-	                                        <i class="zmdi zmdi-edit"></i>
-	                                    </button>
-	                                </div>
-		                         </td>
 		                     </tr>
 		                     </tbody>
 		                 </table>

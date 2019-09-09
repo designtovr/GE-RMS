@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title', 'Add Receipt')
 @section('content')
-<div class="main-content">
+<div class="main-content" ng-controller="AddReceiptController">
     <div class="section__content section__content--p30">
         <div class="container-fluid">
         	<div class="row">
@@ -84,6 +84,15 @@
                                         <span class="help-block">Please enter no of boxes</span>
                                     </div>
                                 </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="re-date" class=" form-control-label">Date <span class="mandatory">*</span></label>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <input type="text" id="date" name="date" placeholder="Date" class="form-control">
+                                        <span class="help-block">Please Select Date</span>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                         <div class="card-footer">
@@ -100,4 +109,12 @@
         </div>
     </div>
 </div>
+@endsection
+@section('scripts')
+    <script type="text/javascript" src="{{url('public/js/controllers/ReceiptController.js')}}"></script>
+    <script>
+         $(function() {
+            $( "#date" ).datepicker();
+         });
+    </script>
 @endsection

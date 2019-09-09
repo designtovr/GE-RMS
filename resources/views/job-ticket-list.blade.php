@@ -22,23 +22,22 @@
 	                                	<input type="text" id="se-to-date" name="se-to-date" placeholder="To Date" class="form-control-sm form-control">
 	                                </th>
 	                                <th>
-	                                	<select name="field-volts-used" id="field-volts-used" class="form-control-sm form-control">
-	                                        <option value="0">From</option>
-	                                        <option value="1">Yes</option>
-	                                        <option value="2">No</option>
-	                                        <option value="2">Customer</option>
-	                                    </select>
+	                                    <input type="text" id="se-from" name="se-from" placeholder="From" class="form-control-sm form-control">
 	                                </th>
 	                                <th>
-	                                	<select name="field-volts-used" id="field-volts-used" class="form-control-sm form-control">
-	                                        <option value="0">To</option>
-	                                        <option value="1">Yes</option>
-	                                        <option value="2">No</option>
-	                                        <option value="2">Customer</option>
-	                                    </select>
+	                                	<input type="text" id="se-to" name="se-to" placeholder="To" class="form-control-sm form-control">
 	                                </th>
 	                                <th>
 	                                	<input type="text" id="se-cus" name="se-cus" placeholder="Customer" class="form-control-sm form-control">
+	                                </th>
+	                                <th>
+	                                	<input type="text" id="se-rid" name="se-rid" placeholder="RID" class="form-control-sm form-control">
+	                                </th>
+	                                <th>
+	                                	<input type="text" id="se-modelno" name="se-modelno" placeholder="Model No" class="form-control-sm form-control">
+	                                </th>
+	                                <th>
+	                                	<input type="text" id="se-serialno" name="se-serialno" placeholder="Serial No" class="form-control-sm form-control">
 	                                </th>
 	                                <th>
 	                                	<button type="button" class="btn btn-outline-secondary btn-sm">Reset</button>
@@ -59,20 +58,32 @@
 		                 <table class="table table-borderless table-data3">
 		                     <thead>
 		                     <tr>
-		                         <th sortable="code" class="sortable">
-		                             Material Part No
+		                         <th sortable="placed" class="sortable">
+		                             RMA No
 		                         </th>
 		                         <th sortable="placed" class="sortable">
-		                             Value
+		                             RID No
 		                         </th>
 		                         <th sortable="purchaseOrderNumber" class="sortable">
-		                             Old PCB
+		                             Product
 		                         </th>
 		                         <th sortable='total.value' class="sortable">
-		                             New PCB
+		                             Customer Name
 		                         </th>
 		                         <th sortable='total.value' class="sortable">
-		                             Comment
+		                             End Customer
+		                         </th>
+		                         <th sortable='total.value' class="sortable">
+		                             Serial No
+		                         </th>
+		                         <th sortable='total.value' class="sortable">
+		                             Model No
+		                         </th>
+		                         <th sortable='total.value' class="sortable">
+		                             Customer Comment
+		                         </th>
+		                         <th sortable='total.value' class="sortable">
+		                             Remark
 		                         </th>
 		                         <th>
 		                         	Actions
@@ -81,13 +92,24 @@
 		                     </thead>
 		                     <tbody>
 		                     <tr grid-item>
-		                         <td ng-bind="item.part_no"></td>
-		                         <td ng-bind="item.value"></td>
-		                         <td ng-bind="item.old_pcb"></td>
-		                         <td ng-bind="item.new_pcb"></td>
-		                         <td ng-bind="item.comment"></td>
+		                     	 <td ng-bind="item.rma_no"></td>
+		                         <td ng-bind="item.rid_no"></td>
+		                         <td ng-bind="item.product"></td>
+		                         <td ng-bind="item.customer_name"></td>
+		                         <td ng-bind="item.end_customer"></td>
+		                         <td ng-bind="item.serial_no"></td>
+		                         <td ng-bind="item.model_no"></td>
+		                         <td ng-bind="item.customer_comment"></td>
+		                         <td ng-bind="item.remark"></td>
 		                         <td>
 		                         	<div class="table-data-feature">
+		                         		<div class="btn-group p-r-10">
+                                            <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-info">Action</button>
+                                            <div tabindex="-1" aria-hidden="true" role="menu" class="dropdown-menu">
+                                                <button type="button" tabindex="0" class="dropdown-item">Open</button>
+                                                <button type="button" tabindex="0" class="dropdown-item">Started</button>
+                                            </div>
+                                        </div>
 	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="OpenJTForm();">
 	                                        <i class="zmdi zmdi-edit"></i>
 	                                    </button>
@@ -324,7 +346,73 @@
 	                                    <span class="help-block">Please Enter Comment</span>
 	                                </div>
 	                            </div>
+	                            <div class="row">
+	                            	<div class="col col-md-12">
+	                            		<button type="button" class="btn btn-primary btn-md">
+                                    	Add</button>
+		                                <button type="button" class="btn btn-secondary btn-md">
+		                                    Cancel</button>
+	                            	</div>
+	                            </div>
 	                    	</form>
+	                    	<div class="row p-t-20">
+	                    		<div class="col-md-12">
+					                <!-- DATA TABLE-->
+					                <div class="table-responsive">
+						                 <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
+						                 <table class="table table-borderless table-data3">
+						                     <thead>
+						                     <tr>
+						                         <th>
+						                             
+						                         </th>
+						                         <th>
+						                             Material Part No
+						                         </th>
+						                         <th>
+						                             Value
+						                         </th>
+						                         <th>
+						                             Old PCB
+						                         </th>
+						                         <th>
+						                             New PCB
+						                         </th>
+						                         <th>
+						                             Comment
+						                         </th>
+						                     </tr>
+						                     </thead>
+						                     <tbody>
+						                     <tr>
+						                     	 <td>
+						                     	 	<label class="au-checkbox">
+				                                        <input type="checkbox">
+				                                        <span class="au-checkmark"></span>
+				                                    </label>
+						                     	 </td>
+						                         <td>
+						                         	MP001
+						                         </td>
+						                         <td>
+						                         	1000
+						                         </td>
+						                         <td>
+						                         	PCB001
+						                         </td>
+						                         <td>
+						                         	PCB002
+						                         </td>
+						                         <td>
+						                         	Not Good
+						                         </td>
+						                     </tr>
+						                     </tbody>
+						                 </table>
+									 </div>
+					                <!-- END DATA TABLE-->
+					            </div>
+	                    	</div>
 	                    </div>
 	                    <div class="card-footer">
 	                        <button type="submit" class="btn btn-primary btn-sm">

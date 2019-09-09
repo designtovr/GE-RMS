@@ -22,26 +22,25 @@
 	                                	<input type="text" id="se-to-date" name="se-to-date" placeholder="To Date" class="form-control-sm form-control">
 	                                </th>
 	                                <th>
-	                                	<select name="field-volts-used" id="field-volts-used" class="form-control-sm form-control">
-	                                        <option value="0">From</option>
-	                                        <option value="1">Yes</option>
-	                                        <option value="2">No</option>
-	                                        <option value="2">Customer</option>
-	                                    </select>
+	                                    <input type="text" id="se-from" name="se-from" placeholder="From" class="form-control-sm form-control">
 	                                </th>
 	                                <th>
-	                                	<select name="field-volts-used" id="field-volts-used" class="form-control-sm form-control">
-	                                        <option value="0">To</option>
-	                                        <option value="1">Yes</option>
-	                                        <option value="2">No</option>
-	                                        <option value="2">Customer</option>
-	                                    </select>
+	                                	<input type="text" id="se-to" name="se-to" placeholder="To" class="form-control-sm form-control">
 	                                </th>
 	                                <th>
 	                                	<input type="text" id="se-cus" name="se-cus" placeholder="Customer" class="form-control-sm form-control">
 	                                </th>
 	                                <th>
 	                                	<input type="text" id="se-rma-no" name="se-rma-no" placeholder="RMA No" class="form-control-sm form-control">
+	                                </th>
+	                                <th>
+	                                	<input type="text" id="se-rid" name="se-rid" placeholder="RID" class="form-control-sm form-control">
+	                                </th>
+	                                <th>
+	                                	<input type="text" id="se-modelno" name="se-modelno" placeholder="Model No" class="form-control-sm form-control">
+	                                </th>
+	                                <th>
+	                                	<input type="text" id="se-serialno" name="se-serialno" placeholder="Serial No" class="form-control-sm form-control">
 	                                </th>
 	                                <th>
 	                                	<button type="button" class="btn btn-outline-secondary btn-sm">Reset</button>
@@ -55,6 +54,11 @@
 	                    </table>
 	                </div>
 			    </div>
+			    <div class="col-md-12 p-b-20">
+			    	<button type="button" class="btn btn-primary btn-md float-right" ng-click="OpenWarrantyModal();">
+	                        <i class="fa fa-plus"></i>&nbsp;Initiate
+	                </button>
+			    </div>
 	            <div class="col-md-12">
 	                <!-- DATA TABLE-->
 	                <div grid-data grid-options="gridOptions" grid-actions="gridActions" class="table-responsive">
@@ -64,6 +68,9 @@
 		                     <tr>
 		                         <th>
 		                             
+		                         </th>
+		                         <th sortable="placed" class="sortable">
+		                             RMA No
 		                         </th>
 		                         <th sortable="placed" class="sortable">
 		                             RID No
@@ -89,12 +96,6 @@
 		                         <th sortable='total.value' class="sortable">
 		                             Remark
 		                         </th>
-		                         <th sortable='total.value' class="sortable">
-		                             WBS No
-		                         </th>
-		                         <th>
-		                             Actions
-		                         </th>
 		                     </tr>
 		                     </thead>
 		                     <tbody>
@@ -105,6 +106,7 @@
                                         <span class="au-checkmark"></span>
                                     </label>
 		                     	 </td>
+		                     	 <td ng-bind="item.rma_no"></td>
 		                         <td ng-bind="item.rid_no"></td>
 		                         <td ng-bind="item.product"></td>
 		                         <td ng-bind="item.customer_name"></td>
@@ -113,14 +115,6 @@
 		                         <td ng-bind="item.model_no"></td>
 		                         <td ng-bind="item.customer_comment"></td>
 		                         <td ng-bind="item.remark"></td>
-		                         <td ng-bind="item.wbsno"></td>
-		                         <td>
-                                    <div class="table-data-feature">
-	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
-	                                        <i class="zmdi zmdi-mail-send"></i>
-	                                    </button>
-	                                </div>
-		                         </td>
 		                     </tr>
 		                     </tbody>
 		                 </table>

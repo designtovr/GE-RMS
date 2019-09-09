@@ -125,9 +125,15 @@
 		                         <td ng-bind="item.customer_comment"></td>
 		                         <td>
 		                         	<div class="table-data-feature">
-	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-	                                        <i class="zmdi zmdi-delete"></i>
-	                                    </button>
+	                                    <div class="table-data-feature">
+			                                <div class="btn-group">
+	                                            <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-info">Action</button>
+	                                            <div tabindex="-1" aria-hidden="true" role="menu" class="dropdown-menu">
+	                                                <button type="button" tabindex="0" class="dropdown-item">Open</button>
+	                                                <button type="button" tabindex="0" class="dropdown-item">Started</button>
+	                                            </div>
+	                                        </div>
+	                                    </div>
 	                                </div>
 		                         </td>
 		                     </tr>

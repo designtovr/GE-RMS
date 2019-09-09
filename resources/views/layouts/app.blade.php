@@ -30,6 +30,7 @@
     <link href="{{url('public/vendor/select2/select2.min.css')}}" rel="stylesheet" media="all">
     <link href="{{url('public/vendor/perfect-scrollbar/perfect-scrollbar.css')}}" rel="stylesheet" media="all">
     <link rel="stylesheet" type="text/css" href="{{url('public/bower_components/nprogress/nprogress.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url('public/bower_components/jquery-ui/themes/ui-lightness/jquery-ui.min.css')}}">
 
     <!-- Main CSS-->
     <!-- <link href="css/theme.css" rel="stylesheet" media="all"> -->
@@ -235,8 +236,8 @@
                                 <i class="far fa-check-square"></i>RMS</a>
                         </li>
                         <li>
-                            <a href="{{url('/relay-repair-status')}}">
-                                <i class="far fa-check-square"></i>Relay Repair Status</a>
+                            <a href="{{url('/other-relay-repair-status')}}">
+                                <i class="far fa-check-square"></i>Other Relay Repair Status</a>
                         </li>
                         <li>
                             <a href="{{url('/repair-initiation')}}">
@@ -455,7 +456,7 @@
 
     <script type="text/javascript" src="{{url('public/bower_components/angular/angular.min.js')}}"></script>
     <!-- Jquery JS-->
-    <script src="{{url('public/vendor/jquery-3.2.1.min.js')}}"></script>
+    <script src="{{url('public/bower_components/jquery/dist/jquery.min.js')}}"></script>
     <!-- Bootstrap JS-->
     <script src="{{url('public/vendor/bootstrap-4.1/popper.min.js')}}"></script>
     <script src="{{url('public/vendor/bootstrap-4.1/bootstrap.min.js')}}"></script>
@@ -477,7 +478,10 @@
     <script src="{{url('public/bower_components/nprogress/nprogress.js')}}"></script>
     <script type="text/javascript" src="{{url('public/bower_components/angular-data-grid/src/js/dataGrid.js')}}"></script>
     <script type="text/javascript" src="{{url('public/bower_components/angular-data-grid/src/js/pagination.js')}}"></script>
-    <script type="text/javascript" src="{{url('public/bower_components/angular-bootstrap/ui-bootstrap.min.js')}}"></script>
+    <script type="text/javascript" src="{{url('public/bower_components/angular-bootstrap/ui-bootstrap.js')}}"></script>
+    <script type="text/javascript" src="{{url('public/bower_components/angular-animate/angular-animate.min.js')}}"></script>
+    <script type="text/javascript" src="{{url('public/bower_components/angular-sanitize/angular-sanitize.min.js')}}"></script>
+    <script type="text/javascript" src="{{url('public/bower_components/jquery-ui/jquery-ui.js')}}"></script>
 
     <!-- Main JS-->
     <script src="{{url('public/js/main.js')}}"></script>

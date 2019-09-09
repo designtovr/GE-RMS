@@ -4,25 +4,40 @@ app.controller('JobTicketController', ['$scope', '$http', function($scope, $http
 	$scope.gridOptions = {
 	   data: [
 	   		{
-	   			'part_no': '001',
-	   			'value': '002',
-	   			'old_pcb': 'One',
-	   			'new_pcb': 'AS',
-	   			'comment': 'SA',
+	   			'rid_no': '001',
+	   			'rma_no': '002',
+	   			'product': 'One',
+	   			'customer_name': 'AS',
+	   			'end_customer': 'SA',
+	   			'serial_no': 'Fedx',
+	   			'model_no': 'ASE',
+	   			'remark': 'Sample',
+	   			'wbsno': '003',
+	   			'customer_comment': 'Sample'
 	   		},
 	   		{
-	   			'part_no': '001',
-	   			'value': '002',
-	   			'old_pcb': 'One',
-	   			'new_pcb': 'AS',
-	   			'comment': 'SA',
+	   			'rid_no': '001',
+	   			'rma_no': '002',
+	   			'product': 'One',
+	   			'customer_name': 'AS',
+	   			'end_customer': 'SA',
+	   			'serial_no': 'Fedx',
+	   			'model_no': 'ASE',
+	   			'remark': 'Sample',
+	   			'wbsno': '003',
+	   			'customer_comment': 'Sample'
 	   		},
 	   		{
-	   			'part_no': '001',
-	   			'value': '002',
-	   			'old_pcb': 'One',
-	   			'new_pcb': 'AS',
-	   			'comment': 'SA',
+	   			'rid_no': '001',
+	   			'rma_no': '002',
+	   			'product': 'One',
+	   			'customer_name': 'AS',
+	   			'end_customer': 'SA',
+	   			'serial_no': 'Fedx',
+	   			'model_no': 'ASE',
+	   			'remark': 'Sample',
+	   			'wbsno': '003',
+	   			'customer_comment': 'Sample'
 	   		}
 	   ], //required parameter - array with data
 	   //optional parameter - start sort options

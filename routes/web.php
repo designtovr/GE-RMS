@@ -82,7 +82,7 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::get('/add-rms', function(){
 		return view('add-rms');
 	});
-	Route::get('/relay-repair-status', function(){
+	Route::get('/other-relay-repair-status', function(){
 		return view('relay-repair-status-list');
 	});
 	Route::get('/add-relay-repair-status', function(){

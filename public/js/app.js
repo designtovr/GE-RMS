@@ -1,4 +1,4 @@
-var app = angular.module("ge", ['ui.bootstrap','dataGrid', 'pagination'], function($interpolateProvider){
+var app = angular.module("ge", ['dataGrid', 'pagination'], function($interpolateProvider){
 	/*$interpolateProvider.startSymbol('<%');
     $interpolateProvider.endSymbol('%>');*/
 });
