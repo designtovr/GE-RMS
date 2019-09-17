@@ -193,6 +193,25 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
 	Route::post('/addcustomers', 'CustomerController@AddCustomer');
 	Route::get('/getcustomer/{id}', 'CustomerController@GetCustomer');
 
+	/*Receipt Get and Post*/
+    Route::get('/receipts','ReceiptController@Receipts');
+
+    Route::post('/addreceipt', 'ReceiptController@AddReceipt');
+    Route::get('/getreceipt/{id}', 'ReceiptController@GetReceipt');
+
+    /*End Receipt*/
+
+
+    /*Dispatch Get and Post*/
+    Route::get('/dispatches','DispatchController@Dispatches');
+
+    Route::post('/adddispatch', 'DispatchController@AddDispatch');
+    Route::get('/getdispatch/{id}', 'DispatchController@GetDispatch');
+
+    /*End Dispatch*/
+
+
+
 	Route::post('/addproducttype', 'ProductTypeController@AddProductType');
 
 	Route::post('/addproduct', 'ProductController@AddProduct');

@@ -1,6 +1,7 @@
-app.controller('DispatchController', ['$scope', '$http', function($scope, $http){
+app.controller('DispatchController', ['$scope', '$http','$filter', function($scope, $http,$filter){
 	
 	$scope.showdpform = false;
+	$scope.dispatch = {};
 
 	$scope.gridOptions = {
 		data: [
@@ -49,6 +50,50 @@ app.controller('DispatchController', ['$scope', '$http', function($scope, $http)
 	};
 
 
+	$scope.gridOptions = {data : []};
+	$scope.AddDispatch= function()
+	{
+		$http({
+			method: 'post',
+			url: '/ge/adddispatch',
+			data: {
+				'dispatch': $scope.dispatch,
+			},
+		}).then(function success(response){
+			if (response.status == 200)
+			{
+				alert(response.data.messagae)
+				$scope.HideDPForm();
+				/*$('#customermodal').modal('hide');*/
+				$scope.getDispatches();
+			}
+		}, function failure(response){
+			if (response.status == 422)
+			{
+
+				var errors = response.data.errors;
+				for(var error in errors)
+				{
+					alert(errors[error][0]);
+					break;
+				}
+			}
+		});
+	}
+
+	$scope.getDispatches = function()
+	{
+		$http({
+			method: 'GET',
+			url: '/ge/dispatches'
+		}).then(function success(response) {
+			$scope.dispatch = response.data.data;
+			$scope.gridOptions.data =  response.data.data;
+		}, function error(response) {
+
+		});
+	}
+
 	$scope.ShowDPForm = function()
 	{
 		$scope.showdpform = true;
@@ -59,6 +104,13 @@ app.controller('DispatchController', ['$scope', '$http', function($scope, $http)
 	{
 		$scope.showdpform = false;
 		console.log("hide")
+	}
+
+	$scope.Initiate = function()
+	{
+		console.log("Dispatch")
+		$scope.dispatch.date = $filter('date')(new Date(),'dd/MM/yyyy');
+		$scope.showdpform = false;
 	}
 
 	}]);

@@ -2,7 +2,7 @@
 @section('title', 'Receipt List')
 @section('content')
     <div class="main-content" ng-controller="ReceiptController">
-        <div class="section__content section__content--p30" ng-init="Initiate()">
+        <div class="section__content section__content--p30" ng-init="Initiate();getReceipts();">
             <div class="container-fluid">
                 <div class="row" ng-show="!receiptform">
                     <div class="col-md-12">
@@ -63,7 +63,7 @@
                     </div>
                     <div class="col-md-12">
                         <!-- DATA TABLE-->
-                        <div {{--GRID-DATA--}} grid-options="gridOptions" grid-actions="gridActions" class="table-responsive">
+                        <div grid-data grid-options="gridOptions" grid-actions="gridActions" class="table-responsive">
                             <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
                             <table class="table table-borderless table-data3">
                                 <thead>
@@ -104,7 +104,7 @@
                                     <td ng-bind="item.end_customer"></td>
                                     <td ng-bind="item.courier_name"></td>
                                     <td ng-bind="item.docket_details"></td>
-                                    <td ng-bind="item.num_of_boxes"></td>
+                                    <td ng-bind="item.total_boxes"></td>
                                     <td>
                                         <div class="table-data-feature">
                                             <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="OpenPVForm();">
@@ -171,25 +171,25 @@
                                         <div class="col-12 col-md-6">
                                             <input
                                                     type="text"
-                                                    id="ga_no"
-                                                    name="ga_no"
-                                                    ng-model="receipt.ga_no"
+                                                    id="gs_no"
+                                                    name="gs_no"
+                                                    ng-model="receipt.gs_no"
                                                     placeholder="GA No"
                                                     class="form-control"
                                                     ng-minlength="3"
                                                     ng-maxlength="20"
                                                     required>
-                                            <div ng-show="AddReceiptForm.ga_no.$touched && AddReceiptForm.ga_no.$error">
+                                            <div ng-show="AddReceiptForm.gs_no.$touched && AddReceiptForm.gs_no.$error">
                                             <span class="help-block"
-                                                  ng-show="AddReceiptForm.ga_no.$error.required">
+                                                  ng-show="AddReceiptForm.gs_no.$error.required">
                                                 Please Enter GA Number
                                             </span>
                                                 <span class="help-block"
-                                                      ng-show="AddReceiptForm.ga_no.$error.minlength">
+                                                      ng-show="AddReceiptForm.gs_no.$error.minlength">
                                                 Minimum 3 Characters Required
                                             </span>
                                                 <span class="help-block"
-                                                      ng-show="AddReceiptForm.ga_no.$error.maxlength">
+                                                      ng-show="AddReceiptForm.gs_no.$error.maxlength">
                                                 Maximum 20 Characters Allowed
                                             </span>
                                             </div>
@@ -376,7 +376,8 @@
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary btn-sm"
-                                        ng-disabled="AddReceiptForm.$invalid">
+                                        {{--ng-disabled="AddReceiptForm.$invalid"--}}
+                                        ng-click="AddReceipt();">
                                     <i class="fa fa-dot-circle-o"></i> Submit
                                 </button>
                                 <button type="reset" class="btn btn-secondary btn-sm">

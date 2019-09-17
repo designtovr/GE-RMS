@@ -2,7 +2,7 @@
 @section('title', 'Dispatch List')
 @section('content')
 <div class="main-content" ng-controller="DispatchController">
-	<div class="section__content section__content--p30">
+	<div class="section__content section__content--p30" ng-init = "Initiate();getDispatches()">
 	    <div class="container-fluid">
 	    	<div class="row" ng-show="!showdpform">
 				<div class="col-md-12">
@@ -59,7 +59,7 @@
 			    </div>
 				<div class="col-md-12">
 					<!-- DATA TABLE-->
-					<div {{--grid-data --}}grid-options="gridOptions" grid-actions="gridActions" class="table-responsive">
+					<div grid-data grid-options="gridOptions" grid-actions="gridActions" class="table-responsive">
 						<!-- sample table layout goes below, but remember that you can you any mark-up here. -->
 						<table class="table table-borderless table-data3">
 							<thead>
@@ -139,16 +139,27 @@
     	                                <label for="dispatch-no" class=" form-control-label">Dispatch No <span class="mandatory">*</span></label>
     	                            </div>
     	                            <div class="col-12 col-md-6">
-    	                                <input type="text" id="dispatch-no" name="dispatch-no" placeholder="Dispatch No" class="form-control">
-    	                                <span class="help-block">Please Enter Dispatch No</span>
-    	                            </div>
+
+
+    	                                <input type="text" id="dispatch-no" name="dispatch-no"  placeholder="Dispatch No" class="form-control"
+											   ng-model="dispatch.dispatch_no"
+											   ng-minlength="3"
+											   ng-maxlength="10"
+											   required>
+										<div ng-show="AddDispatchForm.dispatch_no.$touched && AddDispatchForm.dispatch_no.$error"><span class="help-block">Please Enter Dispatch No</span></div>
+
+								</div>
     	                        </div>
     	                        <div class="row form-group">
                                     <div class="col col-md-3">
                                         <label for="date" class=" form-control-label">Date<span class="mandatory">*</span></label>
                                     </div>
                                     <div class="col-12 col-md-6">
-                                        <input type="text" id="date" name="date" placeholder="Date" class="form-control">
+                                        <input type="text" id="date" name="date" placeholder="Date" class="form-control"
+											   ng-model="dispatch.date"
+											   ng-minlength="3"
+											   ng-maxlength="10"
+											   required>
                                         <span class="help-block">Please Select Date</span>
                                     </div>
                                 </div>
@@ -157,7 +168,11 @@
                                         <label for="rid" class=" form-control-label">RID No <span class="mandatory">*</span></label>
                                     </div>
                                     <div class="col-12 col-md-6">
-                                        <input type="text" id="rid" name="rid" placeholder="RID No" class="form-control">
+                                        <input type="text" id="rid" name="rid" placeholder="RID No" class="form-control"
+											   ng-model="dispatch.rid_no"
+											   ng-minlength="3"
+											   ng-maxlength="10"
+											   required>
                                         <span class="help-block">Please Enter RID No</span>
                                     </div>
                                 </div>
@@ -166,7 +181,11 @@
                                         <label for="dc-no" class=" form-control-label">DC No <span class="mandatory">*</span></label>
                                     </div>
                                     <div class="col-12 col-md-6">
-                                        <input type="text" id="dc-no" name="dc-no" placeholder="DC No" class="form-control">
+                                        <input type="text" id="dc-no" name="dc-no" placeholder="DC No" class="form-control"
+											   ng-model="dispatch.dc_no"
+											   ng-minlength="3"
+											   ng-maxlength="10"
+											   required>
                                         <span class="help-block">Please Enter DC No</span>
                                     </div>
                                 </div>
@@ -175,7 +194,11 @@
                                         <label for="docket-details" class=" form-control-label">Docket Details <span class="mandatory">*</span></label>
                                     </div>
                                     <div class="col-12 col-md-6">
-                                        <input type="text" id="docket-details" name="docket-details" placeholder="Docket Details" class="form-control">
+                                        <input type="text" id="docket-details" name="docket-details" placeholder="Docket Details" class="form-control"
+											   ng-model="dispatch.docket_details"
+											   ng-minlength="3"
+											   ng-maxlength="10"
+											   required>
                                         <span class="help-block">Please Enter Docket Details</span>
                                     </div>
                                 </div>
@@ -184,7 +207,11 @@
                                         <label for="rma" class=" form-control-label">RMA No <span class="mandatory">*</span></label>
                                     </div>
                                     <div class="col-12 col-md-6">
-                                        <input type="text" id="rma" name="rma" placeholder="RMA" class="form-control">
+                                        <input type="text" id="rma" name="rma" placeholder="RMA" class="form-control"
+											   ng-model="dispatch.rma_no"
+											   ng-minlength="3"
+											   ng-maxlength="10"
+											   required>
                                         <span class="help-block">Please Enter RMA No </span>
                                     </div>
                                 </div>
@@ -193,7 +220,11 @@
                                         <label for="courier-name" class=" form-control-label">Courier Name <span class="mandatory">*</span></label>
                                     </div>
                                     <div class="col-12 col-md-6">
-                                        <input type="text" id="courier-name" name="courier-name" placeholder="Courier Name" class="form-control">
+                                        <input type="text" id="courier-name" name="courier-name" placeholder="Courier Name" class="form-control"
+											   ng-model="dispatch.courier_name"
+											   ng-minlength="3"
+											   ng-maxlength="10"
+											   required>
                                         <span class="help-block">Please Enter Courier Name </span>
                                     </div>
                                 </div>
@@ -202,14 +233,18 @@
                                         <label for="person-name" class=" form-control-label">Person  Name <span class="mandatory">*</span></label>
                                     </div>
                                     <div class="col-12 col-md-6">
-                                        <input type="text" id="person-name" name="person-name" placeholder="Person Name" class="form-control">
+                                        <input type="text" id="person-name" name="person-name" placeholder="Person Name" class="form-control"
+											   ng-model="dispatch.person_name"
+											   ng-minlength="3"
+											   ng-maxlength="10"
+											   required>
                                         <span class="help-block">Please Enter Person Name </span>
                                     </div>
                                 </div>
     	                	</form>
     	                </div>
     	                <div class="card-footer">
-                            <button type="submit" class="btn btn-primary btn-sm">
+                            <button type="submit" class="btn btn-primary btn-sm" ng-click = "AddDispatch()">
                                 <i class="fa fa-dot-circle-o"></i> Submit
                             </button>
                             <button type="reset" class="btn btn-danger btn-sm">
