@@ -106,6 +106,46 @@
                             <form action="" method="post" class="form-horizontal" name="ProductForm" id="ProductForm" novalidate>
                                 <div class="row form-group">
                                     <div class="col col-md-3">
+                                        <label for="producttype" class=" form-control-label">Product Type <span class="mandatory">*</span></label>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <select
+                                                ng-model="product.type"
+                                                id="producttype"
+                                                name="producttype"
+                                                class="form-control"
+                                                required>
+                                            <option ng-repeat="producttype in producttypes" value="@{{producttype.id}}" ng-selected="">@{{producttype.name}}</option>
+                                        </select>
+                                        <div ng-show="ProductForm.producttype.$touched && ProductForm.producttype.$error">
+                                            <span class="help-block" ng-show="ProductForm.producttype.$error.required">
+                                                Please Select Site
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div> <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="producttype" class=" form-control-label">Product Category <span class="mandatory">*</span></label>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <select
+                                                ng-model="product.type"
+                                                id="producttype"
+                                                name="producttype"
+                                                class="form-control"
+                                                required>
+                                            <option ng-repeat="producttype in producttypes" value="@{{producttype.id}}" ng-selected="">@{{producttype.name}}</option>
+                                        </select>
+                                        <div ng-show="ProductForm.producttype.$touched && ProductForm.producttype.$error">
+                                            <span class="help-block" ng-show="ProductForm.producttype.$error.required">
+                                                Please Select Site
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
                                         <label for="productpartno" class=" form-control-label" >Product Part No <span class="mandatory">*</span></label>
                                     </div>
                                     <div class="col-12 col-md-6">
@@ -168,26 +208,7 @@
                                             </div>
                                     </div>
                                 </div>
-                                <div class="row form-group">
-                                    <div class="col col-md-3">
-                                        <label for="producttype" class=" form-control-label">Product Type <span class="mandatory">*</span></label>
-                                    </div>
-                                    <div class="col-12 col-md-6">
-                                        <select 
-                                        ng-model="product.type" 
-                                        id="producttype" 
-                                        name="producttype" 
-                                        class="form-control" 
-                                        required>
-                                            <option ng-repeat="producttype in producttypes" value="@{{producttype.id}}" ng-selected="">@{{producttype.name}}</option>
-                                        </select>
-                                        <div ng-show="ProductForm.producttype.$touched && ProductForm.producttype.$error">
-                                            <span class="help-block" ng-show="ProductForm.producttype.$error.required">
-                                                Please Select Site
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
+
                             </form>
                         </div>
                     </div>

@@ -101,69 +101,139 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-lg-12">
-                            <form action="" method="post" class="form-horizontal" name="ProductTypeForm" id="ProductTypeForm" novalidate>
+                            <form action="" method="post" class="form-horizontal" name="ProductForm" id="ProductForm" novalidate>
                                 <div class="row form-group">
                                     <div class="col col-md-3">
-                                        <label for="producttypecode" class=" form-control-label" >Product Type Code <span class="mandatory">*</span></label>
+                                        <label for="productpartno" class=" form-control-label" >Product Type Code <span class="mandatory">*</span></label>
                                     </div>
                                     <div class="col-12 col-md-6">
-                                        <input 
-                                            type="text" 
-                                            id="producttypecode" 
-                                            name="producttypecode" 
-                                            ng-model="producttype.code" 
-                                            placeholder="Product Type Code" 
-                                            class="form-control"
-                                            ng-minlength="3" 
-                                            ng-maxlength="10"
-                                            required>
-                                            <div ng-show="ProductTypeForm.producttypecode.$touched && ProductTypeForm.producttypecode.$error">
+                                        <input
+                                                type="text"
+                                                id="productpartno"
+                                                name="productpartno"
+                                                ng-model="product.part_no"
+                                                placeholder="Product Type Code"
+                                                class="form-control"
+                                                ng-minlength="3"
+                                                ng-maxlength="10"
+                                                required>
+                                        <div ng-show="ProductForm.productpartno.$touched && ProductForm.productpartno.$error">
                                                 <span class="help-block"
-                                                 ng-show="ProductTypeForm.producttypecode.$error.required">
+                                                      ng-show="ProductForm.productpartno.$error.required">
                                                     Please Enter Product Type Code
                                                 </span>
-                                                <span class="help-block"
-                                                 ng-show="ProductTypeForm.producttypecode.$error.minlength">
+                                            <span class="help-block"
+                                                  ng-show="ProductForm.productpartno.$error.minlength">
                                                     Minimum 3 Characters Required
                                                 </span>
-                                                <span class="help-block"
-                                                 ng-show="ProductTypeForm.producttypecode.$error.maxlength">
+                                            <span class="help-block"
+                                                  ng-show="ProductForm.productpartno.$error.maxlength">
                                                     Maximum 10 Characters Allowed
                                                 </span>
-                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+
                                 <div class="row form-group">
                                     <div class="col col-md-3">
-                                        <label for="producttypename" class=" form-control-label" >Product Type Name <span class="mandatory">*</span></label>
+                                        <label for="producttype" class=" form-control-label">Product Type Name <span class="mandatory">*</span></label>
                                     </div>
                                     <div class="col-12 col-md-6">
-                                        <input 
-                                            type="text" 
-                                            id="producttypename" 
-                                            name="producttypename" 
-                                            ng-model="producttype.name" 
-                                            placeholder="Product Type Namme" 
-                                            class="form-control"
-                                            ng-minlength="3" 
-                                            ng-maxlength="20"
-                                            required>
-                                            <div ng-show="ProductTypeForm.producttypename.$touched && ProductTypeForm.producttypename.$error">
+                                        <input
+                                                type="text"
+                                                id="productpartno"
+                                                name="productpartno"
+                                                ng-model="product.part_no"
+                                                placeholder="Product Type Number"
+                                                class="form-control"
+                                                ng-minlength="3"
+                                                ng-maxlength="10"
+                                                required>
+                                        <div ng-show="ProductForm.productpartno.$touched && ProductForm.productpartno.$error">
                                                 <span class="help-block"
-                                                 ng-show="ProductTypeForm.producttypename.$error.required">
+                                                      ng-show="ProductForm.productpartno.$error.required">
                                                     Please Enter Product Type Name
                                                 </span>
-                                                <span class="help-block"
-                                                 ng-show="ProductTypeForm.producttypename.$error.minlength">
+                                            <span class="help-block"
+                                                  ng-show="ProductForm.productpartno.$error.minlength">
                                                     Minimum 3 Characters Required
                                                 </span>
-                                                <span class="help-block"
-                                                 ng-show="ProductTypeForm.producttypename.$error.maxlength">
-                                                    Maximum 20 Characters Allowed
+                                            <span class="help-block"
+                                                  ng-show="ProductForm.productpartno.$error.maxlength">
+                                                    Maximum 10 Characters Allowed
                                                 </span>
-                                            </div>
+                                        </div>
+                                        {{-- <select
+                                         ng-model="product.type"
+                                         id="producttype"
+                                         name="producttype"
+                                         class="form-control"
+                                         required>
+                                             <option ng-repeat="producttype in producttypes" value="@{{producttype.id}}" ng-selected="">@{{producttype.name}}</option>
+                                         </select>
+                                         <div ng-show="ProductForm.producttype.$touched && ProductForm.producttype.$error">
+                                             <span class="help-block" ng-show="ProductForm.producttype.$error.required">
+                                                 Please Select Site
+                                             </span>
+                                         </div>--}}
                                     </div>
                                 </div>
+
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="productcategory" class=" form-control-label">Product Category <span class="mandatory">*</span></label>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <select
+                                                ng-model="product.type"
+                                                id="producttype"
+                                                name="producttype"
+                                                class="form-control"
+                                                required>
+                                            <option ng-repeat="producttype in producttypes" value="@{{producttype.id}}" ng-selected="">@{{producttype.name}}</option>
+                                        </select>
+                                        <div ng-show="ProductForm.producttype.$touched && ProductForm.producttype.$error">
+                                            <span class="help-block" ng-show="ProductForm.producttype.$error.required">
+                                                Please Select Category
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="productdescription" class=" form-control-label" >Product Description <span class="mandatory">*</span></label>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <textarea
+                                                type="text"
+                                                id="productdescription"
+                                                name="productdescription"
+                                                ng-model="product.description"
+                                                placeholder="Product Description"
+                                                class="form-control"
+                                                ng-minlength="3"
+                                                ng-maxlength="50"
+                                                rows="3"
+                                                required>
+                                        </textarea>
+                                        <div ng-show="ProductForm.productdescription.$touched && ProductForm.productdescription.$error">
+                                                <span class="help-block"
+                                                      ng-show="ProductForm.productdescription.$error.required">
+                                                    Please Enter Product Description
+                                                </span>
+                                            <span class="help-block"
+                                                  ng-show="ProductForm.productdescription.$error.minlength">
+                                                    Minimum 3 Characters Required
+                                                </span>
+                                            <span class="help-block"
+                                                  ng-show="ProductForm.productdescription.$error.maxlength">
+                                                    Maximum 50 Characters Allowed
+                                                </span>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </form>
                         </div>
                     </div>
