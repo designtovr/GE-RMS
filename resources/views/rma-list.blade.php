@@ -9,7 +9,7 @@
 			        <div class="overview-wrap">
 			            <h6 class="pb-4 display-5">RMA List</h6>
 			            <button type="button" class="btn btn-primary btn-sm">
-	                        <i class="fa fa-plus"></i>&nbsp; <a href="{{url('add-rma')}}" class="white-text">Add Item</a></button>
+	                        <i class="fa fa-plus"></i>&nbsp; <a href="{{url('add-rma')}}" class="white-text">Create</a></button>
 			        </div>
 			    </div>
 			    <div class="col-md-12">
@@ -60,12 +60,12 @@
 	                    <table class="table table-borderless table-data3">
 	                        <thead>
 	                            <tr>
-	                                <th>date</th>
-	                                <th>type</th>
-	                                <th>description</th>
-	                                <th>status</th>
-	                                <th>price</th>
-	                                <th>Actions</th>
+	                                <th>RMA Reference No</th>
+	                                <th>GA No.</th>
+	                                <th>Date</th>
+	                                <th>Customer Name</th>
+	                                <th>Faulty Unit Quantity</th>
+	                                <th>Total Faulty Units</th>
 	                            </tr>
 	                        </thead>
 	                        <tbody>

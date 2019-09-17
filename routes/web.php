@@ -73,6 +73,12 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::get('/rma-linkage', function(){
 		return view('rma-linkage-list');
 	});
+
+    Route::get('/rma-form-linkage', function(){
+        return view('rma-form-linkage');
+    });
+
+
 	Route::get('/add-rma-linkage', function(){
 		return view('add-rma-linkage');
 	});
