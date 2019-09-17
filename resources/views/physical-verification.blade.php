@@ -67,12 +67,7 @@
 		                         <th sortable="placed" class="sortable">
 		                             Receipt Date
 		                         </th>
-		                         <th sortable="purchaseOrderNumber" class="sortable">
-		                             From
-		                         </th>
-		                         <th sortable='total.value' class="sortable">
-		                             To
-		                         </th>
+
 		                         <th sortable='total.value' class="sortable">
 		                             Customer Name 
 		                         </th>
@@ -85,6 +80,9 @@
 		                         <th sortable='total.value' class="sortable">
 		                             Docket Details
 		                         </th>
+								 <th sortable='total.value' class="sortable">
+									 Number of Boxes
+								 </th>
 		                         <th>
 		                             Actions
 		                         </th>
@@ -94,12 +92,12 @@
 		                     <tr grid-item>
 		                         <td ng-bind="item.receipt_no"></td>
 		                         <td ng-bind="item.receipt_date | date:'MM/dd/yyyy'"></td>
-		                         <td ng-bind="item.from"></td>
-		                         <td ng-bind="item.to"></td>
+
 		                         <td ng-bind="item.customer_name"></td>
 		                         <td ng-bind="item.end_customer"></td>
 		                         <td ng-bind="item.courier_name"></td>
-		                         <td ng-bind="item.docket_details"></td>
+								 <td ng-bind="item.docket_details"></td>
+								 <td ng-bind="item.num_of_boxes"></td>
 		                         <td>
 		                         	<div class="table-data-feature">
 	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="OpenPVForm();">
