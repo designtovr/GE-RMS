@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" ng-app="ge">
 <head>
     <!-- Required meta tags-->
@@ -173,6 +173,91 @@
                             <a class="js-arrow" href="{{url('/dashboard')}}">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                         </li>
+
+                        <li class="has-sub">
+                            <a class="js-arrow" href="#">
+                                <i class="fas fa-database"></i>Inbound</a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li>
+                                    <a href="{{url('/rma')}}">
+                                        <i class="far fa-check-square"></i>RMA</a>
+                                </li>
+                                <li>
+                                    <a href="{{url('/receipt')}}">
+                                        <i class="far fa-check-square"></i>Receipt</a>
+                                </li>
+                                <li>
+                                    <a href="{{url('/physical-verification')}}">
+                                        <i class="far fa-check-square"></i>Physical Verification</a>
+                                </li>
+                                <li>
+                                    <a href="{{url('/rms')}}">
+                                        <i class="far fa-check-square"></i>RMS</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="has-sub">
+                            <a class="js-arrow" href="#">
+                                <i class="fas fa-database"></i>Approval</a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li>
+                                    <a href="{{url('/rma-form-linkage')}}">
+                                        <i class="far fa-check-square"></i>RMA Form Linkage</a>
+                                </li>
+                                <li>
+                                    <a href="{{url('/warranty')}}">
+                                        <i class="far fa-check-square"></i>W/C Declaration</a>
+                                </li>
+                                <li>
+                                    <a href="{{url('/rma-linkage')}}">
+                                        <i class="far fa-check-square"></i>RMA No Linkage</a>
+                                </li>
+                                <li>
+                                    <a href="{{url('/other-relay-repair-status')}}">
+                                        <i class="far fa-check-square"></i>Other Relay Repair Status</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="has-sub">
+                            <a class="js-arrow" href="#">
+                                <i class="fas fa-database"></i>Testing</a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+
+                                <li>
+                                    <a href="{{url('/repair-initiation')}}">
+                                        <i class="far fa-check-square"></i>Repair Initiation</a>
+                                </li>
+                                <li>
+                                    <a href="{{url('/job-ticket')}}">
+                                        <i class="far fa-check-square"></i>Job Ticket</a>
+                                </li>
+                                <li>
+                                    <a href="{{url('/auto-test-bench')}}">
+                                        <i class="far fa-check-square"></i>Auto Test Bench</a>
+                                </li>
+                                <li>
+                                    <a href="{{url('/aging-complete')}}">
+                                        <i class="far fa-check-square"></i>Aging Complete</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="has-sub">
+                            <a class="js-arrow" href="#">
+                                <i class="fas fa-database"></i>Outbound</a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+
+                                <li>
+                                    <a href="{{url('/verification-completion')}}">
+                                        <i class="far fa-check-square"></i>Verification Completion</a>
+                                </li>
+                                <li>
+                                    <a href="{{url('/dispatch')}}">
+                                        <i class="far fa-check-square"></i>Dispatch</a>
+                                </li>
+                            </ul>
+                        </li>
                         <li class="has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-database"></i>Masters</a>
@@ -214,58 +299,6 @@
                                     <a href="{{url('/masters-page/manufacture')}}">Manufacture</a>
                                 </li>
                             </ul>
-                        </li>
-                        <li>
-                            <a href="{{url('/rma')}}">
-                                <i class="far fa-check-square"></i>RMA</a>
-                        </li>
-                        <li>
-                            <a href="{{url('/receipt')}}">
-                                <i class="far fa-check-square"></i>Receipt</a>
-                        </li>
-                        <li>
-                            <a href="{{url('/physical-verification')}}">
-                                <i class="far fa-check-square"></i>Physical Verification</a>
-                        </li>
-                        <li>
-                            <a href="{{url('/warranty')}}">
-                                <i class="far fa-check-square"></i>Warranty</a>
-                        </li>
-                        <li>
-                            <a href="{{url('/rma-linkage')}}">
-                                <i class="far fa-check-square"></i>RMA Linkage</a>
-                        </li>
-                        <li>
-                            <a href="{{url('/rms')}}">
-                                <i class="far fa-check-square"></i>RMS</a>
-                        </li>
-                        <li>
-                            <a href="{{url('/other-relay-repair-status')}}">
-                                <i class="far fa-check-square"></i>Other Relay Repair Status</a>
-                        </li>
-                        <li>
-                            <a href="{{url('/repair-initiation')}}">
-                                <i class="far fa-check-square"></i>Repair Initiation</a>
-                        </li>
-                        <li>
-                            <a href="{{url('/job-ticket')}}">
-                                <i class="far fa-check-square"></i>Job Ticket</a>
-                        </li>
-                        <li>
-                            <a href="{{url('/auto-test-bench')}}">
-                                <i class="far fa-check-square"></i>Auto Test Bench</a>
-                        </li>
-                        <li>
-                            <a href="{{url('/aging-complete')}}">
-                                <i class="far fa-check-square"></i>Aging Complete</a>
-                        </li>
-                        <li>
-                            <a href="{{url('/verification-completion')}}">
-                                <i class="far fa-check-square"></i>Verification Completion</a>
-                        </li>
-                        <li>
-                            <a href="{{url('/dispatch')}}">
-                                <i class="far fa-check-square"></i>Dispatch</a>
                         </li>
                     </ul>
                 </nav>

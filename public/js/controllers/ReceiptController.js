@@ -1,10 +1,11 @@
 app.controller('ReceiptController', ['$scope', '$http', '$filter', function($scope, $http, $filter){
-	$scope.receiptform = true;
+	$scope.receiptform = false;
 	$scope.receipt = {};
 
 	$scope.ShowReceiptForm = function()
 	{
 		$scope.receiptform = true;
+		console.log("HELLO");
 	}
 
 	$scope.HideReceiptForm = function()
@@ -15,6 +16,7 @@ app.controller('ReceiptController', ['$scope', '$http', '$filter', function($sco
 	$scope.Initiate = function()
 	{
 		$scope.receipt.re_date = $filter('date')(new Date(),'dd/MM/yyyy');
+		$scope.receiptform = false;
 	}
 
 }]);

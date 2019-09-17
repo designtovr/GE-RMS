@@ -242,7 +242,7 @@
 	                    	<form action="" method="post" class="form-horizontal">
 	                            <div class="row form-group">
 	                                <div class="col col-md-3">
-	                                    <label for="material-part-no" class=" form-control-label">CLI Test <span class="mandatory">*</span></label>
+	                                    <label for="material-part-no" class=" form-control-label">CLIO Test <span class="mandatory">*</span></label>
 	                                </div>
 	                                <div class="col-12 col-md-6">
 	                                    <label class="switch switch-text switch-success switch-pill">
@@ -266,7 +266,7 @@
 	                            </div>
 	                            <div class="row form-group">
 	                                <div class="col col-md-3">
-	                                    <label for="material-part-no" class=" form-control-label">VA Burden Test <span class="mandatory">*</span></label>
+	                                    <label for="material-part-no" class=" form-control-label">NIC Test <span class="mandatory">*</span></label>
 	                                </div>
 	                                <div class="col-12 col-md-6">
 	                                    <label class="switch switch-text switch-success switch-pill">
