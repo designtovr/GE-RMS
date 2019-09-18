@@ -212,6 +212,9 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
 
 
 
+    Route::get('/addphysicalverification' , 'ReceiptController@AddPhysicalVerification');
+
+
 	Route::post('/addproducttype', 'ProductTypeController@AddProductType');
 
 	Route::post('/addproduct', 'ProductController@AddProduct');

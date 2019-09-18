@@ -31,7 +31,6 @@ class DispatchController extends Controller
         $dispatch = $request->get('dispatch');
         $DM = new DispatchMaster();
         $DM->dispatch_no = $dispatch['dispatch_no'];
-
         $date = Carbon::createFromFormat('d/m/Y',$dispatch['date']);
         $DM->date = $date->format('Y-m-d');
         $DM->rid_no = $dispatch['rid_no'];

@@ -2,7 +2,7 @@
 @section('title', 'Physical Verification List')
 @section('content')
 <div class="main-content" ng-controller="PhysicalVerificationController">
-	<div class="section__content section__content--p30">
+	<div class="section__content section__content--p30" ng-init = "getReceipts();">
 	    <div class="container-fluid">
 	    	<div class="row" ng-show="!pvform">
 				<div class="col-md-12">
@@ -97,10 +97,10 @@
 		                         <td ng-bind="item.end_customer"></td>
 		                         <td ng-bind="item.courier_name"></td>
 								 <td ng-bind="item.docket_details"></td>
-								 <td ng-bind="item.num_of_boxes"></td>
+								 <td ng-bind="item.total_boxes"></td>
 		                         <td>
 		                         	<div class="table-data-feature">
-	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="OpenPVForm();">
+	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="OpenPVForm(item.receipt_no);">
 	                                        <i class="zmdi zmdi-edit"></i>
 	                                    </button>
 	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
@@ -130,7 +130,11 @@
 				                                <label for="receipt-no" class=" form-control-label">Receipt No <span class="mandatory">*</span></label>
 				                            </div>
 				                            <div class="col-12 col-md-9">
-				                                <input type="text" id="receipt-no" name="receipt-no" placeholder="Receipt No" class="form-control" disabled>
+				                                <input type="text" id="receipt-no" name="receipt-no" placeholder="Receipt No" class="form-control" disabled
+													   ng-model="physicalVerification.receipt_no"
+													   ng-minlength="3"
+													   ng-maxlength="10"
+													   required>
 				                                <span class="help-block">Please Enter Receipt No</span>
 				                            </div>
 				                        </div>
@@ -143,7 +147,11 @@
 			                                    <label for="courier" class=" form-control-label">Courier <span class="mandatory">*</span></label>
 			                                </div>
 			                                <div class="col-12 col-md-9">
-			                                    <input type="text" id="courier" name="courier" placeholder="Courier" class="form-control">
+			                                    <input type="text" id="courier" name="courier" placeholder="Courier" class="form-control"
+													   ng-model="physicalVerification.courier"
+													   ng-minlength="3"
+													   ng-maxlength="10"
+													   required>
 			                                    <span class="help-block">Please Enter Courier</span>
 			                                </div>
 			                            </div>
@@ -154,7 +162,11 @@
 			                                    <label for="docket_details" class=" form-control-label">Docket Details <span class="mandatory">*</span></label>
 			                                </div>
 			                                <div class="col-12 col-md-9">
-			                                    <input type="text" id="docket_details" name="docket_details" placeholder="Docket Details" class="form-control">
+			                                    <input type="text" id="docket_details" name="docket_details" placeholder="Docket Details" class="form-control"
+													   ng-model="physicalVerification.docket_details"
+													   ng-minlength="3"
+													   ng-maxlength="10"
+													   required>
 			                                    <span class="help-block">Please Enter Docket Details</span>
 			                                </div>
 			                            </div>
@@ -167,7 +179,11 @@
 			                                    <label for="rid" class=" form-control-label">RID No <span class="mandatory">*</span></label>
 			                                </div>
 			                                <div class="col-12 col-md-9">
-			                                    <input type="text" id="rid" name="rid" placeholder="RID No" class="form-control">
+			                                    <input type="text" id="rid" name="rid" placeholder="RID No" class="form-control"
+													   ng-model="physicalVerification.docket_details"
+													   ng-minlength="3"
+													   ng-maxlength="10"
+													   required>
 			                                    <span class="help-block">Please Enter RID No</span>
 			                                </div>
 			                            </div>
@@ -178,7 +194,11 @@
 			                                    <label for="date" class=" form-control-label">Date <span class="mandatory">*</span></label>
 			                                </div>
 			                                <div class="col-12 col-md-9">
-			                                    <input type="text" id="date" name="date" placeholder="Date" class="form-control">
+			                                    <input type="text" id="date" name="date" placeholder="Date" class="form-control"
+													   ng-model="physicalVerification.docket_details"
+													   ng-minlength="3"
+													   ng-maxlength="10"
+													   required>
 			                                    <span class="help-block">Please Enter Physical Verified Date</span>
 			                                </div>
 			                            </div>
@@ -191,7 +211,11 @@
 			                                    <label for="product" class=" form-control-label">Product <span class="mandatory">*</span></label>
 			                                </div>
 			                                <div class="col-12 col-md-9">
-			                                    <input type="text" id="product" name="product" placeholder="Product" class="form-control">
+			                                    <input type="text" id="product" name="product" placeholder="Product" class="form-control"
+													   ng-model="physicalVerification.docket_details"
+													   ng-minlength="3"
+													   ng-maxlength="10"
+													   required>
 			                                    <span class="help-block">Please Enter Product</span>
 			                                </div>
 			                            </div>
@@ -202,7 +226,11 @@
 			                                    <label for="product-type" class=" form-control-label">Product Type <span class="mandatory">*</span></label>
 			                                </div>
 			                                <div class="col-12 col-md-9">
-			                                    <input type="text" id="product-type" name="product-type" placeholder="Product Type" class="form-control">
+			                                    <input type="text" id="product-type" name="product-type" placeholder="Product Type" class="form-control"
+													   ng-model="physicalVerification.docket_details"
+													   ng-minlength="3"
+													   ng-maxlength="10"
+													   required>
 			                                    <span class="help-block">Please Enter Product Type</span>
 			                                </div>
 			                            </div>
@@ -215,7 +243,11 @@
 			                                    <label for="model-no" class=" form-control-label">Model No <span class="mandatory">*</span></label>
 			                                </div>
 			                                <div class="col-12 col-md-9">
-			                                    <input type="text" id="model-no" name="model-no" placeholder="Model No" class="form-control">
+			                                    <input type="text" id="model-no" name="model-no" placeholder="Model No" class="form-control"
+													   ng-model="physicalVerification.docket_details"
+													   ng-minlength="3"
+													   ng-maxlength="10"
+													   required>
 			                                    <span class="help-block">Please Enter Model No</span>
 			                                </div>
 			                            </div>
@@ -226,7 +258,11 @@
 			                                    <label for="serial-no" class=" form-control-label">Serial No <span class="mandatory">*</span></label>
 			                                </div>
 			                                <div class="col-12 col-md-9">
-			                                    <input type="text" id="serial-no" name="serial-no" placeholder="Serial No" class="form-control">
+			                                    <input type="text" id="serial-no" name="serial-no" placeholder="Serial No" class="form-control"
+													   ng-model="physicalVerification.docket_details"
+													   ng-minlength="3"
+													   ng-maxlength="10"
+													   required>
 			                                    <span class="help-block">Please Enter Serial No</span>
 			                                </div>
 			                            </div>
@@ -239,7 +275,11 @@
 			                                    <label for="defect" class=" form-control-label">Defect Mentioned by Customer <span class="mandatory">*</span></label>
 			                                </div>
 			                                <div class="col-12 col-md-9">
-			                                    <input type="text" id="defect" name="defect" placeholder="Defect Mentioned by Customer" class="form-control">
+			                                    <input type="text" id="defect" name="defect" placeholder="Defect Mentioned by Customer" class="form-control"
+													   ng-model="physicalVerification.docket_details"
+													   ng-minlength="3"
+													   ng-maxlength="10"
+													   required>
 			                                    <span class="help-block">Please Enter Defect Mentioned by Customer</span>
 			                                </div>
 			                            </div>
@@ -257,13 +297,13 @@
 			                                <div class="col col-md-9">
 			                                    <div class="form-check-inline form-check">
 			                                        <label for="case1" class="form-check-label ">
-			                                            <input type="radio" id="case1" name="case" value="option1" class="form-check-input">Yes
+			                                            <input type="radio" id="case1" name="case"  ng-model="physicalVerification.case" value="1" class="form-check-input">Yes
 			                                        </label>
 			                                        <label for="case2" class="form-check-label ">
-			                                            <input type="radio" id="case2" name="case" value="option2" class="form-check-input">No
+			                                            <input type="radio" id="case2" name="case"  ng-model="physicalVerification.case" value="2" class="form-check-input">No
 			                                        </label>
 			                                        <label for="case3" class="form-check-label ">
-			                                            <input type="radio" id="case3" name="case" value="option3" class="form-check-input">Not Applicable
+			                                            <input type="radio" id="case3" name="case"  ng-model="physicalVerification.case" value="3" class="form-check-input">Not Applicable
 			                                        </label>
 			                                    </div>
 			                                </div>
@@ -275,7 +315,7 @@
 			                                    <label for="case-condition" class=" form-control-label">Case Condition <span class="mandatory">*</span></label>
 			                                </div>
 			                                <div class="col-12 col-md-6">
-			                                    <select name="case-condition" id="case-condition" class="form-control">
+			                                    <select name="case-condition"   ng-model="physicalVerification.case_condition" id="case-condition" class="form-control">
 			                                        <option value="0">Please select</option>
 			                                        <option value="1">Damaged</option>
 			                                        <option value="2">Undamaged</option>
@@ -293,13 +333,13 @@
 			                                <div class="col col-md-9">
 			                                    <div class="form-check-inline form-check">
 			                                        <label for="battery1" class="form-check-label ">
-			                                            <input type="radio" id="battery1" name="battery" value="option1" class="form-check-input">Yes
+			                                            <input type="radio" id="battery1" name="battery" ng-model="physicalVerification.battery" value="1" class="form-check-input">Yes
 			                                        </label>
 			                                        <label for="case2" class="form-check-label ">
-			                                            <input type="radio" id="battery2" name="battery" value="option2" class="form-check-input">No
+			                                            <input type="radio" id="battery2" name="battery" ng-model="physicalVerification.battery" value="2" class="form-check-input">No
 			                                        </label>
 			                                        <label for="case3" class="form-check-label ">
-			                                            <input type="radio" id="battery3" name="battery" value="option3" class="form-check-input">Not Applicable
+			                                            <input type="radio" id="battery3" name="battery"ng-model="physicalVerification.battery" value="3" class="form-check-input">Not Applicable
 			                                        </label>
 			                                    </div>
 			                                </div>
@@ -311,7 +351,7 @@
 			                                    <label for="case-condition" class=" form-control-label">Battery Condition <span class="mandatory">*</span></label>
 			                                </div>
 			                                <div class="col-12 col-md-6">
-			                                    <select name="battery-condition" id="battery-condition" class="form-control">
+			                                    <select name="battery-condition" ng-model="physicalVerification.battery_condition" id="battery-condition" class="form-control">
 			                                        <option value="0">Please select</option>
 			                                        <option value="1">Damaged</option>
 			                                        <option value="2">Undamaged</option>
@@ -329,13 +369,13 @@
 			                                <div class="col col-md-9">
 			                                    <div class="form-check-inline form-check">
 			                                        <label for="terminal-blocks1" class="form-check-label ">
-			                                            <input type="radio" id="terminal-blocks1" name="terminal-blocks" value="option1" class="form-check-input">Yes
+			                                            <input type="radio" id="terminal-blocks1" name="terminal-blocks" ng-model="physicalVerification.terminal_blocks" value="option1" class="form-check-input">Yes
 			                                        </label>
 			                                        <label for="terminal-blocks2" class="form-check-label ">
-			                                            <input type="radio" id="terminal-blocks2" name="terminal-blocks" value="option2" class="form-check-input">No
+			                                            <input type="radio" id="terminal-blocks2" name="terminal-blocks" ng-model="physicalVerification.terminal_blocks" value="option2" class="form-check-input">No
 			                                        </label>
 			                                        <label for="terminal-blocks3" class="form-check-label ">
-			                                            <input type="radio" id="terminal-blocks3" name="terminal-blocks" value="option3" class="form-check-input">Not Applicable
+			                                            <input type="radio" id="terminal-blocks3" name="terminal-blocks" ng-model="physicalVerification.terminal_blocks" value="option3" class="form-check-input">Not Applicable
 			                                        </label>
 			                                    </div>
 			                                </div>
@@ -347,7 +387,7 @@
 			                                    <label for="terminal-blocks-condition" class=" form-control-label">Terminal Blocks Condition <span class="mandatory">*</span></label>
 			                                </div>
 			                                <div class="col-12 col-md-6">
-			                                    <select name="terminal-blocks-condition" id="battery-condition" class="form-control">
+			                                    <select name="terminal-blocks-condition" ng-model="physicalVerification.terminal_blocks_condition" id="battery-condition" class="form-control">
 			                                        <option value="0">Please select</option>
 			                                        <option value="1">Damaged</option>
 			                                        <option value="2">Undamaged</option>
@@ -365,13 +405,13 @@
 			                                <div class="col col-md-9">
 			                                    <div class="form-check-inline form-check">
 			                                        <label for="top-bottom-cover1" class="form-check-label ">
-			                                            <input type="radio" id="top-bottom-cover1" name="top-bottom-cover" value="option1" class="form-check-input">Yes
+			                                            <input type="radio" id="top-bottom-cover1" name="top-bottom-cover" ng-model="physicalVerification.top_bottom_cover" value="1" class="form-check-input">Yes
 			                                        </label>
 			                                        <label for="top-bottom-cover2" class="form-check-label ">
-			                                            <input type="radio" id="top-bottom-cover2" name="top-bottom-cover" value="option2" class="form-check-input">No
+			                                            <input type="radio" id="top-bottom-cover2" name="top-bottom-cover"  ng-model="physicalVerification.top_bottom_cover" value="2" class="form-check-input">No
 			                                        </label>
 			                                        <label for="top-bottom-cover3" class="form-check-label ">
-			                                            <input type="radio" id="top-bottom-cover3" name="top-bottom-cover" value="option3" class="form-check-input">Not Applicable
+			                                            <input type="radio" id="top-bottom-cover3" name="top-bottom-cover"  ng-model="physicalVerification.top_bottom_cover" value="3" class="form-check-input">Not Applicable
 			                                        </label>
 			                                    </div>
 			                                </div>
@@ -383,7 +423,7 @@
 			                                    <label for="top-bottom-cover-condition" class=" form-control-label">Top/Bottom Access Cover Condition <span class="mandatory">*</span></label>
 			                                </div>
 			                                <div class="col-12 col-md-6">
-			                                    <select name="top-bottom-cover-condition" id="top-bottom-cover" class="form-control">
+			                                    <select name="top-bottom-cover-condition"  ng-model="physicalVerification.top_bottom_cover_condition" id="top-bottom-cover" class="form-control">
 			                                        <option value="0">Please select</option>
 			                                        <option value="1">Damaged</option>
 			                                        <option value="2">Undamaged</option>
@@ -401,13 +441,13 @@
 			                                <div class="col col-md-9">
 			                                    <div class="form-check-inline form-check">
 			                                        <label for="top-bottom-cover1" class="form-check-label ">
-			                                            <input type="radio" id="top-bottom-cover1" name="top-bottom-cover" value="option1" class="form-check-input">Yes
+			                                            <input type="radio" id="top-bottom-cover1" name="top-bottom-cover"  ng-model="physicalVerification.short_links" value="1" class="form-check-input">Yes
 			                                        </label>
 			                                        <label for="top-bottom-cover2" class="form-check-label ">
-			                                            <input type="radio" id="top-bottom-cover2" name="top-bottom-cover" value="option2" class="form-check-input">No
+			                                            <input type="radio" id="top-bottom-cover2" name="top-bottom-cover" ng-model="physicalVerification.short_links" value="2" class="form-check-input">No
 			                                        </label>
 			                                        <label for="top-bottom-cover3" class="form-check-label ">
-			                                            <input type="radio" id="top-bottom-cover3" name="top-bottom-cover" value="option3" class="form-check-input">Not Applicable
+			                                            <input type="radio" id="top-bottom-cover3" name="top-bottom-cover" ng-model="physicalVerification.short_links" value="3" class="form-check-input">Not Applicable
 			                                        </label>
 			                                    </div>
 			                                </div>
@@ -419,7 +459,7 @@
 			                                    <label for="top-bottom-cover-condition" class=" form-control-label">Short Links Condition <span class="mandatory">*</span></label>
 			                                </div>
 			                                <div class="col-12 col-md-6">
-			                                    <select name="top-bottom-cover-condition" id="top-bottom-cover" class="form-control">
+			                                    <select name="top-bottom-cover-condition" ng-model="physicalVerification.short_links_condition" id="top-bottom-cover" class="form-control">
 			                                        <option value="0">Please select</option>
 			                                        <option value="1">Damaged</option>
 			                                        <option value="2">Undamaged</option>
@@ -435,7 +475,7 @@
 			                                    <label for="sales-order-no" class=" form-control-label">Sale Order/WBS No <span class="mandatory">*</span></label>
 			                                </div>
 			                                <div class="col-12 col-md-6">
-			                                    <input type="text" id="sales-order-no" name="sales-order-no" placeholder="Sale Order/WBS No" class="form-control">
+			                                    <input type="text" id="sales-order-no" name="sales-order-no" ng-model="physicalVerification.sales_order_no" placeholder="Sale Order/WBS No" class="form-control">
 			                                    <span class="help-block">Please Enter Model No</span>
 			                                </div>
 			                            </div>
@@ -446,7 +486,7 @@
 		                	</form>
 	                	</div>
 	                	<div class="card-footer">
-	                        <button type="submit" class="btn btn-primary btn-sm">
+	                        <button type="submit" class="btn btn-primary btn-sm" ng-click="AddPV();">
 	                            <i class="fa fa-save"></i> Save
 	                        </button>
 	                        <button type="reset" class="btn btn-danger btn-sm">

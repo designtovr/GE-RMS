@@ -61,4 +61,24 @@ class ReceiptController extends Controller
 
         return response()->json(['data' => $RM, 'status' => 'success', 'messagae' => 'Receipt Added Successfully'], 200);
     }
+
+    public function AddPhysicalVerification(AddPhysicalVerificationRequest $request)
+    {
+        $physical = $request->get('physical');
+        $RM = new ReceiptMaster();
+        $RM->receipt_no = $physical ['receipt_no'];
+        $RM->gs_no = $physical ['gs_no'];
+        $date = Carbon::createFromFormat('d/m/Y',$physical ['re_date']);
+        $RM->receipt_date = $date->format('Y-m-d');
+        $RM->customer_name = $physical ['cu_name'];
+        $RM->end_customer = $physical ['end_cusname'];
+        $RM->courier_name = $physical ['courier_name'];
+        $RM->docket_details = $physical ['docket_details'];
+        $RM->total_boxes = $physical ['no_of_boxes'];
+        /*  $RM->created_by = Auth::id();
+          $RM->updated_by = Auth::id();
+          $RM->created_at = Carbon::now();
+          $RM->updated_at = Carbon::now();*/
+        $RM->save();
+    }
 }
