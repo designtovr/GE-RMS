@@ -234,4 +234,8 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
 	Route::post('/adduser', 'UserController@AddUser');
 
 	Route::post('/addmaterial', 'MaterialController@AddMaterial');
+
+	Route::post('/addsite', 'SiteController@AddSite');
+
+	Route::delete('/site/{id}', 'SiteController@DeleteSite');
 });

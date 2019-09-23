@@ -24,6 +24,7 @@ class AddSiteRequest extends FormRequest
     public function rules()
     {
         return [
+            'site.id' => 'nullable|numeric|exists:ma_site,id',
             'site.code' => 'required|string|min:3|max:10',
             'site.name' => 'required|string|min:3|max:20',
         ];
@@ -32,6 +33,8 @@ class AddSiteRequest extends FormRequest
     public function messages()
     {
         return [
+            'site.id.numeric' => 'Id Should Be Numeric',
+            'site.id.exists' => 'Invalid Id',
             'site.code.required' => 'Site Code Is Required',
             'site.code.string' => 'Site Code Should Be String',
             'site.code.min' => 'Site Code Should Not Be Less Than 3',

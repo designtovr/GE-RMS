@@ -71,10 +71,10 @@
     	                            <td>@{{site.name}}</td>
                                     <td>
     	                                <div class="table-data-feature">
-    	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
+    	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="OpenSiteModal(site)">
     	                                        <i class="zmdi zmdi-edit"></i>
     	                                    </button>
-    	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
+    	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete" ng-click="DeleteSite(site.id)">
     	                                        <i class="zmdi zmdi-delete"></i>
     	                                    </button>
     	                                </div>
@@ -169,7 +169,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger btn-sm" ng-click="CloseSiteModal()">
+                    <button class="btn btn-danger btn-sm" ng-click="CloseSiteModal()">
                         <i class="fa fa-ban"></i> Close
                     </button>
                     <button type="submit" class="btn btn-primary btn-sm" ng-disabled="AddSiteForm.$invalid" ng-click="AddSite();">

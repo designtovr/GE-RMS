@@ -1,4 +1,4 @@
-app.controller('MastersController', ['$scope', '$http', function($scope, $http){
+app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConfirm', function($scope, $http, Notification, $ngConfirm){
 	$scope.customers = [];
 	$scope.products = [];
 	$scope.locations = [];
@@ -265,9 +265,9 @@ app.controller('MastersController', ['$scope', '$http', function($scope, $http){
 		$('#locationmodal').modal('show');
 	}
 
-	$scope.OpenSiteModal = function(id=0)
+	$scope.OpenSiteModal = function(site=0)
 	{
-		if (!id)
+		if (!site)
 		{
 			$scope.site = {};
 			$scope.sitemodal = [];
@@ -276,6 +276,9 @@ app.controller('MastersController', ['$scope', '$http', function($scope, $http){
 		else
 		{
 			$scope.sitemodal.title = 'Edit Site';
+			$scope.site.code = site.code;
+			$scope.site.name = site.name;
+			$scope.site.id = site.id;
 		}
 		$('#sitemodal').modal('show');
 	}
@@ -597,11 +600,15 @@ app.controller('MastersController', ['$scope', '$http', function($scope, $http){
 				'site': $scope.site
 			},
 		}).then(function success(response){
-			if (response.status == 200)
+			if (response.data.status == 'success')
 			{
-				alert(response.data.messagae)
+				Notification.success(response.data.message);
 				$('#sitemodal').modal('hide');
 				$scope.getsites();
+			}
+			else if (response.data.status == 'failure')
+			{
+				Notification.error(response.data.message);
 			}
 		}, function failure(response){
 			if (response.status == 422)
@@ -809,6 +816,38 @@ app.controller('MastersController', ['$scope', '$http', function($scope, $http){
 					break;
 				}
 			}
+		});
+	}
+
+	$scope.DeleteSite = function(id)
+	{
+		$ngConfirm({
+		    title: 'Warning!',
+		    content: 'Are you sure want to delete?',
+		    type: 'red',
+		    typeAnimated: true,
+		    buttons: {
+		        tryAgain: {
+		            text: 'Delete',
+		            btnClass: 'btn-red',
+		            action: function(){
+		            	$http({
+						  method: 'DELETE',
+						  url: '../site/'+id,
+						}).then(function success(response) {
+						    if (response.data.status == 'success')
+							{
+								Notification.success(response.data.message);
+								$scope.getsites();
+							}
+						  }, function error(response) {
+
+						  });
+		            }
+		        },
+		        close: function () {
+		        }
+		    }
 		});
 	}
 
