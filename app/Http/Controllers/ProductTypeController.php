@@ -22,6 +22,8 @@ class ProductTypeController extends Controller
     	$PT = new ProductTypeMaster();
     	$PT->code = $producttype['code'];
     	$PT->name = $producttype['name'];
+        $PT->category = $producttype['category'];
+        $PT->description = $producttype['description'];
     	$PT->created_by = Auth::id();
     	$PT->updated_by = Auth::id();
     	$PT->save();

@@ -2,6 +2,9 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', f
 	$scope.showrmaform = true;
 	$scope.rmaformdata = {};
 	$scope.rmaformdata.unit_information = [];
+	$scope.rmaformdata.repair_instruction = {};
+	$scope.rmaformdata.invoice_info = {};
+	$scope.rmaformdata.delivery_info = {};
 
 	$scope.ShowRMAForm = function()
 	{
@@ -30,7 +33,17 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', f
 	{
 		$scope.rmaformdata.date = $filter('date')(new Date(),'dd/MM/yyyy');
 		var new_information = new Object();
+		new_information.warrenty = 1;
 		$scope.rmaformdata.unit_information.push(new_information);
+		$scope.rmaformdata.unit_information.equip_failed_on_installation = 0;
+		$scope.rmaformdata.unit_information.equip_failed_on_service = 0;
+		$scope.rmaformdata.update_version = 0;
+		$scope.rmaformdata.return_in_case = 0;
+	}
+
+	$scope.test = function()
+	{
+		console.log($scope.rmaformdata);
 	}
 
 	$scope.AddUnitInformation = function()
@@ -42,7 +55,9 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', f
 		else
 		{
 			var new_information = new Object();
+			new_information.warrenty = 1;
 			$scope.rmaformdata.unit_information.push(new_information);
+			console.log($scope.rmaformdata.unit_information)
 		}
 		
 	}
@@ -57,6 +72,15 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', f
 		{
 			$scope.rmaformdata.unit_information.splice($index, 1);
 		}
+	}
+
+	$scope.GenerateSerialNumberField = function(index, quantity)
+	{
+		console.log(index)
+		console.log(quantity)
+		$scope.rmaformdata.unit_information[index].serial_number_length = new Array(quantity);
+		console.log($scope.rmaformdata)
+		console.log($scope.rmaformdata.unit_information[index].serial_number_length)
 	}
 
 }]);

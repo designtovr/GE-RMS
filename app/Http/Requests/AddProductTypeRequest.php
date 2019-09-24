@@ -26,6 +26,8 @@ class AddProductTypeRequest extends FormRequest
         return [
             'producttype.code' => 'required|string|min:3|max:10',
             'producttype.name' => 'required|string|min:3|max:20',
+            'producttype.category' => 'required',
+            'producttype.description' => 'required|string|min:3|max:50',
         ];
     }
 
@@ -40,6 +42,12 @@ class AddProductTypeRequest extends FormRequest
             'producttype.name.string'  => 'Product Type Name Should Be String',
             'producttype.name.min' => 'Product Type Name Should Not Be Less Than 3',
             'producttype.name.max' => 'Product Type Name Should Not Be Greater Than 20',
+            'producttype.category.required'  => 'Product Category Is Required',
+            'producttype.category.string'  => 'Product Type Name Should Be String',
+            'producttype.description.required' => 'Description Is Required',
+            'producttype.description.string' => 'Description Should Be String',
+            'producttype.description.min' => 'Description Should Not Be Less Than 3',
+            'producttype.description.max' => 'Description Should Not Be Greater Than 50',
         ];
     }
 }

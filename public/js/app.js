@@ -10,6 +10,7 @@ app.factory('HttpInterceptor', function($q){
 			return config;
 		},
 		'requestError': function(rejection) {
+			NProgress.done();
 	      return $q.reject(rejection);
 	    },
     	'response': function(response) {
@@ -17,6 +18,7 @@ app.factory('HttpInterceptor', function($q){
 	      return response;
 	    },
 	   'responseError': function(rejection) {
+	   		NProgress.done();
 	      return $q.reject(rejection);
 	    }
 	};

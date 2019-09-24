@@ -36,7 +36,7 @@ class CustomerController extends Controller
     	$CM->address = $customer['address'];
     	$CM->contact_person = $customer['contact_person'];
     	$CM->email = $customer['email'];
-    	$CM->tin = $customer['tin'];
+    	$CM->gst = $customer['gst'];
     	$CM->contact = $customer['contact'];
     	$CM->created_by = Auth::id();
     	$CM->updated_by = Auth::id();
@@ -48,7 +48,7 @@ class CustomerController extends Controller
     	$CST->customer_id = $CM->id;
     	$CST->site_id = $customer['site_id'];
     	$CST->created_by = Auth::id();
-    	$CST->updated_at = Auth::id();
+    	$CST->updated_by = Auth::id();
     	$CST->save();
 
     	$CLT = new CustomerLocationTransaction();
