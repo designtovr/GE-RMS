@@ -107,10 +107,10 @@
                                     <td ng-bind="item.total_boxes"></td>
                                     <td>
                                         <div class="table-data-feature">
-                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="OpenPVForm();">
+                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="EditReceipt(item);">
                                                 <i class="zmdi zmdi-edit"></i>
                                             </button>
-                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
+                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Delete" ng-click="DeleteReceipt(item.id);">
                                                 <i class="zmdi zmdi-delete"></i>
                                             </button>
                                         </div>
@@ -141,11 +141,12 @@
                                                     type="text"
                                                     id="receipt_no"
                                                     name="receipt_no"
-                                                    ng-model="receipt.receipt_no"
+                                                        ng-model="receipt.receipt_no"
                                                     placeholder="Receipt No"
                                                     class="form-control"
                                                     ng-minlength="3"
                                                     ng-maxlength="10"
+{{--                                                    ng-disabled="EditReceipt"--}}
                                                     required>
                                             <div ng-show="AddReceiptForm.receipt_no.$touched && AddReceiptForm.receipt_no.$error">
                                             <span class="help-block"
@@ -174,7 +175,7 @@
                                                     id="gs_no"
                                                     name="gs_no"
                                                     ng-model="receipt.gs_no"
-                                                    placeholder="GA No"
+                                                    placeholder="GS No"
                                                     class="form-control"
                                                     ng-minlength="3"
                                                     ng-maxlength="20"
@@ -182,7 +183,7 @@
                                             <div ng-show="AddReceiptForm.gs_no.$touched && AddReceiptForm.gs_no.$error">
                                             <span class="help-block"
                                                   ng-show="AddReceiptForm.gs_no.$error.required">
-                                                Please Enter GA Number
+                                                Please Enter GS Number
                                             </span>
                                                 <span class="help-block"
                                                       ng-show="AddReceiptForm.gs_no.$error.minlength">
@@ -205,7 +206,7 @@
                                                     type="text"
                                                     id="re_date"
                                                     name="re_date"
-                                                    ng-model="receipt.re_date"
+                                                    ng-model="receipt.receipt_date"
                                                     placeholder="Receipt Date"
                                                     class="form-control"
                                                     required>
@@ -227,7 +228,7 @@
                                                     type="text"
                                                     id="cu_name"
                                                     name="cu_name"
-                                                    ng-model="receipt.cu_name"
+                                                    ng-model="receipt.customer_name"
                                                     placeholder="Customer Name/Manufacture Name"
                                                     class="form-control"
                                                     ng-minlength="3"
@@ -259,7 +260,7 @@
                                                     type="text"
                                                     id="end_cusname"
                                                     name="end_cusname"
-                                                    ng-model="receipt.end_cusname"
+                                                    ng-model="receipt.end_customer"
                                                     placeholder="End Customer"
                                                     class="form-control"
                                                     ng-minlength="3"
@@ -355,7 +356,7 @@
                                                     type="text"
                                                     id="no_of_boxes"
                                                     name="no_of_boxes"
-                                                    ng-model="receipt.no_of_boxes"
+                                                    ng-model="receipt.total_boxes"
                                                     placeholder="No Of Boxes"
                                                     class="form-control"
                                                     ng-pattern="/^[0-9]*$/"
