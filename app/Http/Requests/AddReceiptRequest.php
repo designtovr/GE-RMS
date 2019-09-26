@@ -58,7 +58,7 @@ class AddReceiptRequest extends FormRequest
             'max' => ' :attribute Should Not Be Greater Than :max',
             'string' => ' :attribute Should Be String',
             'numeric' => ' :attribute Should Be Number',
-            'digits_between' => ' :attribute value :input is not between :min - :max',
+            'digits_between' => ' :attribute value is invalid',
         ];
     }
 }
