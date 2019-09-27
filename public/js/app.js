@@ -1,4 +1,4 @@
-var app = angular.module("ge", ['dataGrid', 'pagination', 'ui-notification', 'cp.ngConfirm'], function($interpolateProvider){
+var app = angular.module("ge", ['dataGrid', 'pagination', 'ui-notification', 'cp.ngConfirm', 'ui.select', 'ngSanitize', 'ui.bootstrap'], function($interpolateProvider){
 	/*$interpolateProvider.startSymbol('<%');
     $interpolateProvider.endSymbol('%>');*/
 });
@@ -10,6 +10,7 @@ app.factory('HttpInterceptor', function($q){
 			return config;
 		},
 		'requestError': function(rejection) {
+			NProgress.done();
 	      return $q.reject(rejection);
 	    },
     	'response': function(response) {
@@ -17,6 +18,7 @@ app.factory('HttpInterceptor', function($q){
 	      return response;
 	    },
 	   'responseError': function(rejection) {
+	   		NProgress.done();
 	      return $q.reject(rejection);
 	    }
 	};

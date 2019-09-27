@@ -516,7 +516,7 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 				'producttype': $scope.producttype
 			},
 		}).then(function success(response){
-			if (response.status == 200)
+			if (response.data.status == 'success')
 			{
 				alert(response.data.messagae)
 				$('#producttypemodal').modal('hide');
@@ -561,6 +561,20 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 				}
 			}
 		});
+	}
+
+	$scope.ChangeProductCategory = function()
+	{
+		console.log($scope.product.type)
+		if ($scope.product.type)
+		{
+			for (var i = 0; i < $scope.producttypes.length; i++) 
+			{
+				console.log($scope.producttypes[i].id)
+				if ($scope.producttypes[i].id == $scope.product.type)
+					$scope.product.category = $scope.producttypes[i].category;
+			}
+		}
 	}
 
 	$scope.AddLocation = function()

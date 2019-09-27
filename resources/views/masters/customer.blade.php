@@ -64,7 +64,7 @@
                                     <th>Customer Name</th>
                                     <th>Address</th>
                                     <th>Contact Person</th>
-                                    <th>TIN/CST</th>
+                                    <th>GST</th>
                                     <th>Email</th>
                                     <th>Contact No</th>
                                     <th>Site</th>
@@ -78,7 +78,7 @@
                                     <td>@{{customer.name}}</td>
                                     <td>@{{customer.address}}</td>
                                     <td>@{{customer.contact_person}}</td>
-                                    <td>@{{customer.tin}}</td>
+                                    <td>@{{customer.gst}}</td>
     	                            <td>@{{customer.email}}</td>
     	                            <td>@{{customer.contact}}</td>
     	                            <td>@{{customer.site_name}}</td>
@@ -233,31 +233,26 @@
                                 </div>
                                 <div class="row form-group">
                                     <div class="col col-md-3">
-                                        <label for="tin" class=" form-control-label">TIN <span class="mandatory">*</span></label>
+                                        <label for="gst" class=" form-control-label">GST <span class="mandatory">*</span></label>
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <input 
                                         type="text" 
-                                        id="tin" 
-                                        name="tin" 
-                                        ng-model="customer.tin" 
-                                        placeholder="TIN" 
+                                        id="gst" 
+                                        name="gst" 
+                                        ng-model="customer.gst" 
+                                        placeholder="GST" 
                                         class="form-control" 
-                                        ng-minlength="9" 
-                                        ng-maxlength="9"
+                                        ng-pattern="/^([0]{1}[1-9]{1}|[1-2]{1}[0-9]{1}|[3]{1}[0-7]{1})([a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}[1-9a-zA-Z]{1}[zZ]{1}[0-9a-zA-Z]{1})+$/g"
                                         required>
-                                        <div ng-show="AddCustomerForm.tin.$touched && AddCustomerForm.tin.$error">
+                                        <div ng-show="AddCustomerForm.gst.$touched && AddCustomerForm.gst.$error">
                                             <span class="help-block" 
-                                            ng-show="AddCustomerForm.tin.$error.valid">
-                                                Please Enter TIN
+                                            ng-show="AddCustomerForm.gst.$error.required">
+                                                Please Enter GST
                                             </span>
                                             <span class="help-block" 
-                                            ng-show="AddCustomerForm.tin.$error.minlength">
-                                                Should Be 9 Characters
-                                            </span>
-                                            <span class="help-block" 
-                                            ng-show="AddCustomerForm.tin.$error.maxlength">
-                                                Should Be 9 Characters
+                                            ng-show="AddCustomerForm.gst.$error.pattern">
+                                                Invalid Format
                                             </span>
                                         </div>
                                     </div>
@@ -288,14 +283,14 @@
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <input 
-                                        type="number" 
+                                        type="text" 
                                         id="contact" 
                                         name="contact" 
                                         ng-model="customer.contact" 
                                         placeholder="Contact No" 
                                         class="form-control"
-                                        ng-minlength="10" 
-                                        ng-maxlength="10"
+                                        ng-minlength="7" 
+                                        ng-maxlength="15"
                                         ng-pattern="/^[0-9]*$/" 
                                         required>
                                         <div ng-show="AddCustomerForm.contact.$touched && AddCustomerForm.contact.$error">
@@ -306,10 +301,13 @@
                                                 Only Numbers Allowed
                                             </span>
                                             <span class="help-block" ng-show="AddCustomerForm.contact.$error.minlength">
-                                                Should Be 10 Numbers
+                                                Minimum 7 Numbers Required
                                             </span>
                                             <span class="help-block" ng-show="AddCustomerForm.contact.$error.maxlength">
-                                                Should Be 10 Numbers
+                                                Maximum 15 Numbers Allowed
+                                            </span>
+                                            <span class="help-block" ng-show="AddCustomerForm.contact.$error.pattern">
+                                                Only Numbers Allowed
                                             </span>
                                         </div>
                                     </div>

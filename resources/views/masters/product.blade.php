@@ -110,16 +110,17 @@
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <select
-                                                ng-model="product.type"
-                                                id="producttype"
-                                                name="producttype"
-                                                class="form-control"
-                                                required>
-                                            <option ng-repeat="producttype in producttypes" value="@{{producttype.id}}" ng-selected="">@{{producttype.name}}</option>
+                                            ng-model="product.type"
+                                            id="producttype"
+                                            name="producttype"
+                                            class="form-control"
+                                            ng-change="ChangeProductCategory();"
+                                            required>
+                                            <option ng-repeat="producttype in producttypes" value="@{{producttype.id}}">@{{producttype.name}}</option>
                                         </select>
                                         <div ng-show="ProductForm.producttype.$touched && ProductForm.producttype.$error">
                                             <span class="help-block" ng-show="ProductForm.producttype.$error.required">
-                                                Please Select Site
+                                                Please Select Product Type
                                             </span>
                                         </div>
                                     </div>
@@ -128,19 +129,14 @@
                                         <label for="producttype" class=" form-control-label">Product Category <span class="mandatory">*</span></label>
                                     </div>
                                     <div class="col-12 col-md-6">
-                                        <select
-                                                ng-model="product.type"
-                                                id="producttype"
-                                                name="producttype"
-                                                class="form-control"
-                                                required>
-                                            <option ng-repeat="producttype in producttypes" value="@{{producttype.id}}" ng-selected="">@{{producttype.name}}</option>
-                                        </select>
-                                        <div ng-show="ProductForm.producttype.$touched && ProductForm.producttype.$error">
-                                            <span class="help-block" ng-show="ProductForm.producttype.$error.required">
-                                                Please Select Site
-                                            </span>
-                                        </div>
+                                        <input 
+                                            type="text" 
+                                            id="productpartno" 
+                                            name="productpartno" 
+                                            ng-model="product.category" 
+                                            placeholder="Product Category" 
+                                            class="form-control"
+                                            disabled>
                                     </div>
                                 </div>
 

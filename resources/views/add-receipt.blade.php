@@ -278,11 +278,11 @@
                                 </div>
                                 <div class="row form-group">
                                     <div class="col col-md-3">
-                                        <label for="ga-no" class=" form-control-label">GA No. <span class="mandatory">*</span></label>
+                                        <label for="gs-no" class=" form-control-label">GS No. <span class="mandatory">*</span></label>
                                     </div>
                                     <div class="col-12 col-md-6">
-                                        <input type="text" id="ga-no" name="ga-no" placeholder="GA No..." class="form-control">
-                                        <span class="help-block">Please Enter GA Number</span>
+                                        <input type="text" id="ga-no" name="ga-no" placeholder="GS No..." class="form-control">
+                                        <span class="help-block">Please Enter GS Number</span>
                                     </div>
                                 </div>
                                 <div class="row form-group">

@@ -14668,3 +14668,12 @@ section {
 .b-b-2 {
     border-bottom: 2px solid #f5f5f5;
 }
+
+.selectize-control.single .selectize-input, .selectize-dropdown.single {
+    border-color: #d8dce1 !important;
+}
+
+.selectize-control.single .selectize-input {
+    background-image: unset !important;
+    background-color: #ffffff !important;
+}
