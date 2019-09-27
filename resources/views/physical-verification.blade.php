@@ -112,7 +112,7 @@
                                             </button>
                                             <button class="item" data-toggle="tooltip" data-placement="top"
                                                     title="Delete"
-                                                    ng-click="OpenPVForm(item.receipt_no);">
+                                                    ng-click="AddPVForm(item);">
                                                 <i class="zmdi zmdi-plus-box"></i>
                                             </button>
                                             <button class="item" data-toggle="tooltip" data-placement="top"
@@ -248,7 +248,7 @@
                                                                 class="mandatory">*</span></label>
                                                 </div>
                                                 <div class="col-12 col-md-9">
-                                                    <input type="text" id="rid" name="rid" placeholder="RID No"
+                                                    <input type="text" id="rid" name="rid" placeholder="RID No" disabled
                                                            class="form-control"
                                                            ng-model="physicalVerification.rid"
                                                            disabled>

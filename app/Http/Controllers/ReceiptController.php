@@ -114,9 +114,9 @@ class ReceiptController extends Controller
         }
 
         $PVM->receipt_no = $physical ['receipt_no'];
-        $PVM->rid = $physical['rid'];
         $PVM->docket_details = $physical ['docket_details'];
         $PVM->courier_name = $physical ['courier_name'];
+        $PVM->rid = 23;
         $date = Carbon::createFromFormat('d/m/Y', $physical ['pvdate']);
         $PVM->pvdate = $date->format('Y-m-d');
         $PVM->product = $physical ['product'];

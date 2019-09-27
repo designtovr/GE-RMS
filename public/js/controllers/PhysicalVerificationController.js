@@ -115,6 +115,20 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 		console.log(	$scope.physicalVerification);
 	}
 
+    $scope.AddPVForm = function(receipt) {
+
+        $scope.physicalVerification = receipt;
+        $scope.physicalVerification.case_condition = 0;
+        $scope.physicalVerification.rid = '';
+        $scope.physicalVerification.battery_condition = 0;
+        $scope.physicalVerification.terminal_blocks_condition = 0;
+        $scope.physicalVerification.top_bottom_cover_condition = 0;
+        $scope.physicalVerification.short_links_condition = 0;
+
+        $scope.pvform = true;
+        console.log($scope.physicalVerification);
+    }
+
 	$scope.DeletePV = function(id)
 	{
 		$ngConfirm({
