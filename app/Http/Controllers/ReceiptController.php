@@ -102,10 +102,12 @@ class ReceiptController extends Controller
 
         $physical = $request->get('physicalverification');
         $exists = true;
-        $PVM = PhysicalVerificationMaster::where('receipt_no', $physical['receipt_no'])->first();
 
+        if($physical['rid']) {
+            $PVM = PhysicalVerificationMaster::where('rid', $physical['rid'])->first();
+        }
 
-        if (!$PVM)
+        else
         {
             $PVM = new PhysicalVerificationMaster();
             $exists = false;
@@ -123,11 +125,9 @@ class ReceiptController extends Controller
         $PVM->serial_no = $physical ['serial_no'];
         $PVM->defect = $physical ['defect'];
         $PVM->case = $physical ['case'];
-        $PVM->defect = $physical ['defect'];
         $PVM->case_condition = $physical ['case_condition'];
         $PVM->battery = $physical ['battery'];
         $PVM->battery_condition = $physical ['battery_condition'];
-        $PVM->terminal_blocks = $physical ['terminal_blocks'];
         $PVM->top_bottom_cover = $physical ['top_bottom_cover'];
         $PVM->terminal_blocks = $physical ['terminal_blocks'];
         $PVM->terminal_blocks_condition = $physical ['terminal_blocks_condition'];

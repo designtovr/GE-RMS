@@ -112,6 +112,11 @@
                                             </button>
                                             <button class="item" data-toggle="tooltip" data-placement="top"
                                                     title="Delete"
+                                                    ng-click="OpenPVForm(item.receipt_no);">
+                                                <i class="zmdi zmdi-plus-box"></i>
+                                            </button>
+                                            <button class="item" data-toggle="tooltip" data-placement="top"
+                                                    title="Delete"
                                                     ng-click="DeletePV(item.receipt_no);">
                                                 <i class="zmdi zmdi-delete"></i>
                                             </button>
@@ -236,9 +241,7 @@
                                                     <input type="text" id="rid" name="rid" placeholder="RID No"
                                                            class="form-control"
                                                            ng-model="physicalVerification.rid"
-                                                           ng-minlength="3"
-                                                           ng-maxlength="10"
-                                                           required>
+                                                           disabled>
                                                     <div ng-show="EditPhysicalVerification.rid.$touched && EditPhysicalVerification.rid.$error">
 
                                                         <span class="help-block"
@@ -746,10 +749,25 @@
                                                         Order/WBS No <span class="mandatory">*</span></label>
                                                 </div>
                                                 <div class="col-12 col-md-6">
-                                                    <input type="text" id="sales-order-no" name="sales-order-no"
+                                                    <input type="text" id="sales-order-no" name="sales_order_no"
                                                            ng-model="physicalVerification.sales_order_no"
                                                            placeholder="Sale Order/WBS No" class="form-control">
-                                                    <span class="help-block">Please Enter Model No</span>
+
+                                                    <div ng-show="EditPhysicalVerification.sales_order_no.$touched && EditPhysicalVerification.sales_order_no.$error">
+
+                                                        <span class="help-block"
+                                                              ng-show="EditPhysicalVerification.sales_order_no.$error.required">Please Enter Model No</span>
+
+                                                        <span class="help-block"
+                                                              ng-show="EditPhysicalVerification.sales_order_no.$error.minlength">
+                                                                Minimum 3 Characters Required
+                                                        </span>
+
+                                                        <span class="help-block"
+                                                              ng-show="EditPhysicalVerification.sales_order_no.$error.maxlength">
+                                                            Maximum 10 Characters Allowed
+                                                        </span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

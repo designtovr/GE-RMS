@@ -53,7 +53,7 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 		}).then(function success(response){
 			if (response.status == 200)
 			{
-				alert(response.data.messagae)
+				alert(response.data.message)
 				$scope.ClosePVForm();
 				/*$('#customermodal').modal('hide');*/
 				$scope.getReceipts();

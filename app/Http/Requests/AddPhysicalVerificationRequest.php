@@ -25,51 +25,67 @@ class AddPhysicalVerificationRequest extends FormRequest
     {
         return [
 
-            /*'receipt.receipt_no' => 'required|numeric|min:3|max:10',
-            'receipt.re_date' => 'required|numeric|min:3|max:20',
-            'customer.cu_name' => 'required|string|min:3|max:100',
-            'customer.end_cusname' => 'required|string|min:3|max:20',
-            'customer.courier_name' => 'required|string|min:9|max:9',
-            'customer.docket_details' => 'required|string|min:9|max:9',
-            'customer.contact' => 'required|numeric|digits_between:10,15',
-            'customer.no_of_boxes' => 'required|numeric|digits_between:10,15',*/
+
+            'physicalverification.receipt_no' => 'required|numeric',
+
+             'physicalverification.courier_name' => 'required|string|min:3|max:9',
+            'physicalverification.docket_details' => 'required|string|min:3|max:9',
+            'physicalverification.pvdate' => 'required|string',
+            'physicalverification.product' => 'required|string|min:3|max:100',
+            'physicalverification.product_type' => 'required|string|min:3|max:20',
+            'physicalverification.defect' => 'required|string',
+            'physicalverification.case' => 'required|numeric|digits_between:1,15',
+            'physicalverification.serial_no' => 'required|string',
+            'physicalverification.model_no' => 'required|string',
+            'physicalverification.battery' => 'required|numeric|digits_between:0,3',
+            'physicalverification.case_condition' => 'required|numeric|digits_between:0,3',
+            'physicalverification.battery_condition' => 'required|numeric|digits_between:0,15',
+            'physicalverification.terminal_blocks' => 'required|numeric|digits_between:0,15',
+            'physicalverification.terminal_blocks_condition' => 'required|numeric|digits_between:0,15',
+            'physicalverification.top_bottom_cover' => 'required|numeric|digits_between:0,15',
+            'physicalverification.sales_order_no' => 'required|numeric|digits_between:0,15',
+            'physicalverification.short_links_condition' => 'required|numeric|digits_between:0,15',
+            'physicalverification.short_links' => 'required|numeric|digits_between:0,15',
+            'physicalverification.top_bottom_cover_condition' => 'required|numeric|digits_between:0,15',
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'physicalverification.receipt_no' => 'Receipt number',
+            'physicalverification.rid' => 'RID ',
+            'physicalverification.courier_name' => 'Courier Name',
+            'physicalverification.docket_details' => 'Docket Details Name',
+            'physicalverification.pvdate' => 'Physical Verification Date ',
+            'physicalverification.product' => 'Product',
+            'physicalverification.product_type' => 'Product Type',
+            'physicalverification.defect' => 'Defect',
+            'physicalverification.case' => 'Case',
+            'physicalverification.serial_no' => 'Serial Number',
+            'physicalverification.model_no' => 'Model Number',
+            'physicalverification.battery' => 'Battery',
+            'physicalverification.case_condition' => 'Case Condition',
+            'physicalverification.battery_condition' => 'Battery Condition',
+            'physicalverification.terminal_blocks' => 'Terminal Blocks',
+            'physicalverification.terminal_blocks_condition' => 'Terminal Blocks Condition',
+            'physicalverification.top_bottom_cover' => 'Top Bottom Cover',
+            'physicalverification.sales_order_no' => 'Sales Order Number',
+            'physicalverification.short_links_condition' => 'Short Links Condition',
+            'physicalverification.top_bottom_cover_condition' => 'Top Bottom Cover Condition',
+            'physicalverification.short_links' => 'Short Links',
         ];
     }
 
     public function messages()
     {
         return [
-            'customer.code.required' => 'Customer Code Is Required',
-            'customer.code.string' => 'Customer Code Should Be String',
-            'customer.code.min' => 'Customer Code Should Not Be Less Than 3',
-            'customer.code.max' => 'Customer Code Should Not Be Greater Than 10',
-            'customer.name.required'  => 'Customer Name Is Required',
-            'customer.name.string'  => 'Customer Name Should Be String',
-            'customer.name.min' => 'Customer Name Should Not Be Less Than 3',
-            'customer.name.max' => 'Customer Name Should Not Be Greater Than 20',
-            'customer.address.required' => 'Address Is Required',
-            'customer.address.string' => 'Address Should Be String',
-            'customer.address.min' => 'Address Should Not Be Less Than 3',
-            'customer.address.max' => 'Address Should Not Be Greater Than 100',
-            'customer.contact_person.required' => 'Contact Person Is Required',
-            'customer.contact_person.string' => 'Contact Person Should Be String',
-            'customer.contact_person.min' => 'Contact Person Should Not Be Less Than 3',
-            'customer.contact_person.max' => 'Contact Person Should Not Be Greater Than 20',
-            'customer.tin.required' => 'TIN Is Required',
-            'customer.tin.string' => 'TIN Should Be String',
-            'customer.tin.min' => 'TIN Is Should Not Be Less Than 3',
-            'customer.tin.max' => 'TIN Is Should Not Be Greater Than 20',
-            'customer.email.required' => 'Email Is Required',
-            'customer.email.email' => 'Envalid Email Format',
-            'customer.contact.required' => 'Contact Is Required',
-            'customer.contact.numeric' => 'Contact Should Be Numeric',
-            'customer.contact.digits_between' => 'Contact Should Be Between 10 To 15 Digits',
-            'customer.site_id.required' => 'Site ID Is Required',
-            'customer.site_id.numeric' => 'Site ID Should Be Numeric',
-            'customer.site_id.exists' => 'Invalid Site ID',
-            'customer.location_id.required' => 'Location ID Is Required',
-            'customer.location_id.numeric' => 'Location ID Should Be Numeric',
-            'customer.location_id.exists' => 'Invalid Location ID',
+            'required' => ' :attribute is Required',
+            'min' => ' :attribute Should Not Be Less Than :min',
+            'max' => ' :attribute Should Not Be Greater Than :max',
+            'string' => ' :attribute Should Be String',
+            'numeric' => ' :attribute Should Be Number',
+            'digits_between' => ' :attribute value is invalid',
         ];
     }
 }

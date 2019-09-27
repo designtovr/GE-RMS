@@ -198,12 +198,13 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
 	Route::post('/getrma/{id}', 'RMAController@GetRma');
 	Route::post('/addrma', 'RMAController@AddRMA');
 
-	/*Receipt Get and Post*/
+	/*Receipt Get and Post ,Delete*/
     Route::get('/receipts','ReceiptController@Receipts');
 
     Route::post('/addreceipt', 'ReceiptController@AddReceipt');
     Route::get('/getreceipt/{id}', 'ReceiptController@GetReceipt');
 
+    Route::delete('/receipt/{id}', 'ReceiptController@DeleteReceipt');
     /*End Receipt*/
 
 
@@ -217,8 +218,10 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
 
 
 
-    Route::get('/addphysicalverification' , 'ReceiptController@AddPhysicalVerification');
-
+  
+    Route::post('/addphysicalverification' , 'ReceiptController@AddPhysicalVerification');
+    Route::get('/GetPhysicalVerification/{id}', 'ReceiptController@GetPhysicalVerification');
+    Route::delete('/physicalverification/{id}', 'ReceiptController@DeleteReceipt');
 
 	Route::post('/addproducttype', 'ProductTypeController@AddProductType');
 

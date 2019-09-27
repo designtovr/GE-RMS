@@ -21,6 +21,7 @@ class AddReceiptRequest extends FormRequest
      *
      * @return array
      */
+
     public function rules()
     {
         return [
