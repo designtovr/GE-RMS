@@ -141,7 +141,7 @@
                                                     type="text"
                                                     id="receipt_no"
                                                     name="receipt_no"
-                                                        ng-model="receipt.receipt_no"
+                                                    ng-model="receipt.receipt_no"
                                                     placeholder="Receipt No"
                                                     class="form-control"
                                                     ng-minlength="3"
@@ -149,7 +149,7 @@
 {{--                                                    ng-disabled="EditReceipt"--}}
                                                     required>
                                             <div ng-show="AddReceiptForm.receipt_no.$touched && AddReceiptForm.receipt_no.$error">
-                                            <span class="help-block"
+                                            <span class="help-block form-text"
                                                   ng-show="AddReceiptForm.receipt_no.$error.required">
                                                 Please Enter Receipt Number
                                             </span>

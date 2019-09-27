@@ -136,6 +136,16 @@
                                 <strong>Physical Verification</strong> Form
                             </div>
                             <div class="card-body card-block">
+                                <div class="filters m-b-45">
+                                    <div class="rs-select2--dark rs-select2--md m-r-10 rs-select2--border">
+                                        <select class="js-select2" name="property">
+                                            <option selected="selected">All Properties</option>
+                                            <option value="">Products</option>
+                                            <option value="">Services</option>
+                                        </select>
+                                        <div class="dropDownSelect2"></div>
+                                    </div>
+                                </div>
                                 <form action="" method="post" class="form-horizontal" name="EditPhysicalVerification">
                                     <div class="row">
                                         <div class="col-md-6">
@@ -309,7 +319,7 @@
                                                            required>
                                                     <div ng-show="EditPhysicalVerification.product.$touched && EditPhysicalVerification.product.$error">
 
-                                                        <span class="help-block"
+                                                        <span class="help-block form-text"
                                                               ng-show="EditPhysicalVerification.product.$error.required">Please Enter Product</span>
 
                                                         <span class="help-block"

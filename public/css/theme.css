@@ -898,7 +898,7 @@ section {
 .rs-select2--dark .select2-container--default .select2-selection--single {
     border: none;
     outline: none;
-    padding-left: 18px;
+    /*padding-left: 18px;*/
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
@@ -922,13 +922,14 @@ section {
 }
 
 .rs-select2--dark .select2-container .select2-selection--single .select2-selection__rendered {
-    padding: 0;
+    /*padding: 0;*/
 }
 
 .rs-select2--dark .select2-container--default .select2-selection--single .select2-selection__arrow {
     height: 40px;
     top: 0;
-    right: 13px;
+    /*right: 13px;*/
+    right: 0px;
 }
 
 .rs-select2--dark .select2-container--default .select2-selection--single .select2-selection__arrow b {
