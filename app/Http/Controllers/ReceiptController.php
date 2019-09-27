@@ -24,23 +24,14 @@ class ReceiptController extends Controller
 
     public function GetReceipt($id)
     {
-        $receipt = ReceiptMaster::selectRaw('receipt.*, receipt_no, st.name as site_name, loc.id as location_id, loc.name as location_name')->leftJoin('ma_customer_site_trans as cst', 'ma_customer.id', '=', 'cst.customer_id')->leftJoin('ma_site as st', 'st.id', '=', 'cst.site_id')->leftJoin('ma_customer_location_trans as clt', 'clt.customer_id', 'ma_customer.id')->leftJoin('ma_location as loc', 'clt.location_id', '=', 'loc.id')->where('ma_customer.id', $id)->first();
+        $receipt = ReceiptMaster::selectRaw('receipt.*, receipt_no, st.name as site_name, loc.id as location_id, loc.name as location_name')->leftJoin('ma_customer_site_trans as cst', 'ma_customer.id', '=', 'cst.customer_id')->leftJoin('ma_site as st', 'st.id', '=', 'cst.site_id')->leftJoin('ma_customer_location_trans as clt', 'clt.customer_id', 'ma_customer.id')->leftJoin('ma_location as loc', 'clt.location_id', '=', 'loc.id')->where('receipt.id', $id)->first();
         return response()->json(['receipt' => $receipt], 200);
     }
 
-    public function GetPhysicalVerification($id)
+    public function GetReceiptByReceiptNo($receipt_no)
     {
-
-        $physicalverification = PhysicalVerificationMaster::selectRaw('physical_verification.*')->where('receipt_no', $id)->first();
-
-        if($physicalverification) {
-            return response()->json(['physicalverification' => $physicalverification , 'status' => 'Edit'], 200);
-        }
-
-        else
-        {
-            return response()->json(['physicalverification' => $physicalverification , 'status' => 'New'],200);
-        }
+        $receipt = ReceiptMaster::selectRaw('receipt.*')->where('receipt.receipt_no', $receipt_no)->first();
+        return response()->json(['receipt' => $receipt], 200);
     }
 
     public function AddReceipt(AddReceiptRequest $request)

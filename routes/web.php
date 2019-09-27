@@ -203,6 +203,7 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
 
     Route::post('/addreceipt', 'ReceiptController@AddReceipt');
     Route::get('/getreceipt/{id}', 'ReceiptController@GetReceipt');
+    Route::get('/getreceiptbyreceiptno/{receipt_no}', 'ReceiptController@GetReceiptByReceiptNo');
 
     Route::delete('/receipt/{id}', 'ReceiptController@DeleteReceipt');
     /*End Receipt*/
@@ -219,8 +220,8 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
 
 
   
-    Route::post('/addphysicalverification' , 'ReceiptController@AddPhysicalVerification');
-    Route::get('/GetPhysicalVerification/{id}', 'ReceiptController@GetPhysicalVerification');
+    Route::post('/addphysicalverification' , 'PhysicalVerificationController@AddPhysicalVerification');
+    Route::get('/GetPhysicalVerification/{id}', 'PhysicalVerificationController@GetPhysicalVerification');
     Route::delete('/physicalverification/{id}', 'ReceiptController@DeleteReceipt');
 
 	Route::post('/addproducttype', 'ProductTypeController@AddProductType');

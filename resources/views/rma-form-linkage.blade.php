@@ -60,8 +60,8 @@
                                     <th>
                                         Select
                                     </th>
-                                    <th>RMA Reference No</th>
-                                    <th>GA No.</th>
+                                    <th>RMA Ref. No</th>
+                                    <th>GS No.</th>
                                     <th>Date</th>
                                     <th>Customer Name</th>
                                     <th>Quantity</th>

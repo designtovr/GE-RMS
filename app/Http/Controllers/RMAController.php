@@ -50,7 +50,6 @@ class RMAController extends Controller
     public function AddRMA(ADDRMARequest $request)
     {
     	$requestdata = $request->get('rma');
-    	//return "mbj";
     	$RMA = new RMA();
     	$RMA->rma_reference_no = $requestdata['ref_no'];
     	$RMA->gs_no = $requestdata['gs_no'];

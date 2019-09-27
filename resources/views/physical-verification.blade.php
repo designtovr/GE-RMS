@@ -2,7 +2,7 @@
 @section('title', 'Physical Verification List')
 @section('content')
     <div class="main-content" ng-controller="PhysicalVerificationController">
-        <div class="section__content section__content--p30" ng-init="getReceipts();">
+        <div class="section__content section__content--p30" ng-init="getReceipts();GetProductList();">
             <div class="container-fluid">
                 <div class="row" ng-show="!pvform">
                     <div class="col-md-12">
@@ -107,12 +107,12 @@
                                     <td>
                                         <div class="table-data-feature">
                                             <button class="item" data-toggle="tooltip" data-placement="top" title="Edit"
-                                                    ng-click="OpenPVForm(item);">
+                                                    ng-click="OpenPVForm(item, true);">
                                                 <i class="zmdi zmdi-edit"></i>
                                             </button>
                                             <button class="item" data-toggle="tooltip" data-placement="top"
-                                                    title="Delete"
-                                                    ng-click="AddPVForm(item);">
+                                                    title="Add"
+                                                    ng-click="OpenPVForm(item, false);">
                                                 <i class="zmdi zmdi-plus-box"></i>
                                             </button>
                                             <button class="item" data-toggle="tooltip" data-placement="top"
@@ -136,14 +136,21 @@
                                 <strong>Physical Verification</strong> Form
                             </div>
                             <div class="card-body card-block">
-                                <div class="filters m-b-45">
-                                    <div class="rs-select2--dark rs-select2--md m-r-10 rs-select2--border">
-                                        <select class="js-select2" name="property">
-                                            <option selected="selected">All Properties</option>
-                                            <option value="">Products</option>
-                                            <option value="">Services</option>
-                                        </select>
-                                        <div class="dropDownSelect2"></div>
+                                <div class="row" ng-show="physicalVerification.edit">
+                                    <div class="col-md-6">
+                                        <div class="row form-group">
+                                            <div class="col col-md-3">
+                                                <label for="receipt-no" class=" form-control-label">RID <span
+                                                            class="mandatory">*</span></label>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <select name="selected"
+                                                    ng-model="selected"
+                                                    id="selected" class="form-control" ng-options="ridoption as ridoption.rid for ridoption in ridoptions" ng-change="AssignValuesInEditForms();">
+                                                    <option value="" style="display:none"></option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <form action="" method="post" class="form-horizontal" name="EditPhysicalVerification">
@@ -241,32 +248,17 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-6" ng-show="physicalVerification.edit">
                                             <div class="row form-group">
                                                 <div class="col col-md-3">
                                                     <label for="rid" class=" form-control-label">RID No <span
-                                                                class="mandatory">*</span></label>
+                                                        class="mandatory">*</span></label>
                                                 </div>
                                                 <div class="col-12 col-md-9">
-                                                    <input type="text" id="rid" name="rid" placeholder="RID No" disabled
+                                                    <input type="text" id="rid" name="rid" placeholder="RID No"
                                                            class="form-control"
                                                            ng-model="physicalVerification.rid"
                                                            disabled>
-                                                    <div ng-show="EditPhysicalVerification.rid.$touched && EditPhysicalVerification.rid.$error">
-
-                                                        <span class="help-block"
-                                                              ng-show="EditPhysicalVerification.rid.$error.required">Please Enter RID No</span>
-
-                                                        <span class="help-block"
-                                                              ng-show="EditPhysicalVerification.rid.$error.minlength">
-                                                                Minimum 3 Characters Required
-                                                        </span>
-
-                                                        <span class="help-block"
-                                                              ng-show="EditPhysicalVerification.rid.$error.maxlength">
-                                                            Maximum 10 Characters Allowed
-                                                        </span>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -311,26 +303,17 @@
                                                                 class="mandatory">*</span></label>
                                                 </div>
                                                 <div class="col-12 col-md-9">
-                                                    <input type="text" id="product" name="product" placeholder="Product"
-                                                           class="form-control"
-                                                           ng-model="physicalVerification.product"
-                                                           ng-minlength="3"
-                                                           ng-maxlength="10"
-                                                           required>
+                                                    <select id="product" name="product"
+                                                    ng-model="physicalVerification.product"
+                                                    class="form-control"
+                                                    ng-change="ChangeProductType();"
+                                                    ng-options="product as product.type_name for product in products" required>
+                                                        <option value="" style="display:none"></option>>
+                                                    </select>
                                                     <div ng-show="EditPhysicalVerification.product.$touched && EditPhysicalVerification.product.$error">
-
                                                         <span class="help-block form-text"
-                                                              ng-show="EditPhysicalVerification.product.$error.required">Please Enter Product</span>
-
-                                                        <span class="help-block"
-                                                              ng-show="EditPhysicalVerification.product.$error.minlength">
-                                                                Minimum 3 Characters Required
-                                                        </span>
-
-                                                        <span class="help-block"
-                                                              ng-show="EditPhysicalVerification.product.$error.maxlength">
-                                                            Maximum 10 Characters Allowed
-                                                        </span>
+                                                              ng-show="EditPhysicalVerification.product.$error.required">Please Select Product
+                                                          </span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -338,31 +321,14 @@
                                         <div class="col-md-6">
                                             <div class="row form-group">
                                                 <div class="col col-md-3">
-                                                    <label for="product-type" class=" form-control-label">Product Type
+                                                    <label for="product_category" class=" form-control-label">Product Category
                                                         <span class="mandatory">*</span></label>
                                                 </div>
                                                 <div class="col-12 col-md-9">
-                                                    <input type="text" id="product-type" name="product_type"
-                                                           placeholder="Product Type" class="form-control"
-                                                           ng-model="physicalVerification.product_type"
-                                                           ng-minlength="3"
-                                                           ng-maxlength="10"
-                                                           required>
-                                                    <div ng-show="EditPhysicalVerification.product_type.$touched && EditPhysicalVerification.product_type.$error">
-
-                                                        <span class="help-block"
-                                                              ng-show="EditPhysicalVerification.product_type.$error.required">Please Enter Product Type</span>
-
-                                                        <span class="help-block"
-                                                              ng-show="EditPhysicalVerification.product_type.$error.minlength">
-                                                                Minimum 3 Characters Required
-                                                        </span>
-
-                                                        <span class="help-block"
-                                                              ng-show="EditPhysicalVerification.product_type.$error.maxlength">
-                                                            Maximum 10 Characters Allowed
-                                                        </span>
-                                                    </div>
+                                                    <input type="text" id="product_category" name="product_category"
+                                                       placeholder="Product Category" class="form-control"
+                                                       ng-model="physicalVerification.product_category"
+                                                       disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -371,16 +337,13 @@
                                         <div class="col-md-6">
                                             <div class="row form-group">
                                                 <div class="col col-md-3">
-                                                    <label for="model-no" class=" form-control-label">Model No <span
-                                                                class="mandatory">*</span></label>
+                                                    <label for="model-no" class=" form-control-label">Model No <span class="mandatory">*</span></label>
                                                 </div>
                                                 <div class="col-12 col-md-9">
                                                     <input type="text" id="model-no" name="model-no"
                                                            placeholder="Model No" class="form-control"
                                                            ng-model="physicalVerification.model_no"
-                                                           ng-minlength="3"
-                                                           ng-maxlength="10"
-                                                           required>
+                                                           disabled>
 
                                                     <div ng-show="EditPhysicalVerification.model_no.$touched && EditPhysicalVerification.model_no.$error">
 
@@ -403,11 +366,11 @@
                                         <div class="col-md-6">
                                             <div class="row form-group">
                                                 <div class="col col-md-3">
-                                                    <label for="serial-no" class=" form-control-label">Serial No <span
+                                                    <label for="serial_no" class=" form-control-label">Serial No <span
                                                                 class="mandatory">*</span></label>
                                                 </div>
                                                 <div class="col-12 col-md-9">
-                                                    <input type="text" id="serial-no" name="serial_no"
+                                                    <input type="text" id="serial_no" name="serial_no"
                                                            placeholder="Serial No" class="form-control"
                                                            ng-model="physicalVerification.serial_no"
                                                            ng-minlength="3"
@@ -441,27 +404,28 @@
                                                         Customer <span class="mandatory">*</span></label>
                                                 </div>
                                                 <div class="col-12 col-md-9">
-                                                    <input type="text" id="defect" name="defect"
-                                                           placeholder="Defect Mentioned by Customer"
-                                                           class="form-control"
-                                                           ng-model="physicalVerification.defect"
-                                                           ng-minlength="3"
-                                                           ng-maxlength="10"
-                                                           required>
-
+                                                   <textarea 
+                                                    type="text" 
+                                                    id="defect" 
+                                                    name="defect"
+                                                    ng-model="physicalVerification.defect"
+                                                    placeholder="Defect Mentioned by Customer" 
+                                                    class="form-control"
+                                                    ng-minlength="3" 
+                                                    ng-maxlength="200"
+                                                    rows="4"
+                                                    required>
+                                                    </textarea>
                                                     <div ng-show="EditPhysicalVerification.defect.$touched && EditPhysicalVerification.defect.$error">
-
                                                         <span class="help-block"
-                                                              ng-show="EditPhysicalVerification.defect.$error.required">Please Enter Receipt NumberPlease Enter Defect Mentioned by Customer</span>
-
+                                                              ng-show="EditPhysicalVerification.defect.$error.required">Please Enter Defect Mentioned by Customer</span>
                                                         <span class="help-block"
                                                               ng-show="EditPhysicalVerification.defect.$error.minlength">
                                                                 Minimum 3 Characters Required
                                                         </span>
-
                                                         <span class="help-block"
                                                               ng-show="EditPhysicalVerification.defect.$error.maxlength">
-                                                            Maximum 10 Characters Allowed
+                                                            Maximum 200 Characters Allowed
                                                         </span>
                                                     </div>
                                                 </div>
@@ -512,12 +476,11 @@
                                                         Condition <span class="mandatory">*</span></label>
                                                 </div>
                                                 <div class="col-12 col-md-6">
-                                                    <select name="case-condition"
+                                                    <select name="case_condition"
+                                                            ng-options="condition.value as condition.name for condition in conditions"
                                                             ng-model="physicalVerification.case_condition"
-                                                            id="case-condition" class="form-control" >
-                                                        <option value="0" ng-selected="physicalVerification.case_condition == 0">Please select</option>
-                                                        <option value="1" ng-selected="physicalVerification.case_condition == 1">Damaged</option>
-                                                        <option value="2" ng-selected="physicalVerification.case_condition == 2">Undamaged</option>
+                                                            id="case_condition" class="form-control" >
+                                                            <option style="display: none;" value=""></option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -559,18 +522,15 @@
                                         <div class="col-md-6">
                                             <div class="row form-group">
                                                 <div class="col col-md-3">
-                                                    <label for="case-condition" class=" form-control-label">Battery
+                                                    <label for="battery_condition" class=" form-control-label">Battery
                                                         Condition <span class="mandatory">*</span></label>
                                                 </div>
                                                 <div class="col-12 col-md-6">
-                                                    <select name="battery-condition"
+                                                    <select name="battery_condition"
+                                                            ng-options="condition.value as condition.name for condition in conditions"
                                                             ng-model="physicalVerification.battery_condition"
-                                                            id="battery-condition" class="form-control">
-                                                        <option value="0" ng-selected="physicalVerification.battery_condition == 0">Please select</option>
-                                                        <option value="1"
-                                                                ng-selected="physicalVerification.battery_condition == 1">Damaged</option>
-                                                        <option value="2"
-                                                                ng-selected="physicalVerification.battery_condition == 2">Undamaged</option>
+                                                            id="battery_condition" class="form-control" >
+                                                            <option style="display: none;" value=""></option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -585,26 +545,26 @@
                                                 </div>
                                                 <div class="col col-md-9">
                                                     <div class="form-check-inline form-check">
-                                                        <label for="terminal-blocks1" class="form-check-label ">
-                                                            <input type="radio" id="terminal-blocks1"
-                                                                   name="terminal-blocks"
+                                                        <label for="terminal_blocks1" class="form-check-label ">
+                                                            <input type="radio" id="terminal_blocks1"
+                                                                   name="terminal_blocks"
                                                                    ng-model="physicalVerification.terminal_blocks"
                                                                    value="1"
                                                                    ng-checked = "physicalVerification.terminal_blocks == 1"
 
                                                                    class="form-check-input">Yes
                                                         </label>
-                                                        <label for="terminal-blocks2" class="form-check-label ">
+                                                        <label for="terminal_blocks2" class="form-check-label ">
                                                             <input type="radio" id="terminal-blocks2"
-                                                                   name="terminal-blocks"
+                                                                   name="terminal_blocks"
                                                                    ng-model="physicalVerification.terminal_blocks"
                                                                    ng-checked = "physicalVerification.terminal_blocks == 2"
 
                                                                    value="2" class="form-check-input">No
                                                         </label>
-                                                        <label for="terminal-blocks3" class="form-check-label ">
-                                                            <input type="radio" id="terminal-blocks3"
-                                                                   name="terminal-blocks"
+                                                        <label for="terminal_blocks3" class="form-check-label ">
+                                                            <input type="radio" id="terminal_blocks3"
+                                                                   name="terminal_blocks"
                                                                    ng-model="physicalVerification.terminal_blocks"
                                                                    ng-checked = "physicalVerification.terminal_blocks == 3"
 
@@ -618,19 +578,15 @@
                                         <div class="col-md-6">
                                             <div class="row form-group">
                                                 <div class="col col-md-3">
-                                                    <label for="terminal-blocks-condition" class=" form-control-label">Terminal
+                                                    <label for="terminal_blocks_condition" class=" form-control-label">Terminal
                                                         Blocks Condition <span class="mandatory">*</span></label>
                                                 </div>
                                                 <div class="col-12 col-md-6">
-                                                    <select name="terminal-blocks-condition"
+                                                    <select name="terminal_blocks_condition"
+                                                            ng-options="condition.value as condition.name for condition in conditions"
                                                             ng-model="physicalVerification.terminal_blocks_condition"
-                                                            id="battery-condition" class="form-control">
-                                                        <option value="0"
-                                                                ng-selected="physicalVerification.terminal_blocks_condition == 0">Please select</option>
-                                                        <option value="1"
-                                                                ng-selected="physicalVerification.terminal_blocks_condition == 1">Damaged</option>
-                                                        <option value="2"
-                                                                ng-selected="physicalVerification.terminal_blocks_condition == 2">Undamaged</option>
+                                                            id="terminal_blocks_condition" class="form-control" >
+                                                            <option style="display: none;" value=""></option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -645,25 +601,25 @@
                                                 </div>
                                                 <div class="col col-md-9">
                                                     <div class="form-check-inline form-check">
-                                                        <label for="top-bottom-cover1" class="form-check-label ">
-                                                            <input type="radio" id="top-bottom-cover1"
-                                                                   name="top-bottom-cover"
+                                                        <label for="top_bottom_cover1" class="form-check-label ">
+                                                            <input type="radio" id="top_bottom_cover1"
+                                                                   name="top_bottom_cover"
                                                                    ng-model="physicalVerification.top_bottom_cover"
                                                                    ng-checked = "physicalVerification.top_bottom_cover == 1"
 
                                                                    value="1" class="form-check-input">Yes
                                                         </label>
-                                                        <label for="top-bottom-cover2" class="form-check-label ">
-                                                            <input type="radio" id="top-bottom-cover2"
-                                                                   name="top-bottom-cover"
+                                                        <label for="top_bottom_cover2" class="form-check-label ">
+                                                            <input type="radio" id="top_bottom_cover2"
+                                                                   name="top_bottom_cover"
                                                                    ng-model="physicalVerification.top_bottom_cover"
                                                                    ng-checked = "physicalVerification.top_bottom_cover == 2"
 
                                                                    value="2" class="form-check-input">No
                                                         </label>
-                                                        <label for="top-bottom-cover3" class="form-check-label ">
+                                                        <label for="top_bottom_cover3" class="form-check-label ">
                                                             <input type="radio" id="top-bottom-cover3"
-                                                                   name="top-bottom-cover"
+                                                                   name="top_bottom_cover"
                                                                    ng-model="physicalVerification.top_bottom_cover"
                                                                    ng-checked = "physicalVerification.top_bottom_cover == 3"
 
@@ -680,15 +636,11 @@
                                                         Access Cover Condition <span class="mandatory">*</span></label>
                                                 </div>
                                                 <div class="col-12 col-md-6">
-                                                    <select name="top-bottom-cover-condition"
+                                                    <select name="top_bottom_cover_condition"
+                                                            ng-options="condition.value as condition.name for condition in conditions"
                                                             ng-model="physicalVerification.top_bottom_cover_condition"
-                                                            id="top-bottom-cover" class="form-control">
-                                                        <option value="0"
-                                                                ng-selected="physicalVerification.top_bottom_cover_condition == 0">Please select</option>
-                                                        <option value="1"
-                                                                ng-selected="physicalVerification.top_bottom_cover_condition == 1">Damaged</option>
-                                                        <option value="2"
-                                                                ng-selected="physicalVerification.top_bottom_cover_condition == 2">Undamaged</option>
+                                                            id="top_bottom_cover_condition" class="form-control" >
+                                                            <option style="display: none;" value=""></option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -703,24 +655,24 @@
                                                 </div>
                                                 <div class="col col-md-9">
                                                     <div class="form-check-inline form-check">
-                                                        <label for="top-bottom-cover1" class="form-check-label ">
-                                                            <input type="radio" id="top-bottom-cover1"
+                                                        <label for="short_links1" class="form-check-label ">
+                                                            <input type="radio" id="short_links1"
                                                                    name="short_links"
                                                                    ng-model="physicalVerification.short_links" value="1"
                                                                    ng-checked = "physicalVerification.short_links == 1"
 
                                                                    class="form-check-input">Yes
                                                         </label>
-                                                        <label for="top-bottom-cover2" class="form-check-label ">
-                                                            <input type="radio" id="top-bottom-cover2"
+                                                        <label for="short_links2" class="form-check-label ">
+                                                            <input type="radio" id="short_links2"
                                                                    name="short_links"
                                                                    ng-model="physicalVerification.short_links" value="2"
                                                                    ng-checked = "physicalVerification.short_links == 2"
 
                                                                    class="form-check-input">No
                                                         </label>
-                                                        <label for="top-bottom-cover3" class="form-check-label ">
-                                                            <input type="radio" id="top-bottom-cover3"
+                                                        <label for="short_links3" class="form-check-label ">
+                                                            <input type="radio" id="short_links3"
                                                                    name="short_links"
                                                                    ng-model="physicalVerification.short_links" value="3"
                                                                    ng-checked = "physicalVerification.short_links == 3"
@@ -737,15 +689,11 @@
                                                         Links Condition <span class="mandatory">*</span></label>
                                                 </div>
                                                 <div class="col-12 col-md-6">
-                                                    <select name="top-bottom-cover-condition"
+                                                    <select name="short_links_condition"
+                                                            ng-options="condition.value as condition.name for condition in conditions"
                                                             ng-model="physicalVerification.short_links_condition"
-                                                            id="top-bottom-cover" class="form-control">
-                                                        <option value="0"
-                                                                ng-selected="physicalVerification.short_links_condition == 0">Please select</option>
-                                                        <option value="1"
-                                                                ng-selected="physicalVerification.short_links_condition == 1">Damaged</option>
-                                                        <option value="2"
-                                                                ng-selected="physicalVerification.short_links_condition == 2">Undamaged</option>
+                                                            id="short_links_condition" class="form-control" >
+                                                            <option style="display: none;" value=""></option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -755,18 +703,21 @@
                                         <div class="col-md-6">
                                             <div class="row form-group">
                                                 <div class="col col-md-3">
-                                                    <label for="sales-order-no" class=" form-control-label">Sale
+                                                    <label for="sales_order_no" class=" form-control-label">Sale
                                                         Order/WBS No <span class="mandatory">*</span></label>
                                                 </div>
                                                 <div class="col-12 col-md-6">
-                                                    <input type="text" id="sales-order-no" name="sales_order_no"
+                                                    <input type="text" id="sales_order_no" name="sales_order_no"
                                                            ng-model="physicalVerification.sales_order_no"
-                                                           placeholder="Sale Order/WBS No" class="form-control">
+                                                           placeholder="Sale Order/WBS No" class="form-control"
+                                                           ng-minlength="3"
+                                                           ng-maxlength="10"
+                                                           required>
 
                                                     <div ng-show="EditPhysicalVerification.sales_order_no.$touched && EditPhysicalVerification.sales_order_no.$error">
 
                                                         <span class="help-block"
-                                                              ng-show="EditPhysicalVerification.sales_order_no.$error.required">Please Enter Model No</span>
+                                                              ng-show="EditPhysicalVerification.sales_order_no.$error.required">Please Enter Sales Order No</span>
 
                                                         <span class="help-block"
                                                               ng-show="EditPhysicalVerification.sales_order_no.$error.minlength">

@@ -25,28 +25,28 @@ class AddPhysicalVerificationRequest extends FormRequest
     {
         return [
 
-
+            'physicalverification.rid' => 'nullable|exists:physical_verification,rid',
             'physicalverification.receipt_no' => 'required|numeric',
 
              'physicalverification.courier_name' => 'required|string|min:3|max:9',
             'physicalverification.docket_details' => 'required|string|min:3|max:9',
             'physicalverification.pvdate' => 'required|string',
-            'physicalverification.product' => 'required|string|min:3|max:100',
-            'physicalverification.product_type' => 'required|string|min:3|max:20',
+            'physicalverification.product_id' => 'required|exists:ma_product,id',
+            /*'physicalverification.product_type' => 'required|string|min:3|max:20',*/
             'physicalverification.defect' => 'required|string',
             'physicalverification.case' => 'required|numeric|digits_between:1,15',
             'physicalverification.serial_no' => 'required|string',
             'physicalverification.model_no' => 'required|string',
             'physicalverification.battery' => 'required|numeric|digits_between:0,3',
             'physicalverification.case_condition' => 'required|numeric|digits_between:0,3',
-            'physicalverification.battery_condition' => 'required|numeric|digits_between:0,15',
-            'physicalverification.terminal_blocks' => 'required|numeric|digits_between:0,15',
-            'physicalverification.terminal_blocks_condition' => 'required|numeric|digits_between:0,15',
-            'physicalverification.top_bottom_cover' => 'required|numeric|digits_between:0,15',
-            'physicalverification.sales_order_no' => 'required|numeric|digits_between:0,15',
-            'physicalverification.short_links_condition' => 'required|numeric|digits_between:0,15',
-            'physicalverification.short_links' => 'required|numeric|digits_between:0,15',
-            'physicalverification.top_bottom_cover_condition' => 'required|numeric|digits_between:0,15',
+            'physicalverification.battery_condition' => 'required|numeric|digits_between:0,3',
+            'physicalverification.terminal_blocks' => 'required|numeric|digits_between:0,3',
+            'physicalverification.terminal_blocks_condition' => 'required|numeric|digits_between:0,3',
+            'physicalverification.top_bottom_cover' => 'required|numeric|digits_between:0,3',
+            'physicalverification.sales_order_no' => 'required|string|min:3|max:15',
+            'physicalverification.short_links_condition' => 'required|numeric|digits_between:0,3',
+            'physicalverification.short_links' => 'required|numeric|digits_between:0,3',
+            'physicalverification.top_bottom_cover_condition' => 'required|numeric|digits_between:0,3',
         ];
     }
 
@@ -86,6 +86,7 @@ class AddPhysicalVerificationRequest extends FormRequest
             'string' => ' :attribute Should Be String',
             'numeric' => ' :attribute Should Be Number',
             'digits_between' => ' :attribute value is invalid',
+            'exists' => 'Invalid :attribute',
         ];
     }
 }

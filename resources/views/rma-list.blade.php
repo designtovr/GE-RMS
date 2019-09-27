@@ -140,7 +140,7 @@
 	                                        id="gs_no" 
 	                                        name="gs_no" 
 	                                        ng-model="rmaformdata.gs_no"
-	                                        placeholder="GA No"
+	                                        placeholder="GS No"
 	                                        class="form-control"
 	                                        ng-minlength="3" 
 	                                        ng-maxlength="10"
