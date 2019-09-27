@@ -1,4 +1,4 @@
-var app = angular.module("ge", ['dataGrid', 'pagination', 'ui-notification', 'cp.ngConfirm'], function($interpolateProvider){
+var app = angular.module("ge", ['dataGrid', 'pagination', 'ui-notification', 'cp.ngConfirm', 'ui.select', 'ngSanitize', 'ui.bootstrap'], function($interpolateProvider){
 	/*$interpolateProvider.startSymbol('<%');
     $interpolateProvider.endSymbol('%>');*/
 });

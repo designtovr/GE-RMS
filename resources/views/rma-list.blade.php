@@ -2,7 +2,7 @@
 @section('title', 'RMA List')
 @section('content')
 <div class="main-content" ng-controller="RMAController">
-	<div class="section__content section__content--p30" ng-init="Initiate();">
+	<div class="section__content section__content--p30" ng-init="GetRMAList();InitiateForm();">
 	    <div class="container-fluid">
 	    	<div class="row" ng-show="!showrmaform">
 				<div class="col-md-12">
@@ -56,206 +56,54 @@
 			    </div>
 	            <div class="col-md-12">
 	                <!-- DATA TABLE-->
-	                <div class="table-responsive m-b-40">
-	                    <table class="table table-borderless table-data3">
-	                        <thead>
-	                            <tr>
-	                                <th>RMA Reference No</th>
-	                                <th>GA No.</th>
-	                                <th>Date</th>
-	                                <th>Customer Name</th>
-	                                <th>Faulty Unit Quantity</th>
-	                                <th>Total Faulty Units</th>
-	                            </tr>
-	                        </thead>
-	                        <tbody>
-	                            <tr>
-	                                <td>2018-09-29 05:57</td>
-	                                <td>Mobile</td>
-	                                <td>iPhone X 64Gb Grey</td>
-	                                <td class="process">Processed</td>
-	                                <td>$999.00</td>
-	                                <td>
-		                                <div class="table-data-feature">
-		                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
-		                                        <i class="zmdi zmdi-mail-send"></i>
-		                                    </button>
-		                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-		                                        <i class="zmdi zmdi-edit"></i>
-		                                    </button>
-		                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-		                                        <i class="zmdi zmdi-delete"></i>
-		                                    </button>
-		                                    <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-		                                        <i class="zmdi zmdi-more"></i>
-		                                    </button>
-		                                </div>
-		                            </td>
-	                            </tr>
-	                            <tr>
-	                                <td>2018-09-28 01:22</td>
-	                                <td>Mobile</td>
-	                                <td>Samsung S8 Black</td>
-	                                <td class="process">Processed</td>
-	                                <td>$756.00</td>
-	                                <td>
-		                                <div class="table-data-feature">
-		                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
-		                                        <i class="zmdi zmdi-mail-send"></i>
-		                                    </button>
-		                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-		                                        <i class="zmdi zmdi-edit"></i>
-		                                    </button>
-		                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-		                                        <i class="zmdi zmdi-delete"></i>
-		                                    </button>
-		                                    <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-		                                        <i class="zmdi zmdi-more"></i>
-		                                    </button>
-		                                </div>
-		                            </td>
-	                            </tr>
-	                            <tr>
-	                                <td>2018-09-27 02:12</td>
-	                                <td>Game</td>
-	                                <td>Game Console Controller</td>
-	                                <td class="denied">Denied</td>
-	                                <td>$22.00</td>
-	                                <td>
-		                                <div class="table-data-feature">
-		                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
-		                                        <i class="zmdi zmdi-mail-send"></i>
-		                                    </button>
-		                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-		                                        <i class="zmdi zmdi-edit"></i>
-		                                    </button>
-		                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-		                                        <i class="zmdi zmdi-delete"></i>
-		                                    </button>
-		                                    <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-		                                        <i class="zmdi zmdi-more"></i>
-		                                    </button>
-		                                </div>
-		                            </td>
-	                            </tr>
-	                            <tr>
-	                                <td>2018-09-26 23:06</td>
-	                                <td>Mobile</td>
-	                                <td>iPhone X 256Gb Black</td>
-	                                <td class="denied">Denied</td>
-	                                <td>$1199.00</td>
-	                                <td>
-		                                <div class="table-data-feature">
-		                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
-		                                        <i class="zmdi zmdi-mail-send"></i>
-		                                    </button>
-		                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-		                                        <i class="zmdi zmdi-edit"></i>
-		                                    </button>
-		                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-		                                        <i class="zmdi zmdi-delete"></i>
-		                                    </button>
-		                                    <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-		                                        <i class="zmdi zmdi-more"></i>
-		                                    </button>
-		                                </div>
-		                            </td>
-	                            </tr>
-	                            <tr>
-	                                <td>2018-09-25 19:03</td>
-	                                <td>Accessories</td>
-	                                <td>USB 3.0 Cable</td>
-	                                <td class="process">Processed</td>
-	                                <td>$10.00</td>
-	                                <td>
-		                                <div class="table-data-feature">
-		                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
-		                                        <i class="zmdi zmdi-mail-send"></i>
-		                                    </button>
-		                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-		                                        <i class="zmdi zmdi-edit"></i>
-		                                    </button>
-		                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-		                                        <i class="zmdi zmdi-delete"></i>
-		                                    </button>
-		                                    <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-		                                        <i class="zmdi zmdi-more"></i>
-		                                    </button>
-		                                </div>
-		                            </td>
-	                            </tr>
-	                            <tr>
-	                                <td>2018-09-29 05:57</td>
-	                                <td>Accesories</td>
-	                                <td>Smartwatch 4.0 LTE Wifi</td>
-	                                <td class="denied">Denied</td>
-	                                <td>$199.00</td>
-	                                <td>
-		                                <div class="table-data-feature">
-		                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
-		                                        <i class="zmdi zmdi-mail-send"></i>
-		                                    </button>
-		                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-		                                        <i class="zmdi zmdi-edit"></i>
-		                                    </button>
-		                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-		                                        <i class="zmdi zmdi-delete"></i>
-		                                    </button>
-		                                    <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-		                                        <i class="zmdi zmdi-more"></i>
-		                                    </button>
-		                                </div>
-		                            </td>
-	                            </tr>
-	                            <tr>
-	                                <td>2018-09-24 19:10</td>
-	                                <td>Camera</td>
-	                                <td>Camera C430W 4k</td>
-	                                <td class="process">Processed</td>
-	                                <td>$699.00</td>
-	                                <td>
-		                                <div class="table-data-feature">
-		                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
-		                                        <i class="zmdi zmdi-mail-send"></i>
-		                                    </button>
-		                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-		                                        <i class="zmdi zmdi-edit"></i>
-		                                    </button>
-		                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-		                                        <i class="zmdi zmdi-delete"></i>
-		                                    </button>
-		                                    <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-		                                        <i class="zmdi zmdi-more"></i>
-		                                    </button>
-		                                </div>
-		                            </td>
-	                            </tr>
-	                            <tr>
-	                                <td>2018-09-22 00:43</td>
-	                                <td>Computer</td>
-	                                <td>Macbook Pro Retina 2017</td>
-	                                <td class="process">Processed</td>
-	                                <td>$10.00</td>
-	                                <td>
-		                                <div class="table-data-feature">
-		                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
-		                                        <i class="zmdi zmdi-mail-send"></i>
-		                                    </button>
-		                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-		                                        <i class="zmdi zmdi-edit"></i>
-		                                    </button>
-		                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-		                                        <i class="zmdi zmdi-delete"></i>
-		                                    </button>
-		                                    <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-		                                        <i class="zmdi zmdi-more"></i>
-		                                    </button>
-		                                </div>
-		                            </td>
-	                            </tr>
-	                        </tbody>
-	                    </table>
-	                </div>
+	                <div grid-data grid-options="gridOptions" grid-actions="gridActions" class="table-responsive">
+                            <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
+                            <table class="table table-borderless table-data3">
+                                <thead>
+                                <tr>
+                                    <th class="sortable">
+                                        RMA Ref No
+                                    </th>
+                                    <th class="sortable">
+                                        Date
+                                    </th>
+
+                                    <th class="sortable">
+                                        GS No
+                                    </th>
+                                    <th class="sortable">
+                                        ACT Reference
+                                    </th>
+                                    <th class="sortable">
+                                        Sales Order
+                                    </th>
+                                    <th>
+                                        Actions
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr grid-item>
+                                    <td ng-bind="item.rma_reference_no"></td>
+                                    <td ng-bind="item.date | date:'dd/MM/yyyy'"></td>
+
+                                    <td ng-bind="item.gs_no"></td>
+                                    <td ng-bind="item.act_reference"></td>
+                                    <td ng-bind="item.sales_order_no"></td>
+                                    <td>
+                                        <div class="table-data-feature">
+                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="EditRMAForm(item.id);">
+                                                <i class="zmdi zmdi-edit"></i>
+                                            </button>
+                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                <i class="zmdi zmdi-delete"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
 	                <!-- END DATA TABLE-->
 	            </div>
 	        </div>
@@ -279,24 +127,7 @@
 	                                        	ng-model="rmaformdata.ref_no"
 	                                            placeholder="RMA Reference No"
 	                                            class="form-control"
-	                                            ng-minlength="1" 
-	                                            ng-maxlength="10"
-	                                            required
 	                                            disabled>
-	                                            <div ng-show="RMAForm1.rma_ref_no.$touched && RMAForm1.rma_ref_no.$error">
-	                                                <span class="help-block"
-	                                                 ng-show="RMAForm1.rma_ref_no.$error.required">
-	                                                    Please Enter RMA Reference No
-	                                                </span>
-	                                                <span class="help-block"
-	                                                 ng-show="RMAForm1.rma_ref_no.$error.minlength">
-	                                                    Minimum 1 Characters Required
-	                                                </span>
-	                                                <span class="help-block"
-	                                                 ng-show="RMAForm1.rma_ref_no.$error.maxlength">
-	                                                    Maximum 10 Characters Allowed
-	                                                </span>
-	                                            </div>
 	                                    </div>
 	                                </div>
 	                                <div class="row form-group">
@@ -374,12 +205,6 @@
 	                                        placeholder="Date"
 	                                        class="form-control"
 	                                        required>
-	                                        <!-- <div ng-show="RMAForm1.date.$touched && RMAForm1.date.$error">
-                                                <span class="help-block"
-                                                 ng-show="RMAForm1.date.$error.required">
-                                                    Please Select Date
-                                                </span>
-                                            </div> -->
 	                                    </div>
 	                                </div>
 	                            </form>
@@ -436,7 +261,7 @@
 			                                                </div>
 			                                            </div>
 		                                    		</div>
-		                                    		<div class="col-lg-6">
+		                                    		<!-- <div class="col-lg-6">
 		                                    			<div class="row form-group">
 			                                                <div class="col-md-4">
 			                                                    <label for="model_no" class=" form-control-label">Model
@@ -453,6 +278,38 @@
 			                                                    ng-minlength="3" 
 						                                        ng-maxlength="10"
 						                                        required>
+			                                                    <div ng-show="RMAForm2.model_no_@{{$index}}.$touched && RMAForm2.model_no_@{{$index}}.$error">
+					                                                <span class="help-block"
+					                                                 ng-show="RMAForm2.model_no_@{{$index}}.$error.required">
+					                                                    Please Enter Model Number
+					                                                </span>
+					                                                <span class="help-block"
+					                                                 ng-show="RMAForm2.model_no_@{{$index}}.$error.minlength">
+					                                                    Minimum 3 Characters Required
+					                                                </span>
+					                                                <span class="help-block"
+					                                                 ng-show="RMAForm2.model_no_@{{$index}}.$error.maxlength">
+					                                                    Maximum 10 Characters Allowed
+					                                                </span>
+					                                            </div>
+			                                                </div>
+			                                            </div>
+		                                    		</div> -->
+		                                    		<div class="col-lg-6">
+		                                    			<div class="row form-group">
+			                                                <div class="col-md-4">
+			                                                    <label for="model_no" class=" form-control-label">Model
+			                                                        No</label>
+			                                                </div>
+			                                                <div class="col-md-8">
+			                                                    <ui-select ng-model="info.model_no" theme="selectize" ng-disabled="" title="Select Model No" ng-change="ChangeModelCategory(info);">
+																    <ui-select-match placeholder="Select Model No">@{{$select.selected.part_no}}</ui-select-match>
+																    <ui-select-choices id="model_no_@{{$index}}" 
+			                                                    name="model_no_@{{$index}}" repeat="product in products | filter: $select.search">
+																      <span ng-bind-html="product.part_no | highlight: $select.search"></span>
+																      <small ng-bind-html="product.id | highlight: $select.search"></small>
+																    </ui-select-choices>
+																  </ui-select>
 			                                                    <div ng-show="RMAForm2.model_no_@{{$index}}.$touched && RMAForm2.model_no_@{{$index}}.$error">
 					                                                <span class="help-block"
 					                                                 ng-show="RMAForm2.model_no_@{{$index}}.$error.required">
@@ -495,16 +352,6 @@
 			                                                    <label for="serial_no" class=" form-control-label">Serial Number</label>
 			                                                </div>
 			                                                <div class="col-md-8">
-			                                                    <!-- <input 
-			                                                    type="text" 
-			                                                    id="serial_no" 
-			                                                    name="serial_no_@{{$index}}"
-			                                                    ng-model="info.serial_no"
-			                                                    placeholder="Serial Number" 
-			                                                    class="form-control"
-			                                                    ng-minlength="3" 
-						                                        ng-maxlength="20"
-						                                        required> -->
 						                                        <div ng-repeat="x in rmaformdata.unit_information[$index].serial_number_length track by $index">
 						                                        	<input 
 				                                                    type="text" 
@@ -517,19 +364,19 @@
 							                                        ng-maxlength="20"
 							                                        required>
 							                                        <div ng-show="RMAForm2.serial_no_@{{$parent.$index}}_@{{$index}}.$touched && RMAForm2.serial_no_@{{$parent.$index}}_@{{$index}}.$error">
-					                                                <span class="help-block"
-					                                                 ng-show="RMAForm2.serial_no_@{{$parent.$index}}_@{{$index}}.$error.required">
-					                                                    Please Enter Serial Number
-					                                                </span>
-					                                                <span class="help-block"
-					                                                 ng-show="RMAForm2.serial_no_@{{$parent.$index}}_@{{$index}}.$error.minlength">
-					                                                    Minimum 3 Characters Required
-					                                                </span>
-					                                                <span class="help-block"
-					                                                 ng-show="RMAForm2.serial_no_@{{$parent.$index}}_@{{$index}}.$error.maxlength">
-					                                                    Maximum 20 Characters Allowed
-					                                                </span>
-					                                            </div>
+						                                                <span class="help-block"
+						                                                 ng-show="RMAForm2.serial_no_@{{$parent.$index}}_@{{$index}}.$error.required">
+						                                                    Please Enter Serial Number
+						                                                </span>
+						                                                <span class="help-block"
+						                                                 ng-show="RMAForm2.serial_no_@{{$parent.$index}}_@{{$index}}.$error.minlength">
+						                                                    Minimum 3 Characters Required
+						                                                </span>
+						                                                <span class="help-block"
+						                                                 ng-show="RMAForm2.serial_no_@{{$parent.$index}}_@{{$index}}.$error.maxlength">
+						                                                    Maximum 20 Characters Allowed
+						                                                </span>
+						                                            </div>
 						                                        </div>
 			                                                </div>
 			                                            </div>
@@ -550,8 +397,8 @@
 			                                                    ng-model="info.sw_version"
 			                                                    placeholder="SW Version" 
 			                                                    class="form-control"
-			                                                    ng-minlength="3" 
-						                                        ng-maxlength="10"
+			                                                    ng-minlength="1" 
+						                                        ng-maxlength="5"
 						                                        required>
 			                                                    <div ng-show="RMAForm2.sw_version_@{{$index}}.$touched && RMAForm2.sw_version_@{{$index}}.$error">
 					                                                <span class="help-block"
@@ -560,11 +407,11 @@
 					                                                </span>
 					                                                <span class="help-block"
 					                                                 ng-show="RMAForm2.sw_version_@{{$index}}.$error.minlength">
-					                                                    Minimum 3 Characters Required
+					                                                    Minimum 1 Characters Required
 					                                                </span>
 					                                                <span class="help-block"
 					                                                 ng-show="RMAForm2.sw_version_@{{$index}}.$error.maxlength">
-					                                                    Maximum 10 Characters Allowed
+					                                                    Maximum 5 Characters Allowed
 					                                                </span>
 					                                            </div>
 			                                                </div>
@@ -583,8 +430,8 @@
 			                                                    ng-model="info.service_type"
 			                                                    class="form-control"
 						                                        required>
-			                                                        <option value="1">Physical Relay</option>
-			                                                        <option value="2">Site Card</option>
+			                                                        <option value="1" ng-selected="info.service_type == 1">Physical Relay</option>
+			                                                        <option value="2" ng-selected="info.service_type == 2">Site Card</option>
 			                                                    </select>
 			                                                    <div ng-show="RMAForm2.service_type_@{{$index}}.$touched && RMAForm2.service_type_@{{$index}}.$error">
 					                                                <span class="help-block"
@@ -647,9 +494,7 @@
 		                                    	</div>
 		                                    </div>
 		                                    <div class="col-lg-12">
-		                                        <div class="row form-group">
-
-		                                            <!-- DATA TABLE-->
+		                                        <!-- <div class="row form-group">
 		                                            <div class="table-responsive col-lg-12">
 		                                                <table class="table table-borderless table-data3">
 		                                                    <thead>
@@ -706,36 +551,35 @@
 		                                                    </tbody>
 		                                                </table>
 		                                            </div>
-		                                            <!-- END DATA TABLE-->
-		                                        </div>
+		                                        </div> -->
 		                                        <div class="row form-group">
 		                                            <div class="col col-md-4">
-		                                                <label for="des_of_fault" class=" form-control-label">Description
+		                                                <label for="desc_of_fault" class=" form-control-label">Description
 		                                                    of
 		                                                    Fault/Modification Required </label>
 		                                            </div>
 		                                            <div class="col-12 col-md-8">
 				                                        <textarea 
 			                                            type="text" 
-		                                                id="des_of_fault" 
-		                                                name="des_of_fault"
-		                                                ng-model="rmaformdata.unit_information.des_of_fault"
+		                                                id="desc_of_fault" 
+		                                                name="desc_of_fault"
+		                                                ng-model="rmaformdata.desc_of_fault"
 		                                                placeholder="Description of Fault" 
 		                                                class="form-control"
 		                                                ng-minlength="3" 
 				                                        ng-maxlength="100"
 				                                        required></textarea>
-		                                                <div ng-show="RMAForm2.des_of_fault.$touched && RMAForm2.des_of_fault.$error">
+		                                                <div ng-show="RMAForm2.desc_of_fault.$touched && RMAForm2.desc_of_fault.$error">
 			                                                <span class="help-block"
-			                                                 ng-show="RMAForm2.des_of_fault.$error.required">
+			                                                 ng-show="RMAForm2.desc_of_fault.$error.required">
 			                                                    Please Enter Description Of Fault
 			                                                </span>
 			                                                <span class="help-block"
-			                                                 ng-show="RMAForm2.des_of_fault.$error.minlength">
+			                                                 ng-show="RMAForm2.desc_of_fault.$error.minlength">
 			                                                    Minimum 3 Characters Required
 			                                                </span>
 			                                                <span class="help-block"
-			                                                 ng-show="RMAForm2.des_of_fault.$error.maxlength">
+			                                                 ng-show="RMAForm2.desc_of_fault.$error.maxlength">
 			                                                    Maximum 100 Characters Allowed
 			                                                </span>
 			                                            </div>
@@ -751,7 +595,7 @@
 		                                                type="text" 
 		                                                id="wbs" 
 		                                                name="wbs"
-		                                                ng-model="rmaformdata.unit_information.wbs"
+		                                                ng-model="rmaformdata.wbs"
 		                                                placeholder="WBS/Sales Order No" 
 		                                                class="form-control"
 		                                                ng-minlength="3" 
@@ -781,48 +625,17 @@
 		                                                <select 
 		                                                name="field_volts_used" 
 		                                                id="field_volts_used"
-		                                                ng-model="rmaformdata.unit_information.field_volts_used"
+		                                                ng-model="rmaformdata.field_volts_used"
 		                                                class="form-control"
 		                                                required>
-		                                                    <option value="1">Yes</option>
-		                                                    <option value="2">No</option>
+		                                                	<option value="0" selected="selected"></option>
+		                                                    <option value="1" ng-selected="@{{rmaformdata.field_volts_used == 1}}">Yes</option>
+		                                                    <option value="2" ng-selected="@{{rmaformdata.field_volts_used == 2}}">No</option>
 		                                                </select>
 		                                                <div ng-show="RMAForm2.field_volts_used.$touched && RMAForm2.field_volts_used.$error">
 			                                                <span class="help-block"
 			                                                 ng-show="RMAForm2.field_volts_used.$error.required">
 			                                                    Please Select Volts Used
-			                                                </span>
-			                                            </div>
-		                                            </div>
-		                                        </div>
-		                                        <div class="row form-group">
-		                                            <div class="col col-md-4">
-		                                                <label for="warrenty"
-		                                                       class=" form-control-label">Warranty </label>
-		                                            </div>
-		                                            <div class="col-12 col-md-8">
-		                                                <input 
-		                                                type="text" 
-		                                                id="warrenty" 
-		                                                name="warrenty"
-		                                                ng-model="rmaformdata.unit_information.warrenty"
-		                                                placeholder="Warrenty" 
-		                                                class="form-control"
-		                                                ng-minlength="3" 
-				                                        ng-maxlength="10"
-				                                        required>
-		                                                <div ng-show="RMAForm2.warrenty.$touched && RMAForm2.warrenty.$error">
-			                                                <span class="help-block"
-			                                                 ng-show="RMAForm2.warrenty.$error.required">
-			                                                    Please Enter Warranty
-			                                                </span>
-			                                                <span class="help-block"
-			                                                 ng-show="RMAForm2.warrenty.$error.minlength">
-			                                                    Minimum 3 Characters Required
-			                                                </span>
-			                                                <span class="help-block"
-			                                                 ng-show="RMAForm2.warrenty.$error.maxlength">
-			                                                    Maximum 10 Characters Allowed
 			                                                </span>
 			                                            </div>
 		                                            </div>
@@ -839,10 +652,10 @@
 		                                                               class="form-check-label">
 		                                                            <input 
 		                                                            type="radio" 
-		                                                            id="equip_failed_on_installation"
+		                                                            id="equip_failed_on_installation1"
 		                                                            name="equip_failed_on_installation"
-		                                                            ng-model="rmaformdata.unit_information.equip_failed_on_installation"
-		                                                            ng-checked="@{{rmaformdata.unit_information.equip_failed_on_installation == 1}}"
+		                                                            ng-model="rmaformdata.equip_failed_on_installation"
+		                                                            ng-checked="@{{rmaformdata.equip_failed_on_installation}} == 1"
 		                                                            value="1"
 		                                                            class="form-check-input">Yes
 		                                                        </label>
@@ -852,10 +665,10 @@
 		                                                               class="form-check-label ">
 		                                                            <input 
 		                                                            type="radio" 
-		                                                            id="equip_failed_on_installation"
+		                                                            id="equip_failed_on_installation2"
 		                                                            name="equip_failed_on_installation"
-		                                                            ng-model="rmaformdata.unit_information.equip_failed_on_installation"
-		                                                            ng-checked="@{{rmaformdata.unit_information.equip_failed_on_installation == 0}}"
+		                                                            ng-model="rmaformdata.equip_failed_on_installation"
+		                                                            ng-checked="@{{rmaformdata.equip_failed_on_installation}} == 0"
 		                                                            value="0"
 		                                                            class="form-check-input">No
 		                                                        </label>
@@ -877,8 +690,8 @@
 		                                                            type="radio" 
 		                                                            id="equip_failed_on_service1"
 		                                                            name="equip_failed_on_service"
-		                                                            ng-model="rmaformdata.unit_information.equip_failed_on_service"
-		                                                            ng-checked="@{{rmaformdata.unit_information.equip_failed_on_service == 0}}"
+		                                                            ng-model="rmaformdata.equip_failed_on_service"
+		                                                            ng-checked="@{{rmaformdata.equip_failed_on_service == 0}}"
 		                                                            value="1"
 		                                                            class="form-check-input">Yes
 		                                                        </label>
@@ -890,8 +703,8 @@
 		                                                            type="radio" 
 		                                                            id="equip_failed_service2"
 		                                                            name="equip_failed_on_service"
-		                                                            ng-model="rmaformdata.unit_information.equip_failed_on_service"
-		                                                            ng-checked="@{{rmaformdata.unit_information.equip_failed_on_service == 0}}"
+		                                                            ng-model="rmaformdata.equip_failed_on_service"
+		                                                            ng-checked="@{{rmaformdata.equip_failed_on_service == 0}}"
 		                                                            value="0"
 		                                                            class="form-check-input">No
 		                                                        </label>
@@ -909,7 +722,7 @@
 		                                                type="text" 
 		                                                id="how_long" 
 		                                                name="how_long"
-		                                                ng-model="rmaformdata.unit_information.how_long"
+		                                                ng-model="rmaformdata.how_long"
 		                                                placeholder="How Long" 
 		                                                class="form-control"
 		                                                ng-minlength="1" 
@@ -1030,7 +843,7 @@
 		                                                <span class="mandatory">*</span></label>
 		                                        </div>
 		                                        <div class="col-12 col-md-8">
-		                                            <input 
+		                                            <!-- <input 
 		                                            type="text" 
 		                                            id="invoice_customer_name" 
 		                                            name="invoice_customer_name"
@@ -1039,21 +852,17 @@
 		                                            class="form-control"
 		                                            ng-minlength="3" 
 			                                        ng-maxlength="10"
-			                                        required>
-		                                            <div ng-show="RMAForm4.invoice_customer_name.$touched && RMAForm4.invoice_customer_name.$error">
-		                                                <span class="help-block"
-		                                                 ng-show="RMAForm4.invoice_customer_name.$error.required">
-		                                                    Please Enter Customer Name
-		                                                </span>
-		                                                <span class="help-block"
-		                                                 ng-show="RMAForm4.invoice_customer_name.$error.minlength">
-		                                                    Minimum 3 Characters Required
-		                                                </span>
-		                                                <span class="help-block"
-		                                                 ng-show="RMAForm4.invoice_customer_name.$error.maxlength">
-		                                                    Maximum 10 Characters Allowed
-		                                                </span>
-		                                            </div>
+			                                        required> -->
+			                                        <div class="col-md-8">
+	                                                    <ui-select ng-model="rmaformdata.invoice_info.customer_name" theme="selectize" ng-disabled="" title="Select Model No" ng-change="ChangeInvoiceAddress(rmaformdata.invoice_info.customer_name);">
+														    <ui-select-match placeholder="Select Model No">@{{$select.selected.name}}</ui-select-match>
+														    <ui-select-choices id="model_no_@{{$index}}" 
+	                                                    name="model_no_@{{$index}}" repeat="customer in customers | filter: $select.search">
+														      <span ng-bind-html="customer.name | highlight: $select.search"></span>
+														      <small ng-bind-html="customer.site_name | highlight: $select.search"></small>
+														    </ui-select-choices>
+														  </ui-select>
+	                                                </div>
 		                                        </div>
 		                                    </div>
 		                                </form>
@@ -1081,23 +890,7 @@
 		                                            placeholder="Address..."
 		                                            ng-model="rmaformdata.invoice_info.invoice_address" 
 		                                            class="form-control"
-		                                            ng-minlength="10" 
-			                                        ng-maxlength="100"
-			                                        required></textarea>
-		                                            <div ng-show="RMAForm5.invoice_address.$touched && RMAForm5.invoice_address.$error">
-		                                                <span class="help-block"
-		                                                 ng-show="RMAForm5.invoice_address.$error.required">
-		                                                    Please Enter Customer Invoice Address
-		                                                </span>
-		                                                <span class="help-block"
-		                                                 ng-show="RMAForm5.invoice_address.$error.minlength">
-		                                                    Minimum 10 Characters Required
-		                                                </span>
-		                                                <span class="help-block"
-		                                                 ng-show="RMAForm5.invoice_address.$error.maxlength">
-		                                                    Maximum 100 Characters Allowed
-		                                                </span>
-		                                            </div>
+			                                        disabled></textarea>
 		                                        </div>
 		                                    </div>
 		                                    <div class="row form-group">
@@ -1112,23 +905,7 @@
 		                                            ng-model="rmaformdata.invoice_info.contact_name" 
 		                                            placeholder="Contact Name"
 		                                            class="form-control"
-		                                            ng-minlength="3" 
-			                                        ng-maxlength="10"
-			                                        required>
-		                                            <div ng-show="RMAForm5.invoice_contact_name.$touched && RMAForm5.invoice_contact_name.$error">
-		                                                <span class="help-block"
-		                                                 ng-show="RMAForm5.invoice_contact_name.$error.required">
-		                                                    Please Enter Contact Name
-		                                                </span>
-		                                                <span class="help-block"
-		                                                 ng-show="RMAForm5.invoice_contact_name.$error.minlength">
-		                                                    Minimum 3 Characters Required
-		                                                </span>
-		                                                <span class="help-block"
-		                                                 ng-show="RMAForm5.invoice_contact_name.$error.maxlength">
-		                                                    Maximum 10 Characters Allowed
-		                                                </span>
-		                                            </div>
+			                                        disabled>
 		                                        </div>
 		                                    </div>
 		                                    <div class="row form-group">
@@ -1144,28 +921,7 @@
 		                                            ng-model="rmaformdata.invoice_info.invoice_tel_no" 
 		                                            placeholder="Tel No" 
 		                                            class="form-control"
-		                                            ng-minlength="7" 
-			                                        ng-maxlength="15"
-			                                        ng-pattern="/^[0-9]*$/"
-			                                        required>
-		                                            <div ng-show="RMAForm5.invoice_tel_no.$touched && RMAForm5.invoice_tel_no.$error">
-		                                                <span class="help-block"
-		                                                 ng-show="RMAForm5.invoice_tel_no.$error.required">
-		                                                    Please Enter Tel No
-		                                                </span>
-		                                                <span class="help-block"
-		                                                 ng-show="RMAForm5.invoice_tel_no.$error.minlength">
-		                                                    Minimum 7 Numbers Required
-		                                                </span>
-		                                                <span class="help-block"
-		                                                 ng-show="RMAForm5.invoice_tel_no.$error.maxlength">
-		                                                    Maximum 15 Numbers Allowed
-		                                                </span>
-		                                                <span class="help-block"
-		                                                 ng-show="RMAForm5.invoice_tel_no.$error.pattern">
-		                                                    Only Numbers Allowed
-		                                                </span>
-		                                            </div>
+			                                        disabled>
 		                                        </div>
 		                                    </div>
 		                                    <div class="row form-group">
@@ -1181,18 +937,23 @@
 		                                            ng-model="rmaformdata.invoice_info.invoice_email"
 		                                            placeholder="Email" 
 		                                            class="form-control"
-		                                            ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/"
-		                                            required>
-		                                            <div ng-show="RMAForm5.invoice_email.$touched && RMAForm5.invoice_email.$error">
-		                                                <span class="help-block"
-		                                                 ng-show="RMAForm5.invoice_email.$error.required">
-		                                                    Please Enter Email
-		                                                </span>
-		                                                <span class="help-block"
-		                                                 ng-show="RMAForm5.invoice_email.$error.pattern">
-		                                                    Invalid Email
-		                                                </span>
-		                                            </div>
+		                                            disabled>
+		                                        </div>
+		                                    </div>
+		                                    <div class="row form-group">
+		                                        <div class="col col-md-4">
+		                                            <label for="invoice_gst" class=" form-control-label">GST <span
+		                                            class="mandatory">*</span></label>
+		                                        </div>
+		                                        <div class="col-12 col-md-8">
+		                                            <input 
+		                                            type="text" 
+		                                            id="invoice_gst" 
+		                                            name="invoice_gst"
+		                                            ng-model="rmaformdata.invoice_info.gst"
+		                                            placeholder="GST" 
+		                                            class="form-control"
+		                                            disabled>
 		                                        </div>
 		                                    </div>
 		                                </form>
@@ -1206,6 +967,17 @@
 	                                </div>
 	                                <div class="card-body card-block">
 	                                	<form name="RMAForm6" id="RMAForm6" class="form-horizontal" novalidate>
+	                                		<div class="row form-group">
+		                                        <div class="col col-md-4">
+		                                            <label for="copy_invoice_address" class=" form-control-label">Copy Invoice Address <span class="mandatory">*</span></label>
+		                                        </div>
+		                                        <div class="col-12 col-md-8">
+		                                            <label class="au-checkbox">
+				                                        <input type="checkbox" ng-model="rmaformdata.copy_invoice_address_to_delivery_address" ng-change="ChangeDeliveryAddress();">
+				                                        <span class="au-checkmark"></span>
+				                                    </label>
+		                                        </div>
+		                                    </div>
 		                                    <div class="row form-group">
 		                                        <div class="col col-md-4">
 		                                            <label for="delivery_address" class=" form-control-label">Customer Delivery Address <span class="mandatory">*</span></label>
@@ -1218,7 +990,7 @@
 		                                            placeholder="Address..."
 		                                            ng-model="rmaformdata.delivery_info.delivery_address" 
 		                                            class="form-control"
-		                                            ng-minlength="10" 
+		                                            ng-minlength="3" 
 			                                        ng-maxlength="100"
 			                                        required></textarea>
 		                                            <div ng-show="RMAForm6.delivery_address.$touched && RMAForm6.delivery_address.$error">
@@ -1228,7 +1000,7 @@
 		                                                </span>
 		                                                <span class="help-block"
 		                                                 ng-show="RMAForm6.delivery_address.$error.minlength">
-		                                                    Minimum 10 Characters Required
+		                                                    Minimum 3 Characters Required
 		                                                </span>
 		                                                <span class="help-block"
 		                                                 ng-show="RMAForm6.delivery_address.$error.maxlength">
@@ -1368,7 +1140,7 @@
 	                        <div class="col-lg-12">
 	                            <div class="card">
 	                                <div class="card-footer">
-	                                    <button type="submit" class="btn btn-primary btn-sm">
+	                                    <button type="submit" class="btn btn-primary btn-sm" ng-disabled="RMAForm1.$invalid || RMAForm2.$invalid || RMAForm3.$invalid || RMAForm4.$invalid || RMAForm5.$invalid || RMAForm6.$invalid" ng-click="SubmitRMAForm();">
 	                                        <i class="fa fa-dot-circle-o"></i> Submit
 	                                    </button>
 	                                    <button type="reset" class="btn btn-danger btn-sm">

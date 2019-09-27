@@ -189,9 +189,14 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
 	Route::get('/manufactures','ManufactureController@Manufactures');
 	Route::get('/users','UserController@Users');
 	Route::get('/roles','RoleController@Roles');
+	Route::get('/rmarefno', 'RMAController@GetRMARefNo');
 
 	Route::post('/addcustomers', 'CustomerController@AddCustomer');
 	Route::get('/getcustomer/{id}', 'CustomerController@GetCustomer');
+
+	Route::get('/getrmalist', 'RMAController@GetRMAList');
+	Route::post('/getrma/{id}', 'RMAController@GetRma');
+	Route::post('/addrma', 'RMAController@AddRMA');
 
 	/*Receipt Get and Post*/
     Route::get('/receipts','ReceiptController@Receipts');
