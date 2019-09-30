@@ -51,66 +51,77 @@
                             </table>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <!-- DATA TABLE-->
-                        <div class="table-responsive m-b-40">
+                        <div grid-data grid-options="rmagridOptions" grid-actions="gridActions" class="table-responsive">
                             <table class="table table-borderless table-data3">
                                 <thead>
                                 <tr>
                                     <th>
                                         Select
                                     </th>
-                                    <th>RMA Ref. No</th>
-                                    <th>GS No.</th>
-                                    <th>Date</th>
-                                    <th>Customer Name</th>
-                                    <th>Quantity</th>
-
+                                    <th>
+                                        RMA Ref. No
+                                    </th>
+                                    <th>
+                                        GS No.
+                                    </th>
+                                    <th>
+                                        Model No
+                                    </th>
+                                    <th>
+                                        Serial No
+                                    </th>
+                                    <th>
+                                        Date
+                                    </th>
+                                    <th>
+                                        Customer Name
+                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td><label class="au-checkbox">
+                                <tr grid-item>
+                                    <td>
+                                        <label class="au-checkbox">
                                             <input type="checkbox">
                                             <span class="au-checkmark"></span>
                                         </label>
                                     </td>
-                                    <td>2018-09-29 05:57</td>
-                                    <td>Mobile</td>
-                                    <td>iPhone X</td>
-                                    <td class="process">Processed</td>
-                                    <td>$999.00</td>
-
+                                    <td ng-bind="item.ref_no"></td>
+                                    <td ng-bind="item.gs_no"></td>
+                                    <td ng-bind="item.model_no"></td>
+                                    <td ng-bind="item.serial_no"></td>
+                                    <td ng-bind="item.date | date:'MM/dd/yyyy'"></td>
+                                    <td ng-bind="item.customer_name"></td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <!-- DATA TABLE-->
-                        <div grid-data grid-options="gridOptions" grid-actions="gridActions" class="table-responsive">
-                            <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
+                        <div grid-data grid-options="pvgridOptions" grid-actions="gridActions" class="table-responsive">
                             <div class="table-responsive m-b-40">
                                 <table class="table table-borderless table-data3">
                                     <thead>
                                     <tr>
-                                        <th sortable='code' class="sortable">
+                                        <th>
                                             Select
                                         </th>
-                                        <th sortable="code" class="sortable">
+                                        <th>
                                             Receipt No
                                         </th>
-                                        <th sortable="placed" class="sortable">
+                                        <th>
                                             RID No.
                                         </th>
-
-                                        <th sortable='total.value' class="sortable">
-                                            Product No.
-                                        </th>
-                                        <th sortable='total.value' class="sortable">
+                                        <th>
                                             Model No.
                                         </th>
-                                        <th sortable='total.value' class="sortable">
+                                        <th>
+                                            Serial No.
+                                        </th>
+                                        <th>
                                             Customer Name
                                         </th>
                                     </tr>
@@ -121,15 +132,11 @@
                                                 <input type="checkbox">
                                                 <span class="au-checkmark"></span>
                                             </label></td>
-                                        <td ng-bind="item.receipt_no"> DD</td>
-                                        <td ng-bind="item.receipt_date | date:'MM/dd/yyyy'">22/03</td>
-
-                                        <td ng-bind="item.customer_name">GE</td>
-                                        <td ng-bind="item.end_customer">GE</td>
-                                        <td ng-bind="item.courier_name">UPS</td>
-
-
-
+                                        <td ng-bind="item.receipt_no"></td>
+                                        <td ng-bind="item.rid"></td>
+                                        <td ng-bind="item.model_no"></td>
+                                        <td ng-bind="item.serial_no"></td>
+                                        <td ng-bind="item.customer_name"></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -152,5 +159,5 @@
     </div>
 @endsection
 @section('scripts')
-    <script type="text/javascript" src="{{url('public/js/controllers/PhysicalVerificationController.js')}}"></script>
+    <script type="text/javascript" src="{{url('public/js/controllers/RMAFormLinkageController.js')}}"></script>
 @endsection

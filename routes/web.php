@@ -14,6 +14,9 @@
 Route::get('/', function () {
     return view('login');
 });
+Route::get('/rms', function(){
+		return view('rms-list');
+	});
 
 Route::get('/login', function() {
 	return view('login');
@@ -82,9 +85,7 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::get('/add-rma-linkage', function(){
 		return view('add-rma-linkage');
 	});
-	Route::get('/rms', function(){
-		return view('rms-list');
-	});
+	
 	Route::get('/add-rms', function(){
 		return view('add-rms');
 	});

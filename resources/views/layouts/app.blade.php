@@ -224,7 +224,7 @@
                             <div class="header-wrap float-right">
                                 <div class="header-button">
                                     <div class="noti-wrap">
-                                        <div class="noti__item js-item-menu">
+                                        <!-- <div class="noti__item js-item-menu">
                                             <i class="zmdi zmdi-comment-more"></i>
                                             <span class="quantity">1</span>
                                             <div class="mess-dropdown js-dropdown">
@@ -294,7 +294,7 @@
                                                     <a href="#">See all emails</a>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="noti__item js-item-menu">
                                             <i class="zmdi zmdi-notifications"></i>
                                             <span class="quantity">3</span>
