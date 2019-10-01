@@ -1,4 +1,4 @@
-var app = angular.module("ge", ['dataGrid', 'pagination', 'ui-notification', 'cp.ngConfirm', 'ui.select', 'ngSanitize', 'ui.bootstrap'], function($interpolateProvider){
+var app = angular.module("ge", ['dataGrid', 'pagination', 'ui-notification', 'cp.ngConfirm', 'ui.select', 'ngSanitize', 'ui.bootstrap', 'ui.mask'], function($interpolateProvider){
 	/*$interpolateProvider.startSymbol('<%');
     $interpolateProvider.endSymbol('%>');*/
 });
@@ -24,7 +24,7 @@ app.factory('HttpInterceptor', function($q){
 	};
 });
 
-app.config(function ($httpProvider, NotificationProvider) {
+/*app.config(function ($httpProvider, NotificationProvider) {
 	$httpProvider.defaults.headers.post = { 'Content-Type': "application/json; charset=utf-8" };
 	$httpProvider.interceptors.push('HttpInterceptor');
 
@@ -38,4 +38,21 @@ app.config(function ($httpProvider, NotificationProvider) {
         positionY: 'top'
     });
 
-});
+});*/
+
+app.config(['$httpProvider', 'NotificationProvider', 'uiMask.ConfigProvider', function($httpProvider, NotificationProvider, uiMaskConfigProvider) {
+  
+	$httpProvider.defaults.headers.post = { 'Content-Type': "application/json; charset=utf-8" };
+	$httpProvider.interceptors.push('HttpInterceptor');
+
+	NotificationProvider.setOptions({
+	    delay: 1000,
+	    startTop: 20,
+	    startRight: 10,
+	    verticalSpacing: 20,
+	    horizontalSpacing: 20,
+	    positionX: 'center',
+	    positionY: 'top'
+	});
+	
+}]);

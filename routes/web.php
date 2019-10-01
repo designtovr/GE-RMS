@@ -15,8 +15,8 @@ Route::get('/', function () {
     return view('login');
 });
 Route::get('/rms', function(){
-		return view('rms-list');
-	});
+	return view('rms-list');
+});
 
 Route::get('/login', function() {
 	return view('login');
@@ -179,6 +179,7 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
 	});
 	Route::get('/customers','CustomerController@Customers');
 	Route::get('/products','ProductController@Products');
+	Route::get('/productsoftype/{producttype_id}', 'ProductController@ProductsOfType');
 	Route::get('/locations','LocationController@Locations');
 	Route::get('/sites','SiteController@Sites');
 	Route::get('/rack-types','RackTypeController@RackTypes');
@@ -204,7 +205,6 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
 
     Route::post('/addreceipt', 'ReceiptController@AddReceipt');
     Route::get('/getreceipt/{id}', 'ReceiptController@GetReceipt');
-    Route::get('/getreceiptbyreceiptno/{receipt_no}', 'ReceiptController@GetReceiptByReceiptNo');
 
     Route::delete('/receipt/{id}', 'ReceiptController@DeleteReceipt');
     /*End Receipt*/

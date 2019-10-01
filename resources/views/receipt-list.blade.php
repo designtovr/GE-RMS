@@ -68,26 +68,25 @@
                             <table class="table table-borderless table-data3">
                                 <thead>
                                 <tr>
-                                    <th sortable="code" class="sortable">
-                                        Receipt No
-                                    </th>
-                                    <th sortable="placed" class="sortable">
+                                    <th>
+                                        Receipt Id
+                                    <th>
                                         Receipt Date
                                     </th>
 
-                                    <th sortable='total.value' class="sortable">
+                                    <th>
                                         Customer Name
                                     </th>
-                                    <th sortable='total.value' class="sortable">
+                                    <th>
                                         End Customer
                                     </th>
-                                    <th sortable='total.value' class="sortable">
+                                    <th>
                                         Courier Name
                                     </th>
-                                    <th sortable='total.value' class="sortable">
+                                    <th>
                                         Docket Details
                                     </th>
-                                    <th sortable='total.value' class="sortable">
+                                    <th>
                                         Number of Boxes
                                     </th>
                                     <th>
@@ -97,8 +96,8 @@
                                 </thead>
                                 <tbody>
                                 <tr grid-item>
-                                    <td ng-bind="item.receipt_no"></td>
-                                    <td ng-bind="item.receipt_date | date:'MM/dd/yyyy'"></td>
+                                    <td ng-bind="item.id"></td>
+                                    <td ng-bind="item.receipt_date | date:'dd/MM/yyyy'"></td>
 
                                     <td ng-bind="item.customer_name"></td>
                                     <td ng-bind="item.end_customer"></td>
@@ -131,37 +130,20 @@
                             <div class="card-body card-block">
                                 <form action="" method="post" class="form-horizontal" name="AddReceiptForm"
                                       id="AddReceiptForm" novalidate>
-                                    <div class="row form-group">
+                                    <div class="row form-group" ng-show="editReceipt">
                                         <div class="col col-md-3">
-                                            <label for="rf-no" class=" form-control-label">Receipt No. <span
+                                            <label for="id" class=" form-control-label">Receipt Id <span
                                                         class="mandatory">*</span></label>
                                         </div>
                                         <div class="col-12 col-md-6">
                                             <input
-                                                    type="text"
-                                                    id="receipt_no"
-                                                    name="receipt_no"
-                                                    ng-model="receipt.receipt_no"
-                                                    placeholder="Receipt No"
-                                                    class="form-control"
-                                                    ng-minlength="3"
-                                                    ng-maxlength="10"
-{{--                                                    ng-disabled="EditReceipt"--}}
-                                                    required>
-                                            <div ng-show="AddReceiptForm.receipt_no.$touched && AddReceiptForm.receipt_no.$error">
-                                            <span class="help-block form-text"
-                                                  ng-show="AddReceiptForm.receipt_no.$error.required">
-                                                Please Enter Receipt Number
-                                            </span>
-                                                <span class="help-block"
-                                                      ng-show="AddReceiptForm.receipt_no.$error.minlength">
-                                                Minimum 3 Characters Required
-                                            </span>
-                                                <span class="help-block"
-                                                      ng-show="AddReceiptForm.receipt_no.$error.maxlength">
-                                                Maximum 10 Characters Allowed
-                                            </span>
-                                            </div>
+                                                type="text"
+                                                id="id"
+                                                name="id"
+                                                ng-model="receipt.id"
+                                                placeholder="Receipt No"
+                                                class="form-control"
+                                                disabled>
                                         </div>
                                     </div>
                                     <div class="row form-group">
@@ -175,10 +157,10 @@
                                                     id="gs_no"
                                                     name="gs_no"
                                                     ng-model="receipt.gs_no"
-                                                    placeholder="GS No"
                                                     class="form-control"
                                                     ng-minlength="3"
                                                     ng-maxlength="20"
+                                                    ui-mask="GS - (9999999999)"
                                                     required>
                                             <div ng-show="AddReceiptForm.gs_no.$touched && AddReceiptForm.gs_no.$error">
                                             <span class="help-block"
@@ -198,21 +180,20 @@
                                     </div>
                                     <div class="row form-group">
                                         <div class="col col-md-3">
-                                            <label for="re_date" class=" form-control-label">Receipt Date <span
-                                                        class="mandatory">*</span></label>
+                                            <label for="receipt_date" class=" form-control-label">Receipt Date <span class="mandatory">*</span></label>
                                         </div>
                                         <div class="col-12 col-md-6">
                                             <input
                                                     type="text"
-                                                    id="re_date"
-                                                    name="re_date"
+                                                    id="receipt_date"
+                                                    name="receipt_date"
                                                     ng-model="receipt.receipt_date"
                                                     placeholder="Receipt Date"
                                                     class="form-control"
                                                     required>
-                                            <div ng-show="AddReceiptForm.re_date.$touched && AddReceiptForm.re_date.$error">
+                                            <div ng-show="AddReceiptForm.receipt_date.$touched && AddReceiptForm.receipt_date.$error">
                                             <span class="help-block"
-                                                  ng-show="AddReceiptForm.re_date.$error.required">
+                                                  ng-show="AddReceiptForm.receipt_date.$error.required">
                                                 Please Select Receipt Date
                                             </span>
                                             </div>
@@ -377,9 +358,16 @@
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary btn-sm"
-                                        {{--ng-disabled="AddReceiptForm.$invalid"--}}
-                                        ng-click="AddReceipt();">
+                                        ng-disabled="AddReceiptForm.$invalid"
+                                        ng-click="AddReceipt();"
+                                        ng-show="!editReceipt">
                                     <i class="fa fa-dot-circle-o"></i> Submit
+                                </button>
+                                <button type="submit" class="btn btn-primary btn-sm"
+                                        ng-disabled="AddReceiptForm.$invalid"
+                                        ng-click="AddReceipt();"
+                                        ng-show="editReceipt">
+                                    <i class="fa fa-dot-circle-o"></i> Update
                                 </button>
                                 <button type="reset" class="btn btn-secondary btn-sm">
                                     <i class="fa fa-refresh"></i> Reset
@@ -406,7 +394,7 @@
     <script type="text/javascript" src="{{url('public/js/controllers/ReceiptController.js')}}"></script>
     <script>
         $(document).ready(function () {
-            $("#re_date").datepicker({
+            $("#receipt_date").datepicker({
                 autoclose: true,
                 format: 'dd/mm/yyyy',
                 todayHighlight: true,

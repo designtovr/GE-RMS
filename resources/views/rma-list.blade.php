@@ -843,16 +843,6 @@
 		                                                <span class="mandatory">*</span></label>
 		                                        </div>
 		                                        <div class="col-12 col-md-8">
-		                                            <!-- <input 
-		                                            type="text" 
-		                                            id="invoice_customer_name" 
-		                                            name="invoice_customer_name"
-		                                            ng-model="rmaformdata.invoice_info.customer_name"
-		                                            placeholder="Customer Name" 
-		                                            class="form-control"
-		                                            ng-minlength="3" 
-			                                        ng-maxlength="10"
-			                                        required> -->
 			                                        <div class="col-md-8">
 	                                                    <ui-select ng-model="rmaformdata.invoice_info.customer_name" theme="selectize" ng-disabled="" title="Select Model No" ng-change="ChangeInvoiceAddress(rmaformdata.invoice_info.customer_name);">
 														    <ui-select-match placeholder="Select Model No">@{{$select.selected.name}}</ui-select-match>

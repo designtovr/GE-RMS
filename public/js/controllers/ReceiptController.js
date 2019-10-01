@@ -1,8 +1,9 @@
 app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter','$ngConfirm', function($scope, $http,Notification, $filter , $ngConfirm){
 	$scope.receiptform = false;
+	$scope.receipts = [];
 	$scope.receipt = {};
 	$scope.gridOptions = {data : []};
-	$scope.EditReceipt = false;
+	$scope.editReceipt = false;
 	$scope.AddReceipt= function()
 	{
 		$http({
@@ -14,9 +15,8 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 		}).then(function success(response){
 			if (response.status == 200)
 			{
-				alert(response.data.message)
+				Notification.success(response.data.message);
 				$scope.HideReceiptForm();
-				/*$('#customermodal').modal('hide');*/
 				$scope.getReceipts();
 			}
 		}, function failure(response){
@@ -26,7 +26,7 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 				var errors = response.data.errors;
 				for(var error in errors)
 				{
-					alert(errors[error][0]);
+					Notification.error(errors[error][0]);
 					break;
 				}
 			}
@@ -39,7 +39,7 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 			method: 'GET',
 			url: '/ge/receipts'
 		}).then(function success(response) {
-			$scope.receipt = response.data.data;
+			$scope.receipts = response.data.data;
 			$scope.gridOptions.data =  response.data.data;
 		}, function error(response) {
 
@@ -49,22 +49,22 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 	$scope.ShowReceiptForm = function()
 	{
 		$scope.receipt = {};
+		$scope.receipt.receipt_date = $filter('date')(new Date(),'dd/MM/yyyy');
 		$scope.receiptform = true;
-		EditReceipt = false;
-		console.log("HELLO");
+		$scope.editReceipt = false;
 	}
 
 	$scope.HideReceiptForm = function()
 	{
 		$scope.receiptform = false;
-		EditReceipt = false;
+		$scope.editReceipt = false;
 	}
 
 	$scope.EditReceipt= function(receipt)
 	{
 		$scope.receipt = receipt;
 		$scope.receipt.receipt_date = $filter('date')(new Date(),'dd/MM/yyyy');
-		EditReceipt = true;
+		$scope.editReceipt = true;
 		$scope.receiptform = true;
 	}
 
@@ -102,7 +102,7 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 
 	$scope.Initiate = function()
 	{
-		$scope.receipt.re_date = $filter('date')(new Date(),'dd/MM/yyyy');
+		$scope.receipt.receipt_date = $filter('date')(new Date(),'dd/MM/yyyy');
 		$scope.receiptform = false;
 	}
 }]);

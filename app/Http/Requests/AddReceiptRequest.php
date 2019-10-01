@@ -26,7 +26,7 @@ class AddReceiptRequest extends FormRequest
     {
         return [
 
-            'receipt.receipt_no' => 'required|numeric',
+            'receipt.id' => 'nullable|numeric|exists:receipt,id',
             'receipt.gs_no' => 'required|numeric',
             'receipt.receipt_date' => 'required|string',
             'receipt.customer_name' => 'required|string|min:3|max:100',
@@ -40,7 +40,7 @@ class AddReceiptRequest extends FormRequest
     public function attributes()
     {
         return [
-            'receipt.receipt_no' => 'Receipt number',
+            'receipt.id' => 'Receipt Id',
             'receipt.gs_no' => 'GS Number',
             'receipt.receipt_date' => 'Receipt Date',
             'receipt.customer_name' => 'Customer Name ',
@@ -60,6 +60,7 @@ class AddReceiptRequest extends FormRequest
             'string' => ' :attribute Should Be String',
             'numeric' => ' :attribute Should Be Number',
             'digits_between' => ' :attribute value is invalid',
+            'exists' => 'Invalid :attribute'
         ];
     }
 }

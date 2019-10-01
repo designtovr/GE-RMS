@@ -29,4 +29,10 @@ class ProductController extends Controller
 
     	return response()->json(['data' => $product, 'status' => 'success', 'messagae' => 'Product Added Successfully'], 200);
     }
+
+    public function ProductsOfType($producttype_id)
+    {
+        $products = ProductMaster::selectRaw('ma_product.id, ma_product.part_no')->where('type',$producttype_id)->orderBy('ma_product.id')->get();
+        return response()->json(['data' => $products, 'status' => 'success']);
+    }
 }
