@@ -1,4 +1,4 @@
-app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '$timeout', function($scope, $http, $filter, Notification, $timeout){
+app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '$timeout' , 'DataShareService', function($scope, $http, $filter, Notification, $timeout, DataShareService){
 	$scope.showrmaform = false;
 	$scope.rmaformdata = {};
 	$scope.rmaformdata.unit_information = [];
@@ -8,7 +8,13 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 	$scope.rmaformdata.field_volts_used = 1;
 	$scope.products = [];
 	$scope.customers = [];
+	$scope.endcustomers = [];
 	$scope.gridOptions = {data : []};
+	$scope.rmaformdata.edit = false;
+	$scope.servicetypes = [
+		{id: 1, 'name': 'Physical Relay'},
+		{id: 2, 'name': 'Site Card'}
+	];
 
 	$scope.ShowRMAForm = function()
 	{
@@ -24,21 +30,31 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 	$scope.InitiateForm = function()
 	{
 		$scope.rmaformdata = {};
-		$scope.rmaformdata.unit_information = [];
+		$scope.rmaformdata.unit_information = {};
 		$scope.rmaformdata.repair_instruction = {};
 		$scope.rmaformdata.invoice_info = {};
 		$scope.rmaformdata.delivery_info = {};
 		$scope.rmaformdata.date = $filter('date')(new Date(),'dd/MM/yyyy');
 		$scope.rmaformdata.field_volts_used = 1;
-		var new_information = new Object();
-		new_information.warrenty = 0;
-		$scope.rmaformdata.unit_information.push(new_information);
+		$scope.rmaformdata.unit_information.warrenty = 0;
 		$scope.rmaformdata.equip_failed_on_installation = 0;
 		$scope.rmaformdata.equip_failed_on_service = 0;
 		$scope.rmaformdata.update_version = 0;
 		$scope.rmaformdata.return_in_case = 0;
+		$scope.rmaformdata.edit = false;
+		$scope.pvs = DataShareService.getRIdList();
+		console.log($scope.pvs)
+		console.log($scope.rmaformdata)
+		if ($scope.pvs.length != 0)
+		{
+			$scope.rmaformdata.relay =  $scope.pvs[0];
+			$scope.rmaformdata.gs_no = $scope.pvs[0].gs_no;
+		}
+		console.log($scope.rmaformdata)
 		$scope.GetProductList();
+		$scope.ChangeRelayDetails();
 		$scope.GetCustomerList();
+		$scope.GetEndCustomerList();
 		$scope.GetRmaRefNumber();
 	}
 
@@ -69,15 +85,12 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 			if (response.data.status == 'success')
 	    	{
 	    		$scope.rmaformdata = response.data.data;
-	    		console.log($scope.rmaformdata);
 	    		$scope.rmaformdata.ref_no = $scope.rmaformdata.rma_reference_no;
 	    		$scope.rmaformdata.date =   $filter('date')($scope.rmaformdata.date, "dd/MM/yyyy");
 	    		$scope.rmaformdata.wbs = $scope.rmaformdata.sales_order_no;
 	    		$scope.rmaformdata.field_volts_used = $scope.rmaformdata.field_volts_used;
 	    		$scope.rmaformdata.invoice_info.customer_name = $scope.rmaformdata.invoice_info.id;
-	    		/*for (var i = 0; i < $scope.rmaformdata.unit_information.length; i++) {
-	    			$scope.rmaformdata.unit_information[i].model_no = 
-	    		}*/
+	    		$scope.rmaformdata.edit = true;
 	    	}
 		}, function error(response) {
 		});
@@ -101,6 +114,8 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 		  url: '/ge/products'
 		}).then(function success(response) {
 		    $scope.products = response.data.data;
+		    var addoption = {'id':-1, 'part_no': 'Add New'};
+		    //$scope.products.push(addoption);
 		}, function error(response) {
 		});
 	}
@@ -116,10 +131,27 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 		});
 	}
 
-	$scope.ChangeModelCategory = function(model)
+	$scope.GetEndCustomerList = function()
 	{
-		model.model_id = model.model_no.id;
-		model.type_of_material = model.model_no.category;
+		$http({
+		  method: 'GET',
+		  url: '/ge/endcustomers'
+		}).then(function success(response) {
+			if (response.data.status == 'success')
+			{
+				$scope.endcustomers = response.data.data;
+			    var addoption = {'end_customer': 'Add New'};
+			    $scope.endcustomers.push(addoption);
+			}
+		}, function error(response) {
+		});
+	}
+
+	$scope.ChangeRelayDetails = function()
+	{
+		$scope.rmaformdata.relay.model_no = $scope.rmaformdata.relay.part_no;
+		$scope.rmaformdata.relay.type_of_material = $filter('uppercase')($scope.rmaformdata.relay.category);
+		console.log($scope.rmaformdata)
 	}
 
 	$scope.ChangeInvoiceAddress = function(customer)
@@ -150,37 +182,9 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 		}
 	}
 
-	$scope.AddUnitInformation = function()
+	$scope.SaveRMAUnitInformation = function()
 	{
-		if($scope.rmaformdata.unit_information.length == 5)
-		{
-			Notification.error('Should Not Be Greater Than 5');
-		}
-		else
-		{
-			var new_information = new Object();
-			new_information.warrenty = 0;
-			$scope.rmaformdata.unit_information.push(new_information);
-			console.log($scope.rmaformdata.unit_information)
-		}
-		
-	}
-
-	$scope.RemoveUnitInformation = function($index)
-	{
-		if($scope.rmaformdata.unit_information.length == 1)
-		{
-			Notification.error('At Least One Required');
-		}
-		else
-		{
-			$scope.rmaformdata.unit_information.splice($index, 1);
-		}
-	}
-
-	$scope.GenerateSerialNumberField = function(index, quantity)
-	{
-		$scope.rmaformdata.unit_information[index].serial_number_length = new Array(quantity);
+		console.log($scope.rmaformdata)
 	}
 
 	$scope.SubmitRMAForm = function()
@@ -195,22 +199,26 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 			return;
 		}
 		$scope.rmaformdata.customer_address_id = $scope.rmaformdata.invoice_info.customer_name.id;
-		console.log($scope.rmaformdata)
 
 		$http({
 			url: '/ge/addrma',
 			method: 'POST',
 			data: {
-				'rma': $scope.rmaformdata
+				'rma': $scope.rmaformdata,
+				'pvs': $scope.pvs
 			}
 		}).then(function(response){
 			if (response.data.status == 'success')
 			{
+				Notification.success(response.data.message);
 				$scope.rmaformdata = {};
 				$scope.rmaformdata.unit_information = [];
 				$scope.rmaformdata.repair_instruction = {};
 				$scope.rmaformdata.invoice_info = {};
 				$scope.rmaformdata.delivery_info = {};
+				$( "#closermabutton" ).trigger( "click" );
+				$( "#myTab" ).trigger( "click" );
+				$("#all-tab").addClass("intro");
 			}
 		}, function(response){
 

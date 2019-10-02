@@ -27,14 +27,14 @@ class ADDRMARequest extends FormRequest
         $rules['rma.gs_no'] = 'required|string|min:3|max:10';
         $rules['rma.act_reference'] = 'required|string|min:3|max:10';
         $rules['rma.date'] = 'required|date_format:d/m/Y';
-        $rules['rma.desc_of_fault'] = 'required|string|min:3|max:100';
+        /*$rules['rma.desc_of_fault'] = 'required|string|min:3|max:100';
         $rules['rma.wbs'] = 'required|string|min:3|max:10';
         $rules['rma.field_volts_used'] = 'required|numeric|digits_between:0,1';
         $rules['rma.equip_failed_on_installation'] = 'required|numeric|digits_between:0,1';
         $rules['rma.equip_failed_on_service'] = 'required|numeric|digits_between:0,1';
         $rules['rma.update_version'] = 'required|numeric|digits_between:0,1';
         $rules['rma.return_in_case'] = 'required|numeric|digits_between:0,1';
-        $rules['rma.how_long'] = 'required|string|min:3|max:25';
+        $rules['rma.how_long'] = 'required|string|min:3|max:25';*/
         $rules['rma.customer_address_id'] = 'required|exists:ma_customer,id';
 
         $rules['rma.delivery_info.contact_name'] = "required|string|min:3|max:25";
@@ -45,13 +45,24 @@ class ADDRMARequest extends FormRequest
 
         $rules['rma.unit_information'] = "required|array";
 
-        $rules['rma.unit_information.*.model_id'] = "required|exists:ma_product,id";
+        /*$rules['rma.unit_information.*.model_id'] = "required|exists:ma_product,id";
         $rules['rma.unit_information.*.service_type'] = "required|digits_between:0,1";
         $rules['rma.unit_information.*.sw_version'] = "required|string|min:1|max:5";
-        $rules['rma.unit_information.*.warrenty'] = "required|numeric|digits_between:0,1";
+        $rules['rma.unit_information.*.warrenty'] = "required|numeric|digits_between:0,1";*/
 
-        $rules['rma.unit_information.*.serial_no'] = "required|array";
-        $rules['rma.unit_information.*.serial_no.*'] = "required|string|min:3|max:10";
+        /*$rules['rma.unit_information.*.serial_no'] = "required|array";
+        $rules['rma.unit_information.*.serial_no.*'] = "required|string|min:3|max:10";*/
+
+        $rules['pvs.*.id'] = 'required|exists:physical_verification,id';
+        $rules['pvs.*.sw_version'] = 'required|string|min:1|max:5';
+        $rules['pvs.*.service_type'] = 'required|numeric|digits_between:0,1';
+        $rules['pvs.*.warrenty'] = 'required|numeric|digits_between:0,1';
+        $rules['pvs.*.desc_of_fault'] = 'required|string|min:3|max:100';
+        /*$rules['pvs.*.wbs'] = 'required|string|min:3|max:10';*/
+        $rules['pvs.*.field_volts_used'] = 'required|numeric|digits_between:0,1';
+        $rules['pvs.*.equip_failed_on_installation'] = 'required|numeric|digits_between:0,1';
+        $rules['pvs.*.equip_failed_on_service'] = 'required|numeric|digits_between:0,1';
+        $rules['pvs.*.how_long'] = 'required|string|min:1|max:25';
         
         return $rules;
     }

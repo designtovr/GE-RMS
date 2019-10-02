@@ -61,21 +61,21 @@
                             <table class="table table-borderless table-data3">
                                 <thead>
                                 <tr>
-                                    <th class="sortable">
+                                    <th>
                                         RMA Ref No
                                     </th>
-                                    <th class="sortable">
+                                    <th>
                                         Date
                                     </th>
 
-                                    <th class="sortable">
+                                    <th>
                                         GS No
                                     </th>
-                                    <th class="sortable">
+                                    <th>
                                         ACT Reference
                                     </th>
-                                    <th class="sortable">
-                                        Sales Order
+                                    <th>
+                                        End Customer
                                     </th>
                                     <th>
                                         Actions
@@ -84,16 +84,21 @@
                                 </thead>
                                 <tbody>
                                 <tr grid-item>
-                                    <td ng-bind="item.rma_reference_no"></td>
+                                    <td ng-bind="item.id"></td>
                                     <td ng-bind="item.date | date:'dd/MM/yyyy'"></td>
 
                                     <td ng-bind="item.gs_no"></td>
                                     <td ng-bind="item.act_reference"></td>
-                                    <td ng-bind="item.sales_order_no"></td>
+                                    <td ng-bind="item.end_customer"></td>
                                     <td>
                                         <div class="table-data-feature">
                                             <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="EditRMAForm(item.id);">
                                                 <i class="zmdi zmdi-edit"></i>
+                                            </button>
+                                            <button class="item" data-toggle="tooltip" data-placement="top"
+                                                    title="Add"
+                                                    ng-click="OpenPVForm(item, false);">
+                                                <i class="zmdi zmdi-plus-box"></i>
                                             </button>
                                             <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
                                                 <i class="zmdi zmdi-delete"></i>
@@ -115,7 +120,7 @@
 	                        </div>
 	                        <div class="card-body card-block">
 	                        	<form name="RMAForm1" id="RMAForm1" class="form-horizontal" novalidate>
-	                                <div class="row form-group">
+	                                <div class="row form-group" ng-if="rmaformdata.edit">
 	                                    <div class="col col-md-3">
 	                                        <label for="rma_ref_no" class=" form-control-label">RMA Reference No</label>
 	                                    </div>
@@ -218,54 +223,55 @@
 	                                </div>
 	                                <div class="card-body card-block">
 	                                	<form name="RMAForm2" id="RMAForm2" class="form-horizontal" novalidate>
-		                                    <div class="col-lg-12 p-b-20 b-b-2 p-t-10" ng-repeat="info in rmaformdata.unit_information">
-		                                    	<div class="row p-b-10">
-		                                    		<div class="col-md-12">
-		                                                <button class="btn btn-danger btn-md float-right" ng-click="RemoveUnitInformation($index);">
-		                                                    <i class="fa fa-minus"></i>&nbsp; Remove
-		                                                </button>
-		                                            </div>
-		                                    	</div>
+		                                    <div class="col-lg-12 p-b-20 p-t-10">
 		                                    	<div class="row">
 		                                    		<div class="col-lg-6">
 		                                    			<div class="row form-group">
-			                                                <div class="col col-md-4">
-			                                                    <label for="quantity" class=" form-control-label">Quantity</label>
+			                                                <div class="col-md-4">
+			                                                    <label for="model_no" class=" form-control-label">	Model No
+			                                                    </label>
 			                                                </div>
-			                                                <div class="col-3 col-md-8">
-			                                                    <input 
-			                                                    type="number" 
-			                                                    id="quantity" 
-			                                                    name="quantity_@{{$index}}"
-			                                                    ng-model="info.quantity"
-			                                                    placeholder="Quantity" 
-			                                                    class="form-control"
-			                                                    ng-pattern="/^[0-9]*$/"
-			                                                    min=1
-			                                                    ng-change="GenerateSerialNumberField($index, info.quantity)"
-						                                        required>
-						                                        <div ng-show="RMAForm2.quantity_@{{$index}}.$touched && RMAForm2.quantity_@{{$index}}.$error">
+			                                                <div class="col-md-8">
+			                                                    <ui-select ng-model="rmaformdata.unit_information.model_no" theme="selectize" title="Select Model No" id="model_no" 
+			                                                    name="model_no" ng-change="ChangeModelCategory()">
+																    <ui-select-match placeholder="Select Model No">@{{$select.selected.part_no}}</ui-select-match>
+																    <ui-select-choices repeat="product in products | filter: $select.search">
+																      <span ng-bind-html="product.part_no | highlight: $select.search"></span>
+																    </ui-select-choices>
+																  </ui-select>
+			                                                    <div ng-show="RMAForm2.model_no.$touched && RMAForm2.model_no.$error">
 					                                                <span class="help-block"
-					                                                 ng-show="RMAForm2.quantity_@{{$index}}.$error.required">
-					                                                    Please Enter Quantity
-					                                                </span>
-					                                                <span class="help-block"
-					                                                 ng-show="RMAForm2.quantity_@{{$index}}.$error.range">
-					                                                    Minimum 1 Quantity Required
-					                                                </span>
-					                                                <span class="help-block"
-					                                                 ng-show="RMAForm2.quantity_@{{$index}}.$error.pattern">
-					                                                    Only Numbers Allowed
+					                                                 ng-show="RMAForm2.model_no.$error.required">
+					                                                    Please Enter Model Number
 					                                                </span>
 					                                            </div>
 			                                                </div>
 			                                            </div>
 		                                    		</div>
-		                                    		<!-- <div class="col-lg-6">
+		                                    		<div class="col-lg-6">
+		                                    			<div class="row form-group">
+		                                    				<div class="col-md-4">
+			                                                    <label for="type_of_material" class=" form-control-label">Type Of Material</label>
+			                                                </div>
+			                                                <div class="col-md-8">
+			                                                    <input 
+			                                                    type="text" 
+			                                                    id="type_of_material"
+			                                                    name="type_of_material"
+			                                                    ng-model="rmaformdata.unit_information.type_of_material"
+			                                                    placeholder="Type of Material"
+			                                                    class="form-control"
+			                                                    disabled>
+			                                                </div>
+		                                    			</div>
+		                                    		</div>
+		                                    	</div>
+		                                    	<div class="row" ng-if="rmaformdata.unit_information.model_no.id == -1">
+	                                    			<div class="col-lg-6">
 		                                    			<div class="row form-group">
 			                                                <div class="col-md-4">
-			                                                    <label for="model_no" class=" form-control-label">Model
-			                                                        No</label>
+			                                                    <label for="model_no" class=" form-control-label">Model No
+			                                                    </label>
 			                                                </div>
 			                                                <div class="col-md-8">
 			                                                    <input 
@@ -294,86 +300,37 @@
 					                                            </div>
 			                                                </div>
 			                                            </div>
-		                                    		</div> -->
-		                                    		<div class="col-lg-6">
-		                                    			<div class="row form-group">
-			                                                <div class="col-md-4">
-			                                                    <label for="model_no" class=" form-control-label">Model
-			                                                        No</label>
-			                                                </div>
-			                                                <div class="col-md-8">
-			                                                    <ui-select ng-model="info.model_no" theme="selectize" ng-disabled="" title="Select Model No" ng-change="ChangeModelCategory(info);">
-																    <ui-select-match placeholder="Select Model No">@{{$select.selected.part_no}}</ui-select-match>
-																    <ui-select-choices id="model_no_@{{$index}}" 
-			                                                    name="model_no_@{{$index}}" repeat="product in products | filter: $select.search">
-																      <span ng-bind-html="product.part_no | highlight: $select.search"></span>
-																      <small ng-bind-html="product.id | highlight: $select.search"></small>
-																    </ui-select-choices>
-																  </ui-select>
-			                                                    <div ng-show="RMAForm2.model_no_@{{$index}}.$touched && RMAForm2.model_no_@{{$index}}.$error">
-					                                                <span class="help-block"
-					                                                 ng-show="RMAForm2.model_no_@{{$index}}.$error.required">
-					                                                    Please Enter Model Number
-					                                                </span>
-					                                                <span class="help-block"
-					                                                 ng-show="RMAForm2.model_no_@{{$index}}.$error.minlength">
-					                                                    Minimum 3 Characters Required
-					                                                </span>
-					                                                <span class="help-block"
-					                                                 ng-show="RMAForm2.model_no_@{{$index}}.$error.maxlength">
-					                                                    Maximum 10 Characters Allowed
-					                                                </span>
-					                                            </div>
-			                                                </div>
-			                                            </div>
 		                                    		</div>
 		                                    	</div>
 		                                    	<div class="row">
-		                                    		<div class="col-lg-6">
-		                                    			<div class="row form-group">
-		                                    				<div class="col-md-4">
-			                                                    <label for="type_of_material" class=" form-control-label">Type Of Material</label>
-			                                                </div>
-			                                                <div class="col-md-8">
-			                                                    <input 
-			                                                    type="text" 
-			                                                    id="type_of_material"
-			                                                    name="type_of_material"
-			                                                    ng-model="info.type_of_material"
-			                                                    placeholder="Type of Material"
-			                                                    class="form-control"
-			                                                    disabled>
-			                                                </div>
-		                                    			</div>
-		                                    		</div>
 		                                    		<div class="col-lg-6">
 		                                    			<div class="row form-group">
 			                                    			<div class="col-md-4">
 			                                                    <label for="serial_no" class=" form-control-label">Serial Number</label>
 			                                                </div>
 			                                                <div class="col-md-8">
-						                                        <div ng-repeat="x in rmaformdata.unit_information[$index].serial_number_length track by $index">
+						                                        <div>
 						                                        	<input 
 				                                                    type="text" 
-				                                                    id="serial_no_@{{$parent.$index}}_@{{$index}}" 
-				                                                    name="serial_no_@{{$parent.$index}}_@{{$index}}"
-				                                                    ng-model="info.serial_no[$index]"
+				                                                    id="serial_no" 
+				                                                    name="serial_no"
+				                                                    ng-model="rmaformdata.unit_information.serial_no"
 				                                                    placeholder="Serial Number" 
-				                                                    class="form-control m-t-10"
+				                                                    class="form-control"
 				                                                    ng-minlength="3" 
 							                                        ng-maxlength="20"
 							                                        required>
-							                                        <div ng-show="RMAForm2.serial_no_@{{$parent.$index}}_@{{$index}}.$touched && RMAForm2.serial_no_@{{$parent.$index}}_@{{$index}}.$error">
+							                                        <div ng-show="RMAForm2.serial_no.$touched && RMAForm2.serial_no.$error">
 						                                                <span class="help-block"
-						                                                 ng-show="RMAForm2.serial_no_@{{$parent.$index}}_@{{$index}}.$error.required">
+						                                                 ng-show="RMAForm2.serial_no.$error.required">
 						                                                    Please Enter Serial Number
 						                                                </span>
 						                                                <span class="help-block"
-						                                                 ng-show="RMAForm2.serial_no_@{{$parent.$index}}_@{{$index}}.$error.minlength">
+						                                                 ng-show="RMAForm2.serial_no.$error.minlength">
 						                                                    Minimum 3 Characters Required
 						                                                </span>
 						                                                <span class="help-block"
-						                                                 ng-show="RMAForm2.serial_no_@{{$parent.$index}}_@{{$index}}.$error.maxlength">
+						                                                 ng-show="RMAForm2.serial_no.$error.maxlength">
 						                                                    Maximum 20 Characters Allowed
 						                                                </span>
 						                                            </div>
@@ -381,42 +338,42 @@
 			                                                </div>
 			                                            </div>
 		                                    		</div>
-		                                    	</div>
-		                                    	<div class="row">
 		                                    		<div class="col-lg-6">
 		                                    			<div class="row form-group">
 			                                                <div class="col col-md-4">
-			                                                    <label for="sw_version_@{{$index}}" class=" form-control-label">SW
+			                                                    <label for="sw_version" class=" form-control-label">SW
 			                                                        Version</label>
 			                                                </div>
 			                                                <div class="col-md-8">
 			                                                    <input 
 			                                                    type="text" 
-			                                                    id="sw_version_@{{$index}}" 
-			                                                    name="sw_version_@{{$index}}"
-			                                                    ng-model="info.sw_version"
+			                                                    id="sw_version" 
+			                                                    name="sw_version"
+			                                                    ng-model="rmaformdata.unit_information.sw_version"
 			                                                    placeholder="SW Version" 
 			                                                    class="form-control"
 			                                                    ng-minlength="1" 
 						                                        ng-maxlength="5"
 						                                        required>
-			                                                    <div ng-show="RMAForm2.sw_version_@{{$index}}.$touched && RMAForm2.sw_version_@{{$index}}.$error">
+			                                                    <div ng-show="RMAForm2.sw_version.$touched && RMAForm2.sw_version.$error">
 					                                                <span class="help-block"
-					                                                 ng-show="RMAForm2.sw_version_@{{$index}}.$error.required">
+					                                                 ng-show="RMAForm2.sw_version.$error.required">
 					                                                    Please Enter SW Version
 					                                                </span>
 					                                                <span class="help-block"
-					                                                 ng-show="RMAForm2.sw_version_@{{$index}}.$error.minlength">
+					                                                 ng-show="RMAForm2.sw_version.$error.minlength">
 					                                                    Minimum 1 Characters Required
 					                                                </span>
 					                                                <span class="help-block"
-					                                                 ng-show="RMAForm2.sw_version_@{{$index}}.$error.maxlength">
+					                                                 ng-show="RMAForm2.sw_version.$error.maxlength">
 					                                                    Maximum 5 Characters Allowed
 					                                                </span>
 					                                            </div>
 			                                                </div>
 			                                            </div>
 		                                    		</div>
+		                                    	</div>
+		                                    	<div class="row">
 		                                    		<div class="col-lg-6">
 		                                    			<div class="row form-group">
 		                                    				<div class="col col-md-4">
@@ -425,17 +382,17 @@
 			                                                </div>
 			                                                <div class="col-md-8">
 			                                                    <select 
-			                                                    name="service_type_@{{$index}}" 
+			                                                    name="service_type" 
 			                                                    id="service_type" 
-			                                                    ng-model="info.service_type"
+			                                                    ng-model="rmaformdata.unit_information.service_type"
 			                                                    class="form-control"
 						                                        required>
-			                                                        <option value="1" ng-selected="info.service_type == 1">Physical Relay</option>
-			                                                        <option value="2" ng-selected="info.service_type == 2">Site Card</option>
+			                                                        <option value="1" ng-selected="rmaformdata.unit_information.service_type == 1">Physical Relay</option>
+			                                                        <option value="2" ng-selected="rmaformdata.unit_information.service_type == 2">Site Card</option>
 			                                                    </select>
-			                                                    <div ng-show="RMAForm2.service_type_@{{$index}}.$touched && RMAForm2.service_type_@{{$index}}.$error">
+			                                                    <div ng-show="RMAForm2.service_type.$touched && RMAForm2.service_type.$error">
 					                                                <span class="help-block"
-					                                                 ng-show="RMAForm2.service_type_@{{$index}}.$error.required">
+					                                                 ng-show="RMAForm2.service_type.$error.required">
 					                                                    Please Select Service Type
 					                                                </span>
 					                                            </div>
@@ -452,27 +409,27 @@
 				                                            <div class="col col-md-8">
 				                                                <div class="form-check">
 				                                                    <div class="radio">
-				                                                        <label for="warrenty1_@{{$index}}"
+				                                                        <label for="warrenty1"
 				                                                               class="form-check-label">
 				                                                            <input 
 				                                                            type="radio" 
-				                                                            id="warrenty1_@{{$index}}"
-				                                                            name="warrenty_@{{$index}}"
-				                                                            ng-model="info.warrenty"
-				                                                            ng-checked="@{{info.warrenty}} == 1"
+				                                                            id="warrenty1"
+				                                                            name="warrenty"
+				                                                            ng-model="rmaformdata.unit_information.warrenty"
+				                                                            ng-checked="rmaformdata.unit_information.warrenty == 1"
 				                                                            value="1"
 				                                                            class="form-check-input">Yes
 				                                                        </label>
 				                                                    </div>
 				                                                    <div class="radio">
-				                                                        <label for="warrenty2_@{{$index}}"
+				                                                        <label for="warrenty2"
 				                                                               class="form-check-label ">
 				                                                            <input 
 				                                                            type="radio" 
-				                                                            id="warrenty2_@{{$index}}"
-				                                                            name="warrenty_@{{$index}}"
-				                                                            ng-model="info.warrenty"
-				                                                            ng-checked="@{{info.warrenty}} == 0"
+				                                                            id="warrenty2"
+				                                                            name="warrenty"
+				                                                            ng-model="rmaformdata.unit_information.warrenty"
+				                                                            ng-checked="rmaformdata.unit_information.warrenty == 0"
 				                                                            value="0"
 				                                                            class="form-check-input">No
 				                                                        </label>
@@ -481,16 +438,6 @@
 				                                            </div>
 				                                        </div>
 		                                    		</div>
-		                                    	</div>
-		                                    </div>
-		                                    <div class="col-lg-12 p-b-20 p-t-10">
-		                                    	<div class="row">
-		                                    		<div class="col-md-12">
-		                                                <button class="btn btn-primary btn-md float-right" ng-click="AddUnitInformation();">
-		                                                    <i class="fa fa-plus fa-lg"></i>&nbsp;
-		                                                    <span id="payment-button-amount">Add</span>
-		                                                </button>
-		                                            </div>
 		                                    	</div>
 		                                    </div>
 		                                    <div class="col-lg-12">
@@ -622,22 +569,50 @@
 		                                                <label for="field_volts_used" class=" form-control-label">Are Field Volts Used(Y/N)?</label>
 		                                            </div>
 		                                            <div class="col-12 col-md-8">
-		                                                <select 
+		                                            	<div class="form-check">
+		                                                    <div class="radio">
+		                                                        <label for="field_volts_used1"
+		                                                               class="form-check-label">
+		                                                            <input 
+		                                                            type="radio" 
+		                                                            id="field_volts_used1"
+		                                                            name="field_volts_used"
+		                                                            ng-model="rmaformdata.field_volts_used"
+		                                                            ng-checked="@{{rmaformdata.field_volts_used}} == 1"
+		                                                            value="1"
+		                                                            class="form-check-input">Yes
+		                                                        </label>
+		                                                    </div>
+		                                                    <div class="radio">
+		                                                        <label for="field_volts_used2"
+		                                                               class="form-check-label ">
+		                                                            <input 
+		                                                            type="radio" 
+		                                                            id="field_volts_used2"
+		                                                            name="field_volts_used"
+		                                                            ng-model="rmaformdata.field_volts_used"
+		                                                            ng-checked="@{{rmaformdata.field_volts_used}} == 0"
+		                                                            value="0"
+		                                                            class="form-check-input">No
+		                                                        </label>
+		                                                    </div>
+		                                                </div>
+		                                                <!-- <select 
 		                                                name="field_volts_used" 
 		                                                id="field_volts_used"
 		                                                ng-model="rmaformdata.field_volts_used"
 		                                                class="form-control"
 		                                                required>
-		                                                	<option value="0" selected="selected"></option>
-		                                                    <option value="1" ng-selected="@{{rmaformdata.field_volts_used == 1}}">Yes</option>
-		                                                    <option value="2" ng-selected="@{{rmaformdata.field_volts_used == 2}}">No</option>
+		                                                	<option value="" style="display:none"></option>
+		                                                    <option value="1" ng-selected="rmaformdata.field_volts_used == 1">Yes</option>
+		                                                    <option value="2" ng-selected="rmaformdata.field_volts_used == 2">No</option>
 		                                                </select>
 		                                                <div ng-show="RMAForm2.field_volts_used.$touched && RMAForm2.field_volts_used.$error">
 			                                                <span class="help-block"
 			                                                 ng-show="RMAForm2.field_volts_used.$error.required">
 			                                                    Please Select Volts Used
 			                                                </span>
-			                                            </div>
+			                                            </div> -->
 		                                            </div>
 		                                        </div>
 		                                        <div class="row form-group">
@@ -754,120 +729,66 @@
 	                        <div class="col-lg-6">
 	                            <div class="card">
 	                                <div class="card-header">
-	                                    <strong>SPECIALIST REPAIR INSTRUCTIONS</strong>
+	                                    <strong>Customer Invoice Address</strong>
 	                                </div>
 	                                <div class="card-body card-block">
-	                                	<form name="RMAForm3" id="RMAForm3" class="form-horizontal" novalidate>
-			                                <div class="row form-group">
-			                                    <div class="col col-md-6">
-			                                        <label class=" form-control-label">Do you want an updated firmware
-			                                            version after repair </label>
-			                                    </div>
-			                                    <div class="col col-md-6">
-			                                        <div class="form-check">
-			                                            <div class="radio">
-			                                                <label for="update_version1" class="form-check-label ">
-			                                                    <input 
-			                                                    type="radio" 
-			                                                    id="update_version1"
-			                                                    name="update_version" 
-			                                                    ng-model="rmaformdata.update_version"
-			                                                    ng-checked="@{{rmaformdata.update_version}} == 1"
-			                                                    value="1"
-			                                                    class="form-check-input">Yes
-			                                                </label>
-			                                            </div>
-			                                            <div class="radio">
-			                                                <label for="update_version2" class="form-check-label ">
-			                                                    <input 
-			                                                    type="radio" 
-			                                                    id="update_version2"
-			                                                    name="update_version" 
-			                                                    ng-model="rmaformdata.update_version"
-			                                                    ng-checked="@{{rmaformdata.update_version}} == 0"
-			                                                    value="0"
-			                                                    class="form-check-input">No
-			                                                </label>
-			                                            </div>
-			                                        </div>
-			                                    </div>
-			                                </div>
-			                                <div class="row form-group">
-			                                    <div class="col col-md-6">
-			                                        <label class=" form-control-label">Is the relay being returned in a
-			                                            case </label>
-			                                    </div>
-			                                    <div class="col col-md-6">
-			                                        <div class="form-check">
-			                                            <div class="radio">
-			                                                <label for="return_in_case1" class="form-check-label ">
-			                                                    <input 
-			                                                    type="radio" 
-			                                                    id="return_in_case1"
-			                                                    name="return_in_case" 
-			                                                    value="1"
-			                                                    ng-model="rmaformdata.return_in_case"
-			                                                    ng-checked="@{{rmaformdata.return_in_case}} == 1"
-			                                                    class="form-check-input">Yes
-			                                                </label>
-			                                            </div>
-			                                            <div class="radio">
-			                                                <label for="return_in_case2" class="form-check-label ">
-			                                                    <input 
-			                                                    type="radio" 
-			                                                    id="return_in_case2"
-			                                                    name="return_in_case" 
-			                                                    value="0"
-			                                                    ng-model="rmaformdata.return_in_case"
-			                                                    ng-checked="@{{rmaformdata.return_in_case}} == 0"
-			                                                    class="form-check-input">No
-			                                                </label>
-			                                            </div>
-			                                        </div>
-			                                    </div>
-			                                </div>
-			                            </form>
-		                            </div>
-	                            </div>
-	                        </div>
-	                        <div class=" col-lg-6">
-	                            <div class="card">
-	                                <div class="card-header">
-	                                    <strong>CUSTOMER & INVOICING INFORMATION</strong>
-	                                </div>
-	                                <div class="card-body card-block">
-	                                	<form name="RMAForm4" id="RMAForm4" class="form-horizontal" novalidate>
+	                                	<form name="RMAForm5" id="RMAForm5" class="form-horizontal" novalidate>
 		                                    <div class="row form-group">
 		                                        <div class="col col-md-4">
 		                                            <label for="invoice_customer_name" class=" form-control-label">Customer Name
 		                                                <span class="mandatory">*</span></label>
 		                                        </div>
 		                                        <div class="col-12 col-md-8">
-			                                        <div class="col-md-8">
-	                                                    <ui-select ng-model="rmaformdata.invoice_info.customer_name" theme="selectize" ng-disabled="" title="Select Model No" ng-change="ChangeInvoiceAddress(rmaformdata.invoice_info.customer_name);">
-														    <ui-select-match placeholder="Select Model No">@{{$select.selected.name}}</ui-select-match>
-														    <ui-select-choices id="model_no_@{{$index}}" 
-	                                                    name="model_no_@{{$index}}" repeat="customer in customers | filter: $select.search">
-														      <span ng-bind-html="customer.name | highlight: $select.search"></span>
-														      <small ng-bind-html="customer.site_name | highlight: $select.search"></small>
-														    </ui-select-choices>
-														  </ui-select>
-	                                                </div>
+                                                    <ui-select ng-model="rmaformdata.invoice_info.customer_name" theme="selectize" title="Select Customer Name" ng-change="ChangeInvoiceAddress(rmaformdata.invoice_info.customer_name);"id="customer_name" 
+                                                    name="customer_name">
+													    <ui-select-match placeholder="Select Customer Name">@{{$select.selected.name}}</ui-select-match>
+													    <ui-select-choices repeat="customer in customers | filter: $select.search">
+													      <span ng-bind-html="customer.name | highlight: $select.search"></span>
+													      <small ng-bind-html="customer.site_name | highlight: $select.search"></small>
+													    </ui-select-choices>
+													  </ui-select>
 		                                        </div>
 		                                    </div>
-		                                </form>
-	                                </div>
-	                            </div>
-	                        </div>
-	                    </div>
-	                    <div class="row">
-	                        <div class="col-lg-6">
-	                            <div class="card">
-	                                <div class="card-header">
-	                                    <strong>Customer Invoice Address</strong>
-	                                </div>
-	                                <div class="card-body card-block">
-	                                	<form name="RMAForm5" id="RMAForm5" class="form-horizontal" novalidate>
+		                                    <div class="row form-group">
+		                                        <div class="col col-md-4">
+		                                            <label for="end_customer" class=" form-control-label">End Customer <span class="mandatory">*</span></label>
+		                                        </div>
+		                                        <div class="col-12 col-md-8">
+		                                        	<ui-select ng-model="rmaformdata.invoice_info.end_customer" theme="selectize" title="Select End Customer" id="end_customer" 
+                                                    name="end_customer" >
+													    <ui-select-match placeholder="Select End Customer">@{{$select.selected.end_customer}}</ui-select-match>
+													    <ui-select-choices repeat="customer in endcustomers | filter: $select.search">
+													      <span ng-bind-html="customer.end_customer | highlight: $select.search"></span>
+													    </ui-select-choices>
+													  </ui-select>
+													  <div ng-if="rmaformdata.invoice_info.end_customer.end_customer == 'Add New'">
+													  	<input 
+				                                            type="text" 
+				                                            id="manual_end_customer"
+				                                            name="manual_end_customer" 
+				                                            ng-model="rmaformdata.invoice_info.manual_end_customer" 
+				                                            placeholder="End Cusotmer"
+				                                            class="form-control"
+				                                            ng-minlength="3"
+				                                            ng-maxlength="25"
+					                                        required>
+					                                        <div ng-show="RMAForm5.manual_end_customer.$touched && RMAForm5.manual_end_customer.$error">
+				                                                <span class="help-block"
+				                                                 ng-show="RMAForm5.manual_end_customer.$error.required">
+				                                                    Please Enter End Customer
+				                                                </span>
+				                                                <span class="help-block"
+				                                                 ng-show="RMAForm5.manual_end_customer.$error.minlength">
+				                                                    Minimum 3 Characters Required
+				                                                </span>
+				                                                <span class="help-block"
+				                                                 ng-show="RMAForm5.manual_end_customer.$error.maxlength">
+				                                                    Maximum 25 Characters Allowed
+				                                                </span>
+				                                            </div>
+													  </div>
+		                                        </div>
+		                                    </div>
 		                                    <div class="row form-group">
 		                                        <div class="col col-md-4">
 		                                            <label for="invoice_address" class=" form-control-label">Customer Invoice Address <span class="mandatory">*</span></label>

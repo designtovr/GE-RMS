@@ -26,7 +26,7 @@ class AddPhysicalVerificationRequest extends FormRequest
         return [
 
             'physicalverification.id' => 'nullable|exists:physical_verification,id',
-            'physicalverification.receipt_no' => 'required|numeric|exists:receipt,id',
+            'physicalverification.receipt_id' => 'required|numeric|exists:receipt,id',
             'physicalverification.courier_name' => 'required|string|min:3|max:9',
             'physicalverification.docket_details' => 'required|string|min:3|max:9',
             'physicalverification.pvdate' => 'required|string',
@@ -54,7 +54,7 @@ class AddPhysicalVerificationRequest extends FormRequest
     public function attributes()
     {
         return [
-            'physicalverification.receipt_no' => 'Receipt number',
+            'physicalverification.receipt_id' => 'Receipt number',
             'physicalverification.rid' => 'RID ',
             'physicalverification.courier_name' => 'Courier Name',
             'physicalverification.docket_details' => 'Docket Details Name',

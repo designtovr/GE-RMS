@@ -433,6 +433,7 @@
     <!-- Main JS-->
     <script src="{{url('public/js/main.js')}}"></script>
     <script type="text/javascript" src="{{url('public/js/app.js')}}"></script>
+    <script type="text/javascript" src="{{url('public/js/services/datashareservice.js')}}"></script>
     @yield('scripts')
 
 </body>

@@ -178,6 +178,7 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
 		return view('masters.user');
 	});
 	Route::get('/customers','CustomerController@Customers');
+	Route::get('/endcustomers','CustomerController@EndCustomers');
 	Route::get('/products','ProductController@Products');
 	Route::get('/productsoftype/{producttype_id}', 'ProductController@ProductsOfType');
 	Route::get('/locations','LocationController@Locations');
@@ -223,7 +224,9 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
   
     Route::post('/addphysicalverification' , 'PhysicalVerificationController@AddPhysicalVerification');
     Route::get('/GetPhysicalVerification/{id}', 'PhysicalVerificationController@GetPhysicalVerification');
-    Route::delete('/physicalverification/{id}', 'ReceiptController@DeleteReceipt');
+    Route::get('/GetPhysicalVerificationForReceiptId/{receipt_id}', 'PhysicalVerificationController@GetPhysicalVerificationForReceiptId');
+    Route::delete('/physicalverification/{id}', 'PhysicalVerificationController@DeletePV');
+    Route::get('/physicalverification/{cat?}', 'PhysicalVerificationController@PhysicalVerificationList');
 
 	Route::post('/addproducttype', 'ProductTypeController@AddProductType');
 

@@ -1,9 +1,10 @@
-app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notification' ,'$filter' , '$ngConfirm' , function($scope, $http, Notification , $filter , $ngConfirm) {
+app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notification' ,'$filter' , '$ngConfirm' , 'DataShareService' , function($scope, $http, Notification , $filter , $ngConfirm, DataShareService) {
 
 	$scope.pvform = false;
 	$scope.receipt = {};
 	$scope.physicalVerification = {};
 	$scope.gridOptions = {data : []};
+	$scope.pvgridOptions = {data : []};
 	$scope.rids = [];
 	$scope.products = [];
 	$scope.producttypes = {};
@@ -12,17 +13,11 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 		{ name: 'Damaged', value: 1 },
 		{ name: 'Undamaged', value: 2},
 	];
-	$scope.physicalVerification.case_condition = $scope.conditions[1].value;
-	$scope.physicalVerification.battery_condition = $scope.conditions[1].value;
-	$scope.physicalVerification.terminal_blocks_condition = $scope.conditions[1].value;
-	$scope.physicalVerification.top_bottom_cover_condition = $scope.conditions[1].value;
-	$scope.physicalVerification.short_links_condition = $scope.conditions[1].value;
-	$scope.physicalVerification.short_links = 1;
-	$scope.physicalVerification.top_bottom_cover = 1;
-	$scope.physicalVerification.terminal_blocks = 1;
-	$scope.physicalVerification.battery = 1;
-	$scope.physicalVerification.case = 1;
 	$scope.ridoptions = [];
+	$scope.tab = 'all';
+	$scope.showcreatermaform = false;
+	$scope.selectedpvs = [];
+
 	$scope.AddPV= function()
 	{
 		$http({
@@ -32,7 +27,7 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 				'physicalverification': $scope.physicalVerification,
 			},
 		}).then(function success(response){
-			if (response.status == 'success')
+			if (response.data.status == 'success')
 			{
 				Notification.success(response.data.message);
 				$scope.ClosePVForm();
@@ -68,7 +63,7 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
    		var url = '';
    		if (edit)
    		{
-   			url = '/ge/GetPhysicalVerification/';
+   			url = '/ge/GetPhysicalVerificationForReceiptId/';
    		}
    		else
    		{
@@ -100,7 +95,7 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 				$scope.physicalVerification.battery = 1;
 				$scope.physicalVerification.case = 1;
 				$scope.physicalVerification.pvdate = $filter('date')(new Date(),'dd/MM/yyyy');
-				$scope.physicalVerification.receipt_no = $scope.physicalVerification.id;
+				$scope.physicalVerification.receipt_id = $scope.physicalVerification.id;
 				$scope.physicalVerification.is_rma_available = false;
 				delete $scope.physicalVerification.id;
 			}
@@ -113,33 +108,46 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 
 	$scope.AssignValuesInEditForms = function()
 	{
-		$scope.physicalVerification.receipt_no = $scope.selected.receipt_no;
+		$scope.physicalVerification.receipt_id = $scope.selected.receipt_id;
 		$scope.physicalVerification.courier_name = $scope.selected.courier_name;
 		$scope.physicalVerification.docket_details = $scope.selected.docket_details;
-		$scope.physicalVerification.rid = $scope.selected.rid;
-		for (var i = 0; i < $scope.products.length; i++) {
-			if ($scope.products[i].id == $scope.selected.product_id)
+		for (var i = 0; i < $scope.producttypes.length; i++) {
+			if ($scope.producttypes[i].id == $scope.selected.producttype_id)
 			{
-				$scope.physicalVerification.product = $scope.products[i];
-				$scope.physicalVerification.product_category = $scope.products[i].category;
-				$scope.physicalVerification.model_no = $scope.products[i].part_no;
+				$scope.physicalVerification.producttype = $scope.producttypes[i];
+				$scope.physicalVerification.product_category = $scope.producttypes[i].category;
+				$scope.ChangeProductType();
 				break;
 			}
 		}
+
+		for (var i = 0; i < $scope.products.length; i++) {
+			if($scope.products[i].id == $scope.selected.product_id)
+			{
+				$scope.physicalVerification.product = $scope.products[i];
+				break;
+			}
+		}
+		$scope.physicalVerification.id = $scope.selected.id;
 		$scope.physicalVerification.serial_no = $scope.selected.serial_no;
-		$scope.physicalVerification.defect = $scope.selected.defect;
 		$scope.physicalVerification.sales_order_no = $scope.selected.sales_order_no;
 		$scope.physicalVerification.pvdate = $filter('date')($scope.selected.pvdate,'dd/MM/yyyy');
 		$scope.physicalVerification.case_condition = $scope.selected.case_condition;
 		$scope.physicalVerification.battery_condition = $scope.selected.battery_condition;
 		$scope.physicalVerification.terminal_blocks_condition = $scope.selected.terminal_blocks_condition;
+		$scope.physicalVerification.no_of_terminal_blocks = $scope.selected.no_of_terminal_blocks;
 		$scope.physicalVerification.top_bottom_cover_condition = $scope.selected.top_bottom_cover_condition;
 		$scope.physicalVerification.short_links_condition = $scope.selected.short_links_condition;
 		$scope.physicalVerification.short_links = $scope.selected.short_links;
+		$scope.physicalVerification.no_of_short_links = $scope.selected.no_of_short_links;
 		$scope.physicalVerification.top_bottom_cover = $scope.selected.top_bottom_cover;
 		$scope.physicalVerification.terminal_blocks = $scope.selected.terminal_blocks;
 		$scope.physicalVerification.battery = $scope.selected.battery;
 		$scope.physicalVerification.case = $scope.selected.case;
+		if ($scope.selected.is_rma_available)
+			$scope.physicalVerification.is_rma_available = true;
+		else
+			$scope.physicalVerification.is_rma_available = false;
 	}
 
 	$scope.GetProductTypeList = function()
@@ -153,10 +161,22 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 		});
 	}
 
+	$scope.GetProductList = function()
+	{
+		$http({
+		  method: 'GET',
+		  url: '/ge/products'
+		}).then(function success(response) {
+		    $scope.products = response.data.data;
+		}, function error(response) {
+		});
+	}
+
 	$scope.ChangeProductType = function()
 	{
 		$scope.physicalVerification.producttype_id = $scope.physicalVerification.producttype.id;
 		$scope.physicalVerification.product_category = $filter('uppercase')($scope.physicalVerification.producttype.category);
+		$scope.physicalVerification.product = {};
 		$scope.GetProductsForTypeId($scope.physicalVerification.producttype_id);
 	}
 
@@ -221,6 +241,46 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
    	$scope.ClosePVForm = function()
    	{
    		$scope.pvform = false;
+   	}
+
+   	$scope.ChangeTab = function(name)
+   	{
+   		$scope.tab = name;
+   		$http({
+			method: 'GET',
+			url: '/ge/physicalverification?cat='+name
+		}).then(function success(response) {
+			$scope.pvgridOptions.data =  response.data.physicalverification;
+		}, function error(response) {
+		});
+
+   	}
+
+   	$scope.CreateRMA = function()
+   	{
+   		console.log($scope.pvgridOptions.data);
+   		$scope.selectedpvs = [];
+   		for (var i = 0; i < $scope.pvgridOptions.data.length; i++) {
+   			if ($scope.pvgridOptions.data[i].create_rma != undefined && $scope.pvgridOptions.data[i].create_rma)
+   			{
+   				$scope.selectedpvs.push($scope.pvgridOptions.data[i]);
+   			}
+   		}
+   		if ($scope.selectedpvs.length == 0)
+   		{
+   			Notification.error("No Relay Selected");
+   			return;
+   		}
+   		DataShareService.setRIdList($scope.selectedpvs);
+   		$scope.showcreatermaform = true;
+   		$scope.pvform = false;
+   	}
+
+   	$scope.CloseCreateRMA = function()
+   	{
+   		$scope.showcreatermaform = false;
+   		$scope.pvform = false;
+   		$scope.ChangeTab('withoutrma');
    	}
 
 }]);

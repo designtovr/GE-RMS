@@ -2,134 +2,258 @@
 @section('title', 'Physical Verification List')
 @section('content')
     <div class="main-content" ng-controller="PhysicalVerificationController">
-        <div class="section__content section__content--p30" ng-init="getReceipts();GetProductTypeList();">
+        <div class="section__content section__content--p30" ng-init="getReceipts();GetProductTypeList();GetProductList();">
             <div class="container-fluid">
-                <div class="row" ng-show="!pvform">
-                    <div class="col-md-12">
+                <div class="row" ng-show="!pvform && !showcreatermaform">
+                    <!-- <div class="col-md-12">
                         <div class="overview-wrap">
                             <h6 class="pb-4 display-5">Physical Verification List</h6>
-                            <!-- <button type="button" class="btn btn-primary btn-sm">
-                                <i class="fa fa-plus"></i>&nbsp; Add Item</button> -->
                         </div>
-                    </div>
+                    </div> -->
                     <div class="col-md-12">
-                        <div class="table-responsive">
-                            <table class="table table-borderless table-data3 table-custom">
-                                <thead>
-                                <tr>
-                                    <th>
-                                        <input type="text" id="se-from-date" name="se-from-date" placeholder="From Date"
-                                               class="form-control-sm form-control">
-                                    </th>
-                                    <th>
-                                        <input type="text" id="se-to-date" name="se-to-date" placeholder="To Date"
-                                               class="form-control-sm form-control">
-                                    </th>
-                                    <th>
-                                        <select name="field-volts-used" id="field-volts-used"
-                                                class="form-control-sm form-control">
-                                            <option value="0">From</option>
-                                            <option value="1">Yes</option>
-                                            <option value="2">No</option>
-                                            <option value="2">Customer</option>
-                                        </select>
-                                    </th>
-                                    <th>
-                                        <select name="field-volts-used" id="field-volts-used"
-                                                class="form-control-sm form-control">
-                                            <option value="0">To</option>
-                                            <option value="1">Yes</option>
-                                            <option value="2">No</option>
-                                            <option value="2">Customer</option>
-                                        </select>
-                                    </th>
-                                    <th>
-                                        <input type="text" id="se-cus" name="se-cus" placeholder="Customer"
-                                               class="form-control-sm form-control">
-                                    </th>
-                                    <th>
-                                        <button type="button" class="btn btn-outline-secondary btn-sm">Reset</button>
-                                    </th>
-                                    <th>
-                                        <button type="button" class="btn btn-outline-primary btn-sm">
-                                            <i class="fa fa-search"></i>&nbsp; Search
-                                        </button>
-                                    </th>
-                                </tr>
-                                </thead>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <!-- DATA TABLE-->
-                        <div grid-data grid-options="gridOptions" grid-actions="gridActions" class="table-responsive">
-                            <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
-                            <table class="table table-borderless table-data3">
-                                <thead>
-                                <tr>
-                                    <th>
-                                        Receipt No
-                                    </th>
-                                    <th>
-                                        Receipt Date
-                                    </th>
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-borderless table-data3 table-custom">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            <input type="text" id="se-from-date" name="se-from-date" placeholder="From Date"
+                                                   class="form-control-sm form-control">
+                                        </th>
+                                        <th>
+                                            <input type="text" id="se-to-date" name="se-to-date" placeholder="To Date"
+                                                   class="form-control-sm form-control">
+                                        </th>
+                                        <th>
+                                            <select name="field-volts-used" id="field-volts-used"
+                                                    class="form-control-sm form-control">
+                                                <option value="0">From</option>
+                                                <option value="1">Yes</option>
+                                                <option value="2">No</option>
+                                                <option value="2">Customer</option>
+                                            </select>
+                                        </th>
+                                        <th>
+                                            <select name="field-volts-used" id="field-volts-used"
+                                                    class="form-control-sm form-control">
+                                                <option value="0">To</option>
+                                                <option value="1">Yes</option>
+                                                <option value="2">No</option>
+                                                <option value="2">Customer</option>
+                                            </select>
+                                        </th>
+                                        <th>
+                                            <input type="text" id="se-cus" name="se-cus" placeholder="Customer"
+                                                   class="form-control-sm form-control">
+                                        </th>
+                                        <th>
+                                            <button type="button" class="btn btn-outline-secondary btn-sm">Reset</button>
+                                        </th>
+                                        <th>
+                                            <button type="button" class="btn btn-outline-primary btn-sm">
+                                                <i class="fa fa-search"></i>&nbsp; Search
+                                            </button>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Physical Verification List</h4>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                        <li class="nav-item" ng-click="ChangeTab('all')">
+                                            <a class="nav-link active" id="all-tab" data-toggle="tab" href="#all" role="tab" aria-controls="all" aria-selected="true">All</a>
+                                        </li>
+                                        <li class="nav-item" ng-click="ChangeTab('withrma')">
+                                            <a class="nav-link" id="withrma-tab" data-toggle="tab" href="#withrma" role="tab" aria-controls="withrma" aria-selected="false">With RMA</a>
+                                        </li>
+                                        <li class="nav-item" ng-click="ChangeTab('withoutrma')">
+                                            <a class="nav-link" id="withoutrma-tab" data-toggle="tab" href="#withoutrma" role="tab" aria-controls="withoutrma" aria-selected="false">Without RMA</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content pl-3 p-1" id="myTabContent">
+                                        <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
+                                            <!-- DATA TABLE-->
+                                            <div grid-data grid-options="gridOptions" grid-actions="gridActions" class="table-responsive">
+                                                <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
+                                                <table class="table table-borderless table-data3">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>
+                                                            Receipt No
+                                                        </th>
+                                                        <th>
+                                                            Receipt Date
+                                                        </th>
 
-                                    <th>
-                                        Customer Name
-                                    </th>
-                                    <th>
-                                        End Customer
-                                    </th>
-                                    <th>
-                                        Courier Name
-                                    </th>
-                                    <th>
-                                        Docket Details
-                                    </th>
-                                    <th>
-                                        Number of Boxes
-                                    </th>
-                                    <th>
-                                        Actions
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr grid-item>
-                                    <td ng-bind="item.id"></td>
-                                    <td ng-bind="item.receipt_date | date:'dd/MM/yyyy'"></td>
+                                                        <th>
+                                                            Customer Name
+                                                        </th>
+                                                        <th>
+                                                            End Customer
+                                                        </th>
+                                                        <th>
+                                                            Courier Name
+                                                        </th>
+                                                        <th>
+                                                            Docket Details
+                                                        </th>
+                                                        <th>
+                                                            Number of Boxes
+                                                        </th>
+                                                        <th>
+                                                            Actions
+                                                        </th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr grid-item>
+                                                        <td ng-bind="item.id"></td>
+                                                        <td ng-bind="item.receipt_date | date:'dd/MM/yyyy'"></td>
 
-                                    <td ng-bind="item.customer_name"></td>
-                                    <td ng-bind="item.end_customer"></td>
-                                    <td ng-bind="item.courier_name"></td>
-                                    <td ng-bind="item.docket_details"></td>
-                                    <td ng-bind="item.total_boxes"></td>
-                                    <td>
-                                        <div class="table-data-feature">
-                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Edit"
-                                                    ng-click="OpenPVForm(item, true);">
-                                                <i class="zmdi zmdi-edit"></i>
-                                            </button>
-                                            <button class="item" data-toggle="tooltip" data-placement="top"
-                                                    title="Add"
-                                                    ng-click="OpenPVForm(item, false);">
-                                                <i class="zmdi zmdi-plus-box"></i>
-                                            </button>
-                                            <button class="item" data-toggle="tooltip" data-placement="top"
-                                                    title="Delete"
-                                                    ng-click="DeletePV(item.receipt_no);">
-                                                <i class="zmdi zmdi-delete"></i>
-                                            </button>
+                                                        <td ng-bind="item.customer_name"></td>
+                                                        <td ng-bind="item.end_customer"></td>
+                                                        <td ng-bind="item.courier_name"></td>
+                                                        <td ng-bind="item.docket_details"></td>
+                                                        <td ng-bind="item.total_boxes"></td>
+                                                        <td>
+                                                            <div class="table-data-feature">
+                                                                <button class="item" data-toggle="tooltip" data-placement="top" title="Edit"
+                                                                        ng-click="OpenPVForm(item, true);">
+                                                                    <i class="zmdi zmdi-edit"></i>
+                                                                </button>
+                                                                <button class="item" data-toggle="tooltip" data-placement="top"
+                                                                        title="Add"
+                                                                        ng-click="OpenPVForm(item, false);">
+                                                                    <i class="zmdi zmdi-plus-box"></i>
+                                                                </button>
+                                                                <button class="item" data-toggle="tooltip" data-placement="top"
+                                                                        title="Delete"
+                                                                        ng-click="DeletePV(item.id);">
+                                                                    <i class="zmdi zmdi-delete"></i>
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <!-- END DATA TABLE-->
                                         </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                                        <div class="tab-pane fade" id="withrma" role="tabpanel" aria-labelledby="withrma-tab">
+                                            <!-- DATA TABLE-->
+                                            <div grid-data grid-options="pvgridOptions" grid-actions="gridActions" class="table-responsive">
+                                                <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
+                                                <table class="table table-borderless table-data3">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>
+                                                            Id
+                                                        </th>
+                                                        <th>
+                                                            Receipt Id
+                                                        </th>
+                                                        <th>
+                                                            Date
+                                                        </th>
+                                                        <th>
+                                                            Customer Name
+                                                        </th>
+                                                        <th>
+                                                            End Customer
+                                                        </th>
+                                                        <th>
+                                                            Courier Name
+                                                        </th>
+                                                        <th>
+                                                            Docket Details
+                                                        </th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr grid-item>
+                                                        <td ng-bind="item.id"></td>
+                                                        <td ng-bind="item.receipt_id"></td>
+                                                        <td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
+                                                        <td ng-bind="item.customer_name"></td>
+                                                        <td ng-bind="item.end_customer"></td>
+                                                        <td ng-bind="item.courier_name"></td>
+                                                        <td ng-bind="item.docket_details"></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <!-- END DATA TABLE-->
+                                        </div>
+                                        <div class="tab-pane fade" id="withoutrma" role="tabpanel" aria-labelledby="withoutrma-tab">
+                                            <div class="col-md-12">
+                                                <button type="button" class="btn btn-primary btn-md float-right m-b-10" ng-click="CreateRMA();">
+                                                    <i class="fa fa-check-circle"></i>&nbsp;Create RMA
+                                                </button>
+                                            </div>
+                                            <!-- DATA TABLE-->
+                                            <div grid-data grid-options="pvgridOptions" grid-actions="gridActions" class="table-responsive">
+                                                <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
+                                                <table class="table table-borderless table-data3">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>
+                                                            Select
+                                                        </th>
+                                                        <th>
+                                                            Id
+                                                        </th>
+                                                        <th>
+                                                            Receipt Id
+                                                        </th>
+                                                        <th>
+                                                            Date
+                                                        </th>
+                                                        <th>
+                                                            Customer Name
+                                                        </th>
+                                                        <th>
+                                                            End Customer
+                                                        </th>
+                                                        <th>
+                                                            Courier Name
+                                                        </th>
+                                                        <th>
+                                                            Docket Details
+                                                        </th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr grid-item>
+                                                        <td>
+                                                            <label class="au-checkbox">
+                                                                <input type="checkbox" ng-model="item.create_rma">
+                                                                <span class="au-checkmark"></span>
+                                                            </label>
+                                                        </td>
+                                                        <td ng-bind="item.id"></td>
+                                                        <td ng-bind="item.receipt_id"></td>
+                                                        <td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
+                                                        <td ng-bind="item.customer_name"></td>
+                                                        <td ng-bind="item.end_customer"></td>
+                                                        <td ng-bind="item.courier_name"></td>
+                                                        <td ng-bind="item.docket_details"></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <!-- END DATA TABLE-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <!-- END DATA TABLE-->
                     </div>
                 </div>
-                <div class="row" ng-show="pvform">
+                <div class="row" ng-show="pvform && !showcreatermaform">
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
@@ -146,7 +270,7 @@
                                             <div class="col-md-8">
                                                 <select name="selected"
                                                     ng-model="selected"
-                                                    id="selected" class="form-control" ng-options="ridoption as ridoption.rid for ridoption in ridoptions" ng-change="AssignValuesInEditForms();">
+                                                    id="selected" class="form-control" ng-options="ridoption as ridoption.id for ridoption in ridoptions" ng-change="AssignValuesInEditForms();">
                                                     <option value="" style="display:none"></option>
                                                 </select>
                                             </div>
@@ -158,9 +282,9 @@
                                                 <label for="id" class=" form-control-label">Receipt Id <span class="mandatory">*</span></label>
                                             </div>
                                             <div class="col-12 col-md-8">
-                                                <input type="text" id="receipt_no" name="receipt_no"
+                                                <input type="text" id="receipt_id" name="receipt_id"
                                                    placeholder="Receipt No" class="form-control" disabled
-                                                   ng-model="physicalVerification.receipt_no"
+                                                   ng-model="physicalVerification.receipt_id"
                                                    disabled>
                                             </div>
                                         </div>
@@ -202,13 +326,13 @@
                                         <div class="col-md-6" ng-show="physicalVerification.edit">
                                             <div class="row form-group">
                                                 <div class="col col-md-4">
-                                                    <label for="rid" class=" form-control-label">RID No <span
+                                                    <label for="rid" class=" form-control-label">Receipt No <span
                                                         class="mandatory">*</span></label>
                                                 </div>
                                                 <div class="col-12 col-md-8">
                                                     <input type="text" id="rid" name="rid" placeholder="RID No"
                                                            class="form-control"
-                                                           ng-model="physicalVerification.rid"
+                                                           ng-model="physicalVerification.receipt_id"
                                                            disabled>
                                                 </div>
                                             </div>
@@ -291,7 +415,7 @@
                                                     <label for="product" class=" form-control-label">Model No <span class="mandatory">*</span></label>
                                                 </div>
                                                 <div class="col-12 col-md-8">
-                                                    <ui-select ng-model="physicalVerification.product" theme="selectize" title="Select Model No" NG-CHANGE="AssignModelNo();" required>
+                                                    <ui-select ng-model="physicalVerification.product" theme="selectize" title="Select Model No" ng-change="AssignModelNo();" required>
                                                         <ui-select-match placeholder="Select Model No">@{{$select.selected.part_no}}</ui-select-match>
                                                         <ui-select-choices id="part_no" 
                                                             name="product" repeat="product in products | filter: $select.search">
@@ -583,8 +707,6 @@
                                                     <input type="text" id="no_of_terminal_blocks" name="no_of_terminal_blocks"
                                                            class="form-control"
                                                            ng-model="physicalVerification.no_of_terminal_blocks"
-                                                           ng-minlength="3"
-                                                           ng-maxlength="10"
                                                            ui-mask="9 + 9" placeholder="N+N" 
                                                            add-default-placeholder="9 + 9"
                                                            ui-mask-placeholder-char="N"
@@ -592,14 +714,6 @@
                                                     <div ng-show="EditPhysicalVerification.no_of_terminal_blocks.$touched && EditPhysicalVerification.no_of_terminal_blocks.$error">
                                                         <span class="help-block"
                                                               ng-show="EditPhysicalVerification.no_of_terminal_blocks.$error.required">Please Enter No Of Blocks</span>
-                                                        <span class="help-block"
-                                                              ng-show="EditPhysicalVerification.no_of_terminal_blocks.$error.minlength">
-                                                                Minimum 3 Characters Required
-                                                        </span>
-                                                        <span class="help-block"
-                                                              ng-show="EditPhysicalVerification.no_of_terminal_blocks.$error.maxlength">
-                                                            Maximum 10 Characters Allowed
-                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -619,7 +733,6 @@
                                                                    name="top_bottom_cover"
                                                                    ng-model="physicalVerification.top_bottom_cover"
                                                                    ng-checked = "physicalVerification.top_bottom_cover == 1"
-
                                                                    value="1" class="form-check-input">Yes
                                                         </label>
                                                         <label for="top_bottom_cover2" class="form-check-label ">
@@ -627,7 +740,6 @@
                                                                    name="top_bottom_cover"
                                                                    ng-model="physicalVerification.top_bottom_cover"
                                                                    ng-checked = "physicalVerification.top_bottom_cover == 2"
-
                                                                    value="2" class="form-check-input">No
                                                         </label>
                                                         <label for="top_bottom_cover3" class="form-check-label ">
@@ -635,7 +747,6 @@
                                                                    name="top_bottom_cover"
                                                                    ng-model="physicalVerification.top_bottom_cover"
                                                                    ng-checked = "physicalVerification.top_bottom_cover == 3"
-
                                                                    value="3" class="form-check-input">Not Applicable
                                                         </label>
                                                     </div>
@@ -771,8 +882,11 @@
                                 </form>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary btn-sm" ng-click="AddPV();" ng-disabled="EditPhysicalVerification.$invalid">
+                                <button ng-if="!physicalVerification.edit" type="submit" class="btn btn-primary btn-sm" ng-click="AddPV();" ng-disabled="EditPhysicalVerification.$invalid">
                                     <i class="fa fa-save"></i> Save
+                                </button>
+                                <button ng-if="physicalVerification.edit" type="submit" class="btn btn-primary btn-sm" ng-click="AddPV();" ng-disabled="EditPhysicalVerification.$invalid">
+                                    <i class="fa fa-save"></i> Update
                                 </button>
                                 <button type="reset" class="btn btn-danger btn-sm">
                                     <i class="fa fa-undo"></i> Reset
@@ -784,12 +898,18 @@
                         </div>
                     </div>
                 </div>
+                <div class="row" ng-if="!pvform && showcreatermaform" ng-controller="RMAController">
+                    @component('forms.creatermaform')
+                        
+                    @endcomponent
+                </div>
             </div>
         </div>
     </div>
 @endsection
 @section('scripts')
     <script type="text/javascript" src="{{url('public/js/controllers/PhysicalVerificationController.js')}}"></script>
+    <script type="text/javascript" src="{{url('public/js/controllers/RMAController.js')}}"></script>
     <script>
         $(document).ready(function () {
             $("#pvdate").datepicker({

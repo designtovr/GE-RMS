@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\CustomerMaster;
+use App\Models\ReceiptMaster;
+use App\Models\RMA;
 use App\Models\CustomerLocationTransaction;
 use App\Models\CustomerSiteTransaction;
 use Illuminate\Support\Facades\Auth;
@@ -19,6 +21,14 @@ class CustomerController extends Controller
     	$customers = CustomerMaster::selectRaw('ma_customer.*, st.name as site_name, loc.name as location_name')->leftJoin('ma_customer_site_trans as cst', 'ma_customer.id', '=', 'cst.customer_id')->leftJoin('ma_site as st', 'st.id','=', 'cst.site_id')->leftJoin('ma_customer_location_trans as clt','clt.customer_id', 'ma_customer.id')->leftJoin('ma_location as loc', 'clt.location_id', '=', 'loc.id')->orderBy('ma_customer.id')->get();
     	
     	return response()->json(['data' => $customers, 'status' => 'success']);
+    }
+
+    public function EndCustomers(Request $request)
+    {
+        $end_customer1 = ReceiptMaster::select('end_customer')->distinct('end_customer')->get()->toArray();
+        $end_customer2 = RMA::select('end_customer')->distinct('end_customer')->get()->toArray();
+        $end_customer = array_merge($end_customer1, $end_customer2);
+        return response()->json(['data' => $end_customer, 'status' => 'success']);
     }
 
     public function GetCustomer($id)

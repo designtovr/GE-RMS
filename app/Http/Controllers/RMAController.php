@@ -7,6 +7,7 @@ use App\Models\RMA;
 use App\Models\RMADeliveryAddress;
 use App\Models\RMAUnitInformation;
 use App\Models\RMAUnitSerialNumber;
+use App\Models\PhysicalVerificationMaster;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ADDRMARequest;
 use Carbon\Carbon;
@@ -39,32 +40,21 @@ class RMAController extends Controller
 
 	public function GetRMARefNo(Request $request)
 	{
-		$ref_no = 0;
-		if (RMA::max('rma_reference_no') == 0)
-			$ref_no = config('numberseries.rma_ref_no');
-		else
-			$ref_no = RMA::max('rma_reference_no') + 1;
+		$ref_no = RMA::max('id') + 1;
         return response()->json(['data' => $ref_no, 'status' => 'success']);
 	}
 
     public function AddRMA(ADDRMARequest $request)
     {
     	$requestdata = $request->get('rma');
+        $pvdata = $request->get('pvs');
     	$RMA = new RMA();
-    	$RMA->rma_reference_no = $requestdata['ref_no'];
     	$RMA->gs_no = $requestdata['gs_no'];
     	$RMA->act_reference = $requestdata['act_reference'];
     	$date = Carbon::createFromFormat('d/m/Y',$requestdata['date']);
     	$RMA->date = $date->format('Y-m-d');
-    	$RMA->desc_of_fault = $requestdata['desc_of_fault'];
-    	$RMA->sales_order_no = $requestdata['wbs'];
-    	$RMA->field_volts_used = $requestdata['field_volts_used'];
-    	$RMA->equip_failed_on_installation = $requestdata['equip_failed_on_installation'];
-    	$RMA->equip_failed_on_service = $requestdata['equip_failed_on_service'];
-    	$RMA->update_version = $requestdata['update_version'];
-    	$RMA->return_in_case = $requestdata['return_in_case'];
-    	$RMA->how_long = $requestdata['how_long'];
     	$RMA->customer_address_id = $requestdata['customer_address_id'];
+        $RMA->end_customer = $requestdata['invoice_info']['end_customer']['end_customer'];
     	$RMA->created_by = Auth::id();
     	$RMA->updated_by = Auth::id();
     	$RMA->updated_at = Carbon::now();
@@ -83,31 +73,30 @@ class RMAController extends Controller
     	$RMADelivery->updated_at = Carbon::now();
     	$RMADelivery->save();
 
-    	$unit_information = $requestdata['unit_information'];
-    	foreach ($unit_information as $key => $unit) {
+    	foreach ($pvdata as $key => $unit) {
     		$RMAUnitInformation = new RMAUnitInformation();
     		$RMAUnitInformation->rma_id = $RMA->id;
-    		$RMAUnitInformation->quantity = $unit['quantity'];
-    		$RMAUnitInformation->model_no = $unit['model_id'];
+            $RMAUnitInformation->pv_id = $unit['id'];
     		$RMAUnitInformation->sw_version = $unit['sw_version'];
     		$RMAUnitInformation->service_type = $unit['service_type'];
     		$RMAUnitInformation->warrenty = $unit['warrenty'];
+            $RMAUnitInformation->desc_of_fault = $unit['desc_of_fault'];
+            $RMAUnitInformation->sales_order_no = (array_key_exists('sales_order_no', $unit))?$unit['sales_order_no']:'';
+            $RMAUnitInformation->field_volts_used = $unit['field_volts_used'];
+            $RMAUnitInformation->equip_failed_on_installation = $unit['equip_failed_on_installation'];
+            $RMAUnitInformation->equip_failed_on_service = $unit['equip_failed_on_service'];
+            $RMAUnitInformation->how_long = $unit['how_long'];
     		$RMAUnitInformation->created_by = Auth::id();
     		$RMAUnitInformation->updated_by = Auth::id();
     		$RMAUnitInformation->updated_at = Carbon::now();
     		$RMAUnitInformation->save();
-    		for ($i=0; $i < sizeof($unit['serial_no']); $i++) { 
-    			$RMAUnitSerialNumber = new RMAUnitSerialNumber();
-    			$RMAUnitSerialNumber->rma_unit_information_id = $RMAUnitInformation->id;
-    			$RMAUnitSerialNumber->serial_number = $unit['serial_no'][$i];
-    			$RMAUnitSerialNumber->created_by = Auth::id();
-    			$RMAUnitSerialNumber->updated_by = Auth::id();
-    			$RMAUnitSerialNumber->updated_at = Carbon::now();
-    			$RMAUnitSerialNumber->save();
-    		}
+
+            $PV = PhysicalVerificationMaster::where('id', $RMAUnitInformation->pv_id)->first();
+            $PV->is_rma_available = 1;
+            $PV->update();
     	}
 
-    	return response()->json(['data' => $RMA, 'status' => 'success', 'messagae' => 'RMA Added Successfully'], 200);
+    	return response()->json(['data' => $RMA, 'status' => 'success', 'message' => 'RMA Created Successfully'], 200);
     	
     }
 }
