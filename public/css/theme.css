@@ -40,6 +40,46 @@ Notes:	decreasing heading by 0.4em with every subsequent heading level
 /*                   GENERIC                           */
 /*-----------------------------------------------------*/
 /* ----- Normalize ----- */
+
+.pagination-sm>li:first-child>a, .pagination-sm>li:first-child>span {
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+.pagination>li>a, .pagination>li>span {
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: #337ab7;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #fff;
+}
+.table > thead > tr > th {
+  vertical-align: middle; }
+
+.margin-bottom-basic {
+  margin-bottom: 15px; }
+
+.pagination {
+  margin: 0; }
+
+.items-per-page {
+  margin-left: 15px; }
+
+.sortable:after {
+  font: 14px/1 FontAwesome;
+  content: "\f0dc"; }
+
+.sortable.sort-ascent:after {
+  content: '\f0de';
+  vertical-align: bottom; }
+
+.sortable.sort-descent:after {
+  content: "\f0dd";
+  vertical-align: top; }
+
 * {
     margin: 0;
     padding: 0;

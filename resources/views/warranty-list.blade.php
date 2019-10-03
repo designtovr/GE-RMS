@@ -16,8 +16,12 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        <input type="text" id="se-from-date" name="se-from-date" placeholder="From Date"
-                                        class="form-control-sm form-control">
+
+                                        <input id="ridFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Enter RID #" ng-change="gridActions.filter()" ng-model="rid_no" filter-by="rid_no" filter-type="text">
+                                    </th>
+                                    <th>
+
+                                        <input id="productFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Enter Product" ng-change="gridActions.filter()" ng-model="product" filter-by="product" filter-type="text">
                                     </th>
                                     <th>
                                         <input type="text" id="se-to-date" name="se-to-date" placeholder="To Date"
@@ -56,6 +60,7 @@
                         </tr>
                     </thead>
                 </table>
+
             </div>
         </div>
         <div class="col-md-12 p-b-20">
@@ -67,75 +72,101 @@
     <div class="col-md-12">
         <!-- DATA TABLE-->
         <div grid-data grid-options="gridOptions" grid-actions="gridActions" class="table-responsive">
-            <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
-            <table class="table table-borderless table-data3">
-                <thead>
-                    <tr>
-                        <th>
+            <div>
+                <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
+                <table class="table table-borderless table-data3">
+                    <thead>
+                        <tr>
+                            <th>
 
-                        </th>
-                        <th sortable="placed" class="sortable">
-                            RID No
-                        </th>
-                        <th sortable="purchaseOrderNumber" class="sortable">
-                            Product
-                        </th>
-                        <th sortable='total.value' class="sortable">
-                            Customer Name
-                        </th>
-                        <th sortable='total.value' class="sortable">
-                            End Customer
-                        </th>
-                        <th sortable='total.value' class="sortable">
-                            Serial No
-                        </th>
-                        <th sortable='total.value' class="sortable">
-                            Model No
-                        </th>
-                        <th sortable='total.value' class="sortable">
-                            Courier
-                        </th>
-                        <th sortable='total.value' class="sortable">
-                            Docket No
-                        </th>
-                        <th sortable='total.value' class="sortable">
-                            Customer Comment
-                        </th>
-                        <th>
-                            Actions
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr grid-item>
-                        <td>
-                            <label class="au-checkbox">
-                                <input type="checkbox">
-                                <span class="au-checkmark"></span>
-                            </label>
+                            </th>
+                            <th sortable="rid_no" class="sortable">
+                                RID No
+                            </th>
+                            <th sortable="product" class="sortable">
+                                Product
+                            </th>
+                            <th sortable='cus_name' class="sortable">
+                                Customer Name
+                            </th>
+                            <th sortable='total.value' class="sortable">
+                                End Customer
+                            </th>
+                            <th sortable='total.value' class="sortable">
+                                Serial No
+                            </th>
+                            <th sortable='total.value' class="sortable">
+                                Model No
+                            </th>
+                            <th sortable='total.value' class="sortable">
+                                Courier
+                            </th>
+                            <th sortable='total.value' class="sortable">
+                                Docket No
+                            </th>
+                            <th sortable='total.value' class="sortable">
+                                Customer Comment
+                            </th>
+                            <th>
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr grid-item>
+                            <td>
+                                <label class="au-checkbox">
+                                    <input type="checkbox">
+                                    <span class="au-checkmark"></span>
+                                </label>
+                            </td>
+                            <td ng-bind="item.rid_no"></td>
+                            <td ng-bind="item.product"></td>
+                            <td ng-bind="item.customer_name"></td>
+                            <td ng-bind="item.end_customer"></td>
+                            <td ng-bind="item.serial_no"></td>
+                            <td ng-bind="item.model_no"></td>
+                            <td ng-bind="item.courier_name"></td>
+                            <td ng-bind="item.docket_details"></td>
+                            <td ng-bind="item.customer_comment"></td>
+                            <td>
+                                <div class="table-data-feature">
+                                    <button class="item" data-toggle="tooltip" data-placement="top"
+                                    title="Delete">
+                                    <i class="zmdi zmdi-delete"></i>
+                                </button>
+                            </div>
                         </td>
-                        <td ng-bind="item.rid_no"></td>
-                        <td ng-bind="item.product"></td>
-                        <td ng-bind="item.customer_name"></td>
-                        <td ng-bind="item.end_customer"></td>
-                        <td ng-bind="item.serial_no"></td>
-                        <td ng-bind="item.model_no"></td>
-                        <td ng-bind="item.courier_name"></td>
-                        <td ng-bind="item.docket_details"></td>
-                        <td ng-bind="item.customer_comment"></td>
-                        <td>
-                            <div class="table-data-feature">
-                                <button class="item" data-toggle="tooltip" data-placement="top"
-                                title="Delete">
-                                <i class="zmdi zmdi-delete"></i>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <!-- END DATA TABLE-->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <form class="form-inline pull-right margin-bottom-basic">
+            <div class="form-group">
+                <grid-pagination max-size="5"
+                boundary-links="true"
+                class="pagination-sm"
+                total-items="paginationOptions.totalItems"
+                ng-model="paginationOptions.currentPage"
+                ng-change="reloadGrid()"
+                items-per-page="paginationOptions.itemsPerPage"></grid-pagination>
+            </div>
+            <div class="form-group items-per-page">
+                <label for="itemsOnPageSelect2">Items per page:</label>
+                <select id="itemsOnPageSelect2" class="form-control input-sm"
+                ng-init="paginationOptions.itemsPerPage = '10';reloadGrid() "
+                ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+                <option>10</option>
+                <option>25</option>
+                <option>50</option>
+                <option>75</option>
+            </select>
+        </div>
+    </form>
+
+</div>
+
+<!-- END DATA TABLE-->
 </div>
 </div>
 </div>
