@@ -8,8 +8,10 @@ use App\Models\RMADeliveryAddress;
 use App\Models\RMAUnitInformation;
 use App\Models\RMAUnitSerialNumber;
 use App\Models\PhysicalVerificationMaster;
+use App\Models\CustomerMaster;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ADDRMARequest;
+use App\Http\Requests\AddRmaUnitRequest;
 use Carbon\Carbon;
 
 class RMAController extends Controller
@@ -24,17 +26,9 @@ class RMAController extends Controller
 	public function GetRma($id)
 	{
 		$rma = RMA::where('rma.id', $id)->first();
-		$rma['unit_information'] = RMAUnitInformation::where('rma_id',$id)->get();
-		$rma['invoice_info'] = RMAUnitInformation::where('rma_id', $id)->first();
+		$rma['unit_information'] = RMAUnitInformation::selectRaw('rma_unit_information.*,pv.id as id,pv.serial_no, pr.part_no,pt.category')->where('rma_id',$id)->leftJoin('physical_verification as pv', 'pv.id', 'rma_unit_information.pv_id')->leftJoin('ma_product as pr', 'pr.id', 'pv.product_id')->leftJoin('ma_product_type as pt', 'pt.id', 'pr.type')->get();
+		$rma['invoice_info'] = CustomerMaster::where('id', $rma['customer_address_id'])->first();
 		$rma['delivery_info'] = RMADeliveryAddress::where('rma_id', $id)->first();
-		foreach ($rma['unit_information'] as $key => $unit) {
-			$serial_no = array();
-			$UnitSerialNumbers = RMAUnitSerialNumber::where('rma_unit_information_id',$unit['id'])->get();
-			foreach ($UnitSerialNumbers as $key => $usn) {
-				array_push($serial_no, $usn['serial_number']);
-			}
-			$unit['serial_no'] = $serial_no;
-		}
 		return response()->json(['data' => $rma, 'status' => 'success']);
 	}
 
@@ -43,6 +37,36 @@ class RMAController extends Controller
 		$ref_no = RMA::max('id') + 1;
         return response()->json(['data' => $ref_no, 'status' => 'success']);
 	}
+
+    public function AddRmaUnit(AddRmaUnitRequest $request)
+    {
+        $rma = $request->get('rma');
+        $pv = $request->get('pv');
+        $RmaUnit = new RMAUnitInformation();
+        $RmaUnit->rma_id = $rma['id'];
+        $RmaUnit->pv_id = $pv['id'];
+        $RmaUnit->sw_version = $pv['sw_version'];
+        $RmaUnit->service_type = $pv['service_type'];
+        $RmaUnit->warrenty = $pv['warrenty'];
+        $RmaUnit->desc_of_fault = $pv['desc_of_fault'];
+        $RmaUnit->sales_order_no = $pv['sales_order_no'];
+        $RmaUnit->field_volts_used = $pv['field_volts_used'];
+        $RmaUnit->equip_failed_on_installation = $pv['equip_failed_on_installation'];
+        $RmaUnit->equip_failed_on_service = $pv['equip_failed_on_service'];
+        $RmaUnit->how_long = $pv['how_long'];
+        $RmaUnit->created_by = Auth::id();
+        $RmaUnit->updated_by = Auth::id();
+        $RmaUnit->created_at = Carbon::now();
+        $RmaUnit->updated_at = Carbon::now();
+        $RmaUnit->save();
+        $PhysicalVerification = PhysicalVerificationMaster::find($pv['id']);
+        $PhysicalVerification->is_rma_available = 1;
+        $PhysicalVerification->updated_by = Auth::id();
+        $PhysicalVerification->updated_at = Carbon::now();
+        $PhysicalVerification->save();
+
+        return response()->json(['status' => 'success', 'message' => 'Relay Added Successfully'], 200);
+    }
 
     public function AddRMA(ADDRMARequest $request)
     {

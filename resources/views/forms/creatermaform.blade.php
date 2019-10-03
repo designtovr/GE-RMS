@@ -1,4 +1,4 @@
-<div class="col-lg-12" ng-init="GetRMAList();InitiateForm();">
+<div class="col-lg-12" ng-init="GetRMAList();InitiateForm();GetCustomerList();GetEndCustomerList();">
     <div class="card">
         <div class="card-header">
             <strong>RMA</strong> Form
@@ -7,14 +7,14 @@
         	<form name="RMAForm1" id="RMAForm1" class="form-horizontal" novalidate>
                 <div class="row form-group" ng-if="rmaformdata.edit">
                     <div class="col col-md-3">
-                        <label for="rma_ref_no" class=" form-control-label">RMA Reference No</label>
+                        <label for="id" class=" form-control-label">RMA Reference No</label>
                     </div>
                     <div class="col-12 col-md-6">
                         <input 
                         	type="text" 
-                        	id="rma_ref_no" 
-                        	name="rma_ref_no"
-                        	ng-model="rmaformdata.ref_no"
+                        	id="id" 
+                        	name="id"
+                        	ng-model="rmaformdata.id"
                             placeholder="RMA Reference No"
                             class="form-control"
                             disabled>
@@ -50,6 +50,7 @@
                         class="form-control"
                         ng-minlength="3" 
                         ng-maxlength="10"
+                        ng-disabled="addpvform"
                         required>
                         <div ng-show="RMAForm1.act_reference.$touched && RMAForm1.act_reference.$error">
                             <span class="help-block"
@@ -79,6 +80,7 @@
                         ng-model="rmaformdata.date"
                         placeholder="Date"
                         class="form-control"
+                        ng-disabled="addpvform"
                         required>
                     </div>
                 </div>
@@ -450,7 +452,7 @@
                                                 id="equip_failed_on_service1"
                                                 name="equip_failed_on_service"
                                                 ng-model="rmaformdata.relay.equip_failed_on_service"
-                                                ng-checked="rmaformdata.relay.equip_failed_on_service == 0"
+                                                ng-checked="rmaformdata.relay.equip_failed_on_service == 1"
                                                 value="1"
                                                 class="form-check-input">Yes
                                             </label>
@@ -506,10 +508,18 @@
                         </div>
                     </form>
                 </div>
+                <div class="card-footer" ng-if="addpvform">
+                    <button type="submit" class="btn btn-primary btn-sm" ng-disabled="RMAForm2.$invalid" ng-click="SubmitRMAUnitForm();">
+                        <i class="fa fa-dot-circle-o"></i> Save Unit
+                    </button>
+                    <button id="closermabutton" name="closermabutton" type="reset" class="btn btn-secondary btn-sm" ng-click="HideRMAForm();CloseCreateRMA();">
+                        <i class="fa fa-ban"></i> Close
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row" ng-if="!addpvform">
         <div class="col-lg-6">
             <div class="card">
                 <div class="card-header">
@@ -831,7 +841,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row" ng-if="!addpvform">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-footer">

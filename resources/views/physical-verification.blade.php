@@ -144,12 +144,20 @@
                                             <!-- END DATA TABLE-->
                                         </div>
                                         <div class="tab-pane fade" id="withrma" role="tabpanel" aria-labelledby="withrma-tab">
+                                            <div class="col-md-12">
+                                                <button type="button" class="btn btn-primary btn-md float-right m-b-10" ng-click="CreateRMA();">
+                                                    <i class="fa fa-check-circle"></i>&nbsp;Create RMA
+                                                </button>
+                                            </div>
                                             <!-- DATA TABLE-->
                                             <div grid-data grid-options="pvgridOptions" grid-actions="gridActions" class="table-responsive">
                                                 <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
                                                 <table class="table table-borderless table-data3">
                                                     <thead>
                                                     <tr>
+                                                        <th>
+                                                            Select
+                                                        </th>
                                                         <th>
                                                             Id
                                                         </th>
@@ -175,6 +183,12 @@
                                                     </thead>
                                                     <tbody>
                                                     <tr grid-item>
+                                                        <td>
+                                                            <label class="au-checkbox">
+                                                                <input type="checkbox" ng-model="item.create_rma">
+                                                                <span class="au-checkmark"></span>
+                                                            </label>
+                                                        </td>
                                                         <td ng-bind="item.id"></td>
                                                         <td ng-bind="item.receipt_id"></td>
                                                         <td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
