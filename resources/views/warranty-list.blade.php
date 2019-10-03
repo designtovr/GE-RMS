@@ -2,7 +2,7 @@
 @section('title', 'Warranty List')
 @section('content')
 <div class="main-content" ng-controller="WarrantyController">
-    <div class="section__content section__content--p30">
+    <div class="section__content section__content--p30" ng-init="Start();">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
@@ -10,39 +10,41 @@
                         <h6 class="pb-4 display-5">Warranty List</h6>
                     </div>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-12 ">
+                   <div class="card-header card-title">
+                     Search 
+                 </div>
+                 <div >
                     <div class="table-responsive">
                         <table class="table table-borderless table-data3 table-custom">
                             <thead>
                                 <tr>
                                     <th>
 
-                                        <input id="ridFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Enter RID #" ng-change="gridActions.filter()" ng-model="rid_no" filter-by="rid_no" filter-type="text">
+                                        <input id="ridFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Enter RID #" ng-change="gridActions.filter();" ng-model="filterID" filter-by="id" filter-type="text">
                                     </th>
                                     <th>
 
-                                        <input id="productFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Enter Product" ng-change="gridActions.filter()" ng-model="product" filter-by="product" filter-type="text">
+                                        <input id="productFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Enter Product ID" ng-change="gridActions.filter();" ng-model="filterreceipt_id" filter-by="product_id" filter-type="text">
                                     </th>
                                     <th>
                                         <input type="text"
-                                               id="dateFilter"
-                                               class="form-control"
-                                                placeholder="Date"
-                                               max-date="dateTo"
-                                               close-text="Close"
-                                               ng-model="dateFrom"
-                                               show-weeks="true"
-                                               is-open="dateFromOpened"
-                                               ng-click="dateFromOpened = true"
-                                               filter-by="placed"
-                                               filter-type="dateFrom"
-                                               ng-blur="gridActions.filter()"
-                                               ng-focus="gridActions.filter()"
-                                               show-weeks="false"
-                                               close-text="Close"/>
+                                        id="dateFilter"
+                                        class="form-control"
+                                        placeholder="Date"
+                                        max-date="dateTo"
+                                        close-text="Close"
+                                        ng-model="filterpvdate"
+                                        show-weeks="true"
+                                        is-open="dateFromOpened"
+                                        ng-click="dateFromOpened = true"
+                                        filter-by="pvdate"
+                                        filter-type="text"
+                                        ng-change="gridActions.filter()"
+                                        close-text="Close"/>
 
                                     </th>
-                                    <th>
+                           <!--          <th>
                                         <select name="field-volts-used" id="field-volts-used"
                                         class="form-control-sm form-control">
                                         <option value="0">From</option>
@@ -59,103 +61,86 @@
                                     <option value="2">No</option>
                                     <option value="2">Customer</option>
                                 </select>
-                            </th>
+                            </th> -->
                             <th>
-                                <input type="text" id="se-cus" name="se-cus" placeholder="Customer"
-                                class="form-control-sm form-control">
-                            </th>
-                            <th>
-                                <button type="button" class="btn btn-outline-secondary btn-sm">Reset</button>
-                            </th>
-                            <th>
-                                <button type="button" class="btn btn-outline-primary btn-sm">
-                                    <i class="fa fa-search"></i>&nbsp; Search
-                                </button>
-                            </th>
-                        </tr>
-                    </thead>
-                </table>
-
-            </div>
-        </div>
-        <div class="col-md-12 p-b-20">
-            <button type="button" class="btn btn-primary btn-md float-right"
-            ng-click="OpenWarrantyModal();">
-            <i class="fa fa-check-circle"></i>&nbsp;W/C
-        </button>
-    </div>
-    <div class="col-md-12">
-        <!-- DATA TABLE-->
-        <div grid-data grid-options="gridOptions" grid-actions="gridActions" class="table-responsive">
-            <div>
-                <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
-                <table class="table table-borderless table-data3">
-                    <thead>
-                        <tr>
-                            <th>
-
-                            </th>
-                            <th sortable="rid_no" class="sortable">
-                                RID No
-                            </th>
-                            <th sortable="product" class="sortable">
-                                Product
-                            </th>
-                            <th sortable='cus_name' class="sortable">
-                                Customer Name
-                            </th>
-                            <th sortable='total.value' class="sortable">
-                                End Customer
-                            </th>
-                            <th sortable='total.value' class="sortable">
-                                Serial No
-                            </th>
-                            <th sortable='total.value' class="sortable">
-                                Model No
-                            </th>
-                            <th sortable='total.value' class="sortable">
-                                Courier
-                            </th>
-                            <th sortable='total.value' class="sortable">
-                                Docket No
-                            </th>
-                            <th sortable='total.value' class="sortable">
-                                Customer Comment
-                            </th>
-                            <th>
-                                Actions
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr grid-item>
-                            <td>
-                                <label class="au-checkbox">
-                                    <input type="checkbox">
-                                    <span class="au-checkmark"></span>
-                                </label>
-                            </td>
-                            <td ng-bind="item.rid_no"></td>
-                            <td ng-bind="item.product"></td>
-                            <td ng-bind="item.customer_name"></td>
-                            <td ng-bind="item.end_customer"></td>
-                            <td ng-bind="item.serial_no"></td>
-                            <td ng-bind="item.model_no"></td>
-                            <td ng-bind="item.courier_name"></td>
-                            <td ng-bind="item.docket_details"></td>
-                            <td ng-bind="item.customer_comment"></td>
-                            <td>
-                                <div class="table-data-feature">
-                                    <button class="item" data-toggle="tooltip" data-placement="top"
-                                    title="Delete">
-                                    <i class="zmdi zmdi-delete"></i>
-                                </button>
-                            </div>
-                        </td>
+                               <input id="customerFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Enter Customer Name" ng-change="gridActions.filter()" ng-model="filterCustomer" filter-by="customer_name" filter-type="text">
+                           </th>
+                           <th>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" ng-click="Reset();gridActions.filter()">Reset</button>
+                        </th>
+                        <th>
+                            <button type="button" class="btn btn-outline-primary btn-sm">
+                                <i class="fa fa-search"></i>&nbsp; Search
+                            </button>
+                        </th>
                     </tr>
-                </tbody>
+                </thead>
             </table>
+
         </div>
+    </div>
+</div>
+<div class="col-md-12 p-b-20">
+    <button type="button" class="btn btn-primary btn-md float-right"
+    ng-click="OpenWarrantyModal();">
+    <i class="fa fa-check-circle"></i>&nbsp;W/C
+</button>
+</div>
+<div class="col-md-12">
+    <!-- DATA TABLE-->
+    <div grid-data grid-options="gridOptions" grid-actions="gridActions"  >
+        <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
+        <div class = "">
+        <table class="table table-borderless table-data3  overflow-auto">
+            <thead>
+                <tr>
+
+                    <th >
+                        Select
+                    </th>
+                    <th sortable="id" class="sortable">
+                        RID
+                    </th>
+                    <th  sortable="pvdate" class="sortable">
+                        Date
+                    </th>
+                    <th sortable="product_id" class="sortable">
+                        Product Id
+                    </th>
+                    <th  sortable="serial_no" class="sortable">
+                        Serial
+                    </th>
+                    <th  sortable="customer_name" class="sortable">
+                        End Customer
+                    </th>
+                    <th  sortable="end_customer" class="sortable">
+                        End Customer
+                    </th>
+
+                    <th  sortable="comment" class="sortable">
+                        Comment
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr grid-item>
+                    <td>
+                        <label class="au-checkbox">
+                            <input type="checkbox" ng-model="item.create_rma">
+                            <span class="au-checkmark"></span>
+                        </label>
+                    </td>
+                    <td ng-bind="item.id"></td>
+                    <td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
+                    <td ng-bind="item.product_id"></td>
+                    <td ng-bind="item.serial_no"></td>
+                    <td ng-bind="item.customer_name"></td>
+                    <td ng-bind="item.end_customer"></td>
+                    <td ng-bind="item.comment"></td>
+                </tr>
+            </tbody>
+        </table>
+</div>
         <form class="form-inline pull-right margin-bottom-basic">
             <div class="form-group">
                 <grid-pagination max-size="5"
@@ -392,130 +377,132 @@ aria-hidden="true">
                                                 </div>
 
 
-                        <div ng-show = show_rca_options>
-                            <div class="row p-t-20">
-                                <div class="col-md-12">
-                                    <div class="row form-group">
-                                        <div class="col col-md-3">
-                                            <label for="mail" class=" form-control-label"><b>  RID </b>
-                                                <span class="mandatory">*</span></label>
-                                        </div>
-                                        <div class="col-12 col-md-9">
-                                            <ui-select multiple ng-model="selectedRID" theme="bootstrap"  sortable="true" close-on-select="false" >
-                                                <ui-select-match placeholder="Select RID...">@{{$item}}</ui-select-match>
-                                                <ui-select-choices class = "d-block" repeat="rid in loadedRIDs | filter: $select.search">
-                                                    <div ng-bind-html="rid"></div>
-
-                                                </ui-select-choices>
-                                            </ui-select>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-
                                                 <div ng-show = show_rca_options>
                                                     <div class="row p-t-20">
                                                         <div class="col-md-12">
                                                             <div class="row form-group">
                                                                 <div class="col col-md-3">
-                                                                  <label for="mail" class=" form-control-label"><b>Mail To: </b>
-                                                                    <span class="mandatory">*</span></label>
+                                                                    <label for="mail" class=" form-control-label"><b>  RID </b>
+                                                                        <span class="mandatory">*</span></label>
+                                                                    </div>
+                                                                    <div class="col-12 col-md-9">
+                                                                        <ui-select multiple ng-model="selectedRID" theme="bootstrap"  sortable="true" close-on-select="false" >
+                                                                            <ui-select-match placeholder="Select RID...">@{{$item}}</ui-select-match>
+                                                                            <ui-select-choices class = "d-block" repeat="rid in loadedRIDs | filter: $select.search">
+                                                                                <div ng-bind-html="rid"></div>
+
+                                                                            </ui-select-choices>
+                                                                        </ui-select>
+                                                                    </div>
+
                                                                 </div>
-                                                                <div class="col-12 col-md-9">
-                                                                    <ui-select multiple ng-model="selectedPeople" theme="bootstrap"  sortable="true" close-on-select="false" >
-                                                                        <ui-select-match placeholder="Select person...">@{{$item.name}} &lt;@{{$item.email}}&gt;</ui-select-match>
-                                                                        <ui-select-choices class = "d-block" repeat="person.email as person in people | propsFilter: {name: $select.search, age: $select.search}">
-                                                                          <div ng-bind-html="person.name | highlight: $select.search"></div>
-                                                                          <small>
-                                                                            email: @{{person.email}}
-                                                                            age: <span ng-bind-html="''+person.age | highlight: $select.search"></span>
-                                                                        </small>
-                                                                    </ui-select-choices>
-                                                                </ui-select>
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div ng-show = show_rca_options>
+                                                        <div class="row p-t-20">
+                                                            <div class="col-md-12">
+                                                                <div class="row form-group">
+                                                                    <div class="col col-md-3">
+                                                                      <label for="mail" class=" form-control-label"><b>Mail To: </b>
+                                                                        <span class="mandatory">*</span></label>
+                                                                    </div>
+                                                                    <div class="col-12 col-md-9">
+                                                                        <ui-select multiple ng-model="selectedPeople" theme="bootstrap"  sortable="true" close-on-select="false" >
+                                                                            <ui-select-match placeholder="Select person...">@{{$item.name}} &lt;@{{$item.email}}&gt;</ui-select-match>
+                                                                            <ui-select-choices class = "d-block" repeat="person.email as person in people | propsFilter: {name: $select.search, age: $select.search}">
+                                                                              <div ng-bind-html="person.name | highlight: $select.search"></div>
+                                                                              <small>
+                                                                                email: @{{person.email}}
+                                                                                age: <span ng-bind-html="''+person.age | highlight: $select.search"></span>
+                                                                            </small>
+                                                                        </ui-select-choices>
+                                                                    </ui-select>
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div ng-show = show_rca_options>
+                                                        <div class="row p-t-20">
+                                                            <div class="col-md-12">
+                                                                <div class="row form-group">
+                                                                    <div class="col col-md-3">
+                                                                      <label for="mail" class=" form-control-label"><b>  Cc: </b>
+                                                                        <span class="mandatory">*</span></label>
+                                                                    </div>
+                                                                    <div class="col-12 col-md-9">
+                                                                        <ui-select multiple ng-model="selectedCCPeople" theme="bootstrap"  sortable="true" close-on-select="false" >
+                                                                            <ui-select-match placeholder="Select person...">@{{$item.name}} &lt;@{{$item.email}}&gt;</ui-select-match>
+                                                                            <ui-select-choices class = "d-block" repeat="person.email as person in people | propsFilter: {name: $select.search, age: $select.search}">
+                                                                              <div ng-bind-html="person.name | highlight: $select.search"></div>
+                                                                              <small>
+                                                                                email: @{{person.email}}
+                                                                                age: <span ng-bind-html="''+person.age | highlight: $select.search"></span>
+                                                                            </small>
+                                                                        </ui-select-choices>
+                                                                    </ui-select>
+                                                                </div>
+
                                                             </div>
 
                                                         </div>
 
                                                     </div>
                                                 </div>
-                                                    <div ng-show = show_rca_options>
+
                                                 <div class="row p-t-20">
                                                     <div class="col-md-12">
                                                         <div class="row form-group">
                                                             <div class="col col-md-3">
-                                                              <label for="mail" class=" form-control-label"><b>  Cc: </b>
-                                                                <span class="mandatory">*</span></label>
-                                                            </div>
-                                                            <div class="col-12 col-md-9">
-                                                                <ui-select multiple ng-model="selectedCCPeople" theme="bootstrap"  sortable="true" close-on-select="false" >
-                                                                    <ui-select-match placeholder="Select person...">@{{$item.name}} &lt;@{{$item.email}}&gt;</ui-select-match>
-                                                                    <ui-select-choices class = "d-block" repeat="person.email as person in people | propsFilter: {name: $select.search, age: $select.search}">
-                                                                      <div ng-bind-html="person.name | highlight: $select.search"></div>
-                                                                      <small>
-                                                                        email: @{{person.email}}
-                                                                        age: <span ng-bind-html="''+person.age | highlight: $select.search"></span>
-                                                                    </small>
-                                                                </ui-select-choices>
-                                                            </ui-select>
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-                                                    </div>
-
-                                                    <div class="row p-t-20">
-                                                        <div class="col-md-12">
-                                                            <div class="row form-group">
-                                                                <div class="col col-md-3">
-                                                                    <label for="comment" class=" form-control-label"><b>Message</b>
-                                                                        <span class="mandatory">*</span></label>
+                                                                <label for="comment" class=" form-control-label"><b>Message</b>
+                                                                    <span class="mandatory">*</span></label>
                                                                 </div>
                                                                 <div class="col-12 col-md-9">
                                                                     <input type="text" id="comment" name="comment" placeholder="Message"
-                                                                           class="form-control">
+                                                                    class="form-control">
                                                                     <span class="help-block">Please Enter Customer</span>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </div>
+                                            </form>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger btn-sm" ng-click="CloseWarrantyModal();">
+                                        <i class="fa fa-ban"></i> Close
+                                    </button>
+                                    <button type="submit" class="btn btn-primary btn-sm" ng-disabled="AddUserForm.$invalid"
+                                    ng-click="AddUser();">
+                                    <i class="fa fa-dot-circle-o"></i> Save
+                                </button>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger btn-sm" ng-click="CloseWarrantyModal();">
-                                <i class="fa fa-ban"></i> Close
-                            </button>
-                            <button type="submit" class="btn btn-primary btn-sm" ng-disabled="AddUserForm.$invalid"
-                            ng-click="AddUser();">
-                            <i class="fa fa-dot-circle-o"></i> Save
-                        </button>
                     </div>
                 </div>
+                <!-- end modal scroll -->
             </div>
-        </div>
-        <!-- end modal scroll -->
-    </div>
-    @endsection
-    @section('scripts')
-    <script type="text/javascript" src="{{url('public/js/controllers/WarrantyController.js')}}"></script>
-    <script>
-        $(document).ready(function () {
-            $("#dateFilter").datepicker({
-                autoclose: true,
-                format: 'dd/mm/yyyy',
-                todayHighlight: true,
-                setDate: new Date(),
-                update: new Date()
-            });
-        });
-    </script>
-    @endsection
+            @endsection
+            @section('scripts')
+            <script type="text/javascript" src="{{url('public/js/controllers/WarrantyController.js')}}"></script>
+            <script>
+                $(document).ready(function () {
+                    $("#dateFilter").datepicker({
+                        autoclose: true,
+                        format: 'yyyy-mm-dd',
+                        todayHighlight: true,
+                        setDate: new Date(),
+                        update: new Date()
+                    });
+                });
+            </script>
+            @endsection
+
+<!--     format: 'dd/mm/yyyy', -->

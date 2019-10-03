@@ -2,7 +2,16 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 	$scope.receiptform = false;
 	$scope.receipts = [];
 	$scope.receipt = {};
-	$scope.gridOptions = {data : []};
+	$scope.gridOptions = {pagination: {
+			itemsPerPage: '10'
+		},
+		data:[]
+	  , //required parameter - array with data
+	   //optional parameter - start sort options
+	   sort: {
+
+	   },
+	   urlSync: true};
 	$scope.editReceipt = false;
 	$scope.AddReceipt= function()
 	{
@@ -31,6 +40,13 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 				}
 			}
 		});
+	}
+
+	$scope.Reset = function()
+	{
+		$scope.filterid = '';
+		$scope.filterpvdate = '';
+		$scope.filterCustomer = '';
 	}
 
 	$scope.getReceipts = function()
