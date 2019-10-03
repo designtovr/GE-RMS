@@ -51,14 +51,19 @@ app.controller('WarrantyController', ['$scope', '$http', function($scope, $http)
 	{ name: 'Michael',   email: 'michael@email.com',   age: 15, country: 'Colombia' },
 	{ name: 'Nicolás',   email: 'nicolas@email.com',    age: 43, country: 'Colombia' }
 	];
+
+	$scope.loadedRIDs = [1234 , 54321 , 6578];
 	
 	$scope.selectedPeople =[$scope.people[0] ];
 	$scope.selectedCCPeople =[ $scope.people [4]];
-
+	$scope.selectedRID=[$scope.loadedRIDs[1]];
 	$scope.warrantymodal = {};
 	$scope.controller = {};
 	$scope.warrantymodal.title = 'Warranty Form';
 	$scope.gridOptions = {
+		pagination: {
+			itemsPerPage: '10'
+		},
 		data: [
 		{
 			'rid_no': '0010',

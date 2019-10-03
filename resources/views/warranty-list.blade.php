@@ -24,8 +24,23 @@
                                         <input id="productFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Enter Product" ng-change="gridActions.filter()" ng-model="product" filter-by="product" filter-type="text">
                                     </th>
                                     <th>
-                                        <input type="text" id="se-to-date" name="se-to-date" placeholder="To Date"
-                                        class="form-control-sm form-control">
+                                        <input type="text"
+                                               id="dateFilter"
+                                               class="form-control"
+                                                placeholder="Date"
+                                               max-date="dateTo"
+                                               close-text="Close"
+                                               ng-model="dateFrom"
+                                               show-weeks="true"
+                                               is-open="dateFromOpened"
+                                               ng-click="dateFromOpened = true"
+                                               filter-by="placed"
+                                               filter-type="dateFrom"
+                                               ng-blur="gridActions.filter()"
+                                               ng-focus="gridActions.filter()"
+                                               show-weeks="false"
+                                               close-text="Close"/>
+
                                     </th>
                                     <th>
                                         <select name="field-volts-used" id="field-volts-used"
@@ -154,7 +169,7 @@
             <div class="form-group items-per-page">
                 <label for="itemsOnPageSelect2">Items per page:</label>
                 <select id="itemsOnPageSelect2" class="form-control input-sm"
-                ng-init="paginationOptions.itemsPerPage = '10';reloadGrid() "
+                ng-init="paginationOptions.itemsPerPage = '10'"
                 ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
                 <option>10</option>
                 <option>25</option>
@@ -376,7 +391,33 @@ aria-hidden="true">
                                                     </div>
                                                 </div>
 
-                                                <div>
+
+                        <div ng-show = show_rca_options>
+                            <div class="row p-t-20">
+                                <div class="col-md-12">
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label for="mail" class=" form-control-label"><b>  RID </b>
+                                                <span class="mandatory">*</span></label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <ui-select multiple ng-model="selectedRID" theme="bootstrap"  sortable="true" close-on-select="false" >
+                                                <ui-select-match placeholder="Select RID...">@{{$item}}</ui-select-match>
+                                                <ui-select-choices class = "d-block" repeat="rid in loadedRIDs | filter: $select.search">
+                                                    <div ng-bind-html="rid"></div>
+
+                                                </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                                                <div ng-show = show_rca_options>
                                                     <div class="row p-t-20">
                                                         <div class="col-md-12">
                                                             <div class="row form-group">
@@ -401,6 +442,7 @@ aria-hidden="true">
 
                                                     </div>
                                                 </div>
+                                                    <div ng-show = show_rca_options>
                                                 <div class="row p-t-20">
                                                     <div class="col-md-12">
                                                         <div class="row form-group">
@@ -426,6 +468,23 @@ aria-hidden="true">
                                                 </div>
 
                                             </div>
+                                                    </div>
+
+                                                    <div class="row p-t-20">
+                                                        <div class="col-md-12">
+                                                            <div class="row form-group">
+                                                                <div class="col col-md-3">
+                                                                    <label for="comment" class=" form-control-label"><b>Message</b>
+                                                                        <span class="mandatory">*</span></label>
+                                                                </div>
+                                                                <div class="col-12 col-md-9">
+                                                                    <input type="text" id="comment" name="comment" placeholder="Message"
+                                                                           class="form-control">
+                                                                    <span class="help-block">Please Enter Customer</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                         </div>
                                     </form>
                                 </div>
@@ -448,4 +507,15 @@ aria-hidden="true">
     @endsection
     @section('scripts')
     <script type="text/javascript" src="{{url('public/js/controllers/WarrantyController.js')}}"></script>
+    <script>
+        $(document).ready(function () {
+            $("#dateFilter").datepicker({
+                autoclose: true,
+                format: 'dd/mm/yyyy',
+                todayHighlight: true,
+                setDate: new Date(),
+                update: new Date()
+            });
+        });
+    </script>
     @endsection

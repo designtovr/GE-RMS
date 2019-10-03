@@ -108,18 +108,18 @@
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-database"></i>Approval</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li>
+                              {{--  <li>
                                     <a href="{{url('/rma-form-linkage')}}">
                                         <i class="far fa-check-square"></i>RMA Form Linkage</a>
-                                </li>
+                                </li>--}}
                                 <li>
                                     <a href="{{url('/warranty')}}">
                                         <i class="far fa-check-square"></i>W/C Declaration</a>
                                 </li>
-                                <li>
+                               {{-- <li>
                                     <a href="{{url('/rma-linkage')}}">
                                         <i class="far fa-check-square"></i>RMA No Linkage</a>
-                                </li>
+                                </li>--}}
                                 <li>
                                     <a href="{{url('/other-relay-repair-status')}}">
                                         <i class="far fa-check-square"></i>Other Relay Repair Status</a>
