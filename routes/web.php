@@ -238,6 +238,7 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
     Route::get('/GetPhysicalVerificationForReceiptId/{receipt_id}', 'PhysicalVerificationController@GetPhysicalVerificationForReceiptId');
     Route::delete('/physicalverification/{id}', 'PhysicalVerificationController@DeletePV');
     Route::get('/physicalverification/{cat?}', 'PhysicalVerificationController@PhysicalVerificationList');
+    Route::post('/changepvstatus','PhysicalVerificationController@ChangePVStatus');
 	Route::post('/addproducttype', 'ProductTypeController@AddProductType');
 
 	Route::post('/addproduct', 'ProductController@AddProduct');

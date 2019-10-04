@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\AddReceiptRequest;
 use App\Http\Requests\AddPhysicalVerificationRequest;
+use App\Http\Requests\ChangePVStatusRequest;
 use App\Http\Repositories\PVStatusRepositories;
 use App\Http\Repositories\PVListingRepository;
 use Carbon\Carbon;
@@ -78,6 +79,68 @@ class PhysicalVerificationController extends Controller
 
 		return response()->json(['physicalverification' => $pv , 'status' => 'success'], 200);
 	}
+
+    public function ChangePVStatus(ChangePVStatusRequest $request)
+    {
+        $pvids  = $request->get('pvids');
+        $status = $request->get('status');
+        foreach ($pvids as $key => $pvid) {
+            if ($status == 'withrma')
+            {
+                PVStatusRepositories::ChangeStatusToRelayWithRMA($pvid);
+            }
+            else if ($status == 'withoutrma')
+            {
+                PVStatusRepositories::ChangeStatusToRelayWithOutRMA($pvid);
+            }
+            else if($status == 'managerapproval')
+            {
+                PVStatusRepositories::ChangeStatusToManagerApproval($pvid);
+            }
+            else if ($status == 'customerapproval')
+            {
+                PVStatusRepositories::ChangeStatusToCustomerApproval($pvid);
+            }
+            else if ($status == 'managerapproved' || $status == 'jobticketopen')
+            {
+                PVStatusRepositories::ChangeStatusToManagerApproved($pvid);
+            }
+            else if($status == 'jobticketstarted')
+            {
+                PVStatusRepositories::ChangeStatusToJobTicketStarted($pvid);
+            }
+            else if($status == 'jobticketcompleted' || $status == 'atbopen')
+            {
+                PVStatusRepositories::ChangeStatusToJobTicketCompleted($pvid);
+            }
+            else if($status == 'atbstarted')
+            {
+                PVStatusRepositories::ChangeStatusToAutoTestBenchStarted($pvid);
+            }
+            else if($status == 'atbcompleted')
+            {
+                PVStatusRepositories::ChangeStatusToAutoTestBenchCompleted($pvid);
+            }
+            else if($status == 'agingstarted')
+            {
+                PVStatusRepositories::ChangeStatusToAgingStarted($pvid);
+            }
+            else if($status == 'agingcompleted' || $status == 'waitingforverification')
+            {
+                PVStatusRepositories::ChangeStatusToAgingCompleted($pvid);
+            }
+            else if($status == 'verificationcompleted' || $status == 'waitingfordispatchapproval')
+            {
+                PVStatusRepositories::ChangeStatusToVerificationCompleted($pvid);
+            }
+            else if($status == 'dispatched')
+            {
+                PVStatusRepositories::ChangeStatusToDispatchced($pvid);
+            }
+        }
+
+        return response()->json(['status' => 'success', 'message' => 'Status Changed Successfully'], 200);
+    }
 
 	public function GetPhysicalVerification($id)
     {
