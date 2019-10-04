@@ -98,6 +98,15 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::get('/repair-initiation', function(){
 		return view('repair-initiation-list');
 	});
+
+    Route::get('/repair-initiation', function(){
+        return view('repair-initiation-list');
+    });
+
+    Route::get('/dispatch-approval', function(){
+        return view('dispatch-approval');
+    });
+
 	Route::get('/add-repair-initiation', function(){
 		return view('add-repair-initiation');
 	});

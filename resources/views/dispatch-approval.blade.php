@@ -1,24 +1,20 @@
 @extends('layouts.app')
-@section('title', 'Repair Initiation List')
+@section('title', 'Dispatch Approval List')
 @section('content')
-    <div class="main-content" ng-controller="RepairInitiationController">
+    <div class="main-content" ng-controller="DispatchApprovalController">
         <div class="section__content section__content--p30" ng-init="Start()">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="overview-wrap">
-                            <h6 class="pb-4 display-5">Repair Initiation List</h6>
+                            <h6 class="pb-4 display-5">Dispatch Approval List</h6>
                         </div>
                     </div>
-
-
-                   {{-- Search Start--}}
                     <div class="col-md-12 ">
                         <div class="card-header card-title">
                             Search
                         </div>
                         <div>
-
                             <div class="table-responsive">
                                 <table class="table table-borderless table-data3 table-custom">
                                     <thead>
@@ -97,16 +93,12 @@
                             </div>
                         </div>
                     </div>
-                    {{--Search End--}}
-                    {{--Filter--}}
                     <div class="col-md-12 p-b-20">
                         <button type="button" class="btn btn-primary btn-md float-right"
                                 ng-click="OpenWarrantyModal();">
-                            <i class="fa fa-plus"></i>&nbsp;Initiate
+                            <i class="fa fa-plus"></i>&nbsp;Approval
                         </button>
                     </div>
-
-{{--                    Table Start--}}
                     <div class="col-md-12">
                         <!-- DATA TABLE-->
                         <div grid-data grid-options="gridOptions" grid-actions="gridActions">
@@ -193,7 +185,6 @@
 
                         <!-- END DATA TABLE-->
                     </div>
-                    {{--Table Ends--}}
                 </div>
             </div>
         </div>
@@ -202,7 +193,7 @@
 
 @endsection
 @section('scripts')
-    <script type="text/javascript" src="{{url('public/js/controllers/RepairInitiationController.js')}}"></script>
+    <script type="text/javascript" src="{{url('public/js/controllers/DispatchApprovalController.js')}}"></script>
 
     <script>
         $(document).ready(function () {
