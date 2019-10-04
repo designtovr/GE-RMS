@@ -12,6 +12,8 @@ use App\Models\CustomerMaster;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ADDRMARequest;
 use App\Http\Requests\AddRmaUnitRequest;
+use App\Http\Repositories\PVStatusRepositories;
+use App\Http\Repositories\PVListingRepository;
 use Carbon\Carbon;
 
 class RMAController extends Controller
@@ -118,6 +120,8 @@ class RMAController extends Controller
             $PV = PhysicalVerificationMaster::where('id', $RMAUnitInformation->pv_id)->first();
             $PV->is_rma_available = 1;
             $PV->update();
+
+            PVStatusRepositories::ChangeStatusToManagerApproval($RMAUnitInformation->pv_id);
     	}
 
     	return response()->json(['data' => $RMA, 'status' => 'success', 'message' => 'RMA Created Successfully'], 200);

@@ -37,6 +37,7 @@ class ADDRMARequest extends FormRequest
         $rules['rma.how_long'] = 'required|string|min:3|max:25';*/
         $rules['rma.customer_address_id'] = 'required|exists:ma_customer,id';
 
+        $rules['rma.invoice_info.end_customer.end_customer'] = "required|string|min:3|max:25";
         $rules['rma.delivery_info.contact_name'] = "required|string|min:3|max:25";
         $rules['rma.delivery_info.delivery_address'] = "required|string|min:3|max:100";
         $rules['rma.delivery_info.delivery_email'] = "required|email";
@@ -80,6 +81,7 @@ class ADDRMARequest extends FormRequest
             'rma.return_in_case' => 'Return In Case',
             'rma.how_long' => 'How Long',
             'rma.customer_address_id' => 'Customer Details',
+            'rma.invoice_info.end_customer.end_customer' => 'End Customer',
             'rma.delivery_info.contact_name' => 'Delivery Contact Name',
             'rma.delivery_info.delivery_address' => 'Delivery Address',
             'rma.delivery_info.delivery_email' => 'Delivery Email',

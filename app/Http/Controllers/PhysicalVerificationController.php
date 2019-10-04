@@ -13,28 +13,70 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\AddReceiptRequest;
 use App\Http\Requests\AddPhysicalVerificationRequest;
+use App\Http\Repositories\PVStatusRepositories;
+use App\Http\Repositories\PVListingRepository;
 use Carbon\Carbon;
 
 class PhysicalVerificationController extends Controller
 {
 	public function PhysicalVerificationList(Request $request)
 	{
-		$physicalverification = PhysicalVerificationMaster::selectRaw('physical_verification.*,receipt.gs_no, receipt.customer_name,receipt.end_customer,pr.part_no,pt.category')->leftJoin('receipt', 'physical_verification.receipt_id', 'receipt.id')->leftJoin('ma_product as pr', 'pr.id', 'physical_verification.product_id')->leftJoin('ma_product_type as pt', 'pt.id', 'physical_verification.producttype_id');
 		$cat = $request->get('cat');
+        $pv;
 		if ($cat == 'withrma')
 		{
-			$physicalverification = $physicalverification->where('is_rma_available', true)->orderBy('id')->get();
+            $pv = PVListingRepository::WithRma();
 		}
 		else if ($cat == 'withoutrma')
 		{
-			$physicalverification = $physicalverification->where('is_rma_available', false)->orderBy('id')->get();
+            $pv = PVListingRepository::WithoutRma();
 		}
-		else
-		{
-			$physicalverification = $physicalverification->orderBy('id')->get();
-		}
+        else if($cat == 'managerapproval')
+        {
+            $pv = PVListingRepository::WaitingForManagerApproval();
+        }
+        else if ($cat == 'customerapproval')
+        {
+            $pv = PVListingRepository::WaitingForCustomerApproval();
+        }
+        else if ($cat == 'managerapproved' || $cat == 'jobticketopen')
+        {
+            $pv = PVListingRepository::ManagerApproved();
+        }
+        else if($cat == 'jobticketstarted')
+        {
+            $pv = PVListingRepository::JobTicketStarted();
+        }
+        else if($cat == 'jobticketcompleted' || $cat == 'atbopen')
+        {
+            $pv = PVListingRepository::JobTicketCompleted();
+        }
+        else if($cat == 'atbstarted')
+        {
+            $pv = PVListingRepository::AutoTestBenchStarted();
+        }
+        else if($cat == 'atbcompleted')
+        {
+            $pv = PVListingRepository::AutoTestBenchCompleted();
+        }
+        else if($cat == 'agingstarted')
+        {
+            $pv = PVListingRepository::AgingStarted();
+        }
+        else if($cat == 'agingcompleted' || $cat == 'waitingforverification')
+        {
+            $pv = PVListingRepository::AgingCompleted();
+        }
+        else if($cat == 'verificationcompleted' || $cat == 'waitingfordispatchapproval')
+        {
+            $pv = PVListingRepository::VerificationCompleted();
+        }
+        else if($cat == 'dispatched')
+        {
+            $pv = PVListingRepository::Dispatched();
+        }
 
-		return response()->json(['physicalverification' => $physicalverification , 'status' => 'success'], 200);
+		return response()->json(['physicalverification' => $pv , 'status' => 'success'], 200);
 	}
 
 	public function GetPhysicalVerification($id)
@@ -74,7 +116,7 @@ class PhysicalVerificationController extends Controller
 
     public function AddPhysicalVerification(AddPhysicalVerificationRequest $request)
     {
-
+        $pvstatusRepositories = new PVStatusRepositories;
         $physical = $request->get('physicalverification');
         $exists = true;
 
@@ -138,6 +180,14 @@ class PhysicalVerificationController extends Controller
             $PVM->updated_by = Auth::id();
             $PVM->updated_at = Carbon::now();
             $PVM->update();
+            if ($PVM->is_rma_available)
+            {
+                $pvstatusRepositories->ChangeStatusToRelayWithRMA($PVM->id);
+            }
+            else
+            {
+                $pvstatusRepositories->ChangeStatusToRelayWithOutRMA($PVM->id);
+            }
             $message = 'Relay Updated Successfully';
         } else {
             $PVM->created_by = Auth::id();
@@ -145,6 +195,14 @@ class PhysicalVerificationController extends Controller
             $PVM->created_at = Carbon::now();
             $PVM->updated_at = Carbon::now();
             $PVM->save();
+            if ($PVM->is_rma_available)
+            {
+                $pvstatusRepositories->ChangeStatusToRelayWithRMA($PVM->id);
+            }
+            else
+            {
+                $pvstatusRepositories->ChangeStatusToRelayWithOutRMA($PVM->id);
+            }
             $message = 'Relay Added Successfully';
         }
 

@@ -157,7 +157,7 @@
                                 <div class="card-body">
                                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                                         <li class="nav-item" ng-click="ChangeTab('all')">
-                                            <a class="nav-link active" id="all-tab" data-toggle="tab" href="#all" role="tab" aria-controls="all" aria-selected="true">All</a>
+                                            <a class="nav-link active" id="all-tab" data-toggle="tab" href="#all" role="tab" aria-controls="all" aria-selected="true">Receipts</a>
                                         </li>
                                         <li class="nav-item" ng-click="ChangeTab('withrma')">
                                             <a class="nav-link" id="withrma-tab" data-toggle="tab" href="#withrma" role="tab" aria-controls="withrma" aria-selected="false">With RMA</a>
@@ -233,27 +233,27 @@
                                                     </tbody>
                                                 </table>
                                                  <form class="form-inline pull-right margin-bottom-basic">
-            <div class="form-group">
-                <grid-pagination max-size="5"
-                boundary-links="true"
-                class="pagination-sm"
-                total-items="paginationOptions.totalItems"
-                ng-model="paginationOptions.currentPage"
-                ng-change="reloadGrid()"
-                items-per-page="paginationOptions.itemsPerPage"></grid-pagination>
-            </div>
-            <div class="form-group items-per-page">
-                <label for="itemsOnPageSelect2">Items per page:</label>
-                <select id="itemsOnPageSelect2" class="form-control input-sm"
-                ng-init="paginationOptions.itemsPerPage = '10'"
-                ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
-                <option>10</option>
-                <option>25</option>
-                <option>50</option>
-                <option>75</option>
-            </select>
-        </div>
-    </form>
+                                        <div class="form-group">
+                                            <grid-pagination max-size="5"
+                                            boundary-links="true"
+                                            class="pagination-sm"
+                                            total-items="paginationOptions.totalItems"
+                                            ng-model="paginationOptions.currentPage"
+                                            ng-change="reloadGrid()"
+                                            items-per-page="paginationOptions.itemsPerPage"></grid-pagination>
+                                        </div>
+                                        <div class="form-group items-per-page">
+                                            <label for="itemsOnPageSelect2">Items per page:</label>
+                                            <select id="itemsOnPageSelect2" class="form-control input-sm"
+                                            ng-init="paginationOptions.itemsPerPage = '10'"
+                                            ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+                                            <option>10</option>
+                                            <option>25</option>
+                                            <option>50</option>
+                                            <option>75</option>
+                                        </select>
+                                    </div>
+                                </form>
                                             </div>
                                             <!-- END DATA TABLE-->
                                         </div>
@@ -682,7 +682,7 @@
                                         <div class="col-md-6">
                                             <div class="row form-group">
                                                 <div class="col col-md-4">
-                                                    <label for="crc_comment" class=" form-control-label">Comment By CRC</label>
+                                                    <label for="crc_comment" class=" form-control-label">Phy. Verfication Comment</label>
                                                 </div>
                                                 <div class="col-12 col-md-8">
                                                    <textarea 

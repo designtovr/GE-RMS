@@ -111,11 +111,11 @@ app.controller('WarrantyController' ,['$scope', '$http','Notification' , 'DataSh
 	}
 
 
-	$scope.Start = function()
+	$scope.GetPVList = function($cat = 'managerapproval')
 	{
 		$http({
 			method: 'GET',
-			url: '/ge/physicalverification?cat=withrma'
+			url: '/ge/physicalverification?cat='+$cat
 		}).then(function success(response) {
 			$scope.gridOptions.data =  response.data.physicalverification;
 		}, function error(response) {
@@ -248,7 +248,7 @@ app.controller('WarrantyController' ,['$scope', '$http','Notification' , 'DataSh
 			{
 				Notification.success(response.data.message);
 				$scope.CloseWarrantyModal();
-				$scope.Start();
+				$scope.GetPVList();
 			}
 		}, function failure(response){
 			if (response.status == 422)
