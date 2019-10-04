@@ -220,6 +220,7 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
 
     /*End Dispatch*/
 
+    Route::post('/addwc', 'WarrantyPHPController@AddWarranty');
 
 
   

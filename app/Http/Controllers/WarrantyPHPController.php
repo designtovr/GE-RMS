@@ -9,7 +9,7 @@ use App\Models\CustomerLocationTransaction;
 use App\Models\CustomerSiteTransaction;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Requests\AddReceiptRequest;
+use App\Http\Requests\AddWarrantyRequest;
 use App\Http\Requests\AddPhysicalVerificationRequest;
 use Carbon\Carbon;
 
@@ -23,13 +23,15 @@ class WarrantyPHPController extends Controller
 
     public function AddWarranty(AddWarrantyRequest $request)
     {
-        $warranty = $request->get('warrantymodal');
+        $warranty = $request->get('warranty');
 
         $WM = new WarrantyMaster();
 
-        $WM->rid =$warranty['rid_no'];
+        $WM->rid =$warranty['rid'];
         $WM->smp =$warranty['smp'];
         $WM->pcp =$warranty['pcp'];
+        $WM->comment =$warranty['comment'];
+        $WM->rid =$warranty['rid'];
         $WM->type =$warranty['type'];
         $WM->move =$warranty['move'];
         $WM->rca =$warranty['rca'];

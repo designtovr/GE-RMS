@@ -90,8 +90,8 @@
     <!-- DATA TABLE-->
     <div grid-data grid-options="gridOptions" grid-actions="gridActions"  >
         <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
-        <div class = "">
-        <table class="table table-borderless table-data3  overflow-auto">
+        <div class = "overflow-auto">
+        <table class="table table-borderless table-data3  ">
             <thead>
                 <tr>
 
@@ -126,7 +126,7 @@
                 <tr grid-item>
                     <td>
                         <label class="au-checkbox">
-                            <input type="checkbox" ng-model="item.create_rma">
+                            <input type="checkbox" ng-model="item.create_wc">
                             <span class="au-checkmark"></span>
                         </label>
                     </td>
@@ -368,9 +368,9 @@ aria-hidden="true">
                                                                 <span class="mandatory">*</span></label>
                                                             </div>
                                                             <div class="col-12 col-md-9">
-                                                                <input type="text" id="comment" name="comment" placeholder="Comment"
+                                                                <input type="text" id="comment" name="comment" placeholder="Comment" ng-model = "warrantymodal.comment"
                                                                 class="form-control">
-                                                                <span class="help-block">Please Enter Customer</span>
+                                                                <span class="help-block">Please Enter Comment</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -386,9 +386,9 @@ aria-hidden="true">
                                                                         <span class="mandatory">*</span></label>
                                                                     </div>
                                                                     <div class="col-12 col-md-9">
-                                                                        <ui-select multiple ng-model="selectedRID" theme="bootstrap"  sortable="true" close-on-select="false" >
+                                                                        <ui-select multiple ng-model="selectedRID" theme="bootstrap"  sortable="true" close-on-select="false">
                                                                             <ui-select-match placeholder="Select RID...">@{{$item}}</ui-select-match>
-                                                                            <ui-select-choices class = "d-block" repeat="rid in loadedRIDs | filter: $select.search">
+                                                                            <ui-select-choices class = "d-block" repeat=" rid in selectedpvs | filter: $select.search">
                                                                                 <div ng-bind-html="rid"></div>
 
                                                                             </ui-select-choices>
@@ -412,7 +412,7 @@ aria-hidden="true">
                                                                     </div>
                                                                     <div class="col-12 col-md-9">
                                                                         <ui-select multiple ng-model="selectedPeople" theme="bootstrap"  sortable="true" close-on-select="false" >
-                                                                            <ui-select-match placeholder="Select person...">@{{$item.name}} &lt;@{{$item.email}}&gt;</ui-select-match>
+                                                                            <ui-select-match ng-change="Debug()" placeholder="Select person...">@{{$item.name}} &lt;@{{$item.email}}&gt;</ui-select-match>
                                                                             <ui-select-choices class = "d-block" repeat="person.email as person in people | propsFilter: {name: $select.search, age: $select.search}">
                                                                               <div ng-bind-html="person.name | highlight: $select.search"></div>
                                                                               <small>
@@ -480,7 +480,7 @@ aria-hidden="true">
                                         <i class="fa fa-ban"></i> Close
                                     </button>
                                     <button type="submit" class="btn btn-primary btn-sm" ng-disabled="AddUserForm.$invalid"
-                                    ng-click="AddUser();">
+                                    ng-click="AddWC();">
                                     <i class="fa fa-dot-circle-o"></i> Save
                                 </button>
                             </div>

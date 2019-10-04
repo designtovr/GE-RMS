@@ -33,7 +33,7 @@ app.filter('propsFilter', function() {
 });
 
 
-app.controller('WarrantyController', ['$scope', '$http', function($scope, $http) {
+app.controller('WarrantyController' ,['$scope', '$http','Notification' , 'DataShareService', function($scope, $http , Notification , DataShareService) {
 
 	wc = this;
 	$scope.show_po = false;
@@ -56,7 +56,8 @@ app.controller('WarrantyController', ['$scope', '$http', function($scope, $http)
 	
 	$scope.selectedPeople =[$scope.people[0] ];
 	$scope.selectedCCPeople =[ $scope.people [4]];
-	$scope.selectedRID=[$scope.loadedRIDs[1]];
+	$scope.selectedRID=[];
+	$scope.selectedpvs=[123];
 	$scope.warrantymodal = {};
 	$scope.controller = {};
 	$scope.warrantymodal.title = 'Warranty Form';
@@ -75,8 +76,27 @@ app.controller('WarrantyController', ['$scope', '$http', function($scope, $http)
 
 	$scope.OpenWarrantyModal = function()
 	{
+		console.log($scope.gridOptions.data);
+		$scope.selectedpvs = [];
+		for (var i = 0; i < $scope.gridOptions.data.length; i++) {
+			if ($scope.gridOptions.data[i].create_wc != undefined && $scope.gridOptions.data[i].create_wc)
+			{
+				$scope.selectedpvs.push($scope.gridOptions.data[i].id);
+			}
+		}
+		if ($scope.selectedpvs.length == 0)
+		{
+			Notification.error("No Relay Selected");
+			return;
+		}
+		DataShareService.setRIdList($scope.selectedpvs);
+		console.log($scope.selectedpvs);
+		$scope.warrantymodal = {};
 		$('#warrantymodal').modal('show');
+
 	}
+
+
 
 	$scope.CloseWarrantyModal = function()
 	{
@@ -86,7 +106,7 @@ app.controller('WarrantyController', ['$scope', '$http', function($scope, $http)
 
 	$scope.Start = function()
 	{
-   		$http({
+		$http({
 			method: 'GET',
 			url: '/ge/physicalverification?cat=withrma'
 		}).then(function success(response) {
@@ -129,7 +149,7 @@ app.controller('WarrantyController', ['$scope', '$http', function($scope, $http)
 		}
 	}
 
-		$scope.OnRCAChanged = function() {
+	$scope.OnRCAChanged = function() {
 
 		if($scope.warrantymodal.rca)
 			$scope.show_rca_options = true;
@@ -138,5 +158,45 @@ app.controller('WarrantyController', ['$scope', '$http', function($scope, $http)
 			$scope.show_rca_options = false;
 
 	}
+	$scope.Debug = function()
+	{
+		console.log($scope.selectedRID);
+		console.log($scope.selectedpvs);
+	}
 
+	$scope.AddWC= function()
+	{
+		console.log($scope.selectedRID	);
+		console.log($scope.selectedpvs	);
+
+		$scope.warrantymodal.rid = $scope.selectedRID;
+		$scope.warrantymodal.mail_to = $scope.selectedPeople;
+		$scope.warrantymodal.cc = $scope.selectedCCPeople;
+		console.log($scope.warrantymodal);
+		$http({
+			method: 'post',
+			url: '/ge/addwc',
+			data: {
+				'warranty': $scope.warrantymodal,
+			},
+		}).then(function success(response){
+			if (response.status == 200)
+			{
+				Notification.success(response.data.message);
+				$scope.HideReceiptForm();
+				$scope.getReceipts();
+			}
+		}, function failure(response){
+			if (response.status == 422)
+			{
+
+				var errors = response.data.errors;
+				for(var error in errors)
+				{
+					Notification.error(errors[error][0]);
+					break;
+				}
+			}
+		});
+	}
 }]);
