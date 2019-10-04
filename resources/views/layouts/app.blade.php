@@ -132,10 +132,10 @@
                                 <i class="fas fa-database"></i>Testing</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
 
-                                <li>
+                             {{--   <li>
                                     <a href="{{url('/repair-initiation')}}">
                                         <i class="far fa-check-square"></i>Repair Initiation</a>
-                                </li>
+                                </li>--}}
                                 <li>
                                     <a href="{{url('/job-ticket')}}">
                                         <i class="far fa-check-square"></i>Job Ticket</a>
@@ -159,6 +159,10 @@
                                 <li>
                                     <a href="{{url('/verification-completion')}}">
                                         <i class="far fa-check-square"></i>Verification Completion</a>
+                                </li>
+                                <li>
+                                    <a href="{{url('/dispatch-approval')}}">
+                                        <i class="far fa-check-square"></i>Dispatch Approval</a>
                                 </li>
                                 <li>
                                     <a href="{{url('/dispatch')}}">
