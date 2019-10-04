@@ -107,7 +107,7 @@
 						<div class="card-body">
 							<div class="row col-md-12 p-0">
 
-								<div class="col-md-8">
+								<div class="col-md-9">
 									<ul class="nav nav-tabs" id="myTab" role="tablist">
 										<li class="nav-item" ng-click="LoadData('1')">
 											<a class="nav-link active" id="all-tab" data-toggle="tab" href="#open" role="tab" aria-controls="all" aria-selected="true">Open</a>
@@ -319,4 +319,15 @@
 @endsection
 @section('scripts')
 	<script type="text/javascript" src="{{url('public/js/controllers/AutoTestBenchController.js')}}"></script>
+	         <script>
+                $(document).ready(function () {
+                    $("#dateFilter").datepicker({
+                        autoclose: true,
+                        format: 'yyyy-mm-dd',
+                        todayHighlight: true,
+                        setDate: new Date(),
+                        update: new Date()
+                    });
+                });
+            </script>
 @endsection

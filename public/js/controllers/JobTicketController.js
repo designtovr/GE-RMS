@@ -2,6 +2,7 @@ app.controller('JobTicketController', ['$scope', '$http', function($scope, $http
 	$scope.showjtform = false;
 	$scope.startTab = false;
 	$scope.openTab = false;
+	$scope.jobticket = {};
 
 	$scope.gridOptions = {
 		pagination: {
@@ -20,6 +21,7 @@ app.controller('JobTicketController', ['$scope', '$http', function($scope, $http
 	$scope.Start = function()
 	{
 		$scope.openTab = true;
+		$scope.jobticket = {};
 		$http({
 			method: 'GET',
 			url: '/ge/physicalverification?cat=withrma'
@@ -59,6 +61,7 @@ app.controller('JobTicketController', ['$scope', '$http', function($scope, $http
 	$scope.CloseJTForm = function()
 	{
 		$scope.showjtform = false;
+		$scope.jobticket = {};
 	}
 
 	$scope.startTab = false;
@@ -84,9 +87,10 @@ app.controller('JobTicketController', ['$scope', '$http', function($scope, $http
 		});
 	}
 
-	$scope.OpenJTForm = function()
+	$scope.OpenJTForm = function(item)
 	{
 		$scope.showjtform = true;
+		$scope.jobticket = item;
 	}
 
 }]);
