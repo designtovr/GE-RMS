@@ -222,14 +222,14 @@ aria-hidden="true">
                                         <div class="col col-md-6">
                                             <div class="form-check">
                                                 <div class="radio">
-                                                    <label for="radio1" class="form-check-label ">
-                                                        <input type="radio" id="radio1" name="pcp"
+                                                    <label for="pcp1" class="form-check-label ">
+                                                        <input type="radio" id="pcp1" name="pcp"
                                                         value="1" ng-model = "warrantymodal.pcp" class="form-check-input" ng-change ="ValidateStatus()">Chargable
                                                     </label>
                                                 </div>
                                                 <div class="radio">
-                                                    <label for="radio2" class="form-check-label ">
-                                                        <input type="radio" id="radio2" name="pcp" ng-model = "warrantymodal.pcp"
+                                                    <label for="pcp2" class="form-check-label ">
+                                                        <input type="radio" id="pcp2" name="pcp" ng-model = "warrantymodal.pcp"
                                                         value="2" class="form-check-input" ng-change ="ValidateStatus()">Warranty
                                                     </label>
                                                 </div>
@@ -248,20 +248,20 @@ aria-hidden="true">
                                             <div class="col col-md-6">
                                                 <div class="form-check">
                                                     <div class="radio">
-                                                        <label for="radio1" class="form-check-label ">
-                                                            <input type="radio" id="radio1" name="type" ng-model = "warrantymodal.type"
+                                                        <label for="type1" class="form-check-label ">
+                                                            <input type="radio" id="type1" name="type" ng-model = "warrantymodal.type"
                                                             value="1" class="form-check-input">Repair
                                                         </label>
                                                     </div>
                                                     <div class="radio">
-                                                        <label for="radio2" class="form-check-label ">
-                                                            <input type="radio" id="radio2" name="type" ng-model = "warrantymodal.type"
+                                                        <label for="type2" class="form-check-label ">
+                                                            <input type="radio" id="type2" name="type" ng-model = "warrantymodal.type"
                                                             value="2" class="form-check-input">Modification
                                                         </label>
                                                     </div>
                                                     <div class="radio">
-                                                        <label for="radio2" class="form-check-label ">
-                                                            <input type="radio" id="radio2" name="type" ng-model = "warrantymodal.type"
+                                                        <label for="type3" class="form-check-label ">
+                                                            <input type="radio" id="type3" name="type" ng-model = "warrantymodal.type"
                                                             value="3" class="form-check-input">Investigation
                                                         </label>
                                                     </div>
@@ -280,15 +280,15 @@ aria-hidden="true">
                                                 <div class="col col-md-6">
                                                     <div class="form-check">
                                                         <div class="radio">
-                                                            <label for="radio1" class="form-check-label ">
-                                                                <input type="radio" id="radio1" name="move" ng-model = "warrantymodal.move"
+                                                            <label for="move1" class="form-check-label ">
+                                                                <input type="radio" id="move1" name="move" ng-model = "warrantymodal.move"
                                                                 value="1" class="form-check-input">Repair
                                                                 Rack
                                                             </label>
                                                         </div>
                                                         <div class="radio">
-                                                            <label for="radio2" class="form-check-label ">
-                                                                <input type="radio" id="radio2" name="move" ng-model = "warrantymodal.move"
+                                                            <label for="move2" class="form-check-label ">
+                                                                <input type="radio" id="move2" name="move" ng-model = "warrantymodal.move"
                                                                 value="2" class="form-check-input">Customer
                                                                 Hold Rack
                                                             </label>
@@ -296,16 +296,16 @@ aria-hidden="true">
 
                                                         <div ng-show = show_rca_options>
                                                             <div class="radio">
-                                                                <label for="radio2" class="form-check-label ">
-                                                                    <input type="radio" id="radio2" name="move" ng-model = "warrantymodal.move"
-                                                                    value="3" class="form-check-input" ">Post Lab
+                                                                <label for="move3" class="form-check-label ">
+                                                                    <input type="radio" id="move3" name="move" ng-model = "warrantymodal.move"
+                                                                    value="3" class="form-check-input" >Post Lab
 
                                                                 </label>
                                                             </div>
 
                                                             <div class="radio">
-                                                                <label for="radio2" class="form-check-label ">
-                                                                    <input type="radio" id="radio2" name="move" ng-model = "warrantymodal.move"
+                                                                <label for="move4" class="form-check-label ">
+                                                                    <input type="radio" id="move4" name="move" ng-model = "warrantymodal.move"
                                                                     value="4" class="form-check-input" >Application Lab
                                                                 </label>
                                                             </div>
@@ -323,10 +323,11 @@ aria-hidden="true">
                                             </div>
 
                                             <div class="checkbox  col-md-2 offset-md-1">
-                                                {{--  <label for="checkbox1" class="form-check-label">--}}
-                                                    <input type="checkbox" id="checkbox1" name="checkbox1" name="rca" ng-model = "warrantymodal.rca" ng-change ="OnRCAChanged()"
+                                                    <label class="au-checkbox">
+                                                        <input type="checkbox" id="rca" name="rca" name="rca" ng-model = "warrantymodal.rca" ng-change ="OnRCAChanged()"
                                                     value="1" class="form-check-input">
-                                                {{--</label>--}}
+                                                        <span class="au-checkmark"></span>
+                                                    </label>
                                             </div>
                                         </div>
                                     </div>
@@ -334,13 +335,34 @@ aria-hidden="true">
                                         <div class="col-md-12">
                                             <div class="row form-group">
                                                 <div class="col col-md-3">
-                                                    <label for="comment" class=" form-control-label"><b>PO</b>
+                                                    <label for="po" class=" form-control-label"><b>PO</b>
                                                         <span class="mandatory">*</span></label>
                                                     </div>
                                                     <div class="col-12 col-md-9">
-                                                        <input type="text" id="comment"  placeholder="PO" name="po" ng-model = "warrantymodal.po"
-                                                        class="form-control">
-                                                        <span class="help-block">Please Enter PO</span>
+                                                        <input 
+                                                        type="text" 
+                                                        id="po"  
+                                                        placeholder="PO" 
+                                                        name="po" 
+                                                        ng-model="warrantymodal.po"
+                                                        class="form-control"
+                                                        ng-minlength="3"
+                                                        ng-maxlength="50"
+                                                        required>
+                                                        <div ng-show="AddWarrantyForm.po.$touched && AddWarrantyForm.po.$error">
+                                                            <span class="help-block"
+                                                             ng-show="AddWarrantyForm.po.$error.required">
+                                                                Please Enter PO
+                                                            </span>
+                                                            <span class="help-block"
+                                                             ng-show="AddWarrantyForm.po.$error.minlength">
+                                                                Minimum 3 Characters Required
+                                                            </span>
+                                                            <span class="help-block"
+                                                             ng-show="AddWarrantyForm.po.$error.maxlength">
+                                                                Maximum 50 Characters Allowed
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -349,13 +371,34 @@ aria-hidden="true">
                                             <div class="col-md-12">
                                                 <div class="row form-group">
                                                     <div class="col col-md-3">
-                                                        <label for="comment" class=" form-control-label"><b>WBS / SO</b>
+                                                        <label for="wbs" class=" form-control-label"><b>WBS / SO</b>
                                                             <span class="mandatory">*</span></label>
                                                         </div>
                                                         <div class="col-12 col-md-9">
-                                                            <input type="text" id="comment"  placeholder="WBS" name="wbs" ng-model = "warrantymodal.wbs"
-                                                            class="form-control">
-                                                            <span class="help-block">Please Enter WBS</span>
+                                                            <input 
+                                                            type="text" 
+                                                            id="wbs"  
+                                                            placeholder="WBS" 
+                                                            name="wbs" 
+                                                            ng-model = "warrantymodal.wbs"
+                                                            class="form-control"
+                                                            ng-minlength="3"
+                                                            ng-maxlength="50"
+                                                            required>
+                                                            <div ng-show="AddWarrantyForm.wbs.$touched && AddWarrantyForm.wbs.$error">
+                                                                <span class="help-block"
+                                                                 ng-show="AddWarrantyForm.wbs.$error.required">
+                                                                    Please Enter WBS
+                                                                </span>
+                                                                <span class="help-block"
+                                                                 ng-show="AddWarrantyForm.wbs.$error.minlength">
+                                                                    Minimum 3 Characters Required
+                                                                </span>
+                                                                <span class="help-block"
+                                                                 ng-show="AddWarrantyForm.wbs.$error.maxlength">
+                                                                    Maximum 50 Characters Allowed
+                                                                </span>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -365,12 +408,18 @@ aria-hidden="true">
                                                     <div class="row form-group">
                                                         <div class="col col-md-3">
                                                             <label for="comment" class=" form-control-label"><b>Comment</b>
-                                                                <span class="mandatory">*</span></label>
+                                                            </label>
                                                             </div>
                                                             <div class="col-12 col-md-9">
-                                                                <input type="text" id="comment" name="comment" placeholder="Comment" ng-model = "warrantymodal.comment"
-                                                                class="form-control">
-                                                                <span class="help-block">Please Enter Comment</span>
+                                                                <textarea 
+                                                                type="text" 
+                                                                id="comment" 
+                                                                name="comment"
+                                                                ng-model="warrantymodal.comment"
+                                                                placeholder="Comment" 
+                                                                class="form-control"
+                                                                rows="3">
+                                                                </textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -386,7 +435,7 @@ aria-hidden="true">
                                                                         <span class="mandatory">*</span></label>
                                                                     </div>
                                                                     <div class="col-12 col-md-9">
-                                                                        <ui-select multiple ng-model="selectedRID" theme="bootstrap"  sortable="true" close-on-select="false">
+                                                                        <ui-select multiple ng-model="warrantymodal.selectedRID" theme="bootstrap"  sortable="true" close-on-select="false">
                                                                             <ui-select-match placeholder="Select RID...">@{{$item}}</ui-select-match>
                                                                             <ui-select-choices class = "d-block" repeat=" rid in selectedpvs | filter: $select.search">
                                                                                 <div ng-bind-html="rid"></div>
@@ -411,7 +460,7 @@ aria-hidden="true">
                                                                         <span class="mandatory">*</span></label>
                                                                     </div>
                                                                     <div class="col-12 col-md-9">
-                                                                        <ui-select multiple ng-model="selectedPeople" theme="bootstrap"  sortable="true" close-on-select="false" >
+                                                                        <ui-select multiple ng-model="warrantymodal.selectedPeople" theme="bootstrap"  sortable="true" close-on-select="false" >
                                                                             <ui-select-match ng-change="Debug()" placeholder="Select person...">@{{$item.name}} &lt;@{{$item.email}}&gt;</ui-select-match>
                                                                             <ui-select-choices class = "d-block" repeat="person.email as person in people | propsFilter: {name: $select.search, age: $select.search}">
                                                                               <div ng-bind-html="person.name | highlight: $select.search"></div>
@@ -436,7 +485,7 @@ aria-hidden="true">
                                                                         <span class="mandatory">*</span></label>
                                                                     </div>
                                                                     <div class="col-12 col-md-9">
-                                                                        <ui-select multiple ng-model="selectedCCPeople" theme="bootstrap"  sortable="true" close-on-select="false" >
+                                                                        <ui-select multiple ng-model="warrantymodal.selectedCCPeople" theme="bootstrap"  sortable="true" close-on-select="false" >
                                                                             <ui-select-match placeholder="Select person...">@{{$item.name}} &lt;@{{$item.email}}&gt;</ui-select-match>
                                                                             <ui-select-choices class = "d-block" repeat="person.email as person in people | propsFilter: {name: $select.search, age: $select.search}">
                                                                               <div ng-bind-html="person.name | highlight: $select.search"></div>
@@ -459,13 +508,36 @@ aria-hidden="true">
                                                     <div class="col-md-12">
                                                         <div class="row form-group">
                                                             <div class="col col-md-3">
-                                                                <label for="comment" class=" form-control-label"><b>Message</b>
+                                                                <label for="message" class=" form-control-label"><b>Message</b>
                                                                     <span class="mandatory">*</span></label>
                                                                 </div>
                                                                 <div class="col-12 col-md-9">
-                                                                    <input type="text" id="comment" name="comment" placeholder="Message"
-                                                                    class="form-control">
-                                                                    <span class="help-block">Please Enter Customer</span>
+                                                                    <textarea 
+                                                                    type="text" 
+                                                                    id="message" 
+                                                                    name="message"
+                                                                    ng-model="warrantymodal.message"
+                                                                    placeholder="Message" 
+                                                                    class="form-control"
+                                                                    rows="3"
+                                                                    min-length="3"
+                                                                    max-length="100"
+                                                                    required>
+                                                                    </textarea>
+                                                                    <div ng-show="AddWarrantyForm.message.$touched && AddWarrantyForm.message.$error">
+                                                                        <span class="help-block"
+                                                                         ng-show="AddWarrantyForm.message.$error.required">
+                                                                            Please Enter Message
+                                                                        </span>
+                                                                        <span class="help-block"
+                                                                         ng-show="AddWarrantyForm.message.$error.minlength">
+                                                                            Minimum 3 Characters Required
+                                                                        </span>
+                                                                        <span class="help-block"
+                                                                         ng-show="AddWarrantyForm.message.$error.maxlength">
+                                                                            Maximum 100 Characters Allowed
+                                                                        </span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>

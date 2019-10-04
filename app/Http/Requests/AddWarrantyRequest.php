@@ -26,14 +26,16 @@ class AddWarrantyRequest extends FormRequest
         return [
 
 
-            'warranty.smp' => 'numeric|digits_between:1,2',
-            'warranty.pcp' => 'numeric|digits_between:1,2',
-            'warranty.type' => 'numeric|digits_between:1,2',
-            'warranty.move' => 'numeric|digits_between:1,5',
-            'warranty.rca' => 'boolean',
+            'warranty.smp' => 'required|numeric|digits_between:1,2',
+            'warranty.pcp' => 'required|numeric|digits_between:1,2',
+            'warranty.type' => 'required|numeric|digits_between:1,2',
+            'warranty.move' => 'required|numeric|digits_between:1,5',
+            'warranty.rca' => 'required|boolean',
             'warranty.comment' => 'string|min:3|max:20',
             'warranty.po' => 'string|min:3|max:20',
             'warranty.wbs' => 'string|min:3|max:20',
+
+            'pvs.*' => 'required|numeric|exists:physical_verification,id'
         ];
     }
 
@@ -50,7 +52,8 @@ class AddWarrantyRequest extends FormRequest
             'warranty.po' => 'PO',
             'warranty.wbs' => 'WBS',
             'warranty.mail_to' => 'Mail To',
-            'warranty.cc' => 'CC'
+            'warranty.cc' => 'CC',
+            'pvs.*.id' => 'PV'
         ];
     }
 

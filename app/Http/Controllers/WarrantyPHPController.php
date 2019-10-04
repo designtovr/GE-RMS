@@ -24,32 +24,34 @@ class WarrantyPHPController extends Controller
     public function AddWarranty(AddWarrantyRequest $request)
     {
         $warranty = $request->get('warranty');
+        $pvs = $request->get('pvs');
 
-        $WM = new WarrantyMaster();
+        foreach ($pvs as $key => $pv) {
+            $WM = new WarrantyMaster();
 
-        $WM->rid =$warranty['rid'];
-        $WM->smp =$warranty['smp'];
-        $WM->pcp =$warranty['pcp'];
-        $WM->comment =$warranty['comment'];
-        $WM->rid =$warranty['rid'];
-        $WM->type =$warranty['type'];
-        $WM->move =$warranty['move'];
-        $WM->rca =$warranty['rca'];
-        $WM->comment =$warranty['comment'];
-        $WM->po =$warranty['po'];
-        $WM->wbs =$warranty['wbs'];
-        $WM->mail_to =$warranty['mail_to'];
-        $WM->cc =$warranty['cc'];
+            $WM->pv_id = $pv;
+            $WM->smp = $warranty['smp'];
+            $WM->pcp = $warranty['pcp'];
+            $WM->type = $warranty['type'];
+            $WM->move = $warranty['move'];
+            $WM->rca = $warranty['rca'];
+            $WM->comment = (array_key_exists('comment', $WM))?$warranty['comment']:'';
+            if (in_array($pv, $warranty['selectedRID'])) {
+                $WM->mail_to = implode(',', $warranty['selectedPeople']);
+                $WM->cc = implode(',', $warranty['selectedCCPeople']);
+                $WM->message = $warranty['message'];
+            }
+            $WM->po = (array_key_exists('po', $warranty))?$warranty['po']:'';
+            $WM->wbs = (array_key_exists('wbs', $warranty))?$warranty['wbs']:'';
 
+            $WM->created_by = Auth::id();
+            $WM->updated_by = Auth::id();
+            $WM->created_at = Carbon::now();
+            $WM->updated_at = Carbon::now();
+            $WM->save();
 
-        $WM->created_by = Auth::id();
-        $WM->updated_by = Auth::id();
-        $WM->created_at = Carbon::now();
-        $WM->updated_at = Carbon::now();
-        $WM->save();
+        }
         $message = 'Warranty Saved Successfully';
-
-
 
         return response()->json(['status' => 'success', 'message' => $message], 200);
     }

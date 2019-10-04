@@ -332,6 +332,7 @@
                                     ng-model="rmaformdata.relay.desc_of_fault"
                                     placeholder="Description of Fault" 
                                     class="form-control"
+                                    rows="3" 
                                     ng-minlength="3" 
                                     ng-maxlength="100"
                                     required></textarea>

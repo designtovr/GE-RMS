@@ -36,6 +36,7 @@ app.filter('propsFilter', function() {
 app.controller('WarrantyController' ,['$scope', '$http','Notification' , 'DataShareService', function($scope, $http , Notification , DataShareService) {
 
 	wc = this;
+	$scope.warrantymodal = {};
 	$scope.show_po = false;
 	$scope.show_wbs = false;
 	$scope.show_rca_options = false;
@@ -54,11 +55,10 @@ app.controller('WarrantyController' ,['$scope', '$http','Notification' , 'DataSh
 
 	$scope.loadedRIDs = [1234 , 54321 , 6578];
 	
-	$scope.selectedPeople =[$scope.people[0] ];
-	$scope.selectedCCPeople =[ $scope.people [4]];
-	$scope.selectedRID=[];
+	$scope.warrantymodal.selectedPeople =[$scope.people[0] ];
+	$scope.warrantymodal.selectedCCPeople =[ $scope.people [4]];
+	$scope.warrantymodal.selectedRID=[];
 	$scope.selectedpvs=[123];
-	$scope.warrantymodal = {};
 	$scope.controller = {};
 	$scope.warrantymodal.title = 'Warranty Form';
 	$scope.gridOptions = {
@@ -92,6 +92,13 @@ app.controller('WarrantyController' ,['$scope', '$http','Notification' , 'DataSh
 		DataShareService.setRIdList($scope.selectedpvs);
 		console.log($scope.selectedpvs);
 		$scope.warrantymodal = {};
+		$scope.warrantymodal.title = 'Warranty Form';
+		$scope.warrantymodal.rca = false;
+		$scope.warrantymodal.smp = 0;
+		$scope.warrantymodal.pcp = 0;
+		$scope.warrantymodal.type = 0;
+		$scope.warrantymodal.move = 0;
+		$scope.OnRCAChanged();
 		$('#warrantymodal').modal('show');
 
 	}
@@ -166,25 +173,82 @@ app.controller('WarrantyController' ,['$scope', '$http','Notification' , 'DataSh
 
 	$scope.AddWC= function()
 	{
-		console.log($scope.selectedRID	);
-		console.log($scope.selectedpvs	);
-
-		$scope.warrantymodal.rid = $scope.selectedRID;
-		$scope.warrantymodal.mail_to = $scope.selectedPeople;
-		$scope.warrantymodal.cc = $scope.selectedCCPeople;
 		console.log($scope.warrantymodal);
+		if (!$scope.warrantymodal.smp)
+		{
+			Notification.error("Select SMP");
+			return;
+		}
+		if (!$scope.warrantymodal.pcp)
+		{
+			Notification.error("Select PCP");
+			return;
+		}
+		if (!$scope.warrantymodal.type)
+		{
+			Notification.error("Select Type");
+			return;
+		}
+		if (!$scope.warrantymodal.move)
+		{
+			Notification.error("Select Move");
+			return;
+		}
+		if(($scope.warrantymodal.smp == 1 && $scope.warrantymodal.pcp == 1) && ($scope.warrantymodal.po == undefined || $scope.warrantymodal.po == ""))
+		{
+			Notification.error("Enter PO");
+			return;
+		}
+		if(($scope.warrantymodal.smp == 1 && $scope.warrantymodal.pcp == 2) && ($scope.warrantymodal.wbs == undefined || $scope.warrantymodal.wbs == ""))
+		{
+			Notification.error("Enter WBS");
+			return;
+		}
+		if(($scope.warrantymodal.smp == 2 && $scope.warrantymodal.pcp == 1) && ($scope.warrantymodal.po == undefined || $scope.warrantymodal.po == ""))
+		{
+			Notification.error("Enter PO");
+			return;
+		}
+		if ($scope.warrantymodal.rca)
+		{
+			if ($scope.warrantymodal.selectedRID.length == 0)
+			{
+				Notification.error("Select Mail To");
+				return;
+			}
+
+			if ($scope.warrantymodal.selectedPeople.length == 0)
+			{
+				Notification.error("Select CC");
+				return;
+			}
+
+			if ($scope.warrantymodal.selectedCCPeople.length == 0)
+			{
+				Notification.error("Select CC");
+				return;
+			}
+
+			if ($scope.warrantymodal.message == "" || $scope.warrantymodal.message == undefined)
+			{
+				Notification.error("Enter Message");
+				return;
+			}
+		}
+
 		$http({
 			method: 'post',
 			url: '/ge/addwc',
 			data: {
 				'warranty': $scope.warrantymodal,
+				'pvs': $scope.selectedpvs,
 			},
 		}).then(function success(response){
-			if (response.status == 200)
+			if (response.data.status == 'success')
 			{
 				Notification.success(response.data.message);
-				$scope.HideReceiptForm();
-				$scope.getReceipts();
+				$scope.CloseWarrantyModal();
+				$scope.Start();
 			}
 		}, function failure(response){
 			if (response.status == 422)
