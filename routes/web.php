@@ -67,7 +67,7 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::get('/add-rma', function(){
 		return view('add-rma');
 	});
-	Route::get('/warranty', function(){
+	Route::get('/warranty/{page?}{itemsPerPage?}', function(){
 		return view('warranty-list');
 	});
 	Route::get('/add-warranty', function(){
@@ -228,7 +228,6 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
     Route::get('/GetPhysicalVerificationForReceiptId/{receipt_id}', 'PhysicalVerificationController@GetPhysicalVerificationForReceiptId');
     Route::delete('/physicalverification/{id}', 'PhysicalVerificationController@DeletePV');
     Route::get('/physicalverification/{cat?}', 'PhysicalVerificationController@PhysicalVerificationList');
-
 	Route::post('/addproducttype', 'ProductTypeController@AddProductType');
 
 	Route::post('/addproduct', 'ProductController@AddProduct');

@@ -8,85 +8,115 @@
                     <div class="col-md-12">
                         <div class="overview-wrap">
                             <h6 class="pb-4 display-5">Receipt List</h6>
-                            <button type="button" class="btn btn-primary btn-sm" ng-click="ShowReceiptForm();">
+                          
+                        </div>
+                    </div>
+                     <div class="col-md-12 ">
+                   <div class="card-header card-title">
+                     Search 
+                 </div>
+                 <div >
+                    <div class="table-responsive">
+                        <table class="table table-borderless table-data3 table-custom">
+                            <thead>
+                                <tr>
+                                <!--     <th>
+
+                                        <input id="ridFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Enter Receipt ID #" ng-change="gridActions.filter();pvgridActions.filter()" ng-model="filterid" filter-by="id" filter-type="text" n>
+                                    </th> -->
+
+                                            <th>
+
+                                        <input id="ridFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Enter Receipt ID #" ng-change="gridActions.filter()" ng-model="filterid" filter-by="id" filter-type="text">
+                                    </th>
+                              
+                                    <th>
+                                        <input type="text"
+                                        id="dateFilter"
+                                        class="form-control"
+                                        placeholder="Date"
+                                        max-date="dateTo"
+                                        close-text="Close"
+                                        ng-model="filterpvdate"
+                                        show-weeks="true"
+                                        is-open="dateFromOpened"
+                                        ng-click="dateFromOpened = true"
+                                        filter-by="receipt_date"
+                                        filter-type="text"
+                                        ng-change="gridActions.filter()"
+                                        close-text="Close"/>
+
+                                    </th>         <th>
+                               <input id="customerFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Enter Customer Name" ng-change="gridActions.filter()" ng-model="filterCustomer" filter-by="customer_name" filter-type="text">
+                           </th>
+                           <!--          <th>
+                                        <select name="field-volts-used" id="field-volts-used"
+                                        class="form-control-sm form-control">
+                                        <option value="0">From</option>
+                                        <option value="1">Yes</option>
+                                        <option value="2">No</option>
+                                        <option value="2">Customer</option>
+                                    </select>
+                                </th>
+                                <th>
+                                    <select name="field-volts-used" id="field-volts-used"
+                                    class="form-control-sm form-control">
+                                    <option value="0">To</option>
+                                    <option value="1">Yes</option>
+                                    <option value="2">No</option>
+                                    <option value="2">Customer</option>
+                                </select>
+                            </th> -->
+                      
+                           <th>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" ng-click="Reset();gridActions.filter()">Reset</button>
+                        </th>
+                        <th>
+                            <button type="button" class="btn btn-outline-primary btn-sm">
+                                <i class="fa fa-search"></i>&nbsp; Search
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+
+        </div>
+    </div>
+    <div class = "row">
+    <div class="col-md-12 p-b-20">
+     <button type="button" class="btn btn-primary btn-md float-right" ng-click="ShowReceiptForm();">
                                 <i class="fa fa-plus"></i>&nbsp;Add Item
                             </button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="table-responsive">
-                            <table class="table table-borderless table-data3 table-custom">
-                                <thead>
-                                <tr>
-                                    <th>
-                                        <input type="text" id="se-from-date" name="se-from-date" placeholder="From Date"
-                                               class="form-control-sm form-control">
-                                    </th>
-                                    <th>
-                                        <input type="text" id="se-to-date" name="se-to-date" placeholder="To Date"
-                                               class="form-control-sm form-control">
-                                    </th>
-                                    <th>
-                                        <select name="field-volts-used" id="field-volts-used"
-                                                class="form-control-sm form-control">
-                                            <option value="0">From</option>
-                                            <option value="1">Yes</option>
-                                            <option value="2">No</option>
-                                            <option value="2">Customer</option>
-                                        </select>
-                                    </th>
-                                    <th>
-                                        <select name="field-volts-used" id="field-volts-used"
-                                                class="form-control-sm form-control">
-                                            <option value="0">To</option>
-                                            <option value="1">Yes</option>
-                                            <option value="2">No</option>
-                                            <option value="2">Customer</option>
-                                        </select>
-                                    </th>
-                                    <th>
-                                        <input type="text" id="se-cus" name="se-cus" placeholder="Customer"
-                                               class="form-control-sm form-control">
-                                    </th>
-                                    <th>
-                                        <button type="button" class="btn btn-outline-secondary btn-sm">Reset</button>
-                                    </th>
-                                    <th>
-                                        <button type="button" class="btn btn-outline-primary btn-sm">
-                                            <i class="fa fa-search"></i>&nbsp; Search
-                                        </button>
-                                    </th>
-                                </tr>
-                                </thead>
-                            </table>
-                        </div>
-                    </div>
                     <div class="col-md-12">
                         <!-- DATA TABLE-->
-                        <div grid-data grid-options="gridOptions" grid-actions="gridActions" class="table-responsive">
+                        <div grid-data grid-options="gridOptions" grid-actions="gridActions" >
                             <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
+                            <div>
                             <table class="table table-borderless table-data3">
                                 <thead>
                                 <tr>
-                                    <th>
+                                    <th sortable="id" class="sortable">
                                         Receipt Id
-                                    <th>
+                                    </th>
+                                    <th sortable="receipt_date" class="sortable">
                                         Receipt Date
                                     </th>
 
-                                    <th>
+                                    <th  sortable="customer_name" class="sortable">
                                         Customer Name
                                     </th>
-                                    <th>
+                                    <th sortable="end_customer" class="sortable">
                                         End Customer
                                     </th>
-                                    <th>
+                                    <th sortable="courier_name" class="sortable">
                                         Courier Name
                                     </th>
-                                    <th>
+                                     <th sortable="docket_details" class="sortable">
                                         Docket Details
                                     </th>
-                                    <th>
+                                      <th sortable="total_boxes" class="sortable">
                                         Number of Boxes
                                     </th>
                                     <th>
@@ -117,10 +147,35 @@
                                 </tr>
                                 </tbody>
                             </table>
+</div>
+<form class="form-inline pull-right margin-bottom-basic">
+            <div class="form-group">
+                <grid-pagination max-size="5"
+                boundary-links="true"
+                class="pagination-sm"
+                total-items="paginationOptions.totalItems"
+                ng-model="paginationOptions.currentPage"
+                ng-change="reloadGrid()"
+                items-per-page="paginationOptions.itemsPerPage"></grid-pagination>
+            </div>
+            <div class="form-group items-per-page">
+                <label for="itemsOnPageSelect2">Items per page:</label>
+                <select id="itemsOnPageSelect2" class="form-control input-sm"
+                ng-init="paginationOptions.itemsPerPage = '10'"
+                ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+                <option>10</option>
+                <option>25</option>
+                <option>50</option>
+                <option>75</option>
+            </select>
+        </div>
+    </form>
                         </div>
                         <!-- END DATA TABLE-->
                     </div>
                 </div>
+            </div>
+
                 <div class="row" ng-show="receiptform">
                     <div class="col-lg-12">
                         <div class="card">
@@ -397,6 +452,14 @@
             $("#receipt_date").datepicker({
                 autoclose: true,
                 format: 'dd/mm/yyyy',
+                todayHighlight: true,
+                setDate: new Date(),
+                update: new Date()
+            });
+
+            $("#dateFilter").datepicker({
+                autoclose: true,
+                format: 'yyyy-mm-dd',
                 todayHighlight: true,
                 setDate: new Date(),
                 update: new Date()

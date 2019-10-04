@@ -10,55 +10,147 @@
                             <h6 class="pb-4 display-5">Physical Verification List</h6>
                         </div>
                     </div> -->
-                    <div class="col-md-12">
-                        <div class="col-md-12">
-                            <div class="table-responsive">
-                                <table class="table table-borderless table-data3 table-custom">
-                                    <thead>
-                                    <tr>
-                                        <th>
-                                            <input type="text" id="se-from-date" name="se-from-date" placeholder="From Date"
-                                                   class="form-control-sm form-control">
-                                        </th>
-                                        <th>
-                                            <input type="text" id="se-to-date" name="se-to-date" placeholder="To Date"
-                                                   class="form-control-sm form-control">
-                                        </th>
-                                        <th>
-                                            <select name="field-volts-used" id="field-volts-used"
-                                                    class="form-control-sm form-control">
-                                                <option value="0">From</option>
-                                                <option value="1">Yes</option>
-                                                <option value="2">No</option>
-                                                <option value="2">Customer</option>
-                                            </select>
-                                        </th>
-                                        <th>
-                                            <select name="field-volts-used" id="field-volts-used"
-                                                    class="form-control-sm form-control">
-                                                <option value="0">To</option>
-                                                <option value="1">Yes</option>
-                                                <option value="2">No</option>
-                                                <option value="2">Customer</option>
-                                            </select>
-                                        </th>
-                                        <th>
-                                            <input type="text" id="se-cus" name="se-cus" placeholder="Customer"
-                                                   class="form-control-sm form-control">
-                                        </th>
-                                        <th>
-                                            <button type="button" class="btn btn-outline-secondary btn-sm">Reset</button>
-                                        </th>
-                                        <th>
-                                            <button type="button" class="btn btn-outline-primary btn-sm">
-                                                <i class="fa fa-search"></i>&nbsp; Search
-                                            </button>
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                            <div class="card">
+                       <div class="col-md-12 ">
+                   <div class="card-header card-title">
+                     Search 
+                 </div>
+                 <div ng-show="ShowAll">
+                    <div class="table-responsive">
+                        <table class="table table-borderless table-data3 table-custom">
+                            <thead>
+                                <tr>
+                                <!--     <th>
+
+                                        <input id="ridFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Enter Receipt ID #" ng-change="gridActions.filter();pvgridActions.filter()" ng-model="filterid" filter-by="id" filter-type="text" n>
+                                    </th> -->
+
+                                            <th>
+
+                                        <input id="ridFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Enter Receipt ID #" ng-change="gridActions.filter()" ng-model="filterid" filter-by="id" filter-type="text">
+                                    </th>
+                              
+                                    <th>
+                                        <input type="text"
+                                        id="dateFilter"
+                                        class="form-control"
+                                        placeholder="Date"
+                                        max-date="dateTo"
+                                        close-text="Close"
+                                        ng-model="filterpvdate"
+                                        show-weeks="true"
+                                        is-open="dateFromOpened"
+                                        ng-click="dateFromOpened = true"
+                                        filter-by="pvdate"
+                                        filter-type="text"
+                                        ng-change="gridActions.filter()"
+                                        close-text="Close"/>
+
+                                    </th>         <th>
+                               <input id="customerFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Enter Customer Name" ng-change="gridActions.filter()" ng-model="filterCustomer" filter-by="customer_name" filter-type="text">
+                           </th>
+                           <!--          <th>
+                                        <select name="field-volts-used" id="field-volts-used"
+                                        class="form-control-sm form-control">
+                                        <option value="0">From</option>
+                                        <option value="1">Yes</option>
+                                        <option value="2">No</option>
+                                        <option value="2">Customer</option>
+                                    </select>
+                                </th>
+                                <th>
+                                    <select name="field-volts-used" id="field-volts-used"
+                                    class="form-control-sm form-control">
+                                    <option value="0">To</option>
+                                    <option value="1">Yes</option>
+                                    <option value="2">No</option>
+                                    <option value="2">Customer</option>
+                                </select>
+                            </th> -->
+                      
+                           <th>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" ng-click="Reset();gridActions.filter()">Reset</button>
+                        </th>
+                        <th>
+                            <button type="button" class="btn btn-outline-primary btn-sm">
+                                <i class="fa fa-search"></i>&nbsp; Search
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+
+        </div>
+    </div>
+      <div ng-show="ShowOthers">
+                    <div class="table-responsive">
+                        <table class="table table-borderless table-data3 table-custom">
+                            <thead>
+                                <tr>
+                                
+
+                                            <th>
+
+                                        <input id="ridFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Enter RID #" ng-change="pvgridActions.filter()" ng-model="filterothersid" filter-by="id" filter-type="text">
+                                    </th>
+                              
+                                            <th>
+
+                                        <input id="ridFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Enter Receipt ID #" ng-change="pvgridActions.filter()" ng-model="filterreceiptid" filter-by="receipt_id" filter-type="text">
+                                    </th>
+                                    <th>
+                                        <input type="text"
+                                        id="dateFilterothers"
+                                        class="form-control"
+                                        placeholder="Date"
+                                        max-date="dateTo"
+                                        close-text="Close"
+                                        ng-model="filterpvdateothers"
+                                        show-weeks="true"
+                                        is-open="dateFromOpened"
+                                        ng-click="dateFromOpened = true"
+                                        filter-by="pvdate"
+                                        filter-type="text"
+                                        ng-change="pvgridActions.filter()"
+                                        close-text="Close"/>
+
+                                    </th>         <th>
+                               <input id="customerFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Enter Customer Name" ng-change="pvgridActions.filter()" ng-model="filterCustomerothers" filter-by="customer_name" filter-type="text">
+                           </th>
+                           <!--          <th>
+                                        <select name="field-volts-used" id="field-volts-used"
+                                        class="form-control-sm form-control">
+                                        <option value="0">From</option>
+                                        <option value="1">Yes</option>
+                                        <option value="2">No</option>
+                                        <option value="2">Customer</option>
+                                    </select>
+                                </th>
+                                <th>
+                                    <select name="field-volts-used" id="field-volts-used"
+                                    class="form-control-sm form-control">
+                                    <option value="0">To</option>
+                                    <option value="1">Yes</option>
+                                    <option value="2">No</option>
+                                    <option value="2">Customer</option>
+                                </select>
+                            </th> -->
+                      
+                           <th>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" ng-click="Reset();gridActions.filter()">Reset</button>
+                        </th>
+                        <th>
+                            <button type="button" class="btn btn-outline-primary btn-sm">
+                                <i class="fa fa-search"></i>&nbsp; Search
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+
+        </div>
+    </div>
+                            <div class="row  col-lg-12">
+                            <div class=" card w-100">
                                 <div class="card-header">
                                     <h4>Physical Verification List</h4>
                                 </div>
@@ -77,31 +169,31 @@
                                     <div class="tab-content pl-3 p-1" id="myTabContent">
                                         <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
                                             <!-- DATA TABLE-->
-                                            <div grid-data grid-options="gridOptions" grid-actions="gridActions" class="table-responsive">
+                                            <div grid-data grid-options="gridOptions" grid-actions="gridActions">
                                                 <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
-                                                <table class="table table-borderless table-data3">
+                                                <table class="table table-borderless table-data3 ">
                                                     <thead>
                                                     <tr>
-                                                        <th>
+                                                        <th sortable="id" class="sortable">
                                                             Receipt No
                                                         </th>
-                                                        <th>
+                                                        <th sortable="receipt_date" class="sortable">
                                                             Receipt Date
                                                         </th>
 
-                                                        <th>
+                                                        <th sortable="customer_name" class="sortable">
                                                             Customer Name
                                                         </th>
-                                                        <th>
+                                                        <th sortable="end_customer" class="sortable">
                                                             End Customer
                                                         </th>
-                                                        <th>
+                                                        <th sortable="courier_name" class="sortable">
                                                             Courier Name
                                                         </th>
-                                                        <th>
+                                                        <th sortable="docket_details" class="sortable">
                                                             Docket Details
                                                         </th>
-                                                        <th>
+                                                        <th sortable="total_boxes" class="sortable">
                                                             Number of Boxes
                                                         </th>
                                                         <th>
@@ -140,43 +232,66 @@
                                                     </tr>
                                                     </tbody>
                                                 </table>
+                                                 <form class="form-inline pull-right margin-bottom-basic">
+            <div class="form-group">
+                <grid-pagination max-size="5"
+                boundary-links="true"
+                class="pagination-sm"
+                total-items="paginationOptions.totalItems"
+                ng-model="paginationOptions.currentPage"
+                ng-change="reloadGrid()"
+                items-per-page="paginationOptions.itemsPerPage"></grid-pagination>
+            </div>
+            <div class="form-group items-per-page">
+                <label for="itemsOnPageSelect2">Items per page:</label>
+                <select id="itemsOnPageSelect2" class="form-control input-sm"
+                ng-init="paginationOptions.itemsPerPage = '10'"
+                ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+                <option>10</option>
+                <option>25</option>
+                <option>50</option>
+                <option>75</option>
+            </select>
+        </div>
+    </form>
                                             </div>
                                             <!-- END DATA TABLE-->
                                         </div>
                                         <div class="tab-pane fade" id="withrma" role="tabpanel" aria-labelledby="withrma-tab">
                                             <div class="col-md-12">
-                                                <button type="button" class="btn btn-primary btn-md float-right m-b-10" ng-click="CreateRMA();">
+                                                <button type="button" class="btn btn-primary btn-md pull-right m-b-10" ng-click="CreateRMA();">
                                                     <i class="fa fa-check-circle"></i>&nbsp;Create RMA
                                                 </button>
                                             </div>
                                             <!-- DATA TABLE-->
-                                            <div grid-data grid-options="pvgridOptions" grid-actions="gridActions" class="table-responsive">
+                                            <div grid-data grid-options="pvgridOptions" grid-actions="pvgridActions">
                                                 <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
-                                                <table class="table table-borderless table-data3">
+                                                <table class="table table-borderless table-data3 ">
                                                     <thead>
                                                     <tr>
-                                                        <th>
+
+                                                        <th >
                                                             Select
                                                         </th>
-                                                        <th>
+                                                        <th sortable="id" class="sortable">
                                                             Id
                                                         </th>
-                                                        <th>
+                                                        <th sortable="receipt_id" class="sortable">
                                                             Receipt Id
                                                         </th>
-                                                        <th>
+                                                        <th  sortable="pvdate" class="sortable">
                                                             Date
                                                         </th>
-                                                        <th>
+                                                        <th  sortable="customer_name" class="sortable">
                                                             Customer Name
                                                         </th>
-                                                        <th>
+                                                        <th  sortable="end_customer" class="sortable">
                                                             End Customer
                                                         </th>
-                                                        <th>
+                                                        <th  sortable="courier_name" class="sortable">
                                                             Courier Name
                                                         </th>
-                                                        <th>
+                                                        <th  sortable="docket_details" class="sortable">
                                                             Docket Details
                                                         </th>
                                                     </tr>
@@ -199,19 +314,41 @@
                                                     </tr>
                                                     </tbody>
                                                 </table>
+                                                 <form class="form-inline pull-right margin-bottom-basic">
+            <div class="form-group">
+                <grid-pagination max-size="5"
+                boundary-links="true"
+                class="pagination-sm"
+                total-items="paginationOptions.totalItems"
+                ng-model="paginationOptions.currentPage"
+                ng-change="reloadGrid()"
+                items-per-page="paginationOptions.itemsPerPage"></grid-pagination>
+            </div>
+            <div class="form-group items-per-page">
+                <label for="itemsOnPageSelect2">Items per page:</label>
+                <select id="itemsOnPageSelect2" class="form-control input-sm"
+                ng-init="paginationOptions.itemsPerPage = '10'"
+                ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+                <option>10</option>
+                <option>25</option>
+                <option>50</option>
+                <option>75</option>
+            </select>
+        </div>
+    </form>
                                             </div>
                                             <!-- END DATA TABLE-->
                                         </div>
                                         <div class="tab-pane fade" id="withoutrma" role="tabpanel" aria-labelledby="withoutrma-tab">
                                             <div class="col-md-12">
-                                                <button type="button" class="btn btn-primary btn-md float-right m-b-10" ng-click="CreateRMA();">
+                                                <button type="button" class="btn btn-primary btn-md pull-right m-b-10" ng-click="CreateRMA();">
                                                     <i class="fa fa-check-circle"></i>&nbsp;Create RMA
                                                 </button>
                                             </div>
                                             <!-- DATA TABLE-->
-                                            <div grid-data grid-options="pvgridOptions" grid-actions="gridActions" class="table-responsive">
+                                            <div grid-data grid-options="pvgridOptions" grid-actions="pvgridActions">
                                                 <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
-                                                <table class="table table-borderless table-data3">
+                                                <table class="table table-borderless table-data3 ">
                                                     <thead>
                                                     <tr>
                                                         <th>
@@ -258,6 +395,28 @@
                                                     </tr>
                                                     </tbody>
                                                 </table>
+                                                 <form class="form-inline pull-right margin-bottom-basic">
+            <div class="form-group">
+                <grid-pagination max-size="5"
+                boundary-links="true"
+                class="pagination-sm"
+                total-items="paginationOptions.totalItems"
+                ng-model="paginationOptions.currentPage"
+                ng-change="reloadGrid()"
+                items-per-page="paginationOptions.itemsPerPage"></grid-pagination>
+            </div>
+            <div class="form-group items-per-page">
+                <label for="itemsOnPageSelect2">Items per page:</label>
+                <select id="itemsOnPageSelect2" class="form-control input-sm"
+                ng-init="paginationOptions.itemsPerPage = '10'"
+                ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+                <option>10</option>
+                <option>25</option>
+                <option>50</option>
+                <option>75</option>
+            </select>
+        </div>
+    </form>
                                             </div>
                                             <!-- END DATA TABLE-->
                                         </div>
@@ -267,9 +426,10 @@
                         </div>
                     </div>
                 </div>
+            </div>  
                 <div class="row" ng-show="pvform && !showcreatermaform">
                     <div class="col-lg-12">
-                        <div class="card">
+                        <div class="col-lg-12 card">
                             <div class="card-header">
                                 <strong>Physical Verification</strong> Form
                             </div>
@@ -933,6 +1093,27 @@
                 setDate: new Date(),
                 update: new Date()
             });
+         
+                $("#dateFilter").datepicker({
+                autoclose: true,
+                format: 'yyyy-mm-dd',
+                todayHighlight: true,
+                setDate: new Date(),
+                update: new Date()
+            });
+
+                     $("#dateFilterothers").datepicker({
+                autoclose: true,
+                format: 'yyyy-mm-dd',
+                todayHighlight: true,
+                setDate: new Date(),
+                update: new Date()
+            });
         });
+
     </script>
+
+        <script>
+            
+            </script>
 @endsection

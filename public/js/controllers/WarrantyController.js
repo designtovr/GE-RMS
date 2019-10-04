@@ -51,54 +51,26 @@ app.controller('WarrantyController', ['$scope', '$http', function($scope, $http)
 	{ name: 'Michael',   email: 'michael@email.com',   age: 15, country: 'Colombia' },
 	{ name: 'Nicolás',   email: 'nicolas@email.com',    age: 43, country: 'Colombia' }
 	];
+
+	$scope.loadedRIDs = [1234 , 54321 , 6578];
 	
 	$scope.selectedPeople =[$scope.people[0] ];
 	$scope.selectedCCPeople =[ $scope.people [4]];
-
+	$scope.selectedRID=[$scope.loadedRIDs[1]];
 	$scope.warrantymodal = {};
 	$scope.controller = {};
 	$scope.warrantymodal.title = 'Warranty Form';
 	$scope.gridOptions = {
-		data: [
-		{
-			'rid_no': '001',
-			'product': 'One',
-			'customer_name': 'AS',
-			'end_customer': 'SA',
-			'serial_no': 'Fedx',
-			'model_no': 'ASE',
-			'courier_name': 'Fed',
-			'docket_details': '123',
-			'customer_comment': 'Sample'
+		pagination: {
+			itemsPerPage: '10'
 		},
-		{
-			'rid_no': '001',
-			'product': 'One',
-			'customer_name': 'AS',
-			'end_customer': 'SA',
-			'serial_no': 'Fedx',
-			'model_no': 'ASE',
-			'courier_name': 'Fed',
-			'docket_details': '123',
-			'customer_comment': 'Sample'
-		},
-		{
-			'rid_no': '001',
-			'product': 'One',
-			'customer_name': 'AS',
-			'end_customer': 'SA',
-			'serial_no': 'Fedx',
-			'model_no': 'ASE',
-			'courier_name': 'Fed',
-			'docket_details': '123',
-			'customer_comment': 'Sample'
-		}
-	   ], //required parameter - array with data
+		data:[]
+	  , //required parameter - array with data
 	   //optional parameter - start sort options
 	   sort: {
-	   	predicate: 'companyName',
-	   	direction: 'asc'
-	   }
+
+	   },
+	   urlSync: true
 	};
 
 	$scope.OpenWarrantyModal = function()
@@ -110,6 +82,28 @@ app.controller('WarrantyController', ['$scope', '$http', function($scope, $http)
 	{
 		$('#warrantymodal').modal('hide');
 	}
+
+
+	$scope.Start = function()
+	{
+   		$http({
+			method: 'GET',
+			url: '/ge/physicalverification?cat=withrma'
+		}).then(function success(response) {
+			$scope.gridOptions.data =  response.data.physicalverification;
+		}, function error(response) {
+		});
+	}
+
+
+	$scope.Reset = function()
+	{
+		$scope.filterID = '';
+		$scope.filterreceipt_id = '';
+		$scope.filterpvdate = '';
+		$scope.filterCustomer = '';
+	}
+
 
 	$scope.ValidateStatus = function() {
 

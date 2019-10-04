@@ -10,7 +10,16 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 	$scope.products = [];
 	$scope.customers = [];
 	$scope.endcustomers = [];
-	$scope.gridOptions = {data : []};
+	$scope.gridOptions = {pagination: {
+			itemsPerPage: '10'
+		},
+		data:[]
+	  , //required parameter - array with data
+	   //optional parameter - start sort options
+	   sort: {
+
+	   },
+	   urlSync: true};
 	$scope.rmaformdata.edit = false;
 	$scope.servicetypes = [
 		{id: 1, 'name': 'Physical Relay'},
@@ -26,6 +35,15 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 	$scope.HideRMAForm = function()
 	{
 		$scope.showrmaform = false;
+	}
+	
+	$scope.Reset = function()
+	{
+		$scope.filterdate = '';
+		$scope.filtergs_no = '';
+		$scope.filterID = '';
+		$scope.filteract = '';
+		$scope.filterCustomer = '';
 	}
 
 	$scope.InitiateForm = function()
