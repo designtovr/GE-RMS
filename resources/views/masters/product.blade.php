@@ -116,7 +116,7 @@
                                             class="form-control"
                                             ng-change="ChangeProductCategory();"
                                             required>
-                                            <option ng-repeat="producttype in producttypes" value="@{{producttype.id}}">@{{producttype.name}}</option>
+                                            <option ng-repeat="producttype in producttypes" value="@{{producttype.id}}">@{{producttype.code}}</option>
                                         </select>
                                         <div ng-show="ProductForm.producttype.$touched && ProductForm.producttype.$error">
                                             <span class="help-block" ng-show="ProductForm.producttype.$error.required">
