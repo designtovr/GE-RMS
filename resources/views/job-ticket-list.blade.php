@@ -505,7 +505,7 @@
 		                                    ng-model = "job_ticket_material.comment" 
 		                                    id="comment_@{{$index}}" 
 		                                    rows="2" 
-		                                    placeholder="Content..." 
+		                                    placeholder="Comment" 
 		                                    class="form-control">
 		                                    </textarea>
 		                                </div>
@@ -584,7 +584,7 @@
 	                    	</div>
 	                    </div>
 	                    <div class="card-footer">
-	                        <button type="submit" class="btn btn-primary btn-sm">
+	                        <button type="submit" class="btn btn-primary btn-sm" ng-click="CompleteJTForm();">
 	                            <i class="fa fa-dot-circle-o"></i> Complete
 	                        </button>
 	                        <button type="reset" class="btn btn-danger btn-sm">

@@ -242,6 +242,7 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
 	Route::post('/addproducttype', 'ProductTypeController@AddProductType');
 	Route::get('/jobticket/{pvid}','JobTicketController@JobTicket');
 	Route::post('/savejobticketmaterial', 'JobTicketController@SaveJobTicketMaterial');
+	Route::post('/completejobticket', 'JobTicketController@CompleteJobTicket');
 
 	Route::post('/addproduct', 'ProductController@AddProduct');
 

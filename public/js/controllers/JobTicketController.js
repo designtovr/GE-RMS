@@ -140,7 +140,61 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 				$scope.jobticket.job_ticket_materials.push(jobmaterial);
 			}
 			console.log($scope.jobticket)
+			$scope.ChangePVStatus([$scope.jobticket.pv_id], 'jobticketstarted');
 		}, function error(response) {
+		});
+	}
+
+	$scope.CompleteJTForm = function()
+	{
+		console.log($scope.jobticket)
+		for (var i = 0; i < $scope.jobticket.job_ticket_materials.length; i++) {
+			if ($scope.jobticket.job_ticket_materials[i].part_no == '' || $scope.jobticket.job_ticket_materials[i].part_no == null)
+			{
+ 				Notification.error("Fill Every Part No");
+ 				return;
+			}
+			if ($scope.jobticket.job_ticket_materials[i].value == '' || $scope.jobticket.job_ticket_materials[i].value == null)
+			{
+				Notification.error("Fill Every Value");
+ 				return;
+			}
+			if ($scope.jobticket.job_ticket_materials[i].old_pcp == '' || $scope.jobticket.job_ticket_materials[i].old_pcp == null)
+			{
+				Notification.error("Fill Every Old PCP");
+ 				return;
+			}
+			if ($scope.jobticket.job_ticket_materials[i].new_pcp == '' || $scope.jobticket.job_ticket_materials[i].new_pcp == null)
+			{
+				Notification.error("Fill Every New PCP");
+ 				return;
+			}
+		}
+
+		$http({
+			method: 'POST',
+			url: '/ge/completejobticket',
+			data: {
+				'jobticket': $scope.jobticket
+			}
+		}).then(function success(response) {
+			if (response.data.status == 'success')
+			{
+				Notification.success(response.data.message);
+				$('#withrma-tab').addClass('active');
+				$scope.LoadData('jobticketstarted');
+				$scope.showjtform = false;
+			}
+		}, function error(response) {
+			if (response.status == 422)
+			{
+				var errors = response.data.errors;
+				for(var error in errors)
+				{
+					Notification.error(errors[error][0]);
+					break;
+				}
+			}
 		});
 	}
 
@@ -167,6 +221,17 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 
 	$scope.SaveMaterial = function()
 	{
+		for (var i = 0; i < $scope.jobticket.job_ticket_materials.length; i++) {
+			if ($scope.jobticket.job_ticket_materials[i].part_no == '' 
+				&& $scope.jobticket.job_ticket_materials[i].value == ''
+				&& $scope.jobticket.job_ticket_materials[i].old_pcp == '' 
+				&& $scope.jobticket.job_ticket_materials[i].new_pcp == ''
+				)
+			{
+ 				Notification.error("Fill Atleast One Field");
+ 				return;
+			}
+		}
 		$http({
 			method: 'POST',
 			url: '/ge/savejobticketmaterial',
@@ -177,6 +242,9 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 			if (response.data.status == 'success')
 			{
 				Notification.success(response.data.message);
+				$('#all-tab').addClass('active');
+				$scope.LoadData('jobticketopen');
+				$scope.showjtform = false;
 			}
 		}, function error(response) {
 			if (response.status == 422)
