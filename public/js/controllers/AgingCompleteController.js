@@ -1,5 +1,6 @@
-app.controller('AgingCompleteController', ['$scope', '$http', function($scope, $http){
-	
+app.controller('AgingCompleteController', ['$scope', '$http','Notification','ChangePVStatusService', function($scope, $http , Notification,ChangePVStatusService)
+{
+	$scope.status='';
 	$scope.gridOptions = {
 		pagination: {
 			itemsPerPage: '10'
@@ -16,10 +17,11 @@ app.controller('AgingCompleteController', ['$scope', '$http', function($scope, $
 			$scope.selectedpvs = [];
 			$scope.Start = function()
 			{
+				console.log("Start");
 				$scope.openTab = true;
 				$http({
 					method: 'GET',
-					url: '/ge/physicalverification?cat=withrma'
+					url: '/ge/physicalverification?cat=atbcompleted'
 				}).then(function success(response) {
 					$scope.gridOptions.data =  response.data.physicalverification;
 				}, function error(response) {
@@ -35,7 +37,7 @@ app.controller('AgingCompleteController', ['$scope', '$http', function($scope, $
 				$scope.filterCustomer = '';
 			}
 
-			$scope.Initiate = function()
+			$scope.ChangeStatus = function(status)
 			{
 				console.log($scope.gridOptions.data);
 				$scope.selectedpvs = [];
@@ -50,9 +52,32 @@ app.controller('AgingCompleteController', ['$scope', '$http', function($scope, $
 					Notification.error("No Relay Selected");
 					return;
 				}
-				DataShareService.setRIdList($scope.selectedpvs);
 				console.log($scope.selectedpvs);
+
+
+				$scope.ChangePVStatus($scope.selectedpvs ,status);
 			}
+
+			$scope.ChangePVStatus = function(pvids, status)
+			{
+				ChangePVStatusService.ChangePVStatus(pvids, status, function(response){
+					if (response.data.status == 'success')
+					{
+						Notification.success(response.data.message);
+						$scope.GetPV($scope.status);
+					}
+					else if (response.status == 422)
+					{
+						var errors = response.data.errors;
+						for(var error in errors)
+						{
+							Notification.error(errors[error][0]);
+							break;
+						}
+					}
+				});
+			}
+
 
 			$scope.startTab = false;
 			$scope.openTab = false;
@@ -64,13 +89,19 @@ app.controller('AgingCompleteController', ['$scope', '$http', function($scope, $
 				$scope.startTab = false;
 				if(page == '1')
 					$scope.openTab = true;
-
+				
 				if(page == '2')
 					$scope.startTab = true;
 
+			}	
+
+
+			$scope.GetPV = function(status)
+			{
+				$scope.status = status;
 				$http({
 					method: 'GET',
-					url: '/ge/physicalverification?cat='+page
+					url: '/ge/physicalverification?cat='+status
 				}).then(function success(response) {
 					$scope.gridOptions.data =  response.data.physicalverification;
 				}, function error(response) {

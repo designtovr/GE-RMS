@@ -2,7 +2,7 @@
 @section('title', 'Aging Complete List')
 @section('content')
 <div class="main-content" ng-controller="AgingCompleteController">
-	<div class="section__content section__content--p30" ng-init ="Start()">
+	<div class="section__content section__content--p30" ng-init ="Start();">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-12">
@@ -109,13 +109,13 @@
 
          				<div class="col-md-9">
          					<ul class="nav nav-tabs" id="myTab" role="tablist">
-         						<li class="nav-item" ng-click="LoadData('1')">
+         						<li class="nav-item" ng-click="LoadData('1');GetPV('atbcompleted')">
          							<a class="nav-link active" id="all-tab" data-toggle="tab" href="#open" role="tab" aria-controls="all" aria-selected="true">Open</a>
          						</li>
-         						<li class="nav-item" ng-click="LoadData('2')">
+         						<li class="nav-item" ng-click="LoadData('2');GetPV('agingstarted')">
          							<a class="nav-link" id="withrma-tab" data-toggle="tab" href="#started" role="tab" aria-controls="withrma" aria-selected="false">Started</a>
          						</li>
-         						<li class="nav-item" ng-click="LoadData('3')">
+         						<li class="nav-item" ng-click="LoadData('3');GetPV('agingcompleted')">
          							<a class="nav-link" id="withoutrma-tab" data-toggle="tab" href="#completed" role="tab" aria-controls="withoutrma" aria-selected="false">Completed</a>
          						</li>
 
@@ -124,11 +124,11 @@
          				</div>
          				<div class="col-md-3 col-md-offset-3  p-0 m-r-0" >
          					<div class = "pull-right">
-         						<button type="button" class="btn btn-primary btn-sm" ng-show="openTab" ng-click="ChangeStatus('Started')">
+         						<button type="button" class="btn btn-primary btn-sm" ng-show="openTab" ng-click="ChangeStatus('agingstarted')">
          							<i class="fa fa-check"></i>&nbsp; Started
          						</button>
 
-         						<button type="button" class="btn btn-primary btn-sm" ng-show="startTab" ng-click="ChangeStatus('Completed')">
+         						<button type="button" class="btn btn-primary btn-sm" ng-show="startTab" ng-click="ChangeStatus('agingcompleted')">
          							<i class="fa fa-check"></i>&nbsp; Completed
          						</button>
          						<!-- <button type="button" class="btn btn-primary btn-sm" ng-click="OpenTestBenchModal();">

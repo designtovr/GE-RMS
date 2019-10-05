@@ -438,6 +438,8 @@
     <script src="{{url('public/js/main.js')}}"></script>
     <script type="text/javascript" src="{{url('public/js/app.js')}}"></script>
     <script type="text/javascript" src="{{url('public/js/services/datashareservice.js')}}"></script>
+    <script type="text/javascript" src="{{url('public/js/services/ChangePVStatusService.js')}}"></script>
+    
     @yield('scripts')
 
 </body>
