@@ -240,6 +240,8 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
     Route::get('/physicalverification/{cat?}', 'PhysicalVerificationController@PhysicalVerificationList');
     Route::post('/changepvstatus','PhysicalVerificationController@ChangePVStatus');
 	Route::post('/addproducttype', 'ProductTypeController@AddProductType');
+	Route::get('/jobticket/{pvid}','JobTicketController@JobTicket');
+	Route::post('/savejobticketmaterial', 'JobTicketController@SaveJobTicketMaterial');
 
 	Route::post('/addproduct', 'ProductController@AddProduct');
 

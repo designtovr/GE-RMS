@@ -3,6 +3,7 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 	$scope.startTab = false;
 	$scope.openTab = false;
 	$scope.jobticket = {};
+	$scope.tab = 'jobticketopen';
 
 	$scope.gridOptions = {
 		pagination: {
@@ -16,6 +17,12 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 		},
 		urlSync: true
 	};
+
+	$scope.type_of_work =[
+		{ 'id': 1, 'value': 'Repair'},
+		{ 'id': 2, 'value': 'Modification'},
+		{ 'id': 3, 'value': 'Investigation'}
+	];
 
 	$scope.selectedpvs = [];
 	$scope.Start = function()
@@ -75,7 +82,7 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 
 	$scope.ChangePVStatus = function(pvids, status)
 	{
-		$scope.pvlist = ChangePVStatusService.ChangePVStatus(pvids, status, function(response){
+		ChangePVStatusService.ChangePVStatus(pvids, status, function(response){
 			if (response.data.status == 'success')
 			{
 				Notification.success(response.data.message);
@@ -94,15 +101,14 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 
 	$scope.LoadData = function(page)
 	{
-		
-		console.log($scope.pvlist);
 		console.log(page);
 		$scope.openTab = false;
 		$scope.startTab = false;
-		if(page == '1')
+		$scope.tab = page;
+		if(page == 'jobticketopen')
 			$scope.openTab = true;
 
-		if(page == '2')
+		if(page == 'jobticketstarted')
 			$scope.startTab = true;
 
 		$http({
@@ -117,7 +123,72 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 	$scope.OpenJTForm = function(item)
 	{
 		$scope.showjtform = true;
-		$scope.jobticket = item;
+		$http({
+			method: 'GET',
+			url: '/ge/jobticket/'+item.id,
+		}).then(function success(response) {
+			$scope.jobticket =  response.data.data;
+			if ($scope.jobticket.job_ticket_materials.length == 0)
+			{
+				$scope.jobticket.job_ticket_materials = [];
+				var jobmaterial = {}
+				jobmaterial.part_no = '';
+				jobmaterial.value = '';
+				jobmaterial.old_pcp = '';
+				jobmaterial.new_pcp = '';
+				jobmaterial.comment = '';
+				$scope.jobticket.job_ticket_materials.push(jobmaterial);
+			}
+			console.log($scope.jobticket)
+		}, function error(response) {
+		});
+	}
+
+	$scope.AddMaterial = function()
+	{
+		var jobmaterial = {}
+		jobmaterial.part_no = '';
+		jobmaterial.value = '';
+		jobmaterial.old_pcp = '';
+		jobmaterial.new_pcp = '';
+		jobmaterial.comment = '';
+		$scope.jobticket.job_ticket_materials.push(jobmaterial);
+	}
+
+	$scope.RemoveMaterial = function(index)
+	{
+		if ($scope.jobticket.job_ticket_materials.length == 1)
+		{
+			Notification.error("Atleast One Required");
+			return;
+		}
+		$scope.jobticket.job_ticket_materials.splice(index);
+	}
+
+	$scope.SaveMaterial = function()
+	{
+		$http({
+			method: 'POST',
+			url: '/ge/savejobticketmaterial',
+			data: {
+				'jobticket': $scope.jobticket
+			}
+		}).then(function success(response) {
+			if (response.data.status == 'success')
+			{
+				Notification.success(response.data.message);
+			}
+		}, function error(response) {
+			if (response.status == 422)
+			{
+				var errors = response.data.errors;
+				for(var error in errors)
+				{
+					Notification.error(errors[error][0]);
+					break;
+				}
+			}
+		});
 	}
 
 }]);

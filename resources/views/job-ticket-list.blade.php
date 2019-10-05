@@ -123,13 +123,13 @@
 
 								</ul>
 								</div>
-									<div class="col-md-3 col-md-offset-3  p-0 m-r-0" >
+									<div class="col-md-3 col-md-offset-3  p-0 m-r-0" ng-show="tab=='jobticketstarted'">
 										<div class = "pull-right">
-											<button type="button" class="btn btn-primary btn-sm" ng-show="openTab" ng-click="ChangeStatus('Started')">
+											<!-- <button type="button" class="btn btn-primary btn-sm" ng-show="openTab" ng-click="ChangeStatus('Started')">
 												<i class="fa fa-check"></i>&nbsp; Started
-											</button>
+											</button> -->
 
-											<button type="button" class="btn btn-primary btn-sm" ng-show="startTab" ng-click="ChangeStatus('Completed')">
+											<button type="button" class="btn btn-primary btn-sm" ng-click="ChangeStatus('Completed')">
 												<i class="fa fa-check"></i>&nbsp; Completed
 											</button>
 										<!-- 	<button type="button" class="btn btn-primary btn-sm" ng-click="OpenTestBenchModal();">
@@ -198,7 +198,7 @@
 									<td ng-bind="item.comment"></td>
 									<td>
 										<div class="table-data-feature">
-											<div class="btn-group p-r-10">
+											<div class="btn-group p-r-10" ng-show="tab=='jobticketstarted'">
 												<button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-info">Action</button>
 												<div tabindex="-1" aria-hidden="true" role="menu" class="dropdown-menu">
 													<button type="button" tabindex="0" class="dropdown-item">Started</button>
@@ -260,13 +260,11 @@
 		                			<div class="col-md-6">
 		                				<div class="row form-group">
 			                                <div class="col col-md-4">
-			                                    <label for="case-condition" class=" form-control-label">Type Of Work <span class="mandatory">*</span></label>
+			                                    <label for="type" class=" form-control-label">Type Of Work <span class="mandatory">*</span></label>
 			                                </div>
 			                                <div class="col-12 col-md-8">
-			                                    <select name="type_of_work" ng-model = "jobticket.type_of_work"  id="case-condition" class="form-control" disabled>
-			                                        <option value="1" selected>Repair</option>
-			                                        <option value="2">Modification</option>
-			                                        <option value="3">Investigation</option>
+			                                    <select name="type" ng-model = "jobticket.type"  id="case-condition" ng-options="type.id as type.value for type in type_of_work" class="form-control" disabled>
+			                                        <option value="" style="display: none;"></option>
 			                                    </select>
 			                                </div>
 			                            </div>
@@ -277,8 +275,7 @@
 			                                    <label for="rid" class=" form-control-label">RID <span class="mandatory">*</span></label>
 			                                </div>
 			                                <div class="col-12 col-md-8">
-			                                    <input type="text" ng-model = "jobticket.id" id="rid" name="rid" placeholder="RID" class="form-control" disabled>
-			                                    <span class="help-block">Please Enter RID</span>
+			                                    <input type="text" ng-model = "jobticket.pv_id" id="pv_id" name="pv_id" placeholder="RID" class="form-control" disabled>
 			                                </div>
 			                            </div>
 		                			</div>
@@ -287,27 +284,25 @@
 		                			<div class="col-md-6">
 		                				<div class="row form-group">
 			                                <div class="col col-md-4">
-			                                    <label for="rma-no" class=" form-control-label">RMA NO <span class="mandatory">*</span></label>
+			                                    <label for="rma-no" class=" form-control-label">RMA Id <span class="mandatory">*</span></label>
 			                                </div>
 			                                <div class="col-12 col-md-8">
-			                                    <input type="text" id="rma-no" ng-model = "jobticket.rma" name="rma-no" placeholder="RMA NO" class="form-control" disabled>
-			                                    <span class="help-block">Please Enter RMA NO</span>
+			                                    <input type="text" id="rma_id" ng-model = "jobticket.rma_id" name="rma_id" placeholder="RMA NO" class="form-control" disabled>
 			                                </div>
 			                            </div>
 		                			</div>
 		                			<div class="col-md-6">
 		                				<div class="row form-group">
 			                                <div class="col col-md-4">
-			                                    <label for="given-date" class=" form-control-label">PO Date<span class="mandatory">*</span></label>
+			                                    <label for="given-date" class=" form-control-label">PO Date</label>
 			                                </div>
 			                                <div class="col-12 col-md-8">
 			                                    <input type="text" id="given-date" ng-model = "jobticket.po_date" name="given-date" placeholder="PO Date" class="form-control" disabled>
-			                                    <span class="help-block">Please Select PO Date</span>
 			                                </div>
 			                            </div>
 		                			</div>
 		                		</div>
-		                		<div class="row">
+		                		<!-- <div class="row">
 		                			<div class="col-md-6">
 		                				<div class="row form-group">
 			                                <div class="col col-md-4">
@@ -330,27 +325,25 @@
 			                                </div>
 			                            </div>
 		                			</div>
-		                		</div>
+		                		</div> -->
 		                		<div class="row">
 		                			<div class="col-md-6">
 		                				<div class="row form-group">
 			                                <div class="col col-md-4">
-			                                    <label for="taken-date" class=" form-control-label">Customer<span class="mandatory">*</span></label>
+			                                    <label for="customer_name" class=" form-control-label">Customer</label>
 			                                </div>
 			                                <div class="col-12 col-md-8">
-			                                    <input type="text" id="taken-date" ng-model = "jobticket.customer_name" name="taken-date" placeholder="Customer" class="form-control" disabled>
-			                                    <span class="help-block">Please Select Customer</span>
+			                                    <input type="text" id="customer_name" ng-model = "jobticket.customer_name" name="customer_name" placeholder="Customer" class="form-control" disabled>
 			                                </div>
 			                            </div>
 		                			</div>
 		                			<div class="col-md-6">
 		                				<div class="row form-group">
 			                                <div class="col col-md-4">
-			                                    <label for="nature-of-defect" class=" form-control-label">End Customer <span class="mandatory">*</span></label>
+			                                    <label for="end_customer" class=" form-control-label">End Customer <span class="mandatory">*</span></label>
 			                                </div>
 			                                <div class="col-12 col-md-8">
-			                                    <input type="text" id="nature-of-defect" ng-model = "jobticket.end_customer" name="nature-of-defect" placeholder="End Customer" class="form-control" disabled>
-			                                    <span class="help-block">Please Enter End Customer</span>
+			                                    <input type="text" id="end_customer" ng-model = "jobticket.end_customer" name="end_customer" placeholder="End Customer" class="form-control" disabled>
 			                                </div>
 			                            </div>
 		                			</div>
@@ -360,46 +353,20 @@
 		                			<div class="col-md-6">
 		                				<div class="row form-group">
 			                                <div class="col col-md-4">
-			                                    <label for="nature-of-defect" class=" form-control-label">Model No <span class="mandatory">*</span></label>
+			                                    <label for="part_no" class=" form-control-label">Model No</label>
 			                                </div>
 			                                <div class="col-12 col-md-8">
-			                                    <input type="text" id="nature-of-defect" ng-model = "jobticket.part_no" name="nature-of-defect" placeholder="Model No" class="form-control" disabled>
-			                                    <span class="help-block">Please Enter Model No</span>
+			                                    <input type="text" id="part_no" ng-model = "jobticket.part_no" name="part_no" placeholder="Model No" class="form-control" disabled>
 			                                </div>
 			                            </div>
 		                			</div>
 		                			<div class="col-md-6">
 		                				<div class="row form-group">
 			                                <div class="col col-md-4">
-			                                    <label for="crc-comment" class=" form-control-label">Serial No <span class="mandatory">*</span></label>
+			                                    <label for="serial_no" class=" form-control-label">Serial No</label>
 			                                </div>
 			                                <div class="col-12 col-md-8">
-			                                    <input type="text" id="crc-comment" ng-model = "jobticket.serial_no" name="crc-comment" placeholder="Series No" class="form-control" disabled>
-			                                    <span class="help-block">Please Enter Series No</span>
-			                                </div>
-			                            </div>
-		                			</div>
-		                		</div>
-		                		<div class="row">
-		                			<div class="col-md-6">
-		                				<div class="row form-group">
-			                                <div class="col col-md-4">
-			                                    <label for="nature-of-defect" class=" form-control-label">Nature Of Defect <span class="mandatory">*</span></label>
-			                                </div>
-			                                <div class="col-12 col-md-8">
-			                                    <textarea name="textarea-input" ng-model = "jobticket.comment" id="textarea-input" rows="2" placeholder="Content..." class="form-control"></textarea>
-			                                    <span class="help-block">Please Enter Nature Of Defect</span>
-			                                </div>
-			                            </div>
-		                			</div>
-		                			<div class="col-md-6">
-		                				<div class="row form-group">
-			                                <div class="col col-md-4">
-			                                    <label for="crc-comment" class=" form-control-label">CRC Comment <span class="mandatory">*</span></label>
-			                                </div>
-			                                <div class="col-12 col-md-8">
-			                                    <textarea name="textarea-input" ng-model = "jobticket.crc_comment" id="textarea-input" rows="2" placeholder="Content..." class="form-control"></textarea>
-			                                    <span class="help-block">Please Enter CRC Comment</span>
+			                                    <input type="text" id="serial_no" ng-model = "jobticket.serial_no" name="serial_no" placeholder="Series No" class="form-control" disabled>
 			                                </div>
 			                            </div>
 		                			</div>
@@ -408,11 +375,52 @@
 		                			<div class="col-md-6">
 		                				<div class="row form-group">
 			                                <div class="col col-md-4">
-			                                    <label for="crc-comment" class=" form-control-label">Power On Test <span class="mandatory">*</span></label>
+			                                    <label for="nature_of_defect" class=" form-control-label">Nature Of Defect </label>
 			                                </div>
 			                                <div class="col-12 col-md-8">
-			                                    <input type="text" id="crc-comment" ng-model = "jobticket.power_on_test" name="crc-comment" placeholder="Power On Test" class="form-control">
-			                                    <span class="help-block">Please Enter Power On Test</span>
+			                                    <textarea 
+			                                    name="nature_of_defect" 
+			                                    ng-model = "jobticket.nature_of_defect" 
+			                                    id="nature_of_defect" 
+			                                    rows="3" 
+			                                    placeholder="Nature Of Defect..." 
+			                                    class="form-control"
+			                                    >
+			                                    </textarea>
+			                                </div>
+			                            </div>
+		                			</div>
+		                			<div class="col-md-6">
+		                				<div class="row form-group">
+			                                <div class="col col-md-4">
+			                                    <label for="crc_comment" class=" form-control-label">CRC Comment </label>
+			                                </div>
+			                                <div class="col-12 col-md-8">
+			                                    <textarea 
+			                                    name="crc_comment" 
+			                                    ng-model = "jobticket.crc_comment" 
+			                                    id="crc_comment" 
+			                                    rows="2" 
+			                                    placeholder="Comment..." 
+			                                    class="form-control">
+			                                    </textarea>
+			                                </div>
+			                            </div>
+		                			</div>
+		                		</div>
+		                		<div class="row">
+		                			<div class="col-md-6">
+		                				<div class="row form-group">
+			                                <div class="col col-md-4">
+			                                    <label for="power_on_test" class=" form-control-label">Power On Test </label>
+			                                </div>
+			                                <div class="col-12 col-md-8">
+			                                    <input type="text" 
+			                                    id="power_on_test" 
+			                                    ng-model = "jobticket.power_on_test" 
+			                                    name="power_on_test" 
+			                                    placeholder="Power On Test" 
+			                                    class="form-control">
 			                                </div>
 			                            </div>
 		                			</div>
@@ -423,58 +431,96 @@
 	                        <strong>Material</strong>
 	                    </div>
 	                    <div class="card-body card-block">
-	                    	<form action="" method="post" class="form-horizontal">
-	                            <div class="row form-group">
-	                                <div class="col col-md-3">
-	                                    <label for="material-part-no" class=" form-control-label">Material Part No <span class="mandatory">*</span></label>
-	                                </div>
-	                                <div class="col-12 col-md-6">
-	                                    <input type="text" id="material-part-no" ng-model = "jobticket.material_part_no" name="material-part-no" placeholder="Material Part No" class="form-control">
-	                                    <span class="help-block">Please Enter Material Part No</span>
-	                                </div>
-	                            </div>
-	                            <div class="row form-group">
-	                                <div class="col col-md-3">
-	                                    <label for="value" class=" form-control-label">Value <span class="mandatory">*</span></label>
-	                                </div>
-	                                <div class="col-12 col-md-6">
-	                                    <input type="text" id="value" name="value" ng-model = "jobticket.material_value" placeholder="Value" class="form-control">
-	                                    <span class="help-block">Please Enter Value</span>
-	                                </div>
-	                            </div>
-	                            <div class="row form-group">
-	                                <div class="col col-md-3">
-	                                    <label for="old-pcp" class=" form-control-label">Old PCP <span class="mandatory">*</span></label>
-	                                </div>
-	                                <div class="col-12 col-md-6">
-	                                    <input type="text" id="old-pcp" name="old-pcp" ng-model = "jobticket.old_pcp" placeholder="Old PCP" class="form-control">
-	                                    <span class="help-block">Please Enter Old PCP</span>
-	                                </div>
-	                            </div>
-	                            <div class="row form-group">
-	                                <div class="col col-md-3">
-	                                    <label for="new-pcp" class=" form-control-label">New PCP <span class="mandatory">*</span></label>
-	                                </div>
-	                                <div class="col-12 col-md-6">
-	                                    <input type="text" id="new-pcp" ng-model = "jobticket.new_pcp" name="new-pcp" placeholder="New PCP" class="form-control">
-	                                    <span class="help-block">Please Enter New PCP</span>
-	                                </div>
-	                            </div>
-	                            <div class="row form-group">
-	                                <div class="col col-md-3">
-	                                    <label for="new-pcp" class=" form-control-label">Comment <span class="mandatory">*</span></label>
-	                                </div>
-	                                <div class="col-12 col-md-6">
-	                                    <textarea name="textarea-input" ng-model = "jobticket.material_comment" id="textarea-input" rows="2" placeholder="Content..." class="form-control"></textarea>
-	                                    <span class="help-block">Please Enter Comment</span>
-	                                </div>
+	                    	<form action="" method="post" class="form-horizontal" name="MaterialForm" id="MaterialForm">
+	                    		<div ng-repeat="job_ticket_material in jobticket.job_ticket_materials track by $index" class="m-b-10">
+	                    			<div class="row">
+		                            	<div class="col col-md-12">
+		                            		<button type="button" class="btn btn-danger btn-sm float-right" ng-click="RemoveMaterial($index);">
+	                                    	Remove</button>
+		                            	</div>
+		                            </div>
+		                            <div class="row form-group">
+		                                <div class="col col-md-3">
+		                                    <label for="part_no_@{{$index}}" class=" form-control-label">Material Part No </label>
+		                                </div>
+		                                <div class="col-12 col-md-6">
+		                                    <input 
+		                                    type="text" 
+		                                    id="part_no_@{{$index}}" 
+		                                    ng-model = "job_ticket_material.part_no" 
+		                                    name="part_no_@{{$index}}" 
+		                                    placeholder="Material Part No" 
+		                                    class="form-control">
+		                                </div>
+		                            </div>
+		                            <div class="row form-group">
+		                                <div class="col col-md-3">
+		                                    <label for="value_@{{$index}}" class=" form-control-label">Value</label>
+		                                </div>
+		                                <div class="col-12 col-md-6">
+		                                    <input 
+		                                    type="text" 
+		                                    id="value_@{{$index}}" 
+		                                    name="value_@{{$index}}" 
+		                                    ng-model = "job_ticket_material.value" 
+		                                    placeholder="Value" 
+		                                    class="form-control">
+		                                </div>
+		                            </div>
+		                            <div class="row form-group">
+		                                <div class="col col-md-3">
+		                                    <label for="old_pcp_@{{$index}}" class=" form-control-label">Old PCP</label>
+		                                </div>
+		                                <div class="col-12 col-md-6">
+		                                    <input 
+		                                    type="text" 
+		                                    id="old_pcp_@{{$index}}" 
+		                                    name="old_pcp_@{{$index}}" 
+		                                    ng-model="job_ticket_material.old_pcp" 
+		                                    placeholder="Old PCP" 
+		                                    class="form-control">
+		                                </div>
+		                            </div>
+		                            <div class="row form-group">
+		                                <div class="col col-md-3">
+		                                    <label for="new_pcp_@{{$index}}" class=" form-control-label">New PCP</label>
+		                                </div>
+		                                <div class="col-12 col-md-6">
+		                                    <input 
+		                                    type="text" 
+		                                    id="new_pcp_@{{$index}}" 
+		                                    ng-model="job_ticket_material.new_pcp"
+		                                    name="new_pcp_@{{$index}}" 
+		                                    placeholder="New PCP" 
+		                                    class="form-control">
+		                                </div>
+		                            </div>
+		                            <div class="row form-group">
+		                                <div class="col col-md-3">
+		                                    <label for="comment_@{{$index}}" class=" form-control-label">Comment</label>
+		                                </div>
+		                                <div class="col-12 col-md-6">
+		                                    <textarea 
+		                                    name="comment_@{{$index}}" 
+		                                    ng-model = "job_ticket_material.comment" 
+		                                    id="comment_@{{$index}}" 
+		                                    rows="2" 
+		                                    placeholder="Content..." 
+		                                    class="form-control">
+		                                    </textarea>
+		                                </div>
+		                            </div>
 	                            </div>
 	                            <div class="row">
 	                            	<div class="col col-md-12">
-	                            		<button type="button" class="btn btn-primary btn-md">
+	                            		<button type="button" class="btn btn-success btn-md" ng-click="AddMaterial();">
                                     	Add</button>
-		                                <button type="button" class="btn btn-secondary btn-md">
-		                                    Cancel</button>
+	                            	</div>
+	                            </div>
+	                            <div class="row">
+	                            	<div class="col col-md-12">
+	                            		<button type="button" class="btn btn-primary btn-md float-right" ng-click="SaveMaterial();" ng-disabled="MaterialForm.$invalid">
+                                    	Save</button>
 	                            	</div>
 	                            </div>
 	                    	</form>
@@ -539,7 +585,7 @@
 	                    </div>
 	                    <div class="card-footer">
 	                        <button type="submit" class="btn btn-primary btn-sm">
-	                            <i class="fa fa-dot-circle-o"></i> Save
+	                            <i class="fa fa-dot-circle-o"></i> Complete
 	                        </button>
 	                        <button type="reset" class="btn btn-danger btn-sm">
 	                            <i class="fa fa-ban"></i> Reset
