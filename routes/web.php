@@ -244,6 +244,7 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
 	Route::post('/savejobticketmaterial', 'JobTicketController@SaveJobTicketMaterial');
 	Route::post('/completejobticket', 'JobTicketController@CompleteJobTicket');
 	Route::post('/savetestresult', 'AutoTestBenchController@SaveTestResult');
+	Route::post('/saveverification','VerificationCompletionController@SaveVerification');
 
 	Route::post('/addproduct', 'ProductController@AddProduct');
 

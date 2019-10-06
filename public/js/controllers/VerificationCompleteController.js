@@ -1,5 +1,6 @@
-app.controller('VerificationCompleteController', ['$scope', '$http', 'Notification','ChangePVStatusService', function($scope, $http ,Notification,ChangePVStatusService){
+app.controller('VerificationCompleteController', ['$scope', '$http', 'Notification','ChangePVStatusService', '$filter', function($scope, $http ,Notification,ChangePVStatusService, $filter){
 	$scope.vcform = false;
+	$scope.vcformdata = {};
 	$scope.gridOptions = {
 		pagination: {
 			itemsPerPage: '10'
@@ -106,14 +107,43 @@ app.controller('VerificationCompleteController', ['$scope', '$http', 'Notificati
 				});
 			}
 
-   	$scope.ShowVCForm = function()
+   	$scope.ShowVCForm = function(item)
    	{
+   		console.log(item);
+   		$scope.vcformdata = item;
+   		$scope.vcformdata.clio_test = false;
+   		$scope.vcformdata.rtd_test = false;
+   		$scope.vcformdata.nic_test = false;
+   		$scope.vcformdata.received_with_screws = false;
+   		$scope.vcformdata.received_with_terminal = false;
+   		$scope.vcformdata.date = $filter('date')(new Date(),'dd/MM/yyyy');
    		$scope.vcform = true;
+
    	}
 
    	$scope.CloseVCForm = function()
    	{
    		$scope.vcform = false;
+   	}
+
+   	$scope.SaveVerification = function()
+   	{
+   		console.log($scope.vcformdata);
+   		$http({
+			method: 'POST',
+			url: '/ge/saveverification',
+			data: {
+				'vc': $scope.vcformdata
+			}
+		}).then(function success(response) {
+			if (response.data.status == 'success')
+			{
+				Notification.success(response.data.message);
+				$scope.CloseVCForm();
+				$scope.GetPV('agingcompleted');
+			}
+		}, function error(response) {
+		});
    	}
 
 }]);

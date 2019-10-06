@@ -123,9 +123,9 @@
          							<i class="fa fa-check"></i>&nbsp; Started
          						</button> -->
 
-         						<button type="button" class="btn btn-primary btn-sm" ng-show="openTab" ng-click="ChangeStatus('Completed')">
+         						<!-- <button type="button" class="btn btn-primary btn-sm" ng-show="openTab" ng-click="ChangeStatus('Completed')">
          							<i class="fa fa-check"></i>&nbsp; Completed
-         						</button>
+         						</button> -->
          						<!-- <button type="button" class="btn btn-primary btn-sm" ng-click="OpenTestBenchModal();">
          							<i class="fa fa-plus"></i>&nbsp;Test
          						</button> -->
@@ -140,10 +140,6 @@
          					<table class="table table-borderless table-data3  ">
          						<thead>
          							<tr>
-
-         								<th>
-         									Select
-         								</th>
          								<th sortable="id" class="sortable">
          									RID
          								</th>
@@ -176,12 +172,6 @@
          						</thead>
          						<tbody>
          							<tr grid-item>
-         								<td>
-         									<label class="au-checkbox">
-         										<input type="checkbox" ng-model="item.create_wc">
-         										<span class="au-checkmark"></span>
-         									</label>
-         								</td>
          								<td ng-bind="item.id"></td>
          								<td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
          								<td ng-bind="item.product_id"></td>
@@ -191,16 +181,16 @@
          								<td ng-bind="item.end_customer"></td>
          								<td ng-bind="item.comment"></td>
          						
-    <td>
-		                         	<div class="table-data-feature">
-		                         		<button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="ShowVCForm();">
-	                                        <i class="zmdi zmdi-edit"></i>
-	                                    </button>
-	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-	                                        <i class="zmdi zmdi-delete"></i>
-	                                    </button>
-	                                </div>
-		                         </td>
+                                        <td>
+        		                         	<div class="table-data-feature">
+        		                         		<button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="ShowVCForm(item);">
+        	                                        <i class="zmdi zmdi-edit"></i>
+        	                                    </button>
+        	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
+        	                                        <i class="zmdi zmdi-delete"></i>
+        	                                    </button>
+        	                                </div>
+        		                         </td>
          							</tr>
          						</tbody>
          					</table>
@@ -252,46 +242,20 @@
 		                			<div class="col-md-6">
 		                				<div class="row form-group">
 			                                <div class="col col-md-4">
-			                                    <label for="rma-no" class=" form-control-label">RMA NO <span class="mandatory">*</span></label>
+			                                    <label for="rma_id" class=" form-control-label">RMA Id</label>
 			                                </div>
 			                                <div class="col-12 col-md-8">
-			                                    <input type="text" id="rma-no" name="rma-no" placeholder="RMA NO" class="form-control" disabled>
-			                                    <span class="help-block">Please Enter RMA NO</span>
+			                                    <input type="text" id="rma_id" name="rma_id" placeholder="RMA Id" ng-model="vcformdata.rma_id" class="form-control" disabled>
 			                                </div>
 			                            </div>
 		                			</div>
 		                			<div class="col-md-6">
 		                				<div class="row form-group">
 			                                <div class="col col-md-4">
-			                                    <label for="given-date" class=" form-control-label">Date<span class="mandatory">*</span></label>
+			                                    <label for="date" class=" form-control-label">Date</label>
 			                                </div>
 			                                <div class="col-12 col-md-8">
-			                                    <input type="text" id="given-date" name="given-date" placeholder="Date" class="form-control" disabled>
-			                                    <span class="help-block">Please Select Date</span>
-			                                </div>
-			                            </div>
-		                			</div>
-		                		</div>
-		                		<div class="row">
-		                			<div class="col-md-6">
-		                				<div class="row form-group">
-			                                <div class="col col-md-4">
-			                                    <label for="taken-date" class=" form-control-label">Customer<span class="mandatory">*</span></label>
-			                                </div>
-			                                <div class="col-12 col-md-8">
-			                                    <input type="text" id="taken-date" name="taken-date" placeholder="Customer" class="form-control" disabled>
-			                                    <span class="help-block">Please Select Customer</span>
-			                                </div>
-			                            </div>
-		                			</div>
-		                			<div class="col-md-6">
-		                				<div class="row form-group">
-			                                <div class="col col-md-4">
-			                                    <label for="nature-of-defect" class=" form-control-label">Model No <span class="mandatory">*</span></label>
-			                                </div>
-			                                <div class="col-12 col-md-8">
-			                                    <input type="text" id="nature-of-defect" name="nature-of-defect" placeholder="Model No" class="form-control" disabled>
-			                                    <span class="help-block">Please Enter Model No</span>
+			                                    <input type="text" id="date" name="date" placeholder="Date" class="form-control" ng-model="vcformdata.date" disabled>
 			                                </div>
 			                            </div>
 		                			</div>
@@ -300,22 +264,20 @@
 		                			<div class="col-md-6">
 		                				<div class="row form-group">
 			                                <div class="col col-md-4">
-			                                    <label for="crc-comment" class=" form-control-label">Series No <span class="mandatory">*</span></label>
+			                                    <label for="customer_name" class=" form-control-label">Customer</label>
 			                                </div>
 			                                <div class="col-12 col-md-8">
-			                                    <input type="text" id="crc-comment" name="crc-comment" placeholder="Series No" class="form-control" disabled>
-			                                    <span class="help-block">Please Enter Series No</span>
+			                                    <input type="text" id="customer_name" name="customer_name" placeholder="Customer" class="form-control" ng-model="vcformdata.customer_name" disabled>
 			                                </div>
 			                            </div>
 		                			</div>
 		                			<div class="col-md-6">
 		                				<div class="row form-group">
 			                                <div class="col col-md-4">
-			                                    <label for="crc-comment" class=" form-control-label">Software Ref. <span class="mandatory">*</span></label>
+			                                    <label for="part_no" class=" form-control-label">Model No</label>
 			                                </div>
 			                                <div class="col-12 col-md-8">
-			                                    <input type="text" id="crc-comment" name="crc-comment" placeholder="Software Reference" class="form-control" disabled>
-			                                    <span class="help-block">Please Enter Software Ref</span>
+			                                    <input type="text" id="part_no" name="part_no" placeholder="Model No" class="form-control" ng-model="vcformdata.part_no" disabled>
 			                                </div>
 			                            </div>
 		                			</div>
@@ -324,22 +286,42 @@
 		                			<div class="col-md-6">
 		                				<div class="row form-group">
 			                                <div class="col col-md-4">
-			                                    <label for="crc-comment" class=" form-control-label">Teriminal Block <span class="mandatory">*</span></label>
+			                                    <label for="serial_no" class=" form-control-label">Series No</label>
 			                                </div>
 			                                <div class="col-12 col-md-8">
-			                                    <input type="text" id="crc-comment" name="crc-comment" placeholder="Terminal Block" class="form-control" disabled>
-			                                    <span class="help-block">Please Enter Terminal Block</span>
+			                                    <input type="text" id="serial_no" name="serial_no" ng-model="vcformdata.serial_no" placeholder="Series No" class="form-control" disabled>
 			                                </div>
 			                            </div>
 		                			</div>
 		                			<div class="col-md-6">
 		                				<div class="row form-group">
 			                                <div class="col col-md-4">
-			                                    <label for="crc-comment" class=" form-control-label">Short Link <span class="mandatory">*</span></label>
+			                                    <label for="sw_version" class=" form-control-label">Software Ref.</label>
 			                                </div>
 			                                <div class="col-12 col-md-8">
-			                                    <input type="text" id="crc-comment" name="crc-comment" placeholder="Short Link" class="form-control" disabled>
-			                                    <span class="help-block">Please Enter Short Link</span>
+			                                    <input type="text" id="sw_version" name="sw_version" ng-model="vcformdata.sw_version" placeholder="Software Reference" class="form-control" disabled>
+			                                </div>
+			                            </div>
+		                			</div>
+		                		</div>
+		                		<div class="row">
+		                			<div class="col-md-6">
+		                				<div class="row form-group">
+			                                <div class="col col-md-4">
+			                                    <label for="terminal_blocks" class=" form-control-label">Teriminal Block</label>
+			                                </div>
+			                                <div class="col-12 col-md-8">
+			                                    <input type="text" id="terminal_blocks" ng-model="vcformdata.terminal_blocks" name="terminal_blocks" placeholder="Terminal Block" class="form-control" disabled>
+			                                </div>
+			                            </div>
+		                			</div>
+		                			<div class="col-md-6">
+		                				<div class="row form-group">
+			                                <div class="col col-md-4">
+			                                    <label for="short_links" class=" form-control-label">Short Link</label>
+			                                </div>
+			                                <div class="col-12 col-md-8">
+			                                    <input type="text" id="short_links" name="short_links" ng-model="vcformdata.short_links" placeholder="Short Link" class="form-control" disabled>
 			                                </div>
 			                            </div>
 		                			</div>
@@ -353,11 +335,11 @@
 	                    	<form action="" method="post" class="form-horizontal">
 	                            <div class="row form-group">
 	                                <div class="col col-md-3">
-	                                    <label for="material-part-no" class=" form-control-label">CLIO Test <span class="mandatory">*</span></label>
+	                                    <label for="clio_test" class=" form-control-label">CLIO Test <span class="mandatory">*</span></label>
 	                                </div>
 	                                <div class="col-12 col-md-6">
 	                                    <label class="switch switch-text switch-success switch-pill">
-					                      <input type="checkbox" class="switch-input" checked="true">
+					                      <input type="checkbox" class="switch-input" checked="true" name="cliotest" id="cliotest" ng-model="vcformdata.clio_test">
 					                      <span data-on="Yes" data-off="No" class="switch-label"></span>
 					                      <span class="switch-handle"></span>
 					                    </label>
@@ -365,11 +347,11 @@
 	                            </div>
 	                            <div class="row form-group">
 	                                <div class="col col-md-3">
-	                                    <label for="material-part-no" class=" form-control-label">RTD Test <span class="mandatory">*</span></label>
+	                                    <label for="rtd_test" class=" form-control-label">RTD Test <span class="mandatory">*</span></label>
 	                                </div>
 	                                <div class="col-12 col-md-6">
 	                                    <label class="switch switch-text switch-success switch-pill">
-					                      <input type="checkbox" class="switch-input" checked="true">
+					                      <input type="checkbox" class="switch-input" checked="true" name="rtd_test" id="rtd_test" ng-model="vcformdata.rtd_test">
 					                      <span data-on="Yes" data-off="No" class="switch-label"></span>
 					                      <span class="switch-handle"></span>
 					                    </label>
@@ -377,11 +359,11 @@
 	                            </div>
 	                            <div class="row form-group">
 	                                <div class="col col-md-3">
-	                                    <label for="material-part-no" class=" form-control-label">NIC Test <span class="mandatory">*</span></label>
+	                                    <label for="nic_test" class=" form-control-label">NIC Test <span class="mandatory">*</span></label>
 	                                </div>
 	                                <div class="col-12 col-md-6">
 	                                    <label class="switch switch-text switch-success switch-pill">
-					                      <input type="checkbox" class="switch-input" checked="true">
+					                      <input type="checkbox" class="switch-input" checked="true" name="nic_test" id="nic_test" ng-model="vcformdata.nic_test">
 					                      <span data-on="Yes" data-off="No" class="switch-label"></span>
 					                      <span class="switch-handle"></span>
 					                    </label>
@@ -389,11 +371,11 @@
 	                            </div>
 	                            <div class="row form-group">
 	                                <div class="col col-md-3">
-	                                    <label for="material-part-no" class=" form-control-label">Relay Received With Screw <span class="mandatory">*</span></label>
+	                                    <label for="received_with_screws" class=" form-control-label">Relay Received With Screw <span class="mandatory">*</span></label>
 	                                </div>
 	                                <div class="col-12 col-md-6">
 	                                    <label class="switch switch-text switch-success switch-pill">
-					                      <input type="checkbox" class="switch-input" checked="true">
+					                      <input type="checkbox" class="switch-input" checked="true" name="received_with_screws" id="received_with_screws" ng-model="vcformdata.received_with_screws">
 					                      <span data-on="Yes" data-off="No" class="switch-label"></span>
 					                      <span class="switch-handle"></span>
 					                    </label>
@@ -401,11 +383,11 @@
 	                            </div>
 	                            <div class="row form-group">
 	                                <div class="col col-md-3">
-	                                    <label for="material-part-no" class=" form-control-label">Relay Received With Terminal Block <span class="mandatory">*</span></label>
+	                                    <label for="received_with_terminal" class=" form-control-label">Relay Received With Terminal Block <span class="mandatory">*</span></label>
 	                                </div>
 	                                <div class="col-12 col-md-6">
 	                                    <label class="switch switch-text switch-success switch-pill">
-					                      <input type="checkbox" class="switch-input" checked="true">
+					                      <input type="checkbox" class="switch-input" checked="true" name="received_with_terminal" id="received_with_terminal" ng-model="vcformdata.received_with_terminal">
 					                      <span data-on="Yes" data-off="No" class="switch-label"></span>
 					                      <span class="switch-handle"></span>
 					                    </label>
@@ -414,7 +396,7 @@
 	                    	</form>
 	                    </div>
 	                    <div class="card-footer">
-	                        <button type="submit" class="btn btn-primary btn-sm">
+	                        <button type="submit" class="btn btn-primary btn-sm" ng-click="SaveVerification();">
 	                            <i class="fa fa-dot-circle-o"></i> Save
 	                        </button>
 	                        <button type="reset" class="btn btn-danger btn-sm">

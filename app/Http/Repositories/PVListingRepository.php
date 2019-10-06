@@ -12,7 +12,16 @@ class PVListingRepository
 
 	private function PVList($status_id)
 	{
-		$pv = PhysicalVerificationMaster::selectRaw('physical_verification.*,receipt.gs_no, receipt.customer_name,receipt.end_customer,pr.part_no,pt.category,ma_pv_status.status, ma_pv_status.close_status')->leftJoin('receipt', 'physical_verification.receipt_id', 'receipt.id')->leftJoin('ma_product as pr', 'pr.id', 'physical_verification.product_id')->leftJoin('ma_product_type as pt', 'pt.id', 'physical_verification.producttype_id')->leftJoin('pv_status', 'pv_status.pv_id', 'physical_verification.id')->leftJoin('ma_pv_status', 'ma_pv_status.id', 'pv_status.current_status_id')->whereNotIn('pt.category', ["'omu'","'boj'"])->where('pv_status.current_status_id', $status_id)->get();
+		$pv = PhysicalVerificationMaster::
+				selectRaw('physical_verification.*,receipt.gs_no, receipt.customer_name,receipt.end_customer,pr.part_no,pt.category,ma_pv_status.status, ma_pv_status.close_status, rmu.sw_version, rmu.rma_id')
+				->leftJoin('receipt', 'physical_verification.receipt_id', 'receipt.id')
+				->leftJoin('ma_product as pr', 'pr.id', 'physical_verification.product_id')
+				->leftJoin('ma_product_type as pt', 'pt.id', 'physical_verification.producttype_id')
+				->leftJoin('pv_status', 'pv_status.pv_id', 'physical_verification.id')
+				->leftJoin('ma_pv_status', 'ma_pv_status.id', 'pv_status.current_status_id')
+				->leftJoin('rma_unit_information as rmu', 'rmu.pv_id', 'physical_verification.id')
+				->whereNotIn('pt.category', ["'omu'","'boj'"])
+				->where('pv_status.current_status_id', $status_id)->get();
 		return $pv;
 	}
 

@@ -33,7 +33,7 @@ class SaveTestResultRequest extends FormRequest
     {
         return [
             'pvids' => 'PV Id',
-
+            'test.result' => 'Result'
         ];
     }
 
