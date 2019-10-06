@@ -122,9 +122,10 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 
 	$scope.OpenJTForm = function(item)
 	{
+		console.log(item)
 		$scope.showjtform = true;
 		var exists = false;
-		if (item.id != undefined)
+		if (item.status == "Job Ticket Started")
 			exists = true;
 		$http({
 			method: 'GET',

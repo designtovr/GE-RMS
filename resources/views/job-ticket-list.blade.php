@@ -175,7 +175,7 @@
 									<th sortable="comment" class="sortable">
 										Comment
 									</th>
-									<th>
+									<th ng-show="tab!='jobticketcompleted'">
 										Actions
 									</th>
 								</tr>
@@ -196,13 +196,13 @@
 									<td ng-bind="item.customer_name"></td>
 									<td ng-bind="item.end_customer"></td>
 									<td ng-bind="item.comment"></td>
-									<td>
+									<td ng-show="tab!='jobticketcompleted'">
 										<div class="table-data-feature">
-											<div class="btn-group p-r-10" ng-show="tab=='jobticketstarted'">
+											<div class="btn-group p-r-10" ng-show="tab!='jobticketcompleted'">
 												<button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-info">Action</button>
 												<div tabindex="-1" aria-hidden="true" role="menu" class="dropdown-menu">
-													<button type="button" tabindex="0" class="dropdown-item">Started</button>
-													<button type="button" tabindex="0" class="dropdown-item">Completed</button>
+													<button type="button" tabindex="0" class="dropdown-item" ng-show="tab=='jobticketopen'">Started</button>
+													<button type="button" tabindex="0" class="dropdown-item" ng-show="tab=='jobticketstarted'">Completed</button>
 												</div>
 											</div>
 											<button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="OpenJTForm(item);">
