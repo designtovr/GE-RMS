@@ -123,6 +123,9 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 	$scope.OpenJTForm = function(item)
 	{
 		$scope.showjtform = true;
+		var exists = false;
+		if (item.id != undefined)
+			exists = true;
 		$http({
 			method: 'GET',
 			url: '/ge/jobticket/'+item.id,
@@ -140,7 +143,8 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 				$scope.jobticket.job_ticket_materials.push(jobmaterial);
 			}
 			console.log($scope.jobticket)
-			$scope.ChangePVStatus([$scope.jobticket.pv_id], 'jobticketstarted');
+			if (!exists)
+				$scope.ChangePVStatus([$scope.jobticket.pv_id], 'jobticketstarted');
 		}, function error(response) {
 		});
 	}
