@@ -122,6 +122,12 @@ class PVStatusRepositories
 		(new self)->SavePVStatus($pv_id, $status_id);
 	}
 
+	public static function ChangeStatusToDispatchApproved($pv_id)
+	{
+		$status_id = 14;
+		(new self)->SavePVStatus($pv_id, $status_id);
+	}
+
 	public static function ChangeStatusToDispatchced($pv_id)
 	{
 		$status_id = 12;

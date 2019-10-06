@@ -229,7 +229,7 @@
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <input type="text" id="rid" name="rid" placeholder="RID No" class="form-control"
-											   ng-model="dispatch.rid_no"
+											   ng-model="dispatch.id"
 											   ng-minlength="3"
 											   ng-maxlength="10"
 											   required>

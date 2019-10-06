@@ -16,9 +16,10 @@ app.controller('DispatchApprovalController', ['$scope', '$http','Notification','
     $scope.Start = function()
     {
         console.log("UOJ");
+        $scope.status = 'verificationcompleted';
         $http({
             method: 'GET',
-            url: '/ge/physicalverification?cat=verificationcompleted'
+            url: '/ge/physicalverification?cat='+$scope.status
         }).then(function success(response) {
             $scope.gridOptions.data =  response.data.physicalverification;
         }, function error(response) {
