@@ -128,10 +128,10 @@
 										<i class="fa fa-check"></i>&nbsp; Started
 									</button>
 
-									<button type="button" class="btn btn-primary btn-sm" ng-show="startTab" ng-click="ChangeStatus('atbcompleted')">
+									<!-- <button type="button" class="btn btn-primary btn-sm" ng-show="startTab" ng-click="ChangeStatus('atbcompleted')">
 										<i class="fa fa-check"></i>&nbsp; Completed
-									</button>
-									<button type="button" class="btn btn-primary btn-sm" ng-click="OpenTestBenchModal();">
+									</button> -->
+									<button type="button" class="btn btn-primary btn-sm" ng-click="OpenTestBenchModal();" ng-show="openTab || startTab">
 										<i class="fa fa-plus"></i>&nbsp;Test
 									</button>
 									</div>
@@ -174,9 +174,9 @@
 									<th sortable="comment" class="sortable">
 										Comment
 									</th>
-									<th>
+									<!-- <th>
 										Actions
-									</th>
+									</th> -->
 								</tr>
 								</thead>
 								<tbody>
@@ -195,7 +195,7 @@
 									<td ng-bind="item.customer_name"></td>
 									<td ng-bind="item.end_customer"></td>
 									<td ng-bind="item.comment"></td>
-									<td>
+									<!-- <td>
 										<div class="table-data-feature">
 											<div class="btn-group p-r-10">
 												<button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-info">Action</button>
@@ -205,14 +205,8 @@
 
 												</div>
 											</div>
-									{{--		<button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="OpenJTForm();">
-												<i class="zmdi zmdi-edit"></i>
-											</button>
-											<button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-												<i class="zmdi zmdi-delete"></i>
-											</button>--}}
 										</div>
-									</td>
+									</td> -->
 								</tr>
 								</tbody>
 							</table>
@@ -276,13 +270,13 @@
 		                                	<div class="col col-md-6">
                                                 <div class="form-check form-check-inline">
                                                     <div class="radio">
-                                                        <label for="radio1" class="form-check-label ">
-                                                            <input type="radio" id="radio1" name="radios" value="option1" class="form-check-input">Pass
+                                                        <label for="result1" class="form-check-label ">
+                                                            <input type="radio" id="result1" name="result" ng-model="testbenchmodal.result" value="1" class="form-check-input">Pass
                                                         </label>
                                                     </div>
                                                     <div class="radio">
-                                                        <label for="radio2" class="form-check-label ">
-                                                            <input type="radio" id="radio2" name="radios" value="option2" class="form-check-input">Fail
+                                                        <label for="result2" class="form-check-label ">
+                                                            <input type="radio" id="result2" name="result" value="0" class="form-check-input" ng-model="testbenchmodal.result">Fail
                                                         </label>
                                                     </div>
                                                 </div>
@@ -290,11 +284,10 @@
 			                            </div>
 		                				<div class="row form-group">
 			                                <div class="col col-md-3">
-			                                    <label for="comment" class=" form-control-label"><b>Comments</b> <span class="mandatory">*</span></label>
+			                                    <label for="comment" class=" form-control-label"><b>Comments</b></label>
 			                                </div>
 			                                <div class="col-12 col-md-6">
-			                                    <textarea name="textarea-input" id="textarea-input" rows="2" placeholder="Content..." class="form-control"></textarea>
-			                                    <span class="help-block">Please Enter Comments</span>
+			                                    <textarea name="comment" id="comment" rows="3" placeholder="Comment" class="form-control" ng-model="testbenchmodal.comment"></textarea>
 			                                </div>
 			                            </div>
 		                			</div>
@@ -307,7 +300,7 @@
                     <button type="button" class="btn btn-danger btn-sm" ng-click="CloseTestBenchModal();">
                         <i class="fa fa-ban"></i> Close
                     </button>
-                    <button type="submit" class="btn btn-primary btn-sm" ng-disabled="AddUserForm.$invalid" ng-click="AddUser();">
+                    <button type="submit" class="btn btn-primary btn-sm" ng-disabled="AddUserForm.$invalid" ng-click="SaveTestResult();">
                         <i class="fa fa-dot-circle-o"></i> Save
                     </button>
                 </div>

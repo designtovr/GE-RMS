@@ -123,15 +123,15 @@
 
 								</ul>
 								</div>
-									<div class="col-md-3 col-md-offset-3  p-0 m-r-0" ng-show="tab=='jobticketstarted'">
+									<div class="col-md-3 col-md-offset-3  p-0 m-r-0">
 										<div class = "pull-right">
-											<!-- <button type="button" class="btn btn-primary btn-sm" ng-show="openTab" ng-click="ChangeStatus('Started')">
+											<button type="button" class="btn btn-primary btn-sm" ng-show="openTab" ng-click="ChangePVStatusToStarted()">
 												<i class="fa fa-check"></i>&nbsp; Started
-											</button> -->
-
-											<button type="button" class="btn btn-primary btn-sm" ng-click="ChangeStatus('Completed')">
-												<i class="fa fa-check"></i>&nbsp; Completed
 											</button>
+
+											<!-- <button type="button" class="btn btn-primary btn-sm" ng-click="ChangeStatus('Completed')">
+												<i class="fa fa-check"></i>&nbsp; Completed
+											</button> -->
 										<!-- 	<button type="button" class="btn btn-primary btn-sm" ng-click="OpenTestBenchModal();">
 												<i class="fa fa-plus"></i>&nbsp;Test
 											</button> -->
@@ -147,7 +147,7 @@
 								<thead>
 								<tr>
 
-									<th>
+									<th ng-show="openTab">
 										Select
 									</th>
 									<th sortable="id" class="sortable">
@@ -182,7 +182,7 @@
 								</thead>
 								<tbody>
 								<tr grid-item>
-									<td>
+									<td ng-show="openTab">
 										<label class="au-checkbox">
 											<input type="checkbox" ng-model="item.create_wc">
 											<span class="au-checkmark"></span>
@@ -524,64 +524,6 @@
 	                            	</div>
 	                            </div>
 	                    	</form>
-	                    	<div class="row p-t-20">
-	                    		<div class="col-md-12">
-					                <!-- DATA TABLE-->
-					                <div class="table-responsive">
-						                 <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
-						                 <table class="table table-borderless table-data3">
-						                     <thead>
-						                     <tr>
-						                         <th>
-						                             
-						                         </th>
-						                         <th>
-						                             Material Part No
-						                         </th>
-						                         <th>
-						                             Value
-						                         </th>
-						                         <th>
-						                             Old PCB
-						                         </th>
-						                         <th>
-						                             New PCB
-						                         </th>
-						                         <th>
-						                             Comment
-						                         </th>
-						                     </tr>
-						                     </thead>
-						                     <tbody>
-						                     <tr>
-						                     	 <td>
-						                     	 	<label class="au-checkbox">
-				                                        <input type="checkbox">
-				                                        <span class="au-checkmark"></span>
-				                                    </label>
-						                     	 </td>
-						                         <td>
-						                         	MP001
-						                         </td>
-						                         <td>
-						                         	1000
-						                         </td>
-						                         <td>
-						                         	PCB001
-						                         </td>
-						                         <td>
-						                         	PCB002
-						                         </td>
-						                         <td>
-						                         	Not Good
-						                         </td>
-						                     </tr>
-						                     </tbody>
-						                 </table>
-									 </div>
-					                <!-- END DATA TABLE-->
-					            </div>
-	                    	</div>
 	                    </div>
 	                    <div class="card-footer">
 	                        <button type="submit" class="btn btn-primary btn-sm" ng-click="CompleteJTForm();">

@@ -150,6 +150,27 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 		});
 	}
 
+	$scope.ChangePVStatusToStarted = function()
+	{
+		console.log($scope.gridOptions.data);
+		$scope.selectedpvs = [];
+		for (var i = 0; i < $scope.gridOptions.data.length; i++) {
+			if ($scope.gridOptions.data[i].create_wc != undefined && $scope.gridOptions.data[i].create_wc)
+			{
+				$scope.selectedpvs.push($scope.gridOptions.data[i].id);
+			}
+		}
+		if ($scope.selectedpvs.length == 0)
+		{
+			Notification.error("No Relay Selected");
+			return;
+		}
+		$scope.ChangePVStatus($scope.selectedpvs, 'jobticketstarted');
+		$('#withrma-tab').addClass('active');
+		$scope.LoadData('jobticketstarted');
+		$scope.showjtform = false;
+	}
+
 	$scope.CompleteJTForm = function()
 	{
 		console.log($scope.jobticket)
@@ -247,8 +268,20 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 			if (response.data.status == 'success')
 			{
 				Notification.success(response.data.message);
-				$('#all-tab').addClass('active');
-				$scope.LoadData('jobticketopen');
+				$scope.openTab = false;
+				$scope.startTab = false;
+				if ($scope.openTab)
+				{
+					$('#all-tab').addClass('active');
+					$('#withrma-tab').removeClass('active');
+					$scope.LoadData('jobticketopen');
+				}
+				else if($scope.startTab)
+				{
+					$('#withrma-tab').addClass('active');
+					$('#all-tab').removeClass('active');
+					$scope.LoadData('jobticketstarted');
+				}
 				$scope.showjtform = false;
 			}
 		}, function error(response) {

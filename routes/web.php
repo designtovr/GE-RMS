@@ -243,6 +243,7 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
 	Route::get('/jobticket/{pvid}','JobTicketController@JobTicket');
 	Route::post('/savejobticketmaterial', 'JobTicketController@SaveJobTicketMaterial');
 	Route::post('/completejobticket', 'JobTicketController@CompleteJobTicket');
+	Route::post('/savetestresult', 'AutoTestBenchController@SaveTestResult');
 
 	Route::post('/addproduct', 'ProductController@AddProduct');
 

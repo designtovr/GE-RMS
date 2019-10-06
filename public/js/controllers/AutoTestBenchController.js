@@ -5,7 +5,59 @@ app.controller('AutoTestBenchController', ['$scope', '$http','Notification','Cha
 	$scope.testbenchmodal.title = 'Test Process';
 	$scope.OpenTestBenchModal = function()
 	{
+		console.log($scope.gridOptions.data);
+		$scope.selectedpvs = [];
+		for (var i = 0; i < $scope.gridOptions.data.length; i++) {
+			if ($scope.gridOptions.data[i].create_wc != undefined && $scope.gridOptions.data[i].create_wc)
+			{
+				$scope.selectedpvs.push($scope.gridOptions.data[i].id);
+			}
+		}
+		if ($scope.selectedpvs.length == 0)
+		{
+			Notification.error("No Relay Selected");
+			return;
+		}
+		console.log($scope.selectedpvs);
 		$('#testbenchmodal').modal('show');
+	}
+
+	$scope.SaveTestResult = function()
+	{
+		console.log($scope.selectedpvs)
+		console.log($scope.testbenchmodal)
+		if ($scope.testbenchmodal.result == undefined || $scope.testbenchmodal.result == null)
+		{
+			Notification.error("Please Select Result");
+			return;
+		}
+		$http({
+			method: 'POST',
+			url: '/ge/savetestresult',
+			data: {
+				'test': $scope.testbenchmodal,
+				'pvids': $scope.selectedpvs
+			}
+		}).then(function success(response) {
+			if (response.data.status == 'success')
+			{
+				Notification.success(response.data.message);
+				$('#withrma-tab').addClass('active');
+				$scope.LoadData('2');
+				$scope.GetPV('atbstarted');
+				$scope.CloseTestBenchModal();
+			}
+		}, function error(response) {
+			if (response.status == 422)
+			{
+				var errors = response.data.errors;
+				for(var error in errors)
+				{
+					Notification.error(errors[error][0]);
+					break;
+				}
+			}
+		});
 	}
 
 	$scope.CloseTestBenchModal = function()
@@ -68,6 +120,10 @@ app.controller('AutoTestBenchController', ['$scope', '$http','Notification','Cha
 
 
 				$scope.ChangePVStatus($scope.selectedpvs ,status);
+				$('#all-tab').addClass('active');
+				$('#withrma-tab').removeClass('active');
+				$scope.LoadData('1');
+				$scope.GetPV('atbopen');
 			}
 
 			$scope.ChangePVStatus = function(pvids, status)
