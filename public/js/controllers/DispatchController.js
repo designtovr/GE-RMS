@@ -70,7 +70,7 @@ app.controller('DispatchController', ['$scope', '$http','$filter','Notification'
 					if (response.data.status == 'success')
 					{
 						Notification.success(response.data.message);
-						$scope.GetPV($scope.status);
+						$scope.GetPV(status);
 					}
 					else if (response.status == 422)
 					{
@@ -125,10 +125,11 @@ app.controller('DispatchController', ['$scope', '$http','$filter','Notification'
 		}).then(function success(response){
 			if (response.status == 200)
 			{
+				$scope.ChangePVStatus($scope.selectedpvs ,'dispatched');
 				alert(response.data.messagae)
 				$scope.HideDPForm();
 				/*$('#customermodal').modal('hide');*/
-				$scope.getDispatches();
+				$scope.GetPV('dispatched');
 			}
 		}, function failure(response){
 			if (response.status == 422)
@@ -160,6 +161,12 @@ app.controller('DispatchController', ['$scope', '$http','$filter','Notification'
 	$scope.ShowDPForm = function()
 	{
 		$scope.ChangeStatus('dispatched');
+		
+
+
+		if($scope.selectedpvs.length == 0)
+			return;
+
 		$scope.showdpform = true;
 		console.log("ihi")
 	}

@@ -93,12 +93,51 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12 p-b-20">
+                     {{--Tab Start--}}
+         <div class="row  col-lg-12">
+            <div class=" card w-100">
+
+                <div class="card-body">
+                    <div class="row col-md-12 p-0">
+
+                        <div class="col-md-9">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item" ng-click="LoadData('1');GetPV('dispatchapproved')">
+                                    <a class="nav-link active" id="all-tab" data-toggle="tab" href="#open" role="tab" aria-controls="all" aria-selected="true">Open</a>
+                                </li>
+                            <!--     <li class="nav-item" ng-click="LoadData('2');GetPV('agingstarted')">
+                                    <a class="nav-link" id="withrma-tab" data-toggle="tab" href="#started" role="tab" aria-controls="withrma" aria-selected="false">Started</a>
+                                </li> -->
+                                <li class="nav-item" ng-click="LoadData('2');GetPV('dispatched')">
+                                    <a class="nav-link" id="withoutrma-tab" data-toggle="tab" href="#completed" role="tab" aria-controls="withoutrma" aria-selected="false">Completed</a>
+                                </li>
+
+
+                            </ul>
+                        </div>
+                        <div class="col-md-3 col-md-offset-3  p-0 m-r-0" >
+                            <div class = "pull-right">
+                       <!--          <button type="button" class="btn btn-primary btn-sm" ng-show="openTab" ng-click="ChangeStatus('agingstarted')">
+                                    <i class="fa fa-check"></i>&nbsp; Started
+                                </button>
+
+                                <button type="button" class="btn btn-primary btn-sm" ng-show="startTab" ng-click="ChangeStatus('agingcompleted')">
+                                    <i class="fa fa-check"></i>&nbsp; Completed
+                                </button> -->
+                                       <div class="col-md-12 p-b-20">
                         <button type="button" class="btn btn-primary btn-md float-right"
-                                ng-click="ShowDPForm();">
+                             ng-show="openTab"    ng-click="ShowDPForm();">
                             <i class="fa fa-plus"></i>&nbsp;Create Dispatch
                         </button>
                     </div>
+                                <!-- <button type="button" class="btn btn-primary btn-sm" ng-click="OpenTestBenchModal();">
+                                    <i class="fa fa-plus"></i>&nbsp;Test
+                                </button> -->
+                            </div>
+                        </div>
+                    </div>
+                    {{--Tab Ends--}}
+             
                     <div class="col-md-12">
                         <!-- DATA TABLE-->
                         <div grid-data grid-options="gridOptions" grid-actions="gridActions">
@@ -195,7 +234,7 @@
                         <div class="card-body card-block">
     	                	<form action="" method="post" class="form-horizontal">
     	                		<div class="row form-group">
-    	                            <div class="col col-md-3">
+    	                  <!--           <div class="col col-md-3">
     	                                <label for="dispatch-no" class=" form-control-label">Dispatch No <span class="mandatory">*</span></label>
     	                            </div>
     	                            <div class="col-12 col-md-6">
@@ -208,14 +247,14 @@
 											   required>
 										<div ng-show="AddDispatchForm.dispatch_no.$touched && AddDispatchForm.dispatch_no.$error"><span class="help-block">Please Enter Dispatch No</span></div>
 
-								</div>
+								</div> -->
     	                        </div>
     	                        <div class="row form-group">
                                     <div class="col col-md-3">
                                         <label for="date" class=" form-control-label">Date<span class="mandatory">*</span></label>
                                     </div>
                                     <div class="col-12 col-md-6">
-                                        <input type="text" id="date" name="date" placeholder="Date" class="form-control"
+                                        <input type="text" id="formdate" name="date" placeholder="Date" class="form-control"
 											   ng-model="dispatch.date"
 											   ng-minlength="3"
 											   ng-maxlength="10"
@@ -268,7 +307,7 @@
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <input type="text" id="rma" name="rma" placeholder="RMA" class="form-control"
-											   ng-model="dispatch.rma_no"
+											   ng-model="dispatch.rma_id"
 											   ng-minlength="3"
 											   ng-maxlength="10"
 											   required>
@@ -322,5 +361,28 @@
 </div>
 @endsection
 @section('scripts')
-	<script type="text/javascript" src="{{url('public/js/controllers/DispatchController.js')}}"></script>
+	<script type="text/javascript" src="{{url('public/js/controllers/DispatchController.js')}}">
+    </script>
+
+        <script>
+        $(document).ready(function () {
+            $("#dateFilter").datepicker({
+                autoclose: true,
+                format: 'yyyy-mm-dd',
+                todayHighlight: true,
+                setDate: new Date(),
+                update: new Date()
+            });
+        });
+
+             $(document).ready(function () {
+            $("#formdate").datepicker({
+                autoclose: true,
+                format: 'dd/mm/yyyy',
+                todayHighlight: true,
+                setDate: new Date(),
+                update: new Date()
+            });
+        });
+    </script>   
 @endsection

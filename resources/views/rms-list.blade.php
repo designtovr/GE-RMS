@@ -10,37 +10,83 @@
 			            <h6 class="pb-4 display-5">RMS List</h6>
 			        </div>
 			    </div>
-			    <div class="col-md-12">
-			    	<div class="table-responsive">
-	                    <table class="table table-borderless table-data3 table-custom">
-	                    	<thead>
-	                            <tr>
-	                                <th>
-		                                <input type="text" id="se-rid" name="se-rid" placeholder="RID" class="form-control-sm form-control">
-	                            	</th>
-	                                <th>
-	                                	<input type="text" id="se-rack" name="se-rack" placeholder="Rack" class="form-control-sm form-control">
-	                                </th>
-	                                <th>
-	                                	<select name="se-date" id="se-date" class="form-control-sm form-control">
-	                                        <option value="0">Date</option>
-	                                        <option value="1">Yes</option>
-	                                        <option value="2">No</option>
-	                                        <option value="2">Customer</option>
-	                                    </select>
-	                                </th>
-	                                <th>
-	                                	<button type="button" class="btn btn-outline-secondary btn-sm">Reset</button>
-	                                </th>
-	                                <th>
-	                                	<button type="button" class="btn btn-outline-primary btn-sm">
-	                                            <i class="fa fa-search"></i>&nbsp; Search</button>
-	                                </th>
-	                            </tr>
-	                        </thead>
-	                    </table>
-	                </div>
-			    </div>
+			<div class="col-md-12 ">
+                        <div class="card-header card-title">
+                            Search
+                        </div>
+                        <div>
+                            <div class="table-responsive">
+                                <table class="table table-borderless table-data3 table-custom">
+                                    <thead>
+                                    <tr>
+                                        <th>
+
+                                            <input id="ridFilter" type="text"
+                                                   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
+                                                   placeholder="Enter RID #" ng-change="gridActions.filter();"
+                                                   ng-model="filterID" filter-by="id" filter-type="text">
+                                        </th>
+                                        <th>
+
+                                            <input id="productFilter" type="text"
+                                                   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
+                                                   placeholder="Enter Rack ID" ng-change="gridActions.filter();"
+                                                   ng-model="filterreceipt_id" filter-by="product_id"
+                                                   filter-type="text">
+                                        </th>
+                                        <th>
+                                            <input type="text"
+                                                   id="dateFilter"
+                                                   class="form-control"
+                                                   placeholder="Date"
+                                                   max-date="dateTo"
+                                                   close-text="Close"
+                                                   ng-model="filterpvdate"
+                                                   show-weeks="true"
+                                                   is-open="dateFromOpened"
+                                                   ng-click="dateFromOpened = true"
+                                                   filter-by="pvdate"
+                                                   filter-type="text"
+                                                   ng-change="gridActions.filter()"
+                                                   close-text="Close"/>
+
+                                        </th>
+                                        <!--          <th>
+                                                     <select name="field-volts-used" id="field-volts-used"
+                                                     class="form-control-sm form-control">
+                                                     <option value="0">From</option>
+                                                     <option value="1">Yes</option>
+                                                     <option value="2">No</option>
+                                                     <option value="2">Customer</option>
+                                                 </select>
+                                             </th>
+                                             <th>
+                                                 <select name="field-volts-used" id="field-volts-used"
+                                                 class="form-control-sm form-control">
+                                                 <option value="0">To</option>
+                                                 <option value="1">Yes</option>
+                                                 <option value="2">No</option>
+                                                 <option value="2">Customer</option>
+                                             </select>
+                                         </th> -->
+                                    
+                                        <th>
+                                            <button type="button" class="btn btn-outline-secondary btn-sm"
+                                                    ng-click="Reset();gridActions.filter()">Reset
+                                            </button>
+                                        </th>
+                                        <th>
+                                            <button type="button" class="btn btn-outline-primary btn-sm">
+                                                <i class="fa fa-search"></i>&nbsp; Search
+                                            </button>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
 			    <div class="col-md-12 p-b-20">
 			    	<button type="button" class="btn btn-primary btn-md float-right" ng-click="OpenRMSModal();">
 	                        <i class="fa fa-plus"></i>&nbsp;Add
@@ -53,13 +99,13 @@
 		                 <table class="table table-borderless table-data3">
 		                     <thead>
 		                     <tr>
-		                         <th sortable="placed" class="sortable">
+		                         <th sortable="id" class="sortable">
 		                             RID No
 		                         </th>
-		                         <th sortable="purchaseOrderNumber" class="sortable">
+		                         <th sortable="rack" class="sortable">
 		                             Rack
 		                         </th>
-		                         <th sortable='total.value' class="sortable">
+		                         <th sortable='date' class="sortable">
 		                             Date
 		                         </th>
 		                     </tr>

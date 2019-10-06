@@ -231,7 +231,9 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
 
     Route::post('/addwc', 'WarrantyPHPController@AddWarranty');
 
+ Route::get('/rms','RMSController@RMS');
 
+    Route::post('/addrms', 'RMSController@AddRMS');
   
     Route::post('/addphysicalverification' , 'PhysicalVerificationController@AddPhysicalVerification');
     Route::get('/GetPhysicalVerification/{id}', 'PhysicalVerificationController@GetPhysicalVerification');
