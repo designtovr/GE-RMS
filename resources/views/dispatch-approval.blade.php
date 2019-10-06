@@ -2,7 +2,7 @@
 @section('title', 'Dispatch Approval List')
 @section('content')
     <div class="main-content" ng-controller="DispatchApprovalController">
-        <div class="section__content section__content--p30" ng-init="Start()">
+        <div class="section__content section__content--p30" ng-init="Start();">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
@@ -95,7 +95,7 @@
                     </div>
                     <div class="col-md-12 p-b-20">
                         <button type="button" class="btn btn-primary btn-md float-right"
-                                ng-click="OpenWarrantyModal();">
+                                ng-click="ChangeStatus('dispatched');">
                             <i class="fa fa-plus"></i>&nbsp;Approval
                         </button>
                     </div>

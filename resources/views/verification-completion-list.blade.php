@@ -104,13 +104,13 @@
 
          				<div class="col-md-9">
          					<ul class="nav nav-tabs" id="myTab" role="tablist">
-         						<li class="nav-item" ng-click="LoadData('1')">
+         						<li class="nav-item" ng-click="LoadData('1');GetPV('agingcompleted')">
          							<a class="nav-link active" id="all-tab" data-toggle="tab" href="#open" role="tab" aria-controls="all" aria-selected="true">Open</a>
          						</li>
-         						<li class="nav-item" ng-click="LoadData('2')">
+         					<!-- 	<li class="nav-item" ng-click="LoadData('2')">
          							<a class="nav-link" id="withrma-tab" data-toggle="tab" href="#started" role="tab" aria-controls="withrma" aria-selected="false">Started</a>
-         						</li>
-         						<li class="nav-item" ng-click="LoadData('3')">
+         						</li> -->
+         						<li class="nav-item" ng-click="LoadData('3');GetPV('verificationcompleted')">
          							<a class="nav-link" id="withoutrma-tab" data-toggle="tab" href="#completed" role="tab" aria-controls="withoutrma" aria-selected="false">Completed</a>
          						</li>
 
@@ -119,11 +119,11 @@
          				</div>
          				<div class="col-md-3 col-md-offset-3  p-0 m-r-0" >
          					<div class = "pull-right">
-         						<button type="button" class="btn btn-primary btn-sm" ng-show="openTab" ng-click="ChangeStatus('Started')">
+         						<!-- <button type="button" class="btn btn-primary btn-sm" ng-show="openTab" ng-click="ChangeStatus('Started')">
          							<i class="fa fa-check"></i>&nbsp; Started
-         						</button>
+         						</button> -->
 
-         						<button type="button" class="btn btn-primary btn-sm" ng-show="startTab" ng-click="ChangeStatus('Completed')">
+         						<button type="button" class="btn btn-primary btn-sm" ng-show="openTab" ng-click="ChangeStatus('Completed')">
          							<i class="fa fa-check"></i>&nbsp; Completed
          						</button>
          						<!-- <button type="button" class="btn btn-primary btn-sm" ng-click="OpenTestBenchModal();">
