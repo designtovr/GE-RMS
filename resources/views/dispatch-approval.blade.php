@@ -95,7 +95,7 @@
                     </div>
                     <div class="col-md-12 p-b-20">
                         <button type="button" class="btn btn-primary btn-md float-right"
-                                ng-click="ChangeStatus('dispatched');">
+                                ng-click="ChangeStatus('dispatchapproved');">
                             <i class="fa fa-plus"></i>&nbsp;Approval
                         </button>
                     </div>

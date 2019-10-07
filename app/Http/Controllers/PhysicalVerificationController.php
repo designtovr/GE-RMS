@@ -72,6 +72,12 @@ class PhysicalVerificationController extends Controller
         {
             $pv = PVListingRepository::VerificationCompleted();
         }
+        
+        else if($cat == 'dispatchapproved')
+        {
+            $pv = PVListingRepository::DispatchApproved();
+        }
+
         else if($cat == 'dispatched')
         {
             $pv = PVListingRepository::Dispatched();
@@ -133,6 +139,12 @@ class PhysicalVerificationController extends Controller
             {
                 PVStatusRepositories::ChangeStatusToVerificationCompleted($pvid);
             }
+
+            else if($status == 'dispatchapproved')
+            {
+                PVStatusRepositories::ChangeStatusToDispatchApproved($pvid);
+            }
+
             else if($status == 'dispatched')
             {
                 PVStatusRepositories::ChangeStatusToDispatchced($pvid);

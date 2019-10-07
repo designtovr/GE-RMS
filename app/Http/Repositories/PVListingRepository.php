@@ -123,4 +123,10 @@ class PVListingRepository
 		return (new self)->PVList($status_id);
 	}
 
+	public static function DispatchApproved()
+    {
+        $status_id = 14;
+        return (new self)->PVList($status_id);
+    }
+
 }
