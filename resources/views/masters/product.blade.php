@@ -133,7 +133,7 @@
                                             type="text" 
                                             id="productpartno" 
                                             name="productpartno" 
-                                            ng-model="product.category" 
+                                            value="@{{product.category | uppercase}}" 
                                             placeholder="Product Category" 
                                             class="form-control"
                                             disabled>
@@ -153,7 +153,7 @@
                                             placeholder="Product Part No" 
                                             class="form-control"
                                             ng-minlength="3" 
-                                            ng-maxlength="10"
+                                            ng-maxlength="50"
                                             required>
                                             <div ng-show="ProductForm.productpartno.$touched && ProductForm.productpartno.$error">
                                                 <span class="help-block"
@@ -166,7 +166,7 @@
                                                 </span>
                                                 <span class="help-block"
                                                  ng-show="ProductForm.productpartno.$error.maxlength">
-                                                    Maximum 10 Characters Allowed
+                                                    Maximum 50 Characters Allowed
                                                 </span>
                                             </div>
                                     </div>

@@ -58,11 +58,11 @@ class ADDRMARequest extends FormRequest
         $rules['pvs.*.sw_version'] = 'required|string|min:1|max:5';
         $rules['pvs.*.service_type'] = 'required|numeric|digits_between:0,1';
         $rules['pvs.*.warrenty'] = 'required|numeric|digits_between:0,1';
-        $rules['pvs.*.desc_of_fault'] = 'required|string|min:3|max:100';
+        /*$rules['pvs.*.desc_of_fault'] = 'required|string|min:3|max:100';*/
         $rules['pvs.*.field_volts_used'] = 'required|numeric|digits_between:0,1';
         $rules['pvs.*.equip_failed_on_installation'] = 'required|numeric|digits_between:0,1';
         $rules['pvs.*.equip_failed_on_service'] = 'required|numeric|digits_between:0,1';
-        $rules['pvs.*.how_long'] = 'required|string|min:1|max:25';
+        /*$rules['pvs.*.how_long'] = 'required|string|min:1|max:25';*/
         
         return $rules;
     }

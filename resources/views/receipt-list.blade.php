@@ -2,7 +2,7 @@
 @section('title', 'Receipt List')
 @section('content')
     <div class="main-content" ng-controller="ReceiptController">
-        <div class="section__content section__content--p30" ng-init="Initiate();getReceipts();">
+        <div class="section__content section__content--p30" ng-init="Initiate();getReceipts();GetCustomerList();GetEndCustomerList();">
             <div class="container-fluid">
                 <div class="row" ng-show="!receiptform">
                     <div class="col-md-12">
@@ -85,7 +85,7 @@
     <div class = "row">
     <div class="col-md-12 p-b-20">
      <button type="button" class="btn btn-primary btn-md float-right" ng-click="ShowReceiptForm();">
-                                <i class="fa fa-plus"></i>&nbsp;Add Item
+                                <i class="fa fa-plus"></i>&nbsp;Create
                             </button>
                             </div>
                         </div>
@@ -126,7 +126,7 @@
                                 </thead>
                                 <tbody>
                                 <tr grid-item>
-                                    <td ng-bind="item.id"></td>
+                                    <td ng-bind="'RC ' + item.id"></td>
                                     <td ng-bind="item.receipt_date | date:'dd/MM/yyyy'"></td>
 
                                     <td ng-bind="item.customer_name"></td>
@@ -139,9 +139,9 @@
                                             <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="EditReceipt(item);">
                                                 <i class="zmdi zmdi-edit"></i>
                                             </button>
-                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Delete" ng-click="DeleteReceipt(item.id);">
+                                            <!-- <button class="item" data-toggle="tooltip" data-placement="top" title="Delete" ng-click="DeleteReceipt(item.id);">
                                                 <i class="zmdi zmdi-delete"></i>
-                                            </button>
+                                            </button> -->
                                         </div>
                                     </td>
                                 </tr>
@@ -203,38 +203,6 @@
                                     </div>
                                     <div class="row form-group">
                                         <div class="col col-md-3">
-                                            <label for="ga_no" class=" form-control-label">GS No. <span
-                                                        class="mandatory">*</span></label>
-                                        </div>
-                                        <div class="col-12 col-md-6">
-                                            <input
-                                                    type="text"
-                                                    id="gs_no"
-                                                    name="gs_no"
-                                                    ng-model="receipt.gs_no"
-                                                    class="form-control"
-                                                    ng-minlength="3"
-                                                    ng-maxlength="20"
-                                                    ui-mask="GS - (9999999999)"
-                                                    required>
-                                            <div ng-show="AddReceiptForm.gs_no.$touched && AddReceiptForm.gs_no.$error">
-                                            <span class="help-block"
-                                                  ng-show="AddReceiptForm.gs_no.$error.required">
-                                                Please Enter GS Number
-                                            </span>
-                                                <span class="help-block"
-                                                      ng-show="AddReceiptForm.gs_no.$error.minlength">
-                                                Minimum 3 Characters Required
-                                            </span>
-                                                <span class="help-block"
-                                                      ng-show="AddReceiptForm.gs_no.$error.maxlength">
-                                                Maximum 20 Characters Allowed
-                                            </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-3">
                                             <label for="receipt_date" class=" form-control-label">Receipt Date <span class="mandatory">*</span></label>
                                         </div>
                                         <div class="col-12 col-md-6">
@@ -256,33 +224,25 @@
                                     </div>
                                     <div class="row form-group">
                                         <div class="col col-md-3">
-                                            <label for="cu_name" class=" form-control-label">Customer Name/Manufacture
-                                                Name <span class="mandatory">*</span></label>
+                                            <label for="cu_name" class=" form-control-label">Customer Name <span class="mandatory">*</span></label>
                                         </div>
                                         <div class="col-12 col-md-6">
-                                            <input
-                                                    type="text"
-                                                    id="cu_name"
-                                                    name="cu_name"
-                                                    ng-model="receipt.customer_name"
-                                                    placeholder="Customer Name/Manufacture Name"
-                                                    class="form-control"
-                                                    ng-minlength="3"
-                                                    ng-maxlength="20"
-                                                    required>
-                                            <div ng-show="AddReceiptForm.cu_name.$touched && AddReceiptForm.cu_name.$error">
-                                            <span class="help-block"
-                                                  ng-show="AddReceiptForm.cu_name.$error.required">
-                                                Please Enter Customer Name/Manufacture Name
-                                            </span>
+                                            <ui-select ng-model="receipt.selected_customer_name" theme="selectize" title="Select Customer" ng-change="AssignCutomerName();" required>
+                                                <ui-select-match placeholder="Select Customer">@{{$select.selected.name}}</ui-select-match>
+                                                <ui-select-choices id="selected_customer_name" 
+                                                    name="selected_customer_name" repeat="customer in customers | filter: $select.search">
+                                                  <span ng-bind-html="customer.name | highlight: $select.search"></span>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                              <input ng-if="receipt.selected_customer_name.id == -1" type="text" id="customer_name_new" name="customer_name_new"
+                                               placeholder="Customer Name" class="form-control"
+                                               ng-model="receipt.customer_name_new"
+                                               required>
+                                            <div ng-show="AddReceiptForm.customer_name_new.$touched && AddReceiptForm.customer_name_new.$error">
                                                 <span class="help-block"
-                                                      ng-show="AddReceiptForm.cu_name.$error.minlength">
-                                                Minimum 3 Characters Required
-                                            </span>
-                                                <span class="help-block"
-                                                      ng-show="AddReceiptForm.cu_name.$error.maxlength">
-                                                Maximum 20 Characters Allowed
-                                            </span>
+                                                      ng-show="AddReceiptForm.customer_name_new.$error.required">
+                                                    Please Select Customer Name
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -292,29 +252,35 @@
                                                         class="mandatory">*</span></label>
                                         </div>
                                         <div class="col-12 col-md-6">
+                                            <ui-select ng-model="receipt.selected_end_customer" theme="selectize" title="Select End Customer" ng-change="AssignEndCutomer();" required>
+                                                <ui-select-match placeholder="Select End Customer">@{{$select.selected.end_customer}}</ui-select-match>
+                                                <ui-select-choices id="selected_end_customer" 
+                                                    name="selected_end_customer" repeat="customer in end_customers | filter: $select.search">
+                                                  <span ng-bind-html="customer.end_customer | highlight: $select.search"></span>
+                                                </ui-select-choices>
+                                            </ui-select>
                                             <input
+                                                    ng-if="receipt.selected_end_customer.end_customer == 'Add New'"
                                                     type="text"
-                                                    id="end_cusname"
-                                                    name="end_cusname"
-                                                    ng-model="receipt.end_customer"
+                                                    id="end_customer_new"
+                                                    name="end_customer_new"
+                                                    ng-model="receipt.end_customer_new"
                                                     placeholder="End Customer"
                                                     class="form-control"
-                                                    ng-minlength="3"
-                                                    ng-maxlength="20"
                                                     required>
-                                            <div ng-show="AddReceiptForm.end_cusname.$touched && AddReceiptForm.end_cusname.$error">
-                                            <span class="help-block"
-                                                  ng-show="AddReceiptForm.end_cusname.$error.required">
-                                                Please Enter End Customer
-                                            </span>
+                                            <div ng-show="AddReceiptForm.end_customer_new.$touched && AddReceiptForm.end_customer_new.$error">
                                                 <span class="help-block"
-                                                      ng-show="AddReceiptForm.end_cusname.$error.minlength">
-                                                Minimum 3 Characters Required
-                                            </span>
-                                                <span class="help-block"
-                                                      ng-show="AddReceiptForm.end_cusname.$error.maxlength">
-                                                Maximum 20 Characters Allowed
-                                            </span>
+                                                      ng-show="AddReceiptForm.end_customer_new.$error.required">
+                                                    Please Enter End Customer
+                                                </span>
+                                                    <span class="help-block"
+                                                          ng-show="AddReceiptForm.end_customer_new.$error.minlength">
+                                                    Minimum 3 Characters Required
+                                                </span>
+                                                    <span class="help-block"
+                                                          ng-show="AddReceiptForm.end_customer_new.$error.maxlength">
+                                                    Maximum 20 Characters Allowed
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -423,9 +389,6 @@
                                         ng-click="AddReceipt();"
                                         ng-show="editReceipt">
                                     <i class="fa fa-dot-circle-o"></i> Update
-                                </button>
-                                <button type="reset" class="btn btn-secondary btn-sm">
-                                    <i class="fa fa-refresh"></i> Reset
                                 </button>
                                 <button class="btn btn-danger btn-sm" ng-click="HideReceiptForm();">
                                     <i class="fa fa-ban"></i> Close

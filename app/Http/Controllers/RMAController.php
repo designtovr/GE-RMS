@@ -106,12 +106,12 @@ class RMAController extends Controller
     		$RMAUnitInformation->sw_version = $unit['sw_version'];
     		$RMAUnitInformation->service_type = $unit['service_type'];
     		$RMAUnitInformation->warrenty = $unit['warrenty'];
-            $RMAUnitInformation->desc_of_fault = $unit['desc_of_fault'];
+            $RMAUnitInformation->desc_of_fault = (array_key_exists('desc_of_fault', $unit))?$unit['desc_of_fault']:'';
             $RMAUnitInformation->sales_order_no = (array_key_exists('sales_order_no', $unit))?$unit['sales_order_no']:'';
             $RMAUnitInformation->field_volts_used = $unit['field_volts_used'];
             $RMAUnitInformation->equip_failed_on_installation = $unit['equip_failed_on_installation'];
             $RMAUnitInformation->equip_failed_on_service = $unit['equip_failed_on_service'];
-            $RMAUnitInformation->how_long = $unit['how_long'];
+            $RMAUnitInformation->how_long = (array_key_exists('how_long', $unit))?$unit['how_long']:'';
     		$RMAUnitInformation->created_by = Auth::id();
     		$RMAUnitInformation->updated_by = Auth::id();
     		$RMAUnitInformation->updated_at = Carbon::now();

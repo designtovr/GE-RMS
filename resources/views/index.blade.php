@@ -156,7 +156,7 @@
                                 <tr>
                                     <td>Mobile</td>
                                     <td>2018-09-29</td>
-                                    <td>999</td>
+                                    <td>999 <span class="badge badge-danger badge-fs-15">10</span></td>
                                 </tr>
                                 <tr>
                                     <td>Mobile</td>

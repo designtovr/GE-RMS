@@ -29,7 +29,7 @@ class AddRmaUnitRequest extends FormRequest
             'pv.sw_version' => 'required|string|min:1|max:5',
             'pv.service_type'=> 'required|numeric|digits_between:0,1',
             'pv.warrenty' => 'required|numeric|digits_between:0,1',
-            'pv.desc_of_fault' => 'required|string|min:3|max:100',
+            /*'pv.desc_of_fault' => 'required|string|min:3|max:100',*/
             'pv.field_volts_used' => 'required|numeric|digits_between:0,1',
             'pv.equip_failed_on_installation' => 'required|numeric|digits_between:0,1',
             'pv.equip_failed_on_service' => 'required|numeric|digits_between:0,1',

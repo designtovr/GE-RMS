@@ -42,7 +42,7 @@ class AddPhysicalVerificationRequest extends FormRequest
             'physicalverification.terminal_blocks_condition' => 'required|numeric|digits_between:0,3',
             'physicalverification.no_of_terminal_blocks' => 'required_if:terminal_blocks,1|numeric',
             'physicalverification.top_bottom_cover' => 'required|numeric|digits_between:0,3',
-            'physicalverification.sales_order_no' => 'nullable|string|min:3|max:15',
+            'physicalverification.sales_order_no' => 'nullable|string|min:3|max:50',
             'physicalverification.short_links_condition' => 'required|numeric|digits_between:0,3',
             'physicalverification.short_links' => 'required|numeric|digits_between:0,3',
             'physicalverification.no_of_short_links' => 'required_if:short_links,1|numeric',

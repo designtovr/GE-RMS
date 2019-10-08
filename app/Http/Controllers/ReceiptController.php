@@ -40,7 +40,7 @@ class ReceiptController extends Controller
             $RM = new ReceiptMaster();
             $exists = false;
         }
-        $RM->gs_no = $receipt['gs_no'];
+        /*$RM->gs_no = $receipt['gs_no'];*/
         $date = Carbon::createFromFormat('d/m/Y', $receipt['receipt_date']);
         $RM->receipt_date = $date->format('Y-m-d');
         $RM->customer_name = $receipt['customer_name'];

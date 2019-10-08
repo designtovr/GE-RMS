@@ -242,6 +242,7 @@ class PhysicalVerificationController extends Controller
         $PVM->top_bottom_cover = $physical ['top_bottom_cover'];
         $PVM->top_bottom_cover_condition = $physical ['top_bottom_cover_condition'];
         $PVM->short_links = $physical ['short_links'];
+        $PVM->screws = $physical['screws'];
         $PVM->short_links_condition = (array_key_exists('short_links_condition', $physical))?$physical ['short_links_condition']:0;
         $PVM->no_of_short_links = (array_key_exists('no_of_short_links', $physical))?$physical['no_of_short_links']:0;
         $PVM->sales_order_no = (array_key_exists('sales_order_no', $physical))?$physical ['sales_order_no']:'';

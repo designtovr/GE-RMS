@@ -32,8 +32,23 @@
                         ng-model="rmaformdata.gs_no"
                         placeholder="GS No"
                         class="form-control"
-                        disabled 
-                        >
+                        ng-minlength="3"
+                        ng-maxlength="50"
+                        required>
+                        <div ng-show="RMAForm1.gs_no.$touched && RMAForm1.gs_no.$error">
+                            <span class="help-block"
+                             ng-show="RMAForm1.gs_no.$error.required">
+                                Please Enter GS Number
+                            </span>
+                            <span class="help-block"
+                             ng-show="RMAForm1.gs_no.$error.minlength">
+                                Minimum 3 Characters Required
+                            </span>
+                            <span class="help-block"
+                             ng-show="RMAForm1.gs_no.$error.maxlength">
+                                Maximum 50 Characters Allowed
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div class="row form-group">
@@ -49,13 +64,13 @@
                         placeholder="ACT Reference" 
                         class="form-control"
                         ng-minlength="3" 
-                        ng-maxlength="10"
+                        ng-maxlength="50"
                         ng-disabled="addpvform"
                         required>
                         <div ng-show="RMAForm1.act_reference.$touched && RMAForm1.act_reference.$error">
                             <span class="help-block"
                              ng-show="RMAForm1.act_reference.$error.required">
-                                Please Select ACT Reference
+                                Please Enter ACT Reference
                             </span>
                             <span class="help-block"
                              ng-show="RMAForm1.act_reference.$error.minlength">
@@ -63,7 +78,7 @@
                             </span>
                             <span class="help-block"
                              ng-show="RMAForm1.act_reference.$error.maxlength">
-                                Maximum 10 Characters Allowed
+                                Maximum 50 Characters Allowed
                             </span>
                         </div>
                     </div>
@@ -332,19 +347,10 @@
                                     ng-model="rmaformdata.relay.desc_of_fault"
                                     placeholder="Description of Fault" 
                                     class="form-control"
-                                    rows="3" 
-                                    ng-minlength="3" 
+                                    rows="3"
                                     ng-maxlength="100"
-                                    required></textarea>
+                                    ></textarea>
                                     <div ng-show="RMAForm2.desc_of_fault.$touched && RMAForm2.desc_of_fault.$error">
-                                        <span class="help-block"
-                                         ng-show="RMAForm2.desc_of_fault.$error.required">
-                                            Please Enter Description Of Fault
-                                        </span>
-                                        <span class="help-block"
-                                         ng-show="RMAForm2.desc_of_fault.$error.minlength">
-                                            Minimum 3 Characters Required
-                                        </span>
                                         <span class="help-block"
                                          ng-show="RMAForm2.desc_of_fault.$error.maxlength">
                                             Maximum 100 Characters Allowed
@@ -486,23 +492,9 @@
                                     name="how_long"
                                     ng-model="rmaformdata.relay.how_long"
                                     placeholder="How Long" 
-                                    class="form-control"
-                                    ng-minlength="1" 
-                                    ng-maxlength="25"
-                                    required>
+                                    class="form-control">
                                     <div ng-show="RMAForm2.how_long.$touched && RMAForm2.how_long.$error">
-                                        <span class="help-block"
-                                         ng-show="RMAForm2.how_long.$error.required">
-                                            Please Enter How Long
-                                        </span>
-                                        <span class="help-block"
-                                         ng-show="RMAForm2.how_long.$error.minlength">
-                                            Minimum 3 Characters Required
-                                        </span>
-                                        <span class="help-block"
-                                         ng-show="RMAForm2.how_long.$error.maxlength">
-                                            Maximum 25 Characters Allowed
-                                        </span>
+
                                     </div>
                                 </div>
                             </div>
@@ -513,7 +505,7 @@
                     <button type="submit" class="btn btn-primary btn-sm" ng-disabled="RMAForm2.$invalid" ng-click="SubmitRMAUnitForm();">
                         <i class="fa fa-dot-circle-o"></i> Save Unit
                     </button>
-                    <button id="closermabutton" name="closermabutton" type="reset" class="btn btn-secondary btn-sm" ng-click="HideRMAForm();CloseCreateRMA();">
+                    <button id="closermabutton" name="closermabutton" class="btn btn-secondary btn-sm" ng-click="HideRMAForm();CloseCreateRMA();">
                         <i class="fa fa-ban"></i> Close
                     </button>
                 </div>
@@ -535,7 +527,7 @@
                             </div>
                             <div class="col-12 col-md-8">
                                 <ui-select ng-model="rmaformdata.invoice_info.customer_name" theme="selectize" title="Select Customer Name" ng-change="ChangeInvoiceAddress(rmaformdata.invoice_info.customer_name);"id="customer_name" 
-                                name="customer_name">
+                                name="customer_name" required>
 								    <ui-select-match placeholder="Select Customer Name">@{{$select.selected.name}}</ui-select-match>
 								    <ui-select-choices repeat="customer in customers | filter: $select.search">
 								      <span ng-bind-html="customer.name | highlight: $select.search"></span>
@@ -550,7 +542,7 @@
                             </div>
                             <div class="col-12 col-md-8">
                             	<ui-select ng-model="rmaformdata.invoice_info.end_customer" theme="selectize" title="Select End Customer" id="end_customer" 
-                                name="end_customer" >
+                                name="end_customer" required>
 								    <ui-select-match placeholder="Select End Customer">@{{$select.selected.end_customer}}</ui-select-match>
 								    <ui-select-choices repeat="customer in endcustomers | filter: $select.search">
 								      <span ng-bind-html="customer.end_customer | highlight: $select.search"></span>
@@ -846,13 +838,13 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary btn-sm" ng-disabled="RMAForm1.$invalid || RMAForm2.$invalid || RMAForm3.$invalid || RMAForm4.$invalid || RMAForm5.$invalid || RMAForm6.$invalid" ng-click="SubmitRMAForm();">
+                    <button type="submit" class="btn btn-primary btn-sm" ng-disabled="RMAForm1.$invalid || RMAForm2.$invalid || RMAForm5.$invalid" ng-click="SubmitRMAForm();">
                         <i class="fa fa-dot-circle-o"></i> Submit
                     </button>
-                    <button type="reset" class="btn btn-danger btn-sm">
+                    <!-- <button type="reset" class="btn btn-danger btn-sm">
                         <i class="fa fa-ban"></i> Reset
-                    </button>
-                    <button id="closermabutton" name="closermabutton" type="reset" class="btn btn-secondary btn-sm" ng-click="HideRMAForm();CloseCreateRMA();">
+                    </button> -->
+                    <button id="closermabutton" name="closermabutton" class="btn btn-secondary btn-sm" ng-click="HideRMAForm();CloseCreateRMA();">
                         <i class="fa fa-ban"></i> Close
                     </button>
                 </div>

@@ -54,5 +54,13 @@ app.config(['$httpProvider', 'NotificationProvider', 'uiMask.ConfigProvider', fu
 	    positionX: 'center',
 	    positionY: 'top'
 	});
+
+	uiMaskConfigProvider.maskDefinitions(
+		{
+			'A': /[a-z]/, 
+			'*': /[a-zA-Z0-9]/,
+			'D': /[0-9]/
+		}
+	);
 	
 }]);

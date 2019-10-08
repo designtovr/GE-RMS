@@ -5,11 +5,11 @@
         <div class="section__content section__content--p30" ng-init="getReceipts();GetProductTypeList();GetProductList();">
             <div class="container-fluid">
                 <div class="row" ng-show="!pvform && !showcreatermaform">
-                    <!-- <div class="col-md-12">
+                    <div class="col-md-12">
                         <div class="overview-wrap">
                             <h6 class="pb-4 display-5">Physical Verification List</h6>
                         </div>
-                    </div> -->
+                    </div>
                        <div class="col-md-12 ">
                    <div class="card-header card-title">
                      Search 
@@ -153,9 +153,9 @@
                            {{--Tab Start--}}
                             <div class="row  col-lg-12">
                             <div class=" card w-100">
-                                <div class="card-header">
+                                <!-- <div class="card-header">
                                     <h4>Physical Verification List</h4>
-                                </div>
+                                </div> -->
                                 <div class="card-body">
                                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                                         <li class="nav-item" ng-click="ChangeTab('all')">
@@ -205,7 +205,7 @@
                                                     </thead>
                                                     <tbody>
                                                     <tr grid-item>
-                                                        <td ng-bind="item.id"></td>
+                                                        <td ng-bind="'RC ' + item.id"></td>
                                                         <td ng-bind="item.receipt_date | date:'dd/MM/yyyy'"></td>
 
                                                         <td ng-bind="item.customer_name"></td>
@@ -307,7 +307,7 @@
                                                             </label>
                                                         </td>
                                                         <td ng-bind="item.id"></td>
-                                                        <td ng-bind="item.receipt_id"></td>
+                                                        <td ng-bind="'RC ' + item.receipt_id"></td>
                                                         <td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
                                                         <td ng-bind="item.customer_name"></td>
                                                         <td ng-bind="item.end_customer"></td>
@@ -388,7 +388,7 @@
                                                             </label>
                                                         </td>
                                                         <td ng-bind="item.id"></td>
-                                                        <td ng-bind="item.receipt_id"></td>
+                                                        <td ng-bind="'RC ' + item.receipt_id"></td>
                                                         <td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
                                                         <td ng-bind="item.customer_name"></td>
                                                         <td ng-bind="item.end_customer"></td>
@@ -628,7 +628,7 @@
                                                            placeholder="Serial No" class="form-control"
                                                            ng-model="physicalVerification.serial_no"
                                                            ng-minlength="3"
-                                                           ng-maxlength="10"
+                                                           ng-maxlength="50"
                                                            required>
                                                     <div ng-show="EditPhysicalVerification.serial_no.$touched && EditPhysicalVerification.serial_no.$error">
                                                         <span class="help-block"
@@ -639,7 +639,7 @@
                                                         </span>
                                                         <span class="help-block"
                                                               ng-show="EditPhysicalVerification.serial_no.$error.maxlength">
-                                                            Maximum 10 Characters Allowed
+                                                            Maximum 50 Characters Allowed
                                                         </span>
                                                     </div>
                                                 </div>
@@ -883,8 +883,8 @@
                                                     <input type="text" id="no_of_terminal_blocks" name="no_of_terminal_blocks"
                                                            class="form-control"
                                                            ng-model="physicalVerification.no_of_terminal_blocks"
-                                                           ui-mask="9 + 9" placeholder="N+N" 
-                                                           add-default-placeholder="9 + 9"
+                                                           ui-mask="99 + 99" placeholder="N+N" 
+                                                           add-default-placeholder="99 + 99"
                                                            ui-mask-placeholder-char="N"
                                                            required>
                                                     <div ng-show="EditPhysicalVerification.no_of_terminal_blocks.$touched && EditPhysicalVerification.no_of_terminal_blocks.$error">
@@ -999,8 +999,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row" ng-if="physicalVerification.short_links == 1">
-                                        <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-6" ng-if="physicalVerification.short_links == 1">
                                             <div class="row form-group">
                                                 <div class="col col-md-4">
                                                     <label for="no_of_short_links" class=" form-control-label">No Of Short links <span class="mandatory">*</span></label>
@@ -1022,6 +1022,41 @@
                                                               ng-show="EditPhysicalVerification.no_of_short_links.$error.pattern">
                                                                 Only Numbers Allowed
                                                         </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row form-group">
+                                                <div class="col col-md-4">
+                                                    <label class=" form-control-label">Screws <span
+                                                                class="mandatory">*</span></label>
+                                                </div>
+                                                <div class="col col-md-8">
+                                                    <div class="form-check-inline form-check">
+                                                        <label for="screws1" class="form-check-label ">
+                                                            <input type="radio" id="screws1"
+                                                                   name="screws"
+                                                                   ng-model="physicalVerification.screws" value="1"
+                                                                   ng-checked = "physicalVerification.screws == 1"
+
+                                                                   class="form-check-input">Yes
+                                                        </label>
+                                                        <label for="screws2" class="form-check-label ">
+                                                            <input type="radio" id="screws2"
+                                                                   name="screws"
+                                                                   ng-model="physicalVerification.screws" value="2"
+                                                                   ng-checked = "physicalVerification.screws == 2"
+
+                                                                   class="form-check-input">No
+                                                        </label>
+                                                        <label for="screws3" class="form-check-label ">
+                                                            <input type="radio" id="screws3"
+                                                                   name="screws"
+                                                                   ng-model="physicalVerification.screws" value="3"
+                                                                   ng-checked = "physicalVerification.screws == 3"
+                                                                   class="form-check-input">Not Applicable
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1064,10 +1099,10 @@
                                 <button ng-if="physicalVerification.edit" type="submit" class="btn btn-primary btn-sm" ng-click="AddPV();" ng-disabled="EditPhysicalVerification.$invalid">
                                     <i class="fa fa-save"></i> Update
                                 </button>
-                                <button type="reset" class="btn btn-danger btn-sm">
+                                <!-- <button type="reset" class="btn btn-danger btn-sm">
                                     <i class="fa fa-undo"></i> Reset
-                                </button>
-                                <button type="reset" class="btn btn-secondary btn-sm" ng-click="ClosePVForm();">
+                                </button> -->
+                                <button class="btn btn-danger btn-sm" ng-click="ClosePVForm();">
                                     <i class="fa fa-ban"></i> Close
                                 </button>
                             </div>

@@ -116,6 +116,7 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 					$scope.physicalVerification.top_bottom_cover_condition = $scope.conditions[1].value;
 					$scope.physicalVerification.short_links_condition = $scope.conditions[1].value;
 					$scope.physicalVerification.short_links = 1;
+					$scope.physicalVerification.screws = 1;
 					$scope.physicalVerification.top_bottom_cover = 1;
 					$scope.physicalVerification.terminal_blocks = 1;
 					$scope.physicalVerification.battery = 1;
@@ -166,6 +167,7 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 			$scope.physicalVerification.short_links_condition = $scope.selected.short_links_condition;
 			$scope.physicalVerification.short_links = $scope.selected.short_links;
 			$scope.physicalVerification.no_of_short_links = $scope.selected.no_of_short_links;
+			$scope.physicalVerification.screws = $scope.selected.screws;
 			$scope.physicalVerification.top_bottom_cover = $scope.selected.top_bottom_cover;
 			$scope.physicalVerification.terminal_blocks = $scope.selected.terminal_blocks;
 			$scope.physicalVerification.battery = $scope.selected.battery;
@@ -300,7 +302,6 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 
 		$scope.CreateRMA = function()
 		{
-			console.log($scope.pvgridOptions.data);
 			$scope.selectedpvs = [];
 			for (var i = 0; i < $scope.pvgridOptions.data.length; i++) {
 				if ($scope.pvgridOptions.data[i].create_rma != undefined && $scope.pvgridOptions.data[i].create_rma)
@@ -322,7 +323,18 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 		{
 			$scope.showcreatermaform = false;
 			$scope.pvform = false;
-			$scope.ChangeTab('withoutrma');
+			if ($scope.tab == 'withrma')
+			{
+				$scope.ChangeTab('withrma');
+			}
+			else if($scope.tab == 'withoutrma')
+			{
+				$scope.ChangeTab('withoutrma');
+			}
+			else 
+			{
+				$scope.ChangeTab('all');
+			}
 		}
 
 	}]);

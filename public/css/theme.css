@@ -14717,3 +14717,7 @@ section {
     background-image: unset !important;
     background-color: #ffffff !important;
 }
+
+.badge-fs-15 {
+    font-size: 15px !important;
+}

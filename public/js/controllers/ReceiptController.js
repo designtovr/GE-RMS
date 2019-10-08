@@ -2,6 +2,8 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 	$scope.receiptform = false;
 	$scope.receipts = [];
 	$scope.receipt = {};
+	$scope.customers = [];
+	$scope.end_customers = [];
 	$scope.gridOptions = {pagination: {
 			itemsPerPage: '10'
 		},
@@ -15,6 +17,14 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 	$scope.editReceipt = false;
 	$scope.AddReceipt= function()
 	{
+		if ($scope.receipt.customer_name == 'Add New')
+		{
+			$scope.receipt.customer_name = $scope.receipt.customer_name_new;
+		}
+		if ($scope.receipt.selected_end_customer == 'Add New')
+		{
+			$scope.receipt.end_customer = $scope.receipt.end_customer_new;
+		}
 		$http({
 			method: 'post',
 			url: '/ge/addreceipt',
@@ -25,8 +35,24 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 			if (response.status == 200)
 			{
 				Notification.success(response.data.message);
-				$scope.HideReceiptForm();
-				$scope.getReceipts();
+				$ngConfirm({
+					title: 'Print',
+					content: 'Are you want to print?',
+					type: 'blue',
+					typeAnimated: true,
+					buttons: {
+						print: {
+							text: 'Print',
+							btnClass: 'btn-blue',
+							action: function(){
+
+							}
+						},
+						close: function () {
+							$scope.HideReceiptForm();
+						}
+					}
+				});
 			}
 		}, function failure(response){
 			if (response.status == 422)
@@ -74,6 +100,7 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 	{
 		$scope.receiptform = false;
 		$scope.editReceipt = false;
+		$scope.getReceipts();
 	}
 
 	$scope.EditReceipt= function(receipt)
@@ -121,4 +148,43 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 		$scope.receipt.receipt_date = $filter('date')(new Date(),'dd/MM/yyyy');
 		$scope.receiptform = false;
 	}
+
+	$scope.GetCustomerList = function()
+	{
+		$http({
+			method: 'GET',
+			url: '/ge/customers'
+		}).then(function success(response) {
+			$scope.customers = response.data.data;
+			var cus = {'id': -1, 'name': 'Add New'};
+			$scope.customers.push(cus);
+		}, function error(response) {
+
+		});
+	}
+
+	$scope.GetEndCustomerList = function()
+	{
+		$http({
+			method: 'GET',
+			url: '/ge/endcustomers'
+		}).then(function success(response) {
+			$scope.end_customers = response.data.data;
+			var cus = {'end_customer': 'Add New'};
+			$scope.end_customers.push(cus);
+		}, function error(response) {
+
+		});
+	}
+
+	$scope.AssignCutomerName = function()
+	{
+		$scope.receipt.customer_name = $scope.receipt.selected_customer_name.name;
+	}
+
+	$scope.AssignEndCutomer = function()
+	{
+		$scope.receipt.end_customer = $scope.receipt.selected_end_customer.end_customer;
+	}
+
 }]);

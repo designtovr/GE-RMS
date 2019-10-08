@@ -62,14 +62,11 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 		$scope.rmaformdata.return_in_case = 0;
 		$scope.rmaformdata.edit = false;
 		$scope.pvs = DataShareService.getRIdList();
-		console.log($scope.pvs)
-		console.log($scope.rmaformdata)
 		if ($scope.pvs.length != 0)
 		{
 			$scope.rmaformdata.relay =  $scope.pvs[0];
 			$scope.rmaformdata.gs_no = $scope.pvs[0].gs_no;
 		}
-		console.log($scope.rmaformdata)
 		$scope.GetProductList();
 		$scope.ChangeRelayDetails();
 		$scope.GetCustomerList();
@@ -105,7 +102,6 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 			if (response.data.status == 'success')
 	    	{
 	    		$scope.rmaformdata = response.data.data;
-	    		console.log($scope.rmaformdata);
 	    		$scope.rmaformdata.date =   $filter('date')($scope.rmaformdata.date, "dd/MM/yyyy");
 	    		$scope.rmaformdata.edit = true;
 	    		if ($scope.rmaformdata.invoice_info != null)
@@ -122,7 +118,6 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 	    			$scope.GetEndCustomerList();
 	    		}
 	    		$scope.rmaformdata.invoice_info.end_customer = {'end_customer': $scope.rmaformdata.end_customer};
-	    		console.log($scope.rmaformdata)
 	    	}
 		}, function error(response) {
 		});
@@ -226,7 +221,6 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 		$scope.rmaformdata.relay.model_no = $scope.rmaformdata.relay.part_no;
 		$scope.rmaformdata.relay.type_of_material = $filter('uppercase')($scope.rmaformdata.relay.category);
 		$scope.rmaformdata.relay.wbs = $scope.rmaformdata.relay.sales_order_no;
-		console.log($scope.rmaformdata)
 	}
 
 	$scope.ChangeInvoiceAddress = function(customer)
@@ -259,18 +253,27 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 
 	$scope.SaveRMAUnitInformation = function()
 	{
-		console.log($scope.rmaformdata)
+		
 	}
 
 	$scope.SubmitRMAForm = function()
 	{
-		console.log($scope.rmaformdata)
 		var dateformatregex = new RegExp(/^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/i);
 		var datestr = $scope.rmaformdata.date;
 		var result = dateformatregex.test(datestr);
 		if (!result)
 		{
 			Notification.error("Invalid Date Format");
+			return;
+		}
+		if ($scope.rmaformdata.invoice_info.customer_name == undefined || $scope.rmaformdata.invoice_info.customer_name == null)
+		{
+			Notification.error("Please Select Customer");
+			return;
+		}
+		if ($scope.rmaformdata.invoice_info.end_customer == undefined || $scope.rmaformdata.invoice_info.end_customer == null)
+		{
+			Notification.error("Please Select End Customer");
 			return;
 		}
 		$scope.rmaformdata.customer_address_id = $scope.rmaformdata.invoice_info.customer_name.id;
@@ -296,7 +299,15 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 				$("#all-tab").addClass("intro");
 			}
 		}, function(response){
-
+			if (response.status == 422)
+			{
+				var errors = response.data.errors;
+				for(var error in errors)
+				{
+					Notification.error(errors[error][0]);
+					break;
+				}
+			}
 		});
 
 	}

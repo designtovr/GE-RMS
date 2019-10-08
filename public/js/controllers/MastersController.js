@@ -88,7 +88,6 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		  url: '/ge/rack-types'
 		}).then(function success(response) {
 		    $scope.racktypes = response.data.data;
-		    console.log($scope.racktypes)
 		}, function error(response) {
 		});
 	}
@@ -565,12 +564,10 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 
 	$scope.ChangeProductCategory = function()
 	{
-		console.log($scope.product.type)
 		if ($scope.product.type)
 		{
 			for (var i = 0; i < $scope.producttypes.length; i++) 
 			{
-				console.log($scope.producttypes[i].id)
 				if ($scope.producttypes[i].id == $scope.product.type)
 					$scope.product.category = $scope.producttypes[i].category;
 			}

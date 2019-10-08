@@ -24,7 +24,7 @@ class AddProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'product.part_no' => 'required|string|min:3|max:10',
+            'product.part_no' => 'required|string|min:3|max:50',
             'product.description' => 'required|string|min:3|max:50',
             'product.type' => 'required|numeric|exists:ma_product_type,id',
         ];
@@ -36,7 +36,7 @@ class AddProductRequest extends FormRequest
             'product.part_no.required' => 'Part No Is Required',
             'product.part_no.string' => 'Part No Should Be String',
             'product.part_no.min' => 'Part No Should Not Be Less Than 3',
-            'product.part_no.max' => 'Part No Should Not Be Greater Than 10',
+            'product.part_no.max' => 'Part No Should Not Be Greater Than 50',
             'product.description.required' => 'Description Is Required',
             'product.description.string' => 'Description Should Be String',
             'product.description.min' => 'Description Should Not Be Less Than 3',

@@ -27,7 +27,7 @@ class AddReceiptRequest extends FormRequest
         return [
 
             'receipt.id' => 'nullable|numeric|exists:receipt,id',
-            'receipt.gs_no' => 'required|numeric',
+            /*'receipt.gs_no' => 'required|numeric',*/
             'receipt.receipt_date' => 'required|string',
             'receipt.customer_name' => 'required|string|min:3|max:100',
             'receipt.end_customer' => 'required|string|min:3|max:20',
