@@ -230,6 +230,9 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
     /*End Dispatch*/
 
     Route::post('/addwc', 'WarrantyPHPController@AddWarranty');
+    Route::post('/updatewc', 'WarrantyPHPController@UpdateWarranty');
+
+    Route::get('/getwarranty/{pv_id}','WarrantyPHPController@GetWarranty');
 
  Route::get('/getrms','RMSController@RMS');
 

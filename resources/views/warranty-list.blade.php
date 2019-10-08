@@ -83,9 +83,9 @@
 
                 <div class="col-md-12 p-b-20">
                     <div class=" card w-100">
-                        <div class="card-header">
+                        <!-- <div class="card-header">
                             <h4>Warranty List</h4>
-                        </div>
+                        </div> -->
                         <div class="card-body">
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
@@ -312,13 +312,14 @@
                                                 <label for="radio1" class="form-check-label ">
                                                     <input type="radio" id="radio1" name="smp_chargeable"
                                                     value="1" class="form-check-input"
-                                                    ng-model = "warrantymodal.smp" ng-change ="ValidateStatus()">Chargable
+                                                    ng-model = "warrantymodal.smp" ng-change ="ValidateStatus()"
+                                                    ng-checked="warrantymodal.smp == 1">Chargable
                                                 </label>
                                             </div>
                                             <div class="radio">
                                                 <label for="radio2" class="form-check-label ">
                                                     <input type="radio" id="radio2" name="smp" ng-model = "warrantymodal.smp" 
-                                                    value="2" class="form-check-input" ng-change ="ValidateStatus()">Warranty
+                                                    value="2" class="form-check-input" ng-change ="ValidateStatus()" ng-checked="warrantymodal.smp == 2">Warranty
                                                 </label>
                                             </div>
                                         </div>
@@ -336,13 +337,14 @@
                                                 <div class="radio">
                                                     <label for="pcp1" class="form-check-label ">
                                                         <input type="radio" id="pcp1" name="pcp"
-                                                        value="1" ng-model = "warrantymodal.pcp" class="form-check-input" ng-change ="ValidateStatus()">Chargable
+                                                        value="1" ng-model = "warrantymodal.pcp" class="form-check-input" ng-change ="ValidateStatus()"
+                                                        ng-checked="warrantymodal.pcp == 1">Chargable
                                                     </label>
                                                 </div>
                                                 <div class="radio">
                                                     <label for="pcp2" class="form-check-label ">
                                                         <input type="radio" id="pcp2" name="pcp" ng-model = "warrantymodal.pcp"
-                                                        value="2" class="form-check-input" ng-change ="ValidateStatus()">Warranty
+                                                        value="2" class="form-check-input" ng-change ="ValidateStatus()" ng-checked="warrantymodal.pcp == 2">Warranty
                                                     </label>
                                                 </div>
                                             </div>
@@ -362,19 +364,19 @@
                                                     <div class="radio">
                                                         <label for="type1" class="form-check-label ">
                                                             <input type="radio" id="type1" name="type" ng-model = "warrantymodal.type"
-                                                            value="1" class="form-check-input">Repair
+                                                            value="1" class="form-check-input" ng-checked="warrantymodal.type == 1">Repair
                                                         </label>
                                                     </div>
                                                     <div class="radio">
                                                         <label for="type2" class="form-check-label ">
                                                             <input type="radio" id="type2" name="type" ng-model = "warrantymodal.type"
-                                                            value="2" class="form-check-input">Modification
+                                                            value="2" class="form-check-input" ng-checked="warrantymodal.type == 2">Modification
                                                         </label>
                                                     </div>
                                                     <div class="radio">
                                                         <label for="type3" class="form-check-label ">
                                                             <input type="radio" id="type3" name="type" ng-model = "warrantymodal.type"
-                                                            value="3" class="form-check-input">Investigation
+                                                            value="3" class="form-check-input" ng-checked="warrantymodal.type == 3">Investigation
                                                         </label>
                                                     </div>
 
@@ -394,14 +396,14 @@
                                                         <div class="radio">
                                                             <label for="move1" class="form-check-label ">
                                                                 <input type="radio" id="move1" name="move" ng-model = "warrantymodal.move"
-                                                                value="1" class="form-check-input">Repair
+                                                                value="1" class="form-check-input" ng-checked="warrantymodal.move == 1">Repair
                                                                 Rack
                                                             </label>
                                                         </div>
                                                         <div class="radio">
                                                             <label for="move2" class="form-check-label ">
                                                                 <input type="radio" id="move2" name="move" ng-model = "warrantymodal.move"
-                                                                value="2" class="form-check-input">Customer
+                                                                value="2" class="form-check-input" ng-checked="warrantymodal.move == 2">Customer
                                                                 Hold Rack
                                                             </label>
                                                         </div>
@@ -410,7 +412,7 @@
                                                             <div class="radio">
                                                                 <label for="move3" class="form-check-label ">
                                                                     <input type="radio" id="move3" name="move" ng-model = "warrantymodal.move"
-                                                                    value="3" class="form-check-input" >Post Lab
+                                                                    value="3" class="form-check-input" ng-checked="warrantymodal.move == 3">Post Lab
 
                                                                 </label>
                                                             </div>
@@ -418,7 +420,7 @@
                                                             <div class="radio">
                                                                 <label for="move4" class="form-check-label ">
                                                                     <input type="radio" id="move4" name="move" ng-model = "warrantymodal.move"
-                                                                    value="4" class="form-check-input" >Application Lab
+                                                                    value="4" class="form-check-input" ng-checked="warrantymodal.move == 4">Application Lab
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -664,9 +666,13 @@
                                         <i class="fa fa-ban"></i> Close
                                     </button>
                                     <button type="submit" class="btn btn-primary btn-sm" ng-disabled="AddUserForm.$invalid"
-                                    ng-click="AddWC();">
-                                    <i class="fa fa-dot-circle-o"></i> Save
-                                </button>
+                                    ng-click="AddWC();" ng-if="tab!='customerapproval'">
+                                        <i class="fa fa-dot-circle-o"></i> Save
+                                    </button>
+                                    <button type="submit" class="btn btn-primary btn-sm" ng-disabled="AddUserForm.$invalid"
+                                    ng-click="UpdateWC();" ng-if="tab=='customerapproval'">
+                                        <i class="fa fa-dot-circle-o"></i> Update
+                                    </button>
                             </div>
                         </div>
                     </div>

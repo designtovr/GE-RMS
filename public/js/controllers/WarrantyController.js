@@ -40,6 +40,7 @@ app.controller('WarrantyController' ,['$scope', '$http','Notification' , 'DataSh
 	$scope.show_po = false;
 	$scope.show_wbs = false;
 	$scope.show_rca_options = false;
+	$scope.tab = 'managerapproval';
 	$scope.people = [
 	{ name: 'Sudhakar',      email: 'Sudhakar@email.com',      age: 12, country: 'United States' },
 	{ name: 'Krishnan',    email: 'Krishnan@email.com',    age: 12, country: 'Argentina' },
@@ -89,16 +90,39 @@ app.controller('WarrantyController' ,['$scope', '$http','Notification' , 'DataSh
 			Notification.error("No Relay Selected");
 			return;
 		}
-		DataShareService.setRIdList($scope.selectedpvs);
+		else if ($scope.selectedpvs.length > 1 && $scope.tab == 'customerapproval')
+		{
+			Notification.error("Select One Relay");
+			return;
+		}
 		console.log($scope.selectedpvs);
-		$scope.warrantymodal = {};
-		$scope.warrantymodal.title = 'Warranty Form';
-		$scope.warrantymodal.rca = false;
-		$scope.warrantymodal.smp = 0;
-		$scope.warrantymodal.pcp = 0;
-		$scope.warrantymodal.type = 0;
-		$scope.warrantymodal.move = 0;
-		$scope.OnRCAChanged();
+		if ($scope.tab == 'customerapproval')
+		{
+			$scope.warrantymodal = {};
+			$http({
+				method: 'GET',
+				url: '/ge/getwarranty/'+$scope.selectedpvs[0]
+			}).then(function success(response) {
+				$scope.warrantymodal = {};
+				$scope.warrantymodal = response.data.data;
+				$scope.warrantymodal.title = 'Edit Warranty';
+				console.log($scope.warrantymodal)
+				$scope.OnRCAChanged();
+				$scope.ValidateStatus();
+			}, function error(response) {
+			});
+		}
+		else
+		{
+			$scope.warrantymodal = {};
+			$scope.warrantymodal.title = 'Warranty Form';
+			$scope.warrantymodal.rca = false;
+			$scope.warrantymodal.smp = 0;
+			$scope.warrantymodal.pcp = 0;
+			$scope.warrantymodal.type = 0;
+			$scope.warrantymodal.move = 0;
+			$scope.OnRCAChanged();
+		}
 		$('#warrantymodal').modal('show');
 
 	}
@@ -111,11 +135,12 @@ app.controller('WarrantyController' ,['$scope', '$http','Notification' , 'DataSh
 	}
 
 
-	$scope.GetPVList = function($cat = 'managerapproval')
+	$scope.GetPVList = function(cat = 'managerapproval')
 	{
+		$scope.tab = cat;
 		$http({
 			method: 'GET',
-			url: '/ge/physicalverification?cat='+$cat
+			url: '/ge/physicalverification?cat='+cat
 		}).then(function success(response) {
 			$scope.gridOptions.data =  response.data.physicalverification;
 		}, function error(response) {
@@ -263,4 +288,34 @@ app.controller('WarrantyController' ,['$scope', '$http','Notification' , 'DataSh
 			}
 		});
 	}
+
+	$scope.UpdateWC = function()
+	{
+		$http({
+			method: 'post',
+			url: '/ge/updatewc',
+			data: {
+				'warranty': $scope.warrantymodal,
+			},
+		}).then(function success(response){
+			if (response.data.status == 'success')
+			{
+				Notification.success(response.data.message);
+				$scope.CloseWarrantyModal();
+				$scope.GetPVList();
+			}
+		}, function failure(response){
+			if (response.status == 422)
+			{
+
+				var errors = response.data.errors;
+				for(var error in errors)
+				{
+					Notification.error(errors[error][0]);
+					break;
+				}
+			}
+		});
+	}
+
 }]);
