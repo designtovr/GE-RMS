@@ -17,6 +17,7 @@ app.controller('VerificationCompleteController', ['$scope', '$http', 'Notificati
 			$scope.selectedpvs = [];
 			$scope.Start = function()
 			{
+				$scope.status = 'agingcompleted';
 				$scope.openTab = true;
 				$http({
 					method: 'GET',

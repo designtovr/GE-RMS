@@ -56,6 +56,20 @@ app.controller('AgingCompleteController', ['$scope', '$http','Notification','Cha
 
 
 				$scope.ChangePVStatus($scope.selectedpvs ,status);
+				if (status == 'agingcompleted')
+				{
+					$scope.LoadData('3');
+					$scope.GetPV('agingcompleted')
+					$('#withoutrma-tab').addClass('active');
+					$('#withrma-tab').removeClass('active');
+				}
+				else if(status == 'agingstarted')
+				{
+					$scope.LoadData('2');
+					$scope.GetPV('agingstarted');
+					$('#withrma-tab').addClass('active');
+					$('#all-tab').removeClass('active');
+				}
 			}
 
 			$scope.ChangePVStatus = function(pvids, status)

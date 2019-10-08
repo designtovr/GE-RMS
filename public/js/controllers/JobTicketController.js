@@ -75,6 +75,18 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 	{
 		$scope.showjtform = false;
 		$scope.jobticket = {};
+		if ($scope.tab == 'jobticketopen')
+		{
+			$('#withrma-tab').removeClass('active');
+			$('#all-tab').addClass('active');
+			$scope.LoadData('jobticketopen');
+		}
+		else if($scope.tab == 'jobticketstarted')
+		{
+			$('#withrma-tab').addClass('active');
+			$('#all-tab').removeClass('active');
+			$scope.LoadData('jobticketstarted');
+		}
 	}
 
 	$scope.startTab = false;
@@ -167,6 +179,7 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 		}
 		$scope.ChangePVStatus($scope.selectedpvs, 'jobticketstarted');
 		$('#withrma-tab').addClass('active');
+		$('#all-tab').removeClass('active');
 		$scope.LoadData('jobticketstarted');
 		$scope.showjtform = false;
 	}

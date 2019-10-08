@@ -529,9 +529,9 @@
 	                        <button type="submit" class="btn btn-primary btn-sm" ng-click="CompleteJTForm();">
 	                            <i class="fa fa-dot-circle-o"></i> Complete
 	                        </button>
-	                        <button type="reset" class="btn btn-danger btn-sm">
+	                        <!-- <button type="reset" class="btn btn-danger btn-sm">
 	                            <i class="fa fa-ban"></i> Reset
-	                        </button>
+	                        </button> -->
 	                        <button type="reset" class="btn btn-secondary btn-sm" ng-click="CloseJTForm();">
 	                            <i class="fa fa-ban"></i> Close
 	                        </button>

@@ -165,7 +165,7 @@
          								<th sortable="comment" class="sortable">
          									Comment
          								</th>
-         								<th>
+         								<th ng-if="status == 'agingcompleted'">
          									Actions
          								</th>
          							</tr>
@@ -181,7 +181,7 @@
          								<td ng-bind="item.end_customer"></td>
          								<td ng-bind="item.comment"></td>
          						
-                                        <td>
+                                        <td ng-if="status == 'agingcompleted'">
         		                         	<div class="table-data-feature">
         		                         		<button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="ShowVCForm(item);">
         	                                        <i class="zmdi zmdi-edit"></i>
@@ -399,9 +399,9 @@
 	                        <button type="submit" class="btn btn-primary btn-sm" ng-click="SaveVerification();">
 	                            <i class="fa fa-dot-circle-o"></i> Save
 	                        </button>
-	                        <button type="reset" class="btn btn-danger btn-sm">
+	                        <!-- <button type="reset" class="btn btn-danger btn-sm">
 	                            <i class="fa fa-ban"></i> Reset
-	                        </button>
+	                        </button> -->
 	                        <button type="reset" class="btn btn-secondary btn-sm" ng-click="CloseVCForm();">
 	                            <i class="fa fa-ban"></i> Close
 	                        </button>
