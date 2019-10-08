@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PhysicalVerificationMaster;
 use App\Models\RMSMaster;
 use Illuminate\Http\Request;
 use App\Models\User;

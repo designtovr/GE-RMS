@@ -13,6 +13,7 @@
 
     <!-- Fontfaces CSS-->
     <link rel="stylesheet" type="text/css" href="{{url('public/css/theme.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url('public/css/animate.css')}}">
     <link href="{{url('public/css/font-face.css')}}" rel="stylesheet" media="all">
     <link rel="stylesheet" href="{{url('public/vendor/font-awesome-4.7/css/font-awesome.min.css')}}" media="all">
     <link href="{{url('public/vendor/font-awesome-5/css/fontawesome-all.min.css')}}" rel="stylesheet" media="all">

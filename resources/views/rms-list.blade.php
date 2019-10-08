@@ -24,14 +24,14 @@
                                             <input id="ridFilter" type="text"
                                                    class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
                                                    placeholder="Enter RID #" ng-change="gridActions.filter();"
-                                                   ng-model="filterID" filter-by="id" filter-type="text">
+                                                   ng-model="filterID" filter-by="rid" filter-type="text">
                                         </th>
                                         <th>
 
                                             <input id="productFilter" type="text"
                                                    class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
                                                    placeholder="Enter Rack ID" ng-change="gridActions.filter();"
-                                                   ng-model="filterreceipt_id" filter-by="product_id"
+                                                   ng-model="filterreceipt_id" filter-by="rack"
                                                    filter-type="text">
                                         </th>
                                         <th>
@@ -102,9 +102,12 @@
 		                         <th sortable="id" class="sortable">
 		                             RID No
 		                         </th>
-		                         <th sortable="rack" class="sortable">
-		                             Rack
-		                         </th>
+								 <th sortable="location" class="sortable">
+									 Location
+								 </th>
+								 <th sortable="rack" class="sortable">
+									 Rack
+								 </th>
 		                         <th sortable='date' class="sortable">
 		                             Date
 		                         </th>
@@ -113,7 +116,8 @@
 		                     <tbody>
 		                     <tr grid-item>
 		                         <td ng-bind="item.rid"></td>
-		                         <td ng-bind="item.rack"></td>
+								 <td ng-bind="item.location"></td>
+								 <td ng-bind="item.rack"></td>
 		                         <td ng-bind="item.date"></td>
 		                     </tr>
 		                     </tbody>
