@@ -1,4 +1,4 @@
-app.controller('RelayMovementController', ['$scope', '$http', function($scope, $http){
+app.controller('RelayMovementController', ['$scope', '$http', 'Notification' , function($scope, $http , Notification){
 	$scope.rmsmodal = {};
 	$scope.rmsmodal.title = "RMS";
 $scope.gridOptions = {
@@ -22,20 +22,20 @@ $scope.gridOptions = {
    		$('#rmsmodal').modal('hide');
    	}
 
-   	$scope.AddReceipt= function()
+   	$scope.AddRMS= function()
 	{
 		$http({
 			method: 'post',
-			url: '/ge/addreceipt',
+			url: '/ge/addrms',
 			data: {
-				'receipt': $scope.receipt,
+				'rms': $scope.rmsmodal,
 			},
 		}).then(function success(response){
 			if (response.status == 200)
 			{
 				Notification.success(response.data.message);
-				$scope.HideReceiptForm();
-				$scope.getReceipts();
+				$scope.CloseRMSModal();
+				$scope.getRMS();
 			}
 		}, function failure(response){
 			if (response.status == 422)
@@ -58,11 +58,11 @@ $scope.gridOptions = {
 		$scope.filterCustomer = '';
 	}
 
-	$scope.getReceipts = function()
+	$scope.getRMS = function()
 	{
 		$http({
 			method: 'GET',
-			url: '/ge/receipts'
+			url: '/ge/getrms'
 		}).then(function success(response) {
 			$scope.receipts = response.data.data;
 			$scope.gridOptions.data =  response.data.data;
