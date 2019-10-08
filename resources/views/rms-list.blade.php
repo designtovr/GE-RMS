@@ -2,7 +2,7 @@
 @section('title', 'RMS List')
 @section('content')
 <div class="main-content" ng-controller="RelayMovementController">
-	<div class="section__content section__content--p30">
+	<div class="section__content section__content--p30" ng-init = "getRMS();">
 	    <div class="container-fluid">
 	    	<div class="row">
 				<div class="col-md-12">
@@ -112,7 +112,7 @@
 		                     </thead>
 		                     <tbody>
 		                     <tr grid-item>
-		                         <td ng-bind="item.rid_no"></td>
+		                         <td ng-bind="item.rid"></td>
 		                         <td ng-bind="item.rack"></td>
 		                         <td ng-bind="item.date"></td>
 		                     </tr>
@@ -145,7 +145,7 @@
 			                                    <label for="comment" class=" form-control-label"><b>RID</b> <span class="mandatory">*</span></label>
 			                                </div>
 			                                <div class="col-12 col-md-9">
-			                                    <input type="text" id="comment" name="comment" placeholder="RID" class="form-control">
+			                                    <input type="text" id="comment" name="comment" ng-model = "rmsmodal.rid" placeholder="RID" class="form-control">
 			                                    <span class="help-block">Please Enter RID</span>
 			                                </div>
 			                            </div>
@@ -156,7 +156,7 @@
 			                                    <label for="comment" class=" form-control-label"><b>Rack Id</b> <span class="mandatory">*</span></label>
 			                                </div>
 			                                <div class="col-12 col-md-9">
-			                                    <input type="text" id="comment" name="comment" placeholder="Rack Id" class="form-control">
+			                                    <input type="text" id="comment" name="comment" ng-model = "rmsmodal.rack" placeholder="Rack Id" class="form-control">
 			                                    <span class="help-block">Please Enter Rack Id</span>
 			                                </div>
 			                            </div>
@@ -170,7 +170,7 @@
                     <button type="button" class="btn btn-danger btn-sm" ng-click="CloseRMSModal();">
                         <i class="fa fa-ban"></i> Close
                     </button>
-                    <button type="submit" class="btn btn-primary btn-sm" ng-disabled="AddUserForm.$invalid" ng-click="AddUser();">
+                    <button type="submit" class="btn btn-primary btn-sm"  ng-click="AddRMS();">
                         <i class="fa fa-dot-circle-o"></i> Save
                     </button>
                 </div>

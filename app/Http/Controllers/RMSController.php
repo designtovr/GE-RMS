@@ -14,7 +14,7 @@ class RMSController extends Controller
 {
     public function RMS(Request $request)
     {
-        $rms = ReceiptMaster::selectRaw('rms.*')->get();
+        $rms = RMSMaster::selectRaw('rms.*')->get();
         return response()->json(['data' => $rms, 'status' => 'success']);
     }
 
@@ -30,29 +30,30 @@ class RMSController extends Controller
         $exists = true;
         $RM = null;
         if (array_key_exists('rid', $rms))
-            $RM = ReceiptMaster::where('rid', $receipt['rid'])->first();
+            $RM = RMSMaster::where('rid', $rms['rid'])->first();
 
         if (!$RM) {
-            $RM = new ReceiptMaster();
+            $RM = new RMSMaster();
             $exists = false;
         }
 
-        $RM->rack = $receipt['rack'];
-
-        $RM->moved_date = Carbon::date(format('Y-m-d'));
+        $RM->rid = $rms['rid'];
+        $RM->rack = $rms['rack'];
+        $dt = Carbon::now();
+        $RM->moved_date = $dt->toDateString(); 
 
         if ($exists) {
             $RM->updated_by = Auth::id();
             $RM->updated_at = Carbon::now();
             $RM->update();
-            $message = 'Receipt Updated Successfully';
+            $message = 'Relay Updated Successfully';
         } else {
             $RM->created_by = Auth::id();
             $RM->updated_by = Auth::id();
             $RM->created_at = Carbon::now();
             $RM->updated_at = Carbon::now();
             $RM->save();
-            $message = 'Receipt Added Successfully';
+            $message = 'Relay Added Successfully';
         }
 
 
