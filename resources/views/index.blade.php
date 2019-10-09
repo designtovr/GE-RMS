@@ -140,63 +140,222 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-lg-6">
+                    <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
+                        <div class="au-card-title" style="background-image:url('images/bg-title-01.jpg');" >
+                            <div class="bg-overlay bg-overlay--androidblue"></div>
+                            <h3>
+                                <i class="zmdi animated slideInLeft infinite slower-5s zmdi-seat"></i>Waiting For Physical Verification</h3>
+
+                        </div>
+                        <div class="au-task js-list-load">
+                            <div class="au-task-list js-scrollbar3 ">
+                                <div class="table-responsive m-b-40">
+                                    <table class="table table-borderless table-data3 table-data3-blue">
+                                        <thead>
+                                        <tr>
+                                            <th>Customer</th>
+                                            <th>Total Boxes</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>AK Electricals</td>
+                                            <td>5 <span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s">10</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>PGCIL - Vadodara</td>
+                                            <td>3<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s">5</span> </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- END DATA TABLE -->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
+                        <div class="au-card-title"  >
+                            <div class="bg-overlay bg-overlay--androidblue"></div>
+                            <h3>
+                                <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>Waiting For Manager Clearence</h3>
+
+                        </div>
+                        <div class="au-task js-list-load">
+                            <div class=" ">
+                                <div class="table-responsive m-b-40">
+                                    <table class="table table-borderless table-data3 table-data3-blue">
+                                        <thead>
+                                        <tr>
+                                            <th>Type</th>
+                                            <th>Total Relays</th>
+                                            <th>Time Exceeded Relays</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>PX40</td>
+                                            <td>5</td>
+                                            <td> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s">2</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>C264</td>
+                                            <td>10</td>
+                                            <td> 0<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s"></span></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Agile</td>
+                                            <td>10</td>
+                                            <td> 0<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s"></span></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Conventional</td>
+                                            <td>10</td>
+                                            <td> 0<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s"></span></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Other</td>
+                                            <td>10</td>
+                                            <td> 0<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s"></span></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>BOJ</td>
+                                            <td>10</td>
+                                            <td> 0<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s"></span></td>
+
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- END DATA TABLE -->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
+                        <div class="au-card-title" style="background-image:url('images/bg-title-01.jpg');" >
+                            <div class="bg-overlay bg-overlay--androidblue"></div>
+                            <h3>
+                                <i class="zmdi animated slideInLeft infinite slower-5s zmdi-seat"></i>Waiting For Repair</h3>
+
+                        </div>
+                        <div class="au-task js-list-load">
+                            <div class="au-task-list js-scrollbar3 ">
+                                <div class="table-responsive m-b-40">
+                                    <table class="table table-borderless table-data3 table-data3-blue">
+                                        <thead>
+                                        <tr>
+                                            <th>Customer</th>
+                                            <th>Total Boxes</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>AK Electricals</td>
+                                            <td>5 <span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s">10</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>PGCIL - Vadodara</td>
+                                            <td>3<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s">5</span> </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- END DATA TABLE -->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
+                        <div class="au-card-title"  >
+                            <div class="bg-overlay bg-overlay--androidblue"></div>
+                            <h3>
+                                <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>Waiting For Manager Clearence</h3>
+
+                        </div>
+                        <div class="au-task js-list-load">
+                            <div class=" ">
+                                <div class="table-responsive m-b-40">
+                                    <table class="table table-borderless table-data3 table-data3-blue">
+                                        <thead>
+                                        <tr>
+                                            <th>Type</th>
+                                            <th>Total Relays</th>
+                                            <th>Time Exceeded Relays</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>PX40</td>
+                                            <td>5</td>
+                                            <td> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s">2</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>C264</td>
+                                            <td>10</td>
+                                            <td> 0<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s"></span></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Agile</td>
+                                            <td>10</td>
+                                            <td> 0<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s"></span></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Conventional</td>
+                                            <td>10</td>
+                                            <td> 0<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s"></span></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Other</td>
+                                            <td>10</td>
+                                            <td> 0<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s"></span></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>BOJ</td>
+                                            <td>10</td>
+                                            <td> 0<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s"></span></td>
+
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- END DATA TABLE -->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+           {{-- <div class="row">
                 <div class="col-md-6">
                     <h2 class="title-1 m-b-25">Waiting For Physical Verification</h2>
                     <!-- DATA TABLE-->
-                    <div class="table-responsive m-b-40">
-                        <table class="table table-borderless table-data3">
-                            <thead>
-                                <tr>
-                                    <th>type</th>
-                                    <th>date</th>
-                                    <th>count</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Mobile</td>
-                                    <td>2018-09-29</td>
-                                    <td>999 <span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s">10</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Mobile</td>
-                                    <td>2018-09-29</td>
-                                    <td>999</td>
-                                </tr>
-                                <tr>
-                                    <td>Mobile</td>
-                                    <td>2018-09-29</td>
-                                    <td>999</td>
-                                </tr>
-                                <tr>
-                                    <td>Mobile</td>
-                                    <td>2018-09-29</td>
-                                    <td>999</td>
-                                </tr>
-                                <tr>
-                                    <td>Mobile</td>
-                                    <td>2018-09-29</td>
-                                    <td>999</td>
-                                </tr>
-                                <tr>
-                                    <td>Mobile</td>
-                                    <td>2018-09-29</td>
-                                    <td>999</td>
-                                </tr>
-                                <tr>
-                                    <td>Mobile</td>
-                                    <td>2018-09-29</td>
-                                    <td>999</td>
-                                </tr>
-                                <tr>
-                                    <td>Mobile</td>
-                                    <td>2018-09-29</td>
-                                    <td>999</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <!-- END DATA TABLE -->
+
                 </div>                
                 <div class="col-md-6">
                     <h2 class="title-1 m-b-25">Waiting for Manager Clearence</h2>
@@ -256,7 +415,7 @@
                     </div>
                     <!-- END DATA TABLE -->
                 </div>
-            </div>
+            </div>--}}
             <div class="row">
                 <div class="col-lg-6">
                     <!-- TOP CAMPAIGN-->
