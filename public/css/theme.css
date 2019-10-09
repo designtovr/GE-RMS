@@ -14616,7 +14616,7 @@ section {
 }
 
 .bg-overlay--androidblue{
-    background: #364d86 !important;
+    background: -webkit-linear-gradient(90deg, #04c 0%, #007bff 100%) !important;
 }
 
 .table-data3-blue thead {
