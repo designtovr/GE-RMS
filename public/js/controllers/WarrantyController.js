@@ -302,7 +302,7 @@ app.controller('WarrantyController' ,['$scope', '$http','Notification' , 'DataSh
 			{
 				Notification.success(response.data.message);
 				$scope.CloseWarrantyModal();
-				$scope.GetPVList();
+				$scope.GetPVList('customerapproval');
 			}
 		}, function failure(response){
 			if (response.status == 422)

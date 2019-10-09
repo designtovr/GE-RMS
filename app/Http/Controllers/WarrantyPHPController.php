@@ -69,7 +69,6 @@ class WarrantyPHPController extends Controller
     public function UpdateWarranty(UpdateWarrantyRequest $request)
     {
         $warranty = $request->get('warranty');
-
         $WM = WarrantyMaster::where('id', $warranty['id'])->first();
 
         $WM->pv_id = $warranty['pv_id'];
