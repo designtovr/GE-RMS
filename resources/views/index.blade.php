@@ -450,7 +450,7 @@
                             <i class="zmdi animated slideInLeft infinite slower-5s zmdi-seat"></i>Today Status</h3>
 
                     </div>
-                        <div class="overview-item overview-item--c2">
+                        <div class="overview-item overview-item--c2 m-b-0">
                             <div class="overview__inner">
                                 <div class="text">
                                     <h2 style = "color: #fff;">Completed Relays</h2>
@@ -511,7 +511,7 @@
                             <i class="zmdi animated slideInLeft infinite slower-5s zmdi-seat"></i>Monthly Status</h3>
 
                     </div>
-                    <div class="overview-item overview-item--c2">
+                    <div class="overview-item overview-item--c2 m-b-0">
                         <div class="overview__inner">
                             <div class="text">
                                 <h2 style = "color: #fff;">Completed Relays</h2>

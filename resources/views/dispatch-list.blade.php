@@ -224,7 +224,10 @@
 
                         <!-- END DATA TABLE-->
                     </div>
-  </div>
+                </div>
+            </div>
+         </div>
+            </div>
 	        <div class="row" ng-show="showdpform">
         		<div class="col-lg-12">
         			<div class="card">
