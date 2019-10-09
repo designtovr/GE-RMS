@@ -24,8 +24,8 @@ class ADDRMARequest extends FormRequest
     public function rules()
     {
         //$rules['rma.ref_no'] = 'required|string|min:3|max:10';
-        $rules['rma.gs_no'] = 'required|string|min:3|max:10';
-        $rules['rma.act_reference'] = 'required|string|min:3|max:10';
+        $rules['rma.gs_no'] = 'required|string|min:3|max:50';
+        /*$rules['rma.act_reference'] = 'required|string|min:3|max:50';*/
         $rules['rma.date'] = 'required|date_format:d/m/Y';
         /*$rules['rma.desc_of_fault'] = 'required|string|min:3|max:100';
         $rules['rma.wbs'] = 'required|string|min:3|max:10';
@@ -37,14 +37,14 @@ class ADDRMARequest extends FormRequest
         $rules['rma.how_long'] = 'required|string|min:3|max:25';*/
         $rules['rma.customer_address_id'] = 'required|exists:ma_customer,id';
 
-        $rules['rma.invoice_info.end_customer.end_customer'] = "required|string|min:3|max:25";
+        $rules['rma.invoice_info.end_customer.end_customer'] = "required|string|min:3|max:50";
         $rules['rma.delivery_info.contact_name'] = "required|string|min:3|max:25";
         $rules['rma.delivery_info.delivery_address'] = "required|string|min:3|max:100";
         $rules['rma.delivery_info.delivery_email'] = "required|email";
         $rules['rma.delivery_info.tel_no'] = "required|numeric|min:1111111|max:999999999999999";
         $rules['rma.delivery_info.gst_number'] = "required|string|min:15|max:15";
 
-        $rules['rma.unit_information'] = "required|array";
+        /*$rules['rma.unit_information'] = "required|array";*/
 
         /*$rules['rma.unit_information.*.model_id'] = "required|exists:ma_product,id";
         $rules['rma.unit_information.*.service_type'] = "required|digits_between:0,1";
@@ -55,8 +55,8 @@ class ADDRMARequest extends FormRequest
         $rules['rma.unit_information.*.serial_no.*'] = "required|string|min:3|max:10";*/
 
         $rules['pvs.*.id'] = 'required|exists:physical_verification,id';
-        $rules['pvs.*.sw_version'] = 'required|string|min:1|max:5';
-        $rules['pvs.*.service_type'] = 'required|numeric|digits_between:0,1';
+        /*$rules['pvs.*.sw_version'] = 'required|string|min:1|max:5';*/
+        /*$rules['pvs.*.service_type'] = 'required|numeric|digits_between:0,1';*/
         $rules['pvs.*.warrenty'] = 'required|numeric|digits_between:0,1';
         /*$rules['pvs.*.desc_of_fault'] = 'required|string|min:3|max:100';*/
         $rules['pvs.*.field_volts_used'] = 'required|numeric|digits_between:0,1';

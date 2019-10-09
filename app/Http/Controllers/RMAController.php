@@ -48,7 +48,7 @@ class RMAController extends Controller
         $RmaUnit->rma_id = $rma['id'];
         $RmaUnit->pv_id = $pv['id'];
         $RmaUnit->sw_version = $pv['sw_version'];
-        $RmaUnit->service_type = $pv['service_type'];
+        $RmaUnit->service_type = (array_key_exists('service_type', $pv))?$pv['service_type']:1;
         $RmaUnit->warrenty = $pv['warrenty'];
         $RmaUnit->desc_of_fault = $pv['desc_of_fault'];
         $RmaUnit->sales_order_no = $pv['sales_order_no'];
@@ -76,7 +76,7 @@ class RMAController extends Controller
         $pvdata = $request->get('pvs');
     	$RMA = new RMA();
     	$RMA->gs_no = $requestdata['gs_no'];
-    	$RMA->act_reference = $requestdata['act_reference'];
+    	$RMA->act_reference = (array_key_exists('act_reference', $requestdata))?$requestdata['act_reference']:'';
     	$date = Carbon::createFromFormat('d/m/Y',$requestdata['date']);
     	$RMA->date = $date->format('Y-m-d');
     	$RMA->customer_address_id = $requestdata['customer_address_id'];
@@ -103,8 +103,8 @@ class RMAController extends Controller
     		$RMAUnitInformation = new RMAUnitInformation();
     		$RMAUnitInformation->rma_id = $RMA->id;
             $RMAUnitInformation->pv_id = $unit['id'];
-    		$RMAUnitInformation->sw_version = $unit['sw_version'];
-    		$RMAUnitInformation->service_type = $unit['service_type'];
+    		$RMAUnitInformation->sw_version = (array_key_exists('sw_version', $unit))?$unit['sw_version']:'';
+    		$RMAUnitInformation->service_type = (array_key_exists('service_type', $unit))?$unit['service_type']:1;
     		$RMAUnitInformation->warrenty = $unit['warrenty'];
             $RMAUnitInformation->desc_of_fault = (array_key_exists('desc_of_fault', $unit))?$unit['desc_of_fault']:'';
             $RMAUnitInformation->sales_order_no = (array_key_exists('sales_order_no', $unit))?$unit['sales_order_no']:'';

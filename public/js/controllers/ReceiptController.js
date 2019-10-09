@@ -21,10 +21,11 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 		{
 			$scope.receipt.customer_name = $scope.receipt.customer_name_new;
 		}
-		if ($scope.receipt.selected_end_customer == 'Add New')
+		if ($scope.receipt.selected_end_customer.end_customer == 'Add New')
 		{
 			$scope.receipt.end_customer = $scope.receipt.end_customer_new;
 		}
+		console.log($scope.receipt);
 		$http({
 			method: 'post',
 			url: '/ge/addreceipt',
@@ -106,7 +107,17 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 	$scope.EditReceipt= function(receipt)
 	{
 		$scope.receipt = receipt;
-		$scope.receipt.receipt_date = $filter('date')(new Date(),'dd/MM/yyyy');
+		$scope.receipt.receipt_date = $filter('date')($scope.receipt.receipt_date,'dd/MM/yyyy');
+		for (var i = 0; i < $scope.customers.length; i++) {
+			console.log($scope.customers[i].name)
+			if ($scope.customers[i].name == $scope.receipt.customer_name)
+			{
+				$scope.receipt.selected_customer_name = $scope.customers[i];
+				break;
+			}
+		}
+		$scope.receipt.selected_end_customer = {'end_customer': $scope.receipt.end_customer};
+		console.log(receipt);
 		$scope.editReceipt = true;
 		$scope.receiptform = true;
 	}
@@ -156,8 +167,8 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 			url: '/ge/customers'
 		}).then(function success(response) {
 			$scope.customers = response.data.data;
-			var cus = {'id': -1, 'name': 'Add New'};
-			$scope.customers.push(cus);
+			/*var cus = {'id': -1, 'name': 'Add New'};
+			$scope.customers.push(cus);*/
 		}, function error(response) {
 
 		});
