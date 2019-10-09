@@ -215,10 +215,10 @@
                                                         <td ng-bind="item.total_boxes"></td>
                                                         <td>
                                                             <div class="table-data-feature">
-                                                                <button class="item" data-toggle="tooltip" data-placement="top" title="Edit"
+                                                                <!-- <button class="item" data-toggle="tooltip" data-placement="top" title="Edit"
                                                                         ng-click="OpenPVForm(item, true);">
                                                                     <i class="zmdi zmdi-edit"></i>
-                                                                </button>
+                                                                </button> -->
                                                                 <button class="item" data-toggle="tooltip" data-placement="top"
                                                                         title="Add"
                                                                         ng-click="OpenPVForm(item, false);">

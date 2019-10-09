@@ -29,10 +29,10 @@ class AddReceiptRequest extends FormRequest
             'receipt.id' => 'nullable|numeric|exists:receipt,id',
             /*'receipt.gs_no' => 'required|numeric',*/
             'receipt.receipt_date' => 'required|string',
-            'receipt.customer_name' => 'required|string|min:3|max:100',
-            'receipt.end_customer' => 'required|string|min:3|max:20',
-            'receipt.courier_name' => 'required|string|min:3|max:9',
-            'receipt.docket_details' => 'required|string|min:3|max:9',
+            'receipt.customer_name' => 'required|string|min:3|max:50',
+            'receipt.end_customer' => 'required|string|min:3|max:50',
+            'receipt.courier_name' => 'required|string|min:3|max:50',
+            'receipt.docket_details' => 'required|string|min:3|max:50',
             'receipt.total_boxes' => 'required|numeric|digits_between:1,15',
         ];
     }

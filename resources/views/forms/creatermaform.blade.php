@@ -61,26 +61,10 @@
                         id="act_reference" 
                         name="act_reference"
                         ng-model="rmaformdata.act_reference"
-                        placeholder="ACT Reference" 
+                        placeholder="Act reference" 
                         class="form-control"
-                        ng-minlength="3" 
-                        ng-maxlength="50"
                         ng-disabled="addpvform"
-                        required>
-                        <div ng-show="RMAForm1.act_reference.$touched && RMAForm1.act_reference.$error">
-                            <span class="help-block"
-                             ng-show="RMAForm1.act_reference.$error.required">
-                                Please Enter ACT Reference
-                            </span>
-                            <span class="help-block"
-                             ng-show="RMAForm1.act_reference.$error.minlength">
-                                Minimum 3 Characters Required
-                            </span>
-                            <span class="help-block"
-                             ng-show="RMAForm1.act_reference.$error.maxlength">
-                                Maximum 50 Characters Allowed
-                            </span>
-                        </div>
+                        >
                     </div>
                 </div>
                 <div class="row form-group">
@@ -243,29 +227,12 @@
                                             name="sw_version"
                                             ng-model="rmaformdata.relay.sw_version"
                                             placeholder="SW Version" 
-                                            class="form-control"
-                                            ng-minlength="1" 
-	                                        ng-maxlength="5"
-	                                        required>
-                                            <div ng-show="RMAForm2.sw_version.$touched && RMAForm2.sw_version.$error">
-                                                <span class="help-block"
-                                                 ng-show="RMAForm2.sw_version.$error.required">
-                                                    Please Enter SW Version
-                                                </span>
-                                                <span class="help-block"
-                                                 ng-show="RMAForm2.sw_version.$error.minlength">
-                                                    Minimum 1 Characters Required
-                                                </span>
-                                                <span class="help-block"
-                                                 ng-show="RMAForm2.sw_version.$error.maxlength">
-                                                    Maximum 5 Characters Allowed
-                                                </span>
-                                            </div>
+                                            class="form-control">
                                         </div>
                                     </div>
                         		</div>
                         	</div>
-                        	<div class="row">
+                        	<!-- <div class="row">
                         		<div class="col-lg-6">
                         			<div class="row form-group">
                         				<div class="col col-md-4">
@@ -291,7 +258,7 @@
                                         </div>
                         			</div>
                         		</div>
-                        	</div>
+                        	</div> -->
                         	<div class="row">
                         		<div class="col-lg-6">
                         			<div class="row form-group">
