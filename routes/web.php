@@ -206,9 +206,10 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
 	Route::post('/addcustomers', 'CustomerController@AddCustomer');
 	Route::get('/getcustomer/{id}', 'CustomerController@GetCustomer');
 
-	Route::get('/getrmalist', 'RMAController@GetRMAList');
+	Route::get('/getrmalist/{cat?}', 'RMAController@GetRMAList');
 	Route::post('/getrma/{id}', 'RMAController@GetRma');
 	Route::post('/addrma', 'RMAController@AddRMA');
+	Route::post('/saverma', 'RMAController@SaveRMA');
 	Route::post('/addrmaunit', 'RMAController@AddRmaUnit');
 
 	/*Receipt Get and Post ,Delete*/

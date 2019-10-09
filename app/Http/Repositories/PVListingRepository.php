@@ -37,6 +37,12 @@ class PVListingRepository
 		return (new self)->PVList($status_id);
 	}
 
+	public static function Saved()
+	{
+		$status_id = 15;
+		return (new self)->PVList($status_id);
+	}
+
 	public static function WaitingForManagerApproval()
 	{
 		$status_id = 13;

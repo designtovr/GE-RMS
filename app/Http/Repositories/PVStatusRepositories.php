@@ -62,6 +62,12 @@ class PVStatusRepositories
 		(new self)->SavePVStatus($pv_id, $status_id);
 	}
 
+	public static function ChangeStatusToSaved($pv_id)
+	{
+		$status_id = 15;
+		(new self)->SavePVStatus($pv_id, $status_id);
+	}
+
 	public static function ChangeStatusToManagerApproval($pv_id)
 	{
 		$status_id = 13;

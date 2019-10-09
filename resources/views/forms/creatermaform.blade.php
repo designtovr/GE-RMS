@@ -1,4 +1,4 @@
-<div class="col-lg-12" ng-init="GetRMAList();InitiateForm();GetCustomerList();GetEndCustomerList();">
+<div class="col-lg-12" ng-init="GetRMAList();GetCustomerList();GetEndCustomerList();">
     <div class="card">
         <div class="card-header">
             <strong>RMA</strong> Form
@@ -106,7 +106,7 @@
                                             <ui-select ng-model="rmaformdata.relay" theme="selectize" title="Select Relay Id" id="relay" 
                                             name="relay" ng-change="ChangeRelayDetails();">
 											    <ui-select-match placeholder="Select Relay Id">@{{$select.selected.id}}</ui-select-match>
-											    <ui-select-choices repeat="pv in pvs | filter: $select.search">
+											    <ui-select-choices repeat="pv in selectedpvs | filter: $select.search">
 											      <span ng-bind-html="pv.id | highlight: $select.search"></span>
 											    </ui-select-choices>
 											  </ui-select>
@@ -808,10 +808,10 @@
                     <button type="submit" class="btn btn-primary btn-sm" ng-disabled="RMAForm1.$invalid || RMAForm2.$invalid || RMAForm5.$invalid" ng-click="SubmitRMAForm();">
                         <i class="fa fa-dot-circle-o"></i> Submit
                     </button>
-                    <!-- <button type="reset" class="btn btn-danger btn-sm">
-                        <i class="fa fa-ban"></i> Reset
-                    </button> -->
-                    <button id="closermabutton" name="closermabutton" class="btn btn-secondary btn-sm" ng-click="HideRMAForm();CloseCreateRMA();">
+                    <button class="btn btn-secondary btn-sm" ng-click="SaveRMAForm();">
+                        <i class="fa fa-save"></i> Save
+                    </button>
+                    <button id="closermabutton" name="closermabutton" class="btn btn-danger btn-sm" ng-click="HideRMAForm();">
                         <i class="fa fa-ban"></i> Close
                     </button>
                 </div>

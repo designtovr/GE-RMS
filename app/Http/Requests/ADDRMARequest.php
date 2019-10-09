@@ -24,6 +24,7 @@ class ADDRMARequest extends FormRequest
     public function rules()
     {
         //$rules['rma.ref_no'] = 'required|string|min:3|max:10';
+        $rules['rma.id'] = 'nullable|exists:rma,id';
         $rules['rma.gs_no'] = 'required|string|min:3|max:50';
         /*$rules['rma.act_reference'] = 'required|string|min:3|max:50';*/
         $rules['rma.date'] = 'required|date_format:d/m/Y';
