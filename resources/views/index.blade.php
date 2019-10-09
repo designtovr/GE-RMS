@@ -15,130 +15,6 @@
                     </div>
                 </div>
             </div>
-            <div class="row m-t-25">
-                <div class="col-sm-6 col-lg-4">
-                    <div class="overview-item overview-item--c2">
-                        <div class="overview__inner">
-                            <div class="overview-box clearfix">
-                                <div class="icon">
-                                    <i class="zmdi zmdi-calendar-note"></i>
-                                </div>
-                                <div class="text">
-                                    <h2>388,688</h2>
-                                    <span>this year</span>
-                                </div>
-                            </div>
-                            <div class="overview-chart">
-                                <canvas id="widgetChart2"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-4">
-                    <div class="overview-item overview-item--c3">
-                        <div class="overview__inner">
-                            <div class="overview-box clearfix">
-                                <div class="icon">
-                                    <i class="zmdi zmdi-calendar-note"></i>
-                                </div>
-                                <div class="text">
-                                    <h2>1,086</h2>
-                                    <span>this week</span>
-                                </div>
-                            </div>
-                            <div class="overview-chart">
-                                <canvas id="widgetChart3"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-4">
-                    <div class="overview-item overview-item--c4">
-                        <div class="overview__inner">
-                            <div class="overview-box clearfix">
-                                <div class="icon">
-                                    <i class="zmdi zmdi-collection-item-9"></i>
-                                </div>
-                                <div class="text">
-                                    <h2>1,060,386</h2>
-                                    <span>total</span>
-                                </div>
-                            </div>
-                            <div class="overview-chart">
-                                <canvas id="widgetChart4"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-6">
-                    <!-- RECENT REPORT 2-->
-                    <div class="recent-report2">
-                        <h3 class="title-3">recent reports</h3>
-                        <div class="chart-info">
-                            <div class="chart-info__left">
-                                <div class="chart-note">
-                                    <span class="dot dot--blue"></span>
-                                    <span>GE Relays</span>
-                                </div>
-                                <div class="chart-note">
-                                    <span class="dot dot--green"></span>
-                                    <span>Other Relays</span>
-                                </div>
-                            </div>
-                            <!-- <div class="chart-info-right">
-                                <div class="rs-select2--dark rs-select2--md m-r-10">
-                                    <select class="js-select2" name="property">
-                                        <option selected="selected">All Properties</option>
-                                        <option value="">Products</option>
-                                        <option value="">Services</option>
-                                    </select>
-                                    <div class="dropDownSelect2"></div>
-                                </div>
-                                <div class="rs-select2--dark rs-select2--sm">
-                                    <select class="js-select2 au-select-dark" name="time">
-                                        <option selected="selected">All Time</option>
-                                        <option value="">By Month</option>
-                                        <option value="">By Day</option>
-                                    </select>
-                                    <div class="dropDownSelect2"></div>
-                                </div>
-                            </div> -->
-                        </div>
-                        <div class="recent-report__chart">
-                            <canvas id="recent-rep2-chart"></canvas>
-                        </div>
-                    </div>
-                    <!-- END RECENT REPORT 2             -->
-                </div>
-                <div class="col-lg-6">
-                    <div class="au-card chart-percent-card">
-                        <div class="au-card-inner">
-                            <h3 class="title-2 tm-b-5">char by %</h3>
-                            <div class="row no-gutters">
-                                <div class="col-xl-6">
-                                    <div class="chart-note-wrap">
-                                        <div class="chart-note mr-0 d-block">
-                                            <span class="dot dot--blue"></span>
-                                            <span>GE Relays</span>
-                                        </div>
-                                        <div class="chart-note mr-0 d-block">
-                                            <span class="dot dot--red"></span>
-                                            <span>Other Relays</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6">
-                                    <div class="percent-chart">
-                                        <canvas id="percent-chart"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="row">
                 <div class="col-lg-6">
                     <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
@@ -253,25 +129,238 @@
                                 <i class="zmdi animated slideInLeft infinite slower-5s zmdi-seat"></i>Waiting For Repair</h3>
 
                         </div>
+                        <div class="p-l-20 p-r-10 p-b-10 p-t-10" style="background:#000; color: #fff">
+                            <h5>
+                                <i class="zmdi animated fade-in infinite slow zmdi-plus-box"></i>
+                                Warranty</h5>
+                        </div>
                         <div class="au-task js-list-load">
-                            <div class="au-task-list js-scrollbar3 ">
-                                <div class="table-responsive m-b-40">
+                            <div class="au-task-list js-scrollbar3 h-auto">
+                                <div class="table-responsive m-b-10">
                                     <table class="table table-borderless table-data3 table-data3-blue">
                                         <thead>
                                         <tr>
-                                            <th>Customer</th>
-                                            <th>Total Boxes</th>
+                                            <th>Type</th>
+                                            <th>Time Exceeded Relays</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td>AK Electricals</td>
-                                            <td>5 <span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s">10</span></td>
+                                            <td>PX40</td>
+                                            <td> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s">10</span></td>
                                         </tr>
                                         <tr>
-                                            <td>PGCIL - Vadodara</td>
-                                            <td>3<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s">5</span> </td>
+                                            <td>C264</td>
+                                            <td><span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s">5</span> </td>
                                         </tr>
+                                        <tr>
+                                            <td>Agile</td>
+                                            <td><span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s">5</span> </td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- END DATA TABLE -->
+                            </div>
+
+                        </div>
+
+                        <div class="p-l-20 p-r-10 p-b-10 p-t-10" style="background:#000; color: #fff">
+                            <h5>
+                                <i class="zmdi animated fade-in infinite slow zmdi-plus-box"></i>
+                                Out of Warranty</h5>
+                        </div>
+                        <div class="au-task js-list-load">
+                            <div class="au-task-list js-scrollbar3 h-auto">
+                                <div class="table-responsive m-b-10">
+                                    <table class="table table-borderless table-data3 table-data3-blue">
+                                        <thead>
+                                        <tr>
+                                            <th>Type</th>
+                                            <th>Time Exceeded Relays</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>PX40</td>
+                                            <td> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s">10</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>C264</td>
+                                            <td><span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s">5</span> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Agile</td>
+                                            <td><span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s">5</span> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>OMU</td>
+                                            <td><span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s">5</span> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>BOJ</td>
+                                            <td><span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s">5</span> </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- END DATA TABLE -->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
+                        <div class="au-card-title" style="background-image:url('images/bg-title-01.jpg');" >
+                            <div class="bg-overlay bg-overlay--androidblue"></div>
+                            <h3>
+                                <i class="zmdi animated slideInLeft infinite slower-5s zmdi-seat"></i>Waiting For Repair</h3>
+
+                        </div>
+                        <div class="p-l-20 p-r-10 p-b-10 p-t-10" style="background:#000; color: #fff">
+                            <h5>
+                                <i class="zmdi animated fade-in infinite slow zmdi-plus-box"></i>
+                                Warranty</h5>
+                        </div>
+                        <div class="au-task js-list-load">
+                            <div class="au-task-list js-scrollbar3 h-auto">
+                                <div class="table-responsive m-b-10">
+                                    <table class="table table-borderless table-data3 table-data3-blue">
+                                        <thead>
+                                        <tr>
+                                            <th>Type</th>
+                                            <th>Time Exceeded Relays</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>PX40</td>
+                                            <td> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s">10</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>C264</td>
+                                            <td><span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s">5</span> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Agile</td>
+                                            <td><span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s">5</span> </td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- END DATA TABLE -->
+                            </div>
+
+                        </div>
+
+                        <div class="p-l-20 p-r-10 p-b-10 p-t-10" style="background:#000; color: #fff">
+                            <h5>
+                                <i class="zmdi animated fade-in infinite slow zmdi-plus-box"></i>
+                                Out of Warranty</h5>
+                        </div>
+                        <div class="au-task js-list-load">
+                            <div class="au-task-list js-scrollbar3 h-auto">
+                                <div class="table-responsive m-b-10">
+                                    <table class="table table-borderless table-data3 table-data3-blue">
+                                        <thead>
+                                        <tr>
+                                            <th>Type</th>
+                                            <th>Time Exceeded Relays</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>PX40</td>
+                                            <td> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s">10</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>C264</td>
+                                            <td><span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s">5</span> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Agile</td>
+                                            <td><span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s">5</span> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>OMU</td>
+                                            <td><span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s">5</span> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>BOJ</td>
+                                            <td><span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s">5</span> </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- END DATA TABLE -->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
+                        <div class="au-card-title"  >
+                            <div class="bg-overlay bg-overlay--androidblue"></div>
+                            <h3>
+                                <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>Waiting For Test</h3>
+
+                        </div>
+                        <div class="au-task js-list-load">
+                            <div class=" ">
+                                <div class="table-responsive m-b-40">
+                                    <table class="table table-borderless table-data3 table-data3-blue">
+                                        <thead>
+                                        <tr>
+                                            <th>Type</th>
+                                            <th>Total Relays</th>
+                                            <th>Time Exceeded Relays</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>PX40</td>
+                                            <td>5</td>
+                                            <td> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s">2</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>C264</td>
+                                            <td>10</td>
+                                            <td> 0<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s"></span></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Agile</td>
+                                            <td>10</td>
+                                            <td> 0<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s"></span></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Conventional</td>
+                                            <td>10</td>
+                                            <td> 0<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s"></span></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Other</td>
+                                            <td>10</td>
+                                            <td> 0<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s"></span></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>BOJ</td>
+                                            <td>10</td>
+                                            <td> 0<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s"></span></td>
+
+                                        </tr>
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -286,7 +375,7 @@
                         <div class="au-card-title"  >
                             <div class="bg-overlay bg-overlay--androidblue"></div>
                             <h3>
-                                <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>Waiting For Manager Clearence</h3>
+                                <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>Waiting For Packing</h3>
 
                         </div>
                         <div class="au-task js-list-load">
@@ -347,10 +436,136 @@
                     </div>
                 </div>
 
+
+
             </div>
 
         </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="">{{--au-card au-card--no-shadow au-card--no-pad m-b-40--}}
+                    <div class="au-card-title" style="background-image:url('images/bg-title-01.jpg');" >
+                        <div class="bg-overlay bg-overlay--androidblue"></div>
+                        <h3>
+                            <i class="zmdi animated slideInLeft infinite slower-5s zmdi-seat"></i>Today Status</h3>
 
+                    </div>
+                        <div class="overview-item overview-item--c2">
+                            <div class="overview__inner">
+                                <div class="text">
+                                    <h2 style = "color: #fff;">Completed Relays</h2>
+                                </div>
+                                <div class="overview-box clearfix">
+                                    <div class="icon">
+                                        <i class="zmdi zmdi-calendar-note"></i>
+                                    </div>
+                                    <div class="text">
+                                        <h2>30</h2>
+                                        <h4 style = "color: #fff;">Numerical Relays</h4>
+                                    </div>
+                                    <div class="overview-box clearfix">
+                                        <div class="icon">
+                                            <i class="zmdi zmdi-calendar-note"></i>
+                                        </div>
+                                        <div class="text">
+                                            <h2>15</h2>
+                                            <h4 style = "color: #fff;">Conventional Relays</h4>
+                                        </div>
+                                    </div></div>
+
+                            </div>
+                        </div>
+                        <div class="overview-item overview-item--c3">
+                            <div class="overview__inner">
+                                <div class="text">
+                                    <h2 style = "color: #fff;">Pending Relays</h2>
+                                </div>
+                                <div class="overview-box clearfix">
+                                    <div class="icon">
+                                        <i class="zmdi zmdi-calendar-note"></i>
+                                    </div>
+                                    <div class="text">
+                                        <h2>5</h2>
+                                        <h4 style = "color: #fff;">Numerical Relays</h4>
+                                    </div>
+                                    <div class="overview-box clearfix">
+                                        <div class="icon">
+                                            <i class="zmdi zmdi-calendar-note"></i>
+                                        </div>
+                                        <div class="text">
+                                            <h2>6</h2>
+                                            <h4 style = "color: #fff;">Conventional Relays</h4>
+                                        </div>
+                                    </div></div>
+
+                            </div>
+
+                        </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="">{{--au-card au-card--no-shadow au-card--no-pad m-b-40--}}
+                    <div class="au-card-title" style="background-image:url('images/bg-title-01.jpg');" >
+                        <div class="bg-overlay bg-overlay--androidblue"></div>
+                        <h3>
+                            <i class="zmdi animated slideInLeft infinite slower-5s zmdi-seat"></i>Monthly Status</h3>
+
+                    </div>
+                    <div class="overview-item overview-item--c2">
+                        <div class="overview__inner">
+                            <div class="text">
+                                <h2 style = "color: #fff;">Completed Relays</h2>
+                            </div>
+                            <div class="overview-box clearfix">
+                                <div class="icon">
+                                    <i class="zmdi zmdi-calendar-note"></i>
+                                </div>
+                                <div class="text">
+                                    <h2>30</h2>
+                                    <h4 style = "color: #fff;">Numerical Relays</h4>
+                                </div>
+                                <div class="overview-box clearfix">
+                                    <div class="icon">
+                                        <i class="zmdi zmdi-calendar-note"></i>
+                                    </div>
+                                    <div class="text">
+                                        <h2>15</h2>
+                                        <h4 style = "color: #fff;">Conventional Relays</h4>
+                                    </div>
+                                </div></div>
+
+                        </div>
+                    </div>
+                    <div class="overview-item overview-item--c3">
+                        <div class="overview__inner">
+                            <div class="text">
+                                <h2 style = "color: #fff;">Pending Relays</h2>
+                            </div>
+                            <div class="overview-box clearfix">
+                                <div class="icon">
+                                    <i class="zmdi zmdi-calendar-note"></i>
+                                </div>
+                                <div class="text">
+                                    <h2>5</h2>
+                                    <h4 style = "color: #fff;">Numerical Relays</h4>
+                                </div>
+                                <div class="overview-box clearfix">
+                                    <div class="icon">
+                                        <i class="zmdi zmdi-calendar-note"></i>
+                                    </div>
+                                    <div class="text">
+                                        <h2>6</h2>
+                                        <h4 style = "color: #fff;">Conventional Relays</h4>
+                                    </div>
+                                </div></div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
            {{-- <div class="row">
                 <div class="col-md-6">
                     <h2 class="title-1 m-b-25">Waiting For Physical Verification</h2>
@@ -416,162 +631,44 @@
                     <!-- END DATA TABLE -->
                 </div>
             </div>--}}
-            <div class="row">
-                <div class="col-lg-6">
-                    <!-- TOP CAMPAIGN-->
-                    <div class="top-campaign">
-                        <h3 class="title-3 m-b-30">waiting for repair</h3>
-                        <div class="table-responsive">
-                            <table class="table table-top-campaign">
-                                <tbody>
-                                    <tr>
-                                        <td>1. Australia</td>
-                                        <td>70,261</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2. United Kingdom</td>
-                                        <td>46,399</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3. Turkey</td>
-                                        <td>35,364</td>
-                                    </tr>
-                                    <tr>
-                                        <td>4. Germany</td>
-                                        <td>20,366</td>
-                                    </tr>
-                                    <tr>
-                                        <td>5. France</td>
-                                        <td>10,366</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+
+        <div class="row m-t-25">
+
+
+        </div>
+
+        <div class ="row">
+            <div class="col-sm-6 col-lg-4">
+                <div class="overview-item overview-item--c4">
+                    <div class="overview__inner">
+                        <div class="text">
+                            <h2 style = "color: #fff;">OTD</h2>
+                        </div>
+                        <div class="overview-box clearfix">
+
+                            <div class="text">
+                                <h2>80%</h2>
+                                <h4 style = "color: #fff;">Numerical Relays</h4>
+                            </div>
+
+
+                        </div>
+                        <div class="overview-box clearfix">
+
+
+                        <div class="text">
+                            <h2>92%</h2>
+                            <h4 style = "color: #fff;">Conventional Relays</h4>
+                        </div>
+                        </div>
+                        <div class="overview-chart">
+                            <canvas id="widgetChart4"></canvas>
                         </div>
                     </div>
-                    <!-- END TOP CAMPAIGN-->
-                </div>
-                <div class="col-lg-6">
-                    <!-- TOP CAMPAIGN-->
-                    <div class="top-campaign">
-                        <h3 class="title-3 m-b-30">out of warrenty</h3>
-                        <div class="table-responsive">
-                            <table class="table table-top-campaign">
-                                <tbody>
-                                    <tr>
-                                        <td>1. Australia</td>
-                                        <td>70,261</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2. United Kingdom</td>
-                                        <td>46,399</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3. Turkey</td>
-                                        <td>35,364</td>
-                                    </tr>
-                                    <tr>
-                                        <td>4. Germany</td>
-                                        <td>20,366</td>
-                                    </tr>
-                                    <tr>
-                                        <td>5. France</td>
-                                        <td>10,366</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <!-- END TOP CAMPAIGN-->
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-6">
-                    <!-- TOP CAMPAIGN-->
-                    <div class="top-campaign">
-                        <h3 class="title-3 m-b-30">waiting for packing</h3>
-                        <div class="table-responsive table-responsive-data2">
-                        <table class="table table-data2">
-                            <thead>
-                                <tr>
-                                    <th>type</th>
-                                    <th>date</th>
-                                    <th>count</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="tr-shadow">
-                                    <td>Lori Lynch</td>
-                                    <td>2018-09-27</td>
-                                    <td>679</td>
-                                </tr>
-                                <tr class="spacer"></tr>
-                                <tr class="tr-shadow">
-                                    <td>Lori Lynch</td>
-                                    <td>2018-09-27</td>
-                                    <td>679</td>
-                                </tr>
-                                <tr class="spacer"></tr>
-                                <tr class="tr-shadow">
-                                    <td>Lori Lynch</td>
-                                    <td>2018-09-27</td>
-                                    <td>679</td>
-                                </tr>
-                                <tr class="spacer"></tr>
-                                <tr class="tr-shadow">
-                                    <td>Lori Lynch</td>
-                                    <td>2018-09-27</td>
-                                    <td>679</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    </div>
-                    <!-- END TOP CAMPAIGN-->
-                </div>
-                <div class="col-lg-6">
-                    <!-- TOP CAMPAIGN-->
-                    <div class="top-campaign">
-                        <h3 class="title-3 m-b-30">waiting for packing</h3>
-                        <div class="table-responsive table-responsive-data2">
-                        <table class="table table-data2">
-                            <thead>
-                                <tr>
-                                    <th>type</th>
-                                    <th>date</th>
-                                    <th>price</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="tr-shadow">
-                                    <td>Lori Lynch</td>
-                                    <td>2018-09-27</td>
-                                    <td>679</td>
-                                </tr>
-                                <tr class="spacer"></tr>
-                                <tr class="tr-shadow">
-                                    <td>Lori Lynch</td>
-                                    <td>2018-09-272</td>
-                                    <td>679</td>
-                                </tr>
-                                <tr class="spacer"></tr>
-                                <tr class="tr-shadow">
-                                    <td>Lori Lynch</td>
-                                    <td>2018-09-27</td>
-                                    <td>679</td>
-                                </tr>
-                                <tr class="spacer"></tr>
-                                <tr class="tr-shadow">
-                                    <td>Lori Lynch</td>
-                                    <td>2018-09-27</td>
-                                    <td>679</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    </div>
-                    <!-- END TOP CAMPAIGN-->
-                </div>
-            </div>
+        </div>
+
         </div>
     </div>
 </div>
