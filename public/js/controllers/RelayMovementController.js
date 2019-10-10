@@ -1,6 +1,7 @@
 app.controller('RelayMovementController', ['$scope', '$http', 'Notification' , function($scope, $http , Notification){
 	$scope.rmsmodal = {};
 	$scope.rmsmodal.title = "RMS";
+	$scope.selectedpvs = [];
 $scope.gridOptions = {
 		pagination: {
 			itemsPerPage: '10'
@@ -15,6 +16,26 @@ $scope.gridOptions = {
 			};
    	$scope.OpenRMSModal = function()
    	{
+   		console.log($scope.gridOptions.data);
+		$scope.selectedpvs = [];
+		for (var i = 0; i < $scope.gridOptions.data.length; i++) {
+			if ($scope.gridOptions.data[i].selected != undefined && $scope.gridOptions.data[i].selected)
+			{
+				$scope.selectedpvs.push($scope.gridOptions.data[i]);
+			}
+		}
+		if ($scope.selectedpvs.length == 0)
+		{
+			Notification.error("No Relay Selected");
+			return;
+		}
+		else if ($scope.selectedpvs.length > 1)
+		{
+			Notification.error("Select One Relay");
+			return;
+		}
+		$scope.rmsmodal = $scope.selectedpvs[0];
+		console.log($scope.selectedpvs);
    		$('#rmsmodal').modal('show');
    	}
    	$scope.CloseRMSModal = function()

@@ -88,16 +88,16 @@
                                 <i class="fas fa-database"></i>Inbound</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
                                 <li>
-                                    <a href="{{url('/rma')}}">
-                                        <i class="far fa-check-square"></i>RMA</a>
-                                </li>
-                                <li>
                                     <a href="{{url('/receipt')}}">
                                         <i class="far fa-check-square"></i>Receipt</a>
                                 </li>
                                 <li>
                                     <a href="{{url('/physical-verification')}}">
                                         <i class="far fa-check-square"></i>Physical Verification</a>
+                                </li>
+                                <li>
+                                    <a href="{{url('/rma')}}">
+                                        <i class="far fa-check-square"></i>RMA</a>
                                 </li>
                                 <li>
                                     <a href="{{url('/rms')}}">

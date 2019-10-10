@@ -162,10 +162,10 @@
                                             <a class="nav-link active" id="all-tab" data-toggle="tab" href="#all" role="tab" aria-controls="all" aria-selected="true">Open Receipts</a>
                                         </li>
                                         <li class="nav-item" ng-click="ChangeTab('started')">
-                                            <a class="nav-link" id="started-tab" data-toggle="tab" href="#started" role="tab" aria-controls="started" aria-selected="false">Started Receipts</a>
+                                            <a class="nav-link" id="started-tab" data-toggle="tab" href="#started" role="tab" aria-controls="started" aria-selected="false">Started Phy. Verification</a>
                                         </li>
                                         <li class="nav-item" ng-click="ChangeTab('closed')">
-                                            <a class="nav-link" id="closed-tab" data-toggle="tab" href="#closed" role="tab" aria-controls="closed" aria-selected="false">Closed Receipts</a>
+                                            <a class="nav-link" id="closed-tab" data-toggle="tab" href="#closed" role="tab" aria-controls="closed" aria-selected="false">Closed Phy. Verification</a>
                                         </li>
                                         <!-- <li class="nav-item" ng-click="ChangeTab('withrma')">
                                             <a class="nav-link" id="withrma-tab" data-toggle="tab" href="#withrma" role="tab" aria-controls="withrma" aria-selected="false">With RMA</a>

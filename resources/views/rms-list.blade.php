@@ -99,6 +99,12 @@
 		                 <table class="table table-borderless table-data3">
 		                     <thead>
 		                     <tr>
+                                <th>
+                                    Select
+                                </th>
+                                <th sortable='date' class="sortable">
+                                     Date
+                                 </th>
 		                         <th sortable="id" class="sortable">
 		                             RID No
 		                         </th>
@@ -108,17 +114,21 @@
 								 <th sortable="rack" class="sortable">
 									 Rack
 								 </th>
-		                         <th sortable='date' class="sortable">
-		                             Date
-		                         </th>
 		                     </tr>
 		                     </thead>
 		                     <tbody>
 		                     <tr grid-item>
+                                <td>
+                                    <label class="au-checkbox">
+                                        <input type="checkbox" ng-model="item.selected">
+                                        <span class="au-checkmark"></span>
+                                    </label>
+                                </td>
+                                <td ng-bind="item.moved_date | date:'dd/MM/yyyy'"></td>
 		                         <td ng-bind="item.rid"></td>
-								 <td ng-bind="item.location"></td>
+								 <!-- <td ng-bind="item.location"></td> -->
+                                 <td>Customer Waiting Rack</td>
 								 <td ng-bind="item.rack"></td>
-		                         <td ng-bind="item.date"></td>
 		                     </tr>
 		                     </tbody>
 		                 </table>
@@ -150,7 +160,7 @@
 			                                </div>
 			                                <div class="col-12 col-md-9">
 			                                    <input type="text" id="comment" name="comment" ng-model = "rmsmodal.rid" placeholder="RID" class="form-control">
-			                                    <span class="help-block">Please Enter RID</span>
+			                                    <!-- <span class="help-block">Please Enter RID</span> -->
 			                                </div>
 			                            </div>
 		                			</div>
@@ -161,7 +171,7 @@
 			                                </div>
 			                                <div class="col-12 col-md-9">
 			                                    <input type="text" id="comment" name="comment" ng-model = "rmsmodal.rack" placeholder="Rack Id" class="form-control">
-			                                    <span class="help-block">Please Enter Rack Id</span>
+			                                    <!-- <span class="help-block">Please Enter Rack Id</span> -->
 			                                </div>
 			                            </div>
 		                			</div>
