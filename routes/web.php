@@ -147,6 +147,14 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::get('/add-job-ticket', function(){
 		return view('add-job-ticket');
 	});
+
+
+    Route::get('/qrcode', function(){
+        return view('webqrtest');
+    });
+    Route::get('/qr', function(){
+        return view('qr');
+    });
 });
 
 Route::group(['middleware' => ['auth', 'admin']], function(){
