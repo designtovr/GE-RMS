@@ -111,12 +111,13 @@
                                         <th>
                                             Select
                                         </th>
-                                        <th sortable="id" class="sortable">
-                                            RID
-                                        </th>
                                         <th sortable="rma_id" class="sortable">
                                             RMA NO.
                                         </th>
+                                        <th sortable="id" class="sortable">
+                                            RID
+                                        </th>
+
                                         <th sortable="pvdate" class="sortable">
                                             Date
                                         </th>
@@ -149,8 +150,8 @@
                                                 <span class="au-checkmark"></span>
                                             </label>
                                         </td>
-                                        <td ng-bind="item.id"></td>
                                         <td ng-bind="item.rma_id"></td>
+                                        <td ng-bind="item.id"></td>
                                         <td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
                                         <td ng-bind="item.product_id"></td>
                                         <td ng-bind="item.serial_no"></td>
