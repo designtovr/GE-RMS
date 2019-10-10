@@ -2,7 +2,7 @@
 @section('title', 'Physical Verification List')
 @section('content')
 <div class="main-content" ng-controller="PhysicalVerificationController">
-    <div class="section__content section__content--p30" ng-init="getReceipts();GetProductTypeList();GetProductList();">
+    <div class="section__content section__content--p30" ng-init="ChangeTab('open');GetProductTypeList();GetProductList();">
         <div class="container-fluid">
             <div class="row" ng-show="!pvform && !showcreatermaform">
                 <div class="col-md-12">
@@ -158,15 +158,21 @@
                                 </div> -->
                                 <div class="card-body">
                                     <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                        <li class="nav-item" ng-click="ChangeTab('all')">
-                                            <a class="nav-link active" id="all-tab" data-toggle="tab" href="#all" role="tab" aria-controls="all" aria-selected="true">Receipts</a>
+                                        <li class="nav-item" ng-click="ChangeTab('open')">
+                                            <a class="nav-link active" id="all-tab" data-toggle="tab" href="#all" role="tab" aria-controls="all" aria-selected="true">Open Receipts</a>
                                         </li>
-                                        <li class="nav-item" ng-click="ChangeTab('withrma')">
+                                        <li class="nav-item" ng-click="ChangeTab('started')">
+                                            <a class="nav-link" id="started-tab" data-toggle="tab" href="#started" role="tab" aria-controls="started" aria-selected="false">Started Receipts</a>
+                                        </li>
+                                        <li class="nav-item" ng-click="ChangeTab('closed')">
+                                            <a class="nav-link" id="closed-tab" data-toggle="tab" href="#closed" role="tab" aria-controls="closed" aria-selected="false">Closed Receipts</a>
+                                        </li>
+                                        <!-- <li class="nav-item" ng-click="ChangeTab('withrma')">
                                             <a class="nav-link" id="withrma-tab" data-toggle="tab" href="#withrma" role="tab" aria-controls="withrma" aria-selected="false">With RMA</a>
                                         </li>
                                         <li class="nav-item" ng-click="ChangeTab('withoutrma')">
                                             <a class="nav-link" id="withoutrma-tab" data-toggle="tab" href="#withoutrma" role="tab" aria-controls="withoutrma" aria-selected="false">Without RMA</a>
-                                        </li>
+                                        </li> -->
                                     </ul>
                                     <div class="tab-content pl-3 p-1" id="myTabContent">
                                         <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
@@ -222,13 +228,17 @@
                                                                 <button class="item" data-toggle="tooltip" data-placement="top"
                                                                 title="Add"
                                                                 ng-click="OpenPVForm(item, false);">
-                                                                <i class="zmdi zmdi-plus-box"></i>
-                                                            </button>
-                                                            <button class="item" data-toggle="tooltip" data-placement="top"
-                                                            title="Delete"
-                                                            ng-click="DeletePV(item.id);">
-                                                            <i class="zmdi zmdi-delete"></i>
-                                                        </button>
+                                                                    <i class="zmdi zmdi-plus-box"></i>
+                                                                </button>
+                                                                <!-- <button class="item" data-toggle="tooltip" data-placement="top" title="Close"
+                                                                        ng-click="CloseReceipts(item.id);">
+                                                                    <i class="zmdi zmdi-close-circle"></i>
+                                                                </button> -->
+                                                                <!-- <button class="item" data-toggle="tooltip" data-placement="top"
+                                                                title="Delete"
+                                                                ng-click="DeletePV(item.id);">
+                                                                    <i class="zmdi zmdi-delete"></i>
+                                                                </button> -->
                                                     </div>
                                                 </td>
                                             </tr>
@@ -256,6 +266,114 @@
                                         </select>
                                     </div>
                                 </form>
+                            </div>
+                            <!-- END DATA TABLE-->
+                        </div>
+                        <div class="tab-pane fade show" id="started" role="tabpanel" aria-labelledby="started-tab">
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-primary btn-md pull-right m-b-10" ng-click="CloseReceipts();">
+                                    <i class="fa fa-check-circle"></i>&nbsp;Close Receipt
+                                </button>
+                            </div>
+                            <!-- DATA TABLE-->
+                            <div grid-data grid-options="gridOptions" grid-actions="gridActions">
+                                    <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
+                                    <table class="table table-borderless table-data3 ">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    Select
+                                                </th>
+                                                <th sortable="id" class="sortable">
+                                                    Receipt No
+                                                </th>
+                                                <th sortable="receipt_date" class="sortable">
+                                                    Receipt Date
+                                                </th>
+
+                                                <th sortable="customer_name" class="sortable">
+                                                    Customer Name
+                                                </th>
+                                                <th sortable="end_customer" class="sortable">
+                                                    End Customer
+                                                </th>
+                                                <th sortable="courier_name" class="sortable">
+                                                    Courier Name
+                                                </th>
+                                                <th sortable="docket_details" class="sortable">
+                                                    Docket Details
+                                                </th>
+                                                <th sortable="total_boxes" class="sortable">
+                                                    Number of Boxes
+                                                </th>
+                                                <th>
+                                                    Actions
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr grid-item>
+                                                <td>
+                                                    <label class="au-checkbox">
+                                                        <input type="checkbox" ng-model="item.close">
+                                                        <span class="au-checkmark"></span>
+                                                    </label>
+                                                </td>
+                                                <td ng-bind="'RC ' + item.id"></td>
+                                                <td ng-bind="item.receipt_date | date:'dd/MM/yyyy'"></td>
+
+                                                <td ng-bind="item.customer_name"></td>
+                                                <td ng-bind="item.end_customer"></td>
+                                                <td ng-bind="item.courier_name"></td>
+                                                <td ng-bind="item.docket_details"></td>
+                                                <td ng-bind="item.total_boxes"></td>
+                                                <td>
+                                                    <div class="table-data-feature">
+                                                    <!-- <button class="item" data-toggle="tooltip" data-placement="top" title="Edit"
+                                                            ng-click="OpenPVForm(item, true);">
+                                                        <i class="zmdi zmdi-edit"></i>
+                                                    </button> -->
+                                                    <button class="item" data-toggle="tooltip" data-placement="top"
+                                                    title="Add"
+                                                    ng-click="OpenPVForm(item, false);">
+                                                        <i class="zmdi zmdi-plus-box"></i>
+                                                    </button>
+                                                    <!-- <button class="item" data-toggle="tooltip" data-placement="top" title="Close"
+                                                            ng-click="CloseReceipts(item.id);">
+                                                        <i class="zmdi zmdi-close-circle"></i>
+                                                    </button> -->
+                                                    <!-- <button class="item" data-toggle="tooltip" data-placement="top"
+                                                    title="Delete"
+                                                    ng-click="DeletePV(item.id);">
+                                                        <i class="zmdi zmdi-delete"></i>
+                                                    </button> -->
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <form class="form-inline pull-right margin-bottom-basic">
+                                        <div class="form-group">
+                                            <grid-pagination max-size="5"
+                                            boundary-links="true"
+                                            class="pagination-sm"
+                                            total-items="paginationOptions.totalItems"
+                                            ng-model="paginationOptions.currentPage"
+                                            ng-change="reloadGrid()"
+                                            items-per-page="paginationOptions.itemsPerPage"></grid-pagination>
+                                        </div>
+                                        <div class="form-group items-per-page">
+                                            <label for="itemsOnPageSelect2">Items per page:</label>
+                                            <select id="itemsOnPageSelect2" class="form-control input-sm"
+                                            ng-init="paginationOptions.itemsPerPage = '10'"
+                                            ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+                                                <option>10</option>
+                                                <option>25</option>
+                                                <option>50</option>
+                                                <option>75</option>
+                                            </select>
+                                        </div>
+                                    </form>
                             </div>
                             <!-- END DATA TABLE-->
                         </div>
@@ -390,6 +508,70 @@
                                         <td ng-bind="item.id"></td>
                                         <td ng-bind="'RC ' + item.receipt_id"></td>
                                         <td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
+                                        <td ng-bind="item.customer_name"></td>
+                                        <td ng-bind="item.end_customer"></td>
+                                        <td ng-bind="item.courier_name"></td>
+                                        <td ng-bind="item.docket_details"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <form class="form-inline pull-right margin-bottom-basic">
+                                <div class="form-group">
+                                    <grid-pagination max-size="5"
+                                    boundary-links="true"
+                                    class="pagination-sm"
+                                    total-items="paginationOptions.totalItems"
+                                    ng-model="paginationOptions.currentPage"
+                                    ng-change="reloadGrid()"
+                                    items-per-page="paginationOptions.itemsPerPage"></grid-pagination>
+                                </div>
+                                <div class="form-group items-per-page">
+                                    <label for="itemsOnPageSelect2">Items per page:</label>
+                                    <select id="itemsOnPageSelect2" class="form-control input-sm"
+                                    ng-init="paginationOptions.itemsPerPage = '10'"
+                                    ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+                                    <option>10</option>
+                                    <option>25</option>
+                                    <option>50</option>
+                                    <option>75</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- END DATA TABLE-->
+                </div>
+                <div class="tab-pane fade" id="closed" role="tabpanel" aria-labelledby="closed-tab">
+                        
+                        <!-- DATA TABLE-->
+                        <div grid-data grid-options="gridOptions" grid-actions="gridOptions">
+                            <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
+                            <table class="table table-borderless table-data3 ">
+                                <thead>
+                                    <tr>
+                                        <th sortable="item.id" class="sortable">
+                                            Receipt Id
+                                        </th>
+                                        <th sortable="item.receipt_date" class="sortable">
+                                            Date
+                                        </th>
+                                        <th sortable="item.customer_name" class="sortable">
+                                            Customer Name
+                                        </th>
+                                        <th sortable="item.end_customer" class="sortable">
+                                            End Customer
+                                        </th>
+                                        <th sortable="item.courier_name" class="sortable">
+                                            Courier Name
+                                        </th>
+                                        <th sortable="item.docket_details" class="sortable">
+                                            Docket Details
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr grid-item>
+                                        <td ng-bind="'RC ' + item.id"></td>
+                                        <td ng-bind="item.receipt_date | date:'dd/MM/yyyy'"></td>
                                         <td ng-bind="item.customer_name"></td>
                                         <td ng-bind="item.end_customer"></td>
                                         <td ng-bind="item.courier_name"></td>

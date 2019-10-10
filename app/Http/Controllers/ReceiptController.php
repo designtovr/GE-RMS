@@ -16,9 +16,25 @@ use Carbon\Carbon;
 
 class ReceiptController extends Controller
 {
-    public function Receipts(Request $request)
+    public function Receipts($cat='all')
     {
-        $receipt = ReceiptMaster::selectRaw('receipt.*')->get();
+        $receipt;
+        if ($cat == 'open')
+        {
+            $receipt = ReceiptMaster::selectRaw('receipt.*')->where('status', 1)->get();
+        }
+        else if ($cat == 'closed')
+        {
+            $receipt = ReceiptMaster::selectRaw('receipt.*')->where('status', 3)->get();
+        }
+        else if ($cat == 'all')
+        {
+            $receipt = ReceiptMaster::selectRaw('receipt.*')->get();
+        }
+        else if ($cat == 'started') {
+            $receipt = ReceiptMaster::selectRaw('receipt.*')->where('status', 2)->get();
+        }
+        
         return response()->json(['data' => $receipt, 'status' => 'success']);
     }
 
@@ -26,6 +42,29 @@ class ReceiptController extends Controller
     {
         $receipt = ReceiptMaster::selectRaw('receipt.*')->where('receipt.id', $id)->first();
         return response()->json(['receipt' => $receipt], 200);
+    }
+
+    public function ChangeStatus(Request $request)
+    {
+        $lists = $request->get('list');
+        $status = $request->get('status');
+        if ($status == 'open')
+        {
+            $status = 1;
+        }
+        else if ($status == 'started')
+        {
+            $status = 2;
+        }
+        else if ($status == 'close')
+        {
+            $status = 3;
+        }
+        foreach ($lists as $key => $list) {
+            ReceiptMaster::where('id', $list)->update(['status' => $status]);
+        }
+        
+        return response()->json(['status' => 'success', 'message' => 'Receipt Closed Successfully']);
     }
 
     public function AddReceipt(AddReceiptRequest $request)
@@ -48,6 +87,7 @@ class ReceiptController extends Controller
         $RM->courier_name = $receipt['courier_name'];
         $RM->docket_details = $receipt['docket_details'];
         $RM->total_boxes = $receipt['total_boxes'];
+        $RM->status = 1;
 
         if ($exists) {
             $RM->updated_by = Auth::id();

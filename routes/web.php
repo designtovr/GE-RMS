@@ -213,12 +213,14 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
 	Route::post('/addrmaunit', 'RMAController@AddRmaUnit');
 
 	/*Receipt Get and Post ,Delete*/
-    Route::get('/receipts','ReceiptController@Receipts');
+    Route::get('/receipts/{cat?}','ReceiptController@Receipts');
 
     Route::post('/addreceipt', 'ReceiptController@AddReceipt');
     Route::get('/getreceipt/{id}', 'ReceiptController@GetReceipt');
 
     Route::delete('/receipt/{id}', 'ReceiptController@DeleteReceipt');
+
+    Route::post('/changereceiptstatus', 'ReceiptController@ChangeStatus');
     /*End Receipt*/
 
 

@@ -30,6 +30,7 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 		$scope.tab = 'all';
 		$scope.showcreatermaform = false;
 		$scope.selectedpvs = [];
+		$scope.selectedrcs = [];
 
 		$scope.AddPV= function()
 		{
@@ -234,6 +235,57 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 			$scope.pvform = true;
 		}
 
+		$scope.CloseReceipts = function()
+		{
+			$scope.selectedrcs = [];
+			for (var i = 0; i < $scope.gridOptions.data.length; i++) {
+				if ($scope.gridOptions.data[i].close != undefined && $scope.gridOptions.data[i].close)
+				{
+					$scope.selectedrcs.push($scope.gridOptions.data[i].id);
+				}
+			}
+			if ($scope.selectedrcs.length == 0)
+			{
+				Notification.error("No Receipt Selected");
+				return;
+			}
+			$ngConfirm({
+				title: 'Warning!',
+				content: 'Are you sure want to close?',
+				type: 'red',
+				typeAnimated: true,
+				buttons: {
+					delete: {
+						text: 'Close',
+						btnClass: 'btn-red',
+						action: function(){
+							$http({
+								method: 'post',
+								url: '/ge/changereceiptstatus',
+								data: {
+									'list': $scope.selectedrcs,
+									'status': 'close'
+								}
+							}).then(function success(response){
+								if (response.data.status == 'success')
+								{
+									$scope.ChangeTab('started');
+								}
+							}, function error(response){
+
+							});
+						}
+					},
+					cancel: {
+						text: 'Cancel',
+						action: function(){
+
+						}
+					}
+				}
+			});
+		}
+
 		$scope.DeletePV = function(id)
 		{
 			$ngConfirm({
@@ -288,11 +340,19 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 
 			$scope.Reset();
 
-			$http({
+			/*$http({
 				method: 'GET',
 				url: '/ge/physicalverification?cat='+name
 			}).then(function success(response) {
 				$scope.pvgridOptions.data =  response.data.physicalverification;
+			}, function error(response) {
+			});*/
+
+			$http({
+				method: 'GET',
+				url: '/ge/receipts/'+name
+			}).then(function success(response) {
+				$scope.gridOptions.data =  response.data.data;
 			}, function error(response) {
 			});
 

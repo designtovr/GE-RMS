@@ -271,6 +271,7 @@ class PhysicalVerificationController extends Controller
             $PVM->created_at = Carbon::now();
             $PVM->updated_at = Carbon::now();
             $PVM->save();
+            ReceiptMaster::where('id', $PVM->receipt_id)->update(['status' => 2]);
             if ($PVM->is_rma_available)
             {
                 $pvstatusRepositories->ChangeStatusToRelayWithRMA($PVM->id);
