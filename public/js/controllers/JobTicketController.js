@@ -193,11 +193,6 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
  				Notification.error("Fill Every Part No");
  				return;
 			}
-			if ($scope.jobticket.job_ticket_materials[i].value == '' || $scope.jobticket.job_ticket_materials[i].value == null)
-			{
-				Notification.error("Fill Every Value");
- 				return;
-			}
 			if ($scope.jobticket.job_ticket_materials[i].old_pcp == '' || $scope.jobticket.job_ticket_materials[i].old_pcp == null)
 			{
 				Notification.error("Fill Every Old PCP");

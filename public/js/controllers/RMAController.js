@@ -1,12 +1,17 @@
-app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '$timeout' , 'DataShareService', function($scope, $http, $filter, Notification, $timeout, DataShareService){
+app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '$timeout' , 'DataShareService', '$ngConfirm', function($scope, $http, $filter, Notification, $timeout, DataShareService, $ngConfirm){
 	$scope.showrmaform = false;
+	$scope.showsitecardform = false;
 	$scope.addpvform = false;
+	$scope.hide = false;
 	$scope.rmaformdata = {};
 	$scope.rmaformdata.unit_information = [];
-	$scope.rmaformdata.repair_instruction = {};
 	$scope.rmaformdata.invoice_info = {};
 	$scope.rmaformdata.delivery_info = {};
 	$scope.rmaformdata.relay = {};
+	$scope.sitecardform = {};
+	$scope.sitecardform.unit_information = [];
+	$scope.sitecardform.invoice_info = {};
+	$scope.sitecardform.delivery_info = {}
 	$scope.rmaformdata.field_volts_used = 1;
 	$scope.products = [];
 	$scope.customers = [];
@@ -49,6 +54,14 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 	$scope.HideRMAForm = function()
 	{
 		$scope.showrmaform = false;
+		$scope.showsitecardform = false;
+		$scope.ChangeTab($scope.tab);
+	}
+
+	$scope.HideSiteCardForm = function()
+	{
+		$scope.showrmaform = false;
+		$scope.showsitecardform = false;
 		$scope.ChangeTab($scope.tab);
 	}
 	
@@ -65,7 +78,6 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 	{
 		$scope.rmaformdata = {};
 		$scope.rmaformdata.unit_information = {};
-		$scope.rmaformdata.repair_instruction = {};
 		$scope.rmaformdata.invoice_info = {};
 		$scope.rmaformdata.delivery_info = {};
 		$scope.rmaformdata.date = $filter('date')(new Date(),'dd/MM/yyyy');
@@ -82,6 +94,56 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 		$scope.GetRmaRefNumber();
 	}
 
+	$scope.InitiateSiteCardForm = function()
+	{
+		$scope.sitecardform = {};
+		$scope.sitecardform.unit_information = [];
+		var info = {};
+		info.model_no = '';
+		info.type_of_material = '';
+		info.service_type = 2;
+		info.serial_no = '';
+		info.sw_version = '';
+		info.warrenty = 0;
+		info.field_volts_used = 0;
+		info.equip_failed_on_installation = 0;
+		info.equip_failed_on_service = 0;
+		$scope.sitecardform.unit_information.push(info);
+		console.log($scope.sitecardform.unit_information)
+		$scope.sitecardform.invoice_info = {};
+		$scope.sitecardform.delivery_info = {};
+		$scope.sitecardform.date = $filter('date')(new Date(),'dd/MM/yyyy');
+		$scope.sitecardform.edit = false;
+	}
+
+	$scope.AddSiteCardUnitInfo = function()
+	{
+		var info = {};
+		info.model_no = '';
+		info.type_of_material = '';
+		info.serial_no = '';
+		info.sw_version = '';
+		info.warrenty = 0;
+		info.field_volts_used = 0;
+		info.service_type = 2;
+		info.equip_failed_on_installation = 0;
+		info.equip_failed_on_service = 0;
+		$scope.sitecardform.unit_information.push(info);
+	}
+
+	$scope.RemoveSiteCardUnitInfo = function(index)
+	{
+		if ($scope.sitecardform.unit_information.length == 1)
+		{
+			Notification.error('Atleast One Required');
+			return;
+		}
+		else{
+			$scope.sitecardform.unit_information.splice(index, 1);
+			Notification.success('Product Removed');
+		}
+	}
+
 	$scope.EditRMAForm = function(id)
 	{
 		$scope.showrmaform = true;
@@ -89,11 +151,19 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 		$scope.GetRMA(id);
 	}
 
-	$scope.GetRMAList = function(tab = 'open')
+	$scope.ChangeModelCategory = function(index,info)
+	{
+		$scope.sitecardform.unit_information[index].model_no = info.model.part_no;
+		$scope.sitecardform.unit_information[index].type_of_material = $filter('uppercase')(info.model.category);
+		$scope.sitecardform.unit_information[index].product_id = info.model.id;
+		$scope.sitecardform.unit_information[index].producttype_id = info.model.type;
+	}
+
+	$scope.GetRMAList = function(tab = 'open', type = 'physcial')
 	{
 		$http({
 		  method: 'GET',
-		  url: '/ge/getrmalist/'+tab
+		  url: '/ge/getrmalist/'+tab + '/' + type
 		}).then(function success(response) {
 			if (response.data.status == 'success')
 		    	$scope.gridOptions.data = response.data.data;
@@ -256,7 +326,6 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 	$scope.ChangeInvoiceAddress = function(customer)
 	{
 		$scope.rmaformdata.invoice_info.id = customer.id;
-		//$scope.rmaformdata.invoice_info.customer_name = customer.name;
 		$scope.rmaformdata.invoice_info.invoice_address = customer.address;
 		$scope.rmaformdata.invoice_info.contact_name = customer.contact_person;
 		$scope.rmaformdata.invoice_info.invoice_tel_no = customer.contact;
@@ -281,18 +350,63 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 		}
 	}
 
+	$scope.ChangeSCInvoiceAddress = function(customer)
+	{
+		$scope.sitecardform.invoice_info.id = customer.id;
+		$scope.sitecardform.invoice_info.invoice_address = customer.address;
+		$scope.sitecardform.invoice_info.contact_name = customer.contact_person;
+		$scope.sitecardform.invoice_info.invoice_tel_no = customer.contact;
+		$scope.sitecardform.invoice_info.invoice_email = customer.email;
+		$scope.sitecardform.invoice_info.gst = customer.gst;
+		$scope.ChangeSCDeliveryAddress();
+	}
+
+	$scope.ChangeSCDeliveryAddress = function()
+	{
+		if ($scope.sitecardform.copy_invoice_address_to_delivery_address)
+		{
+			$scope.sitecardform.delivery_info.address = $scope.sitecardform.invoice_info.invoice_address;
+			$scope.sitecardform.delivery_info.contact_person = $scope.sitecardform.invoice_info.contact_name;
+			$scope.sitecardform.delivery_info.tel_no = $scope.sitecardform.invoice_info.invoice_tel_no;
+			$scope.sitecardform.delivery_info.email = $scope.sitecardform.invoice_info.invoice_email;
+			$scope.sitecardform.delivery_info.gst = $scope.sitecardform.invoice_info.gst;
+		}
+		else
+		{
+			$scope.sitecardform.delivery_info = {};
+		}
+	}
+
+	$scope.AssignSCEndCustomer = function()
+	{
+		console.log($scope.sitecardform.invoice_info)
+		$scope.sitecardform.end_customer = $scope.sitecardform.invoice_info.end_cus.end_customer;
+		console.log($scope.sitecardform.invoice_info)
+	}
+
 	$scope.ChangeTab = function(tab)
 	{
 		$scope.tab = tab;
 		if ($scope.tab == 'all' || $scope.tab == 'saved')
 		{
-			$scope.GetRMAList($scope.tab);
+			$scope.GetRMAList($scope.tab, '');
 		}
 		else if($scope.tab == 'withrma' || $scope.tab == 'withoutrma')
 		{
 			$scope.PVList($scope.tab);
 		}
+		else if ($scope.tab == 'opensitecard')
+		{
+			$scope.GetRMAList('all', 'sitecard');
+		}
 
+	}
+
+	$scope.CreateSiteCard = function()
+	{
+		console.log('CreateSiteCard')
+		$scope.showsitecardform = true;
+		$scope.InitiateSiteCardForm();
 	}
 
 	$scope.SubmitRMAForm = function()
@@ -354,6 +468,52 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 			}
 		});
 
+	}
+
+	$scope.SubmitSiteCardForm = function()
+	{
+		var dateformatregex = new RegExp(/^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/i);
+		var datestr = $scope.sitecardform.date;
+		var result = dateformatregex.test(datestr);
+		if (!result)
+		{
+			Notification.error("Invalid Date Format");
+			return;
+		}
+		$scope.sitecardform.customer_address_id = $scope.sitecardform.invoice_info.customer_name.id;
+		if ($scope.sitecardform.invoice_info.end_cus.end_customer == 'Add New')
+		{
+			$scope.sitecardform.end_customer = $scope.sitecardform.manual_end_customer;
+		}
+		console.log($scope.sitecardform);
+		$http({
+			url: '/ge/addscrma',
+			method: 'POST',
+			data: {
+				'rma': $scope.sitecardform,
+			}
+		}).then(function(response){
+			if (response.data.status == 'success')
+			{
+				Notification.success(response.data.message);
+				$scope.rmaformdata = {};
+				$scope.rmaformdata.unit_information = [];
+				$scope.rmaformdata.repair_instruction = {};
+				$scope.rmaformdata.invoice_info = {};
+				$scope.rmaformdata.delivery_info = {};
+				$scope.HideSiteCardForm();
+			}
+		}, function(response){
+			if (response.status == 422)
+			{
+				var errors = response.data.errors;
+				for(var error in errors)
+				{
+					Notification.error(errors[error][0]);
+					break;
+				}
+			}
+		});
 	}
 
 	$scope.SaveRMAForm = function()

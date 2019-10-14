@@ -12,7 +12,7 @@ class ProductController extends Controller
 {
     public function Products(Request $request)
     {
-    	$products = ProductMaster::selectRaw('ma_product.id, ma_product.part_no, pt.name as type_name, pt.category')->leftJoin('ma_product_type as pt', 'pt.id', 'ma_product.type')->orderBy('ma_product.id')->get();
+    	$products = ProductMaster::selectRaw('ma_product.id, ma_product.part_no, pt.name as type_name, pt.category, ma_product.type')->leftJoin('ma_product_type as pt', 'pt.id', 'ma_product.type')->orderBy('ma_product.id')->get();
     	return response()->json(['data' => $products, 'status' => 'success']);
     }
 

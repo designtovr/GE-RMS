@@ -12,6 +12,7 @@ use App\Models\CustomerMaster;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ADDRMARequest;
 use App\Http\Requests\AddRmaUnitRequest;
+use App\Http\Requests\AddSCRMARequest;
 use App\Http\Repositories\PVStatusRepositories;
 use App\Http\Repositories\PVListingRepository;
 use Carbon\Carbon;
@@ -19,21 +20,28 @@ use Carbon\Carbon;
 class RMAController extends Controller
 {
 
-	public function GetRMAList($cat)
+	public function GetRMAList($cat = 'all', $type = 'all')
 	{
-        $rmalist;
+        $rmalist = RMA::selectRaw('*');
         if ($cat == 'open')
         {
-            $rmalist = RMA::where('status', 1)->get();
+            $rmalist = $rmalist->where('status', 1);
         }
-        else if ($cat == 'saved')
+        if ($cat == 'saved')
         {
-            $rmalist = RMA::where('status', 2)->get();
+            $rmalist = $rmalist->where('status', 2);
         }
-        else
+        if ($type == 'physical')
         {
-            $rmalist = RMA::get();
+            $rmalist = $rmalist->where('service_type', 1);
         }
+
+        if ($type == 'sitecard')
+        {
+            $rmalist = $rmalist->where('service_type', 2);
+        }
+
+        $rmalist = $rmalist->get();
 		return response()->json(['data' => $rmalist, 'status' => 'success']);
 	}
 
@@ -349,5 +357,80 @@ class RMAController extends Controller
 
             return response()->json(['data' => $RMA, 'status' => 'success', 'message' => 'RMA Updated Successfully'], 200);
         }
+    }
+
+    public function AddSCRMA(AddSCRMARequest $request)
+    {
+        $rma = $request->get('rma');
+        //Saving RMA
+        $RMAT = new RMA();
+        $RMAT->gs_no = (array_key_exists('gs_no', $rma))?$rma['gs_no']:'';
+        $RMAT->act_reference = (array_key_exists('act_reference', $rma))?$rma['act_reference']:'';
+        $date = Carbon::createFromFormat('d/m/Y',$rma['date']);
+        $RMAT->date = $date->format('Y-m-d');
+        $RMAT->customer_address_id = $rma['customer_address_id'];
+        $RMAT->end_customer = $rma['end_customer'];
+        $RMAT->status = 3;
+        $RMAT->service_type = 2;
+        $RMAT->created_by = Auth::id();
+        $RMAT->created_at = Carbon::now();
+        $RMAT->updated_by = Auth::id();
+        $RMAT->updated_at = Carbon::now();
+        $RMAT->save();
+
+        $delivery_info = $rma['delivery_info'];
+        $RMADT = new RMADeliveryAddress();
+        $RMADT->rma_id = $RMAT->id;
+        $RMADT->address = $delivery_info['address'];
+        $RMADT->contact_person = $delivery_info['contact_person'];
+        $RMADT->tel_no = $delivery_info['tel_no'];
+        $RMADT->email = $delivery_info['email'];
+        $RMADT->gst = $delivery_info['gst'];
+        $RMADT->created_by = Auth::id();
+        $RMADT->created_at = Carbon::now();
+        $RMADT->updated_by = Auth::id();
+        $RMADT->updated_at = Carbon::now();
+        $RMADT->save();
+
+        //Save PV
+        foreach ($rma['unit_information'] as $key => $unit) {
+            $PVT = new PhysicalVerificationMaster();
+            $PVT->receipt_id = -1;
+            $PVT->docket_details = '';
+            $PVT->courier_name = '';
+            $PVT->pvdate = $RMAT->date;
+            $PVT->producttype_id = $unit['producttype_id'];
+            $PVT->product_id = $unit['product_id'];
+            $PVT->serial_no  = $unit['serial_no'];
+            $PVT->is_rma_available = 1;
+            $PVT->sales_order_no = (array_key_exists('sales_order_no', $unit))?$unit['sales_order_no']:'';
+            $PVT->created_by = Auth::id();
+            $PVT->created_at = Carbon::now();
+            $PVT->updated_by = Auth::id();
+            $PVT->updated_at = Carbon::now();
+            $PVT->save();
+
+            $RMAUT = new RMAUnitInformation();
+            $RMAUT->rma_id = $RMAT->id;
+            $RMAUT->pv_id = $PVT->id;
+            $RMAUT->service_type = 2;
+            $RMAUT->sw_version = (array_key_exists('sw_version', $unit))?$unit['sw_version']:'';
+            $RMAUT->warrenty = (array_key_exists('warrenty', $unit))?$unit['warrenty']:0;
+            $RMAUT->desc_of_fault = (array_key_exists('desc_of_fault', $unit))?$unit['desc_of_fault']:'';
+            $RMAUT->sales_order_no = (array_key_exists('sales_order_no', $unit))?$unit['sales_order_no']:'';
+            $RMAUT->field_volts_used = (array_key_exists('field_volts_used', $unit))?$unit['field_volts_used']:0;
+            $RMAUT->equip_failed_on_installation = (array_key_exists('equip_failed_on_installation', $unit))?$unit['equip_failed_on_installation']:0;
+            $RMAUT->equip_failed_on_service = (array_key_exists('equip_failed_on_service', $unit))?$unit['equip_failed_on_service']:0;
+            $RMAUT->how_long = (array_key_exists('how_long', $unit))?$unit['how_long']:'';
+            $RMAUT->created_by = Auth::id();
+            $RMAUT->created_at = Carbon::now();
+            $RMAUT->updated_by = Auth::id();
+            $RMAUT->updated_at = Carbon::now();
+            $RMAUT->save();
+
+            PVStatusRepositories::ChangeStatusToManagerApproval($RMAUT->pv_id);
+        }
+
+        return response()->json(['data' => $RMAT, 'status' => 'success', 'message' => 'RMA Created Successfully'], 200);
     }
 }

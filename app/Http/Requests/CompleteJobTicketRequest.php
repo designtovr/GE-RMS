@@ -26,7 +26,6 @@ class CompleteJobTicketRequest extends FormRequest
         return [
             'jobticket.id' => 'nullable|exists:job_tickets,id',
             'jobticket.job_ticket_materials.*.part_no' => 'required',
-            'jobticket.job_ticket_materials.*.value' => 'required',
             'jobticket.job_ticket_materials.*.old_pcp' => 'required',
             'jobticket.job_ticket_materials.*.new_pcp' => 'required',
         ];

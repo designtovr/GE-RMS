@@ -214,11 +214,12 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
 	Route::post('/addcustomers', 'CustomerController@AddCustomer');
 	Route::get('/getcustomer/{id}', 'CustomerController@GetCustomer');
 
-	Route::get('/getrmalist/{cat?}', 'RMAController@GetRMAList');
+	Route::get('/getrmalist/{cat?}/{type?}', 'RMAController@GetRMAList');
 	Route::post('/getrma/{id}', 'RMAController@GetRma');
 	Route::post('/addrma', 'RMAController@AddRMA');
 	Route::post('/saverma', 'RMAController@SaveRMA');
 	Route::post('/addrmaunit', 'RMAController@AddRmaUnit');
+	Route::post('/addscrma', 'RMAController@AddSCRMA');
 
 	/*Receipt Get and Post ,Delete*/
     Route::get('/receipts/{cat?}','ReceiptController@Receipts');

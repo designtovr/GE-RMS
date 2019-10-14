@@ -23,7 +23,7 @@ class PhysicalVerificationController extends Controller
 	public function PhysicalVerificationList(Request $request)
 	{
 		$cat = $request->get('cat');
-        $pv;
+        $pv = array();
 		if ($cat == 'withrma')
 		{
             $pv = PVListingRepository::WithRma();
