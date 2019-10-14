@@ -69,7 +69,7 @@
         <!-- END HEADER MOBILE-->
 
         <!-- MENU SIDEBAR-->
-        <aside class="menu-sidebar d-none d-lg-block">
+        <aside class="menu-sidebar d-none d-lg-block" id="mySidebar">
             <div class="logo">
                 <a href="#">
                     <img src="{{url('public/images/179x52px-ge-logo.png')}}" alt="GE" />
@@ -217,19 +217,22 @@
                 </nav>
             </div>
         </aside>
+       {{-- <button id="openBtn" class="openbtn" onclick="closeNav()">☰ Toggle Sidebar</button>--}}
         <!-- END MENU SIDEBAR-->
 
         <!-- PAGE CONTAINER-->
-        <div class="page-container">
+        <div class="page-container" id = "Page">
+
             <!-- HEADER DESKTOP-->
-            <header class="header-desktop">
+            <header class="header-desktop" id="headerID">
+
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="col-md-12">
                             <div class="header-wrap float-right">
                                 <div class="header-button">
                                     <div class="noti-wrap">
-                                        <!-- <div class="noti__item js-item-menu">
+                                    <!-- <div class="noti__item js-item-menu">
                                             <i class="zmdi zmdi-comment-more"></i>
                                             <span class="quantity">1</span>
                                             <div class="mess-dropdown js-dropdown">
@@ -440,7 +443,16 @@
     <script type="text/javascript" src="{{url('public/js/app.js')}}"></script>
     <script type="text/javascript" src="{{url('public/js/services/datashareservice.js')}}"></script>
     <script type="text/javascript" src="{{url('public/js/services/ChangePVStatusService.js')}}"></script>
-    
+    <script>
+        function openNav() {
+            document.getElementById("mySidebar").style.width = "300px";
+        }
+
+        function closeNav() {
+           }
+        
+
+    </script>
     @yield('scripts')
 
 </body>

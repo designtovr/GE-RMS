@@ -40,6 +40,42 @@ Notes:	decreasing heading by 0.4em with every subsequent heading level
 /*                   GENERIC                           */
 /*-----------------------------------------------------*/
 /* ----- Normalize ----- */
+/* Position and style the close button (top right corner) */
+.menu-sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+/* The button used to open the sidebar */
+.openbtn {
+    z-index: 10;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #111;
+    color: white;
+    padding: 10px 15px;
+    padding-left: 300px !important;
+    border: none;
+}
+
+.openbtn:hover {
+    background-color: #444;
+}
+
+.menu-sidebar {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0;
+    left: 0;
+    background-color: #111; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+   /* transition: 0.5s; !* 0.5 second transition effect to slide in the sidebar *!
+*/}
 
 .pagination-sm>li:first-child>a, .pagination-sm>li:first-child>span {
     border-top-left-radius: 3px;

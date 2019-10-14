@@ -1,6 +1,4 @@
 DashBoard:
-Waiting For physical Verification - Seperate column for time Exceeded Relays Blinking
-All tabs Total Relay Heading
 Color Contrast for Two black headings
 Charts Today Status and OTD Chart
 Menu Collapse
@@ -46,3 +44,8 @@ DISPATCH LIST
 JOB TICKET 
 1. REMOVE ACTION IN TAB - OPEN AND TABLE ACTION. 
 2. REMOVE VALUE FIELD IN MATERIAL 
+
+
+Dashboard:
+Waiting For physical Verification - Seperate column for time Exceeded Relays Blinking
+All tabs Total Relay Heading
