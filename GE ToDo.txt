@@ -1,3 +1,10 @@
+DashBoard:
+Waiting For physical Verification - Seperate column for time Exceeded Relays Blinking
+All tabs Total Relay Heading
+Color Contrast for Two black headings
+Charts Today Status and OTD Chart
+Menu Collapse
+
 W/C PAGE 
 1. ADD RMA NO IN LIST.
 2.CHANGE END CUSTOMER TO CUSTOMER LIST
