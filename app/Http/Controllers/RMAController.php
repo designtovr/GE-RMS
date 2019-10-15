@@ -63,29 +63,34 @@ class RMAController extends Controller
     public function AddRmaUnit(AddRmaUnitRequest $request)
     {
         $rma = $request->get('rma');
-        $pv = $request->get('pv');
-        $RmaUnit = new RMAUnitInformation();
-        $RmaUnit->rma_id = $rma['id'];
-        $RmaUnit->pv_id = $pv['id'];
-        $RmaUnit->sw_version = $pv['sw_version'];
-        $RmaUnit->service_type = (array_key_exists('service_type', $pv))?$pv['service_type']:1;
-        $RmaUnit->warrenty = $pv['warrenty'];
-        $RmaUnit->desc_of_fault = $pv['desc_of_fault'];
-        $RmaUnit->sales_order_no = $pv['sales_order_no'];
-        $RmaUnit->field_volts_used = $pv['field_volts_used'];
-        $RmaUnit->equip_failed_on_installation = $pv['equip_failed_on_installation'];
-        $RmaUnit->equip_failed_on_service = $pv['equip_failed_on_service'];
-        $RmaUnit->how_long = $pv['how_long'];
-        $RmaUnit->created_by = Auth::id();
-        $RmaUnit->updated_by = Auth::id();
-        $RmaUnit->created_at = Carbon::now();
-        $RmaUnit->updated_at = Carbon::now();
-        $RmaUnit->save();
-        $PhysicalVerification = PhysicalVerificationMaster::find($pv['id']);
-        $PhysicalVerification->is_rma_available = 1;
-        $PhysicalVerification->updated_by = Auth::id();
-        $PhysicalVerification->updated_at = Carbon::now();
-        $PhysicalVerification->save();
+        $pvs = $request->get('pvs');
+        foreach ($pvs as $key => $pv) {
+            $RmaUnit = new RMAUnitInformation();
+            $RmaUnit->rma_id = $rma['id'];
+            $RmaUnit->pv_id = $pv['id'];
+            $RmaUnit->sw_version = (array_key_exists('sw_version', $pv))?$pv['sw_version']:'';
+            $RmaUnit->service_type = 1;
+            $RmaUnit->warrenty = (array_key_exists('warrenty', $pv))?$pv['warrenty']:0;
+            $RmaUnit->desc_of_fault = (array_key_exists('desc_of_fault', $pv))?$pv['desc_of_fault']:'';
+            $RmaUnit->sales_order_no = (array_key_exists('sales_order_no', $pv))?$pv['sales_order_no']:'';
+            $RmaUnit->field_volts_used = (array_key_exists('field_volts_used', $pv))?$pv['field_volts_used']:0;
+            $RmaUnit->equip_failed_on_installation = (array_key_exists('equip_failed_on_installation', $pv))?$pv['equip_failed_on_installation']:0;
+            $RmaUnit->equip_failed_on_service = (array_key_exists('equip_failed_on_service', $pv))?$pv['equip_failed_on_service']:0;
+            $RmaUnit->how_long = (array_key_exists('how_long', $pv))?$pv['how_long']:'';
+            $RmaUnit->created_by = Auth::id();
+            $RmaUnit->updated_by = Auth::id();
+            $RmaUnit->created_at = Carbon::now();
+            $RmaUnit->updated_at = Carbon::now();
+            $RmaUnit->save();
+
+            $PhysicalVerification = PhysicalVerificationMaster::find($pv['id']);
+            $PhysicalVerification->is_rma_available = 1;
+            $PhysicalVerification->updated_by = Auth::id();
+            $PhysicalVerification->updated_at = Carbon::now();
+            $PhysicalVerification->update();
+
+            PVStatusRepositories::ChangeStatusToManagerApproval($pv['id']);
+        }
 
         return response()->json(['status' => 'success', 'message' => 'Relay Added Successfully'], 200);
     }
@@ -102,7 +107,7 @@ class RMAController extends Controller
             $date = Carbon::createFromFormat('d/m/Y',$requestdata['date']);
             $RMA->date = $date->format('Y-m-d');
             $RMA->customer_address_id = $requestdata['customer_address_id'];
-            $RMA->end_customer = $requestdata['invoice_info']['end_customer']['end_customer'];
+            $RMA->end_customer = $requestdata['invoice_info']['end_customer'];
             $RMA->status = 1;
             $RMA->created_by = Auth::id();
             $RMA->updated_by = Auth::id();
@@ -112,11 +117,11 @@ class RMAController extends Controller
             $delivery_info = $requestdata['delivery_info'];
             $RMADelivery = new RMADeliveryAddress();
             $RMADelivery->rma_id = $RMA->id;
-            $RMADelivery->address = $delivery_info['delivery_address'];
-            $RMADelivery->contact_person = $delivery_info['contact_name'];
+            $RMADelivery->address = $delivery_info['address'];
+            $RMADelivery->contact_person = $delivery_info['contact_person'];
             $RMADelivery->tel_no = $delivery_info['tel_no'];
-            $RMADelivery->email = $delivery_info['delivery_email'];
-            $RMADelivery->gst = $delivery_info['gst_number'];
+            $RMADelivery->email = $delivery_info['email'];
+            $RMADelivery->gst = $delivery_info['gst'];
             $RMADelivery->created_by = Auth::id();
             $RMADelivery->updated_by = Auth::id();
             $RMADelivery->updated_at = Carbon::now();
@@ -158,7 +163,7 @@ class RMAController extends Controller
             /*$date = Carbon::createFromFormat('d/m/Y',$requestdata['date']);
             $RMA->date = $date->format('Y-m-d');*/
             $RMA->customer_address_id = $requestdata['customer_address_id'];
-            $RMA->end_customer = $requestdata['invoice_info']['end_customer']['end_customer'];
+            $RMA->end_customer = $requestdata['invoice_info']['end_customer'];
             $RMA->status = 1;
             $RMA->created_by = Auth::id();
             $RMA->updated_by = Auth::id();
@@ -175,16 +180,16 @@ class RMAController extends Controller
                 $RMADelivery->created_by = Auth::id();
                 $dexists = false;
             }
-            if (array_key_exists('delivery_address', $delivery_info))
-                $RMADelivery->address = $delivery_info['delivery_address'];
-            if (array_key_exists('contact_name', $delivery_info))
-                $RMADelivery->contact_person = $delivery_info['contact_name'];
+            if (array_key_exists('address', $delivery_info))
+                $RMADelivery->address = $delivery_info['address'];
+            if (array_key_exists('contact_person', $delivery_info))
+                $RMADelivery->contact_person = $delivery_info['contact_person'];
             if (array_key_exists('tel_no', $delivery_info))
                 $RMADelivery->tel_no = $delivery_info['tel_no'];
-            if (array_key_exists('delivery_email', $delivery_info))
-                $RMADelivery->email = $delivery_info['delivery_email'];
-            if (array_key_exists('gst_number', $delivery_info))
-                $RMADelivery->gst = $delivery_info['gst_number'];
+            if (array_key_exists('email', $delivery_info))
+                $RMADelivery->email = $delivery_info['email'];
+            if (array_key_exists('gst', $delivery_info))
+                $RMADelivery->gst = $delivery_info['gst'];
             $RMADelivery->updated_by = Auth::id();
             $RMADelivery->updated_at = Carbon::now();
             if ($dexists)                
@@ -204,8 +209,8 @@ class RMAController extends Controller
                         $RMAUnitInformation->warrenty = $unit['warrenty'];
                     if (array_key_exists('desc_of_fault', $unit))
                         $RMAUnitInformation->desc_of_fault = $unit['desc_of_fault'];
-                    if (array_key_exists('wbs', $unit))
-                        $RMAUnitInformation->sales_order_no = $unit['wbs'];
+                    if (array_key_exists('sales_order_no', $unit))
+                        $RMAUnitInformation->sales_order_no = $unit['sales_order_no'];
                     if (array_key_exists('field_volts_used', $unit))
                         $RMAUnitInformation->field_volts_used = $unit['field_volts_used'];
                     if (array_key_exists('equip_failed_on_installation', $unit))
@@ -227,10 +232,10 @@ class RMAController extends Controller
                     $RMAUnitInformation = new RMAUnitInformation();
                     $RMAUnitInformation->rma_id = $RMA->id();
                     $RMAUnitInformation->sw_version = (array_key_exists('sw_version', $unit))?$unit['sw_version']:'';
-                    $RMAUnitInformation->service_type = (array_key_exists('service_type', $unit))?$unit['service_type']:'';
+                    $RMAUnitInformation->service_type = (array_key_exists('service_type', $unit))?$unit['service_type']:1;
                     $RMAUnitInformation->warrenty = $unit['warrenty'];
                     $RMAUnitInformation->desc_of_fault = (array_key_exists('desc_of_fault', $unit))?$unit['desc_of_fault']:'';
-                    $RMAUnitInformation->sales_order_no = (array_key_exists('wbs', $unit))?$unit['wbs']:'';
+                    $RMAUnitInformation->sales_order_no = (array_key_exists('sales_order_no', $unit))?$unit['sales_order_no']:'';
                     $RMAUnitInformation->field_volts_used = $unit['field_volts_used'];
                     $RMAUnitInformation->equip_failed_on_installation = $unit['equip_failed_on_installation'];
                     $RMAUnitInformation->equip_failed_on_service = $unit['equip_failed_on_service'];
@@ -247,7 +252,7 @@ class RMAController extends Controller
                 PVStatusRepositories::ChangeStatusToManagerApproval($RMAUnitInformation->pv_id);
             }
 
-            return response()->json(['data' => $RMA, 'status' => 'success', 'message' => 'RMA Created Successfully'], 200);
+            return response()->json(['data' => $RMA, 'status' => 'success', 'message' => 'RMA Updated Successfully'], 200);
         }
     	
     }

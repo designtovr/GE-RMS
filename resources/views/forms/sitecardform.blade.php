@@ -16,7 +16,24 @@
                         name="gs_no" 
                         ng-model="sitecardform.gs_no"
                         placeholder="GS No"
-                        class="form-control">
+                        class="form-control"
+                        ng-minlength="3"
+                        ng-maxlength="50"
+                        required>
+                        <div ng-show="SiteCardForm1.gs_no.$touched && SiteCardForm1.gs_no.$error">
+                            <span class="help-block"
+                             ng-show="SiteCardForm1.gs_no.$error.required">
+                                Please Enter GS Number
+                            </span>
+                            <span class="help-block"
+                             ng-show="SiteCardForm1.gs_no.$error.minlength">
+                                Minimum 3 Characters Required
+                            </span>
+                            <span class="help-block"
+                             ng-show="SiteCardForm1.gs_no.$error.maxlength">
+                                Maximum 50 Characters Allowed
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div class="row form-group">
@@ -243,7 +260,7 @@
 					                                    type="text" 
 					                                    id="sales_order_no_@{{$index}}" 
 					                                    name="sales_order_no_@{{$index}}"
-					                                    ng-model="sitecardform.sales_order_no"
+					                                    ng-model="info.sales_order_no"
 					                                    placeholder="WBS/Sales Order No" 
 					                                    class="form-control">
 					                                </div>

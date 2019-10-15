@@ -2,9 +2,9 @@
 @section('title', 'RMA List')
 @section('content')
 <div class="main-content" ng-controller="RMAController">
-	<div class="section__content section__content--p30" ng-init="ChangeTab('withrma');InitiateForm();">
+	<div class="section__content section__content--p30" ng-init="ChangeTab('all');InitiateForm();">
 	    <div class="container-fluid">
-	    	<div class="row" ng-show="!showrmaform && !showsitecardform">
+	    	<div class="row" ng-show="!showrmaform && !showsitecardform && !addpvform">
 				<div class="col-md-12">
 			        <div class="overview-wrap">
 			            <h6 class="pb-4 display-5">RMA List</h6>
@@ -66,11 +66,11 @@
                     <div class=" card w-100">
                         <div class="card-body">
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                <!-- <li class="nav-item" ng-click="ChangeTab('all')">
+                                <li class="nav-item" ng-click="ChangeTab('all')">
                                     <a class="nav-link active" id="all-tab" data-toggle="tab" href="#all" role="tab" aria-controls="all" aria-selected="true">ALL RMA</a>
-                                </li> -->
+                                </li>
                                 <li class="nav-item" ng-click="ChangeTab('withrma')">
-                                    <a class="nav-link active" id="withrma-tab" data-toggle="tab" href="#withrma" role="tab" aria-controls="withrma" aria-selected="false">With Physical RMA</a>
+                                    <a class="nav-link" id="withrma-tab" data-toggle="tab" href="#withrma" role="tab" aria-controls="withrma" aria-selected="false">With Physical RMA</a>
                                 </li>
                                 <li class="nav-item" ng-click="ChangeTab('withoutrma')">
                                     <a class="nav-link" id="withoutrma-tab" data-toggle="tab" href="#withoutrma" role="tab" aria-controls="withoutrma" aria-selected="false">Without Physical RMA</a>
@@ -83,7 +83,7 @@
                                 </li>
                             </ul>
                             <div class="tab-content pl-3 p-1" id="myTabContent">
-                                <div class="tab-pane fade" id="all" role="tabpanel" aria-labelledby="all-tab">
+                                <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
                                     <div class="col-md-12">
                                         <!-- DATA TABLE-->
                                         <div grid-data grid-options="gridOptions" grid-actions="gridActions" class="">
@@ -164,7 +164,7 @@
                                         <!-- END DATA TABLE-->
                                     </div>
                                 </div>
-                                <div class="tab-pane fade show active" id="withrma" role="tabpanel" aria-labelledby="withrma-tab">
+                                <div class="tab-pane fade" id="withrma" role="tabpanel" aria-labelledby="withrma-tab">
                                     <div class="col-md-12">
                                         <button type="button" class="btn btn-primary btn-md pull-right m-b-10" ng-click="CreateRMA();">
                                             <i class="fa fa-check-circle"></i>&nbsp;Create RMA
@@ -497,6 +497,11 @@
             </div>
             <div class="row" ng-if="showsitecardform">
                 @component('forms.sitecardform')
+                    
+                @endcomponent
+            </div>
+            <div class="row" ng-if="addpvform">
+                @component('forms.addpvform')
                     
                 @endcomponent
             </div>

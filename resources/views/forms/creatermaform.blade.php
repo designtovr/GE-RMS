@@ -93,379 +93,360 @@
                     <strong>IDENTIFICATION OF UNIT & FAULT INFORMATION</strong>
                 </div>
                 <div class="card-body card-block">
-                	<form name="RMAForm2" id="RMAForm2" class="form-horizontal" novalidate>
-                        <div class="col-lg-12 p-b-20 p-t-10">
-                        	<div class="row">
-                        		<div class="col-lg-6">
-                        			<div class="row form-group">
-                                        <div class="col-md-4">
-                                            <label for="relay" class=" form-control-label">	Relay Id
-                                            </label>
+                    <!-- start accordion -->
+                    <form name="RMAForm2" id="RMAForm2" class="form-horizontal" novalidate>
+                    <div id="accordion" ng-repeat="pv in selectedpvs track by $index">
+                        <div class="card">
+                            <div class="card-header" id="heading@{{$index}}">
+                              <h5 class="mb-0">
+                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapse@{{$index}}" aria-expanded="true" aria-controls="collapse@{{$index}}">
+                                  Relay Id #@{{pv.id}}
+                                </button>
+                              </h5>
+                            </div>
+                            <div id="collapse@{{$index}}" class="collapse show" aria-labelledby="heading@{{$index}}" data-parent="#accordion">
+                                <div class="col-lg-12 p-b-20 p-t-10">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="row form-group">
+                                                <div class="col-md-4">
+                                                    <label for="model_no" class=" form-control-label">  Model No
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                      <input 
+                                                        type="text" 
+                                                        id="model_no_@{{$index}}"
+                                                        name="model_no_@{{$index}}"
+                                                        ng-model="pv.part_no"
+                                                        placeholder="Model No"
+                                                        class="form-control"
+                                                        disabled>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col-md-8">
-                                            <ui-select ng-model="rmaformdata.relay" theme="selectize" title="Select Relay Id" id="relay" 
-                                            name="relay" ng-change="ChangeRelayDetails();">
-											    <ui-select-match placeholder="Select Relay Id">@{{$select.selected.id}}</ui-select-match>
-											    <ui-select-choices repeat="pv in selectedpvs | filter: $select.search">
-											      <span ng-bind-html="pv.id | highlight: $select.search"></span>
-											    </ui-select-choices>
-											  </ui-select>
+                                        <div class="col-lg-6">
+                                            <div class="row form-group">
+                                                <div class="col-md-4">
+                                                    <label for="category" class=" form-control-label">Type Of Material</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input 
+                                                    type="text" 
+                                                    id="category_@{{$index}}"
+                                                    name="category_@{{$index}}"
+                                                    ng-model="pv.category"
+                                                    placeholder="Type of Material"
+                                                    class="form-control"
+                                                    disabled>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                        		</div>
-                        	</div>
-                        	<div class="row">
-                        		<div class="col-lg-6">
-                        			<div class="row form-group">
-                                        <div class="col-md-4">
-                                            <label for="model_no" class=" form-control-label">	Model No
-                                            </label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <!-- <ui-select ng-model="rmaformdata.unit_information.model_no" theme="selectize" title="Select Model No" id="model_no" 
-                                            name="model_no" ng-change="ChangeModelCategory()">
-											    <ui-select-match placeholder="Select Model No">@{{$select.selected.part_no}}</ui-select-match>
-											    <ui-select-choices repeat="product in products | filter: $select.search">
-											      <span ng-bind-html="product.part_no | highlight: $select.search"></span>
-											    </ui-select-choices>
-											  </ui-select> -->
-											  <input 
-	                                            type="text" 
-	                                            id="model_no"
-	                                            name="model_no"
-	                                            ng-model="rmaformdata.relay.model_no"
-	                                            placeholder="Model No"
-	                                            class="form-control"
-	                                            disabled>
+                                    <div class="row" ng-if="pv.part_no.id == -1">
+                                        <div class="col-lg-6">
+                                            <div class="row form-group">
+                                                <div class="col-md-4">
+                                                    <label for="model_no_@{{$index}}" class=" form-control-label">Model No
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input 
+                                                    type="text" 
+                                                    id="model_no_@{{$index}}" 
+                                                    name="model_no_@{{$index}}"
+                                                    ng-model="pv.part_no"
+                                                    placeholder="Model No" 
+                                                    class="form-control"
+                                                    ng-minlength="3" 
+                                                    ng-maxlength="10"
+                                                    required>
+                                                    <div ng-show="RMAForm2.model_no_@{{$index}}.$touched && RMAForm2.model_no_@{{$index}}.$error">
+                                                        <span class="help-block"
+                                                         ng-show="RMAForm2.model_no_@{{$index}}.$error.required">
+                                                            Please Enter Model Number
+                                                        </span>
+                                                        <span class="help-block"
+                                                         ng-show="RMAForm2.model_no_@{{$index}}.$error.minlength">
+                                                            Minimum 3 Characters Required
+                                                        </span>
+                                                        <span class="help-block"
+                                                         ng-show="RMAForm2.model_no_@{{$index}}.$error.maxlength">
+                                                            Maximum 10 Characters Allowed
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                        		</div>
-                        		<div class="col-lg-6">
-                        			<div class="row form-group">
-                        				<div class="col-md-4">
-                                            <label for="type_of_material" class=" form-control-label">Type Of Material</label>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="row form-group">
+                                                <div class="col-md-4">
+                                                    <label for="serial_no_@{{$index}}" class=" form-control-label">Serial Number</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div>
+                                                        <input 
+                                                        type="text" 
+                                                        id="serial_no_@{{$index}}" 
+                                                        name="serial_no_@{{$index}}"
+                                                        ng-model="pv.serial_no"
+                                                        placeholder="Serial Number" 
+                                                        class="form-control"
+                                                        disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col-md-8">
-                                            <input 
+                                        <div class="col-lg-6">
+                                            <div class="row form-group">
+                                                <div class="col col-md-4">
+                                                    <label for="sw_version_@{{$index}}" class=" form-control-label">SW
+                                                        Version</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input 
+                                                    type="text" 
+                                                    id="sw_version_@{{$index}}" 
+                                                    name="sw_version_@{{$index}}"
+                                                    ng-model="pv.sw_version"
+                                                    placeholder="SW Version" 
+                                                    class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="row form-group">
+                                                <div class="col col-md-4">
+                                                    <label for="service_type" class=" form-control-label">Service Type
+                                                        </label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <select 
+                                                    name="service_type" 
+                                                    id="service_type" 
+                                                    ng-model="rmaformdata.relay.service_type"
+                                                    class="form-control"
+                                                    ng-options="type.id as type.name for type in servicetypes"
+                                                    required>
+                                                        <option value="" style="display: none;"></option>
+                                                    </select>
+                                                    <div ng-show="RMAForm2.service_type.$touched && RMAForm2.service_type.$error">
+                                                        <span class="help-block"
+                                                         ng-show="RMAForm2.service_type.$error.required">
+                                                            Please Select Service Type
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="row form-group">
+                                                <div class="col col-md-4">
+                                                    <label class=" form-control-label">Warrenty</label>
+                                                </div>
+                                                <div class="col col-md-8">
+                                                    <div class="form-check">
+                                                        <div class="radio">
+                                                            <label for="warrenty1_@{{$index}}"
+                                                                   class="form-check-label">
+                                                                <input 
+                                                                type="radio" 
+                                                                id="warrenty1_@{{$index}}"
+                                                                name="warrenty_@{{$index}}"
+                                                                ng-model="pv.warrenty"
+                                                                ng-value="1"
+                                                                class="form-check-input">Yes
+                                                            </label>
+                                                        </div>
+                                                        <div class="radio">
+                                                            <label for="warrenty2"
+                                                                   class="form-check-label ">
+                                                                <input 
+                                                                type="radio" 
+                                                                id="warrenty2_@{{$index}}"
+                                                                name="warrenty_@{{$index}}"
+                                                                ng-model="pv.warrenty"
+                                                                ng-value="0"
+                                                                class="form-check-input">No
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="row form-group">
+                                        <div class="col col-md-4">
+                                            <label for="desc_of_fault" class=" form-control-label">Description
+                                                of
+                                                Fault/Modification Required </label>
+                                        </div>
+                                        <div class="col-12 col-md-8">
+                                            <textarea 
                                             type="text" 
-                                            id="type_of_material"
-                                            name="type_of_material"
-                                            ng-model="rmaformdata.relay.type_of_material"
-                                            placeholder="Type of Material"
+                                            id="desc_of_fault_@{{$index}}" 
+                                            name="desc_of_fault_@{{$index}}"
+                                            ng-model="pv.desc_of_fault"
+                                            placeholder="Description of Fault" 
                                             class="form-control"
-                                            disabled>
-                                        </div>
-                        			</div>
-                        		</div>
-                        	</div>
-                        	<div class="row" ng-if="rmaformdata.unit_information.model_no.id == -1">
-                    			<div class="col-lg-6">
-                        			<div class="row form-group">
-                                        <div class="col-md-4">
-                                            <label for="model_no" class=" form-control-label">Model No
-                                            </label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input 
-                                            type="text" 
-                                            id="model_no" 
-                                            name="model_no_@{{$index}}"
-                                            ng-model="info.model_no"
-                                            placeholder="Model No" 
-                                            class="form-control"
-                                            ng-minlength="3" 
-	                                        ng-maxlength="10"
-	                                        required>
-                                            <div ng-show="RMAForm2.model_no_@{{$index}}.$touched && RMAForm2.model_no_@{{$index}}.$error">
+                                            rows="3"
+                                            ng-maxlength="100"
+                                            ></textarea>
+                                            <div ng-show="RMAForm2.desc_of_fault_@{{$index}}.$touched && RMAForm2.desc_of_fault.$error">
                                                 <span class="help-block"
-                                                 ng-show="RMAForm2.model_no_@{{$index}}.$error.required">
-                                                    Please Enter Model Number
-                                                </span>
-                                                <span class="help-block"
-                                                 ng-show="RMAForm2.model_no_@{{$index}}.$error.minlength">
-                                                    Minimum 3 Characters Required
-                                                </span>
-                                                <span class="help-block"
-                                                 ng-show="RMAForm2.model_no_@{{$index}}.$error.maxlength">
-                                                    Maximum 10 Characters Allowed
+                                                 ng-show="RMAForm2.desc_of_fault.$error.maxlength">
+                                                    Maximum 100 Characters Allowed
                                                 </span>
                                             </div>
                                         </div>
                                     </div>
-                        		</div>
-                        	</div>
-                        	<div class="row">
-                        		<div class="col-lg-6">
-                        			<div class="row form-group">
-                            			<div class="col-md-4">
-                                            <label for="serial_no" class=" form-control-label">Serial Number</label>
-                                        </div>
-                                        <div class="col-md-8">
-	                                        <div>
-	                                        	<input 
-                                                type="text" 
-                                                id="serial_no" 
-                                                name="serial_no"
-                                                ng-model="rmaformdata.relay.serial_no"
-                                                placeholder="Serial Number" 
-                                                class="form-control"
-                                                disabled>
-	                                        </div>
-                                        </div>
-                                    </div>
-                        		</div>
-                        		<div class="col-lg-6">
-                        			<div class="row form-group">
+                                    <div class="row form-group">
                                         <div class="col col-md-4">
-                                            <label for="sw_version" class=" form-control-label">SW
-                                                Version</label>
+                                            <label for="sales_order_no_@{{$index}}" class=" form-control-label">WBS/Sales Order
+                                                No</label>
                                         </div>
-                                        <div class="col-md-8">
+                                        <div class="col-12 col-md-8">
                                             <input 
                                             type="text" 
-                                            id="sw_version" 
-                                            name="sw_version"
-                                            ng-model="rmaformdata.relay.sw_version"
-                                            placeholder="SW Version" 
+                                            id="sales_order_no_@{{$index}}" 
+                                            name="sales_order_no_@{{$index}}"
+                                            ng-model="pv.sales_order_no"
+                                            placeholder="WBS/Sales Order No" 
                                             class="form-control">
                                         </div>
                                     </div>
-                        		</div>
-                        	</div>
-                        	<!-- <div class="row">
-                        		<div class="col-lg-6">
-                        			<div class="row form-group">
-                        				<div class="col col-md-4">
-                                            <label for="service_type" class=" form-control-label">Service Type
-                                                </label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <select 
-                                            name="service_type" 
-                                            id="service_type" 
-                                            ng-model="rmaformdata.relay.service_type"
-                                            class="form-control"
-                                            ng-options="type.id as type.name for type in servicetypes"
-	                                        required>
-	                                        	<option value="" style="display: none;"></option>
-                                            </select>
-                                            <div ng-show="RMAForm2.service_type.$touched && RMAForm2.service_type.$error">
-                                                <span class="help-block"
-                                                 ng-show="RMAForm2.service_type.$error.required">
-                                                    Please Select Service Type
-                                                </span>
-                                            </div>
-                                        </div>
-                        			</div>
-                        		</div>
-                        	</div> -->
-                        	<div class="row">
-                        		<div class="col-lg-6">
-                        			<div class="row form-group">
+                                    <div class="row form-group">
                                         <div class="col col-md-4">
-                                            <label class=" form-control-label">Warrenty</label>
+                                            <label for="field_volts_used_@{{$index}}" class=" form-control-label">Are Field Volts Used(Y/N)?</label>
                                         </div>
-                                        <div class="col col-md-8">
+                                        <div class="col-12 col-md-8">
                                             <div class="form-check">
                                                 <div class="radio">
-                                                    <label for="warrenty1"
+                                                    <label for="field_volts_used1_@{{$index}}"
                                                            class="form-check-label">
                                                         <input 
                                                         type="radio" 
-                                                        id="warrenty1"
-                                                        name="warrenty"
-                                                        ng-model="rmaformdata.relay.warrenty"
-                                                        ng-checked="rmaformdata.relay.warrenty == 1"
-                                                        value="1"
+                                                        id="field_volts_used1_@{{$index}}"
+                                                        name="field_volts_used_@{{$index}}"
+                                                        ng-model="pv.field_volts_used"
+                                                        ng-value="1"
                                                         class="form-check-input">Yes
                                                     </label>
                                                 </div>
                                                 <div class="radio">
-                                                    <label for="warrenty2"
+                                                    <label for="field_volts_used2_@{{$index}}"
                                                            class="form-check-label ">
                                                         <input 
                                                         type="radio" 
-                                                        id="warrenty2"
-                                                        name="warrenty"
-                                                        ng-model="rmaformdata.relay.warrenty"
-                                                        ng-checked="rmaformdata.relay.warrenty == 0"
-                                                        value="0"
+                                                        id="field_volts_used2_@{{$index}}"
+                                                        name="field_volts_used_@{{$index}}"
+                                                        ng-model="pv.field_volts_used"
+                                                        ng-value="0"
                                                         class="form-check-input">No
                                                     </label>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                        		</div>
-                        	</div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="row form-group">
-                                <div class="col col-md-4">
-                                    <label for="desc_of_fault" class=" form-control-label">Description
-                                        of
-                                        Fault/Modification Required </label>
-                                </div>
-                                <div class="col-12 col-md-8">
-                                    <textarea 
-                                    type="text" 
-                                    id="desc_of_fault" 
-                                    name="desc_of_fault"
-                                    ng-model="rmaformdata.relay.desc_of_fault"
-                                    placeholder="Description of Fault" 
-                                    class="form-control"
-                                    rows="3"
-                                    ng-maxlength="100"
-                                    ></textarea>
-                                    <div ng-show="RMAForm2.desc_of_fault.$touched && RMAForm2.desc_of_fault.$error">
-                                        <span class="help-block"
-                                         ng-show="RMAForm2.desc_of_fault.$error.maxlength">
-                                            Maximum 100 Characters Allowed
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row form-group">
-                                <div class="col col-md-4">
-                                    <label for="wbs" class=" form-control-label">WBS/Sales Order
-                                        No</label>
-                                </div>
-                                <div class="col-12 col-md-8">
-                                    <input 
-                                    type="text" 
-                                    id="wbs" 
-                                    name="wbs"
-                                    ng-model="rmaformdata.relay.wbs"
-                                    placeholder="WBS/Sales Order No" 
-                                    class="form-control">
-                                </div>
-                            </div>
-                            <div class="row form-group">
-                                <div class="col col-md-4">
-                                    <label for="field_volts_used" class=" form-control-label">Are Field Volts Used(Y/N)?</label>
-                                </div>
-                                <div class="col-12 col-md-8">
-                                	<div class="form-check">
-                                        <div class="radio">
-                                            <label for="field_volts_used1"
-                                                   class="form-check-label">
-                                                <input 
-                                                type="radio" 
-                                                id="field_volts_used1"
-                                                name="field_volts_used"
-                                                ng-model="rmaformdata.relay.field_volts_used"
-                                                ng-checked="rmaformdata.relay.field_volts_used == 1"
-                                                value="1"
-                                                class="form-check-input">Yes
-                                            </label>
+                                    <div class="row form-group">
+                                        <div class="col col-md-4">
+                                            <label class=" form-control-label">Equipment failed during
+                                                installation/commissioning</label>
                                         </div>
-                                        <div class="radio">
-                                            <label for="field_volts_used2"
-                                                   class="form-check-label ">
-                                                <input 
-                                                type="radio" 
-                                                id="field_volts_used2"
-                                                name="field_volts_used"
-                                                ng-model="rmaformdata.relay.field_volts_used"
-                                                ng-checked="rmaformdata.relay.field_volts_used == 0"
-                                                value="0"
-                                                class="form-check-input">No
-                                            </label>
+                                        <div class="col col-md-8">
+                                            <div class="form-check">
+                                                <div class="radio">
+                                                    <label for="equip_failed_on_installation1_@{{$index}}"
+                                                           class="form-check-label">
+                                                        <input 
+                                                        type="radio" 
+                                                        id="equip_failed_on_installation1_@{{$index}}"
+                                                        name="equip_failed_on_installation_@{{$index}}"
+                                                        ng-model="pv.equip_failed_on_installation"
+                                                        ng-value="1"
+                                                        class="form-check-input">Yes
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label for="equip_failed_on_installation2"
+                                                           class="form-check-label ">
+                                                        <input 
+                                                        type="radio" 
+                                                        id="equip_failed_on_installation2_@{{$index}}"
+                                                        name="equip_failed_on_installation_@{{$index}}"
+                                                        ng-model="pv.equip_failed_on_installation"
+                                                        ng-value="0"
+                                                        class="form-check-input">No
+                                                    </label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row form-group">
-                                <div class="col col-md-4">
-                                    <label class=" form-control-label">Equipment failed during
-                                        installation/commissioning</label>
-                                </div>
-                                <div class="col col-md-8">
-                                    <div class="form-check">
-                                        <div class="radio">
-                                            <label for="equip_failed_on_installation1"
-                                                   class="form-check-label">
-                                                <input 
-                                                type="radio" 
-                                                id="equip_failed_on_installation1"
-                                                name="equip_failed_on_installation"
-                                                ng-model="rmaformdata.relay.equip_failed_on_installation"
-                                                ng-checked="rmaformdata.relay.equip_failed_on_installation == 1"
-                                                value="1"
-                                                class="form-check-input">Yes
-                                            </label>
+                                    <div class="row form-group">
+                                        <div class="col col-md-4">
+                                            <label class=" form-control-label">Equipment failed during
+                                                service </label>
                                         </div>
-                                        <div class="radio">
-                                            <label for="equip_failed_on_installation2"
-                                                   class="form-check-label ">
-                                                <input 
-                                                type="radio" 
-                                                id="equip_failed_on_installation2"
-                                                name="equip_failed_on_installation"
-                                                ng-model="rmaformdata.relay.equip_failed_on_installation"
-                                                ng-checked="rmaformdata.relay.equip_failed_on_installation == 0"
-                                                value="0"
-                                                class="form-check-input">No
-                                            </label>
+                                        <div class="col col-md-8">
+                                            <div class="form-check">
+                                                <div class="radio">
+                                                    <label for="equip_failed_on_service1_@{{$index}}"
+                                                           class="form-check-label ">
+                                                        <input 
+                                                        type="radio" 
+                                                        id="equip_failed_on_service1_@{{$index}}"
+                                                        name="equip_failed_on_service_@{{$index}}"
+                                                        ng-model="pv.equip_failed_on_service"
+                                                        ng-value="1"
+                                                        class="form-check-input">Yes
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label for="equip_failed_service2_@{{$index}}"
+                                                           class="form-check-label ">
+                                                        <input 
+                                                        type="radio" 
+                                                        id="equip_failed_service2_@{{$index}}"
+                                                        name="equip_failed_on_service_@{{$index}}"
+                                                        ng-model="pv.equip_failed_on_service"
+                                                        ng-value="0"
+                                                        class="form-check-input">No
+                                                    </label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row form-group">
-                                <div class="col col-md-4">
-                                    <label class=" form-control-label">Equipment failed during
-                                        service </label>
-                                </div>
-                                <div class="col col-md-8">
-                                    <div class="form-check">
-                                        <div class="radio">
-                                            <label for="equip_failed_on_service1"
-                                                   class="form-check-label ">
-                                                <input 
-                                                type="radio" 
-                                                id="equip_failed_on_service1"
-                                                name="equip_failed_on_service"
-                                                ng-model="rmaformdata.relay.equip_failed_on_service"
-                                                ng-checked="rmaformdata.relay.equip_failed_on_service == 1"
-                                                value="1"
-                                                class="form-check-input">Yes
-                                            </label>
+                                    <div class="row form-group">
+                                        <div class="col col-md-4">
+                                            <label for="how_long_@{{$index}}" class=" form-control-label">How
+                                                Long</label>
                                         </div>
-                                        <div class="radio">
-                                            <label for="equip_failed_service2"
-                                                   class="form-check-label ">
-                                                <input 
-                                                type="radio" 
-                                                id="equip_failed_service2"
-                                                name="equip_failed_on_service"
-                                                ng-model="rmaformdata.relay.equip_failed_on_service"
-                                                ng-checked="rmaformdata.relay.equip_failed_on_service == 0"
-                                                value="0"
-                                                class="form-check-input">No
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row form-group">
-                                <div class="col col-md-4">
-                                    <label for="how_long" class=" form-control-label">How
-                                        Long</label>
-                                </div>
-                                <div class="col-12 col-md-8">
-                                    <input 
-                                    type="text" 
-                                    id="how_long" 
-                                    name="how_long"
-                                    ng-model="rmaformdata.relay.how_long"
-                                    placeholder="How Long" 
-                                    class="form-control">
-                                    <div ng-show="RMAForm2.how_long.$touched && RMAForm2.how_long.$error">
+                                        <div class="col-12 col-md-8">
+                                            <input 
+                                            type="text" 
+                                            id="how_long_@{{$index}}" 
+                                            name="how_long_@{{$index}}"
+                                            ng-model="pv.how_long"
+                                            placeholder="How Long" 
+                                            class="form-control">
+                                            <div ng-show="RMAForm2.how_long_@{{$index}}.$touched && RMAForm2.how_long.$error">
 
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <!-- end accordion -->
                     </form>
                 </div>
                 <div class="card-footer" ng-if="addpvform">
@@ -493,29 +474,41 @@
                                     <span class="mandatory">*</span></label>
                             </div>
                             <div class="col-12 col-md-8">
-                                <ui-select ng-model="rmaformdata.invoice_info.customer_name" theme="selectize" title="Select Customer Name" ng-change="ChangeInvoiceAddress(rmaformdata.invoice_info.customer_name);"id="customer_name" 
-                                name="customer_name" required>
+                                <ui-select ng-model="rmaformdata.invoice_info.invoice_customer_name" theme="selectize" title="Select Customer Name" ng-change="ChangeInvoiceAddress(rmaformdata.invoice_info.invoice_customer_name);" id="invoice_customer_name" 
+                                name="invoice_customer_name" required>
 								    <ui-select-match placeholder="Select Customer Name">@{{$select.selected.name}}</ui-select-match>
 								    <ui-select-choices repeat="customer in customers | filter: $select.search">
 								      <span ng-bind-html="customer.name | highlight: $select.search"></span>
 								      <small ng-bind-html="customer.site_name | highlight: $select.search"></small>
 								    </ui-select-choices>
 								  </ui-select>
+                                  <div ng-show="RMAForm5.invoice_customer_name.$touched && RMAForm5.invoice_customer_name.$error">
+                                        <span class="help-block"
+                                         ng-show="RMAForm5.invoice_customer_name.$error.required">
+                                            Please Select Customer
+                                        </span>
+                                    </div>
                             </div>
                         </div>
                         <div class="row form-group">
                             <div class="col col-md-4">
-                                <label for="end_customer" class=" form-control-label">End Customer <span class="mandatory">*</span></label>
+                                <label for="end_cus" class=" form-control-label">End Customer <span class="mandatory">*</span></label>
                             </div>
                             <div class="col-12 col-md-8">
-                            	<ui-select ng-model="rmaformdata.invoice_info.end_customer" theme="selectize" title="Select End Customer" id="end_customer" 
-                                name="end_customer" required>
+                            	<ui-select ng-model="rmaformdata.invoice_info.end_cus" theme="selectize" title="Select End Customer" id="end_cus" 
+                                name="end_cus" required>
 								    <ui-select-match placeholder="Select End Customer">@{{$select.selected.end_customer}}</ui-select-match>
 								    <ui-select-choices repeat="customer in endcustomers | filter: $select.search">
 								      <span ng-bind-html="customer.end_customer | highlight: $select.search"></span>
 								    </ui-select-choices>
 								  </ui-select>
-								  <div ng-if="rmaformdata.invoice_info.end_customer.end_customer == 'Add New'">
+                                  <div ng-show="RMAForm5.end_cus.$touched && RMAForm5.end_cus.$error">
+                                        <span class="help-block"
+                                         ng-show="RMAForm5.end_cus.$error.required">
+                                            Please Select End Customer
+                                        </span>
+                                    </div>
+								  <div ng-if="rmaformdata.invoice_info.end_cus.end_customer == 'Add New'">
 								  	<input 
                                         type="text" 
                                         id="manual_end_customer"
@@ -653,7 +646,7 @@
                                 name="delivery_address"
                                 rows="3" 
                                 placeholder="Address..."
-                                ng-model="rmaformdata.delivery_info.delivery_address" 
+                                ng-model="rmaformdata.delivery_info.address" 
                                 class="form-control"
                                 ng-minlength="3" 
                                 ng-maxlength="100"
@@ -683,11 +676,11 @@
                                 type="text" 
                                 id="delivery_contact_name"
                                 name="delivery_contact_name" 
-                                ng-model="rmaformdata.delivery_info.contact_name" 
+                                ng-model="rmaformdata.delivery_info.contact_person" 
                                 placeholder="Contact Name"
                                 class="form-control"
                                 ng-minlength="3" 
-                                ng-maxlength="10"
+                                ng-maxlength="50"
                                 required>
                                 <div ng-show="RMAForm6.delivery_contact_name.$touched && RMAForm6.delivery_contact_name.$error">
                                     <span class="help-block"
@@ -700,7 +693,7 @@
                                     </span>
                                     <span class="help-block"
                                      ng-show="RMAForm6.delivery_contact_name.$error.maxlength">
-                                        Maximum 10 Characters Allowed
+                                        Maximum 50 Characters Allowed
                                     </span>
                                 </div>
                             </div>
@@ -751,7 +744,7 @@
                                 type="text" 
                                 id="delivery-email" 
                                 name="delivery_email"
-                                ng-model="rmaformdata.delivery_info.delivery_email" 
+                                ng-model="rmaformdata.delivery_info.email" 
                                 placeholder="Email" 
                                 class="form-control"
                                 ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/"
@@ -777,7 +770,7 @@
                                 type="text" 
                                 id="gst_number" 
                                 name="gst_number"
-                                ng-model="rmaformdata.delivery_info.gst_number" 
+                                ng-model="rmaformdata.delivery_info.gst" 
                                 placeholder="GST Number" 
                                 class="form-control"
                                 ng-minlength="15" 
@@ -805,10 +798,13 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary btn-sm" ng-disabled="RMAForm1.$invalid || RMAForm2.$invalid || RMAForm5.$invalid" ng-click="SubmitRMAForm();">
+                    <button ng-if="!rmaformdata.edit" type="submit" class="btn btn-primary btn-sm" ng-disabled="RMAForm1.$invalid || RMAForm2.$invalid || RMAForm5.$invalid || RMAForm6.$invalid" ng-click="SubmitRMAForm();">
                         <i class="fa fa-dot-circle-o"></i> Submit
                     </button>
-                    <button class="btn btn-secondary btn-sm" ng-click="SaveRMAForm();">
+                    <button ng-if="rmaformdata.edit" type="submit" class="btn btn-primary btn-sm" ng-disabled="RMAForm1.$invalid || RMAForm2.$invalid || RMAForm5.$invalid || RMAForm6.$invalid" ng-click="SubmitRMAForm();">
+                        <i class="fa fa-dot-circle-o"></i> Update
+                    </button>
+                    <button ng-if="rmaformdata.status != 3" class="btn btn-secondary btn-sm" ng-click="SaveRMAForm();">
                         <i class="fa fa-save"></i> Save
                     </button>
                     <button id="closermabutton" name="closermabutton" class="btn btn-danger btn-sm" ng-click="HideRMAForm();">

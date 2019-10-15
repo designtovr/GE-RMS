@@ -38,12 +38,12 @@ class ADDRMARequest extends FormRequest
         $rules['rma.how_long'] = 'required|string|min:3|max:25';*/
         $rules['rma.customer_address_id'] = 'required|exists:ma_customer,id';
 
-        $rules['rma.invoice_info.end_customer.end_customer'] = "required|string|min:3|max:50";
-        $rules['rma.delivery_info.contact_name'] = "required|string|min:3|max:25";
-        $rules['rma.delivery_info.delivery_address'] = "required|string|min:3|max:100";
-        $rules['rma.delivery_info.delivery_email'] = "required|email";
+        $rules['rma.invoice_info.end_customer'] = "required|string|min:3|max:50";
+        $rules['rma.delivery_info.contact_person'] = "required|string|min:3|max:25";
+        $rules['rma.delivery_info.address'] = "required|string|min:3|max:100";
+        $rules['rma.delivery_info.email'] = "required|email";
         $rules['rma.delivery_info.tel_no'] = "required|numeric|min:1111111|max:999999999999999";
-        $rules['rma.delivery_info.gst_number'] = "required|string|min:15|max:15";
+        $rules['rma.delivery_info.gst'] = "required|string|min:15|max:15";
 
         /*$rules['rma.unit_information'] = "required|array";*/
 
