@@ -43,7 +43,7 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 			}).then(function success(response){
 				if (response.data.status == 'success')
 				{
-					Notification.success(response.data.message);
+					Notification.success(response.data.message + 'with Id: ' + response.data.data.id);
 					$scope.ClosePVForm();
 					$scope.getReceipts();
 				}
@@ -87,6 +87,9 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 
 		$scope.OpenPVForm = function(receipt, edit = false)
 		{
+			//checking for receipt_id presents
+			if (receipt.receipt_id != undefined && receipt.receipt_id != null)
+				receipt.id = receipt.receipt_id;
 			var url = '';
 			if (edit)
 			{
@@ -241,7 +244,7 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 			for (var i = 0; i < $scope.gridOptions.data.length; i++) {
 				if ($scope.gridOptions.data[i].close != undefined && $scope.gridOptions.data[i].close)
 				{
-					$scope.selectedrcs.push($scope.gridOptions.data[i].id);
+					$scope.selectedrcs.push($scope.gridOptions.data[i].receipt_id);
 				}
 			}
 			if ($scope.selectedrcs.length == 0)
@@ -249,9 +252,18 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 				Notification.error("No Receipt Selected");
 				return;
 			}
+			$scope.trimedselectedrcs = [];
+			for (var i = 0; i < $scope.selectedrcs.length; i++) {
+				var result = $scope.trimedselectedrcs.filter(rc => rc == $scope.selectedrcs[i]);
+				if (result.length == 0)
+				{
+					$scope.trimedselectedrcs.push($scope.selectedrcs[i]);
+				}
+			}
+			console.log($scope.trimedselectedrcs)
 			$ngConfirm({
 				title: 'Warning!',
-				content: 'Are you sure want to close?',
+				content: 'Are you sure want to close Receipt Id:'+ $scope.trimedselectedrcs.join() +'?',
 				type: 'red',
 				typeAnimated: true,
 				buttons: {
@@ -263,7 +275,7 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 								method: 'post',
 								url: '/ge/changereceiptstatus',
 								data: {
-									'list': $scope.selectedrcs,
+									'list': $scope.trimedselectedrcs,
 									'status': 'close'
 								}
 							}).then(function success(response){
@@ -340,6 +352,29 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 
 			$scope.Reset();
 
+			if ($scope.tab == 'started')
+			{
+				$http({
+					method: 'GET',
+					url: '/ge/pvwithreceipts/'+name
+				}).then(function success(response) {
+					$scope.gridOptions.data =  response.data.data;
+				}, function error(response) {
+					
+				});
+			}
+			else
+			{
+				$http({
+					method: 'GET',
+					url: '/ge/receipts/'+name
+				}).then(function success(response) {
+					$scope.gridOptions.data =  response.data.data;
+				}, function error(response) {
+					
+				});
+			}
+
 			/*$http({
 				method: 'GET',
 				url: '/ge/physicalverification?cat='+name
@@ -347,17 +382,6 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 				$scope.pvgridOptions.data =  response.data.physicalverification;
 			}, function error(response) {
 			});*/
-
-			$http({
-				method: 'GET',
-				url: '/ge/receipts/'+name
-			}).then(function success(response) {
-				$scope.gridOptions.data =  response.data.data;
-			}, function error(response) {
-			});
-
-
-
 		}
 
 		$scope.CreateRMA = function()
