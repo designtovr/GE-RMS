@@ -287,7 +287,7 @@
                         <div class="au-card-title"  >
                             <div class="bg-overlay bg-overlay--androidblue"></div>
                             <h3>
-                                <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>Priority List</h3>
+                                <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>Repair Priority List</h3>
 
                         </div>
                         <div class="au-task js-list-load">
@@ -713,7 +713,7 @@
 
 
 
-            <div class="col-lg-2">
+            <div class="col-lg-3">
                 <div class="au-card col-lg-12 m-b-30">
                     <div class="au-card-inner">
                         <h3 class="title-2 m-b-40">OTD</h3>
@@ -731,7 +731,7 @@
                 </div>
             </div>
 
-        <div class="col-lg-2">
+        <div class="col-lg-3">
             <div class="au-card col-lg-12 m-b-30">
                 <div class="au-card-inner">
                     <h3 class="title-2 m-b-40">OTD</h3>
