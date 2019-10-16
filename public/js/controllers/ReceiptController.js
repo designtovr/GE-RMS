@@ -4,6 +4,7 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 	$scope.receipt = {};
 	$scope.customers = [];
 	$scope.end_customers = [];
+	$scope.sites = [];
 	$scope.gridOptions = {pagination: {
 			itemsPerPage: '10'
 		},
@@ -185,6 +186,18 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 			$scope.end_customers = response.data.data;
 			var cus = {'end_customer': 'Add New'};
 			$scope.end_customers.push(cus);
+		}, function error(response) {
+
+		});
+	}
+
+	$scope.GetSiteList = function()
+	{
+		$http({
+			method: 'GET',
+			url: '/ge/sites'
+		}).then(function success(response) {
+			$scope.sites = response.data.data;
 		}, function error(response) {
 
 		});

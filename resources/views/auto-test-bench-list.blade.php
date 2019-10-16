@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Auto Test Bench List')
+@section('title', 'Testing')
 @section('content')
 <div class="main-content" ng-controller="AutoTestBenchController">
 	<div class="section__content section__content--p30" ng-init="Start()">
@@ -7,7 +7,7 @@
 	    	<div class="row">
 				<div class="col-md-12">
 			        <div class="overview-wrap">
-			            <h6 class="pb-4 display-5">Auto Test Bench List</h6>
+			            <h6 class="pb-4 display-5">Testing List</h6>
 			        </div>
 			    </div>
 				{{-- Search Start--}}

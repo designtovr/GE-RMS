@@ -31,6 +31,7 @@ class AddReceiptRequest extends FormRequest
             'receipt.receipt_date' => 'required|string',
             'receipt.customer_name' => 'required|string|min:3|max:50',
             'receipt.end_customer' => 'required|string|min:3|max:50',
+            'receipt.site_id' => 'required|exists:ma_site,id',
             'receipt.courier_name' => 'required|string|min:3|max:50',
             'receipt.docket_details' => 'required|string|min:3|max:50',
             'receipt.total_boxes' => 'required|numeric|digits_between:1,15',

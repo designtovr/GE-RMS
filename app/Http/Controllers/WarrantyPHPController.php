@@ -14,6 +14,7 @@ use App\Http\Requests\UpdateWarrantyRequest;
 use App\Http\Requests\AddPhysicalVerificationRequest;
 use Carbon\Carbon;
 use App\Http\Repositories\PVStatusRepositories;
+use App\Http\Repositories\RMSRepositories;
 
 class WarrantyPHPController extends Controller
 {
@@ -59,6 +60,7 @@ class WarrantyPHPController extends Controller
             else if ($WM->move == 2) {
                 PVStatusRepositories::ChangeStatusToCustomerApproval($pv);
             }
+            RMSRepositories::MoveRelayToId($pv, '', $WM->move);
 
         }
         $message = 'Warranty Saved Successfully';

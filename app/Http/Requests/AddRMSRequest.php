@@ -24,8 +24,8 @@ class AddRMSRequest extends FormRequest
     public function rules()
     {
         return [
-            'rms.rid' => 'nullable|numeric',
-            'rms.rack' => 'required|string|min:3|max:10',
+            'rms.pv_id' => 'nullable|numeric',
+            'rms.rack_id' => 'required|string|min:3|max:10',
         ];
     }
 

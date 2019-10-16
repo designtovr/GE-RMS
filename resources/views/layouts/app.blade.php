@@ -130,7 +130,7 @@
 
                         <li class="has-sub">
                             <a class="js-arrow" href="#">
-                                <i class="fas fa-database"></i>Testing</a>
+                                <i class="fas fa-database"></i>Repair & Testing</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
 
                              {{--   <li>
@@ -143,11 +143,11 @@
                                 </li>
                                 <li>
                                     <a href="{{url('/auto-test-bench')}}">
-                                        <i class="far fa-check-square"></i>Auto Test Bench</a>
+                                        <i class="far fa-check-square"></i>Testing</a>
                                 </li>
                                 <li>
                                     <a href="{{url('/aging-complete')}}">
-                                        <i class="far fa-check-square"></i>Aging Complete</a>
+                                        <i class="far fa-check-square"></i>Aging</a>
                                 </li>
                             </ul>
                         </li>

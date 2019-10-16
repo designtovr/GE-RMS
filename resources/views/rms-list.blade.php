@@ -105,13 +105,13 @@
                                 <th sortable='date' class="sortable">
                                      Date
                                  </th>
-		                         <th sortable="id" class="sortable">
+		                         <th sortable="pv_id" class="sortable">
 		                             RID No
 		                         </th>
-								 <th sortable="location" class="sortable">
+								 <th sortable="rack_type" class="sortable">
 									 Location
 								 </th>
-								 <th sortable="rack" class="sortable">
+								 <th sortable="rack_id" class="sortable">
 									 Rack
 								 </th>
 		                     </tr>
@@ -125,10 +125,15 @@
                                     </label>
                                 </td>
                                 <td ng-bind="item.moved_date | date:'dd/MM/yyyy'"></td>
-		                         <td ng-bind="item.rid"></td>
+                                <td ng-bind="item.pv_id"></td>
+		                         <td ng-if="item.rack_type == 0">Dummy Rack</td>
+                                 <td ng-if="item.rack_type == 1">Repair Rack</td>
+                                 <td ng-if="item.rack_type == 2">Customer Rack</td>
+                                 <td ng-if="item.rack_type == 3">Post Lab</td>
+                                 <td ng-if="item.rack_type == 4">Application Lab</td>
+                                 <td ng-if="item.rack_type == 5">Physical Verification Rack</td>
 								 <!-- <td ng-bind="item.location"></td> -->
-                                 <td>Customer Waiting Rack</td>
-								 <td ng-bind="item.rack"></td>
+								 <td ng-bind="item.rack_id"></td>
 		                     </tr>
 		                     </tbody>
 		                 </table>
@@ -159,7 +164,7 @@
 			                                    <label for="comment" class=" form-control-label"><b>RID</b> <span class="mandatory">*</span></label>
 			                                </div>
 			                                <div class="col-12 col-md-9">
-			                                    <input type="text" id="comment" name="comment" ng-model = "rmsmodal.rid" placeholder="RID" class="form-control">
+			                                    <input type="text" id="comment" name="comment" ng-model = "rmsmodal.pv_id" placeholder="RID" class="form-control">
 			                                    <!-- <span class="help-block">Please Enter RID</span> -->
 			                                </div>
 			                            </div>
@@ -170,7 +175,7 @@
 			                                    <label for="comment" class=" form-control-label"><b>Rack Id</b> <span class="mandatory">*</span></label>
 			                                </div>
 			                                <div class="col-12 col-md-9">
-			                                    <input type="text" id="comment" name="comment" ng-model = "rmsmodal.rack" placeholder="Rack Id" class="form-control">
+			                                    <input type="text" id="comment" name="comment" ng-model = "rmsmodal.rack_id" placeholder="Rack Id" class="form-control">
 			                                    <!-- <span class="help-block">Please Enter Rack Id</span> -->
 			                                </div>
 			                            </div>

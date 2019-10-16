@@ -18,21 +18,21 @@ class ReceiptController extends Controller
 {
     public function Receipts($cat='all')
     {
-        $receipt;
+        $receipt = ReceiptMaster::selectRaw('receipt.*, site.name as site_name')->leftJoin('ma_site as site', 'site.id', 'receipt.site_id');
         if ($cat == 'open')
         {
-            $receipt = ReceiptMaster::selectRaw('receipt.*')->where('status', 1)->get();
+            $receipt = $receipt->where('status', 1)->get();
         }
         else if ($cat == 'closed')
         {
-            $receipt = ReceiptMaster::selectRaw('receipt.*')->where('status', 3)->get();
+            $receipt = $receipt->where('status', 3)->get();
         }
         else if ($cat == 'all')
         {
-            $receipt = ReceiptMaster::selectRaw('receipt.*')->get();
+            $receipt = $receipt->get();
         }
         else if ($cat == 'started') {
-            $receipt = ReceiptMaster::selectRaw('receipt.*')->where('status', 2)->get();
+            $receipt = $receipt->where('status', 2)->get();
         }
         
         return response()->json(['data' => $receipt, 'status' => 'success']);
@@ -84,6 +84,7 @@ class ReceiptController extends Controller
         $RM->receipt_date = $date->format('Y-m-d');
         $RM->customer_name = $receipt['customer_name'];
         $RM->end_customer = $receipt['end_customer'];
+        $RM->site_id = $receipt['site_id'];
         $RM->courier_name = $receipt['courier_name'];
         $RM->docket_details = $receipt['docket_details'];
         $RM->total_boxes = $receipt['total_boxes'];

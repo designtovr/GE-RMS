@@ -2,7 +2,7 @@
 @section('title', 'Receipt List')
 @section('content')
     <div class="main-content" ng-controller="ReceiptController">
-        <div class="section__content section__content--p30" ng-init="Initiate();getReceipts();GetCustomerList();GetEndCustomerList();">
+        <div class="section__content section__content--p30" ng-init="Initiate();getReceipts();GetCustomerList();GetEndCustomerList();GetSiteList();">
             <div class="container-fluid">
                 <div class="row" ng-show="!receiptform">
                     <div class="col-md-12">
@@ -132,6 +132,9 @@
                                     <th sortable="end_customer" class="sortable">
                                         End Customer
                                     </th>
+                                    <th sortable="site_name" class="sortable">
+                                        Site
+                                    </th>
                                     <th sortable="courier_name" class="sortable">
                                         Courier Name
                                     </th>
@@ -148,11 +151,12 @@
                                 </thead>
                                 <tbody>
                                 <tr grid-item>
-                                    <td ng-bind="'RC ' + item.id"></td>
+                                    <td ng-bind="item.id"></td>
                                     <td ng-bind="item.receipt_date | date:'dd/MM/yyyy'"></td>
 
                                     <td ng-bind="item.customer_name"></td>
                                     <td ng-bind="item.end_customer"></td>
+                                    <td ng-bind="item.site_name"></td>
                                     <td ng-bind="item.courier_name"></td>
                                     <td ng-bind="item.docket_details"></td>
                                     <td ng-bind="item.total_boxes"></td>
@@ -304,6 +308,21 @@
                                                     Maximum 20 Characters Allowed
                                                 </span>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label for="site" class=" form-control-label">Site <span class="mandatory">*</span></label>
+                                        </div>
+                                        <div class="col-12 col-md-6">
+                                            <ui-select ng-model="receipt.site_id" id="site" name="site" theme="selectize" title="Select Site" ng-change="AssignCutomerName();" required>
+                                                <ui-select-match placeholder="Select Site">@{{$select.selected.name}}</ui-select-match>
+                                                <ui-select-choices 
+                                                     repeat="site.id as site in sites | filter: $select.search">
+                                                  <span ng-bind-html="site.name | highlight: $select.search"></span>
+                                                  <small ng-bind-html="site.code | highlight: $select.search"></small>
+                                                </ui-select-choices>
+                                            </ui-select>
                                         </div>
                                     </div>
                                     <div class="row form-group">
