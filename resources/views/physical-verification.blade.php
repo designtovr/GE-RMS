@@ -165,7 +165,7 @@
                                             <a class="nav-link" id="started-tab" data-toggle="tab" href="#started" role="tab" aria-controls="started" aria-selected="false">Started Phy. Verification</a>
                                         </li>
                                         <li class="nav-item" ng-click="ChangeTab('closed')">
-                                            <a class="nav-link" id="closed-tab" data-toggle="tab" href="#closed" role="tab" aria-controls="closed" aria-selected="false">Closed Phy. Verification</a>
+                                            <a class="nav-link" id="closed-tab" data-toggle="tab" href="#closed" role="tab" aria-controls="closed" aria-selected="false">Closed Receipts</a>
                                         </li>
                                         <!-- <li class="nav-item" ng-click="ChangeTab('withrma')">
                                             <a class="nav-link" id="withrma-tab" data-toggle="tab" href="#withrma" role="tab" aria-controls="withrma" aria-selected="false">With RMA</a>
@@ -284,7 +284,10 @@
                                                 <th>
                                                     Select
                                                 </th>
-                                                <th sortable="id" class="sortable">
+                                                <th sortable="pv_id" class="sortable">
+                                                    R Id
+                                                </th>
+                                                <th sortable="receipt_id" class="sortable">
                                                     Receipt No
                                                 </th>
                                                 <th sortable="receipt_date" class="sortable">
@@ -296,12 +299,6 @@
                                                 </th>
                                                 <th sortable="end_customer" class="sortable">
                                                     End Customer
-                                                </th>
-                                                <th sortable="courier_name" class="sortable">
-                                                    Courier Name
-                                                </th>
-                                                <th sortable="docket_details" class="sortable">
-                                                    Docket Details
                                                 </th>
                                                 <th sortable="total_boxes" class="sortable">
                                                     Number of Boxes
@@ -319,13 +316,12 @@
                                                         <span class="au-checkmark"></span>
                                                     </label>
                                                 </td>
-                                                <td ng-bind="'RC ' + item.id"></td>
+                                                <td ng-bind="item.pv_id"></td>
+                                                <td ng-bind="item.receipt_id"></td>
                                                 <td ng-bind="item.receipt_date | date:'dd/MM/yyyy'"></td>
 
                                                 <td ng-bind="item.customer_name"></td>
                                                 <td ng-bind="item.end_customer"></td>
-                                                <td ng-bind="item.courier_name"></td>
-                                                <td ng-bind="item.docket_details"></td>
                                                 <td ng-bind="item.total_boxes"></td>
                                                 <td>
                                                     <div class="table-data-feature">

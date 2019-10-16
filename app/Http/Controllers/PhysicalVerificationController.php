@@ -286,4 +286,20 @@ class PhysicalVerificationController extends Controller
 
         return response()->json(['data' => $PVM, 'status' => 'success', 'message' => $message], 200);
     }
+
+    public function PVWithReceipts($cat)
+    {
+        $pvs = PhysicalVerificationMaster::selectRaw('physical_verification.id as pv_id, receipt.id as receipt_id, receipt_date, total_boxes, customer_name, end_customer')
+                ->Join('receipt', 'receipt.id', 'physical_verification.receipt_id');
+        if ($cat == 'open')
+            $pvs = $pvs->where('receipt.status', 1);
+        if ($cat == 'started')
+            $pvs = $pvs->where('receipt.status', 2);
+        if ($cat == 'closed')
+            $pvs = $pvs->where('receipt.status', 3);
+
+        $pvs = $pvs->orderBy('physical_verification.id')->get();
+
+        return response()->json(['data' => $pvs, 'status' => 'success'], 200);
+    }
 }
