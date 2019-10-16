@@ -1,4 +1,4 @@
-app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'ChangePVStatusService', function($scope, $http, Notification, ChangePVStatusService){
+app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'ChangePVStatusService', '$ngConfirm', function($scope, $http, Notification, ChangePVStatusService, $ngConfirm){
 	$scope.showjtform = false;
 	$scope.startTab = false;
 	$scope.openTab = false;
@@ -215,9 +215,28 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 			if (response.data.status == 'success')
 			{
 				Notification.success(response.data.message);
-				$('#withrma-tab').addClass('active');
-				$scope.LoadData('jobticketstarted');
-				$scope.showjtform = false;
+				$ngConfirm({
+					title: 'Print',
+					content: 'Are you want to print?',
+					type: 'blue',
+					typeAnimated: true,
+					buttons: {
+						print: {
+							text: 'Print',
+							btnClass: 'btn-blue',
+							action: function(){
+								$('#withrma-tab').addClass('active');
+								$scope.LoadData('jobticketstarted');
+								$scope.showjtform = false;
+							}
+						},
+						close: function () {
+							$('#withrma-tab').addClass('active');
+							$scope.LoadData('jobticketstarted');
+							$scope.showjtform = false;
+						}
+					}
+				});
 			}
 		}, function error(response) {
 			if (response.status == 422)

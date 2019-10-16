@@ -27,16 +27,20 @@ class RMAController extends Controller
         {
             $rmalist = $rmalist->where('status', 1);
         }
-        if ($cat == 'saved')
+        else if ($cat == 'saved')
         {
             $rmalist = $rmalist->where('status', 2);
         }
+        else if ($cat == 'completed')
+        {
+            $rmalist = $rmalist->where('status', 3);
+        }
+
         if ($type == 'physical')
         {
             $rmalist = $rmalist->where('service_type', 1);
         }
-
-        if ($type == 'sitecard')
+        else if ($type == 'sitecard')
         {
             $rmalist = $rmalist->where('service_type', 2);
         }
@@ -108,7 +112,7 @@ class RMAController extends Controller
             $RMA->date = $date->format('Y-m-d');
             $RMA->customer_address_id = $requestdata['customer_address_id'];
             $RMA->end_customer = $requestdata['invoice_info']['end_customer'];
-            $RMA->status = 1;
+            $RMA->status = 3;
             $RMA->created_by = Auth::id();
             $RMA->updated_by = Auth::id();
             $RMA->updated_at = Carbon::now();
@@ -164,7 +168,7 @@ class RMAController extends Controller
             $RMA->date = $date->format('Y-m-d');*/
             $RMA->customer_address_id = $requestdata['customer_address_id'];
             $RMA->end_customer = $requestdata['invoice_info']['end_customer'];
-            $RMA->status = 1;
+            $RMA->status = 3;
             $RMA->created_by = Auth::id();
             $RMA->updated_by = Auth::id();
             $RMA->updated_at = Carbon::now();
@@ -276,8 +280,8 @@ class RMAController extends Controller
                 $RMA->date = $date->format('Y-m-d'); 
             }
             $RMA->customer_address_id = (array_key_exists('customer_address_id', $rmadata))?$rmadata['customer_address_id']:0;
-            if (isset($rmadata['end_customer']))
-                $RMA->end_customer = $rmadata['end_customer'];
+            if (isset($rmadata['invoice_info']['end_customer']))
+                $RMA->end_customer = $rmadata['invoice_info']['end_customer'];
             else
                 $RMA->end_customer = '';
             $RMA->status = 2;
@@ -290,7 +294,7 @@ class RMAController extends Controller
             {
                 $delivery_info = $rmadata['delivery_info'];
                 $RMAD = new RMADeliveryAddress();
-                $RMAD->rma_id = $rmadata['id'];
+                $RMAD->rma_id = $RMA->id;
                 $RMAD->address = (array_key_exists('address', $delivery_info))?$delivery_info['address']:'';
                 $RMAD->contact_person = (array_key_exists('contact_person', $delivery_info))?$delivery_info['contact_person']:'';
                 $RMAD->tel_no = (array_key_exists('tel_no', $delivery_info))?$delivery_info['tel_no']:'';
@@ -345,8 +349,8 @@ class RMAController extends Controller
                 $RMA->date = $date->format('Y-m-d'); 
             }
             $RMA->customer_address_id = (array_key_exists('customer_address_id', $rmadata))?$rmadata['customer_address_id']:0;
-            if (isset($rmadata['end_customer']))
-                $RMA->end_customer = $rmadata['end_customer'];
+            if (isset($rmadata['invoice_info']['end_customer']))
+                $RMA->end_customer = $rmadata['invoice_info']['end_customer'];
             else
                 $RMA->end_customer = '';
             $RMA->status = 2;

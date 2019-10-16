@@ -105,7 +105,7 @@ class ReceiptController extends Controller
         }
 
 
-        return response()->json(['status' => 'success', 'message' => $message], 200);
+        return response()->json(['data' => $RM, 'status' => 'success', 'message' => $message], 200);
     }
 
     public function DeleteReceipt($id)

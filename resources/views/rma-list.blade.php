@@ -2,7 +2,7 @@
 @section('title', 'RMA List')
 @section('content')
 <div class="main-content" ng-controller="RMAController">
-	<div class="section__content section__content--p30" ng-init="ChangeTab('all');InitiateForm();">
+	<div class="section__content section__content--p30" ng-init="ChangeTab('withrma');InitiateForm();">
 	    <div class="container-fluid">
 	    	<div class="row" ng-show="!showrmaform && !showsitecardform && !addpvform">
 				<div class="col-md-12">
@@ -21,9 +21,17 @@
                             <thead>
                                 <tr>
                                     <th>
-
-                                        <input id="ridFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Enter RMA #" ng-change="gridActions.filter();" ng-model="filterID" filter-by="id" filter-type="text">
-                                    </th>  
+                                        <input type="text" 
+                                        id="ridFilter" 
+                                        class="form-control" 
+                                        placeholder="Id #" 
+                                        close-text="Close"
+                                        ng-model="filterrID" 
+                                        filter-by="id" 
+                                        filter-type="text"
+                                        ng-change="gridActions.filter();" 
+                                        />
+                                    </th>
                                     <th>
                                         <input type="text"
                                         id="dateFilter"
@@ -39,17 +47,15 @@
                                         filter-type="text"
                                         ng-change="gridActions.filter()"
                                         close-text="Close"/>
-
                                     </th>
                                     <th>
-
                                         <input id="productFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Enter GS No" ng-change="gridActions.filter();" ng-model="filtergs_no" filter-by="gs_no" filter-type="text">
                                     </th>
-                                     <th>
-                                        <input id="productFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Enter ACT" ng-change="gridActions.filter();" ng-model="filteract" filter-by="act_reference" filter-type="text">
-                                    </th>
                                     <th>
-                                       <input id="customerFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Enter Customer Name" ng-change="gridActions.filter()" ng-model="filterCustomer" filter-by="end_customer" filter-type="text">
+                                       <input id="customerFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Customer Name" ng-change="gridActions.filter()" ng-model="filterCustomer" filter-by="customer_name" filter-type="text">
+                                   </th>
+                                   <th>
+                                       <input id="endcustomerFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="End Customer" ng-change="gridActions.filter()" ng-model="filterendCustomer" filter-by="end_customer" filter-type="text">
                                    </th>
                                    <th>
                                         <button type="button" class="btn btn-outline-secondary btn-sm" ng-click="Reset();gridActions.filter()">Reset</button>
@@ -66,11 +72,8 @@
                     <div class=" card w-100">
                         <div class="card-body">
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                <li class="nav-item" ng-click="ChangeTab('all')">
-                                    <a class="nav-link active" id="all-tab" data-toggle="tab" href="#all" role="tab" aria-controls="all" aria-selected="true">ALL RMA</a>
-                                </li>
                                 <li class="nav-item" ng-click="ChangeTab('withrma')">
-                                    <a class="nav-link" id="withrma-tab" data-toggle="tab" href="#withrma" role="tab" aria-controls="withrma" aria-selected="false">With Physical RMA</a>
+                                    <a class="nav-link active" id="withrma-tab" data-toggle="tab" href="#withrma" role="tab" aria-controls="withrma" aria-selected="false">With Physical RMA</a>
                                 </li>
                                 <li class="nav-item" ng-click="ChangeTab('withoutrma')">
                                     <a class="nav-link" id="withoutrma-tab" data-toggle="tab" href="#withoutrma" role="tab" aria-controls="withoutrma" aria-selected="false">Without Physical RMA</a>
@@ -81,9 +84,12 @@
                                 <li class="nav-item" ng-click="ChangeTab('opensitecard')">
                                     <a class="nav-link" id="opensitecard-tab" data-toggle="tab" href="#opensitecard" role="tab" aria-controls="opensitecard" aria-selected="false">Site Card RMA</a>
                                 </li>
+                                <li class="nav-item" ng-click="ChangeTab('completed')">
+                                    <a class="nav-link" id="completed-tab" data-toggle="tab" href="#completed" role="tab" aria-controls="completed" aria-selected="true">Completed RMA</a>
+                                </li>
                             </ul>
                             <div class="tab-content pl-3 p-1" id="myTabContent">
-                                <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
+                                <div class="tab-pane fade" id="completed" role="tabpanel" aria-labelledby="completed-tab">
                                     <div class="col-md-12">
                                         <!-- DATA TABLE-->
                                         <div grid-data grid-options="gridOptions" grid-actions="gridActions" class="">
@@ -164,14 +170,14 @@
                                         <!-- END DATA TABLE-->
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="withrma" role="tabpanel" aria-labelledby="withrma-tab">
+                                <div class="tab-pane fade show active" id="withrma" role="tabpanel" aria-labelledby="withrma-tab">
                                     <div class="col-md-12">
                                         <button type="button" class="btn btn-primary btn-md pull-right m-b-10" ng-click="CreateRMA();">
                                             <i class="fa fa-check-circle"></i>&nbsp;Create RMA
                                         </button>
                                     </div>
                                     <!-- DATA TABLE-->
-                                    <div grid-data grid-options="pvgridOptions" grid-actions="pvgridOptions">
+                                    <div grid-data grid-options="pvgridOptions" grid-actions="pvgridActions">
                                         <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
                                         <table class="table table-borderless table-data3 ">
                                             <thead>
@@ -251,7 +257,7 @@
                                         </button>
                                     </div>
                                     <!-- DATA TABLE-->
-                                    <div grid-data grid-options="pvgridOptions" grid-actions="pvgridOptions">
+                                    <div grid-data grid-options="pvgridOptions" grid-actions="pvgridActions">
                                         <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
                                         <table class="table table-borderless table-data3 ">
                                             <thead>

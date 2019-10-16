@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Warranty List')
+@section('title', 'Warranty Declaration')
 @section('content')
 <div class="main-content" ng-controller="WarrantyController">
     <div class="section__content section__content--p30" ng-init="GetPVList();">
@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="overview-wrap">
-                        <h6 class="pb-4 display-5">Warranty List</h6>
+                        <h6 class="pb-4 display-5">Warranty Declaration</h6>
                     </div>
                 </div>
                 <div class="col-md-12 ">
@@ -24,10 +24,6 @@
                                             <input id="ridFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Enter RID #" ng-change="gridActions.filter();" ng-model="filterID" filter-by="id" filter-type="text">
                                         </th>
                                         <th>
-
-                                            <input id="productFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Enter Product ID" ng-change="gridActions.filter();" ng-model="filterreceipt_id" filter-by="product_id" filter-type="text">
-                                        </th>
-                                        <th>
                                             <input type="text"
                                             id="dateFilter"
                                             class="form-control"
@@ -42,28 +38,20 @@
                                             filter-type="text"
                                             ng-change="gridActions.filter()"
                                             close-text="Close"/>
-
                                         </th>
-                               <!--          <th>
-                                            <select name="field-volts-used" id="field-volts-used"
-                                            class="form-control-sm form-control">
-                                            <option value="0">From</option>
-                                            <option value="1">Yes</option>
-                                            <option value="2">No</option>
-                                            <option value="2">Customer</option>
-                                        </select>
-                                    </th>
-                                    <th>
-                                        <select name="field-volts-used" id="field-volts-used"
-                                        class="form-control-sm form-control">
-                                        <option value="0">To</option>
-                                        <option value="1">Yes</option>
-                                        <option value="2">No</option>
-                                        <option value="2">Customer</option>
-                                    </select>
-                                </th> -->
                                         <th>
-                                           <input id="customerFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Enter Customer Name" ng-change="gridActions.filter()" ng-model="filterCustomer" filter-by="customer_name" filter-type="text">
+
+                                            <input id="productFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Model No" ng-change="gridActions.filter();" ng-model="productFilter" filter-by="part_no" filter-type="text">
+                                        </th>
+                                        <th>
+
+                                            <input id="serialFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Serial No" ng-change="gridActions.filter();" ng-model="serialFilter" filter-by="serial_no" filter-type="text">
+                                        </th>
+                                        <th>
+                                           <input id="customerFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Customer Name" ng-change="gridActions.filter()" ng-model="filterCustomer" filter-by="customer_name" filter-type="text">
+                                       </th>
+                                       <th>
+                                           <input id="endcustomerFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="End Customer" ng-change="gridActions.filter()" ng-model="filterendCustomer" filter-by="end_customer" filter-type="text">
                                        </th>
                                        <th>
                                             <button type="button" class="btn btn-outline-secondary btn-sm" ng-click="Reset();gridActions.filter()">Reset</button>
@@ -116,20 +104,23 @@
                                                                 <th >
                                                                     Select
                                                                 </th>
+                                                                <th sortable="rma_id" class="sortable">
+                                                                    RMA Id
+                                                                </th>
                                                                 <th sortable="id" class="sortable">
                                                                     RID
                                                                 </th>
                                                                 <th  sortable="pvdate" class="sortable">
                                                                     Date
                                                                 </th>
-                                                                <th sortable="product_id" class="sortable">
-                                                                    Product Id
+                                                                <th sortable="part_no" class="sortable">
+                                                                    Model No
                                                                 </th>
                                                                 <th  sortable="serial_no" class="sortable">
                                                                     Serial
                                                                 </th>
                                                                 <th  sortable="customer_name" class="sortable">
-                                                                    End Customer
+                                                                    Customer Name
                                                                 </th>
                                                                 <th  sortable="end_customer" class="sortable">
                                                                     End Customer
@@ -148,9 +139,10 @@
                                                                         <span class="au-checkmark"></span>
                                                                     </label>
                                                                 </td>
+                                                                <td ng-bind="item.rma_id"></td>
                                                                 <td ng-bind="item.id"></td>
                                                                 <td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
-                                                                <td ng-bind="item.product_id"></td>
+                                                                <td ng-bind="item.part_no"></td>
                                                                 <td ng-bind="item.serial_no"></td>
                                                                 <td ng-bind="item.customer_name"></td>
                                                                 <td ng-bind="item.end_customer"></td>
@@ -206,26 +198,35 @@
                                                                 <th >
                                                                     Select
                                                                 </th>
+                                                                <th sortable="rma_id" class="sortable">
+                                                                    RMA Id
+                                                                </th>
                                                                 <th sortable="id" class="sortable">
                                                                     RID
                                                                 </th>
                                                                 <th  sortable="pvdate" class="sortable">
                                                                     Date
                                                                 </th>
-                                                                <th sortable="product_id" class="sortable">
-                                                                    Product Id
+                                                                <th sortable="part_no" class="sortable">
+                                                                    Model No
                                                                 </th>
                                                                 <th  sortable="serial_no" class="sortable">
-                                                                    Serial
+                                                                    Serial No
                                                                 </th>
                                                                 <th  sortable="customer_name" class="sortable">
-                                                                    End Customer
+                                                                    Customer Name
                                                                 </th>
                                                                 <th  sortable="end_customer" class="sortable">
                                                                     End Customer
                                                                 </th>
 
                                                                 <th  sortable="comment" class="sortable">
+                                                                    Comment
+                                                                </th>
+                                                                <th  sortable="customer_comment" class="sortable">
+                                                                    Comment
+                                                                </th>
+                                                                <th  sortable="manager_comment" class="sortable">
                                                                     Comment
                                                                 </th>
                                                             </tr>
@@ -238,13 +239,16 @@
                                                                         <span class="au-checkmark"></span>
                                                                     </label>
                                                                 </td>
+                                                                <td ng-bind="item.rma_id"></td>
                                                                 <td ng-bind="item.id"></td>
                                                                 <td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
-                                                                <td ng-bind="item.product_id"></td>
+                                                                <td ng-bind="item.part_no"></td>
                                                                 <td ng-bind="item.serial_no"></td>
                                                                 <td ng-bind="item.customer_name"></td>
                                                                 <td ng-bind="item.end_customer"></td>
                                                                 <td ng-bind="item.comment"></td>
+                                                                <td ng-bind="item.customer_comment"></td>
+                                                                <td ng-bind="item.customer_comment"></td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -532,7 +536,7 @@
                                                                 ng-model="warrantymodal.comment"
                                                                 placeholder="Comment" 
                                                                 class="form-control"
-                                                                rows="3">
+                                                                rows="4">
                                                                 </textarea>
                                                             </div>
                                                         </div>

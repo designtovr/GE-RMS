@@ -242,6 +242,7 @@
 					                                    name="desc_of_fault_@{{$index}}"
 					                                    ng-model="info.desc_of_fault"
 					                                    placeholder="Description of Fault" 
+					                                    rows="4" 
 					                                    class="form-control">
 					                                    </textarea>
 					                                </div>

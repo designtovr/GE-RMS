@@ -151,7 +151,9 @@ app.controller('WarrantyController' ,['$scope', '$http','Notification' , 'DataSh
 	$scope.Reset = function()
 	{
 		$scope.filterID = '';
-		$scope.filterreceipt_id = '';
+		$scope.productFilter = '';
+		$scope.serialFilter = '';
+		$scope.filterendCustomer = '';
 		$scope.filterpvdate = '';
 		$scope.filterCustomer = '';
 	}

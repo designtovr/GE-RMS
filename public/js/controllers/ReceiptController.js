@@ -36,7 +36,7 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 		}).then(function success(response){
 			if (response.status == 200)
 			{
-				Notification.success(response.data.message);
+				Notification.success(response.data.message + 'with Id: ' + response.data.data.id);
 				$ngConfirm({
 					title: 'Print',
 					content: 'Are you want to print?',
@@ -47,7 +47,7 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 							text: 'Print',
 							btnClass: 'btn-blue',
 							action: function(){
-
+								$scope.HideReceiptForm();
 							}
 						},
 						close: function () {

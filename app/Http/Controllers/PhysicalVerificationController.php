@@ -32,6 +32,10 @@ class PhysicalVerificationController extends Controller
 		{
             $pv = PVListingRepository::WithoutRma();
 		}
+        else if ($cat == 'withwithoutrma')
+        {
+            $pv = PVListingRepository::WithAndWithOutRma();
+        }
         else if($cat == 'managerapproval')
         {
             $pv = PVListingRepository::WaitingForManagerApproval();
@@ -289,8 +293,8 @@ class PhysicalVerificationController extends Controller
 
     public function PVWithReceipts($cat)
     {
-        $pvs = PhysicalVerificationMaster::selectRaw('physical_verification.id as pv_id, receipt.id as receipt_id, receipt_date, total_boxes, customer_name, end_customer')
-                ->Join('receipt', 'receipt.id', 'physical_verification.receipt_id');
+        $pvs = PhysicalVerificationMaster::selectRaw('physical_verification.id as pv_id, physical_verification.serial_no, pt.part_no, receipt.id as receipt_id, receipt_date, total_boxes, customer_name, end_customer')
+                ->Join('receipt', 'receipt.id', 'physical_verification.receipt_id')->leftJoin('ma_product as pt', 'pt.id', 'physical_verification.product_id');
         if ($cat == 'open')
             $pvs = $pvs->where('receipt.status', 1);
         if ($cat == 'started')

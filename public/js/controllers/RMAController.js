@@ -22,6 +22,9 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 	$scope.pvformdata.addedpvs = [];
 	$scope.gridOptions = {
 
+		defaultColDef: {
+	        filter: true // set filtering on for all cols
+	    },
 		pagination: {
 			itemsPerPage: '10'
 		},
@@ -82,6 +85,9 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 		$scope.filterID = '';
 		$scope.filteract = '';
 		$scope.filterCustomer = '';
+		$scope.filterrID = '';
+		$scope.filterrmaID = '';
+		$scope.filterendCustomer = '';
 	}
 
 	$scope.InitiateForm = function()
@@ -289,7 +295,7 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 	    		//inner ajax call
 	    		$http({
 					method: 'GET',
-					url: '/ge/physicalverification?cat=withoutrma'
+					url: '/ge/physicalverification?cat=withwithoutrma'
 				}).then(function success(response) {
 					$scope.selectedpvs =  response.data.physicalverification;
 					$scope.pvformdata.addedpvs = [];
@@ -365,6 +371,7 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 			return;
 		}
 		$scope.showrmaform = true;
+		$scope.rmaformdata.date = $filter('date')(new Date(), 'dd/MM/yyyy');
 		console.log($scope.selectedpvs);
 	}
 
@@ -476,7 +483,7 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 	$scope.ChangeTab = function(tab)
 	{
 		$scope.tab = tab;
-		if ($scope.tab == 'all' || $scope.tab == 'saved')
+		if ($scope.tab == 'all' || $scope.tab == 'saved' || $scope.tab == 'completed')
 		{
 			$scope.GetRMAList($scope.tab, '');
 		}
@@ -554,7 +561,7 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 		}).then(function(response){
 			if (response.data.status == 'success')
 			{
-				Notification.success(response.data.message);
+				Notification.success(response.data.message + 'with Id: ' + response.data.data.id);
 				$scope.rmaformdata = {};
 				$scope.rmaformdata.unit_information = [];
 				$scope.rmaformdata.repair_instruction = {};
@@ -624,15 +631,38 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 
 	$scope.SaveRMAForm = function()
 	{
-		$scope.rmaformdata.customer_address_id = $scope.rmaformdata.invoice_info.invoice_customer_name.id;
+		var dateformatregex = new RegExp(/^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/i);
+		var datestr = $scope.rmaformdata.date;
+		var result = dateformatregex.test(datestr);
+		if (!result)
+		{
+			Notification.error("Invalid Date Format");
+			return;
+		}
+		if ($scope.rmaformdata.invoice_info.invoice_customer_name == undefined || $scope.rmaformdata.invoice_info.invoice_customer_name == null)
+		{
+			Notification.error("Please Select Customer");
+			return;
+		}
+		if ($scope.rmaformdata.invoice_info.end_cus == undefined || $scope.rmaformdata.invoice_info.end_cus == null)
+		{
+			Notification.error("Please Select End Customer");
+			return;
+		}
 		if ($scope.rmaformdata.invoice_info.end_cus.end_customer == 'Add New')
 		{
-			$scope.rmaformdata.end_customer = $scope.rmaformdata.invoice_info.manual_end_customer;
+			if ($scope.rmaformdata.invoice_info.manual_end_customer == null || $scope.rmaformdata.invoice_info.manual_end_customer == undefined)
+			{
+				Notification.error("Please Enter End Customer");
+				return;
+			}
+			$scope.rmaformdata.invoice_info.end_customer = $scope.rmaformdata.manual_end_customer;
 		}
 		else
 		{
-			$scope.rmaformdata.end_customer = $scope.rmaformdata.invoice_info.end_cus.end_customer;
+			$scope.rmaformdata.invoice_info.end_customer = $scope.rmaformdata.invoice_info.end_cus.end_customer;
 		}
+		$scope.rmaformdata.customer_address_id = $scope.rmaformdata.invoice_info.invoice_customer_name.id;
 		console.log($scope.rmaformdata)
 		$http({
 			url: '/ge/saverma',

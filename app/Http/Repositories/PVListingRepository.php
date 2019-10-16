@@ -13,51 +13,59 @@ class PVListingRepository
 	private function PVList($status_id)
 	{
 		$pv = PhysicalVerificationMaster::
-				selectRaw('physical_verification.*,receipt.gs_no, receipt.customer_name,receipt.end_customer,pr.part_no,pt.category,ma_pv_status.status, ma_pv_status.close_status, rmu.sw_version, rmu.rma_id')
+				selectRaw('physical_verification.*,receipt.gs_no, receipt.customer_name,receipt.end_customer,pr.part_no,pt.category,ma_pv_status.status, ma_pv_status.close_status, rmu.sw_version, rmu.rma_id, rmu.desc_of_fault as customer_comment, warranty.comment as manager_comment')
 				->leftJoin('receipt', 'physical_verification.receipt_id', 'receipt.id')
 				->leftJoin('ma_product as pr', 'pr.id', 'physical_verification.product_id')
 				->leftJoin('ma_product_type as pt', 'pt.id', 'physical_verification.producttype_id')
 				->leftJoin('pv_status', 'pv_status.pv_id', 'physical_verification.id')
 				->leftJoin('ma_pv_status', 'ma_pv_status.id', 'pv_status.current_status_id')
 				->leftJoin('rma_unit_information as rmu', 'rmu.pv_id', 'physical_verification.id')
+				->leftJoin('rma', 'rma.id', 'rmu.rma_id')
+				->leftJoin('warranty', 'warranty.pv_id', 'physical_verification.id')
 				->whereNotIn('pt.category', ["'omu'","'boj'"])
-				->where('pv_status.current_status_id', $status_id)->get();
+				->whereIn('pv_status.current_status_id', $status_id)->get();
 		return $pv;
 	}
 
 	public static function WithoutRma()
 	{
-		$status_id = 1;
+		$status_id = array (1);
 		return (new self)->PVList($status_id);
 	}
 
 	public static function WithRma()
 	{
-		$status_id = 2;
+		$status_id = array (2);
+		return (new self)->PVList($status_id);
+	}
+
+	public static function WithAndWithOutRma()
+	{
+		$status_id = array(1, 2);
 		return (new self)->PVList($status_id);
 	}
 
 	public static function Saved()
 	{
-		$status_id = 15;
+		$status_id = array (15);
 		return (new self)->PVList($status_id);
 	}
 
 	public static function WaitingForManagerApproval()
 	{
-		$status_id = 13;
+		$status_id = array (13);
 		return (new self)->PVList($status_id);
 	}
 
 	public static function WaitingForCustomerApproval()
 	{
-		$status_id = 3;
+		$status_id = array(3);
 		return (new self)->PVList($status_id);
 	}
 
 	public static function ManagerApproved()
 	{
-		$status_id = 4;
+		$status_id = array(4);
 		return (new self)->PVList($status_id);
 	}
 
@@ -68,13 +76,13 @@ class PVListingRepository
 
 	public static function JobTicketStarted()
 	{
-		$status_id = 5;
+		$status_id = array(5);
 		return (new self)->PVList($status_id);
 	}
 
 	public static function JobTicketCompleted()
 	{
-		$status_id = 6;
+		$status_id = array(6);
 		return (new self)->PVList($status_id);
 	}
 
@@ -85,25 +93,25 @@ class PVListingRepository
 
 	public static function AutoTestBenchStarted()
 	{
-		$status_id = 7;
+		$status_id = array(7);
 		return (new self)->PVList($status_id);
 	}
 
 	public static function AutoTestBenchCompleted()
 	{
-		$status_id = 8;
+		$status_id = array(8);
 		return (new self)->PVList($status_id);
 	}
 
 	public static function AgingStarted()
 	{
-		$status_id = 9;
+		$status_id = array(9);
 		return (new self)->PVList($status_id);
 	}
 
 	public static function AgingCompleted()
 	{
-		$status_id = 10;
+		$status_id = array(10);
 		return (new self)->PVList($status_id);
 	}
 
@@ -114,7 +122,7 @@ class PVListingRepository
 
 	public static function VerificationCompleted()
 	{
-		$status_id = 11;
+		$status_id = array(11);
 		return (new self)->PVList($status_id);
 	}
 
@@ -125,13 +133,13 @@ class PVListingRepository
 
 	public static function Dispatched()
 	{
-		$status_id = 12;
+		$status_id = array(12);
 		return (new self)->PVList($status_id);
 	}
 
 	public static function DispatchApproved()
     {
-        $status_id = 14;
+        $status_id = array(14);
         return (new self)->PVList($status_id);
     }
 

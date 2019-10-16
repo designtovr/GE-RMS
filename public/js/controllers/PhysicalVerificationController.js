@@ -44,8 +44,26 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 				if (response.data.status == 'success')
 				{
 					Notification.success(response.data.message + 'with Id: ' + response.data.data.id);
-					$scope.ClosePVForm();
-					$scope.getReceipts();
+					$ngConfirm({
+						title: 'Print',
+						content: 'Are you want to print?',
+						type: 'blue',
+						typeAnimated: true,
+						buttons: {
+							print: {
+								text: 'Print',
+								btnClass: 'btn-blue',
+								action: function(){
+									$scope.ClosePVForm();
+									$scope.getReceipts();
+								}
+							},
+							close: function () {
+								$scope.ClosePVForm();
+								$scope.getReceipts();
+							}
+						}
+					});
 				}
 			}, function failure(response){
 				if (response.status == 422)
@@ -82,6 +100,7 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 			$scope.filterreceiptid='';
 			$scope.filterpvdateothers = '';
 			$scope.filterCustomerothers = '';
+			$scope.filterEndCustomerothers = '';
 		}
 
 

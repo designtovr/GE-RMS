@@ -38,7 +38,7 @@ class WarrantyPHPController extends Controller
             $WM->type = $warranty['type'];
             $WM->move = $warranty['move'];
             $WM->rca = $warranty['rca'];
-            $WM->comment = (array_key_exists('comment', $WM))?$warranty['comment']:'';
+            $WM->comment = (array_key_exists('comment', $warranty))?$warranty['comment']:'';
             if (array_key_exists('selectedRID', $warranty) && in_array($pv, $warranty['selectedRID'])) {
                 $WM->mail_to = implode(',', $warranty['selectedPeople']);
                 $WM->cc = implode(',', $warranty['selectedCCPeople']);

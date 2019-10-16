@@ -28,7 +28,7 @@ class SaveJobTicketMaterialRequest extends FormRequest
             'jobticketmaterial.job_ticket_materials.*.value' => 'required|string|min:1|max:10',
             'jobticketmaterial.job_ticket_materials.*.old_pcp' => 'required|string|min:3|max:50',
             'jobticketmaterial.job_ticket_materials.*.new_pcp' => 'required|string|min:3|max:50',
-            'jobticketmaterial.job_ticket_materials.*.comment' => 'required|string|min:3|max:100',
+            'jobticketmaterial.job_ticket_materials.*.comment' => 'required|string|min:3|max:200',
         ];
     }
 

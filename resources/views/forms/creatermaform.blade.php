@@ -297,13 +297,13 @@
                                             ng-model="pv.desc_of_fault"
                                             placeholder="Description of Fault" 
                                             class="form-control"
-                                            rows="3"
-                                            ng-maxlength="100"
+                                            rows="4"
+                                            ng-maxlength="200"
                                             ></textarea>
                                             <div ng-show="RMAForm2.desc_of_fault_@{{$index}}.$touched && RMAForm2.desc_of_fault.$error">
                                                 <span class="help-block"
                                                  ng-show="RMAForm2.desc_of_fault.$error.maxlength">
-                                                    Maximum 100 Characters Allowed
+                                                    Maximum 200 Characters Allowed
                                                 </span>
                                             </div>
                                         </div>

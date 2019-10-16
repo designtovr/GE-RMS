@@ -23,18 +23,29 @@
 								<thead>
 								<tr>
 									<th>
-
+										<input id="rmaidFilter" type="text"
+											   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
+											   placeholder="RMA Id#" ng-change="gridActions.filter();"
+											   ng-model="filterrmaID" filter-by="rma_id" filter-type="text">
+									</th>
+									<th>
 										<input id="ridFilter" type="text"
 											   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
 											   placeholder="Enter RID #" ng-change="gridActions.filter();"
 											   ng-model="filterID" filter-by="id" filter-type="text">
 									</th>
 									<th>
-
 										<input id="productFilter" type="text"
 											   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
-											   placeholder="Enter Product ID" ng-change="gridActions.filter();"
-											   ng-model="filterreceipt_id" filter-by="product_id"
+											   placeholder="Model No" ng-change="gridActions.filter();"
+											   ng-model="filterpartno" filter-by="part_no"
+											   filter-type="text">
+									</th>
+									<th>
+										<input id="serialFilter" type="text"
+											   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
+											   placeholder="Serial No" ng-change="gridActions.filter();"
+											   ng-model="filterserialno" filter-by="serial_no"
 											   filter-type="text">
 									</th>
 									<th>
@@ -52,31 +63,19 @@
 											   filter-type="text"
 											   ng-change="gridActions.filter()"
 											   close-text="Close"/>
-
 									</th>
-									<!--          <th>
-                                                 <select name="field-volts-used" id="field-volts-used"
-                                                 class="form-control-sm form-control">
-                                                 <option value="0">From</option>
-                                                 <option value="1">Yes</option>
-                                                 <option value="2">No</option>
-                                                 <option value="2">Customer</option>
-                                             </select>
-                                         </th>
-                                         <th>
-                                             <select name="field-volts-used" id="field-volts-used"
-                                             class="form-control-sm form-control">
-                                             <option value="0">To</option>
-                                             <option value="1">Yes</option>
-                                             <option value="2">No</option>
-                                             <option value="2">Customer</option>
-                                         </select>
-                                     </th> -->
 									<th>
 										<input id="customerFilter" type="text"
 											   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
-											   placeholder="Enter Customer Name" ng-change="gridActions.filter()"
+											   placeholder="ustomer Name" ng-change="gridActions.filter()"
 											   ng-model="filterCustomer" filter-by="customer_name"
+											   filter-type="text">
+									</th>
+									<th>
+										<input id="endcustomerFilter" type="text"
+											   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
+											   placeholder="End Customer" ng-change="gridActions.filter()"
+											   ng-model="filterendCustomer" filter-by="end_customer"
 											   filter-type="text">
 									</th>
 									<th>
@@ -125,9 +124,9 @@
 								</div>
 									<div class="col-md-3 col-md-offset-3  p-0 m-r-0">
 										<div class = "pull-right">
-											<button type="button" class="btn btn-primary btn-sm" ng-show="openTab" ng-click="ChangePVStatusToStarted()">
-												<i class="fa fa-check"></i>&nbsp; Started
-											</button>
+											<!-- <button type="button" class="btn btn-primary btn-sm" ng-show="openTab" ng-click="OpenJTForm()">
+												<i class="fa fa-check"></i>&nbsp; Start
+											</button> -->
 
 											<!-- <button type="button" class="btn btn-primary btn-sm" ng-click="ChangeStatus('Completed')">
 												<i class="fa fa-check"></i>&nbsp; Completed
@@ -147,8 +146,11 @@
 								<thead>
 								<tr>
 
-									<th ng-show="openTab">
+									<!-- <th ng-show="openTab">
 										Select
+									</th> -->
+									<th sortable="rma_id" class="sortable">
+										RMA Id
 									</th>
 									<th sortable="id" class="sortable">
 										RID
@@ -156,14 +158,11 @@
 									<th sortable="pvdate" class="sortable">
 										Date
 									</th>
-									<th sortable="product_id" class="sortable">
-										Product Id
+									<th sortable="part_no" class="sortable">
+										Model No
 									</th>
 									<th sortable="serial_no" class="sortable">
-										Serial
-									</th>
-									<th sortable="part_no" class="sortable">
-										Model
+										Serial No
 									</th>
 									<th sortable="customer_name" class="sortable">
 										Customer
@@ -172,7 +171,7 @@
 										End Customer
 									</th>
 
-									<th sortable="comment" class="sortable">
+									<th sortable="manager_comment" class="sortable">
 										Comment
 									</th>
 									<th ng-show="tab!='jobticketcompleted'">
@@ -182,26 +181,26 @@
 								</thead>
 								<tbody>
 								<tr grid-item>
-									<td ng-show="openTab">
+									<!-- <td ng-show="openTab">
 										<label class="au-checkbox">
-											<input type="checkbox" ng-model="item.create_wc">
+											<input type="checkbox" ng-model="item.create_jc">
 											<span class="au-checkmark"></span>
 										</label>
-									</td>
+									</td> -->
+									<td ng-bind="item.rma_id"></td>
 									<td ng-bind="item.id"></td>
 									<td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
-									<td ng-bind="item.product_id"></td>
-									<td ng-bind="item.serial_no"></td>
 									<td ng-bind="item.part_no"></td>
+									<td ng-bind="item.serial_no"></td>
 									<td ng-bind="item.customer_name"></td>
 									<td ng-bind="item.end_customer"></td>
-									<td ng-bind="item.comment"></td>
+									<td ng-bind="item.manager_comment"></td>
 									<td ng-show="tab!='jobticketcompleted'">
 										<div class="table-data-feature">
 									{{--		<div class="btn-group p-r-10" ng-show="tab!='jobticketcompleted'">
 												<button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-info">Action</button>
 												<div tabindex="-1" aria-hidden="true" role="menu" class="dropdown-menu">
-													<button type="button" tabindex="0" class="dropdown-item" ng-show="tab=='jobticketopen'">Started</button>
+													<!-- <button type="button" tabindex="0" class="dropdown-item" ng-show="tab=='jobticketopen'">Started</button> -->
 													<button type="button" tabindex="0" class="dropdown-item" ng-show="tab=='jobticketstarted'">Completed</button>
 												</div>
 											</div>--}}
@@ -380,11 +379,12 @@
 			                                <div class="col-12 col-md-8">
 			                                    <textarea 
 			                                    name="nature_of_defect" 
-			                                    ng-model = "jobticket.nature_of_defect" 
+			                                    ng-model = "jobticket.customer_comment" 
 			                                    id="nature_of_defect" 
 			                                    rows="3" 
-			                                    placeholder="Nature Of Defect..." 
+			                                    placeholder="" 
 			                                    class="form-control"
+			                                    disabled="" 
 			                                    >
 			                                    </textarea>
 			                                </div>
@@ -393,16 +393,17 @@
 		                			<div class="col-md-6">
 		                				<div class="row form-group">
 			                                <div class="col col-md-4">
-			                                    <label for="crc_comment" class=" form-control-label">CRC Comment </label>
+			                                    <label for="comment" class=" form-control-label">CRC Comment </label>
 			                                </div>
 			                                <div class="col-12 col-md-8">
 			                                    <textarea 
-			                                    name="crc_comment" 
-			                                    ng-model = "jobticket.crc_comment" 
-			                                    id="crc_comment" 
-			                                    rows="2" 
-			                                    placeholder="Comment..." 
-			                                    class="form-control">
+			                                    name="comment" 
+			                                    ng-model = "jobticket.repair_comment" 
+			                                    id="comment" 
+			                                    rows="4" 
+			                                    placeholder="" 
+			                                    class="form-control"
+			                                    disabled>
 			                                    </textarea>
 			                                </div>
 			                            </div>
@@ -504,7 +505,7 @@
 		                                    name="comment_@{{$index}}" 
 		                                    ng-model = "job_ticket_material.comment" 
 		                                    id="comment_@{{$index}}" 
-		                                    rows="2" 
+		                                    rows="4" 
 		                                    placeholder="Comment" 
 		                                    class="form-control">
 		                                    </textarea>
