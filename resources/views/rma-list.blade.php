@@ -180,7 +180,7 @@
                                                         Select
                                                     </th>
                                                     <th sortable="id" class="sortable">
-                                                        Id
+                                                        R Id
                                                     </th>
                                                     <th sortable="receipt_id" class="sortable">
                                                         Receipt Id
@@ -260,7 +260,7 @@
                                                         Select
                                                     </th>
                                                     <th>
-                                                        Id
+                                                        R Id
                                                     </th>
                                                     <th>
                                                         Receipt Id

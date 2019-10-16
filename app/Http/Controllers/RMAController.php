@@ -276,8 +276,8 @@ class RMAController extends Controller
                 $RMA->date = $date->format('Y-m-d'); 
             }
             $RMA->customer_address_id = (array_key_exists('customer_address_id', $rmadata))?$rmadata['customer_address_id']:0;
-            if (isset($rmadata['invoice_info']['end_customer']['end_customer']))
-                $RMA->end_customer = $rmadata['invoice_info']['end_customer']['end_customer'];
+            if (isset($rmadata['end_customer']))
+                $RMA->end_customer = $rmadata['end_customer'];
             else
                 $RMA->end_customer = '';
             $RMA->status = 2;
@@ -285,6 +285,23 @@ class RMAController extends Controller
             $RMA->updated_by = Auth::id();
             $RMA->updated_at = Carbon::now();
             $RMA->save();
+
+            if (isset($rmadata['delivery_info']))
+            {
+                $delivery_info = $rmadata['delivery_info'];
+                $RMAD = new RMADeliveryAddress();
+                $RMAD->rma_id = $rmadata['id'];
+                $RMAD->address = (array_key_exists('address', $delivery_info))?$delivery_info['address']:'';
+                $RMAD->contact_person = (array_key_exists('contact_person', $delivery_info))?$delivery_info['contact_person']:'';
+                $RMAD->tel_no = (array_key_exists('tel_no', $delivery_info))?$delivery_info['tel_no']:'';
+                $RMAD->email = (array_key_exists('email', $delivery_info))?$delivery_info['email']:'';
+                $RMAD->gst = (array_key_exists('gst', $delivery_info))?$delivery_info['gst']:'';
+                $RMAD->created_by = Auth::id();
+                $RMAD->updated_by = Auth::id();
+                $RMAD->created_at = Carbon::now();
+                $RMAD->updated_at = Carbon::now();
+                $RMAD->save();
+            }
 
             foreach ($pvdata as $key => $unit) {
                 $RMAUnitInformation = new RMAUnitInformation();
@@ -294,7 +311,7 @@ class RMAController extends Controller
                 $RMAUnitInformation->service_type = (array_key_exists('service_type', $unit))?$unit['service_type']:1;
                 $RMAUnitInformation->warrenty = (array_key_exists('warrenty', $unit))?$unit['warrenty']:-1;
                 $RMAUnitInformation->desc_of_fault = (array_key_exists('desc_of_fault', $unit))?$unit['desc_of_fault']:'';
-                $RMAUnitInformation->sales_order_no = (array_key_exists('wbs', $unit))?$unit['wbs']:'';
+                $RMAUnitInformation->sales_order_no = (array_key_exists('sales_order_no', $unit))?$unit['sales_order_no']:'';
                 $RMAUnitInformation->field_volts_used = (array_key_exists('field_volts_used', $unit))?$unit['field_volts_used']:-1;
                 $RMAUnitInformation->equip_failed_on_installation = (array_key_exists('equip_failed_on_installation', $unit))?$unit['equip_failed_on_installation']:-1;
                 $RMAUnitInformation->equip_failed_on_service = (array_key_exists('equip_failed_on_service', $unit))?$unit['equip_failed_on_service']:-1;
@@ -328,8 +345,8 @@ class RMAController extends Controller
                 $RMA->date = $date->format('Y-m-d'); 
             }
             $RMA->customer_address_id = (array_key_exists('customer_address_id', $rmadata))?$rmadata['customer_address_id']:0;
-            if (isset($rmadata['invoice_info']['end_customer']['end_customer']))
-                $RMA->end_customer = $rmadata['invoice_info']['end_customer']['end_customer'];
+            if (isset($rmadata['end_customer']))
+                $RMA->end_customer = $rmadata['end_customer'];
             else
                 $RMA->end_customer = '';
             $RMA->status = 2;
@@ -337,13 +354,51 @@ class RMAController extends Controller
             $RMA->updated_at = Carbon::now();
             $RMA->update();
 
+            $RMAD = RMADeliveryAddress::where('rma_id', $rmadata['id'])->first();
+            if ($RMAD)
+            {
+                $delivery_info = $rmadata['delivery_info'];
+                if (array_key_exists('address', $delivery_info))
+                    $RMAD->address = $delivery_info['address'];
+                if (array_key_exists('contact_person', $delivery_info))
+                    $RMAD->contact_person = $delivery_info['contact_person'];
+                if (array_key_exists('tel_no', $delivery_info))
+                    $RMAD->tel_no = $delivery_info['tel_no'];
+                if (array_key_exists('email', $delivery_info))
+                    $RMAD->email = $delivery_info['email'];
+                if (array_key_exists('gst', $delivery_info))
+                    $RMAD->gst = $delivery_info['gst'];
+                $RMAD->updated_by = Auth::id();
+                $RMAD->updated_at = Carbon::now();
+                $RMAD->update();
+            }
+            else
+            {
+                if (isset($rmadata['delivery_info']))
+                {
+                    $delivery_info = $rmadata['delivery_info'];
+                    $RMAD = new RMADeliveryAddress();
+                    $RMAD->rma_id = $rmadata['id'];
+                    $RMAD->address = (array_key_exists('address', $delivery_info))?$delivery_info['address']:'';
+                    $RMAD->contact_person = (array_key_exists('contact_person', $delivery_info))?$delivery_info['contact_person']:'';
+                    $RMAD->tel_no = (array_key_exists('tel_no', $delivery_info))?$delivery_info['tel_no']:'';
+                    $RMAD->email = (array_key_exists('email', $delivery_info))?$delivery_info['email']:'';
+                    $RMAD->gst = (array_key_exists('gst', $delivery_info))?$delivery_info['gst']:'';
+                    $RMAD->created_by = Auth::id();
+                    $RMAD->updated_by = Auth::id();
+                    $RMAD->created_at = Carbon::now();
+                    $RMAD->updated_at = Carbon::now();
+                    $RMAD->save();
+                }
+            }
+
             foreach ($pvdata as $key => $unit) {
                 $RMAUnitInformation = RMAUnitInformation::where('pv_id', $unit['id'])->where('rma_id', $unit['rma_id'])->first();
                 $RMAUnitInformation->sw_version = (array_key_exists('sw_version', $unit))?$unit['sw_version']:'';
                 $RMAUnitInformation->service_type = (array_key_exists('service_type', $unit))?$unit['service_type']:1;
                 $RMAUnitInformation->warrenty = (array_key_exists('warrenty', $unit))?$unit['warrenty']:-1;
                 $RMAUnitInformation->desc_of_fault = (array_key_exists('desc_of_fault', $unit))?$unit['desc_of_fault']:'';
-                $RMAUnitInformation->sales_order_no = (array_key_exists('wbs', $unit))?$unit['wbs']:'';
+                $RMAUnitInformation->sales_order_no = (array_key_exists('sales_order_no', $unit))?$unit['sales_order_no']:'';
                 $RMAUnitInformation->field_volts_used = (array_key_exists('field_volts_used', $unit))?$unit['field_volts_used']:-1;
                 $RMAUnitInformation->equip_failed_on_installation = (array_key_exists('equip_failed_on_installation', $unit))?$unit['equip_failed_on_installation']:-1;
                 $RMAUnitInformation->equip_failed_on_service = (array_key_exists('equip_failed_on_service', $unit))?$unit['equip_failed_on_service']:-1;

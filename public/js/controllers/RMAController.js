@@ -193,6 +193,8 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 	    		$scope.rmaformdata = response.data.data;
 	    		$scope.rmaformdata.date =   $filter('date')($scope.rmaformdata.date, "dd/MM/yyyy");
 	    		$scope.rmaformdata.edit = true;
+	    		if ($scope.rmaformdata.delivery_info == null || $scope.rmaformdata.delivery_info == undefined)
+	    			$scope.rmaformdata.delivery_info = {};
 	    		if ($scope.rmaformdata.invoice_info != null)
 	    		{
 	    			for (var i = 0; i < $scope.customers.length; i++) {
@@ -213,6 +215,7 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 	    			if ($scope.rmaformdata.end_customer != undefined && $scope.rmaformdata.end_customer != null)
 	    				$scope.rmaformdata.invoice_info.end_cus = {'end_customer': $scope.rmaformdata.end_customer};
 	    		}
+	    		console.log($scope.rmaformdata)
 	    	}
 		}, function error(response) {
 		});
@@ -621,6 +624,16 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 
 	$scope.SaveRMAForm = function()
 	{
+		$scope.rmaformdata.customer_address_id = $scope.rmaformdata.invoice_info.invoice_customer_name.id;
+		if ($scope.rmaformdata.invoice_info.end_cus.end_customer == 'Add New')
+		{
+			$scope.rmaformdata.end_customer = $scope.rmaformdata.invoice_info.manual_end_customer;
+		}
+		else
+		{
+			$scope.rmaformdata.end_customer = $scope.rmaformdata.invoice_info.end_cus.end_customer;
+		}
+		console.log($scope.rmaformdata)
 		$http({
 			url: '/ge/saverma',
 			method: 'POST',
@@ -631,7 +644,7 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 		}).then(function(response){
 			if (response.data.status == 'success')
 			{
-				Notification.success(response.data.message);
+				Notification.success(response.data.message + ' with Id:' +response.data.data.id);
 				$scope.ChangeTab($scope.tab);
 				$scope.showrmaform = false;
 			}
