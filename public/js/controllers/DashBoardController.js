@@ -249,7 +249,7 @@ app.controller('DashBoardController', ['$scope', '$http', 'Notification' , funct
         //doughut chart
         var ctx = document.getElementById("doughChart");
         if (ctx) {
-            ctx.height = 150;
+            ctx.height = 200;
             var myChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
@@ -461,7 +461,7 @@ app.controller('DashBoardController', ['$scope', '$http', 'Notification' , funct
         //doughut chart
         var ctx = document.getElementById("doughChart1");
         if (ctx) {
-            ctx.height = 150;
+            ctx.height = 200;
             var myChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {

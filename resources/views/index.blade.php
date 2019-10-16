@@ -711,27 +711,45 @@
 
             <div class="row">
 
-            </div>
 
-            <div class="col-lg-6">
+
+            <div class="col-lg-2">
                 <div class="au-card col-lg-12 m-b-30">
                     <div class="au-card-inner">
                         <h3 class="title-2 m-b-40">OTD</h3>
                         <div class="d-inline-block">
-                            <div class=" pull-left">
+                            <div class="p-l-120">
                         <h6 class=" ">Numerical Relays - 75%</h6>
                         <canvas id="doughChart"></canvas>
                         </div>
-                            <div class="m-l-10 pull-right">
+                {{--            <div class="m-l-10 ">
                         <h6 class=" ">Conventional Relays - 85%</h6>
                         <canvas id="doughChart1"></canvas>
-                        </div>
+                        </div>--}}
                         </div>
                     </div>
                 </div>
             </div>
-            </div>
 
+        <div class="col-lg-2">
+            <div class="au-card col-lg-12 m-b-30">
+                <div class="au-card-inner">
+                    <h3 class="title-2 m-b-40">OTD</h3>
+                    <div class="d-inline-block">
+                 {{--       <div class=" ">
+                            <h6 class=" ">Numerical Relays - 75%</h6>
+                            <canvas id="doughChart"></canvas>
+                        </div>--}}
+                        <div class="p-l-120 ">
+                            <h6 class=" ">Conventional Relays - 85%</h6>
+                            <canvas id="doughChart1"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            </div>
+            </div>
         </div>
 
         </div>
