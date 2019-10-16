@@ -74,6 +74,8 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 		$scope.filterid = '';
 		$scope.filterpvdate = '';
 		$scope.filterCustomer = '';
+		$scope.filterendCustomer = '';
+		$scope.filterdocketdetails = '';
 	}
 
 	$scope.getReceipts = function()

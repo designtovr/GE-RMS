@@ -27,7 +27,7 @@
 
                                             <th>
 
-                                        <input id="ridFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Enter Receipt ID #" ng-change="gridActions.filter()" ng-model="filterid" filter-by="id" filter-type="text">
+                                        <input id="ridFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Receipt ID #" ng-change="gridActions.filter()" ng-model="filterid" filter-by="id" filter-type="text">
                                     </th>
                               
                                     <th>
@@ -46,9 +46,31 @@
                                         ng-change="gridActions.filter()"
                                         close-text="Close"/>
 
-                                    </th>         <th>
-                               <input id="customerFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Enter Customer Name" ng-change="gridActions.filter()" ng-model="filterCustomer" filter-by="customer_name" filter-type="text">
+                                    </th>
+                                    <th>
+                               <input id="customerFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Customer Name" ng-change="gridActions.filter()" ng-model="filterCustomer" filter-by="customer_name" filter-type="text">
                            </th>
+                                    <th>
+                                    <input id="endcustomerFilter"
+                                           type="text"
+                                           class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
+                                           placeholder="End Customer Name"
+                                           ng-change="gridActions.filter()"
+                                           ng-model="filterendCustomer"
+                                           filter-by="end_customer"
+                                           filter-type="text">
+                                    </th>
+                                    <th>
+                                        <input id="docketdetailsFilter"
+                                               type="text"
+                                               class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
+                                               placeholder="Docket Details"
+                                               ng-change="gridActions.filter()"
+                                               ng-model="filterdocketdetails"
+                                               filter-by="docket_details"
+                                               filter-type="text">
+                                    </th>
+
                            <!--          <th>
                                         <select name="field-volts-used" id="field-volts-used"
                                         class="form-control-sm form-control">

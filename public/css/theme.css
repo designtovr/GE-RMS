@@ -49,6 +49,26 @@ Notes:	decreasing heading by 0.4em with every subsequent heading level
     margin-left: 50px;
 }
 
+.card-title
+{
+    color : #0a0a0a !important;
+    font-weight : bold;
+}
+
+.display-5
+{
+    color : #0a0a0a !important;
+    font-weight : bold;
+    font-size: 20px;
+}
+
+.btn-outline-secondary
+{
+    color : #0a0a0a !important;
+    font-weight : bold !important;
+    background-color: #0a0a0a17 !important;
+}
+
 /* The button used to open the sidebar */
 .openbtn {
     z-index: 10;
