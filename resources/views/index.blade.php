@@ -258,21 +258,192 @@
                 <div class="col-lg-3">
                     <div class="au-card m-b-30">
                         <div class="au-card-inner">
-                            <h3 class="title-2 m-b-40">Today Status</h3>
+                            <h3 class="title-2 m-b-40">Today And Monthly Status</h3>
                             <canvas id="TodayStatus"></canvas>
                         </div>
                     </div>
                 </div>
 
+
+
                 <div class="col-lg-3">
                     <div class="au-card m-b-30">
                         <div class="au-card-inner">
-                            <h3 class="title-2 m-b-40">Monthly Status</h3>
-                            <canvas id="MonthlyStatus"></canvas>
+                            <h3 class="title-2 m-b-40">Repair - Warranty</h3>
+                            <canvas id="Warranty"></canvas>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 h-25">
+                <div class="col-lg-3">
+                    <div class="au-card m-b-30 ">
+                        <div class="au-card-inner">
+                            <h3 class="title-2 m-b-40">Repair - Out of Warranty</h3>
+                            <canvas id="OutOfWarranty"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
+                        <div class="au-card-title"  >
+                            <div class="bg-overlay bg-overlay--androidblue"></div>
+                            <h3>
+                                <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>Priority List</h3>
+
+                        </div>
+                        <div class="au-task js-list-load">
+                            <div class=" ">
+                                <div class="table-responsive table-height200">
+                                    <table class="table table-borderless table-data3 table-data3-blue table-height200">
+                                        <thead>
+                                        <tr>
+                                            <th>Type</th>
+                                            <th>Serial Number</th>
+                                            <th>Location</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>PX40</td>
+                                            <td>43976987</td>
+                                            <td>R2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>PX40</td>
+                                            <td>43976987</td>
+                                            <td>R2</td>
+                                        </tr>    <tr>
+                                            <td>PX40</td>
+                                            <td>43976987</td>
+                                            <td>R2</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>C264</td>
+                                            <td>328946598</td>
+                                            <td>C4</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Agile</td>
+                                            <td>23578230</td>
+                                            <td>R45</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Agile</td>
+                                            <td>23578230</td>
+                                            <td>R45</td>
+
+                                        </tr> <tr>
+                                            <td>Agile</td>
+                                            <td>23578230</td>
+                                            <td>R45</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Conventional</td>
+                                            <td>238230</td>
+                                            <td>R4</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Other</td>
+                                            <td>237598</td>
+                                            <td>R3</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>BOJ</td>
+                                            <td>29385698</td>
+                                            <td>R46</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>BOJ</td>
+                                            <td>29385698</td>
+                                            <td>R46</td>
+
+                                        </tr>          <tr>
+                                            <td>BOJ</td>
+                                            <td>29385698</td>
+                                            <td>R46</td>
+
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- END DATA TABLE -->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+    {{--            <div class="col-lg-3">
+                    <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
+                        <div class="au-card-title"  >
+                            <div class="bg-overlay bg-overlay--androidblue"></div>
+                            <h3>
+                                <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>Waiting For Packing</h3>
+
+                        </div>
+                        <div class="au-task js-list-load">
+                            <div class=" ">
+                                <div class="table-responsive m-b-40">
+                                    <table class="table table-borderless table-data3 table-data3-blue">
+                                        <thead>
+                                        <tr>
+                                            <th>Type</th>
+                                            <th>Total Relays</th>
+                                            <th>Time Exceeded Relays</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>PX40</td>
+                                            <td>5</td>
+                                            <td> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s">2</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>C264</td>
+                                            <td>10</td>
+                                            <td> 0<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s"></span></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Agile</td>
+                                            <td>10</td>
+                                            <td> 0<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s"></span></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Conventional</td>
+                                            <td>10</td>
+                                            <td> 0<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s"></span></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Other</td>
+                                            <td>10</td>
+                                            <td> 0<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s"></span></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>BOJ</td>
+                                            <td>10</td>
+                                            <td> 0<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s"></span></td>
+
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- END DATA TABLE -->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>--}}
+               {{-- <div class="col-lg-3 h-25">
                     <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
                         <div class="au-card-title" style="background-image:url('images/bg-title-01.jpg');" >
                             <div class="bg-overlay bg-overlay--androidblue"></div>
@@ -467,7 +638,7 @@
 
                         </div>
                     </div>
-                </div>
+                </div>--}}
             </div>
 
         </div>
@@ -542,17 +713,17 @@
 
             </div>
 
-            <div class="col-lg-12">
+            <div class="col-lg-6">
                 <div class="au-card col-lg-12 m-b-30">
                     <div class="au-card-inner">
                         <h3 class="title-2 m-b-40">OTD</h3>
-                        <div class="">
-                            <div class="col-lg-6 pull-left">
-                        <h6 class=" m-b-40">Numerical Relays - 75%</h6>
+                        <div class="d-inline-block">
+                            <div class=" pull-left">
+                        <h6 class=" ">Numerical Relays - 75%</h6>
                         <canvas id="doughChart"></canvas>
                         </div>
-                            <div class="col-lg-6 pull-right">
-                        <h6 class=" m-b-40">Conventional Relays - 85%</h6>
+                            <div class="m-l-10 pull-right">
+                        <h6 class=" ">Conventional Relays - 85%</h6>
                         <canvas id="doughChart1"></canvas>
                         </div>
                         </div>

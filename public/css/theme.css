@@ -69,6 +69,12 @@ Notes:	decreasing heading by 0.4em with every subsequent heading level
     background-color: #0a0a0a17 !important;
 }
 
+.table-height200
+{
+    height: 500px !important;
+    min-height: 200px !important;
+    max-height: 500px !important;
+}
 /* The button used to open the sidebar */
 .openbtn {
     z-index: 10;
