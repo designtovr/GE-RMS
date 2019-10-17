@@ -83,6 +83,7 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 		$scope.filterdate = '';
 		$scope.filtergs_no = '';
 		$scope.filterID = '';
+		$scope.filterreceiptID = '';
 		$scope.filteract = '';
 		$scope.filterCustomer = '';
 		$scope.filterrID = '';

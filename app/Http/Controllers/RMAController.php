@@ -22,7 +22,7 @@ class RMAController extends Controller
 
 	public function GetRMAList($cat = 'all', $type = 'all')
 	{
-        $rmalist = RMA::selectRaw('*');
+        $rmalist = RMA::selectRaw('rma.*, cus.name as customer_name')->leftJoin('ma_customer as cus', 'cus.id', 'rma.customer_address_id');
         if ($cat == 'open')
         {
             $rmalist = $rmalist->where('status', 1);

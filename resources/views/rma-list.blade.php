@@ -20,14 +20,26 @@
                         <table class="table table-borderless table-data3 table-custom">
                             <thead>
                                 <tr>
+                                    <th ng-show="tab =='withrma' || tab == 'withoutrma'">
+                                        <input type="text" 
+                                        id="receiptidFilter" 
+                                        class="form-control" 
+                                        placeholder="Receipt Id #" 
+                                        close-text="Close"
+                                        ng-model="filterrID" 
+                                        filter-by="id" 
+                                        filter-type="text"
+                                        ng-change="gridActions.filter();" 
+                                        />
+                                    </th>
                                     <th>
                                         <input type="text" 
                                         id="ridFilter" 
                                         class="form-control" 
-                                        placeholder="Id #" 
+                                        placeholder="R Id #" 
                                         close-text="Close"
-                                        ng-model="filterrID" 
-                                        filter-by="id" 
+                                        ng-model="filterreceiptID" 
+                                        filter-by="receipt_id" 
                                         filter-type="text"
                                         ng-change="gridActions.filter();" 
                                         />
@@ -48,8 +60,8 @@
                                         ng-change="gridActions.filter()"
                                         close-text="Close"/>
                                     </th>
-                                    <th>
-                                        <input id="productFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Enter GS No" ng-change="gridActions.filter();" ng-model="filtergs_no" filter-by="gs_no" filter-type="text">
+                                    <th ng-show="tab !='withrma' && tab != 'withoutrma'">
+                                        <input id="gsFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="GS No" ng-change="gridActions.filter();" ng-model="filtergs_no" filter-by="gs_no" filter-type="text">
                                     </th>
                                     <th>
                                        <input id="customerFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Customer Name" ng-change="gridActions.filter()" ng-model="filterCustomer" filter-by="customer_name" filter-type="text">
@@ -110,6 +122,9 @@
                                                     <th sortable="act_reference" class="sortable">
                                                         ACT Reference
                                                     </th>
+                                                    <th sortable="customer_name" class="sortable">
+                                                        Customer Name
+                                                    </th>
                                                     <th sortable="end_customer" class="sortable">
                                                         End Customer
                                                     </th>
@@ -125,6 +140,7 @@
 
                                                     <td ng-bind="item.gs_no"></td>
                                                     <td ng-bind="item.act_reference"></td>
+                                                    <td ng-bind="item.customer_name"></td>
                                                     <td ng-bind="item.end_customer"></td>
                                                     <td>
                                                         <div class="table-data-feature">
@@ -352,6 +368,9 @@
                                                     <th sortable="act_reference" class="sortable">
                                                         ACT Reference
                                                     </th>
+                                                    <th sortable="customer_name" class="sortable">
+                                                        Customer Name
+                                                    </th>
                                                     <th sortable="end_customer" class="sortable">
                                                         End Customer
                                                     </th>
@@ -367,6 +386,7 @@
 
                                                     <td ng-bind="item.gs_no"></td>
                                                     <td ng-bind="item.act_reference"></td>
+                                                    <td ng-bind="item.customer_name"></td>
                                                     <td ng-bind="item.end_customer"></td>
                                                     <td>
                                                         <div class="table-data-feature">
@@ -429,12 +449,14 @@
                                                     <th sortable="date" class="sortable">
                                                         Date
                                                     </th>
-
                                                     <th sortable="gs_no" class="sortable">
                                                         GS No
                                                     </th>
                                                     <th sortable="act_reference" class="sortable">
                                                         ACT Reference
+                                                    </th>
+                                                    <th sortable="customer_name" class="sortable">
+                                                        Customer Name
                                                     </th>
                                                     <th sortable="end_customer" class="sortable">
                                                         End Customer
@@ -451,6 +473,7 @@
 
                                                     <td ng-bind="item.gs_no"></td>
                                                     <td ng-bind="item.act_reference"></td>
+                                                    <td ng-bind="item.customer_name"></td>
                                                     <td ng-bind="item.end_customer"></td>
                                                     <td>
                                                         <div class="table-data-feature">
