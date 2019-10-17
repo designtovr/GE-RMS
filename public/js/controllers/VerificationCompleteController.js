@@ -1,4 +1,4 @@
-app.controller('VerificationCompleteController', ['$scope', '$http', 'Notification','ChangePVStatusService', '$filter', function($scope, $http ,Notification,ChangePVStatusService, $filter){
+app.controller('VerificationCompleteController', ['$scope', '$http', 'Notification','ChangePVStatusService', '$filter', '$ngConfirm', function($scope, $http ,Notification,ChangePVStatusService, $filter , $ngConfirm){
 	$scope.vcform = false;
 	$scope.vcformdata = {};
 	$scope.gridOptions = {
@@ -31,10 +31,14 @@ app.controller('VerificationCompleteController', ['$scope', '$http', 'Notificati
 
 			$scope.Reset = function()
 			{
+				$scope.filterrmaID = '';
 				$scope.filterID = '';
-				$scope.filterreceipt_id = '';
+				$scope.filterpart_no = '';
 				$scope.filterpvdate = '';
 				$scope.filterCustomer = '';
+				$scope.filterserial_no = '';
+				$scope.filterCustomer = '';
+				$scope.filterendCustomer = '';
 			}
 
 				$scope.ChangeStatus = function(status)
@@ -140,8 +144,26 @@ app.controller('VerificationCompleteController', ['$scope', '$http', 'Notificati
 			if (response.data.status == 'success')
 			{
 				Notification.success(response.data.message);
-				$scope.CloseVCForm();
-				$scope.GetPV('agingcompleted');
+				$ngConfirm({
+					title: 'Print',
+					content: 'Are you want to print?',
+					type: 'blue',
+					typeAnimated: true,
+					buttons: {
+						print: {
+							text: 'Print',
+							btnClass: 'btn-blue',
+							action: function(){
+								$scope.CloseVCForm();
+								$scope.GetPV('agingcompleted');
+							}
+						},
+						close: function () {
+							$scope.CloseVCForm();
+							$scope.GetPV('agingcompleted');
+						}
+					}
+				});
 			}
 		}, function error(response) {
 		});

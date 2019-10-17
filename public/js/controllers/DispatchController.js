@@ -32,10 +32,14 @@ app.controller('DispatchController', ['$scope', '$http','$filter','Notification'
 
 			$scope.Reset = function()
 			{
+				$scope.filterrmaID = '';
 				$scope.filterID = '';
 				$scope.filterreceipt_id = '';
+				$scope.filterpart_no = '';
+				$scope.filterserial_no = '';
 				$scope.filterpvdate = '';
 				$scope.filterCustomer = '';
+				$scope.filterendCustomer = '';
 			}
 
 	
@@ -48,6 +52,9 @@ app.controller('DispatchController', ['$scope', '$http','$filter','Notification'
 					{
 						$scope.selectedpvs.push($scope.gridOptions.data[i].id);
 						$scope.dispatch= $scope.gridOptions.data[i];
+						$scope.dispatch.docket_details = '';
+						$scope.dispatch.courier_name = '';
+						$scope.dispatch.date = $filter('date')(new Date(),'dd/MM/yyyy');
 					}
 				}
 				if ($scope.selectedpvs.length == 0)
@@ -168,7 +175,6 @@ app.controller('DispatchController', ['$scope', '$http','$filter','Notification'
 			return;
 
 		$scope.showdpform = true;
-		console.log("ihi")
 	}
 
 	$scope.HideDPForm = function()

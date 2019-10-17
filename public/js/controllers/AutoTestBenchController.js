@@ -95,10 +95,13 @@ app.controller('AutoTestBenchController', ['$scope', '$http','Notification','Cha
 
 			$scope.Reset = function()
 			{
+				$scope.filterrmaID = '';
 				$scope.filterID = '';
-				$scope.filterreceipt_id = '';
+				$scope.filterpart_no = '';
+				$scope.filterserial_no = '';
 				$scope.filterpvdate = '';
 				$scope.filterCustomer = '';
+				$scope.filterendCustomer = '';
 			}
 
 			$scope.ChangeStatus = function(status)

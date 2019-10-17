@@ -33,8 +33,11 @@ app.controller('AgingCompleteController', ['$scope', '$http','Notification','Cha
 
 	$scope.Reset = function()
 	{
+		$scope.filterrmaID = '';
 		$scope.filterID = '';
-		$scope.filterreceipt_id = '';
+		$scope.filterpart_no = '';
+		$scope.filterserial_no = '';
+		$scope.filterendCustomer = '';
 		$scope.filterpvdate = '';
 		$scope.filterCustomer = '';
 	}

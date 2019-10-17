@@ -22,18 +22,29 @@
 								<thead>
 								<tr>
 									<th>
-
+										<input id="rmaidFilter" type="text"
+											   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
+											   placeholder="RMA Id #" ng-change="gridActions.filter();"
+											   ng-model="filterrmaID" filter-by="rma_id" filter-type="text">
+									</th>
+									<th>
 										<input id="ridFilter" type="text"
 											   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
 											   placeholder="Enter RID #" ng-change="gridActions.filter();"
 											   ng-model="filterID" filter-by="id" filter-type="text">
 									</th>
 									<th>
-
 										<input id="productFilter" type="text"
 											   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
-											   placeholder="Enter Product ID" ng-change="gridActions.filter();"
-											   ng-model="filterreceipt_id" filter-by="product_id"
+											   placeholder="Model No" ng-change="gridActions.filter();"
+											   ng-model="filterpart_no" filter-by="part_no"
+											   filter-type="text">
+									</th>
+									<th>
+										<input id="serialFilter" type="text"
+											   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
+											   placeholder="Serial No" ng-change="gridActions.filter();"
+											   ng-model="filterserial_no" filter-by="serial_no"
 											   filter-type="text">
 									</th>
 									<th>
@@ -51,31 +62,19 @@
 											   filter-type="text"
 											   ng-change="gridActions.filter()"
 											   close-text="Close"/>
-
 									</th>
-									<!--          <th>
-                                                 <select name="field-volts-used" id="field-volts-used"
-                                                 class="form-control-sm form-control">
-                                                 <option value="0">From</option>
-                                                 <option value="1">Yes</option>
-                                                 <option value="2">No</option>
-                                                 <option value="2">Customer</option>
-                                             </select>
-                                         </th>
-                                         <th>
-                                             <select name="field-volts-used" id="field-volts-used"
-                                             class="form-control-sm form-control">
-                                             <option value="0">To</option>
-                                             <option value="1">Yes</option>
-                                             <option value="2">No</option>
-                                             <option value="2">Customer</option>
-                                         </select>
-                                     </th> -->
 									<th>
 										<input id="customerFilter" type="text"
 											   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
-											   placeholder="Enter Customer Name" ng-change="gridActions.filter()"
+											   placeholder="Customer Name" ng-change="gridActions.filter()"
 											   ng-model="filterCustomer" filter-by="customer_name"
+											   filter-type="text">
+									</th>
+									<th>
+										<input id="endcustomerFilter" type="text"
+											   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
+											   placeholder="End Customer" ng-change="gridActions.filter()"
+											   ng-model="filterendCustomer" filter-by="end_customer"
 											   filter-type="text">
 									</th>
 									<th>
@@ -124,9 +123,9 @@
 								</div>
 								<div class="col-md-3 col-md-offset-3  p-0 m-r-0" >
 									<div class = "pull-right">
-									<button type="button" class="btn btn-primary btn-sm" ng-show="openTab" ng-click="ChangeStatus('atbstarted')">
+									<!-- <button type="button" class="btn btn-primary btn-sm" ng-show="openTab" ng-click="ChangeStatus('atbstarted')">
 										<i class="fa fa-check"></i>&nbsp; Started
-									</button>
+									</button> -->
 
 									<!-- <button type="button" class="btn btn-primary btn-sm" ng-show="startTab" ng-click="ChangeStatus('atbcompleted')">
 										<i class="fa fa-check"></i>&nbsp; Completed
@@ -149,20 +148,20 @@
 									<th>
 										Select
 									</th>
+									<th sortable="rma_id" class="sortable">
+										RMA Id
+									</th>
 									<th sortable="id" class="sortable">
 										RID
 									</th>
 									<th sortable="pvdate" class="sortable">
 										Date
 									</th>
-									<th sortable="product_id" class="sortable">
-										Product Id
+									<th sortable="part_no" class="sortable">
+										Model No
 									</th>
 									<th sortable="serial_no" class="sortable">
-										Serial
-									</th>
-									<th sortable="part_no" class="sortable">
-										Model
+										Serial No
 									</th>
 									<th sortable="customer_name" class="sortable">
 										Customer
@@ -170,9 +169,11 @@
 									<th sortable="end_customer" class="sortable">
 										End Customer
 									</th>
-
-									<th sortable="comment" class="sortable">
+									<th sortable="manager_comment" class="sortable">
 										Comment
+									</th>
+									<th ng-if="!openTab" sortable="testing_comment" class="sortable">
+										Test Comment
 									</th>
 									<!-- <th>
 										Actions
@@ -181,20 +182,21 @@
 								</thead>
 								<tbody>
 								<tr grid-item>
-										<td>
-                                            <label class="au-checkbox">
-                                                <input type="checkbox" ng-model="item.create_wc">
-                                                <span class="au-checkmark"></span>
-                                            </label>
-                                        </td>
+									<td>
+                                        <label class="au-checkbox">
+                                            <input type="checkbox" ng-model="item.create_wc">
+                                            <span class="au-checkmark"></span>
+                                        </label>
+                                    </td>
+                                    <td ng-bind="item.rma_id"></td>
 									<td ng-bind="item.id"></td>
 									<td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
-									<td ng-bind="item.product_id"></td>
-									<td ng-bind="item.serial_no"></td>
 									<td ng-bind="item.part_no"></td>
+									<td ng-bind="item.serial_no"></td>
 									<td ng-bind="item.customer_name"></td>
 									<td ng-bind="item.end_customer"></td>
-									<td ng-bind="item.comment"></td>
+									<td ng-bind="item.manager_comment"></td>
+									<td ng-if="!openTab" ng-bind="item.testing_comment"></td>
 									<!-- <td>
 										<div class="table-data-feature">
 											<div class="btn-group p-r-10">
@@ -287,7 +289,7 @@
 			                                    <label for="comment" class=" form-control-label"><b>Comments</b></label>
 			                                </div>
 			                                <div class="col-12 col-md-6">
-			                                    <textarea name="comment" id="comment" rows="3" placeholder="Comment" class="form-control" ng-model="testbenchmodal.comment"></textarea>
+			                                    <textarea name="comment" id="comment" rows="4" placeholder="Comment" class="form-control" ng-model="testbenchmodal.comment"></textarea>
 			                                </div>
 			                            </div>
 		                			</div>

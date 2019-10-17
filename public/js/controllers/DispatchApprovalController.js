@@ -30,10 +30,13 @@ app.controller('DispatchApprovalController', ['$scope', '$http','Notification','
 
     $scope.Reset = function()
     {
+        $scope.filterrmaID = '';
         $scope.filterID = '';
-        $scope.filterreceipt_id = '';
+        $scope.filterpart_no = '';
+        $scope.filterserial_no = '';
         $scope.filterpvdate = '';
         $scope.filterCustomer = '';
+        $scope.filterendCustomer = '';
     }
 
 

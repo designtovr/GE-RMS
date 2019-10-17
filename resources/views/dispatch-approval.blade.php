@@ -20,19 +20,30 @@
                                     <thead>
                                     <tr>
                                         <th>
-
-                                            <input id="ridFilter" type="text"
-                                                   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
-                                                   placeholder="Enter RID #" ng-change="gridActions.filter();"
-                                                   ng-model="filterID" filter-by="id" filter-type="text">
+                                            <input id="rmaidFilter" type="text"
+                                            class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
+                                            placeholder="RMA Id #" ng-change="gridActions.filter();"
+                                            ng-model="filterrmaID" filter-by="rma_id" filter-type="text">
                                         </th>
                                         <th>
-
+                                            <input id="ridFilter" type="text"
+                                            class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
+                                            placeholder="RID #" ng-change="gridActions.filter();"
+                                            ng-model="filterID" filter-by="id" filter-type="text">
+                                        </th>
+                                        <th>
                                             <input id="productFilter" type="text"
-                                                   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
-                                                   placeholder="Enter Product ID" ng-change="gridActions.filter();"
-                                                   ng-model="filterreceipt_id" filter-by="product_id"
-                                                   filter-type="text">
+                                            class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
+                                            placeholder="Model No" ng-change="gridActions.filter();"
+                                            ng-model="filterpart_no" filter-by="part_no"
+                                            filter-type="text">
+                                        </th>
+                                        <th>
+                                            <input id="serialFilter" type="text"
+                                            class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
+                                            placeholder="Serial No" ng-change="gridActions.filter();"
+                                            ng-model="filterserial_no" filter-by="serial_no"
+                                            filter-type="text">
                                         </th>
                                         <th>
                                             <input type="text"
@@ -49,33 +60,21 @@
                                                    filter-type="text"
                                                    ng-change="gridActions.filter()"
                                                    close-text="Close"/>
-
                                         </th>
-                                        <!--          <th>
-                                                     <select name="field-volts-used" id="field-volts-used"
-                                                     class="form-control-sm form-control">
-                                                     <option value="0">From</option>
-                                                     <option value="1">Yes</option>
-                                                     <option value="2">No</option>
-                                                     <option value="2">Customer</option>
-                                                 </select>
-                                             </th>
-                                             <th>
-                                                 <select name="field-volts-used" id="field-volts-used"
-                                                 class="form-control-sm form-control">
-                                                 <option value="0">To</option>
-                                                 <option value="1">Yes</option>
-                                                 <option value="2">No</option>
-                                                 <option value="2">Customer</option>
-                                             </select>
-                                         </th> -->
                                         <th>
                                             <input id="customerFilter" type="text"
                                                    class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
-                                                   placeholder="Enter Customer Name" ng-change="gridActions.filter()"
+                                                   placeholder="Customer Name" ng-change="gridActions.filter()"
                                                    ng-model="filterCustomer" filter-by="customer_name"
                                                    filter-type="text">
                                         </th>
+                                        <th>
+                                            <input id="endcustomerFilter" type="text"
+                                            class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
+                                            placeholder="End Customer" ng-change="gridActions.filter()"
+                                            ng-model="filterendCustomer" filter-by="end_customer"
+                                            filter-type="text">
+                                         </th>
                                         <th>
                                             <button type="button" class="btn btn-outline-secondary btn-sm"
                                                     ng-click="Reset();gridActions.filter()">Reset
@@ -96,7 +95,7 @@
                     <div class="col-md-12 p-b-20">
                         <button type="button" class="btn btn-primary btn-md float-right"
                                 ng-click="ChangeStatus('dispatchapproved');">
-                            <i class="fa fa-plus"></i>&nbsp;Approval
+                            <i class="fa fa-plus"></i>&nbsp;Approve
                         </button>
                     </div>
                     <div class="col-md-12">
@@ -112,7 +111,7 @@
                                             Select
                                         </th>
                                         <th sortable="rma_id" class="sortable">
-                                            RMA NO.
+                                            RMA Id
                                         </th>
                                         <th sortable="id" class="sortable">
                                             RID
@@ -120,9 +119,6 @@
 
                                         <th sortable="pvdate" class="sortable">
                                             Date
-                                        </th>
-                                        <th sortable="product_id" class="sortable">
-                                            Product Id
                                         </th>
                                         <th sortable="serial_no" class="sortable">
                                             Serial
@@ -153,12 +149,11 @@
                                         <td ng-bind="item.rma_id"></td>
                                         <td ng-bind="item.id"></td>
                                         <td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
-                                        <td ng-bind="item.product_id"></td>
                                         <td ng-bind="item.serial_no"></td>
                                         <td ng-bind="item.part_no"></td>
                                         <td ng-bind="item.customer_name"></td>
                                         <td ng-bind="item.end_customer"></td>
-                                        <td ng-bind="item.comment"></td>
+                                        <td ng-bind="item.manager_comment"></td>
                                     </tr>
                                     </tbody>
                                 </table>

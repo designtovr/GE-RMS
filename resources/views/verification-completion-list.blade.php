@@ -21,21 +21,39 @@
 							<table class="table table-borderless table-data3 table-custom">
 								<thead>
 									<tr>
+                                        <th>
+                                            <input id="rmaidFilter" type="text"
+                                            class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
+                                            placeholder="RMA Id #" ng-change="gridActions.filter();"
+                                            ng-model="filterrmaID" filter-by="rma_id" filter-type="text">
+                                        </th>
 										<th>
-
 											<input id="ridFilter" type="text"
 											class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
-											placeholder="Enter RID #" ng-change="gridActions.filter();"
+											placeholder="RID #" ng-change="gridActions.filter();"
 											ng-model="filterID" filter-by="id" filter-type="text">
 										</th>
 										<th>
-
 											<input id="productFilter" type="text"
 											class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
-											placeholder="Enter Product ID" ng-change="gridActions.filter();"
-											ng-model="filterreceipt_id" filter-by="product_id"
+											placeholder="Model No" ng-change="gridActions.filter();"
+											ng-model="filterpart_no" filter-by="part_no"
 											filter-type="text">
 										</th>
+                                        <th>
+                                            <input id="serialFilter" type="text"
+                                            class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
+                                            placeholder="Serial No" ng-change="gridActions.filter();"
+                                            ng-model="filterserial_no" filter-by="serial_no"
+                                            filter-type="text">
+                                        </th>
+                                        <th>
+                                            <input id="serialFilter" type="text"
+                                            class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
+                                            placeholder="Serial No" ng-change="gridActions.filter();"
+                                            ng-model="filterserial_no" filter-by="serial_no"
+                                            filter-type="text">
+                                        </th>
 										<th>
 											<input type="text"
 											id="dateFilter"
@@ -53,30 +71,19 @@
 											close-text="Close"/>
 
 										</th>
-									<!--          <th>
-                                                 <select name="field-volts-used" id="field-volts-used"
-                                                 class="form-control-sm form-control">
-                                                 <option value="0">From</option>
-                                                 <option value="1">Yes</option>
-                                                 <option value="2">No</option>
-                                                 <option value="2">Customer</option>
-                                             </select>
-                                         </th>
-                                         <th>
-                                             <select name="field-volts-used" id="field-volts-used"
-                                             class="form-control-sm form-control">
-                                             <option value="0">To</option>
-                                             <option value="1">Yes</option>
-                                             <option value="2">No</option>
-                                             <option value="2">Customer</option>
-                                         </select>
-                                     </th> -->
                                      <th>
                                      	<input id="customerFilter" type="text"
                                      	class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
-                                     	placeholder="Enter Customer Name" ng-change="gridActions.filter()"
+                                     	placeholder="Customer Name" ng-change="gridActions.filter()"
                                      	ng-model="filterCustomer" filter-by="customer_name"
                                      	filter-type="text">
+                                     </th>
+                                     <th>
+                                        <input id="endcustomerFilter" type="text"
+                                        class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
+                                        placeholder="End Customer" ng-change="gridActions.filter()"
+                                        ng-model="filterendCustomer" filter-by="end_customer"
+                                        filter-type="text">
                                      </th>
                                      <th>
                                      	<button type="button" class="btn btn-outline-secondary btn-sm"
@@ -140,20 +147,20 @@
          					<table class="table table-borderless table-data3  ">
          						<thead>
          							<tr>
+                                        <th sortable="rma_id" class="sortable">
+                                            RMA Id
+                                        </th>
          								<th sortable="id" class="sortable">
          									RID
          								</th>
          								<th sortable="pvdate" class="sortable">
          									Date
          								</th>
-         								<th sortable="product_id" class="sortable">
-         									Product Id
-         								</th>
-         								<th sortable="serial_no" class="sortable">
-         									Serial
-         								</th>
          								<th sortable="part_no" class="sortable">
-         									Model
+                                            Model No
+                                        </th>
+         								<th sortable="serial_no" class="sortable">
+         									Serial No
          								</th>
          								<th sortable="customer_name" class="sortable">
          									Customer
@@ -162,7 +169,7 @@
          									End Customer
          								</th>
 
-         								<th sortable="comment" class="sortable">
+         								<th sortable="manager_comment" class="sortable">
          									Comment
          								</th>
          								<th ng-if="status == 'agingcompleted'">
@@ -172,23 +179,23 @@
          						</thead>
          						<tbody>
          							<tr grid-item>
+                                        <td ng-bind="item.rma_id"></td>
          								<td ng-bind="item.id"></td>
          								<td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
-         								<td ng-bind="item.product_id"></td>
-         								<td ng-bind="item.serial_no"></td>
          								<td ng-bind="item.part_no"></td>
+         								<td ng-bind="item.serial_no"></td>
          								<td ng-bind="item.customer_name"></td>
          								<td ng-bind="item.end_customer"></td>
-         								<td ng-bind="item.comment"></td>
+         								<td ng-bind="item.manager_comment"></td>
          						
                                         <td ng-if="status == 'agingcompleted'">
         		                         	<div class="table-data-feature">
         		                         		<button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="ShowVCForm(item);">
         	                                        <i class="zmdi zmdi-edit"></i>
         	                                    </button>
-        	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
+        	                                    <!-- <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
         	                                        <i class="zmdi zmdi-delete"></i>
-        	                                    </button>
+        	                                    </button> -->
         	                                </div>
         		                         </td>
          							</tr>

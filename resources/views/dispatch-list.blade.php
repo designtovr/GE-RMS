@@ -20,19 +20,30 @@
                                     <thead>
                                     <tr>
                                         <th>
-
-                                            <input id="ridFilter" type="text"
-                                                   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
-                                                   placeholder="Enter RID #" ng-change="gridActions.filter();"
-                                                   ng-model="filterID" filter-by="id" filter-type="text">
+                                            <input id="rmaidFilter" type="text"
+                                            class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
+                                            placeholder="RMA Id #" ng-change="gridActions.filter();"
+                                            ng-model="filterrmaID" filter-by="rma_id" filter-type="text">
                                         </th>
                                         <th>
-
+                                            <input id="ridFilter" type="text"
+                                            class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
+                                            placeholder="RID #" ng-change="gridActions.filter();"
+                                            ng-model="filterID" filter-by="id" filter-type="text">
+                                        </th>
+                                        <th>
                                             <input id="productFilter" type="text"
-                                                   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
-                                                   placeholder="Enter Product ID" ng-change="gridActions.filter();"
-                                                   ng-model="filterreceipt_id" filter-by="product_id"
-                                                   filter-type="text">
+                                            class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
+                                            placeholder="Model No" ng-change="gridActions.filter();"
+                                            ng-model="filterpart_no" filter-by="part_no"
+                                            filter-type="text">
+                                        </th>
+                                        <th>
+                                            <input id="serialFilter" type="text"
+                                            class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
+                                            placeholder="Serial No" ng-change="gridActions.filter();"
+                                            ng-model="filterserial_no" filter-by="serial_no"
+                                            filter-type="text">
                                         </th>
                                         <th>
                                             <input type="text"
@@ -51,31 +62,20 @@
                                                    close-text="Close"/>
 
                                         </th>
-                                        <!--          <th>
-                                                     <select name="field-volts-used" id="field-volts-used"
-                                                     class="form-control-sm form-control">
-                                                     <option value="0">From</option>
-                                                     <option value="1">Yes</option>
-                                                     <option value="2">No</option>
-                                                     <option value="2">Customer</option>
-                                                 </select>
-                                             </th>
-                                             <th>
-                                                 <select name="field-volts-used" id="field-volts-used"
-                                                 class="form-control-sm form-control">
-                                                 <option value="0">To</option>
-                                                 <option value="1">Yes</option>
-                                                 <option value="2">No</option>
-                                                 <option value="2">Customer</option>
-                                             </select>
-                                         </th> -->
                                         <th>
                                             <input id="customerFilter" type="text"
                                                    class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
-                                                   placeholder="Enter Customer Name" ng-change="gridActions.filter()"
+                                                   placeholder="Customer Name" ng-change="gridActions.filter()"
                                                    ng-model="filterCustomer" filter-by="customer_name"
                                                    filter-type="text">
                                         </th>
+                                        <th>
+                                            <input id="endcustomerFilter" type="text"
+                                            class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
+                                            placeholder="End Customer" ng-change="gridActions.filter()"
+                                            ng-model="filterendCustomer" filter-by="end_customer"
+                                            filter-type="text">
+                                         </th>
                                         <th>
                                             <button type="button" class="btn btn-outline-secondary btn-sm"
                                                     ng-click="Reset();gridActions.filter()">Reset
@@ -150,20 +150,20 @@
                                         <th>
                                             Select
                                         </th>
+                                        <th sortable="rma_id" class="sortable">
+                                            RMA Id
+                                        </th>
                                         <th sortable="id" class="sortable">
                                             RID
                                         </th>
                                         <th sortable="pvdate" class="sortable">
                                             Date
                                         </th>
-                                        <th sortable="product_id" class="sortable">
-                                            Product Id
+                                        <th sortable="part_no" class="sortable">
+                                            Model
                                         </th>
                                         <th sortable="serial_no" class="sortable">
                                             Serial
-                                        </th>
-                                        <th sortable="part_no" class="sortable">
-                                            Model
                                         </th>
                                         <th sortable="customer_name" class="sortable">
                                             Customer
@@ -172,7 +172,7 @@
                                             End Customer
                                         </th>
 
-                                        <th sortable="comment" class="sortable">
+                                        <th sortable="manager_comment" class="sortable">
                                             Comment
                                         </th>
                                     </tr>
@@ -185,14 +185,14 @@
                                                 <span class="au-checkmark"></span>
                                             </label>
                                         </td>
+                                        <td ng-bind="item.rma_id"></td>
                                         <td ng-bind="item.id"></td>
                                         <td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
-                                        <td ng-bind="item.product_id"></td>
-                                        <td ng-bind="item.serial_no"></td>
                                         <td ng-bind="item.part_no"></td>
+                                        <td ng-bind="item.serial_no"></td>
                                         <td ng-bind="item.customer_name"></td>
                                         <td ng-bind="item.end_customer"></td>
-                                        <td ng-bind="item.comment"></td>
+                                        <td ng-bind="item.manager_comment"></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -262,7 +262,7 @@
 											   ng-minlength="3"
 											   ng-maxlength="10"
 											   required>
-                                        <span class="help-block">Please Select Date</span>
+                                        <!-- <span class="help-block">Please Select Date</span> -->
                                     </div>
                                 </div>
                                 <div class="row form-group">
@@ -272,10 +272,8 @@
                                     <div class="col-12 col-md-6">
                                         <input type="text" id="rid" name="rid" placeholder="RID No" class="form-control"
 											   ng-model="dispatch.id"
-											   ng-minlength="3"
-											   ng-maxlength="10"
-											   required>
-                                        <span class="help-block">Please Enter RID No</span>
+											   disabled>
+                                        <!-- <span class="help-block">Please Enter RID No</span> -->
                                     </div>
                                 </div>
                                 <div class="row form-group">
@@ -288,7 +286,7 @@
 											   ng-minlength="3"
 											   ng-maxlength="10"
 											   required>
-                                        <span class="help-block">Please Enter DC No</span>
+                                        <!-- <span class="help-block">Please Enter DC No</span> -->
                                     </div>
                                 </div>
                                 <div class="row form-group">
@@ -298,10 +296,8 @@
                                     <div class="col-12 col-md-6">
                                         <input type="text" id="docket-details" name="docket-details" placeholder="Docket Details" class="form-control"
 											   ng-model="dispatch.docket_details"
-											   ng-minlength="3"
-											   ng-maxlength="10"
 											   required>
-                                        <span class="help-block">Please Enter Docket Details</span>
+                                        <!-- <span class="help-block">Please Enter Docket Details</span> -->
                                     </div>
                                 </div>
                                 <div class="row form-group">
@@ -311,10 +307,8 @@
                                     <div class="col-12 col-md-6">
                                         <input type="text" id="rma" name="rma" placeholder="RMA" class="form-control"
 											   ng-model="dispatch.rma_id"
-											   ng-minlength="3"
-											   ng-maxlength="10"
-											   required>
-                                        <span class="help-block">Please Enter RMA No </span>
+											   disabled>
+                                        <!-- <span class="help-block">Please Enter RMA No </span> -->
                                     </div>
                                 </div>
                                 <div class="row form-group">
@@ -327,7 +321,7 @@
 											   ng-minlength="3"
 											   ng-maxlength="10"
 											   required>
-                                        <span class="help-block">Please Enter Courier Name </span>
+                                        <!-- <span class="help-block">Please Enter Courier Name </span> -->
                                     </div>
                                 </div>
                                 <div class="row form-group">
@@ -340,7 +334,7 @@
 											   ng-minlength="3"
 											   ng-maxlength="10"
 											   required>
-                                        <span class="help-block">Please Enter Person Name </span>
+                                        <!-- <span class="help-block">Please Enter Person Name </span> -->
                                     </div>
                                 </div>
     	                	</form>
@@ -349,9 +343,9 @@
                             <button type="submit" class="btn btn-primary btn-sm" ng-click = "AddDispatch()">
                                 <i class="fa fa-dot-circle-o"></i> Submit
                             </button>
-                            <button type="reset" class="btn btn-danger btn-sm">
+                            <!-- <button type="reset" class="btn btn-danger btn-sm">
                                 <i class="fa fa-ban"></i> Reset
-                            </button>
+                            </button> -->
                             <button type="reset" class="btn btn-secondary btn-sm" ng-click="HideDPForm();">
 	                            <i class="fa fa-ban"></i> Close
 	                        </button>
