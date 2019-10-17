@@ -55,12 +55,12 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 								btnClass: 'btn-blue',
 								action: function(){
 									$scope.ClosePVForm();
-									$scope.getReceipts();
+									$scope.ChangeTab('started');
 								}
 							},
 							close: function () {
 								$scope.ClosePVForm();
-								$scope.getReceipts();
+								$scope.ChangeTab('started');
 							}
 						}
 					});
