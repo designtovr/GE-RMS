@@ -23,15 +23,15 @@
 
                                             <input id="ridFilter" type="text"
                                                    class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
-                                                   placeholder="Enter RID #" ng-change="gridActions.filter();"
-                                                   ng-model="filterID" filter-by="rid" filter-type="text">
+                                                   placeholder="RID #" ng-change="gridActions.filter();"
+                                                   ng-model="filterID" filter-by="pv_id" filter-type="text">
                                         </th>
                                         <th>
 
                                             <input id="productFilter" type="text"
                                                    class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
-                                                   placeholder="Enter Rack ID" ng-change="gridActions.filter();"
-                                                   ng-model="filterreceipt_id" filter-by="rack"
+                                                   placeholder="Rack ID" ng-change="gridActions.filter();"
+                                                   ng-model="filterreceipt_id" filter-by="rack_id"
                                                    filter-type="text">
                                         </th>
                                         <th>
@@ -49,27 +49,7 @@
                                                    filter-type="text"
                                                    ng-change="gridActions.filter()"
                                                    close-text="Close"/>
-
                                         </th>
-                                        <!--          <th>
-                                                     <select name="field-volts-used" id="field-volts-used"
-                                                     class="form-control-sm form-control">
-                                                     <option value="0">From</option>
-                                                     <option value="1">Yes</option>
-                                                     <option value="2">No</option>
-                                                     <option value="2">Customer</option>
-                                                 </select>
-                                             </th>
-                                             <th>
-                                                 <select name="field-volts-used" id="field-volts-used"
-                                                 class="form-control-sm form-control">
-                                                 <option value="0">To</option>
-                                                 <option value="1">Yes</option>
-                                                 <option value="2">No</option>
-                                                 <option value="2">Customer</option>
-                                             </select>
-                                         </th> -->
-                                    
                                         <th>
                                             <button type="button" class="btn btn-outline-secondary btn-sm"
                                                     ng-click="Reset();gridActions.filter()">Reset
