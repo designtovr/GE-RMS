@@ -156,9 +156,13 @@
                  									End Customer
                  								</th>
 
-                 								<th sortable="manager_comment" class="sortable">
-                 									Comment
+                 								<th sortable="testing_comment" class="sortable">
+                 									Testing Comment
                  								</th>
+
+                                                <th ng-show="startTab || !openTab" sortable="aging_comment" class="sortable">
+                                                    Aging Comment
+                                                </th>
                  								<!-- <th ng-if="openTab || startTab">
                  									Actions
                  								</th> -->
@@ -179,7 +183,8 @@
                  								<td ng-bind="item.serial_no"></td>
                  								<td ng-bind="item.customer_name"></td>
                  								<td ng-bind="item.end_customer"></td>
-                 								<td ng-bind="item.manager_comment"></td>
+                 								<td ng-bind="item.testing_comment"></td>
+                                                <td ng-show="startTab || !openTab" ng-bind="item.aging_comment"></td>
                  								<!-- <td ng-if="openTab || startTab">
                  									<div class="table-data-feature">
                  										<div class="btn-group p-r-10">

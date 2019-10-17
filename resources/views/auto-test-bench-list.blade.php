@@ -170,7 +170,7 @@
 										End Customer
 									</th>
 									<th sortable="repair_comment" class="sortable">
-										Comment
+										Repair Comment
 									</th>
 									<th ng-if="!openTab" sortable="testing_comment" class="sortable">
 										Test Comment
