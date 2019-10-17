@@ -123,14 +123,14 @@
 								</div>
 								<div class="col-md-3 col-md-offset-3  p-0 m-r-0" >
 									<div class = "pull-right">
-									<!-- <button type="button" class="btn btn-primary btn-sm" ng-show="openTab" ng-click="ChangeStatus('atbstarted')">
+									<button type="button" class="btn btn-primary btn-sm" ng-show="openTab" ng-click="ChangeStatus('atbstarted')">
 										<i class="fa fa-check"></i>&nbsp; Started
-									</button> -->
+									</button>
 
 									<!-- <button type="button" class="btn btn-primary btn-sm" ng-show="startTab" ng-click="ChangeStatus('atbcompleted')">
 										<i class="fa fa-check"></i>&nbsp; Completed
 									</button> -->
-									<button type="button" class="btn btn-primary btn-sm" ng-click="OpenTestBenchModal();" ng-show="openTab || startTab">
+									<button type="button" class="btn btn-primary btn-sm" ng-click="OpenTestBenchModal();" ng-show="startTab">
 										<i class="fa fa-plus"></i>&nbsp;Test
 									</button>
 									</div>
@@ -169,7 +169,7 @@
 									<th sortable="end_customer" class="sortable">
 										End Customer
 									</th>
-									<th sortable="manager_comment" class="sortable">
+									<th sortable="repair_comment" class="sortable">
 										Comment
 									</th>
 									<th ng-if="!openTab" sortable="testing_comment" class="sortable">
@@ -195,7 +195,7 @@
 									<td ng-bind="item.serial_no"></td>
 									<td ng-bind="item.customer_name"></td>
 									<td ng-bind="item.end_customer"></td>
-									<td ng-bind="item.manager_comment"></td>
+									<td ng-bind="item.repair_comment"></td>
 									<td ng-if="!openTab" ng-bind="item.testing_comment"></td>
 									<!-- <td>
 										<div class="table-data-feature">

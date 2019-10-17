@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="overview-wrap">
-                        <h6 class="pb-4 display-5">Warranty Declaration</h6>
+                        <h6 class="pb-4 display-5">W/C Declaration</h6>
                     </div>
                 </div>
                 <div class="col-md-12 ">
@@ -125,9 +125,11 @@
                                                                 <th  sortable="end_customer" class="sortable">
                                                                     End Customer
                                                                 </th>
-
                                                                 <th  sortable="comment" class="sortable">
-                                                                    Comment
+                                                                    Physical Verification Comment
+                                                                </th>
+                                                                <th  sortable="customer_comment" class="sortable">
+                                                                    Customer Comment
                                                                 </th>
                                                             </tr>
                                                         </thead>
@@ -147,6 +149,7 @@
                                                                 <td ng-bind="item.customer_name"></td>
                                                                 <td ng-bind="item.end_customer"></td>
                                                                 <td ng-bind="item.comment"></td>
+                                                                <td ng-bind="item.customer_comment"></td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -221,13 +224,13 @@
                                                                 </th>
 
                                                                 <th  sortable="comment" class="sortable">
-                                                                    Comment
+                                                                    Phy. Verification Comment
                                                                 </th>
                                                                 <th  sortable="customer_comment" class="sortable">
-                                                                    Comment
+                                                                    Customer Comment
                                                                 </th>
                                                                 <th  sortable="manager_comment" class="sortable">
-                                                                    Comment
+                                                                    Manager Comment
                                                                 </th>
                                                             </tr>
                                                         </thead>
@@ -248,7 +251,7 @@
                                                                 <td ng-bind="item.end_customer"></td>
                                                                 <td ng-bind="item.comment"></td>
                                                                 <td ng-bind="item.customer_comment"></td>
-                                                                <td ng-bind="item.customer_comment"></td>
+                                                                <td ng-bind="item.manager_comment"></td>
                                                             </tr>
                                                         </tbody>
                                                     </table>

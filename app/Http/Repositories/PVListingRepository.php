@@ -13,7 +13,7 @@ class PVListingRepository
 	private function PVList($status_id)
 	{
 		$pv = PhysicalVerificationMaster::
-				selectRaw('physical_verification.*,receipt.gs_no, receipt.customer_name,receipt.end_customer,pr.part_no,pt.category,ma_pv_status.status, ma_pv_status.close_status, rmu.sw_version, rmu.rma_id, rmu.desc_of_fault as customer_comment, warranty.comment as manager_comment, tes.comment as testing_comment')
+				selectRaw('physical_verification.*,receipt.gs_no, receipt.customer_name,receipt.end_customer,pr.part_no,pt.category,ma_pv_status.status, ma_pv_status.close_status, rmu.sw_version, rmu.rma_id, rmu.desc_of_fault as customer_comment, warranty.comment as manager_comment, tes.comment as testing_comment, jt.comment as repair_comment')
 				->leftJoin('receipt', 'physical_verification.receipt_id', 'receipt.id')
 				->leftJoin('ma_product as pr', 'pr.id', 'physical_verification.product_id')
 				->leftJoin('ma_product_type as pt', 'pt.id', 'physical_verification.producttype_id')
@@ -23,6 +23,7 @@ class PVListingRepository
 				->leftJoin('rma', 'rma.id', 'rmu.rma_id')
 				->leftJoin('warranty', 'warranty.pv_id', 'physical_verification.id')
 				->leftJoin('auto_test_bench as tes', 'tes.pv_id', 'physical_verification.id')
+				->leftJoin('job_tickets as jt', 'jt.pv_id', 'physical_verification.id')
 				->whereNotIn('pt.category', ["'omu'","'boj'"])
 				->whereIn('pv_status.current_status_id', $status_id)->get();
 		return $pv;

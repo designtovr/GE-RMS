@@ -170,9 +170,11 @@
 									<th sortable="end_customer" class="sortable">
 										End Customer
 									</th>
-
 									<th sortable="manager_comment" class="sortable">
-										Comment
+										Manager Comment
+									</th>
+									<th sortable="repair_comment" class="sortable" ng-show="tab=='jobticketcompleted'">
+										Repair Comment
 									</th>
 									<th ng-show="tab!='jobticketcompleted'">
 										Actions
@@ -195,6 +197,7 @@
 									<td ng-bind="item.customer_name"></td>
 									<td ng-bind="item.end_customer"></td>
 									<td ng-bind="item.manager_comment"></td>
+									<td ng-show="tab=='jobticketcompleted'" ng-bind="item.repair_comment"></td>
 									<td ng-show="tab!='jobticketcompleted'">
 										<div class="table-data-feature">
 									{{--		<div class="btn-group p-r-10" ng-show="tab!='jobticketcompleted'">
@@ -393,17 +396,17 @@
 		                			<div class="col-md-6">
 		                				<div class="row form-group">
 			                                <div class="col col-md-4">
-			                                    <label for="comment" class=" form-control-label">CRC Comment </label>
+			                                    <label for="comment" class=" form-control-label">Repair Comment </label>
 			                                </div>
 			                                <div class="col-12 col-md-8">
 			                                    <textarea 
 			                                    name="comment" 
-			                                    ng-model = "jobticket.repair_comment" 
+			                                    ng-model = "jobticket.comment" 
 			                                    id="comment" 
 			                                    rows="4" 
 			                                    placeholder="" 
 			                                    class="form-control"
-			                                    disabled>
+			                                    >
 			                                    </textarea>
 			                                </div>
 			                            </div>
