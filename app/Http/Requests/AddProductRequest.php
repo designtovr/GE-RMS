@@ -24,8 +24,8 @@ class AddProductRequest extends FormRequest
     public function rules()
     {
         return [
+            'product.id' => 'nullable|exists:ma_product,id',
             'product.part_no' => 'required|string|min:3|max:50',
-            'product.description' => 'required|string|min:3|max:50',
             'product.type' => 'required|numeric|exists:ma_product_type,id',
         ];
     }
@@ -33,6 +33,7 @@ class AddProductRequest extends FormRequest
     public function messages()
     {
         return [
+            'product.id.exists' => 'Invalid Product Id',
             'product.part_no.required' => 'Part No Is Required',
             'product.part_no.string' => 'Part No Should Be String',
             'product.part_no.min' => 'Part No Should Not Be Less Than 3',

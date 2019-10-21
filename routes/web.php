@@ -260,6 +260,7 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
     Route::get('/pvwithreceipts/{cat?}','PhysicalVerificationController@PVWithReceipts');
     Route::post('/changepvstatus','PhysicalVerificationController@ChangePVStatus');
 	Route::post('/addproducttype', 'ProductTypeController@AddProductType');
+	Route::delete('/producttype/{id}', 'ProductTypeController@DeleteProductType');
 	Route::get('/jobticket/{pvid}','JobTicketController@JobTicket');
 	Route::post('/savejobticketmaterial', 'JobTicketController@SaveJobTicketMaterial');
 	Route::post('/completejobticket', 'JobTicketController@CompleteJobTicket');
@@ -268,6 +269,7 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
 	Route::post('/saveverification','VerificationCompletionController@SaveVerification');
 
 	Route::post('/addproduct', 'ProductController@AddProduct');
+	Route::delete('/product/{id}', 'ProductController@DeleteProduct');
 
 	Route::post('/addlocation', 'LocationController@AddLocation');
 

@@ -217,33 +217,47 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		$('#customermodal').modal('hide');
 	}
 
-	$scope.OpenProductTypeModal = function(id=0)
+	$scope.OpenProductTypeModal = function(producttype)
 	{
-		if (!id)
+		if (!producttype)
 		{
 			$scope.producttype = {};
 			$scope.producttypemodal = [];
 			$scope.producttypemodal.title = 'Add Product Type';
+			$scope.producttype.edit = false;
 		}
 		else
 		{
 			$scope.producttypemodal.title = 'Edit Product Type';
+			$scope.producttype.id = producttype.id;
+			$scope.producttype.category = producttype.category;
+			$scope.producttype.code = producttype.code;
+			$scope.producttype.name = producttype.name;
+			$scope.producttype.description = producttype.description;
+			$scope.producttype.edit = true;
 		}
 		$('#producttypemodal').modal('show');
 	}
 
-	$scope.OpenProductModal = function(id=0)
+	$scope.OpenProductModal = function(product)
 	{
-		if (!id)
+		$scope.getproducttypes();
+		if (!product)
 		{
 			$scope.product = {};
 			$scope.productmodal = [];
 			$scope.productmodal.title = 'Add Product';
-			$scope.getproducttypes();
+			$scope.product.edit = false;
 		}
 		else
 		{
-			$scope.productmodal.title = 'Edit Product Type';
+			$scope.productmodal.title = 'Edit Product';
+			$scope.product.id = product.id;
+			$scope.product.type = product.type;
+			$scope.product.category = product.category;
+			$scope.product.part_no = product.part_no;
+			$scope.product.description = product.description;
+			$scope.product.edit = true;
 		}
 		$('#productmodal').modal('show');
 	}
@@ -483,7 +497,7 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 	{
 		$ngConfirm({
 		    title: 'Warning!',
-		    content: 'Are you sure want to delete '+ 'Customer:' + code +'?',
+		    content: 'Are you sure want to delete '+ 'Customer:<b>' + code +'</b>?',
 		    type: 'red',
 		    typeAnimated: true,
 		    buttons: {
@@ -522,9 +536,13 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		}).then(function success(response){
 			if (response.data.status == 'success')
 			{
-				alert(response.data.message)
+				Notification.success(response.data.message)
 				$('#producttypemodal').modal('hide');
 				$scope.getproducttypes();
+			}
+			else if (response.data.status == 'failure')
+			{
+				Notification.error(response.data.message)
 			}
 		}, function failure(response){
 			if (response.status == 422)
@@ -532,7 +550,7 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 				var errors = response.data.errors;
 				for(var error in errors)
 				{
-					alert(errors[error][0]);
+					Notification.error(errors[error][0]);
 					break;
 				}
 			}
@@ -548,11 +566,15 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 				'product': $scope.product
 			},
 		}).then(function success(response){
-			if (response.status == 200)
+			if (response.data.status == 'success')
 			{
-				alert(response.data.message)
+				Notification.success(response.data.message);
 				$('#productmodal').modal('hide');
 				$scope.getproducts();
+			}
+			else if (response.data.status == 'failure')
+			{
+				Notification.error(response.data.message);
 			}
 		}, function failure(response){
 			if (response.status == 422)
@@ -843,7 +865,7 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 	{
 		$ngConfirm({
 		    title: 'Warning!',
-		    content: 'Are you sure want to delete Site:'+ code + '?',
+		    content: 'Are you sure want to delete Site:<b>'+ code + '</b>?',
 		    type: 'red',
 		    typeAnimated: true,
 		    buttons: {
@@ -875,7 +897,7 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 	{
 		$ngConfirm({
 		    title: 'Warning!',
-		    content: 'Are you sure want to delete Location:'+ code + '?',
+		    content: 'Are you sure want to delete Location:<b>'+ code + '</b>?',
 		    type: 'red',
 		    typeAnimated: true,
 		    buttons: {
@@ -891,6 +913,70 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 							{
 								Notification.success(response.data.message);
 								$scope.getlocations();
+							}
+						  }, function error(response) {
+
+						  });
+		            }
+		        },
+		        close: function () {
+		        }
+		    }
+		});
+	}
+
+	$scope.DeleteProductType = function(id, code)
+	{
+		$ngConfirm({
+		    title: 'Warning!',
+		    content: 'Are you sure want to delete Product type: <b>'+ code + '</b>?',
+		    type: 'red',
+		    typeAnimated: true,
+		    buttons: {
+		        tryAgain: {
+		            text: 'Delete',
+		            btnClass: 'btn-red',
+		            action: function(){
+		            	$http({
+						  method: 'DELETE',
+						  url: '../producttype/'+id,
+						}).then(function success(response) {
+						    if (response.data.status == 'success')
+							{
+								Notification.success(response.data.message);
+								$scope.getproducttypes();
+							}
+						  }, function error(response) {
+
+						  });
+		            }
+		        },
+		        close: function () {
+		        }
+		    }
+		});
+	}
+
+	$scope.DeleteProduct = function(id, code)
+	{
+		$ngConfirm({
+		    title: 'Warning!',
+		    content: 'Are you sure want to delete Product: <b>'+ code + '</b>?',
+		    type: 'red',
+		    typeAnimated: true,
+		    buttons: {
+		        tryAgain: {
+		            text: 'Delete',
+		            btnClass: 'btn-red',
+		            action: function(){
+		            	$http({
+						  method: 'DELETE',
+						  url: '../product/'+id,
+						}).then(function success(response) {
+						    if (response.data.status == 'success')
+							{
+								Notification.success(response.data.message);
+								$scope.getproducts();
 							}
 						  }, function error(response) {
 

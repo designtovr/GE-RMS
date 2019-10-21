@@ -24,10 +24,10 @@ class AddProductTypeRequest extends FormRequest
     public function rules()
     {
         return [
-            'producttype.code' => 'required|string|min:3|max:10',
-            'producttype.name' => 'required|string|min:3|max:20',
+            'producttype.id' => 'nullable|exists:ma_product_type,id',
+            'producttype.code' => 'required|string|min:1|max:20',
+            'producttype.name' => 'required|string|min:3|max:50',
             'producttype.category' => 'required',
-            'producttype.description' => 'required|string|min:3|max:50',
         ];
     }
 

@@ -12,48 +12,6 @@
                             <i class="fa fa-plus"></i>&nbsp; Add Site</button>
     		        </div>
     		    </div>
-    		    <!-- <div class="col-md-12">
-    		    	<div class="table-responsive">
-                        <table class="table table-borderless table-data3 table-custom">
-                        	<thead>
-                                <tr>
-                                    <th>
-    	                                <input type="text" id="se-from-date" name="se-from-date" placeholder="From Date" class="form-control-sm form-control">
-                                	</th>
-                                    <th>
-                                    	<input type="text" id="se-to-date" name="se-to-date" placeholder="To Date" class="form-control-sm form-control">
-                                    </th>
-                                    <th>
-                                    	<select name="field-volts-used" id="field-volts-used" class="form-control-sm form-control">
-                                            <option value="0">From</option>
-                                            <option value="1">Yes</option>
-                                            <option value="2">No</option>
-                                            <option value="2">Customer</option>
-                                        </select>
-                                    </th>
-                                    <th>
-                                    	<select name="field-volts-used" id="field-volts-used" class="form-control-sm form-control">
-                                            <option value="0">To</option>
-                                            <option value="1">Yes</option>
-                                            <option value="2">No</option>
-                                            <option value="2">Customer</option>
-                                        </select>
-                                    </th>
-                                    <th>
-                                    	<input type="text" id="se-cus" name="se-cus" placeholder="Customer" class="form-control-sm form-control">
-                                    </th>
-                                    <th>
-                                    	<button type="button" class="btn btn-outline-secondary btn-sm">Reset</button>
-                                    </th>
-                                    <th>
-                                    	<button type="button" class="btn btn-outline-primary btn-sm">
-                                                <i class="fa fa-search"></i>&nbsp; Search</button>
-                                    </th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-    		    </div> -->
                 <div class="col-md-12">
                     <!-- DATA TABLE-->
                     <div class="table-responsive m-b-40">
