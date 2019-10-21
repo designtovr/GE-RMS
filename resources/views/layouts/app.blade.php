@@ -303,7 +303,7 @@
                                                 </div>
                                             </div>
                                         </div> -->
-                                        <div class="noti__item js-item-menu">
+                                        <!-- <div class="noti__item js-item-menu">
                                             <i class="zmdi zmdi-notifications"></i>
                                             <span class="quantity">3</span>
                                             <div class="notifi-dropdown js-dropdown">
@@ -341,7 +341,7 @@
                                                     <a href="#">All notifications</a>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <div class="account-wrap">
                                         <div class="account-item clearfix js-item-menu">

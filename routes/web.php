@@ -248,7 +248,7 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
 
     Route::get('/getwarranty/{pv_id}','WarrantyPHPController@GetWarranty');
 
- Route::get('/getrms','RMSController@RMS');
+ 	Route::get('/getrms','RMSController@RMS');
 
     Route::post('/addrms', 'RMSController@AddRMS');
   
@@ -259,6 +259,7 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
     Route::get('/physicalverification/{cat?}', 'PhysicalVerificationController@PhysicalVerificationList');
     Route::get('/pvwithreceipts/{cat?}','PhysicalVerificationController@PVWithReceipts');
     Route::post('/changepvstatus','PhysicalVerificationController@ChangePVStatus');
+    Route::get('/checkserialnumberexistence/{serial_no}/{exclude_id}', 'PhysicalVerificationController@CheckSerialNumberExistence');
 	Route::post('/addproducttype', 'ProductTypeController@AddProductType');
 	Route::delete('/producttype/{id}', 'ProductTypeController@DeleteProductType');
 	Route::get('/jobticket/{pvid}','JobTicketController@JobTicket');

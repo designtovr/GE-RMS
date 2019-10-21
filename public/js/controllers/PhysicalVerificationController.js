@@ -27,13 +27,18 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 		{ name: 'Undamaged', value: 2},
 		];
 		$scope.ridoptions = [];
-		$scope.tab = 'all';
+		$scope.tab = 'open';
 		$scope.showcreatermaform = false;
 		$scope.selectedpvs = [];
 		$scope.selectedrcs = [];
 
 		$scope.AddPV= function()
 		{
+			if ($scope.physicalVerification.serial_no_exists)
+			{
+				Notification.error("Serial No Already Exists");
+				return;
+			}
 			$http({
 				method: 'post',
 				url: '/ge/addphysicalverification',
@@ -44,9 +49,10 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 				if (response.data.status == 'success')
 				{
 					Notification.success(response.data.message + 'with Id: ' + response.data.data.id);
+					var content = response.data.message + ' With Id:<b>' + response.data.data.id + '</b>.Are you want to print?';
 					$ngConfirm({
-						title: 'Print',
-						content: 'Are you want to print?',
+						title: '<b>Print!!</b>',
+						content: content,
 						type: 'blue',
 						typeAnimated: true,
 						buttons: {
@@ -55,12 +61,12 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 								btnClass: 'btn-blue',
 								action: function(){
 									$scope.ClosePVForm();
-									$scope.ChangeTab('started');
+									$scope.ChangeTab($scope.tab);
 								}
 							},
 							close: function () {
 								$scope.ClosePVForm();
-								$scope.ChangeTab('started');
+								$scope.ChangeTab($scope.tab);
 							}
 						}
 					});
@@ -76,6 +82,39 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 					}
 				}
 			});
+		}
+
+		$scope.CheckSerialNoExistence = function()
+		{
+			if ($scope.physicalVerification.serial_no)
+			{
+				var id = $scope.physicalVerification.id;
+				if ($scope.physicalVerification.id == undefined || $scope.physicalVerification.id == null)
+					id = 0;
+				var serial_no = $scope.physicalVerification.serial_no;
+				$http({
+					method: 'GET',
+					url: '/ge/checkserialnumberexistence/'+serial_no+'/'+id,
+				}).then(function success(response) {
+					if (response.data.status == 'success')
+					{
+						if (response.data.exists)
+						{
+							$scope.physicalVerification.serial_no_exists = true;
+							Notification.error(response.data.message);
+						}
+						else
+						{
+							$scope.physicalVerification.serial_no_exists = false;
+						}
+					}
+					else if (response.data.status == 'failure')
+					{
+						Notification.error(response.data.message);
+					}
+				}, function error(response) {
+				});
+			}
 		}
 
 		$scope.getReceipts = function()
@@ -106,51 +145,71 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 
 		$scope.OpenPVForm = function(receipt, edit = false)
 		{
-			//checking for receipt_id presents
-			if (receipt.receipt_id != undefined && receipt.receipt_id != null)
-				receipt.id = receipt.receipt_id;
-			var url = '';
+			console.log(receipt)
+			$scope.physicalVerification = {};
 			if (edit)
 			{
-				url = '/ge/GetPhysicalVerificationForReceiptId/';
+				$http({
+					method: 'GET',
+					url: '/ge/GetPhysicalVerification/' + receipt.pv_id
+				}).then(function success(response) {
+					if(response.data.status == 'success') {
+						$scope.physicalVerification = response.data.physicalverification;
+						console.log($scope.physicalVerification)
+						$scope.physicalVerification.edit = true;
+						$scope.physicalVerification.pvdate = $filter('date')(new Date(),'dd/MM/yyyy');
+						if ($scope.physicalVerification.is_rma_available)
+							$scope.physicalVerification.is_rma_available = true;
+						else
+							$scope.physicalVerification.is_rma_available = false;
+						for (var i = 0; i < $scope.producttypes.length; i++) {
+							if ($scope.producttypes[i].id == $scope.physicalVerification.producttype_id)
+							{
+								$scope.physicalVerification.producttype = $scope.producttypes[i];
+								$scope.physicalVerification.product_category = $scope.producttypes[i].category;
+								$scope.ChangeProductType();
+								break;
+							}
+						}
+						console.log($scope.products)
+						for (var i = 0; i < $scope.products.length; i++) {
+							if($scope.products[i].id == $scope.physicalVerification.product_id)
+							{
+								$scope.physicalVerification.product = $scope.products[i];
+								break;
+							}
+						}
+						console.log($scope.physicalVerification);
+					}
+				}, function error(response) {
+
+				});
 			}
 			else
 			{
-				url = '/ge/getreceipt/';
+				$scope.physicalVerification.edit = false;
+				$scope.physicalVerification.case_condition = $scope.conditions[1].value;
+				$scope.physicalVerification.battery_condition = $scope.conditions[1].value;
+				$scope.physicalVerification.terminal_blocks_condition = $scope.conditions[1].value;
+				$scope.physicalVerification.top_bottom_cover_condition = $scope.conditions[1].value;
+				$scope.physicalVerification.short_links_condition = $scope.conditions[1].value;
+				$scope.physicalVerification.short_links = 1;
+				$scope.physicalVerification.screws = 1;
+				$scope.physicalVerification.top_bottom_cover = 1;
+				$scope.physicalVerification.terminal_blocks = 1;
+				$scope.physicalVerification.battery = 1;
+				$scope.physicalVerification.case = 1;
+				$scope.physicalVerification.pvdate = $filter('date')(new Date(),'dd/MM/yyyy');
+				$scope.physicalVerification.is_rma_available = false;
+				$scope.physicalVerification.receipt_id = receipt.receipt_id;
+				$scope.physicalVerification.docket_details = receipt.docket_details;
+				$scope.physicalVerification.courier_name = receipt.courier_name;
+				$scope.physicalVerification.serial_no = '';
+				$scope.physicalVerification.part_no = '';
+				delete $scope.physicalVerification.id;
+				console.log($scope.physicalVerification)
 			}
-			$http({
-				method: 'GET',
-				url: url + receipt.id
-			}).then(function success(response) {
-				if(response.data.status == 'success') {
-					$scope.physicalVerification.edit = true;
-					$scope.ridoptions = response.data.physicalverification;
-					$scope.selected = $scope.ridoptions[1];
-					$scope.AssignValuesInEditForms();
-				}
-
-				else
-				{
-					$scope.physicalVerification = response.data.receipt;
-					$scope.physicalVerification.edit = false;
-					$scope.physicalVerification.case_condition = $scope.conditions[1].value;
-					$scope.physicalVerification.battery_condition = $scope.conditions[1].value;
-					$scope.physicalVerification.terminal_blocks_condition = $scope.conditions[1].value;
-					$scope.physicalVerification.top_bottom_cover_condition = $scope.conditions[1].value;
-					$scope.physicalVerification.short_links_condition = $scope.conditions[1].value;
-					$scope.physicalVerification.short_links = 1;
-					$scope.physicalVerification.screws = 1;
-					$scope.physicalVerification.top_bottom_cover = 1;
-					$scope.physicalVerification.terminal_blocks = 1;
-					$scope.physicalVerification.battery = 1;
-					$scope.physicalVerification.case = 1;
-					$scope.physicalVerification.pvdate = $filter('date')(new Date(),'dd/MM/yyyy');
-					$scope.physicalVerification.receipt_id = $scope.physicalVerification.id;
-					$scope.physicalVerification.is_rma_available = false;
-					delete $scope.physicalVerification.id;
-				}
-			}, function error(response) {
-			});
+			
 
 
 			$scope.pvform = true;
@@ -238,8 +297,8 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 				url: '/ge/productsoftype/'+ id,
 			}).then(function success(response) {
 				$scope.products = response.data.data;
-				var addoption = {'id':-1, 'part_no': 'Add New'};
-				$scope.products.push(addoption);
+				/*var addoption = {'id':-1, 'part_no': 'Add New'};
+				$scope.products.push(addoption);*/
 			}, function error(response) {
 			});
 		}
@@ -352,23 +411,14 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 		$scope.ClosePVForm = function()
 		{
 			$scope.pvform = false;
+			$scope.ChangeTab($scope.tab);
+			$scope.GetProductTypeList();
+			$scope.GetProductList();
 		}
 
 		$scope.ChangeTab = function(name)
 		{
 			$scope.tab = name;
-			if(name == 'all')
-			{
-				$scope.ShowAll = true;
-				$scope.ShowOthers = false;
-			}
-
-			else
-			{
-				$scope.ShowAll = false;
-				$scope.ShowOthers = true;
-			}
-
 			$scope.Reset();
 
 			if ($scope.tab == 'started')
@@ -393,14 +443,6 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 					
 				});
 			}
-
-			/*$http({
-				method: 'GET',
-				url: '/ge/physicalverification?cat='+name
-			}).then(function success(response) {
-				$scope.pvgridOptions.data =  response.data.physicalverification;
-			}, function error(response) {
-			});*/
 		}
 
 		$scope.CreateRMA = function()

@@ -50,7 +50,7 @@
                                     <th>
                                <input id="customerFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Customer Name" ng-change="gridActions.filter()" ng-model="filterCustomer" filter-by="customer_name" filter-type="text">
                            </th>
-                                    <th>
+                                    <!-- <th>
                                     <input id="endcustomerFilter"
                                            type="text"
                                            class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
@@ -59,7 +59,7 @@
                                            ng-model="filterendCustomer"
                                            filter-by="end_customer"
                                            filter-type="text">
-                                    </th>
+                                    </th> -->
                                     <th>
                                         <input id="docketdetailsFilter"
                                                type="text"
@@ -70,25 +70,6 @@
                                                filter-by="docket_details"
                                                filter-type="text">
                                     </th>
-
-                           <!--          <th>
-                                        <select name="field-volts-used" id="field-volts-used"
-                                        class="form-control-sm form-control">
-                                        <option value="0">From</option>
-                                        <option value="1">Yes</option>
-                                        <option value="2">No</option>
-                                        <option value="2">Customer</option>
-                                    </select>
-                                </th>
-                                <th>
-                                    <select name="field-volts-used" id="field-volts-used"
-                                    class="form-control-sm form-control">
-                                    <option value="0">To</option>
-                                    <option value="1">Yes</option>
-                                    <option value="2">No</option>
-                                    <option value="2">Customer</option>
-                                </select>
-                            </th> -->
                       
                            <th>
                             <button type="button" class="btn btn-outline-secondary btn-sm" ng-click="Reset();gridActions.filter()">Reset</button>
@@ -129,9 +110,9 @@
                                     <th  sortable="customer_name" class="sortable">
                                         Customer Name
                                     </th>
-                                    <th sortable="end_customer" class="sortable">
+                                    <!-- <th sortable="end_customer" class="sortable">
                                         End Customer
-                                    </th>
+                                    </th> -->
                                     <th sortable="site_name" class="sortable">
                                         Site
                                     </th>
@@ -155,7 +136,7 @@
                                     <td ng-bind="item.receipt_date | date:'dd/MM/yyyy'"></td>
 
                                     <td ng-bind="item.customer_name"></td>
-                                    <td ng-bind="item.end_customer"></td>
+                                    <!-- <td ng-bind="item.end_customer"></td> -->
                                     <td ng-bind="item.site_name"></td>
                                     <td ng-bind="item.courier_name"></td>
                                     <td ng-bind="item.docket_details"></td>
@@ -272,7 +253,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row form-group">
+                                    <!-- <div class="row form-group">
                                         <div class="col col-md-3">
                                             <label for="end_cusname" class=" form-control-label">End Customer <span
                                                         class="mandatory">*</span></label>
@@ -309,7 +290,7 @@
                                                 </span>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="row form-group">
                                         <div class="col col-md-3">
                                             <label for="site" class=" form-control-label">Site <span class="mandatory">*</span></label>
@@ -435,12 +416,12 @@
                                     <i class="fa fa-ban"></i> Close
                                 </button>
 
-                                <div class="pull-right">
+                                <!-- <div class="pull-right">
                                     <button type="submit" class="btn btn-primary btn-sm"
                                             ng-disabled="AddReceiptForm.$invalid">
                                         <i class="fa fa-print"></i> Print
                                     </button>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>

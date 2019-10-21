@@ -22,10 +22,10 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 		{
 			$scope.receipt.customer_name = $scope.receipt.customer_name_new;
 		}
-		if ($scope.receipt.selected_end_customer.end_customer == 'Add New')
+		/*if ($scope.receipt.selected_end_customer.end_customer == 'Add New')
 		{
 			$scope.receipt.end_customer = $scope.receipt.end_customer_new;
-		}
+		}*/
 		console.log($scope.receipt);
 		$http({
 			method: 'post',
@@ -34,12 +34,13 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 				'receipt': $scope.receipt,
 			},
 		}).then(function success(response){
-			if (response.status == 200)
+			if (response.data.status == 'success')
 			{
-				Notification.success(response.data.message + 'with Id: ' + response.data.data.id);
+				//Notification.success(response.data.message + 'with Id: ' + response.data.data.id);
+				var content = response.data.message + ' With Id:<b>'+ response.data.data.id + '</b>, Are You Want to Print?';
 				$ngConfirm({
-					title: 'Print',
-					content: 'Are you want to print?',
+					title: '<b>Print!!</b>',
+					content: content,
 					type: 'blue',
 					typeAnimated: true,
 					buttons: {

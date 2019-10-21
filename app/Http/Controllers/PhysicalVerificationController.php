@@ -161,7 +161,7 @@ class PhysicalVerificationController extends Controller
 	public function GetPhysicalVerification($id)
     {
 
-        $physicalverification = PhysicalVerificationMaster::selectRaw('physical_verification.*')->where('id', $id)->get();
+        $physicalverification = PhysicalVerificationMaster::selectRaw('physical_verification.*')->where('id', $id)->first();
 
         if($physicalverification) {
             return response()->json(['physicalverification' => $physicalverification , 'status' => 'success'], 200);
@@ -199,7 +199,7 @@ class PhysicalVerificationController extends Controller
         $physical = $request->get('physicalverification');
         $exists = true;
 
-        if(array_key_exists('id', $physical)) {
+        if(array_key_exists('id', $physical) && $physical['id']) {
             $PVM = PhysicalVerificationMaster::where('id', $physical['id'])->first();
         }
 
@@ -293,7 +293,7 @@ class PhysicalVerificationController extends Controller
 
     public function PVWithReceipts($cat)
     {
-        $pvs = PhysicalVerificationMaster::selectRaw('physical_verification.id as pv_id, physical_verification.serial_no, pt.part_no, receipt.id as receipt_id, receipt_date, total_boxes, customer_name, end_customer')
+        $pvs = PhysicalVerificationMaster::selectRaw('physical_verification.id as pv_id, physical_verification.serial_no, pt.part_no, receipt.id as receipt_id, receipt_date, total_boxes, customer_name, end_customer, receipt.courier_name, receipt.docket_details')
                 ->Join('receipt', 'receipt.id', 'physical_verification.receipt_id')->leftJoin('ma_product as pt', 'pt.id', 'physical_verification.product_id');
         if ($cat == 'open')
             $pvs = $pvs->where('receipt.status', 1);
@@ -305,5 +305,18 @@ class PhysicalVerificationController extends Controller
         $pvs = $pvs->orderBy('physical_verification.id')->get();
 
         return response()->json(['data' => $pvs, 'status' => 'success'], 200);
+    }
+
+    public function CheckSerialNumberExistence($serial_no, $exclude_id)
+    {
+        $pv = PhysicalVerificationMaster::where('serial_no', $serial_no)->where('id', '!=', $exclude_id)->first();
+        if ($pv)
+        {
+            return response()->json(['status' => 'success', 'message' => 'Serial No Already Exists', 'exists' => true], 200);
+        }
+        else
+        {
+            return response()->json(['status' => 'success', 'message' => 'Serial Not Exists', 'exists' => false], 200);
+        }
     }
 }
