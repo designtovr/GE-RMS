@@ -214,9 +214,6 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 
 	$scope.CloseCustomerModal = function()
 	{
-		$scope.AddCustomerForm.$setPristine();
-		$scope.AddCustomerForm.$setValidity();
-		$scope.AddCustomerForm.$setUntouched();
 		$('#customermodal').modal('hide');
 	}
 
@@ -251,17 +248,22 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		$('#productmodal').modal('show');
 	}
 
-	$scope.OpenLocationModal = function(id=0)
+	$scope.OpenLocationModal = function(location=0)
 	{
-		if (!id)
+		if (!location)
 		{
 			$scope.location = {};
 			$scope.locationmodal = [];
 			$scope.locationmodal.title = 'Add Location';
+			$scope.locationmodal.edit = false;
 		}
 		else
 		{
 			$scope.locationmodal.title = 'Edit Location';
+			$scope.locationmodal.edit = true;
+			$scope.location.id = location.id;
+			$scope.location.code = location.code;
+			$scope.location.name = location.name;
 		}
 		$('#locationmodal').modal('show');
 	}
@@ -273,6 +275,7 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 			$scope.site = {};
 			$scope.sitemodal = [];
 			$scope.sitemodal.title = 'Add Site';
+			$scope.sitemodal.edit = false;
 		}
 		else
 		{
@@ -280,6 +283,7 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 			$scope.site.code = site.code;
 			$scope.site.name = site.name;
 			$scope.site.id = site.id;
+			$scope.sitemodal.edit = true;
 		}
 		$('#sitemodal').modal('show');
 	}
@@ -394,89 +398,56 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 
 	$scope.CloseMaterialModal = function()
 	{
-		$scope.AddMaterialForm.$setPristine();
-		$scope.AddMaterialForm.$setValidity();
-		$scope.AddMaterialForm.$setUntouched();
 		$('#materialmodal').modal('hide');
 	}
 
 	$scope.CloseUserModal = function()
 	{
-		$scope.AddUserForm.$setPristine();
-		$scope.AddUserForm.$setValidity();
-		$scope.AddUserForm.$setUntouched();
 		$('#usermodal').modal('hide');
 	}
 
 	$scope.CloseManufactureModal = function()
 	{
-		$scope.AddManufactureForm.$setPristine();
-		$scope.AddManufactureForm.$setValidity();
-		$scope.AddManufactureForm.$setUntouched();
 		$('#manufacturemodal').modal('hide');
 	}
 
 	$scope.CloseMaterialTypeModal = function()
 	{
-		$scope.AddMaterialTypeForm.$setPristine();
-		$scope.AddMaterialTypeForm.$setValidity();
-		$scope.AddMaterialTypeForm.$setUntouched();
 		$('#materialtypemodal').modal('hide');
 	}
 
 	$scope.ClosePackingStyleModal = function()
 	{
-		$scope.AddPackingStyleForm.$setPristine();
-		$scope.AddPackingStyleForm.$setValidity();
-		$scope.AddPackingStyleForm.$setUntouched();
 		$('#packingstylemodal').modal('hide');
 	}
 
 	$scope.CloseRackModal = function()
 	{
-		$scope.AddRackForm.$setPristine();
-		$scope.AddRackForm.$setValidity();
-		$scope.AddRackForm.$setUntouched();
 		$('#rackmodal').modal('hide');
 	}
 
 	$scope.CloseRackTypeModal = function()
 	{
-		$scope.AddRackTypeForm.$setPristine();
-		$scope.AddRackTypeForm.$setValidity();
-		$scope.AddRackTypeForm.$setUntouched();
 		$('#racktypemodal').modal('hide');
 	}
 
 	$scope.CloseSiteModal = function()
 	{
-		$scope.AddSiteForm.$setPristine();
-		$scope.AddSiteForm.$setValidity();
-		$scope.AddSiteForm.$setUntouched();
 		$('#sitemodal').modal('hide');
 	}
 
 	$scope.CloseProductModal = function()
 	{
-		$scope.ProductForm.$setPristine();
-		$scope.ProductForm.$setValidity();
-		$scope.ProductForm.$setUntouched();
 		$('#productmodal').modal('hide');
 	}
 
 	$scope.CloseProductTypeModal = function()
 	{
-		$scope.ProductTypeForm.$setPristine();
-		$scope.ProductTypeForm.$setValidity();
-		$scope.ProductTypeForm.$setUntouched();
 		$('#producttypemodal').modal('hide');
 	}
 
 	$scope.CloseLocationModal = function()
 	{
-		$scope.AddLocationForm.$setPristine();
-		$scope.AddLocationForm.$setValidity();
-		$scope.AddLocationForm.$setUntouched();
 		$('#locationmodal').modal('hide');
 	}
 
@@ -617,11 +588,15 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 				'location': $scope.location
 			},
 		}).then(function success(response){
-			if (response.status == 200)
+			if (response.data.status == 'success')
 			{
-				alert(response.data.message)
+				Notification.success(response.data.message)
 				$('#locationmodal').modal('hide');
 				$scope.getlocations();
+			}
+			else if(response.data.status == 'failure')
+			{
+				Notification.error(response.data.message)
 			}
 		}, function failure(response){
 			if (response.status == 422)
@@ -629,7 +604,7 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 				var errors = response.data.errors;
 				for(var error in errors)
 				{
-					alert(errors[error][0]);
+					Notification.error(errors[error][0]);
 					break;
 				}
 			}
@@ -661,7 +636,7 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 				var errors = response.data.errors;
 				for(var error in errors)
 				{
-					alert(errors[error][0]);
+					Notification.error(errors[error][0]);
 					break;
 				}
 			}
@@ -864,11 +839,11 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		});
 	}
 
-	$scope.DeleteSite = function(id)
+	$scope.DeleteSite = function(id,code)
 	{
 		$ngConfirm({
 		    title: 'Warning!',
-		    content: 'Are you sure want to delete?',
+		    content: 'Are you sure want to delete Site:'+ code + '?',
 		    type: 'red',
 		    typeAnimated: true,
 		    buttons: {
@@ -884,6 +859,38 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 							{
 								Notification.success(response.data.message);
 								$scope.getsites();
+							}
+						  }, function error(response) {
+
+						  });
+		            }
+		        },
+		        close: function () {
+		        }
+		    }
+		});
+	}
+
+	$scope.DeleteLocation = function(id, code)
+	{
+		$ngConfirm({
+		    title: 'Warning!',
+		    content: 'Are you sure want to delete Location:'+ code + '?',
+		    type: 'red',
+		    typeAnimated: true,
+		    buttons: {
+		        tryAgain: {
+		            text: 'Delete',
+		            btnClass: 'btn-red',
+		            action: function(){
+		            	$http({
+						  method: 'DELETE',
+						  url: '../location/'+id,
+						}).then(function success(response) {
+						    if (response.data.status == 'success')
+							{
+								Notification.success(response.data.message);
+								$scope.getlocations();
 							}
 						  }, function error(response) {
 

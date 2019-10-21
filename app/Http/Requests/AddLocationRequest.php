@@ -24,14 +24,16 @@ class AddLocationRequest extends FormRequest
     public function rules()
     {
         return [
-            'location.code' => 'required|string|min:3|max:10',
-            'location.name' => 'required|string|min:3|max:20',
+            'location.id' => 'nullable|exists:ma_location,id',
+            'location.code' => 'required|string|min:1|max:20',
+            'location.name' => 'required|string|min:3|max:50',
         ];
     }
 
     public function messages()
     {
         return [
+            'location.id.exists' => 'Invalid Id',
             'location.code.required' => 'Location Code Is Required',
             'location.code.string' => 'Location Code Should Be String',
             'location.code.min' => 'Location Code Should Not Be Less Than 3',

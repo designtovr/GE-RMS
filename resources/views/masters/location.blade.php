@@ -71,10 +71,10 @@
     	                            <td>@{{location.name}}</td>
                                     <td>
     	                                <div class="table-data-feature">
-    	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
+    	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="OpenLocationModal(location)">
     	                                        <i class="zmdi zmdi-edit"></i>
     	                                    </button>
-    	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
+    	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete" ng-click="DeleteLocation(location.id, location.code);">
     	                                        <i class="zmdi zmdi-delete"></i>
     	                                    </button>
     	                                </div>
@@ -93,7 +93,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="locationmodalLabel">@{{producttypemodal.title}}</h5>
+                    <h5 class="modal-title" id="locationmodalLabel">@{{locationmodal.title}}</h5>
                     <button type="button" class="close" ng-click="CloseLocationModal();" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -114,8 +114,8 @@
                                             ng-model="location.code" 
                                             placeholder="Location Code" 
                                             class="form-control"
-                                            ng-minlength="3" 
-                                            ng-maxlength="10"
+                                            ng-minlength="1" 
+                                            ng-maxlength="20"
                                             required>
                                             <div ng-show="AddLocationForm.locationcode.$touched && AddLocationForm.locationcode.$error">
                                                 <span class="help-block"
@@ -124,11 +124,11 @@
                                                 </span>
                                                 <span class="help-block"
                                                  ng-show="AddLocationForm.locationcode.$error.minlength">
-                                                    Minimum 3 Characters Required
+                                                    Minimum 1 Characters Required
                                                 </span>
                                                 <span class="help-block"
                                                  ng-show="AddLocationForm.locationcode.$error.maxlength">
-                                                    Maximum 10 Characters Allowed
+                                                    Maximum 20 Characters Allowed
                                                 </span>
                                             </div>
                                     </div>
@@ -146,7 +146,7 @@
                                             placeholder="Location Name" 
                                             class="form-control"
                                             ng-minlength="3" 
-                                            ng-maxlength="10"
+                                            ng-maxlength="50"
                                             required>
                                             <div ng-show="AddLocationForm.locationname.$touched && AddLocationForm.locationname.$error">
                                                 <span class="help-block"
@@ -159,7 +159,7 @@
                                                 </span>
                                                 <span class="help-block"
                                                  ng-show="AddLocationForm.locationname.$error.maxlength">
-                                                    Maximum 10 Characters Allowed
+                                                    Maximum 50 Characters Allowed
                                                 </span>
                                             </div>
                                     </div>
@@ -172,8 +172,11 @@
                     <button type="button" class="btn btn-danger btn-sm" ng-click="CloseLocationModal()">
                         <i class="fa fa-ban"></i> Close
                     </button>
-                    <button type="submit" class="btn btn-primary btn-sm" ng-disabled="AddLocationForm.$invalid" ng-click="AddLocation();">
+                    <button ng-if="!locationmodal.edit" type="submit" class="btn btn-primary btn-sm" ng-disabled="AddLocationForm.$invalid" ng-click="AddLocation();">
                         <i class="fa fa-dot-circle-o"></i> Submit
+                    </button>
+                    <button ng-if="locationmodal.edit" type="submit" class="btn btn-primary btn-sm" ng-disabled="AddLocationForm.$invalid" ng-click="AddLocation();">
+                        <i class="fa fa-dot-circle-o"></i> Update
                     </button>
                 </div>
             </div>

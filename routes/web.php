@@ -199,6 +199,7 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
 	Route::get('/products','ProductController@Products');
 	Route::get('/productsoftype/{producttype_id}', 'ProductController@ProductsOfType');
 	Route::get('/locations','LocationController@Locations');
+	Route::delete('/location/{id}', 'LocationController@DeleteLocation');
 	Route::get('/sites','SiteController@Sites');
 	Route::get('/rack-types','RackTypeController@RackTypes');
 	Route::get('/racks','RackController@Racks');

@@ -74,7 +74,7 @@
     	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="OpenSiteModal(site)">
     	                                        <i class="zmdi zmdi-edit"></i>
     	                                    </button>
-    	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete" ng-click="DeleteSite(site.id)">
+    	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete" ng-click="DeleteSite(site.id, site.code)">
     	                                        <i class="zmdi zmdi-delete"></i>
     	                                    </button>
     	                                </div>
@@ -114,8 +114,8 @@
                                             ng-model="site.code" 
                                             placeholder="Site Code" 
                                             class="form-control"
-                                            ng-minlength="3" 
-                                            ng-maxlength="10"
+                                            ng-minlength="1" 
+                                            ng-maxlength="20"
                                             required>
                                             <div ng-show="AddSiteForm.sitecode.$touched && AddSiteForm.sitecode.$error">
                                                 <span class="help-block"
@@ -124,11 +124,11 @@
                                                 </span>
                                                 <span class="help-block"
                                                  ng-show="AddSiteForm.sitecode.$error.minlength">
-                                                    Minimum 3 Characters Required
+                                                    Minimum 1 Characters Required
                                                 </span>
                                                 <span class="help-block"
                                                  ng-show="AddSiteForm.sitecode.$error.maxlength">
-                                                    Maximum 10 Characters Allowed
+                                                    Maximum 20 Characters Allowed
                                                 </span>
                                             </div>
                                     </div>
@@ -146,7 +146,7 @@
                                             placeholder="Site Name" 
                                             class="form-control"
                                             ng-minlength="3" 
-                                            ng-maxlength="10"
+                                            ng-maxlength="50"
                                             required>
                                             <div ng-show="AddSiteForm.sitename.$touched && AddSiteForm.sitename.$error">
                                                 <span class="help-block"
@@ -159,7 +159,7 @@
                                                 </span>
                                                 <span class="help-block"
                                                  ng-show="AddSiteForm.sitename.$error.maxlength">
-                                                    Maximum 10 Characters Allowed
+                                                    Maximum 50 Characters Allowed
                                                 </span>
                                             </div>
                                     </div>
@@ -172,8 +172,11 @@
                     <button class="btn btn-danger btn-sm" ng-click="CloseSiteModal()">
                         <i class="fa fa-ban"></i> Close
                     </button>
-                    <button type="submit" class="btn btn-primary btn-sm" ng-disabled="AddSiteForm.$invalid" ng-click="AddSite();">
+                    <button ng-if="!sitemodal.edit" type="submit" class="btn btn-primary btn-sm" ng-disabled="AddSiteForm.$invalid" ng-click="AddSite();">
                         <i class="fa fa-dot-circle-o"></i> Submit
+                    </button>
+                    <button ng-if="sitemodal.edit" type="submit" class="btn btn-primary btn-sm" ng-disabled="AddSiteForm.$invalid" ng-click="AddSite();">
+                        <i class="fa fa-dot-circle-o"></i> Update
                     </button>
                 </div>
             </div>

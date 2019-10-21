@@ -190,27 +190,27 @@
                                 <li>
                                     <a href="{{url('/masters-page/site')}}">Site</a>
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <a href="{{url('/masters-page/rack')}}">Rack</a>
-                                </li>
-                                <li>
+                                </li> -->
+                                <!-- <li>
                                     <a href="{{url('/masters-page/rack-type')}}">Rack Type</a>
-                                </li>
-                                <li>
+                                </li> -->
+                                <!-- <li>
                                     <a href="{{url('/masters-page/material')}}">Material</a>
-                                </li>
-                                <li>
+                                </li> -->
+                                <!-- <li>
                                     <a href="{{url('/masters-page/packing-style')}}">Packing Style</a>
-                                </li>
+                                </li> -->
                                 <li>
                                     <a href="{{url('/masters-page/product-type')}}">Product Type</a>
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <a href="{{url('/masters-page/material-type')}}">Material Type</a>
-                                </li>
-                                <li>
+                                </li> -->
+                                <!-- <li>
                                     <a href="{{url('/masters-page/manufacture')}}">Manufacture</a>
-                                </li>
+                                </li> -->
                             </ul>
                         </li>
                     </ul>

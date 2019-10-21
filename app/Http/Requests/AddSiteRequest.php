@@ -25,8 +25,8 @@ class AddSiteRequest extends FormRequest
     {
         return [
             'site.id' => 'nullable|numeric|exists:ma_site,id',
-            'site.code' => 'required|string|min:3|max:10',
-            'site.name' => 'required|string|min:3|max:20',
+            'site.code' => 'required|string|min:1|max:20',
+            'site.name' => 'required|string|min:3|max:50',
         ];
     }
 
@@ -39,6 +39,7 @@ class AddSiteRequest extends FormRequest
             'site.code.string' => 'Site Code Should Be String',
             'site.code.min' => 'Site Code Should Not Be Less Than 3',
             'site.code.max' => 'Site Code Should Not Be Greater Than 10',
+            'site.code.unique' => 'Site Code Already Exists',
             'site.name.required'  => 'Site Name Is Required',
             'site.name.string'  => 'Site Name Should Be String',
             'site.name.min' => 'Site Name Should Not Be Less Than 3',
