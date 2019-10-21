@@ -25,6 +25,6 @@ class RackTypeController extends Controller
     	$RT->updated_by = Auth::id();
     	$RT->save();
 
-    	return response()->json(['data' => $RT, 'status' => 'success', 'messagae' => 'Rack Type Added Successfully'], 200);
+    	return response()->json(['data' => $RT, 'status' => 'success', 'message' => 'Rack Type Added Successfully'], 200);
     }
 }

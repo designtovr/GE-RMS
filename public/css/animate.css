@@ -3618,6 +3618,11 @@
     animation-duration: 5s;
 }
 
+.animated.slower-8s {
+    -webkit-animation-duration: 8s;
+    animation-duration: 8s;
+}
+
 @media (print), (prefers-reduced-motion: reduce) {
     .animated {
         -webkit-animation-duration: 1ms !important;

@@ -28,6 +28,6 @@ class ProductTypeController extends Controller
     	$PT->updated_by = Auth::id();
     	$PT->save();
 
-    	return response()->json(['data' => $PT, 'status' => 'success', 'messagae' => 'Product Type Added Successfully'], 200);
+    	return response()->json(['data' => $PT, 'status' => 'success', 'message' => 'Product Type Added Successfully'], 200);
     }
 }

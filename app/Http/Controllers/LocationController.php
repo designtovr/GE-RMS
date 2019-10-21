@@ -26,6 +26,6 @@ class LocationController extends Controller
     	$LO->updated_by = Auth::id();
     	$LO->save();
 
-    	return response()->json(['data' => $LO, 'status' => 'success', 'messagae' => 'Location Added Successfully'], 200);
+    	return response()->json(['data' => $LO, 'status' => 'success', 'message' => 'Location Added Successfully'], 200);
     }
 }

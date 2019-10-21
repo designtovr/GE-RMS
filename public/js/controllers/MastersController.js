@@ -183,30 +183,32 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 
 	$scope.OpenCustomerModal = function(id = 0)
 	{
+		$scope.getsites();
+		$scope.getlocations();
 		if (!id)
 		{
 			$scope.customer = {};
 			$scope.customermodal = [];
 			$scope.customermodal.title = 'Add Customer';
+			$scope.customermodal.edit = false;
 		}
 		else
 		{
 			$scope.customermodal.title = 'Edit Customer';
-		}
-		$scope.getsites();
-		$scope.getlocations();
-		$http({
-		  method: 'GET',
-		  url: '/ge/getcustomer/'+id
-		}).then(function success(response) {
-			if (response.status == 200)
-			{
-		    	$scope.customer = response.data.customer;
-		    	$scope.customer.contact = parseInt($scope.customer.contact);
-			}
-		}, function error(response) {
+			$scope.customermodal.edit = true;
+			$http({
+			  method: 'GET',
+			  url: '/ge/getcustomer/'+id
+			}).then(function success(response) {
+				if (response.data.status == 'success')
+				{
+			    	$scope.customer = response.data.customer;
+			    	$scope.customer.contact = parseInt($scope.customer.contact);
+				}
+			}, function error(response) {
 
-		});
+			});
+		}
 		$('#customermodal').modal('show');
 	}
 
@@ -487,9 +489,9 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 				'customer': $scope.customer,
 			},
 		}).then(function success(response){
-			if (response.status == 200)
+			if (response.data.status == 'success')
 			{
-				alert(response.data.messagae)
+				Notification.success(response.data.message + ' with Id: ' + response.data.data.code);
 				$('#customermodal').modal('hide');
 				$scope.getcustomers();
 			}
@@ -499,10 +501,42 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 				var errors = response.data.errors;
 				for(var error in errors)
 				{
-					alert(errors[error][0]);
+					Notification.error(errors[error][0]);
 					break;
 				}
 			}
+		});
+	}
+
+	$scope.DeleteCustomer = function(id, code)
+	{
+		$ngConfirm({
+		    title: 'Warning!',
+		    content: 'Are you sure want to delete '+ 'Customer:' + code +'?',
+		    type: 'red',
+		    typeAnimated: true,
+		    buttons: {
+		        tryAgain: {
+		            text: 'Delete',
+		            btnClass: 'btn-red',
+		            action: function(){
+		            	$http({
+						  method: 'DELETE',
+						  url: '../customer/'+id,
+						}).then(function success(response) {
+						    if (response.data.status == 'success')
+							{
+								Notification.success(response.data.message);
+								$scope.getcustomers();
+							}
+						  }, function error(response) {
+
+						  });
+		            }
+		        },
+		        close: function () {
+		        }
+		    }
 		});
 	}
 
@@ -517,7 +551,7 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		}).then(function success(response){
 			if (response.data.status == 'success')
 			{
-				alert(response.data.messagae)
+				alert(response.data.message)
 				$('#producttypemodal').modal('hide');
 				$scope.getproducttypes();
 			}
@@ -545,7 +579,7 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		}).then(function success(response){
 			if (response.status == 200)
 			{
-				alert(response.data.messagae)
+				alert(response.data.message)
 				$('#productmodal').modal('hide');
 				$scope.getproducts();
 			}
@@ -585,7 +619,7 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		}).then(function success(response){
 			if (response.status == 200)
 			{
-				alert(response.data.messagae)
+				alert(response.data.message)
 				$('#locationmodal').modal('hide');
 				$scope.getlocations();
 			}
@@ -645,7 +679,7 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		}).then(function success(response){
 			if (response.status == 200)
 			{
-				alert(response.data.messagae)
+				alert(response.data.message)
 				$('#racktypemodal').modal('hide');
 				$scope.getracktypes();
 			}
@@ -673,7 +707,7 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		}).then(function success(response){
 			if (response.status == 200)
 			{
-				alert(response.data.messagae)
+				alert(response.data.message)
 				$('#rackmodal').modal('hide');
 				$scope.getracks();
 			}
@@ -701,7 +735,7 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		}).then(function success(response){
 			if (response.status == 200)
 			{
-				alert(response.data.messagae)
+				alert(response.data.message)
 				$('#packingstylemodal').modal('hide');
 				$scope.getpackingstyles();
 			}
@@ -729,7 +763,7 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		}).then(function success(response){
 			if (response.status == 200)
 			{
-				alert(response.data.messagae)
+				alert(response.data.message)
 				$('#materialtypemodal').modal('hide');
 				$scope.getmaterialtypes();
 			}
@@ -757,7 +791,7 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		}).then(function success(response){
 			if (response.status == 200)
 			{
-				alert(response.data.messagae)
+				alert(response.data.message)
 				$('#manufacturemodal').modal('hide');
 				$scope.getmanufactures();
 			}
@@ -785,7 +819,7 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		}).then(function success(response){
 			if (response.status == 200)
 			{
-				alert(response.data.messagae)
+				alert(response.data.message)
 				$('#usermodal').modal('hide');
 				$scope.getusers();
 			}
@@ -813,7 +847,7 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		}).then(function success(response){
 			if (response.status == 200)
 			{
-				alert(response.data.messagae)
+				alert(response.data.message)
 				$('#materialmodal').modal('hide');
 				$scope.getmaterials();
 			}

@@ -88,7 +88,7 @@
     	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="OpenCustomerModal(customer.id)">
     	                                        <i class="zmdi zmdi-edit"></i>
     	                                    </button>
-    	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
+    	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete" ng-click="DeleteCustomer(customer.id, customer.code);">
     	                                        <i class="zmdi zmdi-delete"></i>
     	                                    </button>
     	                                </div>
@@ -128,8 +128,8 @@
                                             ng-model="customer.code" 
                                             placeholder="Customer Code" 
                                             class="form-control"
-                                            ng-minlength="3" 
-                                            ng-maxlength="10"
+                                            ng-minlength="1" 
+                                            ng-maxlength="25"
                                             required>
                                             <div ng-show="AddCustomerForm.customercode.$touched && AddCustomerForm.customercode.$error">
                                                 <span class="help-block"
@@ -138,11 +138,11 @@
                                                 </span>
                                                 <span class="help-block"
                                                  ng-show="AddCustomerForm.customercode.$error.minlength">
-                                                    Minimum 3 Characters Required
+                                                    Minimum 1 Characters Required
                                                 </span>
                                                 <span class="help-block"
                                                  ng-show="AddCustomerForm.customercode.$error.maxlength">
-                                                    Maximum 10 Characters Allowed
+                                                    Maximum 25 Characters Allowed
                                                 </span>
                                             </div>
                                     </div>
@@ -159,21 +159,21 @@
                                             ng-model="customer.name" 
                                             placeholder="Customer Name" 
                                             class="form-control" 
-                                            ng-minlength="3" 
-                                            ng-maxlength="20"
+                                            ng-minlength="2" 
+                                            ng-maxlength="100"
                                             required>
                                         <div ng-show="AddCustomerForm.customername.$touched && AddCustomerForm.customername.$error">
                                             <span class="help-block" 
-                                            ng-show="AddCustomerForm.customername.$error.valid">
+                                            ng-show="AddCustomerForm.customername.$error.required">
                                                 Please Enter Customer Name
                                             </span>
                                             <span class="help-block"
                                              ng-show="AddCustomerForm.customername.$error.minlength">
-                                                Minimum 3 Characters Required
+                                                Minimum 2 Characters Required
                                             </span>
                                             <span class="help-block"
                                              ng-show="AddCustomerForm.customername.$error.maxlength">
-                                                Maximum 20 Characters Allowed
+                                                Maximum 100 Characters Allowed
                                             </span>
                                         </div>
                                     </div>
@@ -188,7 +188,7 @@
                                         id="address" 
                                         name="address" 
                                         rows="3" 
-                                        placeholder="Address..." 
+                                        placeholder="Address" 
                                         class="form-control" 
                                         ng-minlength="3" 
                                         required>
@@ -199,6 +199,30 @@
                                             </span>
                                             <span class="help-block" ng-show="AddCustomerForm.address.$error.minlength">
                                                 Minimum 3 Characters Required
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="pincode" class=" form-control-label">Pincode <span class="mandatory">*</span></label>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <input 
+                                            type="text" 
+                                            id="pincode" 
+                                            name="pincode" 
+                                            ng-model="customer.pincode" 
+                                            placeholder="Pincode" 
+                                            class="form-control" 
+                                            ng-pattern="/^[0-9]*$/"
+                                            required>
+                                        <div ng-show="AddCustomerForm.pincode.$touched && AddCustomerForm.pincode.$error">
+                                            <span class="help-block" ng-show="AddCustomerForm.pincode.$error.required">
+                                                Please Enter Pincode
+                                            </span>
+                                            <span class="help-block" ng-show="AddCustomerForm.pincode.$error.pattern">
+                                                Should Be Number
                                             </span>
                                         </div>
                                     </div>
@@ -216,7 +240,7 @@
                                         placeholder="Contact Person" 
                                         class="form-control" 
                                         ng-minlength="3" 
-                                        ng-maxlength="20"
+                                        ng-maxlength="50"
                                         required>
                                         <div ng-show="AddCustomerForm.contact_person.$touched && AddCustomerForm.contact_person.$error">
                                             <span class="help-block" ng-show="AddCustomerForm.contact_person.$error.required">
@@ -226,7 +250,7 @@
                                                 Minimum 3 Characters Required
                                             </span>
                                             <span class="help-block" ng-show="AddCustomerForm.contact_person.$error.maxlength">
-                                                Maximum 20 Characters Allowed
+                                                Maximum 50 Characters Allowed
                                             </span>
                                         </div>
                                     </div>
@@ -242,8 +266,9 @@
                                         name="gst" 
                                         ng-model="customer.gst" 
                                         placeholder="GST" 
-                                        class="form-control" 
-                                        ng-pattern="/^([0]{1}[1-9]{1}|[1-2]{1}[0-9]{1}|[3]{1}[0-7]{1})([a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}[1-9a-zA-Z]{1}[zZ]{1}[0-9a-zA-Z]{1})+$/g"
+                                        class="form-control"
+                                        ng-minlength="15"
+                                        ng-maxlength="15"
                                         required>
                                         <div ng-show="AddCustomerForm.gst.$touched && AddCustomerForm.gst.$error">
                                             <span class="help-block" 
@@ -251,8 +276,12 @@
                                                 Please Enter GST
                                             </span>
                                             <span class="help-block" 
-                                            ng-show="AddCustomerForm.gst.$error.pattern">
-                                                Invalid Format
+                                            ng-show="AddCustomerForm.gst.$error.minlength">
+                                                Should Be Less Than 15 Digits
+                                            </span>
+                                            <span class="help-block" 
+                                            ng-show="AddCustomerForm.gst.$error.maxlength">
+                                                Should Be Greater Than 15 Digits
                                             </span>
                                         </div>
                                     </div>
@@ -312,7 +341,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row form-group">
+                                <!-- <div class="row form-group">
                                     <div class="col col-md-3">
                                         <label for="site" class=" form-control-label">Site <span class="mandatory">*</span></label>
                                     </div>
@@ -331,20 +360,33 @@
                                             </span>
                                         </div>
                                     </div>
+                                </div> -->
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="site" class=" form-control-label">Site</label>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <ui-select ng-model="customer.site_id" id="site" 
+                                        name="site" theme="selectize" title="Select Site Name">
+                                        <ui-select-match placeholder="Select Site Name">@{{$select.selected.name}}</ui-select-match>
+                                        <ui-select-choices repeat="site.id as site in sites | filter: $select.search">
+                                          <span ng-bind-html="site.name | highlight: $select.search"></span>
+                                        </ui-select-choices>
+                                      </ui-select>
+                                    </div>
                                 </div>
                                 <div class="row form-group">
                                     <div class="col col-md-3">
                                         <label for="location" class=" form-control-label">Location <span class="mandatory">*</span></label>
                                     </div>
                                     <div class="col-12 col-md-6">
-                                        <select 
-                                        ng-model="customer.location_id" 
-                                        id="location" 
-                                        name="location" 
-                                        class="form-control" 
-                                        required>
-                                            <option ng-repeat="location in locations" value="@{{location.id}}">@{{location.name}}</option>
-                                        </select>
+                                        <ui-select ng-model="customer.location_id" id="location" 
+                                            name="location" theme="selectize" title="Select Location Name" required>
+                                            <ui-select-match placeholder="Select Location Name">@{{$select.selected.name}}</ui-select-match>
+                                            <ui-select-choices repeat="location.id as location in locations | filter: $select.search">
+                                              <span ng-bind-html="location.name | highlight: $select.search"></span>
+                                            </ui-select-choices>
+                                        </ui-select>
                                         <div ng-show="AddCustomerForm.location.$touched && AddCustomerForm.location.$error">
                                             <span class="help-block" ng-show="AddCustomerForm.location.$error.required">
                                                 Please Select Location
@@ -360,8 +402,11 @@
                     <button type="button" class="btn btn-danger btn-sm" ng-click="CloseCustomerModal()">
                         <i class="fa fa-ban"></i> Close
                     </button>
-                    <button type="submit" class="btn btn-primary btn-sm" ng-disabled="AddCustomerForm.$invalid" ng-click="AddCustomer();">
+                    <button ng-if="!customermodal.edit" type="submit" class="btn btn-primary btn-sm" ng-disabled="AddCustomerForm.$invalid" ng-click="AddCustomer();">
                         <i class="fa fa-dot-circle-o"></i> Submit
+                    </button>
+                    <button ng-if="customermodal.edit" type="submit" class="btn btn-primary btn-sm" ng-disabled="AddCustomerForm.$invalid" ng-click="AddCustomer();">
+                        <i class="fa fa-dot-circle-o"></i> Update
                     </button>
                 </div>
             </div>

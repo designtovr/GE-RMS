@@ -26,6 +26,6 @@ class ManufactureController extends Controller
     	$MU->updated_by = Auth::id();
     	$MU->save();
 
-    	return response()->json(['data' => $MU, 'status' => 'success', 'messagae' => 'Manufacture Added Successfully'], 200);
+    	return response()->json(['data' => $MU, 'status' => 'success', 'message' => 'Manufacture Added Successfully'], 200);
     }
 }

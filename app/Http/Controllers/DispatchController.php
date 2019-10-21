@@ -59,6 +59,6 @@ class DispatchController extends Controller
           $CLT->updated_by = Auth::id();
           $CLT->save();*/
 
-        return response()->json(['data' => $DM, 'status' => 'success', 'messagae' => 'Dispatch Added Successfully'], 200);
+        return response()->json(['data' => $DM, 'status' => 'success', 'message' => 'Dispatch Added Successfully'], 200);
     }
 }

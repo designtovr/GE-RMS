@@ -63,6 +63,6 @@ class UserController extends Controller
         $RU->role_id = $user['role'];
         $RU->save();
 
-        return response()->json(['data' => $US, 'status' => 'success', 'messagae' => 'User Added Successfully'], 200);
+        return response()->json(['data' => $US, 'status' => 'success', 'message' => 'User Added Successfully'], 200);
     }
 }

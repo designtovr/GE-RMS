@@ -26,6 +26,6 @@ class MaterialTypeController extends Controller
     	$MT->updated_by = Auth::id();
     	$MT->save();
 
-    	return response()->json(['data' => $MT, 'status' => 'success', 'messagae' => 'Material Type Added Successfully'], 200);
+    	return response()->json(['data' => $MT, 'status' => 'success', 'message' => 'Material Type Added Successfully'], 200);
     }
 }

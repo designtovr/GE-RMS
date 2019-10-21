@@ -213,6 +213,7 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
 
 	Route::post('/addcustomers', 'CustomerController@AddCustomer');
 	Route::get('/getcustomer/{id}', 'CustomerController@GetCustomer');
+	Route::delete('/customer/{id}', 'CustomerController@DeleteCustomer');
 
 	Route::get('/getrmalist/{cat?}/{type?}', 'RMAController@GetRMAList');
 	Route::post('/getrma/{id}', 'RMAController@GetRma');

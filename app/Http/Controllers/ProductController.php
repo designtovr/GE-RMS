@@ -27,7 +27,7 @@ class ProductController extends Controller
     	$PD->updated_by = Auth::id();
     	$PD->save();
 
-    	return response()->json(['data' => $product, 'status' => 'success', 'messagae' => 'Product Added Successfully'], 200);
+    	return response()->json(['data' => $product, 'status' => 'success', 'message' => 'Product Added Successfully'], 200);
     }
 
     public function ProductsOfType($producttype_id)

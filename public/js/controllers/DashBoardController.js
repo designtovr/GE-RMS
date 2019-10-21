@@ -81,7 +81,7 @@ app.controller('DashBoardController', ['$scope', '$http', 'Notification' , funct
         if (ctx) {
             ctx.height = 200;
             var myChart = new Chart(ctx, {
-                type: 'horizontalBar',
+                type: 'bar',
                 defaultFontFamily: 'Poppins',
                 data: data,
                 options: {
@@ -166,7 +166,7 @@ app.controller('DashBoardController', ['$scope', '$http', 'Notification' , funct
                             data: [90, 59],
                             borderColor: "rgba(0, 123, 255, 0.9)",
                             borderWidth: "0",
-                            backgroundColor: "rgba(0, 123, 255, 0.5)",
+                            backgroundColor: "rgba(34,139,34, 0.5)",
                             fontFamily: "Poppins"
                         },
                         {
@@ -174,7 +174,7 @@ app.controller('DashBoardController', ['$scope', '$http', 'Notification' , funct
                             data: [28, 48],
                             borderColor: "rgba(0,0,0,0.09)",
                             borderWidth: "0",
-                            backgroundColor: "rgba(255,0,0,0.4)",
+                            backgroundColor: "rgba(34,139,34,0.4)",
                             fontFamily: "Poppins"
                         }
                     ]
@@ -256,7 +256,7 @@ app.controller('DashBoardController', ['$scope', '$http', 'Notification' , funct
                     datasets: [{
                         data: [75, 25],
                         backgroundColor: [
-                            "rgba(0, 123, 255,0.9)",
+                            "rgba(217,55,68,0.9)",
                             "rgba(0,0,0,0.07)"
                         ],
                         hoverBackgroundColor: [

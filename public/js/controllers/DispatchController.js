@@ -133,7 +133,7 @@ app.controller('DispatchController', ['$scope', '$http','$filter','Notification'
 			if (response.status == 200)
 			{
 				$scope.ChangePVStatus($scope.selectedpvs ,'dispatched');
-				alert(response.data.messagae)
+				alert(response.data.message)
 				$scope.HideDPForm();
 				/*$('#customermodal').modal('hide');*/
 				$scope.GetPV('dispatched');

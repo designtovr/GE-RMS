@@ -26,6 +26,6 @@ class PackingStyleController extends Controller
     	$PS->updated_by = Auth::id();
     	$PS->save();
 
-    	return response()->json(['data' => $PS, 'status' => 'success', 'messagae' => 'Rack Added Successfully'], 200);
+    	return response()->json(['data' => $PS, 'status' => 'success', 'message' => 'Rack Added Successfully'], 200);
     }
 }

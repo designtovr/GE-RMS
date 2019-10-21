@@ -27,6 +27,6 @@ class RackController extends Controller
     	$RK->updated_by = Auth::id();
     	$RK->save();
 
-    	return response()->json(['data' => $RK, 'status' => 'success', 'messagae' => 'Rack Added Successfully'], 200);
+    	return response()->json(['data' => $RK, 'status' => 'success', 'message' => 'Rack Added Successfully'], 200);
     }
 }

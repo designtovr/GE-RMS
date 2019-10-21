@@ -27,6 +27,6 @@ class MaterialController extends Controller
     	$MAT->updated_by = Auth::id();
     	$MAT->save();
 
-    	return response()->json(['data' => $MAT, 'status' => 'success', 'messagae' => 'Material Added Successfully'], 200);
+    	return response()->json(['data' => $MAT, 'status' => 'success', 'message' => 'Material Added Successfully'], 200);
     }
 }
