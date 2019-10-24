@@ -46,6 +46,11 @@ app.controller('QRController', ['$scope', '$http', 'Notification' , function($sc
          $scope.rmsmodal = {};
     }
 
+    $scope.Digest = function()
+    {
+        $scope.$digest();
+    }
+
     $scope.AddRMS= function()
     {
         console.log("R " + $scope.rmsmodal);
@@ -95,4 +100,6 @@ app.controller('QRController', ['$scope', '$http', 'Notification' , function($sc
 
         });
     }
+
+
 }]);
