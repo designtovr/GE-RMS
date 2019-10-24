@@ -14,6 +14,7 @@ app.controller('QRController', ['$scope', '$http', 'Notification' , function($sc
         },
         urlSync: true
     };
+
     $scope.OpenRMSModal = function()
     {
         console.log($scope.gridOptions.data);
@@ -38,9 +39,11 @@ app.controller('QRController', ['$scope', '$http', 'Notification' , function($sc
         console.log($scope.selectedpvs);
         $('#rmsmodal').modal('show');
     }
+
     $scope.CloseRMSModal = function()
     {
         $('#rmsmodal').modal('hide');
+         $scope.rmsmodal = {};
     }
 
     $scope.AddRMS= function()
@@ -57,7 +60,7 @@ app.controller('QRController', ['$scope', '$http', 'Notification' , function($sc
             {
                 Notification.success(response.data.message);
                 $scope.CloseRMSModal();
-                $scope.getRMS();
+                //$scope.getRMS();
             }
         }, function failure(response){
             if (response.status == 422)

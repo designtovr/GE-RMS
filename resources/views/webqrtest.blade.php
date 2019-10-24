@@ -117,7 +117,7 @@
                 <b>Relay ID: </b>
                 <div class="col-md-12">
 
-                    <input type="text" id="cam-qr-result" name="comment" ng-model="rmsmodal.pv_id" placeholder="Rack Id"
+                    <input type="text" id="cam-qr-result" name="comment" ng-model="rmsmodal.pv_id" placeholder="Relay Id"
                            class="form-control">
                     <!-- <span class="help-block">Please Enter Rack Id</span> -->
                     <button id="startRelay">Scan Relay QR</button>
@@ -174,6 +174,7 @@
         function setResult(label, result) {
             console.log("Set QR" + label + " " + result);
             label.textContent = result;
+            label.value = result;
             /*camQrResultTimestamp.textContent = new Date().toString();*/
             label.style.color = 'teal';
             clearTimeout(label.highlightTimeout);
