@@ -27,17 +27,37 @@
                                 </th>
                                 <th>
                                     <input type="text"
-                                    id="dateFilterothers"
+                                    id="dateFromFilter"
                                     class="form-control"
                                     placeholder="Date"
                                     max-date="dateTo"
                                     close-text="Close"
-                                    ng-model="filterpvdateothers"
+                                    ng-model="filterreceipt_datefrom"
                                     show-weeks="true"
                                     is-open="dateFromOpened"
                                     ng-click="dateFromOpened = true"
-                                    filter-by="pvdate"
-                                    filter-type="text"
+                                    filter-by="receipt_date"
+                                    filter-type="dateFrom"
+                                    ng-change="pvgridActions.filter()"
+                                    close-text="Close"/>
+                                </th>
+
+                                    <th>
+                                    <input type="text"
+                                    id="dateToFilter"
+                                    class="form-control"
+                                    placeholder="Date"
+                                    max-date="dateTo"
+                                    close-text="Close"
+                                    ng-model="filterreceipt_dateto"
+                                show-weeks="true"
+                               is-open="dateToOpened"
+                               ng-click="dateToOpened = true"
+                               filter-by="receipt_date"
+                               filter-type="dateTo"
+                               ng-blur="gridActions.filter()"
+                               ng-focus="gridActions.filter()"
+                               show-weeks="false"
                                     ng-change="pvgridActions.filter()"
                                     close-text="Close"/>
                                 </th>
@@ -1193,7 +1213,15 @@
                 update: new Date()
             });
 
-            $("#dateFilterothers").datepicker({
+            $("#dateFromFilter").datepicker({
+                autoclose: true,
+                format: 'yyyy-mm-dd',
+                todayHighlight: true,
+                setDate: new Date(),
+                update: new Date()
+            });
+
+              $("#dateToFilter").datepicker({
                 autoclose: true,
                 format: 'yyyy-mm-dd',
                 todayHighlight: true,
@@ -1204,7 +1232,4 @@
 
     </script>
 
-    <script>
-        
-    </script>
     @endsection
