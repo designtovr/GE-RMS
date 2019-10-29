@@ -25,10 +25,11 @@ class CustomerController extends Controller
 
     public function EndCustomers(Request $request)
     {
-        $end_customer1 = ReceiptMaster::select('end_customer')->distinct('end_customer')->get()->toArray();
+        //$end_customer1 = ReceiptMaster::select('end_customer')->distinct('end_customer')->get()->toArray();
         $end_customer2 = RMA::select('end_customer')->distinct('end_customer')->get()->toArray();
-        $end_customer = array_merge($end_customer1, $end_customer2);
-        return response()->json(['data' => $end_customer, 'status' => 'success']);
+        //$end_customer = array_merge($end_customer1, $end_customer2);
+        
+        return response()->json(['data' => $end_customer2, 'status' => 'success']);
     }
 
     public function GetCustomer($id)

@@ -265,7 +265,7 @@
                                                             </label>
                                                         </div>
                                                         <div class="radio">
-                                                            <label for="warrenty2"
+                                                            <label for="warrenty2_@{{$index}}"
                                                                    class="form-check-label ">
                                                                 <input 
                                                                 type="radio" 
@@ -376,7 +376,7 @@
                                                     </label>
                                                 </div>
                                                 <div class="radio">
-                                                    <label for="equip_failed_on_installation2"
+                                                    <label for="equip_failed_on_installation2_@{{$index}}"
                                                            class="form-check-label ">
                                                         <input 
                                                         type="radio" 
@@ -410,11 +410,11 @@
                                                     </label>
                                                 </div>
                                                 <div class="radio">
-                                                    <label for="equip_failed_service2_@{{$index}}"
+                                                    <label for="equip_failed_on_service2_@{{$index}}"
                                                            class="form-check-label ">
                                                         <input 
                                                         type="radio" 
-                                                        id="equip_failed_service2_@{{$index}}"
+                                                        id="equip_failed_on_service2_@{{$index}}"
                                                         name="equip_failed_on_service_@{{$index}}"
                                                         ng-model="pv.equip_failed_on_service"
                                                         ng-value="0"
@@ -775,7 +775,6 @@
                                 class="form-control"
                                 ng-minlength="15" 
                                 ng-maxlength="15"
-                                ng-pattern="/^([0]{1}[1-9]{1}|[1-2]{1}[0-9]{1}|[3]{1}[0-7]{1})([a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}[1-9a-zA-Z]{1}[zZ]{1}[0-9a-zA-Z]{1})+$/g"
                                 required>
                                 <div ng-show="RMAForm6.gst_number.$touched && RMAForm6.gst_number.$error">
                                     <span class="help-block"
@@ -783,8 +782,12 @@
                                         Please Enter GST Number
                                     </span>
                                     <span class="help-block"
-                                     ng-show="RMAForm6.gst_number.$error.pattern">
-                                        Invalid Format
+                                     ng-show="RMAForm6.gst_number.$error.minlength">
+                                        Should Not Be Less Than 15 Characters
+                                    </span>
+                                    <span class="help-block"
+                                     ng-show="RMAForm6.gst_number.$error.maxlength">
+                                        Should Not Be Greater Than 15 Characters
                                     </span>
                                 </div>
                             </div>

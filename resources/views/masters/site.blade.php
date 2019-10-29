@@ -12,27 +12,54 @@
                             <i class="fa fa-plus"></i>&nbsp; Add Site</button>
     		        </div>
     		    </div>
+                <div class="col-md-12 ">
+                    <div class="card-header card-title">
+                        Search 
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-borderless table-data3 table-custom">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <input id="codeFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Code" ng-change="gridActions.filter()" ng-model="filterCode" filter-by="code" filter-type="text">
+                                    </th>
+                                    <th>
+                                       <input id="nameFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Name" ng-change="gridActions.filter()" ng-model="filterName" filter-by="name" filter-type="text">
+                                   </th>
+                                   <th>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm" ng-click="ResetSiteSearch();gridActions.filter()">Reset</button>
+                                    </th>
+                                    <th>
+                                        <!-- <button type="button" class="btn btn-outline-primary btn-sm">
+                                            <i class="fa fa-search"></i>&nbsp; Search
+                                        </button> -->
+                                    </th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
                 <div class="col-md-12">
                     <!-- DATA TABLE-->
-                    <div class="table-responsive m-b-40">
+                    <div grid-data grid-options="gridOptions" grid-actions="gridActions">
                         <table class="table table-borderless table-data3">
                             <thead>
                                 <tr>
-                                    <th>Code</th>
-                                    <th>Name</th>
+                                    <th sortable="code" class="sortable">Code</th>
+                                    <th sortable="name" class="sortable">Name</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="site in sites">
-    	                            <td>@{{site.code}}</td>
-    	                            <td>@{{site.name}}</td>
+                                <tr grid-item>
+    	                            <td ng-bind="item.code"></td>
+                                    <td ng-bind="item.name"></td>
                                     <td>
     	                                <div class="table-data-feature">
-    	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="OpenSiteModal(site)">
+    	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="OpenSiteModal(item)">
     	                                        <i class="zmdi zmdi-edit"></i>
     	                                    </button>
-    	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete" ng-click="DeleteSite(site.id, site.code)">
+    	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete" ng-click="DeleteSite(item.id, item.code)">
     	                                        <i class="zmdi zmdi-delete"></i>
     	                                    </button>
     	                                </div>
@@ -40,6 +67,29 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <form class="form-inline pull-right margin-bottom-basic">
+                            <div class="form-group">
+                                <grid-pagination max-size="5"
+                                boundary-links="true"
+                                class="pagination-sm"
+                                total-items="paginationOptions.totalItems"
+                                ng-model="paginationOptions.currentPage"
+                                ng-change="reloadGrid()"
+                                items-per-page="paginationOptions.itemsPerPage">
+                                </grid-pagination>
+                            </div>
+                            <div class="form-group items-per-page">
+                                <label for="itemsOnPageSelect2">Items per page:</label>
+                                <select id="itemsOnPageSelect2" class="form-control input-sm"
+                                ng-init="paginationOptions.itemsPerPage = '10'"
+                                ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+                                    <option>10</option>
+                                    <option>25</option>
+                                    <option>50</option>
+                                    <option>75</option>
+                                </select>
+                            </div>
+                        </form>
                     </div>
                     <!-- END DATA TABLE-->
                 </div>

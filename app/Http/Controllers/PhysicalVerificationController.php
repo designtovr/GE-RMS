@@ -293,7 +293,7 @@ class PhysicalVerificationController extends Controller
 
     public function PVWithReceipts($cat)
     {
-        $pvs = PhysicalVerificationMaster::selectRaw('physical_verification.id as pv_id, physical_verification.serial_no, pt.part_no, receipt.id as receipt_id, receipt_date, total_boxes, customer_name, end_customer, receipt.courier_name, receipt.docket_details')
+        $pvs = PhysicalVerificationMaster::selectRaw('physical_verification.id as pv_id, physical_verification.serial_no, pt.part_no, receipt.id as receipt_id, receipt_date, total_boxes, end_customer, receipt.courier_name, receipt.docket_details')
                 ->Join('receipt', 'receipt.id', 'physical_verification.receipt_id')->leftJoin('ma_product as pt', 'pt.id', 'physical_verification.product_id');
         if ($cat == 'open')
             $pvs = $pvs->where('receipt.status', 1);

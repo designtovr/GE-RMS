@@ -36,16 +36,40 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 	$scope.user = {};
 	$scope.usermodal = [];
 
+	$scope.gridOptions = {
+		pagination: {
+			itemsPerPage: '10'
+		},
+		data:[],
+	   	sort: {
+
+	   	},
+	   	urlSync: true
+	};
+
 	$scope.getcustomers = function()
 	{
 		$http({
 		  method: 'GET',
 		  url: '/ge/customers'
 		}).then(function success(response) {
-		    $scope.customers = response.data.data;
+		    $scope.gridOptions.data = response.data.data;
 		  }, function error(response) {
 
 		  });
+	}
+
+	$scope.ResetCustomerSearch = function()
+	{
+		$scope.filtercustomercode = '';
+		$scope.filterCustomerName = '';
+		$scope.filterAddress = '';
+		$scope.filterContactPerson = '';
+		$scope.filtergst = '';
+		$scope.filterEmail = '';
+		$scope.filterContactNo = '';
+		$scope.filterSite = '';
+		$scope.filterLocation = '';
 	}
 
 	$scope.getproducts = function()
@@ -54,9 +78,16 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		  method: 'GET',
 		  url: '/ge/products'
 		}).then(function success(response) {
-		    $scope.products = response.data.data;
+		    $scope.gridOptions.data = response.data.data;
 		}, function error(response) {
 		});
+	}
+
+	$scope.ResetProductSearch = function()
+	{
+		$scope.filtermodelno = '';
+		$scope.filterProductType = '';
+		$scope.filterCategory = '';
 	}
 
 	$scope.getlocations = function()
@@ -65,7 +96,7 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		  method: 'GET',
 		  url: '/ge/locations'
 		}).then(function success(response) {
-		    $scope.locations = response.data.data;
+		    $scope.gridOptions.data = response.data.data;
 		}, function error(response) {
 		});
 	}
@@ -76,7 +107,7 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		  method: 'GET',
 		  url: '/ge/sites'
 		}).then(function success(response) {
-		    $scope.sites = response.data.data;
+		    $scope.gridOptions.data = response.data.data;
 		}, function error(response) {
 		});
 	}
@@ -132,7 +163,7 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		  method: 'GET',
 		  url: '/ge/product-types'
 		}).then(function success(response) {
-		    $scope.producttypes = response.data.data;
+		    $scope.gridOptions.data = response.data.data;
 		}, function error(response) {
 		});
 	}
@@ -165,7 +196,7 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		  method: 'GET',
 		  url: '/ge/users'
 		}).then(function success(response) {
-		    $scope.users = response.data.data;
+		    $scope.gridOptions.data = response.data.data;
 		}, function error(response) {
 		});
 	}
@@ -378,18 +409,27 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		$('#manufacturemodal').modal('show');
 	}
 
-	$scope.OpenUserModal = function(id=0)
+	$scope.OpenUserModal = function(user=0)
 	{
-		if (!id)
+		$scope.getroles();
+		if (!user)
 		{
 			$scope.user = {};
 			$scope.usermodal = [];
 			$scope.usermodal.title = 'Add User';
-			$scope.getroles();
+			$scope.usermodal.edit = false;
 		}
 		else
 		{
+			console.log(user)
 			$scope.usermodal.title = 'Edit User';
+			$scope.usermodal.edit = true;
+			$scope.user.id = user.id;
+			$scope.user.name = user.name;
+			$scope.user.email = user.email;
+			$scope.user.role = user.role_id;
+			$scope.user.password = user.password;
+			console.log($scope.user)
 		}
 		$('#usermodal').modal('show');
 	}
@@ -633,6 +673,25 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		});
 	}
 
+	$scope.ResetLocationSearch = function()
+	{
+		$scope.filterCode = '';
+		$scope.filterName = '';
+	}
+
+	$scope.ResetSiteSearch = function()
+	{
+		$scope.filterCode = '';
+		$scope.filterName = '';
+	}
+
+	$scope.ResetProductTypeSearch = function()
+	{
+		$scope.filterCode = '';
+		$scope.filterName = '';
+		$scope.filterCategory = '';
+	}
+
 	$scope.AddSite = function()
 	{
 		$http({
@@ -814,9 +873,9 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 				'user': $scope.user
 			},
 		}).then(function success(response){
-			if (response.status == 200)
+			if (response.data.status == 'success')
 			{
-				alert(response.data.message)
+				Notification.success(response.data.message + ' With Id: <b>'+ response.data.data.name + '</b>');
 				$('#usermodal').modal('hide');
 				$scope.getusers();
 			}
@@ -826,10 +885,47 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 				var errors = response.data.errors;
 				for(var error in errors)
 				{
-					alert(errors[error][0]);
+					Notification.error(errors[error][0]);
 					break;
 				}
 			}
+		});
+	}
+
+	$scope.DeleteUser = function(user)
+	{
+		$ngConfirm({
+		    title: 'Warning!',
+		    content: 'Are you sure want to delete User:<b>'+ user.name + '</b>?',
+		    type: 'red',
+		    typeAnimated: true,
+		    buttons: {
+		        tryAgain: {
+		            text: 'Delete',
+		            btnClass: 'btn-red',
+		            action: function(){
+		            	$http({
+							method: 'delete',
+							url: '../user/'+user.id,
+						}).then(function success(response){
+							if (response.data.status == 'success')
+							{
+								Notification.success(response.data.message);
+								$('#materialmodal').modal('hide');
+								$scope.getusers();
+							}
+							else if (response.data.status == 'failure')
+							{
+								Notification.error(response.data.message);
+							}
+						}, function failure(response){
+
+						});
+		            }
+		        },
+		        close: function () {
+		        }
+		    }
 		});
 	}
 

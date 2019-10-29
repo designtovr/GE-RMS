@@ -12,29 +12,59 @@
                             <i class="fa fa-plus"></i>&nbsp; Add Product</button>
     		        </div>
     		    </div>
+                <div class="col-md-12 ">
+                    <div class="card-header card-title">
+                        Search 
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-borderless table-data3 table-custom">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <input id="modelnoFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Model No" ng-change="gridActions.filter()" ng-model="filtermodelno" filter-by="part_no" filter-type="text">
+                                    </th>
+                                    <th>
+                                       <input id="producttypeFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Product Type" ng-change="gridActions.filter()" ng-model="filterProductType" filter-by="type_name" filter-type="text">
+                                   </th>
+                                   <th>
+                                       <input id="categoryFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Category" ng-change="gridActions.filter()" ng-model="filterCategory" filter-by="category" filter-type="text">
+                                   </th>
+                                   <th>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm" ng-click="ResetProductSearch();gridActions.filter()">Reset</button>
+                                    </th>
+                                    <th>
+                                        <!-- <button type="button" class="btn btn-outline-primary btn-sm">
+                                            <i class="fa fa-search"></i>&nbsp; Search
+                                        </button> -->
+                                    </th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
                 <div class="col-md-12">
                     <!-- DATA TABLE-->
-                    <div class="table-responsive m-b-40">
+                    <div grid-data grid-options="gridOptions" grid-actions="gridActions">
                         <table class="table table-borderless table-data3">
                             <thead>
                                 <tr>
-                                    <th>Model No</th>
-                                    <th>Product Type</th>
-                                    <th>Category</th>
+                                    <th sortable="part_no" class="sortable">Model No</th>
+                                    <th sortable="type_name" class="sortable">Product Type</th>
+                                    <th sortable="category" class="sortable">Category</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="product in products">
-                                    <td>@{{product.part_no}}</td>
-                                    <td>@{{product.type_name}}</td>
-                                    <td>@{{product.category | uppercase}}</td>
+                                <tr grid-item>
+                                    <td ng-bind="item.part_no"></td>
+                                    <td ng-bind="item.type_name"></td>
+                                    <td ng-bind="item.category | uppercase"></td>
                                     <td>
     	                                <div class="table-data-feature">
-    	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="OpenProductModal(product);">
+    	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="OpenProductModal(item);">
     	                                        <i class="zmdi zmdi-edit"></i>
     	                                    </button>
-    	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete" ng-click="DeleteProduct(product.id, product.part_no);">
+    	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete" ng-click="DeleteProduct(item.id, item.part_no);">
     	                                        <i class="zmdi zmdi-delete"></i>
     	                                    </button>
     	                                </div>
@@ -42,6 +72,29 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <form class="form-inline pull-right margin-bottom-basic">
+                            <div class="form-group">
+                                <grid-pagination max-size="5"
+                                boundary-links="true"
+                                class="pagination-sm"
+                                total-items="paginationOptions.totalItems"
+                                ng-model="paginationOptions.currentPage"
+                                ng-change="reloadGrid()"
+                                items-per-page="paginationOptions.itemsPerPage">
+                                </grid-pagination>
+                            </div>
+                            <div class="form-group items-per-page">
+                                <label for="itemsOnPageSelect2">Items per page:</label>
+                                <select id="itemsOnPageSelect2" class="form-control input-sm"
+                                ng-init="paginationOptions.itemsPerPage = '10'"
+                                ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+                                    <option>10</option>
+                                    <option>25</option>
+                                    <option>50</option>
+                                    <option>75</option>
+                                </select>
+                            </div>
+                        </form>
                     </div>
                     <!-- END DATA TABLE-->
                 </div>
@@ -80,7 +133,8 @@
                                             </span>
                                         </div>
                                     </div>
-                                </div> <div class="row form-group">
+                                </div> 
+                                <div class="row form-group">
                                     <div class="col col-md-3">
                                         <label for="producttype" class=" form-control-label">Product Category <span class="mandatory">*</span></label>
                                     </div>

@@ -18,7 +18,7 @@ class ReceiptController extends Controller
 {
     public function Receipts($cat='all')
     {
-        $receipt = ReceiptMaster::selectRaw('receipt.*, receipt.id as receipt_id, site.name as site_name')->leftJoin('ma_site as site', 'site.id', 'receipt.site_id');
+        $receipt = ReceiptMaster::selectRaw('receipt.*, receipt.id as receipt_id, site.name as site_name, cus.name as customer_name')->leftJoin('ma_customer as cus', 'cus.id', 'receipt.customer_id')->leftJoin('ma_site as site', 'site.id', 'receipt.site_id');
         if ($cat == 'open')
         {
             $receipt = $receipt->where('status', 1)->get();
@@ -40,8 +40,8 @@ class ReceiptController extends Controller
 
     public function GetReceipt($id)
     {
-        $receipt = ReceiptMaster::selectRaw('receipt.*')->where('receipt.id', $id)->first();
-        return response()->json(['receipt' => $receipt], 200);
+        $receipt = ReceiptMaster::with('Customer')->selectRaw('receipt.*, cus.name as customer_name')->leftJoin('ma_customer as cus', 'cus.id', 'receipt.customer_id')->where('receipt.id', $id)->leftJoin('ma_site as site', 'site.id', 'receipt.site_id')->first();
+        return response()->json(['receipt' => $receipt, 'status' => 'success'], 200);
     }
 
     public function ChangeStatus(Request $request)
@@ -82,7 +82,8 @@ class ReceiptController extends Controller
         /*$RM->gs_no = $receipt['gs_no'];*/
         $date = Carbon::createFromFormat('d/m/Y', $receipt['receipt_date']);
         $RM->receipt_date = $date->format('Y-m-d');
-        $RM->customer_name = $receipt['customer_name'];
+        $RM->customer_id = $receipt['customer_id'];
+        //$RM->customer_name = $receipt['customer_name'];
         /*$RM->end_customer = $receipt['end_customer'];*/
         $RM->site_id = $receipt['site_id'];
         $RM->courier_name = $receipt['courier_name'];

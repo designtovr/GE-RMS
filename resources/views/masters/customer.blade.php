@@ -12,41 +12,89 @@
                             <i class="fa fa-plus"></i>&nbsp; Add Customer</button>
     		        </div>
     		    </div>
+                <div class="col-md-12 ">
+                    <div class="card-header card-title">
+                        Search 
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-borderless table-data3 table-custom">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <input id="customerCodeFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Customer Code" ng-change="gridActions.filter()" ng-model="filtercustomercode" filter-by="code" filter-type="text">
+                                    </th>
+                                    <th>
+                                       <input id="customerNameFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Customer Name" ng-change="gridActions.filter()" ng-model="filterCustomerName" filter-by="name" filter-type="text">
+                                   </th>
+                                   <th>
+                                       <input id="addressFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Address" ng-change="gridActions.filter()" ng-model="filterAddress" filter-by="address" filter-type="text">
+                                   </th>
+                                   <th>
+                                       <input id="contactPersonFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Contact Person" ng-change="gridActions.filter()" ng-model="filterContactPerson" filter-by="contact_person" filter-type="text">
+                                   </th>
+                                   <th>
+                                       <input id="gstFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="GST" ng-change="gridActions.filter()" ng-model="filtergst" filter-by="gst" filter-type="text">
+                                   </th>
+                                   <th>
+                                       <input id="emailFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Email" ng-change="gridActions.filter()" ng-model="filterEmail" filter-by="email" filter-type="text">
+                                   </th>
+                                   <th>
+                                       <input id="contactFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Contact No" ng-change="gridActions.filter()" ng-model="filterContactNo" filter-by="contact" filter-type="text">
+                                   </th>
+                                   <th>
+                                       <input id="siteFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Site" ng-change="gridActions.filter()" ng-model="filterSite" filter-by="site_name" filter-type="text">
+                                   </th>
+                                   <th>
+                                       <input id="locationFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Location" ng-change="gridActions.filter()" ng-model="filterLocation" filter-by="location_name" filter-type="text">
+                                   </th>
+                                   <th>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm" ng-click="ResetCustomerSearch();gridActions.filter()">Reset</button>
+                                    </th>
+                                    <th>
+                                        <!-- <button type="button" class="btn btn-outline-primary btn-sm">
+                                            <i class="fa fa-search"></i>&nbsp; Search
+                                        </button> -->
+                                    </th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
                 <div class="col-md-12">
                     <!-- DATA TABLE-->
-                    <div class="table-responsive m-b-40">
+                    <div grid-data grid-options="gridOptions" grid-actions="gridActions">
                         <table class="table table-borderless table-data3">
                             <thead>
                                 <tr>
-                                    <th>Customer Code</th>
-                                    <th>Customer Name</th>
-                                    <th>Address</th>
-                                    <th>Contact Person</th>
-                                    <th>GST</th>
-                                    <th>Email</th>
-                                    <th>Contact No</th>
-                                    <th>Site</th>
-                                    <th>Location</th>
+                                    <th sortable="code" class="sortable">Customer Code</th>
+                                    <th sortable="name" class="sortable">Customer Name</th>
+                                    <th sortable="address" class="sortable">Address</th>
+                                    <th sortable="contact_person" class="sortable">Contact Person</th>
+                                    <th sortable="gst" class="sortable">GST</th>
+                                    <th sortable="email" class="sortable">Email</th>
+                                    <th sortable="contact" class="sortable">Contact</th>
+                                    <th sortable="site_name" class="sortable">Site</th>
+                                    <th sortable="location_name" class="sortable">Location</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="customer in customers">
-                                    <td>@{{customer.code}}</td>
-                                    <td>@{{customer.name}}</td>
-                                    <td>@{{customer.address}}</td>
-                                    <td>@{{customer.contact_person}}</td>
-                                    <td>@{{customer.gst}}</td>
-    	                            <td>@{{customer.email}}</td>
-    	                            <td>@{{customer.contact}}</td>
-    	                            <td>@{{customer.site_name}}</td>
-    	                            <td>@{{customer.location_name}}</td>
+                                <tr grid-item>
+                                    <td ng-bind="item.code"></td>
+                                    <td ng-bind="item.name"></td>
+                                    <td ng-bind="item.address"></td>
+                                    <td ng-bind="item.contact_person"></td>
+                                    <td ng-bind="item.gst"></td>
+    	                            <td ng-bind="item.email"></td>
+    	                            <td ng-bind="item.contact"></td>
+    	                            <td ng-bind="item.site_name"></td>
+    	                            <td ng-bind="item.location_name"></td>
                                     <td>
     	                                <div class="table-data-feature">
-    	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="OpenCustomerModal(customer.id)">
+    	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="OpenCustomerModal(item.id)">
     	                                        <i class="zmdi zmdi-edit"></i>
     	                                    </button>
-    	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete" ng-click="DeleteCustomer(customer.id, customer.code);">
+    	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete" ng-click="DeleteCustomer(item.id, item.code);">
     	                                        <i class="zmdi zmdi-delete"></i>
     	                                    </button>
     	                                </div>
@@ -54,6 +102,29 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <form class="form-inline pull-right margin-bottom-basic">
+                            <div class="form-group">
+                                <grid-pagination max-size="5"
+                                boundary-links="true"
+                                class="pagination-sm"
+                                total-items="paginationOptions.totalItems"
+                                ng-model="paginationOptions.currentPage"
+                                ng-change="reloadGrid()"
+                                items-per-page="paginationOptions.itemsPerPage">
+                                </grid-pagination>
+                            </div>
+                            <div class="form-group items-per-page">
+                                <label for="itemsOnPageSelect2">Items per page:</label>
+                                <select id="itemsOnPageSelect2" class="form-control input-sm"
+                                ng-init="paginationOptions.itemsPerPage = '10'"
+                                ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+                                    <option>10</option>
+                                    <option>25</option>
+                                    <option>50</option>
+                                    <option>75</option>
+                                </select>
+                            </div>
+                        </form>
                     </div>
                     <!-- END DATA TABLE-->
                 </div>
@@ -235,11 +306,11 @@
                                             </span>
                                             <span class="help-block" 
                                             ng-show="AddCustomerForm.gst.$error.minlength">
-                                                Should Be Less Than 15 Digits
+                                                Should Not Be Less Than 15 Digits
                                             </span>
                                             <span class="help-block" 
                                             ng-show="AddCustomerForm.gst.$error.maxlength">
-                                                Should Be Greater Than 15 Digits
+                                                Should Not Be Greater Than 15 Digits
                                             </span>
                                         </div>
                                     </div>

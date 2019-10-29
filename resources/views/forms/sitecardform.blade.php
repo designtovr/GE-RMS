@@ -761,7 +761,10 @@
                     <button type="submit" class="btn btn-primary btn-sm" ng-disabled="SiteCardForm1.$invalid || SiteCardForm2.$invalid || SiteCardForm3.$invalid || SiteCardForm4.$invalid || SiteCardForm5.$invalid || SiteCardForm6.$invalid" ng-click="SubmitSiteCardForm();">
                         <i class="fa fa-dot-circle-o"></i> Submit
                     </button>
-                    <button type="reset" class="btn btn-secondary btn-sm" ng-click="HideSiteCardForm();">
+                    <button class="btn btn-secondary btn-sm" ng-click="SaveSiteCatdForm();">
+                        <i class="fa fa-save"></i> Save
+                    </button>
+                    <button type="reset" class="btn btn-danger btn-sm" ng-click="HideSiteCardForm();">
                         <i class="fa fa-ban"></i> Close
                     </button>
                 </div>

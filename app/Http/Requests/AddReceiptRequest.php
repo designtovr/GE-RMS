@@ -29,7 +29,8 @@ class AddReceiptRequest extends FormRequest
             'receipt.id' => 'nullable|numeric|exists:receipt,id',
             /*'receipt.gs_no' => 'required|numeric',*/
             'receipt.receipt_date' => 'required|string',
-            'receipt.customer_name' => 'required|string|min:3|max:50',
+            'receipt.customer_id' => 'required|exists:ma_customer,id',
+            /*'receipt.customer_name' => 'required|string|min:3|max:50',*/
             /*'receipt.end_customer' => 'required|string|min:3|max:50',*/
             'receipt.site_id' => 'required|exists:ma_site,id',
             'receipt.courier_name' => 'required|string|min:3|max:50',

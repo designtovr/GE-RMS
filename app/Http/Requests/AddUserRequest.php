@@ -24,10 +24,11 @@ class AddUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'user.code' => 'required|string|min:3|max:10',
-            'user.name' => 'required|string|min:3|max:20',
+            /*'user.code' => 'required|string|min:3|max:10',*/
+            'user.id' => 'nullable|exists:users,id',
+            'user.name' => 'required|string|min:3|max:50',
             'user.email' => 'required|email',
-            'user.password' => 'required|string|min:6|max:12',
+            'user.password' => 'required|string',
             'user.role' => 'required|exists:roles,id'
         ];
     }
@@ -35,10 +36,6 @@ class AddUserRequest extends FormRequest
     public function messages()
     {
         return [
-            'user.code.required' => 'User Code Is Required',
-            'user.code.string' => 'User Code Should Be String',
-            'user.code.min' => 'User Code Should Not Be Less Than 3',
-            'user.code.max' => 'User Code Should Not Be Greater Than 10',
             'user.name.required'  => 'User Name Is Required',
             'user.name.string'  => 'User Name Should Be String',
             'user.name.min' => 'User Name Should Not Be Less Than 3',

@@ -497,4 +497,25 @@ class RMAController extends Controller
 
         return response()->json(['data' => $RMAT, 'status' => 'success', 'message' => 'RMA Created Successfully'], 200);
     }
+
+    public function SaveSiteCardRMA(Request $request)
+    {
+        $sitecardrma = $request->get('sitecardrma');
+        return $sitecardrma;
+        //if id exists update else save
+        if (array_key_exists('id', $sitecardrma))
+        {
+            //update all rma table field
+            $RMA = RMA::find($sitecardrma['id']);
+
+        }
+        else
+        {
+            //save rma table
+            $RMA = new RMA();
+            $RMA->gs_no = (array_key_exists('gs_no', $sitecardrma))?$sitecardrma['gs_no']:'';
+            $RMA->act_reference = (array_key_exists('act_reference', $sitecardrma))?$sitecardrma['act_reference']:'';
+            $RMA->date = (array_key_exists('date', $sitecardrma))?$sitecardrma['date']:$sitecardrma['si'];
+        }
+    }
 }

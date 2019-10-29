@@ -157,7 +157,7 @@ Route::group(['middleware' => 'auth'], function(){
     });
 });
 
-Route::group(['middleware' => ['auth', 'admin']], function(){
+Route::group(['middleware' => ['auth']], function(){
 	Route::get('masters-page/customer', function(){
 		return view('masters.customer');
 	});
@@ -220,6 +220,7 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
 	Route::post('/getrma/{id}', 'RMAController@GetRma');
 	Route::post('/addrma', 'RMAController@AddRMA');
 	Route::post('/saverma', 'RMAController@SaveRMA');
+	Route::post('/savesitecardrma', 'RMAController@SaveSiteCardRMA');
 	Route::post('/addrmaunit', 'RMAController@AddRmaUnit');
 	Route::post('/addscrma', 'RMAController@AddSCRMA');
 
@@ -285,6 +286,8 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
 	Route::post('/addmanufacture', 'ManufactureController@AddManufacture');
 
 	Route::post('/adduser', 'UserController@AddUser');
+
+	Route::delete('/user/{id}', 'UserController@DeleteUser');
 
 	Route::post('/addmaterial', 'MaterialController@AddMaterial');
 

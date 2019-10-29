@@ -60,6 +60,7 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 	{
 		$scope.showrmaform = false;
 		$scope.showsitecardform = false;
+		$scope.rmaformdata.copy_invoice_address_to_delivery_address = false;
 		$scope.ChangeTab($scope.tab);
 	}
 
@@ -246,7 +247,7 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 		  url: '/ge/products'
 		}).then(function success(response) {
 		    $scope.products = response.data.data;
-		    var addoption = {'id':-1, 'part_no': 'Add New'};
+		    //var addoption = {'id':-1, 'part_no': 'Add New'};
 		    //$scope.products.push(addoption);
 		}, function error(response) {
 		});
@@ -371,9 +372,28 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 			Notification.error("No Relay Selected");
 			return;
 		}
-		$scope.showrmaform = true;
-		$scope.rmaformdata.date = $filter('date')(new Date(), 'dd/MM/yyyy');
+		//checking for customer ids are same
+		var occurence = $scope.selectedpvs.filter(pv => pv.customer_id == $scope.selectedpvs[0].customer_id);
+		if (occurence.length != $scope.selectedpvs.length)
+		{
+			Notification.error("You Selected Relay Of Different Customer");
+			return;
+		}
 		console.log($scope.selectedpvs);
+		$http({
+		  method: 'GET',
+		  url: '/ge/getreceipt/'+$scope.selectedpvs[0].receipt_id
+		}).then(function success(response) {
+			if (response.data.status == 'success')
+			{
+				var receipt = response.data.receipt;
+				$scope.rmaformdata.date = $filter('date')(new Date(), 'dd/MM/yyyy');
+		    	$scope.showrmaform = true;
+		    	$scope.rmaformdata.invoice_info.invoice_customer_name = receipt.customer;
+		    	$scope.ChangeInvoiceAddress(receipt.customer);
+			}
+		}, function error(response) {
+		});
 	}
 
 	$scope.ChangeRelayDetails = function(index, info)
@@ -562,13 +582,35 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 		}).then(function(response){
 			if (response.data.status == 'success')
 			{
-				Notification.success(response.data.message + 'with Id: ' + response.data.data.id);
-				$scope.rmaformdata = {};
-				$scope.rmaformdata.unit_information = [];
-				$scope.rmaformdata.repair_instruction = {};
-				$scope.rmaformdata.invoice_info = {};
-				$scope.rmaformdata.delivery_info = {};
-				$scope.HideRMAForm();
+				var content = response.data.message + ' With Id:<b>' + response.data.data.id + '</b>. Are you want to print?';
+				$ngConfirm({
+					title: '<b>Print!!</b>',
+					content: content,
+					type: 'blue',
+					typeAnimated: true,
+					buttons: {
+						print: {
+							text: 'Print',
+							btnClass: 'btn-blue',
+							action: function(){
+								$scope.rmaformdata = {};
+								$scope.rmaformdata.unit_information = [];
+								$scope.rmaformdata.repair_instruction = {};
+								$scope.rmaformdata.invoice_info = {};
+								$scope.rmaformdata.delivery_info = {};
+								$scope.HideRMAForm();
+							}
+						},
+						close: function () {
+							$scope.rmaformdata = {};
+							$scope.rmaformdata.unit_information = [];
+							$scope.rmaformdata.repair_instruction = {};
+							$scope.rmaformdata.invoice_info = {};
+							$scope.rmaformdata.delivery_info = {};
+							$scope.HideRMAForm();
+						}
+					}
+				});
 			}
 		}, function(response){
 			if (response.status == 422)
@@ -616,6 +658,52 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 				$scope.rmaformdata.invoice_info = {};
 				$scope.rmaformdata.delivery_info = {};
 				$scope.HideSiteCardForm();
+			}
+		}, function(response){
+			if (response.status == 422)
+			{
+				var errors = response.data.errors;
+				for(var error in errors)
+				{
+					Notification.error(errors[error][0]);
+					break;
+				}
+			}
+		});
+	}
+
+	$scope.SaveSiteCatdForm = function()
+	{
+		for (var i = 0; i < $scope.sitecardform.unit_information.length; i++) {
+			if ($scope.sitecardform.unit_information[i].model_no == "" || $scope.sitecardform.unit_information[i].model_no == undefined || $scope.sitecardform.unit_information[i].model_no == null)
+			{
+				Notification.error("Please Select All Model No");
+				return;
+			}
+			if ($scope.sitecardform.unit_information[i].serial_no == "" || $scope.sitecardform.unit_information[i].serial_no == undefined || $scope.sitecardform.unit_information[i].serial_no == null)
+			{
+				Notification.error("Please Select All Serial No");
+				return;
+			}
+			if ($scope.sitecardform.unit_information[i].sw_version == "" || $scope.sitecardform.unit_information[i].sw_version == undefined || $scope.sitecardform.unit_information[i].sw_version == null)
+			{
+				Notification.error("Please Select All Software Version");
+				return;
+			}
+		}
+
+		$http({
+			url: '/ge/savesitecardrma',
+			method: 'POST',
+			data: {
+				'sitecardrma': $scope.sitecardform,
+			}
+		}).then(function(response){
+			if (response.data.status == 'success')
+			{
+				Notification.success(response.data.message + ' With Id:' +response.data.data.id);
+				$scope.ChangeTab($scope.tab);
+				$scope.showrmaform = false;
 			}
 		}, function(response){
 			if (response.status == 422)

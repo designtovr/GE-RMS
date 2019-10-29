@@ -18,15 +18,14 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 	$scope.editReceipt = false;
 	$scope.AddReceipt= function()
 	{
-		if ($scope.receipt.customer_name == 'Add New')
+		/*if ($scope.receipt.customer_name == 'Add New')
 		{
 			$scope.receipt.customer_name = $scope.receipt.customer_name_new;
-		}
+		}*/
 		/*if ($scope.receipt.selected_end_customer.end_customer == 'Add New')
 		{
 			$scope.receipt.end_customer = $scope.receipt.end_customer_new;
 		}*/
-		console.log($scope.receipt);
 		$http({
 			method: 'post',
 			url: '/ge/addreceipt',

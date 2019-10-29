@@ -14,10 +14,12 @@ class RMSRepositories
 	private function SaveRMS($pv_id, $rack_id, $rack_type)
 	{
 		//saving RMS
+		$rack_type = 0;
 		$RM = RMSMaster::where('pv_id', $pv_id)->first();
 		if ($RM)
 		{
-			RMSMaster::where('pv_id', $pv_id)->update(['rack_id' => $rack_id, 'rack_type' => $rack_type, 'moved_date' => Carbon::today(), 'updated_at' => Carbon::now(), 'updated_by' => Auth::id()]);
+			$rack_type = $RM->rack_type;
+			RMSMaster::where('pv_id', $pv_id)->update(['rack_id' => $rack_id, 'rack_type' => $RM->rack_type, 'moved_date' => Carbon::today(), 'updated_at' => Carbon::now(), 'updated_by' => Auth::id()]);
 		}
 		else
 		{

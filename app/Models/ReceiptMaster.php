@@ -11,4 +11,10 @@ class ReceiptMaster extends Model
     protected $fillable = [
 
     ];
+
+    public function Customer()
+    {
+    	return $this->hasOne(CustomerMaster::class, 'id', 'customer_id');
+    }
+
 }
