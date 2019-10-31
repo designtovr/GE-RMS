@@ -1,9 +1,11 @@
-app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'ChangePVStatusService', '$ngConfirm', function($scope, $http, Notification, ChangePVStatusService, $ngConfirm){
+app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'ChangePVStatusService', '$ngConfirm', 'PVPriorityService', function($scope, $http, Notification, ChangePVStatusService, $ngConfirm, PVPriorityService){
 	$scope.showjtform = false;
 	$scope.startTab = false;
 	$scope.openTab = false;
 	$scope.jobticket = {};
 	$scope.tab = 'jobticketopen';
+	$scope.pvprioritylist = [];
+	$scope.pvprioritylistmax = 0;
 
 	$scope.gridOptions = {
 		pagination: {
@@ -35,6 +37,45 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 		}).then(function success(response) {
 			$scope.gridOptions.data =  response.data.physicalverification;
 		}, function error(response) {
+		});
+		
+		$scope.GetPVPriorityList();
+	}
+
+	$scope.GetPVPriorityList = function()
+	{
+		$scope.pvprioritylist = PVPriorityService.GetPVPriorityList(function(list, max)
+		{
+			$scope.pvprioritylist = list;
+			$scope.pvprioritylistmax = max;
+			console.log($scope.pvprioritylist);
+		});
+	}
+
+	$scope.SetPVPriority = function(pv_id, priority)
+	{
+		console.log(pv_id);
+		console.log(priority);
+		PVPriorityService.SetPVPriority(pv_id, priority, function(response){
+			if (response.data.status == 'success')
+			{
+				Notification.success(response.data.message);
+				$scope.LoadData($scope.tab);
+				$scope.GetPVPriorityList();
+			}
+			else if (response.data.status == 'failure')
+			{
+				Notification.error(response.data.message);
+			}
+			else if (response.status == 422)
+			{
+				var errors = response.data.errors;
+				for(var error in errors)
+				{
+					Notification.error(errors[error][0]);
+					break;
+				}
+			}
 		});
 	}
 
@@ -129,6 +170,7 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 			url: '/ge/physicalverification?cat='+page
 		}).then(function success(response) {
 			$scope.gridOptions.data =  response.data.physicalverification;
+			$scope.GetPVPriorityList();
 		}, function error(response) {
 		});
 	}

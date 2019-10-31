@@ -273,6 +273,8 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::post('/savetestresult', 'AutoTestBenchController@SaveTestResult');
 	Route::post('/saveagingresult', 'AgingController@SaveAgingResult');
 	Route::post('/saveverification','VerificationCompletionController@SaveVerification');
+	Route::get('/pvprioritylist', 'PVPriorityController@PriorityList');
+	Route::post('/setpvpriority', 'PVPriorityController@SetPvPriority');
 
 	Route::post('/addproduct', 'ProductController@AddProduct');
 	Route::delete('/product/{id}', 'ProductController@DeleteProduct');
