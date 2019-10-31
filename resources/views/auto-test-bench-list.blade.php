@@ -22,16 +22,16 @@
 								<thead>
 								<tr>
 									<th>
-										<input id="rmaidFilter" type="text"
-											   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
-											   placeholder="RMA Id #" ng-change="gridActions.filter();"
-											   ng-model="filterrmaID" filter-by="rma_id" filter-type="text">
-									</th>
-									<th>
 										<input id="ridFilter" type="text"
 											   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
 											   placeholder="Enter RID #" ng-change="gridActions.filter();"
 											   ng-model="filterID" filter-by="id" filter-type="text">
+									</th>
+									<th>
+										<input id="rmaidFilter" type="text"
+											   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
+											   placeholder="RMA Id #" ng-change="gridActions.filter();"
+											   ng-model="filterrmaID" filter-by="rma_id" filter-type="text">
 									</th>
 									<th>
 										<input id="productFilter" type="text"
@@ -145,14 +145,14 @@
 								<thead>
 								<tr>
 
-									<th>
+									<th ng-if="openTab || startTab">
 										Select
-									</th>
-									<th sortable="rma_id" class="sortable">
-										RMA Id
 									</th>
 									<th sortable="id" class="sortable">
 										RID
+									</th>
+									<th sortable="rma_id" class="sortable">
+										RMA Id
 									</th>
 									<th sortable="pvdate" class="sortable">
 										Date
@@ -182,14 +182,14 @@
 								</thead>
 								<tbody>
 								<tr grid-item>
-									<td>
+									<td ng-if="openTab || startTab">
                                         <label class="au-checkbox">
                                             <input type="checkbox" ng-model="item.create_wc">
                                             <span class="au-checkmark"></span>
                                         </label>
                                     </td>
-                                    <td ng-bind="item.rma_id"></td>
 									<td ng-bind="item.id"></td>
+									<td ng-bind="item.rma_id"></td>
 									<td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
 									<td ng-bind="item.part_no"></td>
 									<td ng-bind="item.serial_no"></td>

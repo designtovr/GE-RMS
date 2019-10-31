@@ -19,18 +19,18 @@
 						<table class="table table-borderless table-data3 table-custom">
 							<thead>
 								<tr>
-                                    <th>
-                                        <input id="rmaidFilter" type="text"
-                                        class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
-                                        placeholder="RMA Id #" ng-change="gridActions.filter();"
-                                        ng-model="filterrmaID" filter-by="rma_id" filter-type="text">
-                                    </th>
 									<th>
 										<input id="ridFilter" type="text"
 										class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
 										placeholder="RID #" ng-change="gridActions.filter();"
 										ng-model="filterID" filter-by="id" filter-type="text">
 									</th>
+                                    <th>
+                                        <input id="rmaidFilter" type="text"
+                                        class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
+                                        placeholder="RMA Id #" ng-change="gridActions.filter();"
+                                        ng-model="filterrmaID" filter-by="rma_id" filter-type="text">
+                                    </th>
 									<th>
 										<input id="productFilter" type="text"
 										class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
@@ -134,12 +134,12 @@
                  								<th ng-if="openTab || startTab">
                  									Select
                  								</th>
-                                                <th sortable="rma_id" class="sortable">
-                                                    RMA Id
-                                                </th>
                  								<th sortable="id" class="sortable">
                  									RID
                  								</th>
+                                                <th sortable="rma_id" class="sortable">
+                                                    RMA Id
+                                                </th>
                  								<th sortable="pvdate" class="sortable">
                  									Date
                  								</th>
@@ -176,8 +176,8 @@
                  										<span class="au-checkmark"></span>
                  									</label>
                  								</td>
-                                                <td ng-bind="item.rma_id"></td>
                  								<td ng-bind="item.id"></td>
+                                                <td ng-bind="item.rma_id"></td>
                  								<td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
                  								<td ng-bind="item.part_no"></td>
                  								<td ng-bind="item.serial_no"></td>

@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Aging extends Model
+class AgingTracking extends Model
 {
-    protected $table = 'aging';
+    protected $table = 'aging_tracking';
+
+    public $timestamps = false;
 
     protected $hidden = [
     	'created_at',

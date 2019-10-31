@@ -7,6 +7,8 @@ app.controller('AutoTestBenchController', ['$scope', '$http','Notification','Cha
 	{
 		console.log($scope.gridOptions.data);
 		$scope.selectedpvs = [];
+		$scope.testbenchmodal = {};
+		$scope.testbenchmodal.title = 'Test Process';
 		for (var i = 0; i < $scope.gridOptions.data.length; i++) {
 			if ($scope.gridOptions.data[i].create_wc != undefined && $scope.gridOptions.data[i].create_wc)
 			{
