@@ -1,7 +1,9 @@
-app.controller('DispatchController', ['$scope', '$http','$filter','Notification' , 'ChangePVStatusService', function($scope, $http,$filter ,Notification , ChangePVStatusService ){
+app.controller('DispatchController', ['$scope', '$http','$filter','Notification', 'ChangePVStatusService', '$ngConfirm', 'PVPriorityService', function($scope, $http,$filter ,Notification , ChangePVStatusService, $ngConfirm, PVPriorityService){
 	
 	$scope.showdpform = false;
 	$scope.dispatch = {};
+	$scope.status = 'dispatchapproved';
+	$scope.page = 1;
 
 	$scope.gridOptions = {
 		pagination: {
@@ -62,6 +64,11 @@ app.controller('DispatchController', ['$scope', '$http','$filter','Notification'
 					Notification.error("No Relay Selected");
 					return;
 				}
+				if ($scope.selectedpvs.length > 1)
+				{
+					Notification.error("Select One Relay");
+					return;
+				}
 				console.log($scope.selectedpvs);
 
 				/*$scope.ChangePVStatus($scope.selectedpvs ,status);
@@ -71,86 +78,139 @@ app.controller('DispatchController', ['$scope', '$http','$filter','Notification'
 				$scope.GetPV('atbopen');*/
 			}
 
-			$scope.ChangePVStatus = function(pvids, status)
+		$scope.GetPVPriorityList = function()
+		{
+			$scope.pvprioritylist = PVPriorityService.GetPVPriorityList(function(list, max)
 			{
-				ChangePVStatusService.ChangePVStatus(pvids, status, function(response){
-					if (response.data.status == 'success')
-					{
-						Notification.success(response.data.message);
-						$scope.GetPV(status);
-					}
-					else if (response.status == 422)
-					{
-						var errors = response.data.errors;
-						for(var error in errors)
-						{
-							Notification.error(errors[error][0]);
-							break;
-						}
-					}
-				});
-			}
+				$scope.pvprioritylist = list;
+				$scope.pvprioritylistmax = max;
+				console.log($scope.pvprioritylist);
+			});
+		}
 
-
-			$scope.startTab = false;
-			$scope.openTab = false;
-
-			$scope.LoadData = function(page)
-			{
-				console.log(page);
-				$scope.openTab = false;
-				$scope.startTab = false;
-				if(page == '1')
-					$scope.openTab = true;
-				
-				if(page == '2')
-					$scope.startTab = true;
-
-			}	
-
-
-			$scope.GetPV = function(status)
-			{
-				$scope.status = status;
-				$http({
-					method: 'GET',
-					url: '/ge/physicalverification?cat='+status
-				}).then(function success(response) {
-					$scope.gridOptions.data =  response.data.physicalverification;
-				}, function error(response) {
-				});
-			}
-			
-	$scope.AddDispatch= function()
-	{
-		$http({
-			method: 'post',
-			url: '/ge/adddispatch',
-			data: {
-				'dispatch': $scope.dispatch,
-			},
-		}).then(function success(response){
-			if (response.status == 200)
-			{
-				$scope.ChangePVStatus($scope.selectedpvs ,'dispatched');
-				alert(response.data.message)
-				$scope.HideDPForm();
-				/*$('#customermodal').modal('hide');*/
-				$scope.GetPV('dispatched');
-			}
-		}, function failure(response){
-			if (response.status == 422)
-			{
-
-				var errors = response.data.errors;
-				for(var error in errors)
+		$scope.SetPVPriority = function(pv_id, priority)
+		{
+			PVPriorityService.SetPVPriority(pv_id, priority, function(response){
+				if (response.data.status == 'success')
 				{
-					alert(errors[error][0]);
-					break;
+					Notification.success(response.data.message);
+					$scope.LoadData($scope.page);
+					$scope.GetPV($scope.status);
+					$scope.GetPVPriorityList();
 				}
-			}
-		});
-	}
+				else if (response.data.status == 'failure')
+				{
+					Notification.error(response.data.message);
+				}
+				else if (response.status == 422)
+				{
+					var errors = response.data.errors;
+					for(var error in errors)
+					{
+						Notification.error(errors[error][0]);
+						break;
+					}
+				}
+			});
+		}
+
+		$scope.ChangePVStatus = function(pvids, status)
+		{
+			ChangePVStatusService.ChangePVStatus(pvids, status, function(response){
+				if (response.data.status == 'success')
+				{
+					Notification.success(response.data.message);
+					$scope.GetPV(status);
+				}
+				else if (response.status == 422)
+				{
+					var errors = response.data.errors;
+					for(var error in errors)
+					{
+						Notification.error(errors[error][0]);
+						break;
+					}
+				}
+			});
+		}
+
+
+		$scope.startTab = false;
+		$scope.openTab = false;
+
+		$scope.LoadData = function(page)
+		{
+			console.log(page);
+			$scope.page = page;
+			$scope.openTab = false;
+			$scope.startTab = false;
+			if(page == '1')
+				$scope.openTab = true;
+			
+			if(page == '2')
+				$scope.startTab = true;
+
+		}
+
+
+		$scope.GetPV = function(status)
+		{
+			$scope.status = status;
+			$http({
+				method: 'GET',
+				url: '/ge/physicalverification?cat='+status
+			}).then(function success(response) {
+				$scope.gridOptions.data =  response.data.physicalverification;
+			}, function error(response) {
+			});
+		}
+			
+		$scope.AddDispatch= function()
+		{
+			$http({
+				method: 'post',
+				url: '/ge/adddispatch',
+				data: {
+					'dispatch': $scope.dispatch,
+				},
+			}).then(function success(response){
+				if (response.status == 200)
+				{
+					var content = response.data.message + ' With Relay Id:<b>'+ response.data.data.pv_id + '</b>, Are You Want to Print?';
+					$ngConfirm({
+						title: '<b>Print!!</b>',
+						content: content,
+						type: 'blue',
+						typeAnimated: true,
+						buttons: {
+							print: {
+								text: 'Print',
+								btnClass: 'btn-blue',
+								action: function(){
+									$scope.HideDPForm();
+									$scope.GetPV('dispatchapproved');
+								}
+							},
+							close: function () {
+								$scope.HideDPForm();
+								$scope.GetPV('dispatchapproved');
+							}
+						}
+					});
+				}
+			}, function failure(response){
+				if (response.status == 422)
+				{
+
+					var errors = response.data.errors;
+					for(var error in errors)
+					{
+						Notification.error(errors[error][0]);
+						break;
+					}
+				}
+			});
+		}
 
 	$scope.getDispatches = function()
 	{
@@ -174,6 +234,9 @@ app.controller('DispatchController', ['$scope', '$http','$filter','Notification'
 		if($scope.selectedpvs.length == 0)
 			return;
 
+		if ($scope.selectedpvs.length > 1)
+			return;
+
 		$scope.showdpform = true;
 	}
 
@@ -188,6 +251,7 @@ app.controller('DispatchController', ['$scope', '$http','$filter','Notification'
 		console.log("Dispatch")
 		$scope.dispatch.date = $filter('date')(new Date(),'dd/MM/yyyy');
 		$scope.showdpform = false;
+		$scope.GetPVPriorityList();
 	}
 
 	}]);

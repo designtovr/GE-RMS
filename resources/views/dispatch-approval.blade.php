@@ -20,16 +20,16 @@
                                     <thead>
                                     <tr>
                                         <th>
-                                            <input id="rmaidFilter" type="text"
-                                            class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
-                                            placeholder="RMA Id #" ng-change="gridActions.filter();"
-                                            ng-model="filterrmaID" filter-by="rma_id" filter-type="text">
-                                        </th>
-                                        <th>
                                             <input id="ridFilter" type="text"
                                             class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
                                             placeholder="RID #" ng-change="gridActions.filter();"
                                             ng-model="filterID" filter-by="id" filter-type="text">
+                                        </th>
+                                        <th>
+                                            <input id="rmaidFilter" type="text"
+                                            class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
+                                            placeholder="RMA Id #" ng-change="gridActions.filter();"
+                                            ng-model="filterrmaID" filter-by="rma_id" filter-type="text">
                                         </th>
                                         <th>
                                             <input id="productFilter" type="text"
@@ -110,13 +110,12 @@
                                         <th>
                                             Select
                                         </th>
-                                        <th sortable="rma_id" class="sortable">
-                                            RMA Id
-                                        </th>
                                         <th sortable="id" class="sortable">
                                             RID
                                         </th>
-
+                                        <th sortable="rma_id" class="sortable">
+                                            RMA Id
+                                        </th>
                                         <th sortable="pvdate" class="sortable">
                                             Date
                                         </th>
@@ -136,6 +135,12 @@
                                         <th sortable="comment" class="sortable">
                                             Comment
                                         </th>
+                                        <th sortable="pvl_priority_for_display" class="sortable">
+                                            Priority
+                                        </th>
+                                        <th>
+                                            Actions
+                                        </th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -146,14 +151,25 @@
                                                 <span class="au-checkmark"></span>
                                             </label>
                                         </td>
-                                        <td ng-bind="item.rma_id"></td>
                                         <td ng-bind="item.id"></td>
+                                        <td ng-bind="item.rma_id"></td>
                                         <td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
                                         <td ng-bind="item.serial_no"></td>
                                         <td ng-bind="item.part_no"></td>
                                         <td ng-bind="item.customer_name"></td>
                                         <td ng-bind="item.end_customer"></td>
                                         <td ng-bind="item.manager_comment"></td>
+                                        <td ng-bind="item.pvl_priority_for_display"></td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-success" >Priority</button>
+                                                <div tabindex="-1" aria-hidden="true" role="menu" class="dropdown-menu scrollable-menu">
+                                                    <button ng-if="item.pvl_priority == 999999" type="button" tabindex="0" class="dropdown-item" ng-click="SetPVPriority(item.id, pvprioritylistmax)">Set New: @{{pvprioritylistmax}}</button>
+                                                    <div ng-if="item.pvl_priority == 999999" tabindex="-1" class="dropdown-divider"></div>
+                                                    <button ng-if="item.pvl_priority != pr.priority" type="button" tabindex="0" class="dropdown-item" ng-repeat="pr in pvprioritylist" ng-click="SetPVPriority(item.id, pr.priority)">@{{pr.priority}}</button>
+                                                </div>
+                                            </div>
+                                         </td>
                                     </tr>
                                     </tbody>
                                 </table>

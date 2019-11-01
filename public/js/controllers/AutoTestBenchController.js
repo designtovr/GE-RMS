@@ -1,8 +1,11 @@
-app.controller('AutoTestBenchController', ['$scope', '$http','Notification','ChangePVStatusService', function($scope, $http , Notification,ChangePVStatusService)
+app.controller('AutoTestBenchController', ['$scope', '$http','Notification','ChangePVStatusService', 'PVPriorityService', function($scope, $http , Notification, ChangePVStatusService, PVPriorityService)
 {
 
 	$scope.testbenchmodal = {};
 	$scope.testbenchmodal.title = 'Test Process';
+	$scope.pvprioritylist = [];
+	$scope.pvprioritylistmax = 0;
+	$scope.page = 1;
 	$scope.OpenTestBenchModal = function()
 	{
 		console.log($scope.gridOptions.data);
@@ -67,6 +70,42 @@ app.controller('AutoTestBenchController', ['$scope', '$http','Notification','Cha
 		$('#testbenchmodal').modal('hide');
 	}
 
+	$scope.GetPVPriorityList = function()
+	{
+		$scope.pvprioritylist = PVPriorityService.GetPVPriorityList(function(list, max)
+		{
+			$scope.pvprioritylist = list;
+			$scope.pvprioritylistmax = max;
+			console.log($scope.pvprioritylist);
+		});
+	}
+
+	$scope.SetPVPriority = function(pv_id, priority)
+	{
+		PVPriorityService.SetPVPriority(pv_id, priority, function(response){
+			if (response.data.status == 'success')
+			{
+				Notification.success(response.data.message);
+				$scope.GetPV($scope.status);
+				$scope.LoadData($scope.page);
+				$scope.GetPVPriorityList();
+			}
+			else if (response.data.status == 'failure')
+			{
+				Notification.error(response.data.message);
+			}
+			else if (response.status == 422)
+			{
+				var errors = response.data.errors;
+				for(var error in errors)
+				{
+					Notification.error(errors[error][0]);
+					break;
+				}
+			}
+		});
+	}
+
 
 	$scope.gridOptions = {
 		pagination: {
@@ -92,6 +131,7 @@ app.controller('AutoTestBenchController', ['$scope', '$http','Notification','Cha
 					$scope.gridOptions.data =  response.data.physicalverification;
 				}, function error(response) {
 				});
+				$scope.GetPVPriorityList();
 			}
 
 
@@ -157,14 +197,19 @@ app.controller('AutoTestBenchController', ['$scope', '$http','Notification','Cha
 
 			$scope.LoadData = function(page)
 			{
+				$scope.page = page;
 				console.log(page);
 				$scope.openTab = false;
 				$scope.startTab = false;
+				$scope.completedTab = false;
 				if(page == '1')
 					$scope.openTab = true;
 				
 				if(page == '2')
 					$scope.startTab = true;
+
+				if (page == '3')
+					$scope.completedTab = true;
 
 			}	
 

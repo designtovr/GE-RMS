@@ -1,4 +1,4 @@
-app.controller('DispatchApprovalController', ['$scope', '$http','Notification','ChangePVStatusService', function($scope, $http , Notification,ChangePVStatusService){
+app.controller('DispatchApprovalController', ['$scope', '$http','Notification','ChangePVStatusService', 'PVPriorityService', function($scope, $http , Notification, ChangePVStatusService, PVPriorityService){
     $scope.gridOptions = {
         pagination: {
             itemsPerPage: '10'
@@ -12,11 +12,14 @@ app.controller('DispatchApprovalController', ['$scope', '$http','Notification','
         urlSync: true
     };
 
+    $scope.status = 'verificationcompleted';
     $scope.selectedpvs = [];
+    $scope.page = 1;
+    $scope.pvprioritylist = [];
+    $scope.pvprioritylistmax = 0;
+    
     $scope.Start = function()
     {
-        console.log("UOJ");
-        $scope.status = 'verificationcompleted';
         $http({
             method: 'GET',
             url: '/ge/physicalverification?cat='+$scope.status
@@ -24,6 +27,43 @@ app.controller('DispatchApprovalController', ['$scope', '$http','Notification','
             $scope.gridOptions.data =  response.data.physicalverification;
         }, function error(response) {
 
+        });
+        $scope.GetPVPriorityList();
+    }
+
+    $scope.GetPVPriorityList = function()
+    {
+        $scope.pvprioritylist = PVPriorityService.GetPVPriorityList(function(list, max)
+        {
+            $scope.pvprioritylist = list;
+            $scope.pvprioritylistmax = max;
+            console.log($scope.pvprioritylist);
+        });
+    }
+
+    $scope.SetPVPriority = function(pv_id, priority)
+    {
+        PVPriorityService.SetPVPriority(pv_id, priority, function(response){
+            if (response.data.status == 'success')
+            {
+                Notification.success(response.data.message);
+                $scope.LoadData($scope.page);
+                $scope.GetPV($scope.status);
+                $scope.GetPVPriorityList();
+            }
+            else if (response.data.status == 'failure')
+            {
+                Notification.error(response.data.message);
+            }
+            else if (response.status == 422)
+            {
+                var errors = response.data.errors;
+                for(var error in errors)
+                {
+                    Notification.error(errors[error][0]);
+                    break;
+                }
+            }
         });
     }
 

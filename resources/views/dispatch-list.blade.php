@@ -20,16 +20,16 @@
                                     <thead>
                                     <tr>
                                         <th>
-                                            <input id="rmaidFilter" type="text"
-                                            class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
-                                            placeholder="RMA Id #" ng-change="gridActions.filter();"
-                                            ng-model="filterrmaID" filter-by="rma_id" filter-type="text">
-                                        </th>
-                                        <th>
                                             <input id="ridFilter" type="text"
                                             class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
                                             placeholder="RID #" ng-change="gridActions.filter();"
                                             ng-model="filterID" filter-by="id" filter-type="text">
+                                        </th>
+                                        <th>
+                                            <input id="rmaidFilter" type="text"
+                                            class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
+                                            placeholder="RMA Id #" ng-change="gridActions.filter();"
+                                            ng-model="filterrmaID" filter-by="rma_id" filter-type="text">
                                         </th>
                                         <th>
                                             <input id="productFilter" type="text"
@@ -146,15 +146,14 @@
                                 <table class="table table-borderless table-data3  ">
                                     <thead>
                                     <tr>
-
                                         <th>
                                             Select
                                         </th>
-                                        <th sortable="rma_id" class="sortable">
-                                            RMA Id
-                                        </th>
                                         <th sortable="id" class="sortable">
                                             RID
+                                        </th>
+                                        <th sortable="rma_id" class="sortable">
+                                            RMA Id
                                         </th>
                                         <th sortable="pvdate" class="sortable">
                                             Date
@@ -171,9 +170,14 @@
                                         <th sortable="end_customer" class="sortable">
                                             End Customer
                                         </th>
-
                                         <th sortable="manager_comment" class="sortable">
                                             Comment
+                                        </th>
+                                        <th ng-if="status == 'dispatchapproved'" sortable="pvl_priority_for_display" class="sortable">
+                                            Priority
+                                        </th>
+                                        <th ng-if="status == 'dispatchapproved'">
+                                            Actions
                                         </th>
                                     </tr>
                                     </thead>
@@ -185,14 +189,25 @@
                                                 <span class="au-checkmark"></span>
                                             </label>
                                         </td>
-                                        <td ng-bind="item.rma_id"></td>
                                         <td ng-bind="item.id"></td>
+                                        <td ng-bind="item.rma_id"></td>
                                         <td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
                                         <td ng-bind="item.part_no"></td>
                                         <td ng-bind="item.serial_no"></td>
                                         <td ng-bind="item.customer_name"></td>
                                         <td ng-bind="item.end_customer"></td>
                                         <td ng-bind="item.manager_comment"></td>
+                                        <td ng-if="status == 'dispatchapproved'" ng-bind="item.pvl_priority_for_display"></td>
+                                        <td ng-if="status == 'dispatchapproved'">
+                                            <div class="btn-group">
+                                                <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-success" >Priority</button>
+                                                <div tabindex="-1" aria-hidden="true" role="menu" class="dropdown-menu scrollable-menu">
+                                                    <button ng-if="item.pvl_priority == 999999" type="button" tabindex="0" class="dropdown-item" ng-click="SetPVPriority(item.id, pvprioritylistmax)">Set New: @{{pvprioritylistmax}}</button>
+                                                    <div ng-if="item.pvl_priority == 999999" tabindex="-1" class="dropdown-divider"></div>
+                                                    <button ng-if="item.pvl_priority != pr.priority" type="button" tabindex="0" class="dropdown-item" ng-repeat="pr in pvprioritylist" ng-click="SetPVPriority(item.id, pr.priority)">@{{pr.priority}}</button>
+                                                </div>
+                                            </div>
+                                         </td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -200,12 +215,13 @@
                             <form class="form-inline pull-right margin-bottom-basic">
                                 <div class="form-group">
                                     <grid-pagination max-size="5"
-                                                     boundary-links="true"
-                                                     class="pagination-sm"
-                                                     total-items="paginationOptions.totalItems"
-                                                     ng-model="paginationOptions.currentPage"
-                                                     ng-change="reloadGrid()"
-                                                     items-per-page="paginationOptions.itemsPerPage"></grid-pagination>
+                                         boundary-links="true"
+                                         class="pagination-sm"
+                                         total-items="paginationOptions.totalItems"
+                                         ng-model="paginationOptions.currentPage"
+                                         ng-change="reloadGrid()"
+                                         items-per-page="paginationOptions.itemsPerPage">
+                                    </grid-pagination>
                                 </div>
                                 <div class="form-group items-per-page">
                                     <label for="itemsOnPageSelect2">Items per page:</label>
@@ -235,23 +251,7 @@
                             <strong>Dispatch</strong> Form
                         </div>
                         <div class="card-body card-block">
-    	                	<form action="" method="post" class="form-horizontal">
-    	                		<div class="row form-group">
-    	                  <!--           <div class="col col-md-3">
-    	                                <label for="dispatch-no" class=" form-control-label">Dispatch No <span class="mandatory">*</span></label>
-    	                            </div>
-    	                            <div class="col-12 col-md-6">
-
-
-    	                                <input type="text" id="dispatch-no" name="dispatch-no"  placeholder="Dispatch No" class="form-control"
-											   ng-model="dispatch.dispatch_no"
-											   ng-minlength="3"
-											   ng-maxlength="10"
-											   required>
-										<div ng-show="AddDispatchForm.dispatch_no.$touched && AddDispatchForm.dispatch_no.$error"><span class="help-block">Please Enter Dispatch No</span></div>
-
-								</div> -->
-    	                        </div>
+    	                	<form name="DispatchForm" id="DispatchForm" action="" method="post" class="form-horizontal">
     	                        <div class="row form-group">
                                     <div class="col col-md-3">
                                         <label for="date" class=" form-control-label">Date<span class="mandatory">*</span></label>
@@ -262,7 +262,6 @@
 											   ng-minlength="3"
 											   ng-maxlength="10"
 											   required>
-                                        <!-- <span class="help-block">Please Select Date</span> -->
                                     </div>
                                 </div>
                                 <div class="row form-group">
@@ -273,7 +272,6 @@
                                         <input type="text" id="rid" name="rid" placeholder="RID No" class="form-control"
 											   ng-model="dispatch.id"
 											   disabled>
-                                        <!-- <span class="help-block">Please Enter RID No</span> -->
                                     </div>
                                 </div>
                                 <div class="row form-group">
@@ -283,10 +281,7 @@
                                     <div class="col-12 col-md-6">
                                         <input type="text" id="dc-no" name="dc-no" placeholder="DC No" class="form-control"
 											   ng-model="dispatch.dc_no"
-											   ng-minlength="3"
-											   ng-maxlength="10"
 											   required>
-                                        <!-- <span class="help-block">Please Enter DC No</span> -->
                                     </div>
                                 </div>
                                 <div class="row form-group">
@@ -297,7 +292,6 @@
                                         <input type="text" id="docket-details" name="docket-details" placeholder="Docket Details" class="form-control"
 											   ng-model="dispatch.docket_details"
 											   required>
-                                        <!-- <span class="help-block">Please Enter Docket Details</span> -->
                                     </div>
                                 </div>
                                 <div class="row form-group">
@@ -308,7 +302,6 @@
                                         <input type="text" id="rma" name="rma" placeholder="RMA" class="form-control"
 											   ng-model="dispatch.rma_id"
 											   disabled>
-                                        <!-- <span class="help-block">Please Enter RMA No </span> -->
                                     </div>
                                 </div>
                                 <div class="row form-group">
@@ -318,10 +311,7 @@
                                     <div class="col-12 col-md-6">
                                         <input type="text" id="courier-name" name="courier-name" placeholder="Courier Name" class="form-control"
 											   ng-model="dispatch.courier_name"
-											   ng-minlength="3"
-											   ng-maxlength="10"
 											   required>
-                                        <!-- <span class="help-block">Please Enter Courier Name </span> -->
                                     </div>
                                 </div>
                                 <div class="row form-group">
@@ -331,21 +321,15 @@
                                     <div class="col-12 col-md-6">
                                         <input type="text" id="person-name" name="person-name" placeholder="Person Name" class="form-control"
 											   ng-model="dispatch.person_name"
-											   ng-minlength="3"
-											   ng-maxlength="10"
 											   required>
-                                        <!-- <span class="help-block">Please Enter Person Name </span> -->
                                     </div>
                                 </div>
     	                	</form>
     	                </div>
     	                <div class="card-footer">
-                            <button type="submit" class="btn btn-primary btn-sm" ng-click = "AddDispatch()">
+                            <button type="submit" class="btn btn-primary btn-sm" ng-click = "AddDispatch()" ng-disabled="DispatchForm.$invalid">
                                 <i class="fa fa-dot-circle-o"></i> Submit
                             </button>
-                            <!-- <button type="reset" class="btn btn-danger btn-sm">
-                                <i class="fa fa-ban"></i> Reset
-                            </button> -->
                             <button type="reset" class="btn btn-secondary btn-sm" ng-click="HideDPForm();">
 	                            <i class="fa fa-ban"></i> Close
 	                        </button>

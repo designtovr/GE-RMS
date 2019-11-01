@@ -4,6 +4,7 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 	$scope.openTab = false;
 	$scope.jobticket = {};
 	$scope.tab = 'jobticketopen';
+	$scope.page = 1;
 	$scope.pvprioritylist = [];
 	$scope.pvprioritylistmax = 0;
 
@@ -54,13 +55,11 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 
 	$scope.SetPVPriority = function(pv_id, priority)
 	{
-		console.log(pv_id);
-		console.log(priority);
 		PVPriorityService.SetPVPriority(pv_id, priority, function(response){
 			if (response.data.status == 'success')
 			{
 				Notification.success(response.data.message);
-				$scope.LoadData($scope.tab);
+				$scope.LoadData($scope.page);
 				$scope.GetPVPriorityList();
 			}
 			else if (response.data.status == 'failure')
@@ -158,12 +157,16 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 		console.log(page);
 		$scope.openTab = false;
 		$scope.startTab = false;
-		$scope.tab = page;
+		$scope.completedTab = false;
+		$scope.page = page;
 		if(page == 'jobticketopen')
 			$scope.openTab = true;
 
 		if(page == 'jobticketstarted')
 			$scope.startTab = true;
+
+		if (page == 'jobticketcompleted')
+			$scope.completedTab = true;
 
 		$http({
 			method: 'GET',

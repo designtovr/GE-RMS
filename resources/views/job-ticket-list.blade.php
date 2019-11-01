@@ -176,7 +176,7 @@
 									<th sortable="repair_comment" class="sortable" ng-show="tab=='jobticketcompleted'">
 										Repair Comment
 									</th>
-									<th sortable="pvl_priority" class="sortable">
+									<th sortable="pvl_priority_for_display" class="sortable">
 										Priority
 									</th>
 									<th ng-show="tab!='jobticketcompleted'">
@@ -201,13 +201,13 @@
 									<td ng-bind="item.end_customer"></td>
 									<td ng-bind="item.manager_comment"></td>
 									<td ng-show="tab=='jobticketcompleted'" ng-bind="item.repair_comment"></td>
-									<td ng-bind="item.pvl_priority"></td>
+									<td ng-bind="item.pvl_priority_for_display"></td>
 									<td ng-show="tab!='jobticketcompleted'">
 										<div class="btn-group">
                                             <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-success" >Priority</button>
                                             <div tabindex="-1" aria-hidden="true" role="menu" class="dropdown-menu scrollable-menu">
-                                            	<button ng-if="item.pvl_priority == 'NA'" type="button" tabindex="0" class="dropdown-item" ng-click="SetPVPriority(item.id, pvprioritylistmax)">Set New: @{{pvprioritylistmax}}</button>
-                                            	<div ng-if="item.pvl_priority == 'NA'" tabindex="-1" class="dropdown-divider"></div>
+                                            	<button ng-if="item.pvl_priority == 999999" type="button" tabindex="0" class="dropdown-item" ng-click="SetPVPriority(item.id, pvprioritylistmax)">Set New: @{{pvprioritylistmax}}</button>
+                                            	<div ng-if="item.pvl_priority == 999999" tabindex="-1" class="dropdown-divider"></div>
                                                 <button ng-if="item.pvl_priority != pr.priority" type="button" tabindex="0" class="dropdown-item" ng-repeat="pr in pvprioritylist" ng-click="SetPVPriority(item.id, pr.priority)">@{{pr.priority}}</button>
                                             </div>
                                         </div>

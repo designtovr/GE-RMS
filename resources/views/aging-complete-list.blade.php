@@ -163,6 +163,12 @@
                                                 <th ng-show="startTab || !openTab" sortable="aging_comment" class="sortable">
                                                     Aging Comment
                                                 </th>
+                                                <th sortable="pvl_priority_for_display" class="sortable">
+                                                    Priority
+                                                </th>
+                                                <th ng-show="!completedTab">
+                                                    Actions
+                                                </th>
                  								<!-- <th ng-if="openTab || startTab">
                  									Actions
                  								</th> -->
@@ -185,17 +191,17 @@
                  								<td ng-bind="item.end_customer"></td>
                  								<td ng-bind="item.testing_comment"></td>
                                                 <td ng-show="startTab || !openTab" ng-bind="item.aging_comment"></td>
-                 								<!-- <td ng-if="openTab || startTab">
-                 									<div class="table-data-feature">
-                 										<div class="btn-group p-r-10">
-                 											<button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-info">Action</button>
-                 											<div tabindex="-1" aria-hidden="true" role="menu" class="dropdown-menu">
-                 												<button type="button" tabindex="0" class="dropdown-item">Started</button>
-                 												<button type="button" tabindex="0" class="dropdown-item">Completed</button>
-                 											</div>
-                 										</div>
-                 									</div>
-                 								</td> -->
+                 								<td ng-bind="item.pvl_priority_for_display"></td>
+                                                <td ng-show="!completedTab">
+                                                    <div class="btn-group">
+                                                        <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-success" >Priority</button>
+                                                        <div tabindex="-1" aria-hidden="true" role="menu" class="dropdown-menu scrollable-menu">
+                                                            <button ng-if="item.pvl_priority == 999999" type="button" tabindex="0" class="dropdown-item" ng-click="SetPVPriority(item.id, pvprioritylistmax)">Set New: @{{pvprioritylistmax}}</button>
+                                                            <div ng-if="item.pvl_priority == 999999" tabindex="-1" class="dropdown-divider"></div>
+                                                            <button ng-if="item.pvl_priority != pr.priority" type="button" tabindex="0" class="dropdown-item" ng-repeat="pr in pvprioritylist" ng-click="SetPVPriority(item.id, pr.priority)">@{{pr.priority}}</button>
+                                                        </div>
+                                                    </div>
+                                                </td>
                  							</tr>
                  						</tbody>
                  					</table>

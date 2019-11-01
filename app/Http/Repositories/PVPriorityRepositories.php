@@ -13,7 +13,7 @@ class PVPriorityRepositories
 
 	public static function PriorityList()
 	{
-		$data['list'] = PVPriority::all();
+		$data['list'] = PVPriority::orderBy('priority')->get();
 		$data['max'] = PVPriority::max('priority') + 1;
 		return $data;
 	}
@@ -87,6 +87,18 @@ class PVPriorityRepositories
 		}
 
 		return $result;
+		
+	}
+
+	public static function ChangingPriorityAfterDispatching($pv_id)
+	{
+		$PV = PVPriority::where('pv_id', $pv_id)->first();
+		if ($PV)
+		{
+			$priority = $PV->priority;
+			PVPriority::where('pv_id', $pv_id)->delete();
+			PVPriority::where('priority','>', $priority)->decrement('priority');
+		}
 		
 	}
 

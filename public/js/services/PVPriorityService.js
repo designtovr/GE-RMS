@@ -7,7 +7,6 @@ app.service('PVPriorityService', function($http){
 			method: 'GET',
 			url: '/ge/pvprioritylist'
 		}).then(function success(response) {
-			console.log(response.data)
 			list =  response.data.data;
 			max = response.data.max;
 			callback(list, max);

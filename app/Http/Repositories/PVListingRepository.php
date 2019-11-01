@@ -14,7 +14,7 @@ class PVListingRepository
 	private function PVList($status_id)
 	{
 		$pv = PhysicalVerificationMaster::
-				selectRaw('physical_verification.*,receipt.gs_no, receipt.customer_id, cus.name as customer_name,receipt.end_customer,pr.part_no,pt.category,ma_pv_status.status, ma_pv_status.close_status, rmu.sw_version, rmu.rma_id, rmu.desc_of_fault as customer_comment, warranty.comment as manager_comment, tes.comment as testing_comment, jt.comment as repair_comment, aging.comment as aging_comment, tes.created_at as tes_created_at, IF(pvl.priority > 0, pvl.priority, "NA") as pvl_priority')
+				selectRaw('physical_verification.*,receipt.gs_no, receipt.customer_id, cus.name as customer_name,receipt.end_customer,pr.part_no,pt.category,ma_pv_status.status, ma_pv_status.close_status, rmu.sw_version, rmu.rma_id, rmu.desc_of_fault as customer_comment, warranty.comment as manager_comment, tes.comment as testing_comment, jt.comment as repair_comment, aging.comment as aging_comment, tes.created_at as tes_created_at, IF(pvl.priority > 0, pvl.priority, 999999) as pvl_priority, IF(pvl.priority > 0, pvl.priority, "NA") as pvl_priority_for_display')
 				->leftJoin('receipt', 'physical_verification.receipt_id', 'receipt.id')
 				->leftJoin('ma_product as pr', 'pr.id', 'physical_verification.product_id')
 				->leftJoin('ma_product_type as pt', 'pt.id', 'physical_verification.producttype_id')
@@ -23,9 +23,7 @@ class PVListingRepository
 				->leftJoin('rma_unit_information as rmu', 'rmu.pv_id', 'physical_verification.id')
 				->leftJoin('rma', 'rma.id', 'rmu.rma_id')
 				->leftJoin('warranty', 'warranty.pv_id', 'physical_verification.id')
-				->leftJoin('auto_test_bench as tes', function($join){
-					$join->on('tes.pv_id', 'physical_verification.id');
-				})
+				->leftJoin('auto_test_bench as tes', 'tes.pv_id', 'physical_verification.id')
 				->leftJoin('job_tickets as jt', 'jt.pv_id', 'physical_verification.id')
 				->leftJoin('aging', 'aging.pv_id', 'physical_verification.id')
 				->leftJoin('ma_customer as cus', 'cus.id', 'receipt.customer_id')

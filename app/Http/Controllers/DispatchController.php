@@ -10,6 +10,8 @@ use App\Models\CustomerSiteTransaction;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\AddDispatchRequest;
+use App\Http\Repositories\PVPriorityRepositories;
+use App\Http\Repositories\PVStatusRepositories;
 use Carbon\Carbon;
 
 class DispatchController extends Controller
@@ -32,32 +34,19 @@ class DispatchController extends Controller
         $DM = new DispatchMaster();
         $date = Carbon::createFromFormat('d/m/Y',$dispatch['date']);
         $DM->date = $date->format('Y-m-d');
-        $DM->rid_no = $dispatch['id'];
+        $DM->pv_id = $dispatch['id'];
         $DM->dc_no = $dispatch['dc_no'];
         $DM->docket_details = $dispatch['docket_details'];
-        $DM->rma_no = $dispatch['rma_id'];
+        $DM->rma_id = $dispatch['rma_id'];
         $DM->courier_name = $dispatch['courier_name'];
         $DM->person_name = $dispatch['person_name'];
-
-        /* $DM->created_by = Auth::id();
-          $DM->updated_by = Auth::id();
-          $DM->created_at = Carbon::now();
-          $DM->updated_at = Carbon::now();*/
+        $DM->created_by = Auth::id();
         $DM->save();
 
-        /*  $CST = new CustomerSiteTransaction();
-          $CST->customer_id = $CM->id;
-          $CST->site_id = $customer['site_id'];
-          $CST->created_by = Auth::id();
-          $CST->updated_at = Auth::id();
-          $CST->save();
-  
-          $CLT = new CustomerLocationTransaction();
-          $CLT->customer_id = $CM->id;
-          $CLT->location_id = $customer['location_id'];
-          $CLT->created_by = Auth::id();
-          $CLT->updated_by = Auth::id();
-          $CLT->save();*/
+        //change pv status
+        PVStatusRepositories::ChangeStatusToDispatchced($DM->pv_id);
+        //re-order the priority
+        PVPriorityRepositories::ChangingPriorityAfterDispatching($DM->pv_id);
 
         return response()->json(['data' => $DM, 'status' => 'success', 'message' => 'Dispatch Added Successfully'], 200);
     }

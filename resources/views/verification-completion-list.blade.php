@@ -21,6 +21,12 @@
 							<table class="table table-borderless table-data3 table-custom">
 								<thead>
 									<tr>
+										<th>
+											<input id="ridFilter" type="text"
+											class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
+											placeholder="RID #" ng-change="gridActions.filter();"
+											ng-model="filterID" filter-by="id" filter-type="text">
+										</th>
                                         <th>
                                             <input id="rmaidFilter" type="text"
                                             class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
@@ -28,25 +34,12 @@
                                             ng-model="filterrmaID" filter-by="rma_id" filter-type="text">
                                         </th>
 										<th>
-											<input id="ridFilter" type="text"
-											class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
-											placeholder="RID #" ng-change="gridActions.filter();"
-											ng-model="filterID" filter-by="id" filter-type="text">
-										</th>
-										<th>
 											<input id="productFilter" type="text"
 											class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
 											placeholder="Model No" ng-change="gridActions.filter();"
 											ng-model="filterpart_no" filter-by="part_no"
 											filter-type="text">
 										</th>
-                                        <th>
-                                            <input id="serialFilter" type="text"
-                                            class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
-                                            placeholder="Serial No" ng-change="gridActions.filter();"
-                                            ng-model="filterserial_no" filter-by="serial_no"
-                                            filter-type="text">
-                                        </th>
                                         <th>
                                             <input id="serialFilter" type="text"
                                             class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
@@ -147,12 +140,12 @@
          					<table class="table table-borderless table-data3  ">
          						<thead>
          							<tr>
+                                        <th sortable="id" class="sortable">
+                                            RID
+                                        </th>
                                         <th sortable="rma_id" class="sortable">
                                             RMA Id
                                         </th>
-         								<th sortable="id" class="sortable">
-         									RID
-         								</th>
          								<th sortable="pvdate" class="sortable">
          									Date
          								</th>
@@ -172,6 +165,9 @@
          								<th sortable="manager_comment" class="sortable">
          									Comment
          								</th>
+                                        <th sortable="pvl_priority_for_display" class="sortable">
+                                            Priority
+                                        </th>
          								<th ng-if="status == 'agingcompleted'">
          									Actions
          								</th>
@@ -179,23 +175,28 @@
          						</thead>
          						<tbody>
          							<tr grid-item>
+                                        <td ng-bind="item.id"></td>
                                         <td ng-bind="item.rma_id"></td>
-         								<td ng-bind="item.id"></td>
          								<td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
          								<td ng-bind="item.part_no"></td>
          								<td ng-bind="item.serial_no"></td>
          								<td ng-bind="item.customer_name"></td>
          								<td ng-bind="item.end_customer"></td>
          								<td ng-bind="item.manager_comment"></td>
-         						
+         						        <td ng-bind="item.pvl_priority_for_display"></td>
                                         <td ng-if="status == 'agingcompleted'">
         		                         	<div class="table-data-feature">
         		                         		<button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="ShowVCForm(item);">
         	                                        <i class="zmdi zmdi-edit"></i>
         	                                    </button>
-        	                                    <!-- <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-        	                                        <i class="zmdi zmdi-delete"></i>
-        	                                    </button> -->
+        	                                    <div class="btn-group">
+                                                    <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-success" >Priority</button>
+                                                    <div tabindex="-1" aria-hidden="true" role="menu" class="dropdown-menu scrollable-menu">
+                                                        <button ng-if="item.pvl_priority == 999999" type="button" tabindex="0" class="dropdown-item" ng-click="SetPVPriority(item.id, pvprioritylistmax)">Set New: @{{pvprioritylistmax}}</button>
+                                                        <div ng-if="item.pvl_priority == 999999" tabindex="-1" class="dropdown-divider"></div>
+                                                        <button ng-if="item.pvl_priority != pr.priority" type="button" tabindex="0" class="dropdown-item" ng-repeat="pr in pvprioritylist" ng-click="SetPVPriority(item.id, pr.priority)">@{{pr.priority}}</button>
+                                                    </div>
+                                                </div>
         	                                </div>
         		                         </td>
          							</tr>
@@ -406,9 +407,6 @@
 	                        <button type="submit" class="btn btn-primary btn-sm" ng-click="SaveVerification();">
 	                            <i class="fa fa-dot-circle-o"></i> Save
 	                        </button>
-	                        <!-- <button type="reset" class="btn btn-danger btn-sm">
-	                            <i class="fa fa-ban"></i> Reset
-	                        </button> -->
 	                        <button type="reset" class="btn btn-secondary btn-sm" ng-click="CloseVCForm();">
 	                            <i class="fa fa-ban"></i> Close
 	                        </button>
