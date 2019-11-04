@@ -1,5 +1,21 @@
 app.controller('DashBoardController', ['$scope', '$http', 'Notification' , function($scope, $http , Notification)
 {
+    $scope.dashboardvalues = {};
+    $scope.GetDashboardValues = function()
+    {
+        $http({
+            'url': '/ge/getdashboardvalues',
+            'method': 'GET',
+        }).then(function(response){
+            if (response.data.status == 'success')
+            {
+                $scope.dashboardvalues = response.data.data;
+            }
+        }, function(response){
+
+        });
+    }
+
     try {
         var data  = {
                 labels: ["Today - Numerical", "Today - Conventional","Monthly - Numerical", "Monthly - Conventional"],

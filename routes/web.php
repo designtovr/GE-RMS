@@ -198,6 +198,7 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::get('masters-page/user', function(){
 		return view('masters.user');
 	});
+	Route::get('getdashboardvalues', 'DashboardController@GetDashboardValues');
 	Route::get('/customers','CustomerController@Customers');
 	Route::get('/endcustomers','CustomerController@EndCustomers');
 	Route::get('/products','ProductController@Products');

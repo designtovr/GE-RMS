@@ -149,4 +149,67 @@ class PVListingRepository
         return (new self)->PVList($status_id);
     }
 
+    public static function DashBoardValues()
+    {
+    	$pvs = array();
+    	//get data for physicalverification
+    	$pvs['for_physical_verification'] = DB::table('physical_verification as pv')->selectRaw('pv.receipt_id, rc.customer_id, cus.name as customer_name, COUNT(*) as total')
+    			->join('receipt as rc', 'rc.id', 'pv.receipt_id')
+    			->join('ma_customer as cus', 'cus.id', 'rc.customer_id')
+    			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+    			->where('sta.current_status_id', 1)
+    			->orWhere('sta.current_status_id', 2)
+    			->groupBy('customer_id')
+    			->get();
+    	//loop and add due count
+    	foreach ($pvs['for_physical_verification'] as $key => $for_pv) {
+    		$for_pv->overdue = 5;
+    	}
+    	//data for for W/C
+    	$pvs['wch'] = DB::table('physical_verification as pv')->selectRaw('pt.name as type_name, COUNT(*) as total')
+    					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+    					->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+    					->where('sta.current_status_id', 13)
+    					->groupBy('pt.id')
+    					->get();
+    	//loop and add due count
+    	foreach ($pvs['wch'] as $key => $wc) {
+    		$wc->overdue = 5;
+    	}
+    	//data for test
+    	$pvs['for_test'] = DB::table('physical_verification as pv')->selectRaw('pt.name as type_name, COUNT(*) as total')
+    					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+    					->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+    					->where('sta.current_status_id', 6)
+    					->groupBy('pt.id')
+    					->get();
+    	//loop and add due count
+    	foreach ($pvs['for_test'] as $key => $test) {
+    		$test->overdue = 5;
+    	}
+
+    	//data for packing
+    	$pvs['for_pack'] = DB::table('physical_verification as pv')->selectRaw('pt.name as type_name, COUNT(*) as total')
+    					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+    					->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+    					->where('sta.current_status_id', 14)
+    					->groupBy('pt.id')
+    					->get();
+    	//loop and add due count
+    	foreach ($pvs['for_pack'] as $key => $pack) {
+    		$pack->overdue = 5;
+    	}
+
+    	//priority list
+    	$pvs['priority'] = DB::table('physical_verification as pv')->selectRaw('pv.serial_no, pt.name as type_name, IF(pvl.priority > 0, pvl.priority, 999999) as pvl_priority, rms.rack_id')
+    				->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+    				->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+    				->leftJoin('rms', 'rms.pv_id', 'pv.id')
+    				->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'pv.id')
+    				->whereIn('sta.current_status_id', [3,4,5,6,7,8,9,10,11,12,15])
+    				->orderBy('pvl_priority')->orderBy('pv.id')->get()->take(10);
+
+    	return $pvs;
+    }
+
 }

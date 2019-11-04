@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="main-content" ng-controller="DashBoardController">
-    <div class="section__content section__content--p30">
+    <div class="section__content section__content--p30" ng-init="GetDashboardValues();">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
@@ -41,16 +41,10 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>AK Electricals</td>
-                                            <td>5 </td>
-                                            <td><span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s">10</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>PGCIL - Vadodara</td>
-                                            <td>5 </td>
-
-                                            <td><span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s">5</span> </td>
+                                        <tr ng-repeat="forpv in dashboardvalues.for_physical_verification">
+                                            <td ng-bind="forpv.customer_name | uppercase"></td>
+                                            <td ng-bind="forpv.total"></td>
+                                            <td><span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s" ng-bind="forpv.overdue"></span></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -81,42 +75,11 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>PX40</td>
-                                            <td>5</td>
-                                            <td> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s">2</span></td>
+                                        <tr ng-repeat="forwc in dashboardvalues.wch">
+                                            <td ng-bind="forwc.type_name"></td>
+                                            <td ng-bind="forwc.total"></td>
+                                            <td> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s" ng-bind="forwc.overdue"></span></td>
                                         </tr>
-                                        <tr>
-                                            <td>C264</td>
-                                            <td>10</td>
-                                            <td> 0<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s"></span></td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>Agile</td>
-                                            <td>10</td>
-                                            <td> 0<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s"></span></td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>Conventional</td>
-                                            <td>10</td>
-                                            <td> 0<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s"></span></td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>Other</td>
-                                            <td>10</td>
-                                            <td> 0<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s"></span></td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>BOJ</td>
-                                            <td>10</td>
-                                            <td> 0<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s"></span></td>
-
-                                        </tr>
-
                                         </tbody>
                                     </table>
                                 </div>
@@ -146,42 +109,11 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>PX40</td>
-                                            <td>5</td>
-                                            <td> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s">2</span></td>
+                                        <tr ng-repeat="test in dashboardvalues.for_test">
+                                            <td ng-bind="test.type_name"></td>
+                                            <td ng-bind="test.total"></td>
+                                            <td> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s" ng-bind="test.overdue"></span></td>
                                         </tr>
-                                        <tr>
-                                            <td>C264</td>
-                                            <td>10</td>
-                                            <td> 0<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s"></span></td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>Agile</td>
-                                            <td>10</td>
-                                            <td> 0<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s"></span></td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>Conventional</td>
-                                            <td>10</td>
-                                            <td> 0<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s"></span></td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>Other</td>
-                                            <td>10</td>
-                                            <td> 0<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s"></span></td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>BOJ</td>
-                                            <td>10</td>
-                                            <td> 0<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s"></span></td>
-
-                                        </tr>
-
                                         </tbody>
                                     </table>
                                 </div>
@@ -211,42 +143,11 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>PX40</td>
-                                            <td>5</td>
-                                            <td> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s">2</span></td>
+                                        <tr ng-repeat="pack in dashboardvalues.for_pack">
+                                            <td ng-bind="pack.type_name"></td>
+                                            <td ng-bind="pack.total"></td>
+                                            <td> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s" ng-bind="pack.overdue"></span></td>
                                         </tr>
-                                        <tr>
-                                            <td>C264</td>
-                                            <td>10</td>
-                                            <td> 0<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s"></span></td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>Agile</td>
-                                            <td>10</td>
-                                            <td> 0<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s"></span></td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>Conventional</td>
-                                            <td>10</td>
-                                            <td> 0<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s"></span></td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>Other</td>
-                                            <td>10</td>
-                                            <td> 0<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s"></span></td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>BOJ</td>
-                                            <td>10</td>
-                                            <td> 0<span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s"></span></td>
-
-                                        </tr>
-
                                         </tbody>
                                     </table>
                                 </div>
@@ -307,73 +208,11 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>PX40</td>
-                                            <td>43976987</td>
-                                            <td>R2</td>
+                                        <tr ng-repeat="pr in dashboardvalues.priority">
+                                            <td ng-bind="pr.type_name"></td>
+                                            <td ng-bind="pr.serial_no"></td>
+                                            <td ng-bind="pr.rack_id"></td>
                                         </tr>
-                                        <tr>
-                                            <td>PX40</td>
-                                            <td>43976987</td>
-                                            <td>R2</td>
-                                        </tr>    <tr>
-                                            <td>PX40</td>
-                                            <td>43976987</td>
-                                            <td>R2</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>C264</td>
-                                            <td>328946598</td>
-                                            <td>C4</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>Agile</td>
-                                            <td>23578230</td>
-                                            <td>R45</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>Agile</td>
-                                            <td>23578230</td>
-                                            <td>R45</td>
-
-                                        </tr> <tr>
-                                            <td>Agile</td>
-                                            <td>23578230</td>
-                                            <td>R45</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>Conventional</td>
-                                            <td>238230</td>
-                                            <td>R4</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Other</td>
-                                            <td>237598</td>
-                                            <td>R3</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>BOJ</td>
-                                            <td>29385698</td>
-                                            <td>R46</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>BOJ</td>
-                                            <td>29385698</td>
-                                            <td>R46</td>
-
-                                        </tr>          <tr>
-                                            <td>BOJ</td>
-                                            <td>29385698</td>
-                                            <td>R46</td>
-
-                                        </tr>
-
                                         </tbody>
                                     </table>
                                 </div>

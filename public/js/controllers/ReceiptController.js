@@ -73,7 +73,8 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 	$scope.Reset = function()
 	{
 		$scope.filterid = '';
-		$scope.filterpvdate = '';
+		$scope.filterpvtodate = '';
+		$scope.filterpvfromdate = '';
 		$scope.filterCustomer = '';
 		$scope.filterendCustomer = '';
 		$scope.filterdocketdetails = '';
