@@ -18,7 +18,7 @@ class ReceiptController extends Controller
 {
     public function Receipts($cat='all')
     {
-        $receipt = ReceiptMaster::selectRaw('receipt.*, receipt.id as receipt_id, site.name as site_name, cus.name as customer_name')->leftJoin('ma_customer as cus', 'cus.id', 'receipt.customer_id')->leftJoin('ma_site as site', 'site.id', 'receipt.site_id');
+        $receipt = ReceiptMaster::selectRaw('receipt.*, receipt.id as receipt_id, receipt.rma_no as rma_id, site.name as site_name, cus.name as customer_name')->leftJoin('ma_customer as cus', 'cus.id', 'receipt.customer_id')->leftJoin('ma_site as site', 'site.id', 'receipt.site_id');
         if ($cat == 'open')
         {
             $receipt = $receipt->where('status', 1)->get();
@@ -97,6 +97,7 @@ class ReceiptController extends Controller
             $RM->update();
             $message = 'Receipt Updated Successfully';
         } else {
+            $RM->rma_no = $this->GetNextRMANo();
             $RM->created_by = Auth::id();
             $RM->updated_by = Auth::id();
             $RM->created_at = Carbon::now();
@@ -107,6 +108,16 @@ class ReceiptController extends Controller
 
 
         return response()->json(['data' => $RM, 'status' => 'success', 'message' => $message], 200);
+    }
+
+    private function GetNextRMANo()
+    {
+        $num = ReceiptMaster::max('rma_no');
+        if ($num == 0)
+            $num = config('numberseries.rma_no');
+        else
+            $num += 1; 
+        return $num;
     }
 
     public function DeleteReceipt($id)

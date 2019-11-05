@@ -2,7 +2,7 @@
 
 return [
 
-    'rma_ref_no' => 1,
+    'rma_no' => 1,
     'rid' => 1,
 
 ];

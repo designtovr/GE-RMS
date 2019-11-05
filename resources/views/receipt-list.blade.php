@@ -22,6 +22,9 @@
                                         <input id="ridFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Receipt ID #" ng-change="gridActions.filter()" ng-model="filterid" filter-by="id" filter-type="text">
                                     </th>
                                     <th>
+                                        <input id="rmaidFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="RMA No #" ng-change="gridActions.filter()" ng-model="filterrmaid" filter-by="rma_id" filter-type="text">
+                                    </th>
+                                    <th>
                                         <input type="text"
                                         id="fromdateFilter"
                                         class="form-control"
@@ -30,7 +33,7 @@
                                         filter-type="dateFrom"
                                         ng-model="filterpvfromdate"
                                         filter-by="receipt_date"
-                                        ng-change="gridActions.filter()"
+                                        ng-change="gridActions.filter();checkDate();"
                                         />
                                     </th>
                                     <th>
@@ -42,7 +45,7 @@
                                         filter-type="dateTo"
                                         ng-model="filterpvtodate"
                                         filter-by="receipt_date"
-                                        ng-change="gridActions.filter()"
+                                        ng-change="gridActions.filter();checkDate();"
                                         />
                                     </th>
                                     <th>
@@ -87,6 +90,9 @@
                                         <th sortable="id" class="sortable">
                                             Receipt Id
                                         </th>
+                                        <th sortable="rma_id" class="sortable">
+                                            RMA No
+                                        </th>
                                         <th sortable="receipt_date" class="sortable">
                                             Receipt Date
                                         </th>
@@ -114,8 +120,8 @@
                                 <tbody>
                                     <tr grid-item>
                                         <td ng-bind="item.id"></td>
-                                        <td ng-bind="item.receipt_date"></td>
-
+                                        <td ng-bind="item.rma_id"></td>
+                                        <td ng-bind="item.receipt_date | date:'dd/MM/yyyy'"></td>
                                         <td ng-bind="item.customer_name"></td>
                                         <td ng-bind="item.site_name"></td>
                                         <td ng-bind="item.courier_name"></td>
@@ -420,13 +426,13 @@
 
             $("#fromdateFilter").datepicker({
                 autoclose: true,
-                format: 'yyyy-mm-dd',
+                format: 'dd/mm/yyyy',
                 todayHighlight: true,
             });
 
             $("#todateFilter").datepicker({
                 autoclose: true,
-                format: 'yyyy-mm-dd',
+                format: 'dd/mm/yyyy',
                 todayHighlight: true,
             });
 

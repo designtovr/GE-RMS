@@ -78,6 +78,13 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 		$scope.filterCustomer = '';
 		$scope.filterendCustomer = '';
 		$scope.filterdocketdetails = '';
+		$scope.filterrmaid = '';
+	}
+
+	$scope.checkDate = function()
+	{
+		console.log($scope.filterpvfromdate);
+		console.log($scope.filterpvtodate);
 	}
 
 	$scope.getReceipts = function()
