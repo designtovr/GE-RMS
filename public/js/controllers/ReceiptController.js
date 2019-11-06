@@ -47,6 +47,7 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 							text: 'Print',
 							btnClass: 'btn-blue',
 							action: function(){
+								$scope.PrintReceipts(response.data.data);
 								$scope.HideReceiptForm();
 							}
 						},
@@ -107,6 +108,37 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 		$scope.receiptform = true;
 		$scope.editReceipt = false;
 	}
+
+
+	$scope.PrintReceipts = function($data)
+	{
+		$http({
+			method: 'post',
+			url: '/ge/printreceipt',
+			data: {
+				'receipt': $data,
+			},
+		}).then(function success(response) {
+			console.log("12311");
+			if (response.data.status == 'success') {
+				console.log("123");
+			}
+		}, function failure(response){
+				if (response.status == 422)
+				{
+
+					var errors = response.data.errors;
+					for(var error in errors)
+					{
+						Notification.error(errors[error][0]);
+						break;
+					}
+				}
+			});
+
+
+	}
+
 
 	$scope.HideReceiptForm = function()
 	{

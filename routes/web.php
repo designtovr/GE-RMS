@@ -38,6 +38,10 @@ Route::get('/charts', function() {
 	return view('charts');
 });
 
+Route::get('/print', function() {
+    return view('print');
+});
+
 Route::get('/forms', function() {
 	return view('forms');
 });
@@ -298,7 +302,9 @@ Route::group(['middleware' => ['auth']], function(){
 
 	Route::post('/addmaterial', 'MaterialController@AddMaterial');
 
-	Route::post('/addsite', 'SiteController@AddSite');
+    Route::post('/addsite', 'SiteController@AddSite');
+    Route::post('/printlabel', 'PrintController@PrintLabel');
+    Route::post('/printreceipt', 'PrintController@PrintReceipt');
 
 	Route::delete('/site/{id}', 'SiteController@DeleteSite');
 });
