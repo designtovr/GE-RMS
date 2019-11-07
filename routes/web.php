@@ -210,6 +210,7 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::get('/locations','LocationController@Locations');
 	Route::delete('/location/{id}', 'LocationController@DeleteLocation');
 	Route::get('/sites','SiteController@Sites');
+	Route::get('/sitesforreceipt','SiteController@SitesForReceipt');
 	Route::get('/rack-types','RackTypeController@RackTypes');
 	Route::get('/racks','RackController@Racks');
 	Route::get('/materials','MaterialController@Materials');

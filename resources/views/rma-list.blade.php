@@ -110,7 +110,7 @@
                                                 <thead>
                                                 <tr>
                                                     <th sortable="id" class="sortable">
-                                                        RMA Ref No
+                                                        RMA No
                                                     </th>
                                                     <th sortable="date" class="sortable">
                                                         Date
@@ -233,7 +233,7 @@
                                                         </label>
                                                     </td>
                                                     <td ng-bind="item.id"></td>
-                                                    <td ng-bind="'RC ' + item.receipt_id"></td>
+                                                    <td ng-bind="item.receipt_id"></td>
                                                     <td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
                                                     <td ng-bind="item.customer_name"></td>
                                                     <td ng-bind="item.end_customer"></td>
@@ -313,7 +313,7 @@
                                                         </label>
                                                     </td>
                                                     <td ng-bind="item.id"></td>
-                                                    <td ng-bind="'RC ' + item.receipt_id"></td>
+                                                    <td ng-bind="item.receipt_id"></td>
                                                     <td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
                                                     <td ng-bind="item.customer_name"></td>
                                                     <td ng-bind="item.end_customer"></td>
@@ -356,7 +356,7 @@
                                                 <thead>
                                                 <tr>
                                                     <th sortable="id" class="sortable">
-                                                        RMA Ref No
+                                                        RMA No
                                                     </th>
                                                     <th sortable="date" class="sortable">
                                                         Date
@@ -444,7 +444,7 @@
                                                 <thead>
                                                 <tr>
                                                     <th sortable="id" class="sortable">
-                                                        RMA Ref No
+                                                        RMA No
                                                     </th>
                                                     <th sortable="date" class="sortable">
                                                         Date

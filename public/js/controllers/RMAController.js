@@ -372,11 +372,11 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 			Notification.error("No Relay Selected");
 			return;
 		}
-		//checking for customer ids are same
-		var occurence = $scope.selectedpvs.filter(pv => pv.customer_id == $scope.selectedpvs[0].customer_id);
+		//checking for receipt ids are same
+		var occurence = $scope.selectedpvs.filter(pv => pv.receipt_id == $scope.selectedpvs[0].receipt_id);
 		if (occurence.length != $scope.selectedpvs.length)
 		{
-			Notification.error("You Selected Relay Of Different Customer");
+			Notification.error("You Selected Relay Of Different Receipt");
 			return;
 		}
 		console.log($scope.selectedpvs);
@@ -611,6 +611,10 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 						}
 					}
 				});
+			}
+			else if (response.data.status == 'failure')
+			{
+				Notification.error(response.data.message);
 			}
 		}, function(response){
 			if (response.status == 422)

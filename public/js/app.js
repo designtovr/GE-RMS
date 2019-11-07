@@ -24,22 +24,6 @@ app.factory('HttpInterceptor', function($q){
 	};
 });
 
-/*app.config(function ($httpProvider, NotificationProvider) {
-	$httpProvider.defaults.headers.post = { 'Content-Type': "application/json; charset=utf-8" };
-	$httpProvider.interceptors.push('HttpInterceptor');
-
-	NotificationProvider.setOptions({
-        delay: 1000,
-        startTop: 20,
-        startRight: 10,
-        verticalSpacing: 20,
-        horizontalSpacing: 20,
-        positionX: 'center',
-        positionY: 'top'
-    });
-
-});*/
-
 app.config(['$httpProvider', 'NotificationProvider', 'uiMask.ConfigProvider', function($httpProvider, NotificationProvider, uiMaskConfigProvider) {
   
 	$httpProvider.defaults.headers.post = { 'Content-Type': "application/json; charset=utf-8" };

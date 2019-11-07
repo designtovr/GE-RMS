@@ -103,9 +103,15 @@ class RMAController extends Controller
     {
     	$requestdata = $request->get('rma');
         $pvdata = $request->get('pvs');
-        if (!array_key_exists('id', $requestdata))
+        //checking for id not exists and edit is false
+        //so the entry is new 
+        //we need to get rma id from receipt and update
+        if (!array_key_exists('id', $requestdata) && !$requestdata['edit'])
         {
-            $RMA = new RMA();
+            $pv_to_get_receipt_id = PhysicalVerificationMaster::find($pvdata[0]['id']);
+            $RMA = RMA::where('receipt_id', $pv_to_get_receipt_id->receipt_id)->first();
+            if (!$RMA)
+                return response()->json(['status' => 'failure', 'message' => 'No RMA Found'], 200);
             $RMA->gs_no = $requestdata['gs_no'];
             $RMA->act_reference = (array_key_exists('act_reference', $requestdata))?$requestdata['act_reference']:'';
             $date = Carbon::createFromFormat('d/m/Y',$requestdata['date']);
@@ -116,7 +122,7 @@ class RMAController extends Controller
             $RMA->created_by = Auth::id();
             $RMA->updated_by = Auth::id();
             $RMA->updated_at = Carbon::now();
-            $RMA->save();
+            $RMA->update();
 
             $delivery_info = $requestdata['delivery_info'];
             $RMADelivery = new RMADeliveryAddress();
@@ -156,7 +162,7 @@ class RMAController extends Controller
                 PVStatusRepositories::ChangeStatusToManagerApproval($RMAUnitInformation->pv_id);
             }
 
-            return response()->json(['data' => $RMA, 'status' => 'success', 'message' => 'RMA Created Successfully'], 200);
+            return response()->json(['data' => $RMA, 'status' => 'success', 'message' => 'RMA Updated Successfully'], 200);
         }
         else
         {

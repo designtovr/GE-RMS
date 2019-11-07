@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\ReceiptMaster;
 use App\Models\SiteMaster;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\AddSiteRequest;
@@ -15,6 +16,20 @@ class SiteController extends Controller
     {
     	$sites = SiteMaster::all();
     	return response()->json(['data' => $sites, 'status' => 'success']);
+    }
+
+    public function SitesForReceipt(Request $request)
+    {
+        $sites_from_master = SiteMaster::select('name')->get();
+        $sites_from_receipt = ReceiptMaster::select('site')->groupby('site')->get();
+        $sites  = array();
+        foreach ($sites_from_master as $key => $site) {
+            $sites[$key] = $site->name;
+        }
+        foreach ($sites_from_receipt as $key => $site) {
+            $sites[$key] = $site->site;
+        }
+        return response()->json(['data' => $sites, 'status' => 'success']);
     }
 
     public function AddSite(AddSiteRequest $request)

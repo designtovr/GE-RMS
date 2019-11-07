@@ -16,6 +16,7 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 	   },
 	   urlSync: true};
 	$scope.editReceipt = false;
+	$scope.states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Dakota', 'North Carolina', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
 	$scope.AddReceipt= function()
 	{
 		/*if ($scope.receipt.customer_name == 'Add New')
@@ -26,6 +27,7 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 		{
 			$scope.receipt.end_customer = $scope.receipt.end_customer_new;
 		}*/
+		console.log($scope.receipt);
 		$http({
 			method: 'post',
 			url: '/ge/addreceipt',
@@ -56,6 +58,7 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 						}
 					}
 				});
+				$scope.GetSiteList();
 			}
 		}, function failure(response){
 			if (response.status == 422)
@@ -235,7 +238,7 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 	{
 		$http({
 			method: 'GET',
-			url: '/ge/sites'
+			url: '/ge/sitesforreceipt'
 		}).then(function success(response) {
 			$scope.sites = response.data.data;
 		}, function error(response) {

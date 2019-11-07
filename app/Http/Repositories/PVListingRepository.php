@@ -209,6 +209,86 @@ class PVListingRepository
     				->whereIn('sta.current_status_id', [3,4,5,6,7,8,9,10,11,12,15])
     				->orderBy('pvl_priority')->orderBy('pv.id')->get()->take(10);
 
+		//today status
+		$pvs['today_status']['numerical']['completed'] = DB::table('physical_verification as pv')->selectRaw('pt.name as type_name, COUNT(*) as total')
+			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+			->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'pv.id')
+			->whereIn('pt.code', ['Px40', 'C264', 'Agile'])
+			->whereDate('pv.created_at', date('Y-m-d'))
+			->where('sta.current_status_id', 12)
+			->count();
+
+		$pvs['today_status']['numerical']['pending'] = DB::table('physical_verification as pv')->selectRaw('pt.name as type_name, COUNT(*) as total')
+		->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+		->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+		->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'pv.id')
+		->whereIn('pt.code', ['Px40', 'C264', 'Agile'])
+		->whereDate('pv.created_at', date('Y-m-d'))
+		->where('sta.current_status_id', '<>', 12)
+		->count();
+
+		$pvs['today_status']['conventional']['completed'] = DB::table('physical_verification as pv')->selectRaw('pt.name as type_name, COUNT(*) as total')
+			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+			->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'pv.id')
+			->whereIn('pt.code', ['Other'])
+			->whereDate('pv.created_at', date('Y-m-d'))
+			->where('sta.current_status_id', 12)
+			->count();
+
+		$pvs['today_status']['conventional']['pending'] = DB::table('physical_verification as pv')->selectRaw('pt.name as type_name, COUNT(*) as total')
+		->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+		->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+		->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'pv.id')
+		->whereIn('pt.code', ['Other'])
+		->whereDate('pv.created_at', date('Y-m-d'))
+		->where('sta.current_status_id', '<>', 12)
+		->count();
+
+		//monthly status
+		$pvs['monthly_status']['numerical']['completed'] = DB::table('physical_verification as pv')->selectRaw('pt.name as type_name, COUNT(*) as total')
+			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+			->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'pv.id')
+			->whereIn('pt.code', ['Px40', 'C264', 'Agile'])
+			->whereMonth('pv.created_at', date('m'))
+			->where('sta.current_status_id', 12)
+			->count();
+
+		$pvs['monthly_status']['numerical']['pending'] = DB::table('physical_verification as pv')->selectRaw('pt.name as type_name, COUNT(*) as total')
+		->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+		->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+		->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'pv.id')
+		->whereIn('pt.code', ['Px40', 'C264', 'Agile'])
+		->whereMonth('pv.created_at', date('m'))
+		->where('sta.current_status_id', '<>', 12)
+		->count();
+
+		$pvs['monthly_status']['conventional']['completed'] = DB::table('physical_verification as pv')->selectRaw('pt.name as type_name, COUNT(*) as total')
+			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+			->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'pv.id')
+			->whereIn('pt.code', ['Other'])
+			->whereMonth('pv.created_at', date('m'))
+			->where('sta.current_status_id', 12)
+			->count();
+
+		$pvs['monthly_status']['conventional']['pending'] = DB::table('physical_verification as pv')->selectRaw('pt.name as type_name, COUNT(*) as total')
+		->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+		->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+		->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'pv.id')
+		->whereIn('pt.code', ['Other'])
+		->whereMonth('pv.created_at', date('m'))
+		->where('sta.current_status_id', '<>', 12)
+		->count();
+
+		$pvs['repair_warranty'] = DB::table('warranty as wa')->selectRaw('pt.name as type_name, COUNT(*) as total')
+			->join('physical_verification as pv', 'pv.id', 'wa.pv_id')
+			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+			->groupBy('pt.code')
+			->get();
     	return $pvs;
     }
 

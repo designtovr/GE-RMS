@@ -12,27 +12,28 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\AddReceiptRequest;
 use App\Http\Requests\AddPhysicalVerificationRequest;
+use App\Models\RMA;
 use Carbon\Carbon;
 
 class ReceiptController extends Controller
 {
     public function Receipts($cat='all')
     {
-        $receipt = ReceiptMaster::selectRaw('receipt.*, receipt.id as receipt_id, receipt.rma_no as rma_id, site.name as site_name, cus.name as customer_name')->leftJoin('ma_customer as cus', 'cus.id', 'receipt.customer_id')->leftJoin('ma_site as site', 'site.id', 'receipt.site_id');
+        $receipt = ReceiptMaster::selectRaw('receipt.*, receipt.id as receipt_id, rma.id as rma_id, receipt.site as site_name, cus.name as customer_name')->leftJoin('ma_customer as cus', 'cus.id', 'receipt.customer_id')/*->leftJoin('ma_site as site', 'site.id', 'receipt.site_id')*/->leftJoin('rma', 'rma.receipt_id', 'receipt.id');
         if ($cat == 'open')
         {
-            $receipt = $receipt->where('status', 1)->get();
+            $receipt = $receipt->where('receipt.status', 1)->orderBy('receipt.id')->get();
         }
         else if ($cat == 'closed')
         {
-            $receipt = $receipt->where('status', 3)->get();
+            $receipt = $receipt->where('receipt.status', 3)->orderBy('receipt.id')->get();
         }
         else if ($cat == 'all')
         {
-            $receipt = $receipt->get();
+            $receipt = $receipt->orderBy('receipt.id')->get();
         }
         else if ($cat == 'started') {
-            $receipt = $receipt->where('status', 2)->get();
+            $receipt = $receipt->where('receipt.status', 2)->orderBy('receipt.id')->get();
         }
         
         return response()->json(['data' => $receipt, 'status' => 'success']);
@@ -40,7 +41,7 @@ class ReceiptController extends Controller
 
     public function GetReceipt($id)
     {
-        $receipt = ReceiptMaster::with('Customer')->selectRaw('receipt.*, cus.name as customer_name')->leftJoin('ma_customer as cus', 'cus.id', 'receipt.customer_id')->where('receipt.id', $id)->leftJoin('ma_site as site', 'site.id', 'receipt.site_id')->first();
+        $receipt = ReceiptMaster::with('Customer')->selectRaw('receipt.*, cus.name as customer_name, rma.id as rma_id, receipt.site as site_name, cus.name as customer_name')->leftJoin('ma_customer as cus', 'cus.id', 'receipt.customer_id')->where('receipt.id', $id)/*->leftJoin('ma_site as site', 'site.id', 'receipt.site_id')*/->leftJoin('rma', 'rma.receipt_id', 'receipt.id')->first();
         return response()->json(['receipt' => $receipt, 'status' => 'success'], 200);
     }
 
@@ -85,7 +86,8 @@ class ReceiptController extends Controller
         $RM->customer_id = $receipt['customer_id'];
         //$RM->customer_name = $receipt['customer_name'];
         /*$RM->end_customer = $receipt['end_customer'];*/
-        $RM->site_id = $receipt['site_id'];
+        //$RM->site_id = $receipt['site_id'];
+        $RM->site = $receipt['site'];
         $RM->courier_name = $receipt['courier_name'];
         $RM->docket_details = $receipt['docket_details'];
         $RM->total_boxes = $receipt['total_boxes'];
@@ -97,13 +99,35 @@ class ReceiptController extends Controller
             $RM->update();
             $message = 'Receipt Updated Successfully';
         } else {
-            $RM->rma_no = $this->GetNextRMANo();
+            //$RM->rma_no = $this->GetNextRMANo();
             $RM->created_by = Auth::id();
             $RM->updated_by = Auth::id();
             $RM->created_at = Carbon::now();
             $RM->updated_at = Carbon::now();
             $RM->save();
+
             $message = 'Receipt Added Successfully';
+        }
+
+        //Creating Empty RMA Entry for print
+        $RMA = RMA::where('receipt_id', $RM->id)->first();
+        if ($RMA)
+        {
+            $RMA->customer_address_id = $receipt['customer_id'];
+            $RMA->updated_by = Auth::id();
+            $RMA->updated_at = Carbon::now();
+            $RMA->update();
+        }
+        else
+        {
+            $RMA = new RMA();
+            $RMA->receipt_id = $RM->id;
+            $RMA->customer_address_id = $receipt['customer_id'];
+            $RMA->status = 1;
+            $RMA->service_type = 1;
+            $RMA->created_by = Auth::id();
+            $RMA->created_at = Carbon::now();
+            $RMA->save();
         }
 
 
