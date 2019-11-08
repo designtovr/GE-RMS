@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Mail;
+use Illuminate\Support\Facades\DB;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -41,5 +42,10 @@ class MailController extends Controller {
          $message->from('xyz@gmail.com','Virat Gandhi');
       });
       echo "Email Sent with attachment. Check your inbox.";
+   }
+   public function StoredProcedure()
+   {
+      $status = DB::select('call displaypvstatus()');
+      return $status;
    }
 }
