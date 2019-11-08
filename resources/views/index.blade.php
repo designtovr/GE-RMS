@@ -7,16 +7,23 @@
     <div class="section__content section__content--p30" ng-init="GetDashboardValues();">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="overview-wrap">
                         <h2 class="title-1" id="DashBoard">CRC Dashboard</h2>
-                        <!-- <button class="au-btn au-btn-icon au-btn--blue">
-                            <i class="zmdi zmdi-plus"></i>add item</button> -->
                     </div>
+                </div>
+                <div class="col-md-6">
                     <div class="float-right">
                         <button type="button" class="btn btn-lg btn-danger m-l-10 m-b-10 animated infinite flash slower-5s">Live
                           <span class="badge badge-light"></span>
                         </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="alert alert-primary" role="alert">
+                        <a href="{{url('/receipt')}}" class="alert-link">Go to <strong>Receipt Page</strong></a>.
                     </div>
                 </div>
             </div>
@@ -64,7 +71,7 @@
 
                         </div>
                         <div class="au-task js-list-load">
-                            <div class=" ">
+                            <div class="au-task-list js-scrollbar3">
                                 <div class="table-responsive m-b-40">
                                     <table class="table table-borderless table-data3 table-data3-blue">
                                         <thead>
@@ -98,7 +105,7 @@
 
                         </div>
                         <div class="au-task js-list-load">
-                            <div class=" ">
+                            <div class="au-task-list js-scrollbar3">
                                 <div class="table-responsive m-b-40">
                                     <table class="table table-borderless table-data3 table-data3-blue">
                                         <thead>
@@ -132,7 +139,7 @@
 
                         </div>
                         <div class="au-task js-list-load">
-                            <div class=" ">
+                            <div class="au-task-list js-scrollbar3">
                                 <div class="table-responsive m-b-40">
                                     <table class="table table-borderless table-data3 table-data3-blue">
                                         <thead>

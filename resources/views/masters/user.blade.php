@@ -44,7 +44,7 @@
                 </div>
                 <div class="col-md-12">
                     <!-- DATA TABLE-->
-                    <div grid-data grid-options="gridOptions" grid-actions="gridActions">
+                    <div grid-data grid-options="usergridOptions" grid-actions="gridActions">
                         <table class="table table-borderless table-data3">
                             <thead>
                                 <tr>

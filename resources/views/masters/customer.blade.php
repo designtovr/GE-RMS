@@ -62,7 +62,7 @@
                 </div>
                 <div class="col-md-12">
                     <!-- DATA TABLE-->
-                    <div grid-data grid-options="gridOptions" grid-actions="gridActions">
+                    <div grid-data grid-options="customergridOptions" grid-actions="gridActions">
                         <table class="table table-borderless table-data3">
                             <thead>
                                 <tr>
@@ -408,14 +408,14 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger btn-sm" ng-click="CloseCustomerModal()">
-                        <i class="fa fa-ban"></i> Close
-                    </button>
                     <button ng-if="!customermodal.edit" type="submit" class="btn btn-primary btn-sm" ng-disabled="AddCustomerForm.$invalid" ng-click="AddCustomer();">
                         <i class="fa fa-dot-circle-o"></i> Submit
                     </button>
                     <button ng-if="customermodal.edit" type="submit" class="btn btn-primary btn-sm" ng-disabled="AddCustomerForm.$invalid" ng-click="AddCustomer();">
                         <i class="fa fa-dot-circle-o"></i> Update
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm" ng-click="CloseCustomerModal()">
+                        <i class="fa fa-ban"></i> Close
                     </button>
                 </div>
             </div>

@@ -36,7 +36,59 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 	$scope.user = {};
 	$scope.usermodal = [];
 
-	$scope.gridOptions = {
+	//need to declare seperate gridoptions, because i have common controller for all Master Pages
+	//so it will affects each master pages
+	$scope.customergridOptions = {
+		pagination: {
+			itemsPerPage: '10'
+		},
+		data:[],
+	   	sort: {
+
+	   	},
+	   	urlSync: true
+	};
+	$scope.productgridOptions = {
+		pagination: {
+			itemsPerPage: '10'
+		},
+		data:[],
+	   	sort: {
+
+	   	},
+	   	urlSync: true
+	};
+	$scope.usergridOptions = {
+		pagination: {
+			itemsPerPage: '10'
+		},
+		data:[],
+	   	sort: {
+
+	   	},
+	   	urlSync: true
+	};
+	$scope.locationgridOptions = {
+		pagination: {
+			itemsPerPage: '10'
+		},
+		data:[],
+	   	sort: {
+
+	   	},
+	   	urlSync: true
+	};
+	$scope.sitegridOptions = {
+		pagination: {
+			itemsPerPage: '10'
+		},
+		data:[],
+	   	sort: {
+
+	   	},
+	   	urlSync: true
+	};
+	$scope.producttypegridOptions = {
 		pagination: {
 			itemsPerPage: '10'
 		},
@@ -53,7 +105,8 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		  method: 'GET',
 		  url: '/ge/customers'
 		}).then(function success(response) {
-		    $scope.gridOptions.data = response.data.data;
+			$scope.customers = response.data.data;
+		    $scope.customergridOptions.data = response.data.data;
 		  }, function error(response) {
 
 		  });
@@ -78,7 +131,8 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		  method: 'GET',
 		  url: '/ge/products'
 		}).then(function success(response) {
-		    $scope.gridOptions.data = response.data.data;
+			$scope.products = response.data.data;
+		    $scope.productgridOptions.data = response.data.data;
 		}, function error(response) {
 		});
 	}
@@ -96,7 +150,8 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		  method: 'GET',
 		  url: '/ge/locations'
 		}).then(function success(response) {
-		    $scope.gridOptions.data = response.data.data;
+			$scope.locations = response.data.data;
+		    $scope.locationgridOptions.data = response.data.data;
 		}, function error(response) {
 		});
 	}
@@ -107,7 +162,8 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		  method: 'GET',
 		  url: '/ge/sites'
 		}).then(function success(response) {
-		    $scope.gridOptions.data = response.data.data;
+			$scope.sites = response.data.data;
+		    $scope.sitegridOptions.data = response.data.data;
 		}, function error(response) {
 		});
 	}
@@ -118,6 +174,7 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		  method: 'GET',
 		  url: '/ge/rack-types'
 		}).then(function success(response) {
+			$scope.producttypes = response.data.data;
 		    $scope.racktypes = response.data.data;
 		}, function error(response) {
 		});
@@ -163,7 +220,8 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		  method: 'GET',
 		  url: '/ge/product-types'
 		}).then(function success(response) {
-		    $scope.gridOptions.data = response.data.data;
+		    $scope.producttypes.data = response.data.data;
+		    $scope.producttypegridOptions.data = response.data.data;
 		}, function error(response) {
 		});
 	}
@@ -196,7 +254,8 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		  method: 'GET',
 		  url: '/ge/users'
 		}).then(function success(response) {
-		    $scope.gridOptions.data = response.data.data;
+			$scope.users = response.data.data;
+		    $scope.usergridOptions.data = response.data.data;
 		}, function error(response) {
 		});
 	}
