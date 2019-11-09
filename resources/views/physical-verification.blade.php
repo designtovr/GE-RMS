@@ -667,7 +667,7 @@
                                             ng-model="physicalVerification.producttype"
                                             class="form-control"
                                             ng-change="ChangeProductType();"
-                                            ng-options="pt as pt.code for pt in producttypes" 
+                                            ng-options="pt as pt.name for pt in producttypes" 
                                             required>
                                             <option value="" style="display:none"></option>>
                                         </select>

@@ -273,7 +273,10 @@ class RMAController extends Controller
         $pvdata = $request->get('pvs');
         if (!array_key_exists('id', $rmadata))
         {
-            $RMA = new RMA();
+            $pv_to_get_receipt_id = PhysicalVerificationMaster::find($pvdata[0]['id']);
+            $RMA = RMA::where('receipt_id', $pv_to_get_receipt_id->receipt_id)->first();
+            if (!$RMA)
+                return response()->json(['status' => 'failure', 'message' => 'No RMA Found'], 200);
             $RMA->gs_no = (array_key_exists('gs_no', $rmadata))?$rmadata['gs_no']:'';
             $RMA->act_reference = (array_key_exists('act_reference', $rmadata))?$rmadata['act_reference']:'';
             if (!array_key_exists('date', $rmadata))
