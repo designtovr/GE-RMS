@@ -220,7 +220,7 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		  method: 'GET',
 		  url: '/ge/product-types'
 		}).then(function success(response) {
-		    $scope.producttypes.data = response.data.data;
+		    $scope.producttypes = response.data.data;
 		    $scope.producttypegridOptions.data = response.data.data;
 		}, function error(response) {
 		});

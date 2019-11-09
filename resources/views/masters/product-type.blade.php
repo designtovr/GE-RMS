@@ -48,8 +48,8 @@
                         <table class="table table-borderless table-data3">
                             <thead>
                                 <tr>
-                                    <th sortable="code" class="sortable">Code</th>
-                                    <th sortable="name" class="sortable">Name</th>
+                                    <th sortable="code" class="sortable">Family</th>
+                                    <th sortable="name" class="sortable">Type</th>
                                     <th sortable="category" class="sortable">Category</th>
                                     <th>Actions</th>
                                 </tr>
