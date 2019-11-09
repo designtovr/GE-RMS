@@ -742,6 +742,7 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 			Notification.error("Please Select End Customer");
 			return;
 		}
+		console.log($scope.rmaformdata.invoice_info)
 		if ($scope.rmaformdata.invoice_info.end_cus.end_customer == 'Add New')
 		{
 			if ($scope.rmaformdata.invoice_info.manual_end_customer == null || $scope.rmaformdata.invoice_info.manual_end_customer == undefined)
@@ -749,13 +750,15 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 				Notification.error("Please Enter End Customer");
 				return;
 			}
-			$scope.rmaformdata.invoice_info.end_customer = $scope.rmaformdata.manual_end_customer;
+			$scope.rmaformdata.invoice_info.end_customer = $scope.rmaformdata.invoice_info.manual_end_customer;
 		}
 		else
 		{
 			$scope.rmaformdata.invoice_info.end_customer = $scope.rmaformdata.invoice_info.end_cus.end_customer;
 		}
+		console.log($scope.rmaformdata.invoice_info)
 		$scope.rmaformdata.customer_address_id = $scope.rmaformdata.invoice_info.invoice_customer_name.id;
+		return;
 		console.log($scope.rmaformdata)
 		$http({
 			url: '/ge/saverma',
