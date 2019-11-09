@@ -36,9 +36,9 @@ class ProductTypeController extends Controller
         }
         else
         {
-            $PT = ProductTypeMaster::where('code', $producttype['code'])->first();
+            /*$PT = ProductTypeMaster::where('code', $producttype['code'])->first();
             if ($PT)
-                return response()->json(['status' => 'failure', 'message' => 'Product Type Coded Already Exists'], 200);
+                return response()->json(['status' => 'failure', 'message' => 'Product Type Coded Already Exists'], 200);*/
 
             $PT = new ProductTypeMaster();
             $PT->code = $producttype['code'];
