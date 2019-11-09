@@ -7,7 +7,7 @@
         	<form name="RMAForm1" id="RMAForm1" class="form-horizontal" novalidate>
                 <div class="row form-group" ng-if="rmaformdata.edit">
                     <div class="col col-md-3">
-                        <label for="id" class=" form-control-label">RMA Reference No</label>
+                        <label for="id" class=" form-control-label">RMA No</label>
                     </div>
                     <div class="col-12 col-md-6">
                         <input 

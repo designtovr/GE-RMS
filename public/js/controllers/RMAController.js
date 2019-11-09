@@ -554,7 +554,7 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 				Notification.error("Please Enter End Customer");
 				return;
 			}
-			$scope.rmaformdata.invoice_info.end_customer = $scope.rmaformdata.manual_end_customer;
+			$scope.rmaformdata.invoice_info.end_customer = $scope.rmaformdata.invoice_info.manual_end_customer;
 		}
 		else
 		{
