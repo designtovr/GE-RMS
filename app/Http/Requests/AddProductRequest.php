@@ -25,7 +25,7 @@ class AddProductRequest extends FormRequest
     {
         return [
             'product.id' => 'nullable|exists:ma_product,id',
-            'product.part_no' => 'required|string|min:3|max:50',
+            'product.part_no' => 'required|string|min:3|max:50|unique:ma_product,part_no',
             'product.type' => 'required|numeric|exists:ma_product_type,id',
         ];
     }
@@ -38,6 +38,7 @@ class AddProductRequest extends FormRequest
             'product.part_no.string' => 'Part No Should Be String',
             'product.part_no.min' => 'Part No Should Not Be Less Than 3',
             'product.part_no.max' => 'Part No Should Not Be Greater Than 50',
+            'product.part_no.unique' => 'Part No Already Exists',
             'product.description.required' => 'Description Is Required',
             'product.description.string' => 'Description Should Be String',
             'product.description.min' => 'Description Should Not Be Less Than 3',
