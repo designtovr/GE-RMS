@@ -660,7 +660,7 @@
                                 <div class="col-md-6">
                                     <div class="row form-group">
                                         <div class="col col-md-4">
-                                            <label for="producttype" class=" form-control-label">Product Family <span class="mandatory">*</span></label>
+                                            <label for="producttype" class=" form-control-label">Product Type <span class="mandatory">*</span></label>
                                         </div>
                                         <div class="col-12 col-md-8">
                                             <select id="producttype" name="producttype"
