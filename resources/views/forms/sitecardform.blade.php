@@ -110,7 +110,6 @@
 														    <ui-select-match placeholder="Select Model No">@{{$select.selected.part_no}}</ui-select-match>
 														    <ui-select-choices repeat="product in products | filter: $select.search">
 														      <span ng-bind-html="product.part_no | highlight: $select.search"></span>
-														      <small ng-bind-html="product.id | highlight: $select.search"></small>
 														    </ui-select-choices>
 														  </ui-select>
 			                                            <div ng-show="SiteCardForm2.model_no_@{{$index}}.$touched && SiteCardForm2.model_no_@{{$index}}.$error">
@@ -473,7 +472,7 @@
                                         type="text" 
                                         id="manual_end_customer"
                                         name="manual_end_customer" 
-                                        ng-model="sitecardform.manual_end_customer" 
+                                        ng-model="sitecardform.invoice_info.manual_end_customer" 
                                         placeholder="End Cusotmer"
                                         class="form-control"
                                         ng-minlength="3"

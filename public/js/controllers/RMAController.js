@@ -678,7 +678,16 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 
 	$scope.SaveSiteCatdForm = function()
 	{
+		console.log($scope.rmaformdata)
+		if ($scope.rmaformdata.id != undefined && $scope.rmaformdata.id != null)
+			$scope.sitecardform = $scope.rmaformdata;
+		console.log($scope.sitecardform)
 		for (var i = 0; i < $scope.sitecardform.unit_information.length; i++) {
+			//this is for from second save
+			if ($scope.sitecardform.unit_information[i].part_no != "" && $scope.sitecardform.unit_information[i].part_no != undefined && $scope.sitecardform.unit_information[i].part_no != null)
+			{
+				$scope.sitecardform.unit_information[i].model_no = $scope.sitecardform.unit_information[i].part_no;
+			}
 			if ($scope.sitecardform.unit_information[i].model_no == "" || $scope.sitecardform.unit_information[i].model_no == undefined || $scope.sitecardform.unit_information[i].model_no == null)
 			{
 				Notification.error("Please Select All Model No");
@@ -686,15 +695,52 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 			}
 			if ($scope.sitecardform.unit_information[i].serial_no == "" || $scope.sitecardform.unit_information[i].serial_no == undefined || $scope.sitecardform.unit_information[i].serial_no == null)
 			{
-				Notification.error("Please Select All Serial No");
+				Notification.error("Please Enter All Serial No");
 				return;
 			}
 			if ($scope.sitecardform.unit_information[i].sw_version == "" || $scope.sitecardform.unit_information[i].sw_version == undefined || $scope.sitecardform.unit_information[i].sw_version == null)
 			{
-				Notification.error("Please Select All Software Version");
+				Notification.error("Please Enter All Software Version");
 				return;
 			}
 		}
+
+		//after the first save invoice_info set null from backend
+		//so we checking invoice_info
+		if ($scope.sitecardform.invoice_info != undefined && $scope.sitecardform.invoice_info != null)
+		{
+			if ($scope.sitecardform.invoice_info.invoice_customer_name != undefined && $scope.sitecardform.invoice_info.invoice_customer_name != null)
+			{
+				$scope.sitecardform.customer_address_id = $scope.sitecardform.invoice_info.invoice_customer_name.id;
+			}
+		}
+
+		//this is worst part of my code
+		///i need to change this part
+		if ($scope.sitecardform.invoice_info != undefined && $scope.sitecardform.invoice_info != null)
+		{
+			if ($scope.sitecardform.invoice_info.end_cus != undefined && $scope.sitecardform.invoice_info.end_cus != null)
+			{
+				if ($scope.sitecardform.invoice_info.end_cus.end_customer != undefined && $scope.sitecardform.invoice_info.end_cus.end_customer != null)
+				{
+					if ($scope.sitecardform.invoice_info.end_cus.end_customer == 'Add New')
+					{
+						if ($scope.sitecardform.invoice_info.manual_end_customer == undefined || $scope.sitecardform.invoice_info.manual_end_customer == null)
+						{
+							Notification.error("Please Enter End Customer");
+							return;
+						}
+						$scope.sitecardform.end_customer = $scope.sitecardform.invoice_info.manual_end_customer;
+					}
+					else
+					{
+						$scope.sitecardform.end_customer = $scope.sitecardform.invoice_info.end_cus.end_customer;
+					}
+				}
+			}
+		}
+
+		console.log($scope.sitecardform)
 
 		$http({
 			url: '/ge/savesitecardrma',
@@ -707,6 +753,7 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 			{
 				Notification.success(response.data.message + ' With Id:' +response.data.data.id);
 				$scope.ChangeTab($scope.tab);
+				$scope.showsitecardform = false;
 				$scope.showrmaform = false;
 			}
 		}, function(response){
@@ -757,6 +804,7 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 			$scope.rmaformdata.invoice_info.end_customer = $scope.rmaformdata.invoice_info.end_cus.end_customer;
 		}
 		$scope.rmaformdata.customer_address_id = $scope.rmaformdata.invoice_info.invoice_customer_name.id;
+		
 		$http({
 			url: '/ge/saverma',
 			method: 'POST',
@@ -769,6 +817,7 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 			{
 				Notification.success(response.data.message + ' with Id:' +response.data.data.id);
 				$scope.ChangeTab($scope.tab);
+				$scope.showsitecardform = false;
 				$scope.showrmaform = false;
 			}
 		}, function(response){

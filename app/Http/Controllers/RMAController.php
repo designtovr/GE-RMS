@@ -510,21 +510,213 @@ class RMAController extends Controller
     public function SaveSiteCardRMA(Request $request)
     {
         $sitecardrma = $request->get('sitecardrma');
-        return $sitecardrma;
         //if id exists update else save
         if (array_key_exists('id', $sitecardrma))
         {
             //update all rma table field
             $RMA = RMA::find($sitecardrma['id']);
+            if (array_key_exists('gs_no', $sitecardrma))
+                $RMA->gs_no = $sitecardrma['gs_no'];
+            if (array_key_exists('act_reference', $sitecardrma))
+                $RMA->act_reference = $sitecardrma['act_reference'];
+            if (array_key_exists('date', $sitecardrma))
+            {
+                $date = Carbon::createFromFormat('d/m/Y',$sitecardrma['date']);
+                $RMA->date = $date->format('Y-m-d');
+            }
+            else
+            {
+                $RMA->date = '';
+            }
+            if (array_key_exists('customer_address_id', $sitecardrma))
+                $RMA->customer_address_id = $sitecardrma['customer_address_id'];
+            if (array_key_exists('end_customer', $sitecardrma))
+                $RMA->end_customer = $sitecardrma['end_customer'];
+            $RMA->updated_by = Auth::id();
+            $RMA->updated_at = Carbon::now();
+            $RMA->update();
 
+            //we have already created delivery detais in first save
+            //so directly update using id
+            $delivery_info = $sitecardrma['delivery_info'];
+            $RMADT = RMADeliveryAddress::where('rma_id', $sitecardrma['id'])->first();
+            if (array_key_exists('address', $delivery_info))
+                $RMADT->address = $delivery_info['address'];
+            if (array_key_exists('contact_person', $delivery_info))
+                $RMADT->contact_person = $delivery_info['contact_person'];
+            if (array_key_exists('tel_no', $delivery_info))
+                $RMADT->tel_no = $delivery_info['tel_no'];
+            if (array_key_exists('email', $delivery_info))
+                $RMADT->email = $delivery_info['email'];
+            if (array_key_exists('gst', $delivery_info))
+                $RMADT->gst = $delivery_info['gst'];
+            $RMADT->updated_by = Auth::id();
+            $RMADT->updated_at = Carbon::now();
+            $RMADT->update();
+
+            $unit_information = $sitecardrma['unit_information'];
+            foreach ($unit_information as $key => $unit) {
+                if (array_key_exists('id', $unit))
+                {
+                    $PVT = PhysicalVerificationMaster::find($unit['id']);
+                    if ($PVT)
+                    {
+                        /*$PVT->producttype_id = $unit['producttype_id'];
+                        $PVT->product_id = $unit['product_id'];
+                        $PVT->serial_no  = $unit['serial_no'];*/
+                        $PVT->sales_order_no = (array_key_exists('sales_order_no', $unit))?$unit['sales_order_no']:$PVT->sales_order_no;
+                        $PVT->updated_by = Auth::id();
+                        $PVT->updated_at = Carbon::now();
+                        $PVT->update();
+                    }
+                    
+                    $RMAUT = RMAUnitInformation::where('pv_id', $unit['id'])->first();
+                    if ($RMAUT)
+                    {
+                        if (array_key_exists('sw_version', $unit))
+                        $RMAUT->sw_version = $unit['sw_version'];
+                        if (array_key_exists('warrenty', $unit))
+                            $RMAUT->warrenty = $unit['warrenty'];
+                        if (array_key_exists('desc_of_fault', $unit))
+                            $RMAUT->desc_of_fault = $unit['desc_of_fault'];
+                        if (array_key_exists('sales_order_no', $unit))
+                            $RMAUT->sales_order_no = $unit['sales_order_no'];
+                        if (array_key_exists('field_volts_used', $unit))
+                            $RMAUT->field_volts_used = $unit['field_volts_used'];
+                        if (array_key_exists('equip_failed_on_installation', $unit))
+                            $RMAUT->equip_failed_on_installation = $unit['equip_failed_on_installation'];
+                        if (array_key_exists('equip_failed_on_service', $unit))
+                            $RMAUT->equip_failed_on_service = $unit['equip_failed_on_service'];
+                        if (array_key_exists('how_long', $unit))
+                            $RMAUT->how_long = $unit['how_long'];
+                        $RMAUT->updated_by = Auth::id();
+                        $RMAUT->updated_at = Carbon::now();
+                        $RMAUT->update();
+                        PVStatusRepositories::ChangeStatusToSaved($RMAUT->pv_id);
+                    }
+
+                }
+                else
+                {
+                    $PVT = new PhysicalVerificationMaster();
+                    $PVT->receipt_id = -1;
+                    $PVT->docket_details = '';
+                    $PVT->courier_name = '';
+                    $PVT->pvdate = $RMA->date;
+                    $PVT->producttype_id = $unit['producttype_id'];
+                    $PVT->product_id = $unit['product_id'];
+                    $PVT->serial_no  = $unit['serial_no'];
+                    $PVT->is_rma_available = 1;
+                    $PVT->sales_order_no = (array_key_exists('sales_order_no', $unit))?$unit['sales_order_no']:'';
+                    $PVT->created_by = Auth::id();
+                    $PVT->created_at = Carbon::now();
+                    $PVT->updated_by = Auth::id();
+                    $PVT->updated_at = Carbon::now();
+                    $PVT->save();
+
+                    $RMAUT = new RMAUnitInformation();
+                    $RMAUT->rma_id = $RMA->id;
+                    $RMAUT->pv_id = $PVT->id;
+                    $RMAUT->service_type = 2;
+                    $RMAUT->sw_version = (array_key_exists('sw_version', $unit))?$unit['sw_version']:'';
+                    $RMAUT->warrenty = (array_key_exists('warrenty', $unit))?$unit['warrenty']:0;
+                    $RMAUT->desc_of_fault = (array_key_exists('desc_of_fault', $unit))?$unit['desc_of_fault']:'';
+                    $RMAUT->sales_order_no = (array_key_exists('sales_order_no', $unit))?$unit['sales_order_no']:'';
+                    $RMAUT->field_volts_used = (array_key_exists('field_volts_used', $unit))?$unit['field_volts_used']:0;
+                    $RMAUT->equip_failed_on_installation = (array_key_exists('equip_failed_on_installation', $unit))?$unit['equip_failed_on_installation']:0;
+                    $RMAUT->equip_failed_on_service = (array_key_exists('equip_failed_on_service', $unit))?$unit['equip_failed_on_service']:0;
+                    $RMAUT->how_long = (array_key_exists('how_long', $unit))?$unit['how_long']:'';
+                    $RMAUT->created_by = Auth::id();
+                    $RMAUT->created_at = Carbon::now();
+                    $RMAUT->updated_by = Auth::id();
+                    $RMAUT->updated_at = Carbon::now();
+                    $RMAUT->save();
+
+                    PVStatusRepositories::ChangeStatusToSaved($RMAUT->pv_id);
+                }
+            }
+
+            return response()->json(['data' => $RMA, 'status' => 'success', 'message' => 'SiteCard RMA Saved Successfully'], 200);
         }
         else
         {
             //save rma table
             $RMA = new RMA();
+            $RMA->receipt_id = 0;
             $RMA->gs_no = (array_key_exists('gs_no', $sitecardrma))?$sitecardrma['gs_no']:'';
             $RMA->act_reference = (array_key_exists('act_reference', $sitecardrma))?$sitecardrma['act_reference']:'';
-            $RMA->date = (array_key_exists('date', $sitecardrma))?$sitecardrma['date']:$sitecardrma['si'];
+            if (array_key_exists('date', $sitecardrma))
+            {
+                $date = Carbon::createFromFormat('d/m/Y',$sitecardrma['date']);
+                $RMA->date = $date->format('Y-m-d');
+            }
+            else
+            {
+                $RMA->date = '';
+            }
+            $RMA->customer_address_id = (array_key_exists('customer_address_id', $sitecardrma))?$sitecardrma['customer_address_id']:0;
+            $RMA->end_customer = (array_key_exists('end_customer', $sitecardrma))?$sitecardrma['end_customer']:'';
+            $RMA->status = 2;
+            $RMA->service_type = 2;
+            $RMA->created_by = Auth::id();
+            $RMA->created_at = Carbon::now();
+            $RMA->save();
+
+            $delivery_info = $sitecardrma['delivery_info'];
+            $RMADT = new RMADeliveryAddress();
+            $RMADT->rma_id = $RMA->id;
+            $RMADT->address = (array_key_exists('address', $delivery_info))?$delivery_info['address']:'';
+            $RMADT->contact_person = (array_key_exists('contact_person', $delivery_info))?$delivery_info['contact_person']:'';
+            $RMADT->tel_no = (array_key_exists('tel_no', $delivery_info))?$delivery_info['tel_no']:'';
+            $RMADT->email = (array_key_exists('email', $delivery_info))?$delivery_info['email']:'';
+            $RMADT->gst = (array_key_exists('gst', $delivery_info))?$delivery_info['gst']:'';
+            $RMADT->created_by = Auth::id();
+            $RMADT->created_at = Carbon::now();
+            $RMADT->updated_by = Auth::id();
+            $RMADT->updated_at = Carbon::now();
+            $RMADT->save();
+
+            $unit_information = $sitecardrma['unit_information'];
+            foreach ($unit_information as $key => $unit) {
+
+                $PVT = new PhysicalVerificationMaster();
+                $PVT->receipt_id = -1;
+                $PVT->docket_details = '';
+                $PVT->courier_name = '';
+                $PVT->pvdate = $RMA->date;
+                $PVT->producttype_id = $unit['producttype_id'];
+                $PVT->product_id = $unit['product_id'];
+                $PVT->serial_no  = $unit['serial_no'];
+                $PVT->is_rma_available = 1;
+                $PVT->sales_order_no = (array_key_exists('sales_order_no', $unit))?$unit['sales_order_no']:'';
+                $PVT->created_by = Auth::id();
+                $PVT->created_at = Carbon::now();
+                $PVT->updated_by = Auth::id();
+                $PVT->updated_at = Carbon::now();
+                $PVT->save();
+
+                $RMAUT = new RMAUnitInformation();
+                $RMAUT->rma_id = $RMA->id;
+                $RMAUT->pv_id = $PVT->id;
+                $RMAUT->service_type = 2;
+                $RMAUT->sw_version = (array_key_exists('sw_version', $unit))?$unit['sw_version']:'';
+                $RMAUT->warrenty = (array_key_exists('warrenty', $unit))?$unit['warrenty']:0;
+                $RMAUT->desc_of_fault = (array_key_exists('desc_of_fault', $unit))?$unit['desc_of_fault']:'';
+                $RMAUT->sales_order_no = (array_key_exists('sales_order_no', $unit))?$unit['sales_order_no']:'';
+                $RMAUT->field_volts_used = (array_key_exists('field_volts_used', $unit))?$unit['field_volts_used']:0;
+                $RMAUT->equip_failed_on_installation = (array_key_exists('equip_failed_on_installation', $unit))?$unit['equip_failed_on_installation']:0;
+                $RMAUT->equip_failed_on_service = (array_key_exists('equip_failed_on_service', $unit))?$unit['equip_failed_on_service']:0;
+                $RMAUT->how_long = (array_key_exists('how_long', $unit))?$unit['how_long']:'';
+                $RMAUT->created_by = Auth::id();
+                $RMAUT->created_at = Carbon::now();
+                $RMAUT->updated_by = Auth::id();
+                $RMAUT->updated_at = Carbon::now();
+                $RMAUT->save();
+
+                PVStatusRepositories::ChangeStatusToSaved($RMAUT->pv_id);
+            }
         }
+
+        return response()->json(['data' => $RMA, 'status' => 'success', 'message' => 'SiteCard RMA Saved Successfully'], 200);
     }
 }
