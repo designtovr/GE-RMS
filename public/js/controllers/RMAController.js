@@ -756,10 +756,7 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 		{
 			$scope.rmaformdata.invoice_info.end_customer = $scope.rmaformdata.invoice_info.end_cus.end_customer;
 		}
-		console.log($scope.rmaformdata.invoice_info)
 		$scope.rmaformdata.customer_address_id = $scope.rmaformdata.invoice_info.invoice_customer_name.id;
-		return;
-		console.log($scope.rmaformdata)
 		$http({
 			url: '/ge/saverma',
 			method: 'POST',

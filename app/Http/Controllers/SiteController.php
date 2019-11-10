@@ -24,10 +24,10 @@ class SiteController extends Controller
         $sites_from_receipt = ReceiptMaster::select('site')->groupby('site')->get();
         $sites  = array();
         foreach ($sites_from_master as $key => $site) {
-            $sites[$key] = $site->name;
+            array_push($sites, $site->name);
         }
         foreach ($sites_from_receipt as $key => $site) {
-            $sites[$key] = $site->site;
+            array_push($sites, $site->site);
         }
         return response()->json(['data' => $sites, 'status' => 'success']);
     }
