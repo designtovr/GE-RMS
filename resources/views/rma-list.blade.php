@@ -66,7 +66,7 @@
                                     <th>
                                        <input id="customerFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Customer Name" ng-change="gridActions.filter()" ng-model="filterCustomer" filter-by="customer_name" filter-type="text">
                                    </th>
-                                   <th>
+                                   <th ng-show="tab !='withrma' && tab != 'withoutrma'">
                                        <input id="endcustomerFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="End Customer" ng-change="gridActions.filter()" ng-model="filterendCustomer" filter-by="end_customer" filter-type="text">
                                    </th>
                                    <th>
@@ -213,9 +213,6 @@
                                                     <th  sortable="customer_name" class="sortable">
                                                         Customer Name
                                                     </th>
-                                                    <th  sortable="end_customer" class="sortable">
-                                                        End Customer
-                                                    </th>
                                                     <th  sortable="courier_name" class="sortable">
                                                         Courier Name
                                                     </th>
@@ -236,7 +233,6 @@
                                                     <td ng-bind="item.receipt_id"></td>
                                                     <td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
                                                     <td ng-bind="item.customer_name"></td>
-                                                    <td ng-bind="item.end_customer"></td>
                                                     <td ng-bind="item.courier_name"></td>
                                                     <td ng-bind="item.docket_details"></td>
                                                 </tr>
@@ -294,9 +290,6 @@
                                                         Customer Name
                                                     </th>
                                                     <th>
-                                                        End Customer
-                                                    </th>
-                                                    <th>
                                                         Courier Name
                                                     </th>
                                                     <th>
@@ -316,7 +309,6 @@
                                                     <td ng-bind="item.receipt_id"></td>
                                                     <td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
                                                     <td ng-bind="item.customer_name"></td>
-                                                    <td ng-bind="item.end_customer"></td>
                                                     <td ng-bind="item.courier_name"></td>
                                                     <td ng-bind="item.docket_details"></td>
                                                 </tr>

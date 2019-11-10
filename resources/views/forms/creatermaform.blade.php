@@ -807,10 +807,7 @@
                     <button ng-if="rmaformdata.edit" type="submit" class="btn btn-primary btn-sm" ng-disabled="RMAForm1.$invalid || RMAForm2.$invalid || RMAForm5.$invalid || RMAForm6.$invalid" ng-click="SubmitRMAForm();">
                         <i class="fa fa-dot-circle-o"></i> Update
                     </button>
-                    <button ng-if="rmaformdata.status != 3 && rmaformdata.service_type == 1" class="btn btn-secondary btn-sm" ng-click="SaveRMAForm();">
-                        <i class="fa fa-save"></i> Save
-                    </button>
-                    <button ng-if="rmaformdata.status != 3 && rmaformdata.service_type == 2" class="btn btn-secondary btn-sm" ng-click="SaveSiteCatdForm();">
+                    <button ng-if="rmaformdata.status != 3" class="btn btn-secondary btn-sm" ng-click="SaveRMAForm();">
                         <i class="fa fa-save"></i> Save
                     </button>
                     <button id="closermabutton" name="closermabutton" class="btn btn-danger btn-sm" ng-click="HideRMAForm();">

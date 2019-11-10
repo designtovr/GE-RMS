@@ -29,7 +29,7 @@
                                     <input type="text"
                                     id="dateFromFilter"
                                     class="form-control"
-                                    placeholder="Date"
+                                    placeholder="From Date"
                                     max-date="dateTo"
                                     close-text="Close"
                                     ng-model="filterreceipt_datefrom"
@@ -46,7 +46,7 @@
                                     <input type="text"
                                     id="dateToFilter"
                                     class="form-control"
-                                    placeholder="Date"
+                                    placeholder="To Date"
                                     max-date="dateTo"
                                     close-text="Close"
                                     ng-model="filterreceipt_dateto"
@@ -64,9 +64,9 @@
                                 <th>
                                     <input id="customerFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Customer Name" ng-change="pvgridActions.filter()" ng-model="filterCustomerothers" filter-by="customer_name" filter-type="text">
                                 </th>
-                                <th>
+                                <!-- <th>
                                     <input id="endcustomerFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="End Customer" ng-change="pvgridActions.filter()" ng-model="filterEndCustomerothers" filter-by="end_customer" filter-type="text">
-                                </th>
+                                </th> -->
                                 <th>
                                     <button type="button" class="btn btn-outline-secondary btn-sm" ng-click="Reset();gridActions.filter()">Reset</button>
                                 </th>
@@ -120,9 +120,9 @@
                                             <th sortable="customer_name" class="sortable">
                                                 Customer Name
                                             </th>
-                                            <th sortable="end_customer" class="sortable">
+                                            <!-- <th sortable="end_customer" class="sortable">
                                                 End Customer
-                                            </th>
+                                            </th> -->
                                             <th sortable="courier_name" class="sortable">
                                                 Courier Name
                                             </th>
@@ -143,7 +143,7 @@
                                             <td ng-bind="item.receipt_date | date:'dd/MM/yyyy'"></td>
 
                                             <td ng-bind="item.customer_name"></td>
-                                            <td ng-bind="item.end_customer"></td>
+                                            <!-- <td ng-bind="item.end_customer"></td> -->
                                             <td ng-bind="item.courier_name"></td>
                                             <td ng-bind="item.docket_details"></td>
                                             <td ng-bind="item.total_boxes"></td>
@@ -230,9 +230,9 @@
                                                 <th sortable="customer_name" class="sortable">
                                                     Customer Name
                                                 </th>
-                                                <th sortable="end_customer" class="sortable">
+                                                <!-- <th sortable="end_customer" class="sortable">
                                                     End Customer
-                                                </th>
+                                                </th> -->
                                                 <th sortable="total_boxes" class="sortable">
                                                     Number of Boxes
                                                 </th>
@@ -255,7 +255,7 @@
                                                 <td ng-bind="item.part_no"></td>
                                                 <td ng-bind="item.serial_no"></td>
                                                 <td ng-bind="item.customer_name"></td>
-                                                <td ng-bind="item.end_customer"></td>
+                                                <!-- <td ng-bind="item.end_customer"></td> -->
                                                 <td ng-bind="item.total_boxes"></td>
                                                 <td>
                                                     <div class="table-data-feature">
@@ -334,9 +334,9 @@
                                             <th  sortable="customer_name" class="sortable">
                                                 Customer Name
                                             </th>
-                                            <th  sortable="end_customer" class="sortable">
+                                            <!-- <th  sortable="end_customer" class="sortable">
                                                 End Customer
-                                            </th>
+                                            </th> -->
                                             <th  sortable="courier_name" class="sortable">
                                                 Courier Name
                                             </th>
@@ -357,7 +357,7 @@
                                             <td ng-bind="'RC ' + item.receipt_id"></td>
                                             <td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
                                             <td ng-bind="item.customer_name"></td>
-                                            <td ng-bind="item.end_customer"></td>
+                                            <!-- <td ng-bind="item.end_customer"></td> -->
                                             <td ng-bind="item.courier_name"></td>
                                             <td ng-bind="item.docket_details"></td>
                                         </tr>
@@ -415,9 +415,9 @@
                                         <th>
                                             Customer Name
                                         </th>
-                                        <th>
+                                        <!-- <th>
                                             End Customer
-                                        </th>
+                                        </th> -->
                                         <th>
                                             Courier Name
                                         </th>
@@ -438,7 +438,7 @@
                                         <td ng-bind="'RC ' + item.receipt_id"></td>
                                         <td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
                                         <td ng-bind="item.customer_name"></td>
-                                        <td ng-bind="item.end_customer"></td>
+                                        <!-- <td ng-bind="item.end_customer"></td> -->
                                         <td ng-bind="item.courier_name"></td>
                                         <td ng-bind="item.docket_details"></td>
                                     </tr>
@@ -486,9 +486,9 @@
                                         <th sortable="item.customer_name" class="sortable">
                                             Customer Name
                                         </th>
-                                        <th sortable="item.end_customer" class="sortable">
+                                        <!-- <th sortable="item.end_customer" class="sortable">
                                             End Customer
-                                        </th>
+                                        </th> -->
                                         <th sortable="item.courier_name" class="sortable">
                                             Courier Name
                                         </th>
@@ -502,7 +502,7 @@
                                         <td ng-bind="'RC ' + item.id"></td>
                                         <td ng-bind="item.receipt_date | date:'dd/MM/yyyy'"></td>
                                         <td ng-bind="item.customer_name"></td>
-                                        <td ng-bind="item.end_customer"></td>
+                                        <!-- <td ng-bind="item.end_customer"></td> -->
                                         <td ng-bind="item.courier_name"></td>
                                         <td ng-bind="item.docket_details"></td>
                                     </tr>

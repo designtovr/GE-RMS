@@ -504,9 +504,13 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 	$scope.ChangeTab = function(tab)
 	{
 		$scope.tab = tab;
-		if ($scope.tab == 'all' || $scope.tab == 'saved' || $scope.tab == 'completed')
+		if ($scope.tab == 'all' || $scope.tab == 'completed')
 		{
 			$scope.GetRMAList($scope.tab, '');
+		}
+		else if ($scope.tab == 'saved')
+		{
+			$scope.GetRMAList($scope.tab, 'physical');
 		}
 		else if($scope.tab == 'withrma' || $scope.tab == 'withoutrma')
 		{
