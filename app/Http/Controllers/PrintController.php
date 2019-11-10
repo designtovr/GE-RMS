@@ -64,15 +64,15 @@ class PrintController extends Controller
 
         $daneDoDruku = $template;
 
-        // $poloczenie = pfsockopen("$ip", 9100);
+        $poloczenie = pfsockopen("$ip", 9100);
         for($i = 1 ; $i<= $receipt['total_boxes'] ; $i++)
         {
             $templateModified .= str_replace("currentbox",$i,$template);
-            //fputs($poloczenie, $daneDoDruku);
+            fputs($poloczenie, $templateModified);
 
         }
-                    return $templateModified;
-                    //fclose($poloczenie);
+                    //return $templateModified;
+                    fclose($poloczenie);
 
                 return 'success';
        // str_replace("world","Peter","Hello world!");
@@ -104,7 +104,7 @@ class PrintController extends Controller
         return $getReceipt; */
 
         $daneDoDruku = $template;
-return $template;
+//return $template;
         $poloczenie = pfsockopen("$ip", 9100);
         fputs($poloczenie, $daneDoDruku);
         fclose($poloczenie);
