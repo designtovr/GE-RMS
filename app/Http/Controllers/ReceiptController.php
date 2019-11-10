@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CustomerMaster;
 use App\Models\PhysicalVerificationMaster;
 use App\Models\ReceiptMaster;
 use Illuminate\Http\Request;
@@ -108,7 +109,7 @@ class ReceiptController extends Controller
 
             $message = 'Receipt Added Successfully';
         }
-
+  $name = CustomerMaster::select('name')->find($RM->customer_id);
         //Creating Empty RMA Entry for print
         $RMA = RMA::where('receipt_id', $RM->id)->first();
         if ($RMA)
@@ -129,7 +130,7 @@ class ReceiptController extends Controller
             $RMA->created_at = Carbon::now();
             $RMA->save();
         }
-
+  $RM['customer'] = $name->name;
 
         return response()->json(['data' => $RM, 'status' => 'success', 'message' => $message], 200);
     }

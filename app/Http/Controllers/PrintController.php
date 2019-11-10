@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PrintController extends Controller
@@ -17,28 +18,81 @@ class PrintController extends Controller
         return "192.168.1.3";
     }
 
-    public function PrintLabel(Request $request)
+    public function PrintReceipt(Request $request)
     {
 
         $receipt = $request->get('receipt');
         /*$RM->gs_no = $receipt['gs_no'];*/
-        $RM->customer_id = $receipt['customer_id'];
+/*        $RM->customer_id = $receipt['customer_id'];
         //$RM->customer_name = $receipt['customer_name'];
         /*$RM->end_customer = $receipt['end_customer'];*/
-        $RM->site_id = $receipt['site_id'];
+   /*     $RM->site_id = $receipt['site_id'];
         $RM->courier_name = $receipt['courier_name'];
         $RM->docket_details = $receipt['docket_details'];
         $RM->total_boxes = $receipt['total_boxes'];
-        $RM->status = 1;
-        $file = 'public\RID Print Variable.prn';
+        $RM->status = 1;*/
+        $file = 'public\ReceiptPrintFile.prn';
 
         $template = file_get_contents($file);
-        $template = str_replace("riddata","123456",$template);
-        $template = str_replace("rmadata","654321", $template);
+        $receiptID = 'RC';
+        $receiptID .= $receipt['id'];
+
+        $template = str_replace("receiptid",$receiptID,$template);
+        $template = str_replace("cusname",$receipt['customer'],$template);
+        $template = str_replace("courierData",$receipt['courier_name'],$template);
+        $template = str_replace("dcdata",$receipt['docket_details'],$template);
+        $template = str_replace("location",$receipt['site'],$template);
+        $template = str_replace("qrcode",$receipt['id'],$template);
+        $template = str_replace("total",$receipt['total_boxes'],$template);
+
+        $template = str_replace("time",Carbon::now(), $template);
+
+
         $jsonfile = 'public\printerconfiguration.json';
 
         $strJsonFileContents = file_get_contents($jsonfile);
 // Convert to array
+        $array = json_decode($strJsonFileContents, true);
+        $templateModified = "";
+
+        $ip =  $array['ReceiptPrinterIP'];
+        /* foreach(file('public\RID Print Variable.prn') as $line) {
+            $getReceipt += $line;
+            // loop with $line for each line of yourfile.txt
+        }
+        return $getReceipt; */
+
+        $daneDoDruku = $template;
+
+        // $poloczenie = pfsockopen("$ip", 9100);
+        for($i = 1 ; $i<= $receipt['total_boxes'] ; $i++)
+        {
+            $templateModified .= str_replace("currentbox",$i,$template);
+            //fputs($poloczenie, $daneDoDruku);
+
+        }
+                    return $templateModified;
+                    //fclose($poloczenie);
+
+                return 'success';
+       // str_replace("world","Peter","Hello world!");
+    }
+
+    public function PrintLabel(Request $request)
+    {
+        $label = $request->get('receipt');
+        //return $request;
+        $file = 'public\LabelPrintFile.prn';
+
+        $template = file_get_contents($file);
+        $template = str_replace("riddata",$label['id'],$template);
+        $template = str_replace("qrcode",$label['id'],$template);
+        $template = str_replace("rmadata",$label['rma_id'], $template);
+        $template = str_replace("customer",$label['customer_name'], $template);
+        $jsonfile = 'public\printerconfiguration.json';
+
+        $strJsonFileContents = file_get_contents($jsonfile);
+    // Convert to array
         $array = json_decode($strJsonFileContents, true);
 
 
@@ -50,40 +104,7 @@ class PrintController extends Controller
         return $getReceipt; */
 
         $daneDoDruku = $template;
-
-                    $poloczenie = pfsockopen("$ip", 9100);
-                    fputs($poloczenie, $daneDoDruku);
-                    fclose($poloczenie);
-
-                return 'success';
-       // str_replace("world","Peter","Hello world!");
-    }
-
-    public function PrintReceipt(Request $request)
-    {
-
-        return $request;
-        $file = 'public\ReceiptPrintFile.prn';
-
-        $template = file_get_contents($file);
-        $template = str_replace("riddata","123456",$template);
-        $template = str_replace("rmadata","654321", $template);
-        $jsonfile = 'public\printerconfiguration.json';
-
-        $strJsonFileContents = file_get_contents($jsonfile);
-    // Convert to array
-        $array = json_decode($strJsonFileContents, true);
-
-
-        $ip =  $array['ReceiptPrinterIP'];
-        /* foreach(file('public\RID Print Variable.prn') as $line) {
-            $getReceipt += $line;
-            // loop with $line for each line of yourfile.txt
-        }
-        return $getReceipt; */
-
-        $daneDoDruku = $template;
-
+return $template;
         $poloczenie = pfsockopen("$ip", 9100);
         fputs($poloczenie, $daneDoDruku);
         fclose($poloczenie);

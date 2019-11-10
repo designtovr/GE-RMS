@@ -60,6 +60,7 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 								text: 'Print',
 								btnClass: 'btn-blue',
 								action: function(){
+									$scope.PrintLabels(response.data.data);
 									$scope.ClosePVForm();
 									$scope.ChangeTab($scope.tab);
 								}
@@ -84,7 +85,37 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 			});
 		}
 
-		$scope.CheckSerialNoExistence = function()
+	$scope.PrintLabels = function($data)
+	{
+		$http({
+			method: 'post',
+			url: '/ge/printlabel',
+			data: {
+				'receipt': $data,
+			},
+		}).then(function success(response) {
+			console.log("12311");
+			if (response.data.status == 'success') {
+				console.log("123");
+			}
+		}, function failure(response){
+			if (response.status == 422)
+			{
+
+				var errors = response.data.errors;
+				for(var error in errors)
+				{
+					Notification.error(errors[error][0]);
+					break;
+				}
+			}
+		});
+
+
+	}
+
+
+	$scope.CheckSerialNoExistence = function()
 		{
 			if ($scope.physicalVerification.serial_no)
 			{
@@ -209,9 +240,6 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 				delete $scope.physicalVerification.id;
 				console.log($scope.physicalVerification)
 			}
-			
-
-
 			$scope.pvform = true;
 		}
 

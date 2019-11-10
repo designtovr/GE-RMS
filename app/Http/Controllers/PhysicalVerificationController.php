@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\PhysicalVerificationMaster;
 use App\Models\ReceiptMaster;
 use App\Models\ProductMaster;
+use App\Models\RMA;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\CustomerLocationTransaction;
@@ -160,8 +161,8 @@ class PhysicalVerificationController extends Controller
 
 	public function GetPhysicalVerification($id)
     {
-
-        $physicalverification = PhysicalVerificationMaster::selectRaw('physical_verification.*')->where('id', $id)->first();
+        //$RMA = RMA::where('receipt_id', $physical ['receipt_id'])->first();
+        $physicalverification = PhysicalVerificationMaster::selectRaw('physical_verification.* , rma.id as rma_id , cus.name as customer_name')->leftJoin('receipt as rc' , 'rc.id' , 'physical_verification.receipt_id' )->leftJoin('ma_customer as cus' ,'cus.id' , 'rc.customer_id') ->leftJoin('rma' , 'rma.receipt_id' , 'rc.id')->where('physical_verification.id', $id)->first();
 
         if($physicalverification) {
             return response()->json(['physicalverification' => $physicalverification , 'status' => 'success'], 200);
@@ -288,6 +289,8 @@ class PhysicalVerificationController extends Controller
         }
 
 
+        $PVM->rma_id = $physical ['rma_id'];
+        $PVM->customer_name = $physical ['customer_name'];
         return response()->json(['data' => $PVM, 'status' => 'success', 'message' => $message], 200);
     }
 
