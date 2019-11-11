@@ -87,8 +87,8 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 
 	$scope.checkDate = function()
 	{
-		console.log($scope.filterpvfromdate);
-		console.log($scope.filterpvtodate);
+		$scope.dateTo =   $filter('date')($scope.dateTo, "yyyy-mm-dd");
+		$scope.dateFrom =   $filter('date')($scope.dateFrom, "yyyy-mm-dd");
 	}
 
 	$scope.getReceipts = function()

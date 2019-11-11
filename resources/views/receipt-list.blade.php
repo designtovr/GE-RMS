@@ -26,27 +26,30 @@
                                     </th>
                                     <th>
                                         <input type="text"
-                                        id="fromdateFilter"
                                         class="form-control"
-                                        placeholder="From Date"
-                                        max-date="dateTo"
-                                        filter-type="dateFrom"
-                                        ng-model="filterpvfromdate"
-                                        filter-by="receipt_date"
-                                        ng-change="gridActions.filter();checkDate();"
+                                               placeholder="From Date"
+
+                                               max-date="dateTo"
+                                               ng-model = "dateFrom"
+                                               filter-by="date_unix"
+
+                                               ng-change="gridActions.filter();"
+                                               id="dateFromFilter"
+                                               filter-type="dateFrom"
                                         />
                                     </th>
                                     <th>
                                         <input type="text"
-                                        id="todateFilter"
-                                        class="form-control"
-                                        min-date="dateFrom"
                                         placeholder="To Date"
-                                        filter-type="dateTo"
-                                        ng-model="filterpvtodate"
-                                        filter-by="receipt_date"
-                                        ng-change="gridActions.filter();checkDate();"
-                                        />
+                                        filter-by="date_unix"
+                                        ng-change="gridActions.filter();"
+                                               id="dateToFilter"
+                                               class="form-control"
+                                               min-date="dateFrom"
+                                               close-text="Close"
+                                               ng-model="dateTo"
+                                               filter-type="dateTo"
+                                               close-text="Close">
                                     </th>
                                     <th>
                                        <input id="customerFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Customer Name" ng-change="gridActions.filter()" ng-model="filterCustomer" filter-by="customer_name" filter-type="text">
@@ -56,7 +59,7 @@
                                                type="text"
                                                class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
                                                placeholder="Docket Details"
-                                               ng-change="gridActions.filter()"
+                                               ng-change="gridActions.filter();"
                                                ng-model="filterdocketdetails"
                                                filter-by="docket_details"
                                                filter-type="text">
@@ -93,7 +96,7 @@
                                         <th sortable="rma_id" class="sortable">
                                             RMA No
                                         </th>
-                                        <th sortable="receipt_date" class="sortable">
+                                        <th sortable="date_unix" class="sortable">
                                             Receipt Date
                                         </th>
 
@@ -121,7 +124,7 @@
                                     <tr grid-item>
                                         <td ng-bind="item.id"></td>
                                         <td ng-bind="item.rma_id"></td>
-                                        <td ng-bind="item.receipt_date | date:'dd/MM/yyyy'"></td>
+                                        <td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
                                         <td ng-bind="item.customer_name"></td>
                                         <td ng-bind="item.site_name"></td>
                                         <td ng-bind="item.courier_name"></td>
@@ -441,15 +444,15 @@
                 update: new Date()
             });
 
-            $("#fromdateFilter").datepicker({
+            $("#dateFromFilter").datepicker({
                 autoclose: true,
-                format: 'dd/mm/yyyy',
+                format: 'yyyy-mm-dd',
                 todayHighlight: true,
             });
 
-            $("#todateFilter").datepicker({
+            $("#dateToFilter").datepicker({
                 autoclose: true,
-                format: 'dd/mm/yyyy',
+                format: 'yyyy-mm-dd',
                 todayHighlight: true,
             });
 
