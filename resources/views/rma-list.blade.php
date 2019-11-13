@@ -216,7 +216,7 @@
                                                     <th sortable="formatted_pv_id" class="sortable">
                                                         R Id
                                                     </th>
-                                                    <th sortable="receipt_id" class="sortable">
+                                                    <th sortable="formatted_receipt_id" class="sortable">
                                                         Receipt Id
                                                     </th>
                                                     <th  sortable="pvdate" class="sortable">
@@ -242,7 +242,7 @@
                                                         </label>
                                                     </td>
                                                     <td ng-bind="item.formatted_pv_id"></td>
-                                                    <td ng-bind="item.receipt_id"></td>
+                                                    <td ng-bind="item.formatted_receipt_id"></td>
                                                     <td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
                                                     <td ng-bind="item.customer_name"></td>
                                                     <td ng-bind="item.courier_name"></td>
@@ -318,7 +318,7 @@
                                                         </label>
                                                     </td>
                                                     <td ng-bind="item.formatted_pv_id"></td>
-                                                    <td ng-bind="item.receipt_id"></td>
+                                                    <td ng-bind="item.formatted_receipt_id"></td>
                                                     <td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
                                                     <td ng-bind="item.customer_name"></td>
                                                     <td ng-bind="item.courier_name"></td>

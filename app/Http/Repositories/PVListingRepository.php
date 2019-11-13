@@ -33,6 +33,23 @@ class PVListingRepository
 		return $pv;
 	}
 
+	public static function PVForRmaId($id)
+	{
+		$pv = PhysicalVerificationMaster::
+				selectRaw('physical_verification.*,receipt.gs_no, receipt.customer_id, cus.name as customer_name,rma.end_customer,pr.part_no,pt.category')
+				->leftJoin('receipt', 'physical_verification.receipt_id', 'receipt.id')
+				->leftJoin('ma_product as pr', 'pr.id', 'physical_verification.product_id')
+				->leftJoin('ma_product_type as pt', 'pt.id', 'physical_verification.producttype_id')
+				->leftJoin('pv_status', 'pv_status.pv_id', 'physical_verification.id')
+				->leftJoin('ma_pv_status', 'ma_pv_status.id', 'pv_status.current_status_id')
+				->leftJoin('rma', 'rma.receipt_id', 'receipt.id')
+				->leftJoin('rma_unit_information as rmu', 'rmu.pv_id', 'physical_verification.id')
+				->leftJoin('ma_customer as cus', 'cus.id', 'receipt.customer_id')
+				->whereIn('pv_status.current_status_id', [1,2])
+                ->where('rma.id', $id)->get();
+		return $pv;
+	}
+
 	public static function WithoutRma()
 	{
 		$status_id = array (1);

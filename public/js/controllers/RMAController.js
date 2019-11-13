@@ -298,7 +298,7 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 	    		//inner ajax call
 	    		$http({
 					method: 'GET',
-					url: '/ge/physicalverification?cat=withwithoutrma'
+					url: '/ge/pvforrmaid/'+ id
 				}).then(function success(response) {
 					$scope.selectedpvs =  response.data.physicalverification;
 					$scope.pvformdata.addedpvs = [];

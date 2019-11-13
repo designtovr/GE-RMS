@@ -299,7 +299,7 @@ class PhysicalVerificationController extends Controller
 
     public function PVWithReceipts($cat)
     {
-        $pvs = PhysicalVerificationMaster::selectRaw('physical_verification.id as pv_id, physical_verification.serial_no, pt.part_no, receipt.id as receipt_id, receipt_date, total_boxes, end_customer, receipt.courier_name, receipt.docket_details, cus.name as customer_name')
+        $pvs = PhysicalVerificationMaster::selectRaw('physical_verification.id as pv_id,ROUND(UNIX_TIMESTAMP(receipt.receipt_date) * 1000 +50000000) as date_unix, physical_verification.serial_no, pt.part_no, receipt.id as receipt_id, receipt_date, total_boxes, end_customer, receipt.courier_name, receipt.docket_details, cus.name as customer_name')
                 ->Join('receipt', 'receipt.id', 'physical_verification.receipt_id')->leftJoin('ma_product as pt', 'pt.id', 'physical_verification.product_id')->leftJoin('ma_customer as cus', 'cus.id', 'receipt.customer_id');
         if ($cat == 'open')
             $pvs = $pvs->where('receipt.status', 1);
@@ -311,6 +311,13 @@ class PhysicalVerificationController extends Controller
         $pvs = $pvs->orderBy('physical_verification.id')->get();
 
         return response()->json(['data' => $pvs, 'status' => 'success'], 200);
+    }
+
+    public function PVForRmaId($id)
+    {
+        $pvs = PVListingRepository::PVForRmaId($id);
+
+        return response()->json(['physicalverification' => $pvs, 'status' => 'success'], 200);
     }
 
     public function CheckSerialNumberExistence($serial_no, $exclude_id)
