@@ -271,14 +271,14 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 							text: 'Print',
 							btnClass: 'btn-blue',
 							action: function(){
-								$('#withrma-tab').addClass('active');
-								$scope.LoadData('jobticketstarted');
+								/*$('#withrma-tab').addClass('active');*/
+								$scope.LoadData($scope.page);
 								$scope.showjtform = false;
 							}
 						},
 						close: function () {
-							$('#withrma-tab').addClass('active');
-							$scope.LoadData('jobticketstarted');
+							/*$('#withrma-tab').addClass('active');*/
+							$scope.LoadData($scope.page);
 							$scope.showjtform = false;
 						}
 					}
@@ -341,7 +341,8 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 			if (response.data.status == 'success')
 			{
 				Notification.success(response.data.message);
-				$scope.openTab = false;
+				$scope.LoadData($scope.page);
+				/*$scope.openTab = false;
 				$scope.startTab = false;
 				if ($scope.openTab)
 				{
@@ -354,7 +355,7 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 					$('#withrma-tab').addClass('active');
 					$('#all-tab').removeClass('active');
 					$scope.LoadData('jobticketstarted');
-				}
+				}*/
 				$scope.showjtform = false;
 			}
 		}, function error(response) {

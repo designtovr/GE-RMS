@@ -25,13 +25,13 @@
 											<input id="ridFilter" type="text"
 											class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
 											placeholder="RID #" ng-change="gridActions.filter();"
-											ng-model="filterID" filter-by="id" filter-type="text">
+											ng-model="filterID" filter-by="formatted_pv_id" filter-type="text">
 										</th>
                                         <th>
                                             <input id="rmaidFilter" type="text"
                                             class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
                                             placeholder="RMA Id #" ng-change="gridActions.filter();"
-                                            ng-model="filterrmaID" filter-by="rma_id" filter-type="text">
+                                            ng-model="filterrmaID" filter-by="formatted_rma_id" filter-type="text">
                                         </th>
 										<th>
 											<input id="productFilter" type="text"
@@ -150,10 +150,10 @@
          					<table class="table table-borderless table-data3  ">
          						<thead>
          							<tr>
-                                        <th sortable="id" class="sortable">
+                                        <th sortable="formatted_pv_id" class="sortable">
                                             RID
                                         </th>
-                                        <th sortable="rma_id" class="sortable">
+                                        <th sortable="formatted_rma_id" class="sortable">
                                             RMA Id
                                         </th>
          								<th sortable="date_unix" class="sortable">
@@ -185,8 +185,8 @@
          						</thead>
          						<tbody>
          							<tr grid-item>
-                                        <td ng-bind="item.id"></td>
-                                        <td ng-bind="item.rma_id"></td>
+                                        <td ng-bind="item.formatted_pv_id"></td>
+                                        <td ng-bind="item.formatted_rma_id"></td>
          								<td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
          								<td ng-bind="item.part_no"></td>
          								<td ng-bind="item.serial_no"></td>

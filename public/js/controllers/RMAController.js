@@ -85,6 +85,7 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 		$scope.filtergs_no = '';
 		$scope.filterID = '';
 		$scope.filterreceiptID = '';
+		$scope.filterrmaID = '';
 		$scope.filteract = '';
 		$scope.filterCustomer = '';
 		$scope.filterrID = '';
@@ -586,7 +587,7 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 		}).then(function(response){
 			if (response.data.status == 'success')
 			{
-				var content = response.data.message + ' With Id:<b>' + response.data.data.id + '</b>. Are you want to print?';
+				var content = response.data.message + ' With Id:<b>' + response.data.data.formatted_rma_id + '</b>. Are you want to print?';
 				$ngConfirm({
 					title: '<b>Print!!</b>',
 					content: content,

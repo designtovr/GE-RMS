@@ -19,10 +19,10 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        <input id="ridFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Receipt ID #" ng-change="gridActions.filter()" ng-model="filterid" filter-by="id" filter-type="text">
+                                        <input id="ridFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Receipt ID #" ng-change="gridActions.filter()" ng-model="filterid" filter-by="formatted_receipt_id" filter-type="text">
                                     </th>
                                     <th>
-                                        <input id="rmaidFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="RMA No #" ng-change="gridActions.filter()" ng-model="filterrmaid" filter-by="rma_id" filter-type="text">
+                                        <input id="rmaidFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="RMA No #" ng-change="gridActions.filter()" ng-model="filterrmaid" filter-by="formatted_rma_id" filter-type="text">
                                     </th>
                                     <th>
                                         <input type="text"
@@ -90,10 +90,10 @@
                             <table class="table table-borderless table-data3">
                                 <thead>
                                     <tr>
-                                        <th sortable="id" class="sortable">
+                                        <th sortable="formatted_receipt_id" class="sortable">
                                             Receipt Id
                                         </th>
-                                        <th sortable="rma_id" class="sortable">
+                                        <th sortable="formatted_rma_id" class="sortable">
                                             RMA No
                                         </th>
                                         <th sortable="date_unix" class="sortable">
@@ -122,8 +122,8 @@
                                 </thead>
                                 <tbody>
                                     <tr grid-item>
-                                        <td ng-bind="item.id"></td>
-                                        <td ng-bind="item.rma_id"></td>
+                                        <td ng-bind="item.formatted_receipt_id"></td>
+                                        <td ng-bind="item.formatted_rma_id"></td>
                                         <td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
                                         <td ng-bind="item.customer_name"></td>
                                         <td ng-bind="item.site_name"></td>
@@ -187,7 +187,7 @@
                                             type="text"
                                             id="id"
                                             name="id"
-                                            ng-model="receipt.id"
+                                            ng-model="receipt.formatted_receipt_id"
                                             placeholder="Receipt No"
                                             class="form-control"
                                             disabled>

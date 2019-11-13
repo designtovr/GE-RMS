@@ -38,7 +38,7 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 			if (response.data.status == 'success')
 			{
 				//Notification.success(response.data.message + 'with Id: ' + response.data.data.id);
-				var content = response.data.message + ' With Id:<b>'+ response.data.data.id + '</b>, Are You Want to Print?';
+				var content = response.data.message + ' With Id:<b>'+ response.data.data.formatted_receipt_id + '</b>, Are You Want to Print?';
 				$ngConfirm({
 					title: '<b>Print!!</b>',
 					content: content,
@@ -83,6 +83,8 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 		$scope.filterendCustomer = '';
 		$scope.filterdocketdetails = '';
 		$scope.filterrmaid = '';
+		$scope.dateTo = '';
+		$scope.dateFrom = '';
 	}
 
 	$scope.checkDate = function()

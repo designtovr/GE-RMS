@@ -48,8 +48,8 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 			}).then(function success(response){
 				if (response.data.status == 'success')
 				{
-					Notification.success(response.data.message + 'with Id: ' + response.data.data.id);
-					var content = response.data.message + ' With Id:<b>' + response.data.data.id + '</b>.Are you want to print?';
+					//Notification.success(response.data.message + 'with Id: ' + response.data.data.id);
+					var content = response.data.message + ' With Id:<b>' + response.data.data.formatted_pv_id + '</b>.Are you want to print?';
 					$ngConfirm({
 						title: '<b>Print!!</b>',
 						content: content,

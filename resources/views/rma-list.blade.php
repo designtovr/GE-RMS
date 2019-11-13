@@ -24,22 +24,34 @@
                                         <input type="text" 
                                         id="receiptidFilter" 
                                         class="form-control" 
-                                        placeholder="Receipt Id #" 
+                                        placeholder="R Id #" 
                                         close-text="Close"
                                         ng-model="filterrID" 
-                                        filter-by="id" 
+                                        filter-by="formatted_pv_id" 
                                         filter-type="text"
                                         ng-change="gridActions.filter();" 
                                         />
                                     </th>
-                                    <th>
+                                    <th ng-show="tab =='withrma' || tab == 'withoutrma'">
                                         <input type="text" 
                                         id="ridFilter" 
                                         class="form-control" 
-                                        placeholder="R Id #" 
+                                        placeholder="Receipt Id #" 
                                         close-text="Close"
                                         ng-model="filterreceiptID" 
-                                        filter-by="receipt_id" 
+                                        filter-by="formatted_receipt_id" 
+                                        filter-type="text"
+                                        ng-change="gridActions.filter();" 
+                                        />
+                                    </th>
+                                    <th ng-show="tab =='saved' || tab == 'opensitecard' || tab == 'completed'">
+                                        <input type="text" 
+                                        id="rmaidFilter" 
+                                        class="form-control" 
+                                        placeholder="RMA #" 
+                                        close-text="Close"
+                                        ng-model="filterrmaID" 
+                                        filter-by="formatted_rma_id" 
                                         filter-type="text"
                                         ng-change="gridActions.filter();" 
                                         />
@@ -109,7 +121,7 @@
                                             <table class="table table-borderless table-data3">
                                                 <thead>
                                                 <tr>
-                                                    <th sortable="id" class="sortable">
+                                                    <th sortable="formatted_rma_id" class="sortable">
                                                         RMA No
                                                     </th>
                                                     <th sortable="date" class="sortable">
@@ -135,7 +147,7 @@
                                                 </thead>
                                                 <tbody>
                                                 <tr grid-item>
-                                                    <td ng-bind="item.id"></td>
+                                                    <td ng-bind="item.formatted_rma_id"></td>
                                                     <td ng-bind="item.date | date:'dd/MM/yyyy'"></td>
 
                                                     <td ng-bind="item.gs_no"></td>
@@ -201,7 +213,7 @@
                                                     <th >
                                                         Select
                                                     </th>
-                                                    <th sortable="id" class="sortable">
+                                                    <th sortable="formatted_pv_id" class="sortable">
                                                         R Id
                                                     </th>
                                                     <th sortable="receipt_id" class="sortable">
@@ -229,7 +241,7 @@
                                                             <span class="au-checkmark"></span>
                                                         </label>
                                                     </td>
-                                                    <td ng-bind="item.id"></td>
+                                                    <td ng-bind="item.formatted_pv_id"></td>
                                                     <td ng-bind="item.receipt_id"></td>
                                                     <td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
                                                     <td ng-bind="item.customer_name"></td>
@@ -305,7 +317,7 @@
                                                             <span class="au-checkmark"></span>
                                                         </label>
                                                     </td>
-                                                    <td ng-bind="item.id"></td>
+                                                    <td ng-bind="item.formatted_pv_id"></td>
                                                     <td ng-bind="item.receipt_id"></td>
                                                     <td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
                                                     <td ng-bind="item.customer_name"></td>
@@ -347,7 +359,7 @@
                                             <table class="table table-borderless table-data3">
                                                 <thead>
                                                 <tr>
-                                                    <th sortable="id" class="sortable">
+                                                    <th sortable="formatted_rma_id" class="sortable">
                                                         RMA No
                                                     </th>
                                                     <th sortable="date" class="sortable">
@@ -373,7 +385,7 @@
                                                 </thead>
                                                 <tbody>
                                                 <tr grid-item>
-                                                    <td ng-bind="item.id"></td>
+                                                    <td ng-bind="item.formatted_rma_id"></td>
                                                     <td ng-bind="item.date | date:'dd/MM/yyyy'"></td>
 
                                                     <td ng-bind="item.gs_no"></td>
@@ -435,7 +447,7 @@
                                             <table class="table table-borderless table-data3">
                                                 <thead>
                                                 <tr>
-                                                    <th sortable="id" class="sortable">
+                                                    <th sortable="formatted_rma_id" class="sortable">
                                                         RMA No
                                                     </th>
                                                     <th sortable="date" class="sortable">
@@ -460,7 +472,7 @@
                                                 </thead>
                                                 <tbody>
                                                 <tr grid-item>
-                                                    <td ng-bind="item.id"></td>
+                                                    <td ng-bind="item.formatted_rma_id"></td>
                                                     <td ng-bind="item.date | date:'dd/MM/yyyy'"></td>
 
                                                     <td ng-bind="item.gs_no"></td>

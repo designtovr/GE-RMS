@@ -26,13 +26,13 @@
 										<input id="ridFilter" type="text"
 											   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
 											   placeholder="Enter RID #" ng-change="gridActions.filter();"
-											   ng-model="filterID" filter-by="id" filter-type="text">
+											   ng-model="filterID" filter-by="formatted_pv_id" filter-type="text">
 									</th>
 									<th>
 										<input id="rmaidFilter" type="text"
 											   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
 											   placeholder="RMA Id#" ng-change="gridActions.filter();"
-											   ng-model="filterrmaID" filter-by="rma_id" filter-type="text">
+											   ng-model="filterrmaID" filter-by="formatted_rma_id" filter-type="text">
 									</th>
 									<th>
 										<input id="productFilter" type="text"
@@ -160,10 +160,10 @@
 									<!-- <th ng-show="openTab">
 										Select
 									</th> -->
-									<th sortable="id" class="sortable">
+									<th sortable="formatted_pv_id" class="sortable">
 										RID
 									</th>
-									<th sortable="rma_id" class="sortable">
+									<th sortable="formatted_rma_id" class="sortable">
 										RMA Id
 									</th>
 									<th sortable="date_unix" class="sortable">
@@ -184,13 +184,13 @@
 									<th sortable="manager_comment" class="sortable">
 										Manager Comment
 									</th>
-									<th sortable="repair_comment" class="sortable" ng-show="tab=='jobticketcompleted'">
+									<th sortable="repair_comment" class="sortable" ng-show="completedTab">
 										Repair Comment
 									</th>
 									<th sortable="pvl_priority_for_display" class="sortable">
 										Priority
 									</th>
-									<th ng-show="tab!='jobticketcompleted'">
+									<th ng-show="!completedTab">
 										Actions
 									</th>
 								</tr>
@@ -203,17 +203,17 @@
 											<span class="au-checkmark"></span>
 										</label>
 									</td> -->
-									<td ng-bind="item.id"></td>
-									<td ng-bind="item.rma_id"></td>
+									<td ng-bind="item.formatted_pv_id"></td>
+									<td ng-bind="item.formatted_rma_id"></td>
 									<td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
 									<td ng-bind="item.part_no"></td>
 									<td ng-bind="item.serial_no"></td>
 									<td ng-bind="item.customer_name"></td>
 									<td ng-bind="item.end_customer"></td>
 									<td ng-bind="item.manager_comment"></td>
-									<td ng-show="tab=='jobticketcompleted'" ng-bind="item.repair_comment"></td>
+									<td ng-show="completedTab" ng-bind="item.repair_comment"></td>
 									<td ng-bind="item.pvl_priority_for_display"></td>
-									<td ng-show="tab!='jobticketcompleted'">
+									<td ng-show="!completedTab">
                                         <div class="table-data-feature">
                                         	<div class="btn-group">
 	                                            <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-success" >Priority</button>

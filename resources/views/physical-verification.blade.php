@@ -20,10 +20,10 @@
                         <thead>
                             <tr>
                                 <th>
-                                    <input id="ridFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Receipt ID #" ng-change="pvgridActions.filter()" ng-model="filterreceiptid" filter-by="receipt_id" filter-type="text">
+                                    <input id="ridFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Receipt ID #" ng-change="pvgridActions.filter()" ng-model="filterreceiptid" filter-by="formatted_receipt_id" filter-type="text">
                                 </th>
                                 <th ng-show="tab == 'started'">
-                                    <input id="ridFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="RID #" ng-change="pvgridActions.filter()" ng-model="filterothersid" filter-by="pv_id" filter-type="text">
+                                    <input id="ridFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="RID #" ng-change="pvgridActions.filter()" ng-model="filterothersid" filter-by="formatted_pv_id" filter-type="text">
                                 </th>
                                 <th>
                                     <input type="text"
@@ -110,7 +110,7 @@
                                 <table class="table table-borderless table-data3 ">
                                     <thead>
                                         <tr>
-                                            <th sortable="id" class="sortable">
+                                            <th sortable="formatted_receipt_id" class="sortable">
                                                 Receipt No
                                             </th>
                                             <th sortable="date_unix" class="sortable">
@@ -139,7 +139,7 @@
                                     </thead>
                                     <tbody>
                                         <tr grid-item>
-                                            <td ng-bind="item.id"></td>
+                                            <td ng-bind="item.formatted_receipt_id"></td>
                                             <td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
 
                                             <td ng-bind="item.customer_name"></td>
@@ -212,10 +212,10 @@
                                                 <th>
                                                     Select
                                                 </th>
-                                                <th sortable="receipt_id" class="sortable">
+                                                <th sortable="formatted_receipt_id" class="sortable">
                                                     Receipt Id
                                                 </th>
-                                                <th sortable="pv_id" class="sortable">
+                                                <th sortable="formatted_pv_id" class="sortable">
                                                     R Id
                                                 </th>
                                                 <th sortable="date_unix" class="sortable">
@@ -249,8 +249,8 @@
                                                         <span class="au-checkmark"></span>
                                                     </label>
                                                 </td>
-                                                <td ng-bind="item.receipt_id"></td>
-                                                <td ng-bind="item.pv_id"></td>
+                                                <td ng-bind="item.formatted_receipt_id"></td>
+                                                <td ng-bind="item.formatted_pv_id"></td>
                                                 <td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
                                                 <td ng-bind="item.part_no"></td>
                                                 <td ng-bind="item.serial_no"></td>
@@ -477,7 +477,7 @@
                             <table class="table table-borderless table-data3 ">
                                 <thead>
                                     <tr>
-                                        <th sortable="item.id" class="sortable">
+                                        <th sortable="item.formatted_receipt_id" class="sortable">
                                             Receipt Id
                                         </th>
                                         <th sortable="item.date_unix" class="sortable">
@@ -499,7 +499,7 @@
                                 </thead>
                                 <tbody>
                                     <tr grid-item>
-                                        <td ng-bind="'RC ' + item.id"></td>
+                                        <td ng-bind="item.formatted_receipt_id"></td>
                                         <td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
                                         <td ng-bind="item.customer_name"></td>
                                         <!-- <td ng-bind="item.end_customer"></td> -->
