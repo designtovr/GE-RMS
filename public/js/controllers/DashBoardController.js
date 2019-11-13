@@ -1,6 +1,13 @@
-app.controller('DashBoardController', ['$scope', '$http', 'Notification' , function($scope, $http , Notification)
+app.controller('DashBoardController', ['$scope', '$http', 'Notification' , '$location' , '$window' , function($scope, $http ,  Notification , $location , $window)
 {
     $scope.dashboardvalues = {};
+
+    $scope.GoToReceipt = function() {
+        $window.location.href = url('/receipt');
+        $location.url('/receipt');
+        console.log("colled");
+    };
+
     $scope.GetDashboardValues = function()
     {
         $http({
