@@ -5,6 +5,7 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 	$scope.ShowOthers = false;
 	$scope.receipt = {};
 	$scope.physicalVerification = {};
+	$scope.customer_name = '';
 	$scope.gridOptions = {	
 		pagination: {
 			itemsPerPage: '10'
@@ -49,7 +50,19 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 				if (response.data.status == 'success')
 				{
 					//Notification.success(response.data.message + 'with Id: ' + response.data.data.id);
-					var content = response.data.message + ' With Id:<b>' + response.data.data.formatted_pv_id + '</b>.Are you want to print?';
+			console.log('HI : ' + $scope.physicalVerification.customer_name);
+					customer_name = $scope.physicalVerification;
+					$scope.customer_name = $scope.physicalVerification.customer_name;
+					var content = response.data.message + ' With Id:<b>' + response.data.data.formatted_pv_id + '</b>.+
+						'<div>\n' +
+						'    <div class="form-group">\n' +
+						'        <label class="control-label"><b>End Customer</b></label>\n' +
+						'        <input autofocus ng-change="textChange()" type="text" ng-model="customer_name" id="input-name"  class="form-control" value ="$scope.customer_name">\n' +
+						'    </div>\n' +
+					'        <label class="control-label"><b>Location</b></label>\n' +
+					'        <input autofocus ng-change="textChange()" type="text" ng-model="location" id="input-location" placeholder="Location" class="form-control">\n' +
+					'    </div>\n'+
+          Are you want to print?';
 					$ngConfirm({
 						title: '<b>Print!!</b>',
 						content: content,
