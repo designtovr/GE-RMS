@@ -53,7 +53,7 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 			console.log('HI : ' + $scope.physicalVerification.customer_name);
 					customer_name = $scope.physicalVerification;
 					$scope.customer_name = $scope.physicalVerification.customer_name;
-					var content = response.data.message + ' With Id:<b>' + response.data.data.formatted_pv_id + '</b>.+
+					var content = response.data.message + ' With Id:<b>' + response.data.data.formatted_pv_id + '</b>.'+
 						'<div>\n' +
 						'    <div class="form-group">\n' +
 						'        <label class="control-label"><b>End Customer</b></label>\n' +
@@ -62,7 +62,7 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 					'        <label class="control-label"><b>Location</b></label>\n' +
 					'        <input autofocus ng-change="textChange()" type="text" ng-model="location" id="input-location" placeholder="Location" class="form-control">\n' +
 					'    </div>\n'+
-          Are you want to print?';
+          'Are you want to print?';
 					$ngConfirm({
 						title: '<b>Print!!</b>',
 						content: content,
