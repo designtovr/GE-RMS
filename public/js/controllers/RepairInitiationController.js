@@ -31,6 +31,8 @@ app.controller('RepairInitiationController', ['$scope', '$http', function($scope
 		$scope.filterreceipt_id = '';
 		$scope.filterpvdate = '';
 		$scope.filterCustomer = '';
+		$scope.dateTo = '';
+		$scope.dateFrom = '';
 	}
 
 	$scope.Initiate = function()

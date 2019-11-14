@@ -77,6 +77,8 @@ $scope.gridOptions = {
 		$scope.filterid = '';
 		$scope.filterpvdate = '';
 		$scope.filterCustomer = '';
+		$scope.dateTo = '';
+		$scope.dateFrom = '';
 	}
 
 	$scope.getRMS = function()

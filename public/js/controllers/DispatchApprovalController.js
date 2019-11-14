@@ -77,6 +77,8 @@ app.controller('DispatchApprovalController', ['$scope', '$http','Notification','
         $scope.filterpvdate = '';
         $scope.filterCustomer = '';
         $scope.filterendCustomer = '';
+        $scope.dateTo = '';
+        $scope.dateFrom = '';
     }
 
 

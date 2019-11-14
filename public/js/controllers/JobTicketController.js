@@ -92,6 +92,8 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 		$scope.filterpvdate = '';
 		$scope.filterCustomer = '';
 		$scope.filterrmaID = '';
+		$scope.dateTo = '';
+		$scope.dateFrom = '';
 	}
 
 	$scope.Initiate = function()

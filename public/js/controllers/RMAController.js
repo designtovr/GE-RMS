@@ -91,6 +91,8 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 		$scope.filterrID = '';
 		$scope.filterrmaID = '';
 		$scope.filterendCustomer = '';
+		$scope.dateTo = '';
+		$scope.dateFrom = '';
 	}
 
 	$scope.InitiateForm = function()

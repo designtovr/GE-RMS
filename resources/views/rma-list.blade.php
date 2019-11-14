@@ -58,19 +58,30 @@
                                     </th>
                                     <th>
                                         <input type="text"
-                                        id="dateFilter"
-                                        class="form-control"
-                                        placeholder="Date"
-                                        max-date="dateTo"
-                                        close-text="Close"
-                                        ng-model="filterdate"
-                                        show-weeks="true"
-                                        is-open="dateFromOpened"
-                                        ng-click="dateFromOpened = true"
-                                        filter-by="date"
-                                        filter-type="text"
-                                        ng-change="gridActions.filter()"
-                                        close-text="Close"/>
+                                               class="form-control"
+                                               placeholder="From Date"
+
+                                               max-date="dateTo"
+                                               ng-model = "dateFrom"
+                                               filter-by="date_unix"
+
+                                               ng-change="gridActions.filter();"
+                                               id="dateFromFilter"
+                                               filter-type="dateFrom"
+                                        />
+                                    </th>
+                                    <th>
+                                        <input type="text"
+                                               placeholder="To Date"
+                                               filter-by="date_unix"
+                                               ng-change="gridActions.filter();"
+                                               id="dateToFilter"
+                                               class="form-control"
+                                               min-date="dateFrom"
+                                               close-text="Close"
+                                               ng-model="dateTo"
+                                               filter-type="dateTo"
+                                               close-text="Close">
                                     </th>
                                     <th ng-show="tab !='withrma' && tab != 'withoutrma'">
                                         <input id="gsFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="GS No" ng-change="gridActions.filter();" ng-model="filtergs_no" filter-by="gs_no" filter-type="text">
@@ -124,7 +135,7 @@
                                                     <th sortable="formatted_rma_id" class="sortable">
                                                         RMA No
                                                     </th>
-                                                    <th sortable="date" class="sortable">
+                                                    <th sortable="date_unix" class="sortable">
                                                         Date
                                                     </th>
 
@@ -560,6 +571,17 @@
                 todayHighlight: true,
                 setDate: new Date(),
                 update: new Date()
+            });
+            $("#dateFromFilter").datepicker({
+                autoclose: true,
+                format: 'yyyy-mm-dd',
+                todayHighlight: true,
+            });
+
+            $("#dateToFilter").datepicker({
+                autoclose: true,
+                format: 'yyyy-mm-dd',
+                todayHighlight: true,
             });
         });
     </script>

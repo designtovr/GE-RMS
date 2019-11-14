@@ -80,6 +80,8 @@ app.controller('VerificationCompleteController', ['$scope', '$http', 'Notificati
 				$scope.filterserial_no = '';
 				$scope.filterCustomer = '';
 				$scope.filterendCustomer = '';
+				$scope.dateTo = '';
+				$scope.dateFrom = '';
 			}
 
 				$scope.ChangeStatus = function(status)

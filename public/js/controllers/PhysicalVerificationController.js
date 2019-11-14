@@ -184,6 +184,8 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 			$scope.filterpvdateothers = '';
 			$scope.filterCustomerothers = '';
 			$scope.filterEndCustomerothers = '';
+			$scope.dateTo = '';
+			$scope.dateFrom = '';
 		}
 
 
