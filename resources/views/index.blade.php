@@ -275,12 +275,12 @@
                         <div class="au-card-title"  >
                             <div class="bg-overlay bg-overlay--androidblue"></div>
                             <h3>
-                                <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>Repair Priority List</h3>
+                                <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>Repair Priority</h3>
 
                         </div>
                         <div class="au-task js-list-load">
-                            <div class=" ">
-                                <div class="table-responsive table-height200">
+                            <div class="au-task-list js-scrollbar3">
+                                <div class="table-responsive m-b-40">
                                     <table class="table table-borderless table-data3 table-data3-blue table-height200">
                                         <thead>
                                         <tr>
