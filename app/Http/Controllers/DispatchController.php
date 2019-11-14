@@ -13,6 +13,7 @@ use App\Http\Requests\AddDispatchRequest;
 use App\Http\Repositories\PVPriorityRepositories;
 use App\Http\Repositories\PVStatusRepositories;
 use Carbon\Carbon;
+use App\Http\Repositories\RMSRepositories;
 
 class DispatchController extends Controller
 {
@@ -47,6 +48,8 @@ class DispatchController extends Controller
         PVStatusRepositories::ChangeStatusToDispatchced($DM->pv_id);
         //re-order the priority
         PVPriorityRepositories::ChangingPriorityAfterDispatching($DM->pv_id);
+        //delete from RMS
+        RMSRepositories::DeleteRMS($DM->pv_id);
 
         return response()->json(['data' => $DM, 'status' => 'success', 'message' => 'Dispatch Added Successfully'], 200);
     }

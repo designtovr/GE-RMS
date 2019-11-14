@@ -6,6 +6,7 @@ use App\Models\PhysicalVerificationMaster;
 use App\Models\ReceiptMaster;
 use App\Models\ProductMaster;
 use App\Models\RMA;
+use App\Models\RMSMaster;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\CustomerLocationTransaction;
@@ -17,6 +18,7 @@ use App\Http\Requests\AddPhysicalVerificationRequest;
 use App\Http\Requests\ChangePVStatusRequest;
 use App\Http\Repositories\PVStatusRepositories;
 use App\Http\Repositories\PVListingRepository;
+use App\Http\Repositories\RMSRepositories;
 use Carbon\Carbon;
 
 class PhysicalVerificationController extends Controller
@@ -287,6 +289,11 @@ class PhysicalVerificationController extends Controller
             }
             $message = 'Relay Added Successfully';
         }
+        //entering into RMS table
+        //if rms data already exists dont alter else enter into rms table
+        $PVExistsInRMS = RMSMaster::where('pv_id', $PVM->id)->first();
+        if (!$PVExistsInRMS)
+            RMSRepositories::MoveRelayToPhysicalVerificationRack($PVM->id);
         $rma_and_cus = PhysicalVerificationMaster::selectRaw('rma.id as rma_id, cus.name as customer_name')
                         ->leftJoin('receipt as rc', 'rc.id', 'physical_verification.receipt_id')
                         ->leftJoin('rma', 'rma.receipt_id', 'rc.id')

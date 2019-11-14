@@ -60,7 +60,7 @@ class WarrantyPHPController extends Controller
             else if ($WM->move == 2) {
                 PVStatusRepositories::ChangeStatusToCustomerApproval($pv);
             }
-            RMSRepositories::MoveRelayToId($pv, '', $WM->move);
+            $rms_response = RMSRepositories::MoveRelayToId($pv, '', $WM->move);
 
         }
         $message = 'Warranty Saved Successfully';

@@ -14,12 +14,10 @@ class RMSRepositories
 	private function SaveRMS($pv_id, $rack_id, $rack_type)
 	{
 		//saving RMS
-		$rack_type = 0;
 		$RM = RMSMaster::where('pv_id', $pv_id)->first();
 		if ($RM)
 		{
-			$rack_type = $RM->rack_type;
-			RMSMaster::where('pv_id', $pv_id)->update(['rack_id' => $rack_id, 'rack_type' => $RM->rack_type, 'moved_date' => Carbon::today(), 'updated_at' => Carbon::now(), 'updated_by' => Auth::id()]);
+			RMSMaster::where('pv_id', $pv_id)->update(['rack_id' => $rack_id, 'rack_type' => $rack_type, 'moved_date' => Carbon::today(), 'updated_at' => Carbon::now(), 'updated_by' => Auth::id()]);
 		}
 		else
 		{
@@ -43,35 +41,43 @@ class RMSRepositories
 		$RMT->created_by = Auth::id();
 		$RMT->created_at = Carbon::now();
 		$RMT->save();
+
+		return $RM;
+	}
+
+	public static function DeleteRMS($pv_id)
+	{
+		RMSMaster::where('pv_id', $pv_id)->delete();
+		return 'success';
 	}
 
 	public static function MoveRelayToPhysicalVerificationRack($pv_id, $rack_id='')
 	{
-		(new self)->SaveRMS($pv_id, '', 5);
+		return (new self)->SaveRMS($pv_id, '', 5);
 	}
 
 	public static function MoveRelayToRepairRack($pv_id, $rack_id='')
 	{
-		(new self)->SaveRMS($pv_id, '', 1);
+		return (new self)->SaveRMS($pv_id, '', 1);
 	}
 
 	public static function MoveRelayToCustomerHoldRack($pv_id, $rack_id='')
 	{
-		(new self)->SaveRMS($pv_id, '', 2);
+		return (new self)->SaveRMS($pv_id, '', 2);
 	}
 
 	public static function MoveRelayToPostLab($pv_id, $rack_id='')
 	{
-		(new self)->SaveRMS($pv_id, '', 3);
+		return (new self)->SaveRMS($pv_id, '', 3);
 	}
 
 	public static function MoveRelayToApplicationLab($pv_id, $rack_id='')
 	{
-		(new self)->SaveRMS($pv_id, '', 4);
+		return (new self)->SaveRMS($pv_id, '', 4);
 	}
 
 	public static function MoveRelayToId($pv_id, $rack_id, $rack_type='')
 	{
-		(new self)->SaveRMS($pv_id, $rack_id, $rack_type);
+		return (new self)->SaveRMS($pv_id, $rack_id, $rack_type);
 	}
 }
