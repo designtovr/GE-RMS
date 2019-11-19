@@ -5,8 +5,7 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 	$scope.ShowOthers = false;
 	$scope.receipt = {};
 	$scope.physicalVerification = {};
-	$scope.customer_name = '';
-	$scope.gridOptions = {	
+	$scope.gridOptions = {
 		pagination: {
 			itemsPerPage: '10'
 		}, 
@@ -51,29 +50,23 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 				{
 					//Notification.success(response.data.message + 'with Id: ' + response.data.data.id);
 			console.log('HI : ' + $scope.physicalVerification.customer_name);
-					customer_name = $scope.physicalVerification;
-					$scope.customer_name = $scope.physicalVerification.customer_name;
-					var content = response.data.message + ' With Id:<b>' + response.data.data.formatted_pv_id + '</b>.'+
-						'<div>\n' +
-						'    <div class="form-group">\n' +
-						'        <label class="control-label"><b>End Customer</b></label>\n' +
-						'        <input autofocus ng-change="textChange()" type="text" ng-model="customer_name" id="input-name"  class="form-control" value ="$scope.customer_name">\n' +
-						'    </div>\n' +
-					'        <label class="control-label"><b>Location</b></label>\n' +
-					'        <input autofocus ng-change="textChange()" type="text" ng-model="location" id="input-location" placeholder="Location" class="form-control">\n' +
-					'    </div>\n'+
-          'Are you want to print?';
+
 					$ngConfirm({
 						title: '<b>Print!!</b>',
-						content: content,
+						contentUrl: './resources/views/form.html',
 						type: 'blue',
 						typeAnimated: true,
 						buttons: {
 							print: {
 								text: 'Print',
 								btnClass: 'btn-blue',
-								action: function(){
-									$scope.PrintLabels(response.data.data);
+								action: function(scope){
+									console.log(scope.customer_name);
+									console.log(scope.location);
+									$scope.physicalVerification.cus_name = scope.customer_name;
+									$scope.physicalVerification.location = scope.location;
+									$data = $scope.physicalVerification;
+									$scope.PrintLabels($data);
 									$scope.ClosePVForm();
 									$scope.ChangeTab($scope.tab);
 								}
@@ -83,7 +76,17 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 								$scope.ChangeTab($scope.tab);
 							}
 						}
-					});
+
+						,
+						onScopeReady: function (scope) {
+							scope.customer_name = $scope.physicalVerification.customer_name;
+							scope.location = $scope.physicalVerification.customer_name;
+					var self = this;
+					scope.textChange = function () {
+						console.log (scope.customer_name);
+					}
+				}}
+				);
 				}
 			}, function failure(response){
 				if (response.status == 422)
