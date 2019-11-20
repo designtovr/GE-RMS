@@ -326,24 +326,62 @@
 		                			<div class="col-md-6">
 		                				<div class="row form-group">
 			                                <div class="col col-md-4">
-			                                    <label for="terminal_blocks" class=" form-control-label">Teriminal Block</label>
+			                                    <label for="no_of_terminal_blocks" class=" form-control-label">Teriminal Block</label>
 			                                </div>
 			                                <div class="col-12 col-md-8">
-			                                    <input type="text" id="terminal_blocks" ng-model="vcformdata.terminal_blocks" name="terminal_blocks" placeholder="Terminal Block" class="form-control" disabled>
+			                                    <input type="text" id="no_of_terminal_blocks" ng-model="vcformdata.no_of_terminal_blocks" name="no_of_terminal_blocks" placeholder="No Of Terminal Block" class="form-control" ui-mask="99 + 99" placeholder="N+N" 
+                                                add-default-placeholder="99 + 99"
+                                                ui-mask-placeholder-char="N" disabled>
 			                                </div>
 			                            </div>
 		                			</div>
 		                			<div class="col-md-6">
 		                				<div class="row form-group">
 			                                <div class="col col-md-4">
-			                                    <label for="short_links" class=" form-control-label">Short Link</label>
+			                                    <label for="no_of_short_links" class=" form-control-label">Short Link</label>
 			                                </div>
 			                                <div class="col-12 col-md-8">
-			                                    <input type="text" id="short_links" name="short_links" ng-model="vcformdata.short_links" placeholder="Short Link" class="form-control" disabled>
+			                                    <input type="text" id="no_of_short_links" name="no_of_short_links" ng-model="vcformdata.no_of_short_links" placeholder="Short Link" class="form-control" disabled>
 			                                </div>
 			                            </div>
 		                			</div>
 		                		</div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row form-group">
+                                            <div class="col col-md-4">
+                                                <label for="updated_no_of_terminal_blocks" class=" form-control-label">Updated Teriminal Block</label>
+                                            </div>
+                                            <div class="col-12 col-md-8">
+                                                <input type="text" id="updated_no_of_terminal_blocks" ng-model="vcformdata.updated_no_of_terminal_blocks" name="updated_no_of_terminal_blocks"class="form-control" ui-mask="99 + 99" placeholder="N+N" 
+                                                add-default-placeholder="99 + 99"
+                                                ui-mask-placeholder-char="N">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row form-group">
+                                            <div class="col col-md-4">
+                                                <label for="updated_no_of_short_links" class=" form-control-label">Updated Short Link</label>
+                                            </div>
+                                            <div class="col-12 col-md-8">
+                                                <input type="text" id="updated_no_of_short_links" name="updated_no_of_short_links" ng-model="vcformdata.updated_no_of_short_links" placeholder="Updated Short Link" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row form-group">
+                                            <div class="col col-md-4">
+                                                <label for="updated_sw_version" class=" form-control-label">Updated Software Ref.</label>
+                                            </div>
+                                            <div class="col-12 col-md-8">
+                                                <input type="text" id="updated_sw_version" name="updated_sw_version" ng-model="vcformdata.updated_sw_version" placeholder="Updated Software Reference" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 	                    	</form>
 	                    </div>
 	                    <div class="card-header">
@@ -411,6 +449,42 @@
 					                    </label>
 	                                </div>
 	                            </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="case" class=" form-control-label">Case <span class="mandatory">*</span></label>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <label class="switch switch-text switch-success switch-pill">
+                                          <input type="checkbox" class="switch-input" checked="true" name="case" id="case" ng-model="vcformdata.case">
+                                          <span data-on="Yes" data-off="No" class="switch-label"></span>
+                                          <span class="switch-handle"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="battery" class=" form-control-label">Battery <span class="mandatory">*</span></label>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <label class="switch switch-text switch-success switch-pill">
+                                          <input type="checkbox" class="switch-input" checked="true" name="battery" id="battery" ng-model="vcformdata.battery">
+                                          <span data-on="Yes" data-off="No" class="switch-label"></span>
+                                          <span class="switch-handle"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="flops" class=" form-control-label">Flops <span class="mandatory">*</span></label>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <label class="switch switch-text switch-success switch-pill">
+                                          <input type="checkbox" class="switch-input" checked="true" name="flops" id="flops" ng-model="vcformdata.flops">
+                                          <span data-on="Yes" data-off="No" class="switch-label"></span>
+                                          <span class="switch-handle"></span>
+                                        </label>
+                                    </div>
+                                </div>
 	                    	</form>
 	                    </div>
 	                    <div class="card-footer">
