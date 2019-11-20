@@ -456,7 +456,7 @@
 	                                    	Remove</button>
 		                            	</div>
 		                            </div>
-		                            <div class="row form-group">
+		                            <!-- <div class="row form-group">
 		                                <div class="col col-md-3">
 		                                    <label for="part_no_@{{$index}}" class=" form-control-label">Material Part No </label>
 		                                </div>
@@ -469,24 +469,41 @@
 		                                    placeholder="Material Part No" 
 		                                    class="form-control">
 		                                </div>
-		                            </div>
-		                    {{--        <div class="row form-group">
+		                            </div> -->
+		                            <div class="row form-group">
+	                                    <div class="col col-md-3">
+	                                        <label for="part_no_@{{$index}}" class=" form-control-label">Material Part No</label>
+	                                    </div>
+	                                    <div class="col-12 col-md-6">
+	                                        <input 
+	                                        type="text" 
+	                                        id="part_no_@{{$index}}" 
+	                                        name="part_no_@{{$index}}" 
+	                                        ng-model="job_ticket_material.part_no" 
+	                                        uib-typeahead="part for part in jtmaterialspartnos | filter:$viewValue | limitTo:8" 
+	                                        placeholder="Material Part No" 
+	                                        class="form-control" 
+	                                        typeahead-popup-template-url="{{url('public/bower_components/angular-bootstrap/template/typeahead/typeahead-popup.html')}}"
+	                                        typeahead-template-url="{{url('public/bower_components/angular-bootstrap/template/typeahead/typeahead-match.html')}}">
+	                                    </div>
+	                                </div>
+		                            <div class="row form-group">
 		                                <div class="col col-md-3">
-		                                    <label for="value_@{{$index}}" class=" form-control-label">Value</label>
+		                                    <label for="quantity_@{{$index}}" class=" form-control-label">Quantity</label>
 		                                </div>
 		                                <div class="col-12 col-md-6">
 		                                    <input 
 		                                    type="text" 
-		                                    id="value_@{{$index}}" 
-		                                    name="value_@{{$index}}" 
-		                                    ng-model = "job_ticket_material.value" 
-		                                    placeholder="Value" 
+		                                    id="quantity_@{{$index}}" 
+		                                    name="quantity_@{{$index}}" 
+		                                    ng-model = "job_ticket_material.quantity" 
+		                                    placeholder="Quantity" 
 		                                    class="form-control">
 		                                </div>
-		                            </div>--}}
+		                            </div>
 		                            <div class="row form-group">
 		                                <div class="col col-md-3">
-		                                    <label for="old_pcp_@{{$index}}" class=" form-control-label">Old PCP</label>
+		                                    <label for="old_pcp_@{{$index}}" class=" form-control-label">Defective PCB</label>
 		                                </div>
 		                                <div class="col-12 col-md-6">
 		                                    <input 
@@ -494,13 +511,13 @@
 		                                    id="old_pcp_@{{$index}}" 
 		                                    name="old_pcp_@{{$index}}" 
 		                                    ng-model="job_ticket_material.old_pcp" 
-		                                    placeholder="Old PCP" 
+		                                    placeholder="Defective PCB" 
 		                                    class="form-control">
 		                                </div>
 		                            </div>
 		                            <div class="row form-group">
 		                                <div class="col col-md-3">
-		                                    <label for="new_pcp_@{{$index}}" class=" form-control-label">New PCP</label>
+		                                    <label for="new_pcp_@{{$index}}" class=" form-control-label">New PCB</label>
 		                                </div>
 		                                <div class="col-12 col-md-6">
 		                                    <input 
@@ -508,7 +525,7 @@
 		                                    id="new_pcp_@{{$index}}" 
 		                                    ng-model="job_ticket_material.new_pcp"
 		                                    name="new_pcp_@{{$index}}" 
-		                                    placeholder="New PCP" 
+		                                    placeholder="New PCB" 
 		                                    class="form-control">
 		                                </div>
 		                            </div>

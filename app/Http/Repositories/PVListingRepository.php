@@ -180,7 +180,16 @@ class PVListingRepository
     			->get();
     	//loop and add due count
     	foreach ($pvs['for_physical_verification'] as $key => $for_pv) {
-    		$for_pv->overdue = 5;
+    		$for_pv->overdue = DB::table('physical_verification as pv')->selectRaw('pv.receipt_id, rc.customer_id, cus.name as customer_name')
+    			->join('receipt as rc', 'rc.id', 'pv.receipt_id')
+    			->join('ma_customer as cus', 'cus.id', 'rc.customer_id')
+    			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+    			->where('customer_id', $for_pv->customer_id)
+    			->where(function($query) use ($for_pv) {
+    				$query->where('sta.current_status_id', 1);
+    				$query->orWhere('sta.current_status_id', 2);
+    			})->whereDate('pv.created_at', '<', Carbon::today())
+    			->get()->count();
     	}
     	//data for for W/C
     	$pvs['wch'] = DB::table('physical_verification as pv')->selectRaw('pt.name as type_name, COUNT(*) as total')
