@@ -31,7 +31,7 @@
                 </div>
             </div>--}}
             <div class="row">
-                <div class="col-lg-2 h-25">
+      <!--           <div class="col-lg-2 h-25">
                     <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
                         <div class="au-card-title" style="background-image:url('images/bg-title-01.jpg');" >
                             <div class="bg-overlay bg-overlay--androidblue"></div>
@@ -59,13 +59,13 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <!-- END DATA TABLE -->
+                           
                             </div>
 
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-2 h-25">
+                </div> -->
+               <!--  <div class="col-lg-2 h-25">
                     <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
                         <div class="au-card-title"  >
                             <div class="bg-overlay bg-overlay--androidblue"></div>
@@ -93,13 +93,13 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <!-- END DATA TABLE -->
+                             
                             </div>
 
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-2 h-25">
+                </div> -->
+               <!--  <div class="col-lg-2 h-25">
                     <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
                         <div class="au-card-title"  >
                             <div class="bg-overlay bg-overlay--androidblue"></div>
@@ -127,48 +127,12 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <!-- END DATA TABLE -->
                             </div>
 
                         </div>
                     </div>
-                </div>
-
-                <div class="col-lg-2">
-                    <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
-                        <div class="au-card-title"  >
-                            <div class="bg-overlay bg-overlay--androidblue"></div>
-                            <h3>
-                                <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>For Test</h3>
-
-                        </div>
-                        <div class="au-task js-list-load">
-                            <div class="au-task-list js-scrollbar3">
-                                <div class="table-responsive m-b-40">
-                                    <table class="table table-borderless table-data3 table-data3-blue">
-                                        <thead>
-                                        <tr>
-                                            <th>Type</th>
-                                            <th>Total Relays</th>
-                                            <th>Over Due</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr ng-repeat="test in dashboardvalues.for_test">
-                                            <td ng-bind="test.type_name"></td>
-                                            <td ng-bind="test.total"></td>
-                                            <td> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s" ng-bind="test.overdue"></span></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <!-- END DATA TABLE -->
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2">
+                </div> -->
+<!--  <div class="col-lg-2">
                     <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
                         <div class="au-card-title"  >
                             <div class="bg-overlay bg-overlay--androidblue"></div>
@@ -196,7 +160,6 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <!-- END DATA TABLE -->
                             </div>
 
                         </div>
@@ -230,13 +193,47 @@
                                         </tbody>
                                     </table>
                                 </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div> -->
+                <div class="col-lg-4">
+                    <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
+                        <div class="au-card-title"  >
+                            <div class="bg-overlay bg-overlay--androidblue"></div>
+                            <h3>
+                                <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>Test</h3>
+
+                        </div>
+                        <div class="au-task js-list-load">
+                            <div class="au-task-list js-scrollbar3">
+                                <div class="table-responsive m-b-40">
+                                    <table class="table table-borderless table-data3 table-data3-blue">
+                                        <thead>
+                                        <tr>
+                                            <th>Type</th>
+                                            <th>Total Relays</th>
+                                            <th>Over Due</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="test in dashboardvalues.for_test">
+                                            <td ng-bind="test.type_name"></td>
+                                            <td ng-bind="test.total"></td>
+                                            <td> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s" ng-bind="test.overdue"></span></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                                 <!-- END DATA TABLE -->
                             </div>
 
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-2">
+               
+                <div class="col-lg-4">
                     <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
                         <div class="au-card-title"  >
                             <div class="bg-overlay bg-overlay--androidblue"></div>
@@ -270,7 +267,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-2">
+                <div class="col-lg-4">
                     <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
                         <div class="au-card-title"  >
                             <div class="bg-overlay bg-overlay--androidblue"></div>
@@ -307,7 +304,7 @@
             </div>
 
             <div class="row">
-
+<!-- 
                 <div class="col-lg-4">
                     <div class="au-card m-b-30">
                         <div class="au-card-inner">
@@ -334,7 +331,7 @@
                             <canvas id="OutOfWarranty"></canvas>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
     {{--            <div class="col-lg-3">
                     <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
@@ -670,7 +667,7 @@
             <div class="row">
 
 
-                <div class="col-lg-4">
+                <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header" style="background-color: #dc3545">
                             <strong class="card-title text-light" style="color: white">Live Updates
@@ -727,7 +724,7 @@
                         </div>
                     </div>
                 </div>
-            <div class="col-lg-4">
+            <<!-- div class="col-lg-4">
                 <div class="au-card col-lg-12 m-b-30">
                     <div class="au-card-inner">
                         <h3 class="title-2 m-b-40">OTD</h3>
@@ -761,7 +758,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
             </div>
             </div>
