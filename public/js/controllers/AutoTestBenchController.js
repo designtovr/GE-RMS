@@ -144,6 +144,8 @@ app.controller('AutoTestBenchController', ['$scope', '$http','Notification','Cha
 				$scope.filterpvdate = '';
 				$scope.filterCustomer = '';
 				$scope.filterendCustomer = '';
+				$scope.dateTo = '';
+				$scope.dateFrom = '';
 			}
 
 			$scope.ChangeStatus = function(status)

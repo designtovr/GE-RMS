@@ -1,0 +1,1 @@
+ALTER TABLE `verification_completion` ADD `updated_no_of_terminal_blocks` VARCHAR(11) NULL DEFAULT NULL AFTER `pv_id`, ADD `updated_sw_version` VARCHAR(25) NULL DEFAULT NULL AFTER `updated_no_of_terminal_blocks`, ADD `updated_no_of_short_links` SMALLINT NULL DEFAULT NULL AFTER `updated_sw_version`;

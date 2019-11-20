@@ -273,11 +273,13 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/pvwithreceipts/{cat?}','PhysicalVerificationController@PVWithReceipts');
     Route::post('/changepvstatus','PhysicalVerificationController@ChangePVStatus');
     Route::get('/checkserialnumberexistence/{serial_no}/{exclude_id}', 'PhysicalVerificationController@CheckSerialNumberExistence');
+    Route::get('/pvforrmaid/{id}', 'PhysicalVerificationController@PVForRmaId');
 	Route::post('/addproducttype', 'ProductTypeController@AddProductType');
 	Route::delete('/producttype/{id}', 'ProductTypeController@DeleteProductType');
 	Route::get('/jobticket/{pvid}','JobTicketController@JobTicket');
 	Route::post('/savejobticketmaterial', 'JobTicketController@SaveJobTicketMaterial');
 	Route::post('/completejobticket', 'JobTicketController@CompleteJobTicket');
+	Route::get('/jtmaterialspartnos', 'JobTicketController@JTMaterialsPartNos');
 	Route::post('/savetestresult', 'AutoTestBenchController@SaveTestResult');
 	Route::post('/saveagingresult', 'AgingController@SaveAgingResult');
 	Route::post('/saveverification','VerificationCompletionController@SaveVerification');

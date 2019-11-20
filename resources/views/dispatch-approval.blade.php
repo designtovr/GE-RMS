@@ -23,13 +23,13 @@
                                             <input id="ridFilter" type="text"
                                             class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
                                             placeholder="RID #" ng-change="gridActions.filter();"
-                                            ng-model="filterID" filter-by="id" filter-type="text">
+                                            ng-model="filterID" filter-by="formatted_pv_id" filter-type="text">
                                         </th>
                                         <th>
                                             <input id="rmaidFilter" type="text"
                                             class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
                                             placeholder="RMA Id #" ng-change="gridActions.filter();"
-                                            ng-model="filterrmaID" filter-by="rma_id" filter-type="text">
+                                            ng-model="filterrmaID" filter-by="formatted_rma_id" filter-type="text">
                                         </th>
                                         <th>
                                             <input id="productFilter" type="text"
@@ -47,19 +47,30 @@
                                         </th>
                                         <th>
                                             <input type="text"
-                                                   id="dateFilter"
                                                    class="form-control"
-                                                   placeholder="Date"
+                                                   placeholder="From Date"
+
                                                    max-date="dateTo"
+                                                   ng-model = "dateFrom"
+                                                   filter-by="date_unix"
+
+                                                   ng-change="gridActions.filter();"
+                                                   id="dateFromFilter"
+                                                   filter-type="dateFrom"
+                                            />
+                                        </th>
+                                        <th>
+                                            <input type="text"
+                                                   placeholder="To Date"
+                                                   filter-by="date_unix"
+                                                   ng-change="gridActions.filter();"
+                                                   id="dateToFilter"
+                                                   class="form-control"
+                                                   min-date="dateFrom"
                                                    close-text="Close"
-                                                   ng-model="filterpvdate"
-                                                   show-weeks="true"
-                                                   is-open="dateFromOpened"
-                                                   ng-click="dateFromOpened = true"
-                                                   filter-by="pvdate"
-                                                   filter-type="text"
-                                                   ng-change="gridActions.filter()"
-                                                   close-text="Close"/>
+                                                   ng-model="dateTo"
+                                                   filter-type="dateTo"
+                                                   close-text="Close">
                                         </th>
                                         <th>
                                             <input id="customerFilter" type="text"
@@ -110,13 +121,13 @@
                                         <th>
                                             Select
                                         </th>
-                                        <th sortable="id" class="sortable">
+                                        <th sortable="formatted_pv_id" class="sortable">
                                             RID
                                         </th>
-                                        <th sortable="rma_id" class="sortable">
+                                        <th sortable="formatted_rma_id" class="sortable">
                                             RMA Id
                                         </th>
-                                        <th sortable="pvdate" class="sortable">
+                                        <th sortable="date_unix" class="sortable">
                                             Date
                                         </th>
                                         <th sortable="serial_no" class="sortable">
@@ -151,9 +162,9 @@
                                                 <span class="au-checkmark"></span>
                                             </label>
                                         </td>
-                                        <td ng-bind="item.id"></td>
-                                        <td ng-bind="item.rma_id"></td>
-                                        <td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
+                                        <td ng-bind="item.formatted_pv_id"></td>
+                                        <td ng-bind="item.formatted_rma_id"></td>
+                                        <td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
                                         <td ng-bind="item.serial_no"></td>
                                         <td ng-bind="item.part_no"></td>
                                         <td ng-bind="item.customer_name"></td>
@@ -220,6 +231,18 @@
                 setDate: new Date(),
                 update: new Date()
             });
+        });
+
+        $("#dateFromFilter").datepicker({
+            autoclose: true,
+            format: 'yyyy-mm-dd',
+            todayHighlight: true,
+        });
+
+        $("#dateToFilter").datepicker({
+            autoclose: true,
+            format: 'yyyy-mm-dd',
+            todayHighlight: true,
         });
     </script>
 @endsection

@@ -7,6 +7,7 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 	$scope.page = 1;
 	$scope.pvprioritylist = [];
 	$scope.pvprioritylistmax = 0;
+	$scope.jtmaterialspartnos = [];
 
 	$scope.gridOptions = {
 		pagination: {
@@ -92,6 +93,8 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 		$scope.filterpvdate = '';
 		$scope.filterCustomer = '';
 		$scope.filterrmaID = '';
+		$scope.dateTo = '';
+		$scope.dateFrom = '';
 	}
 
 	$scope.Initiate = function()
@@ -181,6 +184,7 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 	$scope.OpenJTForm = function(item)
 	{
 		console.log(item)
+		$scope.GetJTMaterialsPartNos();
 		$scope.showjtform = true;
 		var exists = false;
 		if (item.status == "Job Ticket Started")
@@ -241,12 +245,12 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 			}
 			if ($scope.jobticket.job_ticket_materials[i].old_pcp == '' || $scope.jobticket.job_ticket_materials[i].old_pcp == null)
 			{
-				Notification.error("Fill Every Old PCP");
+				Notification.error("Fill Every Defective PCB");
  				return;
 			}
 			if ($scope.jobticket.job_ticket_materials[i].new_pcp == '' || $scope.jobticket.job_ticket_materials[i].new_pcp == null)
 			{
-				Notification.error("Fill Every New PCP");
+				Notification.error("Fill Every New PCB");
  				return;
 			}
 		}
@@ -271,14 +275,14 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 							text: 'Print',
 							btnClass: 'btn-blue',
 							action: function(){
-								$('#withrma-tab').addClass('active');
-								$scope.LoadData('jobticketstarted');
+								/*$('#withrma-tab').addClass('active');*/
+								$scope.LoadData($scope.page);
 								$scope.showjtform = false;
 							}
 						},
 						close: function () {
-							$('#withrma-tab').addClass('active');
-							$scope.LoadData('jobticketstarted');
+							/*$('#withrma-tab').addClass('active');*/
+							$scope.LoadData($scope.page);
 							$scope.showjtform = false;
 						}
 					}
@@ -318,11 +322,27 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 		$scope.jobticket.job_ticket_materials.splice(index);
 	}
 
+	$scope.GetJTMaterialsPartNos = function()
+	{
+		$http({
+			method: 'GET',
+			url: '/ge/jtmaterialspartnos',
+		}).then(function success(response){
+			if (response.data.status == 'success')
+			{
+				$scope.jtmaterialspartnos = response.data.data;
+				console.log($scope.jtmaterialspartnos)
+			}
+		}).then(function error(response){
+
+		});
+	}
+
 	$scope.SaveMaterial = function()
 	{
 		for (var i = 0; i < $scope.jobticket.job_ticket_materials.length; i++) {
 			if ($scope.jobticket.job_ticket_materials[i].part_no == '' 
-				&& $scope.jobticket.job_ticket_materials[i].value == ''
+				&& $scope.jobticket.job_ticket_materials[i].quanity == ''
 				&& $scope.jobticket.job_ticket_materials[i].old_pcp == '' 
 				&& $scope.jobticket.job_ticket_materials[i].new_pcp == ''
 				)
@@ -341,7 +361,8 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 			if (response.data.status == 'success')
 			{
 				Notification.success(response.data.message);
-				$scope.openTab = false;
+				$scope.LoadData($scope.page);
+				/*$scope.openTab = false;
 				$scope.startTab = false;
 				if ($scope.openTab)
 				{
@@ -354,7 +375,7 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 					$('#withrma-tab').addClass('active');
 					$('#all-tab').removeClass('active');
 					$scope.LoadData('jobticketstarted');
-				}
+				}*/
 				$scope.showjtform = false;
 			}
 		}, function error(response) {

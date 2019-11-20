@@ -157,6 +157,8 @@ app.controller('WarrantyController' ,['$scope', '$http','Notification' , 'DataSh
 		$scope.filterendCustomer = '';
 		$scope.filterpvdate = '';
 		$scope.filterCustomer = '';
+		$scope.dateTo = '';
+		$scope.dateFrom = '';
 	}
 
 

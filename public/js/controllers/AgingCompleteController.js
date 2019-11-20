@@ -44,6 +44,8 @@ app.controller('AgingCompleteController', ['$scope', '$http','Notification','Cha
 		$scope.filterendCustomer = '';
 		$scope.filterpvdate = '';
 		$scope.filterCustomer = '';
+		$scope.dateTo = '';
+		$scope.dateFrom = '';
 	}
 
 	$scope.GetPVPriorityList = function()

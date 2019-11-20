@@ -42,6 +42,8 @@ app.controller('DispatchController', ['$scope', '$http','$filter','Notification'
 				$scope.filterpvdate = '';
 				$scope.filterCustomer = '';
 				$scope.filterendCustomer = '';
+				$scope.dateTo = '';
+				$scope.dateFrom = '';
 			}
 
 	

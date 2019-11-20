@@ -40,20 +40,30 @@
                                         </th>
                                         <th>
                                             <input type="text"
-                                                   id="dateFilter"
                                                    class="form-control"
-                                                   placeholder="Date"
-                                                   max-date="dateTo"
-                                                   close-text="Close"
-                                                   ng-model="filterpvdate"
-                                                   show-weeks="true"
-                                                   is-open="dateFromOpened"
-                                                   ng-click="dateFromOpened = true"
-                                                   filter-by="pvdate"
-                                                   filter-type="text"
-                                                   ng-change="gridActions.filter()"
-                                                   close-text="Close"/>
+                                                   placeholder="From Date"
 
+                                                   max-date="dateTo"
+                                                   ng-model = "dateFrom"
+                                                   filter-by="date_unix"
+
+                                                   ng-change="gridActions.filter();"
+                                                   id="dateFromFilter"
+                                                   filter-type="dateFrom"
+                                            />
+                                        </th>
+                                        <th>
+                                            <input type="text"
+                                                   placeholder="To Date"
+                                                   filter-by="date_unix"
+                                                   ng-change="gridActions.filter();"
+                                                   id="dateToFilter"
+                                                   class="form-control"
+                                                   min-date="dateFrom"
+                                                   close-text="Close"
+                                                   ng-model="dateTo"
+                                                   filter-type="dateTo"
+                                                   close-text="Close">
                                         </th>
                                         <!--          <th>
                                                      <select name="field-volts-used" id="field-volts-used"
@@ -122,7 +132,7 @@
                                         <th sortable="id" class="sortable">
                                             RID
                                         </th>
-                                        <th sortable="pvdate" class="sortable">
+                                        <th sortable="date_unix" class="sortable">
                                             Date
                                         </th>
                                         <th sortable="product_id" class="sortable">
@@ -155,7 +165,7 @@
                                             </label>
                                         </td>
                                         <td ng-bind="item.id"></td>
-                                        <td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
+                                        <td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
                                         <td ng-bind="item.product_id"></td>
                                         <td ng-bind="item.serial_no"></td>
                                         <td ng-bind="item.part_no"></td>
@@ -213,6 +223,18 @@
                 setDate: new Date(),
                 update: new Date()
             });
+        });
+
+        $("#dateFromFilter").datepicker({
+            autoclose: true,
+            format: 'yyyy-mm-dd',
+            todayHighlight: true,
+        });
+
+        $("#dateToFilter").datepicker({
+            autoclose: true,
+            format: 'yyyy-mm-dd',
+            todayHighlight: true,
         });
     </script>
 @endsection

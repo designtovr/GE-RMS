@@ -26,13 +26,13 @@
 										<input id="ridFilter" type="text"
 											   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
 											   placeholder="Enter RID #" ng-change="gridActions.filter();"
-											   ng-model="filterID" filter-by="id" filter-type="text">
+											   ng-model="filterID" filter-by="formatted_pv_id" filter-type="text">
 									</th>
 									<th>
 										<input id="rmaidFilter" type="text"
 											   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
 											   placeholder="RMA Id#" ng-change="gridActions.filter();"
-											   ng-model="filterrmaID" filter-by="rma_id" filter-type="text">
+											   ng-model="filterrmaID" filter-by="formatted_rma_id" filter-type="text">
 									</th>
 									<th>
 										<input id="productFilter" type="text"
@@ -50,19 +50,30 @@
 									</th>
 									<th>
 										<input type="text"
-											   id="dateFilter"
 											   class="form-control"
-											   placeholder="Date"
+											   placeholder="From Date"
+
 											   max-date="dateTo"
+											   ng-model = "dateFrom"
+											   filter-by="date_unix"
+
+											   ng-change="gridActions.filter();"
+											   id="dateFromFilter"
+											   filter-type="dateFrom"
+										/>
+									</th>
+									<th>
+										<input type="text"
+											   placeholder="To Date"
+											   filter-by="date_unix"
+											   ng-change="gridActions.filter();"
+											   id="dateToFilter"
+											   class="form-control"
+											   min-date="dateFrom"
 											   close-text="Close"
-											   ng-model="filterpvdate"
-											   show-weeks="true"
-											   is-open="dateFromOpened"
-											   ng-click="dateFromOpened = true"
-											   filter-by="pvdate"
-											   filter-type="text"
-											   ng-change="gridActions.filter()"
-											   close-text="Close"/>
+											   ng-model="dateTo"
+											   filter-type="dateTo"
+											   close-text="Close">
 									</th>
 									<th>
 										<input id="customerFilter" type="text"
@@ -149,13 +160,13 @@
 									<!-- <th ng-show="openTab">
 										Select
 									</th> -->
-									<th sortable="id" class="sortable">
+									<th sortable="formatted_pv_id" class="sortable">
 										RID
 									</th>
-									<th sortable="rma_id" class="sortable">
+									<th sortable="formatted_rma_id" class="sortable">
 										RMA Id
 									</th>
-									<th sortable="pvdate" class="sortable">
+									<th sortable="date_unix" class="sortable">
 										Date
 									</th>
 									<th sortable="part_no" class="sortable">
@@ -173,13 +184,13 @@
 									<th sortable="manager_comment" class="sortable">
 										Manager Comment
 									</th>
-									<th sortable="repair_comment" class="sortable" ng-show="tab=='jobticketcompleted'">
+									<th sortable="repair_comment" class="sortable" ng-show="completedTab">
 										Repair Comment
 									</th>
 									<th sortable="pvl_priority_for_display" class="sortable">
 										Priority
 									</th>
-									<th ng-show="tab!='jobticketcompleted'">
+									<th ng-show="!completedTab">
 										Actions
 									</th>
 								</tr>
@@ -192,17 +203,17 @@
 											<span class="au-checkmark"></span>
 										</label>
 									</td> -->
-									<td ng-bind="item.id"></td>
-									<td ng-bind="item.rma_id"></td>
-									<td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
+									<td ng-bind="item.formatted_pv_id"></td>
+									<td ng-bind="item.formatted_rma_id"></td>
+									<td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
 									<td ng-bind="item.part_no"></td>
 									<td ng-bind="item.serial_no"></td>
 									<td ng-bind="item.customer_name"></td>
 									<td ng-bind="item.end_customer"></td>
 									<td ng-bind="item.manager_comment"></td>
-									<td ng-show="tab=='jobticketcompleted'" ng-bind="item.repair_comment"></td>
+									<td ng-show="completedTab" ng-bind="item.repair_comment"></td>
 									<td ng-bind="item.pvl_priority_for_display"></td>
-									<td ng-show="tab!='jobticketcompleted'">
+									<td ng-show="!completedTab">
                                         <div class="table-data-feature">
                                         	<div class="btn-group">
 	                                            <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-success" >Priority</button>
@@ -445,7 +456,7 @@
 	                                    	Remove</button>
 		                            	</div>
 		                            </div>
-		                            <div class="row form-group">
+		                            <!-- <div class="row form-group">
 		                                <div class="col col-md-3">
 		                                    <label for="part_no_@{{$index}}" class=" form-control-label">Material Part No </label>
 		                                </div>
@@ -458,24 +469,41 @@
 		                                    placeholder="Material Part No" 
 		                                    class="form-control">
 		                                </div>
-		                            </div>
-		                    {{--        <div class="row form-group">
+		                            </div> -->
+		                            <div class="row form-group">
+	                                    <div class="col col-md-3">
+	                                        <label for="part_no_@{{$index}}" class=" form-control-label">Material Part No</label>
+	                                    </div>
+	                                    <div class="col-12 col-md-6">
+	                                        <input 
+	                                        type="text" 
+	                                        id="part_no_@{{$index}}" 
+	                                        name="part_no_@{{$index}}" 
+	                                        ng-model="job_ticket_material.part_no" 
+	                                        uib-typeahead="part for part in jtmaterialspartnos | filter:$viewValue | limitTo:8" 
+	                                        placeholder="Material Part No" 
+	                                        class="form-control" 
+	                                        typeahead-popup-template-url="{{url('public/bower_components/angular-bootstrap/template/typeahead/typeahead-popup.html')}}"
+	                                        typeahead-template-url="{{url('public/bower_components/angular-bootstrap/template/typeahead/typeahead-match.html')}}">
+	                                    </div>
+	                                </div>
+		                            <div class="row form-group">
 		                                <div class="col col-md-3">
-		                                    <label for="value_@{{$index}}" class=" form-control-label">Value</label>
+		                                    <label for="quantity_@{{$index}}" class=" form-control-label">Quantity</label>
 		                                </div>
 		                                <div class="col-12 col-md-6">
 		                                    <input 
 		                                    type="text" 
-		                                    id="value_@{{$index}}" 
-		                                    name="value_@{{$index}}" 
-		                                    ng-model = "job_ticket_material.value" 
-		                                    placeholder="Value" 
+		                                    id="quantity_@{{$index}}" 
+		                                    name="quantity_@{{$index}}" 
+		                                    ng-model = "job_ticket_material.quantity" 
+		                                    placeholder="Quantity" 
 		                                    class="form-control">
 		                                </div>
-		                            </div>--}}
+		                            </div>
 		                            <div class="row form-group">
 		                                <div class="col col-md-3">
-		                                    <label for="old_pcp_@{{$index}}" class=" form-control-label">Old PCP</label>
+		                                    <label for="old_pcp_@{{$index}}" class=" form-control-label">Defective PCB</label>
 		                                </div>
 		                                <div class="col-12 col-md-6">
 		                                    <input 
@@ -483,13 +511,13 @@
 		                                    id="old_pcp_@{{$index}}" 
 		                                    name="old_pcp_@{{$index}}" 
 		                                    ng-model="job_ticket_material.old_pcp" 
-		                                    placeholder="Old PCP" 
+		                                    placeholder="Defective PCB" 
 		                                    class="form-control">
 		                                </div>
 		                            </div>
 		                            <div class="row form-group">
 		                                <div class="col col-md-3">
-		                                    <label for="new_pcp_@{{$index}}" class=" form-control-label">New PCP</label>
+		                                    <label for="new_pcp_@{{$index}}" class=" form-control-label">New PCB</label>
 		                                </div>
 		                                <div class="col-12 col-md-6">
 		                                    <input 
@@ -497,7 +525,7 @@
 		                                    id="new_pcp_@{{$index}}" 
 		                                    ng-model="job_ticket_material.new_pcp"
 		                                    name="new_pcp_@{{$index}}" 
-		                                    placeholder="New PCP" 
+		                                    placeholder="New PCB" 
 		                                    class="form-control">
 		                                </div>
 		                            </div>
@@ -562,5 +590,17 @@
                         update: new Date()
                     });
                 });
+
+				$("#dateFromFilter").datepicker({
+					autoclose: true,
+					format: 'yyyy-mm-dd',
+					todayHighlight: true,
+				});
+
+				$("#dateToFilter").datepicker({
+					autoclose: true,
+					format: 'yyyy-mm-dd',
+					todayHighlight: true,
+				});
             </script>
 @endsection

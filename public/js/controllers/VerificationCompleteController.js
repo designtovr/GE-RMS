@@ -80,6 +80,8 @@ app.controller('VerificationCompleteController', ['$scope', '$http', 'Notificati
 				$scope.filterserial_no = '';
 				$scope.filterCustomer = '';
 				$scope.filterendCustomer = '';
+				$scope.dateTo = '';
+				$scope.dateFrom = '';
 			}
 
 				$scope.ChangeStatus = function(status)
@@ -164,7 +166,13 @@ app.controller('VerificationCompleteController', ['$scope', '$http', 'Notificati
    		$scope.vcformdata.nic_test = false;
    		$scope.vcformdata.received_with_screws = false;
    		$scope.vcformdata.received_with_terminal = false;
+   		$scope.vcformdata.case = false;
+   		$scope.vcformdata.battery = false;
+   		$scope.vcformdata.flops = false;
    		$scope.vcformdata.date = $filter('date')(new Date(),'dd/MM/yyyy');
+   		$scope.vcformdata.updated_no_of_short_links = '';
+   		$scope.vcformdata.updated_no_of_terminal_blocks = '';
+   		$scope.vcformdata.updated_sw_version = '';
    		$scope.vcform = true;
 
    	}

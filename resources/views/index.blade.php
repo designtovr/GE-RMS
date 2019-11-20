@@ -14,21 +14,24 @@
                 </div>
                 <div class="col-md-6">
                     <div class="float-right">
-                        <button type="button" class="btn btn-lg btn-danger m-l-10 m-b-10 animated infinite flash slower-5s">Live
-                          <span class="badge badge-light"></span>
+                        <button type="button"  class="btn btn-lg btn-light m-l-10 m-b-10 "><a class="zmdi animated zoomIn  slower zmdi-home "  href="{{url('/receipt')}}"></a>
+                            <span class="badge badge-light"></span>
                         </button>
+                          <button type="button" class="btn btn-lg btn-danger m-l-10 m-b-10 animated infinite flash slower-5s">Live
+                            <span class="badge badge-light"></span></button>
+
                     </div>
                 </div>
             </div>
-            <div class="row">
+     {{--       <div class="row">
                 <div class="col-lg-3">
                     <div class="alert alert-primary" role="alert">
                         <a href="{{url('/receipt')}}" class="alert-link">Go to <strong>Receipt Page</strong></a>.
                     </div>
                 </div>
-            </div>
+            </div>--}}
             <div class="row">
-                <div class="col-lg-3 h-25">
+                <div class="col-lg-2 h-25">
                     <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
                         <div class="au-card-title" style="background-image:url('images/bg-title-01.jpg');" >
                             <div class="bg-overlay bg-overlay--androidblue"></div>
@@ -62,7 +65,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 h-25">
+                <div class="col-lg-2 h-25">
                     <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
                         <div class="au-card-title"  >
                             <div class="bg-overlay bg-overlay--androidblue"></div>
@@ -96,7 +99,42 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-2 h-25">
+                    <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
+                        <div class="au-card-title"  >
+                            <div class="bg-overlay bg-overlay--androidblue"></div>
+                            <h3>
+                                <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>For Repair</h3>
+
+                        </div>
+                        <div class="au-task js-list-load">
+                            <div class="au-task-list js-scrollbar3">
+                                <div class="table-responsive m-b-40">
+                                    <table class="table table-borderless table-data3 table-data3-blue">
+                                        <thead>
+                                        <tr>
+                                            <th>Type</th>
+                                            <th>Total Relays</th>
+                                            <th>Over Due</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="forwc in dashboardvalues.wch">
+                                            <td ng-bind="forwc.type_name"></td>
+                                            <td ng-bind="forwc.total"></td>
+                                            <td> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s" ng-bind="forwc.overdue"></span></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- END DATA TABLE -->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-2">
                     <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
                         <div class="au-card-title"  >
                             <div class="bg-overlay bg-overlay--androidblue"></div>
@@ -130,7 +168,75 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-2">
+                    <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
+                        <div class="au-card-title"  >
+                            <div class="bg-overlay bg-overlay--androidblue"></div>
+                            <h3>
+                                <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>For Aging</h3>
+
+                        </div>
+                        <div class="au-task js-list-load">
+                            <div class="au-task-list js-scrollbar3">
+                                <div class="table-responsive m-b-40">
+                                    <table class="table table-borderless table-data3 table-data3-blue">
+                                        <thead>
+                                        <tr>
+                                            <th>Type</th>
+                                            <th>Total Relays</th>
+                                            <th>Over Due</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="test in dashboardvalues.for_aging">
+                                            <td ng-bind="test.type_name"></td>
+                                            <td ng-bind="test.total"></td>
+                                            <td> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s" ng-bind="test.overdue"></span></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- END DATA TABLE -->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
+                        <div class="au-card-title"  >
+                            <div class="bg-overlay bg-overlay--androidblue"></div>
+                            <h3>
+                                <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>For Verification</h3>
+
+                        </div>
+                        <div class="au-task js-list-load">
+                            <div class="au-task-list js-scrollbar3">
+                                <div class="table-responsive m-b-40">
+                                    <table class="table table-borderless table-data3 table-data3-blue">
+                                        <thead>
+                                        <tr>
+                                            <th>Type</th>
+                                            <th>Total Relays</th>
+                                            <th>Over Due</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="verifi in dashboardvalues.for_verifi">
+                                            <td ng-bind="verifi.type_name"></td>
+                                            <td ng-bind="verifi.total"></td>
+                                            <td> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s" ng-bind="verifi.overdue"></span></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- END DATA TABLE -->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
                     <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
                         <div class="au-card-title"  >
                             <div class="bg-overlay bg-overlay--androidblue"></div>
@@ -164,48 +270,17 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="row">
-
-                <div class="col-lg-3">
-                    <div class="au-card m-b-30">
-                        <div class="au-card-inner">
-                            <h3 class="title-2 m-b-40">Today And Monthly Status</h3>
-                            <canvas id="TodayStatus"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-
-
-                <div class="col-lg-3">
-                    <div class="au-card m-b-30">
-                        <div class="au-card-inner">
-                            <h3 class="title-2 m-b-40">Repair - Warranty</h3>
-                            <canvas id="Warranty"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="au-card m-b-30 ">
-                        <div class="au-card-inner">
-                            <h3 class="title-2 m-b-40">Repair - Chargable</h3>
-                            <canvas id="OutOfWarranty"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
+                <div class="col-lg-2">
                     <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
                         <div class="au-card-title"  >
                             <div class="bg-overlay bg-overlay--androidblue"></div>
                             <h3>
-                                <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>Repair Priority List</h3>
+                                <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>Repair Priority</h3>
 
                         </div>
                         <div class="au-task js-list-load">
-                            <div class=" ">
-                                <div class="table-responsive table-height200">
+                            <div class="au-task-list js-scrollbar3">
+                                <div class="table-responsive m-b-40">
                                     <table class="table table-borderless table-data3 table-data3-blue table-height200">
                                         <thead>
                                         <tr>
@@ -229,6 +304,38 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-lg-4">
+                    <div class="au-card m-b-30">
+                        <div class="au-card-inner">
+                            <h3 class="title-2 m-b-40">Today And Monthly Status</h3>
+                            <canvas id="TodayStatus"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col-lg-4">
+                    <div class="au-card m-b-30">
+                        <div class="au-card-inner">
+                            <h3 class="title-2 m-b-40">Repair - Warranty</h3>
+                            <canvas id="Warranty"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="au-card m-b-30 ">
+                        <div class="au-card-inner">
+                            <h3 class="title-2 m-b-40">Repair - Chargable</h3>
+                            <canvas id="OutOfWarranty"></canvas>
+                        </div>
+                    </div>
+                </div>
+
     {{--            <div class="col-lg-3">
                     <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
                         <div class="au-card-title"  >
@@ -563,8 +670,64 @@
             <div class="row">
 
 
-
-            <div class="col-lg-3">
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header" style="background-color: #dc3545">
+                            <strong class="card-title text-light" style="color: white">Live Updates
+                            </strong>
+                        </div>
+                        <div class="card-body">
+                            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                                </ol>
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <h3 class="card-title">Physical Verification:</h3>
+                                        <br>
+                                        <h4>Total Overdues: <b><span class="badge-danger badge-fs-25 animated infinite flash slower-5s p-md-l-10 p-md-r-10 p-md-t-10 p-md-b-10">25</span></b></h4>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <h3 class="card-title">W/Ch. Declaration:</h3>
+                                        <br>
+                                        <h4>Total Overdues: <b>2</b></h4>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <h3 class="card-title">For Testing:</h3>
+                                        <br>
+                                        <h4>Total Overdues: <b class=""><span class="badge-danger badge-fs-25 animated infinite flash slower-5s p-md-l-10">2</span></b></h4>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                    </div>
+                                </div>
+                                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <div class="col-lg-4">
                 <div class="au-card col-lg-12 m-b-30">
                     <div class="au-card-inner">
                         <h3 class="title-2 m-b-40">OTD</h3>
@@ -582,7 +745,7 @@
                 </div>
             </div>
 
-        <div class="col-lg-3">
+        <div class="col-lg-4">
             <div class="au-card col-lg-12 m-b-30">
                 <div class="au-card-inner">
                     <h3 class="title-2 m-b-40">OTD</h3>
@@ -599,63 +762,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3">
-            <div class="card">
-                <div class="card-header" style="background-color: #dc3545">
-                    <strong class="card-title text-light" style="color: white">Live Updates
-                    </strong>
-                </div>
-                <div class="card-body">
-                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                      <ol class="carousel-indicators">
-                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                      </ol>
-                      <div class="carousel-inner">
-                        <div class="carousel-item active">
-                          <h3 class="card-title">Physical Verification:</h3>
-                          <br>
-                          <h4>Total Overdues: <b>15</b></h4>
-                          <br>
-                          <br>
-                          <br>
-                          <br>
-                          <br>
-                        </div>
-                        <div class="carousel-item">
-                          <h3 class="card-title">W/Ch. Declaration:</h3>
-                          <br>
-                          <h4>Total Overdues: <b>2</b></h4>
-                          <br>
-                          <br>
-                          <br>
-                          <br>
-                          <br>
-                        </div>
-                        <div class="carousel-item">
-                          <h3 class="card-title">For Testing:</h3>
-                          <br>
-                          <h4>Total Overdues: <b>2</b></h4>
-                          <br>
-                          <br>
-                          <br>
-                          <br>
-                          <br>
-                        </div>
-                      </div>
-                      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                      </a>
-                      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                      </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+
             </div>
             </div>
         </div>

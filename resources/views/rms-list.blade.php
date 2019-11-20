@@ -36,19 +36,30 @@
                                         </th>
                                         <th>
                                             <input type="text"
-                                                   id="dateFilter"
                                                    class="form-control"
-                                                   placeholder="Date"
+                                                   placeholder="From Date"
+
                                                    max-date="dateTo"
+                                                   ng-model = "dateFrom"
+                                                   filter-by="date_unix"
+
+                                                   ng-change="gridActions.filter();"
+                                                   id="dateFromFilter"
+                                                   filter-type="dateFrom"
+                                            />
+                                        </th>
+                                        <th>
+                                            <input type="text"
+                                                   placeholder="To Date"
+                                                   filter-by="date_unix"
+                                                   ng-change="gridActions.filter();"
+                                                   id="dateToFilter"
+                                                   class="form-control"
+                                                   min-date="dateFrom"
                                                    close-text="Close"
-                                                   ng-model="filterpvdate"
-                                                   show-weeks="true"
-                                                   is-open="dateFromOpened"
-                                                   ng-click="dateFromOpened = true"
-                                                   filter-by="pvdate"
-                                                   filter-type="text"
-                                                   ng-change="gridActions.filter()"
-                                                   close-text="Close"/>
+                                                   ng-model="dateTo"
+                                                   filter-type="dateTo"
+                                                   close-text="Close">
                                         </th>
                                         <th>
                                             <button type="button" class="btn btn-outline-secondary btn-sm"
@@ -104,7 +115,7 @@
                                         <span class="au-checkmark"></span>
                                     </label>
                                 </td>
-                                <td ng-bind="item.moved_date | date:'dd/MM/yyyy'"></td>
+                                <td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
                                 <td ng-bind="item.pv_id"></td>
 		                         <td ng-if="item.rack_type == 0">Dummy Rack</td>
                                  <td ng-if="item.rack_type == 1">Repair Rack</td>
@@ -181,4 +192,22 @@
 @endsection
 @section('scripts')
 	<script type="text/javascript" src="{{url('public/js/controllers/RelayMovementController.js')}}"></script>
+    <script>
+        $(document).ready(function () {
+
+
+            $("#dateFromFilter").datepicker({
+                autoclose: true,
+                format: 'yyyy-mm-dd',
+                todayHighlight: true,
+            });
+
+            $("#dateToFilter").datepicker({
+                autoclose: true,
+                format: 'yyyy-mm-dd',
+                todayHighlight: true,
+            });
+
+        });
+    </script>
 @endsection

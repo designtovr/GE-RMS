@@ -25,13 +25,13 @@
 											<input id="ridFilter" type="text"
 											class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
 											placeholder="RID #" ng-change="gridActions.filter();"
-											ng-model="filterID" filter-by="id" filter-type="text">
+											ng-model="filterID" filter-by="formatted_pv_id" filter-type="text">
 										</th>
                                         <th>
                                             <input id="rmaidFilter" type="text"
                                             class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
                                             placeholder="RMA Id #" ng-change="gridActions.filter();"
-                                            ng-model="filterrmaID" filter-by="rma_id" filter-type="text">
+                                            ng-model="filterrmaID" filter-by="formatted_rma_id" filter-type="text">
                                         </th>
 										<th>
 											<input id="productFilter" type="text"
@@ -49,20 +49,30 @@
                                         </th>
 										<th>
 											<input type="text"
-											id="dateFilter"
-											class="form-control"
-											placeholder="Date"
-											max-date="dateTo"
-											close-text="Close"
-											ng-model="filterpvdate"
-											show-weeks="true"
-											is-open="dateFromOpened"
-											ng-click="dateFromOpened = true"
-											filter-by="pvdate"
-											filter-type="text"
-											ng-change="gridActions.filter()"
-											close-text="Close"/>
+												   class="form-control"
+												   placeholder="From Date"
 
+												   max-date="dateTo"
+												   ng-model = "dateFrom"
+												   filter-by="date_unix"
+
+												   ng-change="gridActions.filter();"
+												   id="dateFromFilter"
+												   filter-type="dateFrom"
+											/>
+										</th>
+										<th>
+											<input type="text"
+												   placeholder="To Date"
+												   filter-by="date_unix"
+												   ng-change="gridActions.filter();"
+												   id="dateToFilter"
+												   class="form-control"
+												   min-date="dateFrom"
+												   close-text="Close"
+												   ng-model="dateTo"
+												   filter-type="dateTo"
+												   close-text="Close">
 										</th>
                                      <th>
                                      	<input id="customerFilter" type="text"
@@ -140,13 +150,13 @@
          					<table class="table table-borderless table-data3  ">
          						<thead>
          							<tr>
-                                        <th sortable="id" class="sortable">
+                                        <th sortable="formatted_pv_id" class="sortable">
                                             RID
                                         </th>
-                                        <th sortable="rma_id" class="sortable">
+                                        <th sortable="formatted_rma_id" class="sortable">
                                             RMA Id
                                         </th>
-         								<th sortable="pvdate" class="sortable">
+         								<th sortable="date_unix" class="sortable">
          									Date
          								</th>
          								<th sortable="part_no" class="sortable">
@@ -175,9 +185,9 @@
          						</thead>
          						<tbody>
          							<tr grid-item>
-                                        <td ng-bind="item.id"></td>
-                                        <td ng-bind="item.rma_id"></td>
-         								<td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
+                                        <td ng-bind="item.formatted_pv_id"></td>
+                                        <td ng-bind="item.formatted_rma_id"></td>
+         								<td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
          								<td ng-bind="item.part_no"></td>
          								<td ng-bind="item.serial_no"></td>
          								<td ng-bind="item.customer_name"></td>
@@ -316,24 +326,62 @@
 		                			<div class="col-md-6">
 		                				<div class="row form-group">
 			                                <div class="col col-md-4">
-			                                    <label for="terminal_blocks" class=" form-control-label">Teriminal Block</label>
+			                                    <label for="no_of_terminal_blocks" class=" form-control-label">Teriminal Block</label>
 			                                </div>
 			                                <div class="col-12 col-md-8">
-			                                    <input type="text" id="terminal_blocks" ng-model="vcformdata.terminal_blocks" name="terminal_blocks" placeholder="Terminal Block" class="form-control" disabled>
+			                                    <input type="text" id="no_of_terminal_blocks" ng-model="vcformdata.no_of_terminal_blocks" name="no_of_terminal_blocks" placeholder="No Of Terminal Block" class="form-control" ui-mask="99 + 99" placeholder="N+N" 
+                                                add-default-placeholder="99 + 99"
+                                                ui-mask-placeholder-char="N" disabled>
 			                                </div>
 			                            </div>
 		                			</div>
 		                			<div class="col-md-6">
 		                				<div class="row form-group">
 			                                <div class="col col-md-4">
-			                                    <label for="short_links" class=" form-control-label">Short Link</label>
+			                                    <label for="no_of_short_links" class=" form-control-label">Short Link</label>
 			                                </div>
 			                                <div class="col-12 col-md-8">
-			                                    <input type="text" id="short_links" name="short_links" ng-model="vcformdata.short_links" placeholder="Short Link" class="form-control" disabled>
+			                                    <input type="text" id="no_of_short_links" name="no_of_short_links" ng-model="vcformdata.no_of_short_links" placeholder="Short Link" class="form-control" disabled>
 			                                </div>
 			                            </div>
 		                			</div>
 		                		</div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row form-group">
+                                            <div class="col col-md-4">
+                                                <label for="updated_no_of_terminal_blocks" class=" form-control-label">Updated Teriminal Block</label>
+                                            </div>
+                                            <div class="col-12 col-md-8">
+                                                <input type="text" id="updated_no_of_terminal_blocks" ng-model="vcformdata.updated_no_of_terminal_blocks" name="updated_no_of_terminal_blocks"class="form-control" ui-mask="99 + 99" placeholder="N+N" 
+                                                add-default-placeholder="99 + 99"
+                                                ui-mask-placeholder-char="N">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row form-group">
+                                            <div class="col col-md-4">
+                                                <label for="updated_no_of_short_links" class=" form-control-label">Updated Short Link</label>
+                                            </div>
+                                            <div class="col-12 col-md-8">
+                                                <input type="text" id="updated_no_of_short_links" name="updated_no_of_short_links" ng-model="vcformdata.updated_no_of_short_links" placeholder="Updated Short Link" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row form-group">
+                                            <div class="col col-md-4">
+                                                <label for="updated_sw_version" class=" form-control-label">Updated Software Ref.</label>
+                                            </div>
+                                            <div class="col-12 col-md-8">
+                                                <input type="text" id="updated_sw_version" name="updated_sw_version" ng-model="vcformdata.updated_sw_version" placeholder="Updated Software Reference" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 	                    	</form>
 	                    </div>
 	                    <div class="card-header">
@@ -401,6 +449,42 @@
 					                    </label>
 	                                </div>
 	                            </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="case" class=" form-control-label">Case <span class="mandatory">*</span></label>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <label class="switch switch-text switch-success switch-pill">
+                                          <input type="checkbox" class="switch-input" checked="true" name="case" id="case" ng-model="vcformdata.case">
+                                          <span data-on="Yes" data-off="No" class="switch-label"></span>
+                                          <span class="switch-handle"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="battery" class=" form-control-label">Battery <span class="mandatory">*</span></label>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <label class="switch switch-text switch-success switch-pill">
+                                          <input type="checkbox" class="switch-input" checked="true" name="battery" id="battery" ng-model="vcformdata.battery">
+                                          <span data-on="Yes" data-off="No" class="switch-label"></span>
+                                          <span class="switch-handle"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="flops" class=" form-control-label">Flops <span class="mandatory">*</span></label>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <label class="switch switch-text switch-success switch-pill">
+                                          <input type="checkbox" class="switch-input" checked="true" name="flops" id="flops" ng-model="vcformdata.flops">
+                                          <span data-on="Yes" data-off="No" class="switch-label"></span>
+                                          <span class="switch-handle"></span>
+                                        </label>
+                                    </div>
+                                </div>
 	                    	</form>
 	                    </div>
 	                    <div class="card-footer">
@@ -431,6 +515,18 @@
                         update: new Date()
                     });
                 });
+
+				$("#dateFromFilter").datepicker({
+					autoclose: true,
+					format: 'yyyy-mm-dd',
+					todayHighlight: true,
+				});
+
+				$("#dateToFilter").datepicker({
+					autoclose: true,
+					format: 'yyyy-mm-dd',
+					todayHighlight: true,
+				});
             </script>
 @endsection
 <!-- 

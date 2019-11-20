@@ -64,15 +64,15 @@ class PrintController extends Controller
 
         $daneDoDruku = $template;
 
-        $poloczenie = pfsockopen("$ip", 9100);
         for($i = 1 ; $i<= $receipt['total_boxes'] ; $i++)
         {
-            $templateModified .= str_replace("currentbox",$i,$template);
+            $poloczenie = pfsockopen("$ip", 9100);
+            $templateModified = str_replace("currentbox",$i,$template);
             fputs($poloczenie, $templateModified);
+            fclose($poloczenie);
 
         }
                     //return $templateModified;
-                    fclose($poloczenie);
 
                 return 'success';
        // str_replace("world","Peter","Hello world!");
@@ -89,6 +89,7 @@ class PrintController extends Controller
         $template = str_replace("qrcode",$label['id'],$template);
         $template = str_replace("rmadata",$label['rma_id'], $template);
         $template = str_replace("customer",$label['customer_name'], $template);
+        $template = str_replace("location",$label['location'], $template);
         $jsonfile = 'public\printerconfiguration.json';
 
         $strJsonFileContents = file_get_contents($jsonfile);

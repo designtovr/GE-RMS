@@ -58,7 +58,7 @@ class JobTicketController extends Controller
     			$JTM = new JobTicketMaterials();
     			$JTM->jt_id = $JT->id;
     			$JTM->part_no = (array_key_exists('part_no', $material))?$material['part_no']:'';
-    			$JTM->value = (array_key_exists('value', $material))?$material['value']:'';
+                $JTM->quantity = (array_key_exists('quantity', $material))?$material['quantity']:'';
     			$JTM->old_pcp = (array_key_exists('old_pcp', $material))?$material['old_pcp']:'';
     			$JTM->new_pcp = (array_key_exists('new_pcp', $material))?$material['new_pcp']:'';
     			$JTM->comment = (array_key_exists('comment', $material))?$material['comment']:'';
@@ -88,7 +88,7 @@ class JobTicketController extends Controller
     				$JTM = new JobTicketMaterials();
     				$JTM->jt_id = $JT->id;
 	    			$JTM->part_no = (array_key_exists('part_no', $material))?$material['part_no']:'';
-	    			$JTM->value = (array_key_exists('value', $material))?$material['value']:'';
+	    			$JTM->quantity = (array_key_exists('quantity', $material))?$material['quantity']:'';
 	    			$JTM->old_pcp = (array_key_exists('old_pcp', $material))?$material['old_pcp']:'';
 	    			$JTM->new_pcp = (array_key_exists('new_pcp', $material))?$material['new_pcp']:'';
 	    			$JTM->comment = (array_key_exists('comment', $material))?$material['comment']:'';
@@ -101,6 +101,16 @@ class JobTicketController extends Controller
 
     		return response()->json(['status' => 'success', 'message' => 'Material Updated Successfully']);
     	}
+    }
+
+    public function JTMaterialsPartNos(Request $request)
+    {
+        $part_nos = JobTicketMaterials::select('part_no')->groupBy('part_no')->get();
+        $partnoarray = array();
+        foreach ($part_nos as $key => $part) {
+            array_push($partnoarray, $part->part_no);
+        }
+        return response()->json(['status' => 'success', 'data' => $partnoarray]);
     }
 
     public function CompleteJobTicket(CompleteJobTicketRequest $request)
@@ -124,7 +134,7 @@ class JobTicketController extends Controller
     			$JTM = new JobTicketMaterials();
     			$JTM->jt_id = $JT->id;
     			$JTM->part_no = (array_key_exists('part_no', $material))?$material['part_no']:'';
-    			$JTM->value = (array_key_exists('value', $material))?$material['value']:'';
+                $JTM->quantity = (array_key_exists('quantity', $material))?$material['quantity']:'';
     			$JTM->old_pcp = (array_key_exists('old_pcp', $material))?$material['old_pcp']:'';
     			$JTM->new_pcp = (array_key_exists('new_pcp', $material))?$material['new_pcp']:'';
     			$JTM->comment = (array_key_exists('comment', $material))?$material['comment']:'';
@@ -156,7 +166,7 @@ class JobTicketController extends Controller
     				$JTM = new JobTicketMaterials();
     				$JTM->jt_id = $JT->id;
 	    			$JTM->part_no = (array_key_exists('part_no', $material))?$material['part_no']:'';
-	    			$JTM->value = (array_key_exists('value', $material))?$material['value']:'';
+	    			$JTM->quantity = (array_key_exists('quantity', $material))?$material['quantity']:'';
 	    			$JTM->old_pcp = (array_key_exists('old_pcp', $material))?$material['old_pcp']:'';
 	    			$JTM->new_pcp = (array_key_exists('new_pcp', $material))?$material['new_pcp']:'';
 	    			$JTM->comment = (array_key_exists('comment', $material))?$material['comment']:'';

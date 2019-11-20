@@ -5,7 +5,7 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 	$scope.ShowOthers = false;
 	$scope.receipt = {};
 	$scope.physicalVerification = {};
-	$scope.gridOptions = {	
+	$scope.gridOptions = {
 		pagination: {
 			itemsPerPage: '10'
 		}, 
@@ -48,19 +48,25 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 			}).then(function success(response){
 				if (response.data.status == 'success')
 				{
-					Notification.success(response.data.message + 'with Id: ' + response.data.data.id);
-					var content = response.data.message + ' With Id:<b>' + response.data.data.id + '</b>.Are you want to print?';
+					//Notification.success(response.data.message + 'with Id: ' + response.data.data.id);
+			console.log('HI : ' + $scope.physicalVerification.customer_name);
+
 					$ngConfirm({
 						title: '<b>Print!!</b>',
-						content: content,
+						contentUrl: './resources/views/form.html',
 						type: 'blue',
 						typeAnimated: true,
 						buttons: {
 							print: {
 								text: 'Print',
 								btnClass: 'btn-blue',
-								action: function(){
-									$scope.PrintLabels(response.data.data);
+								action: function(scope){
+									console.log(scope.customer_name);
+									console.log(scope.location);
+									$scope.physicalVerification.cus_name = scope.customer_name;
+									$scope.physicalVerification.location = scope.location;
+									$data = $scope.physicalVerification;
+									$scope.PrintLabels($data);
 									$scope.ClosePVForm();
 									$scope.ChangeTab($scope.tab);
 								}
@@ -70,7 +76,17 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 								$scope.ChangeTab($scope.tab);
 							}
 						}
-					});
+
+						,
+						onScopeReady: function (scope) {
+							scope.customer_name = $scope.physicalVerification.customer_name;
+							scope.location = $scope.physicalVerification.location;
+					var self = this;
+					scope.textChange = function () {
+						console.log (scope.customer_name);
+					}
+				}}
+				);
 				}
 			}, function failure(response){
 				if (response.status == 422)
@@ -171,6 +187,8 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 			$scope.filterpvdateothers = '';
 			$scope.filterCustomerothers = '';
 			$scope.filterEndCustomerothers = '';
+			$scope.dateTo = '';
+			$scope.dateFrom = '';
 		}
 
 

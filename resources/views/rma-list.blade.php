@@ -24,41 +24,64 @@
                                         <input type="text" 
                                         id="receiptidFilter" 
                                         class="form-control" 
-                                        placeholder="Receipt Id #" 
+                                        placeholder="R Id #" 
                                         close-text="Close"
                                         ng-model="filterrID" 
-                                        filter-by="id" 
+                                        filter-by="formatted_pv_id" 
                                         filter-type="text"
                                         ng-change="gridActions.filter();" 
                                         />
                                     </th>
-                                    <th>
+                                    <th ng-show="tab =='withrma' || tab == 'withoutrma'">
                                         <input type="text" 
                                         id="ridFilter" 
                                         class="form-control" 
-                                        placeholder="R Id #" 
+                                        placeholder="Receipt Id #" 
                                         close-text="Close"
                                         ng-model="filterreceiptID" 
-                                        filter-by="receipt_id" 
+                                        filter-by="formatted_receipt_id" 
+                                        filter-type="text"
+                                        ng-change="gridActions.filter();" 
+                                        />
+                                    </th>
+                                    <th ng-show="tab =='saved' || tab == 'opensitecard' || tab == 'completed'">
+                                        <input type="text" 
+                                        id="rmaidFilter" 
+                                        class="form-control" 
+                                        placeholder="RMA #" 
+                                        close-text="Close"
+                                        ng-model="filterrmaID" 
+                                        filter-by="formatted_rma_id" 
                                         filter-type="text"
                                         ng-change="gridActions.filter();" 
                                         />
                                     </th>
                                     <th>
                                         <input type="text"
-                                        id="dateFilter"
-                                        class="form-control"
-                                        placeholder="Date"
-                                        max-date="dateTo"
-                                        close-text="Close"
-                                        ng-model="filterdate"
-                                        show-weeks="true"
-                                        is-open="dateFromOpened"
-                                        ng-click="dateFromOpened = true"
-                                        filter-by="date"
-                                        filter-type="text"
-                                        ng-change="gridActions.filter()"
-                                        close-text="Close"/>
+                                               class="form-control"
+                                               placeholder="From Date"
+
+                                               max-date="dateTo"
+                                               ng-model = "dateFrom"
+                                               filter-by="date_unix"
+
+                                               ng-change="gridActions.filter();"
+                                               id="dateFromFilter"
+                                               filter-type="dateFrom"
+                                        />
+                                    </th>
+                                    <th>
+                                        <input type="text"
+                                               placeholder="To Date"
+                                               filter-by="date_unix"
+                                               ng-change="gridActions.filter();"
+                                               id="dateToFilter"
+                                               class="form-control"
+                                               min-date="dateFrom"
+                                               close-text="Close"
+                                               ng-model="dateTo"
+                                               filter-type="dateTo"
+                                               close-text="Close">
                                     </th>
                                     <th ng-show="tab !='withrma' && tab != 'withoutrma'">
                                         <input id="gsFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="GS No" ng-change="gridActions.filter();" ng-model="filtergs_no" filter-by="gs_no" filter-type="text">
@@ -109,10 +132,10 @@
                                             <table class="table table-borderless table-data3">
                                                 <thead>
                                                 <tr>
-                                                    <th sortable="id" class="sortable">
+                                                    <th sortable="formatted_rma_id" class="sortable">
                                                         RMA No
                                                     </th>
-                                                    <th sortable="date" class="sortable">
+                                                    <th sortable="date_unix" class="sortable">
                                                         Date
                                                     </th>
 
@@ -135,7 +158,7 @@
                                                 </thead>
                                                 <tbody>
                                                 <tr grid-item>
-                                                    <td ng-bind="item.id"></td>
+                                                    <td ng-bind="item.formatted_rma_id"></td>
                                                     <td ng-bind="item.date | date:'dd/MM/yyyy'"></td>
 
                                                     <td ng-bind="item.gs_no"></td>
@@ -201,10 +224,10 @@
                                                     <th >
                                                         Select
                                                     </th>
-                                                    <th sortable="id" class="sortable">
+                                                    <th sortable="formatted_pv_id" class="sortable">
                                                         R Id
                                                     </th>
-                                                    <th sortable="receipt_id" class="sortable">
+                                                    <th sortable="formatted_receipt_id" class="sortable">
                                                         Receipt Id
                                                     </th>
                                                     <th  sortable="pvdate" class="sortable">
@@ -229,8 +252,8 @@
                                                             <span class="au-checkmark"></span>
                                                         </label>
                                                     </td>
-                                                    <td ng-bind="item.id"></td>
-                                                    <td ng-bind="item.receipt_id"></td>
+                                                    <td ng-bind="item.formatted_pv_id"></td>
+                                                    <td ng-bind="item.formatted_receipt_id"></td>
                                                     <td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
                                                     <td ng-bind="item.customer_name"></td>
                                                     <td ng-bind="item.courier_name"></td>
@@ -305,8 +328,8 @@
                                                             <span class="au-checkmark"></span>
                                                         </label>
                                                     </td>
-                                                    <td ng-bind="item.id"></td>
-                                                    <td ng-bind="item.receipt_id"></td>
+                                                    <td ng-bind="item.formatted_pv_id"></td>
+                                                    <td ng-bind="item.formatted_receipt_id"></td>
                                                     <td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
                                                     <td ng-bind="item.customer_name"></td>
                                                     <td ng-bind="item.courier_name"></td>
@@ -347,7 +370,7 @@
                                             <table class="table table-borderless table-data3">
                                                 <thead>
                                                 <tr>
-                                                    <th sortable="id" class="sortable">
+                                                    <th sortable="formatted_rma_id" class="sortable">
                                                         RMA No
                                                     </th>
                                                     <th sortable="date" class="sortable">
@@ -373,7 +396,7 @@
                                                 </thead>
                                                 <tbody>
                                                 <tr grid-item>
-                                                    <td ng-bind="item.id"></td>
+                                                    <td ng-bind="item.formatted_rma_id"></td>
                                                     <td ng-bind="item.date | date:'dd/MM/yyyy'"></td>
 
                                                     <td ng-bind="item.gs_no"></td>
@@ -435,7 +458,7 @@
                                             <table class="table table-borderless table-data3">
                                                 <thead>
                                                 <tr>
-                                                    <th sortable="id" class="sortable">
+                                                    <th sortable="formatted_rma_id" class="sortable">
                                                         RMA No
                                                     </th>
                                                     <th sortable="date" class="sortable">
@@ -460,7 +483,7 @@
                                                 </thead>
                                                 <tbody>
                                                 <tr grid-item>
-                                                    <td ng-bind="item.id"></td>
+                                                    <td ng-bind="item.formatted_rma_id"></td>
                                                     <td ng-bind="item.date | date:'dd/MM/yyyy'"></td>
 
                                                     <td ng-bind="item.gs_no"></td>
@@ -548,6 +571,17 @@
                 todayHighlight: true,
                 setDate: new Date(),
                 update: new Date()
+            });
+            $("#dateFromFilter").datepicker({
+                autoclose: true,
+                format: 'yyyy-mm-dd',
+                todayHighlight: true,
+            });
+
+            $("#dateToFilter").datepicker({
+                autoclose: true,
+                format: 'yyyy-mm-dd',
+                todayHighlight: true,
             });
         });
     </script>
