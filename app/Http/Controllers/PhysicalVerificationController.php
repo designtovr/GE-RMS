@@ -164,7 +164,7 @@ class PhysicalVerificationController extends Controller
 	public function GetPhysicalVerification($id)
     {
         //$RMA = RMA::where('receipt_id', $physical ['receipt_id'])->first();
-        $physicalverification = PhysicalVerificationMaster::selectRaw('physical_verification.* , rma.id as rma_id , cus.name as customer_name')->leftJoin('receipt as rc' , 'rc.id' , 'physical_verification.receipt_id' )->leftJoin('ma_customer as cus' ,'cus.id' , 'rc.customer_id') ->leftJoin('rma' , 'rma.receipt_id' , 'rc.id')->where('physical_verification.id', $id)->first();
+        $physicalverification = PhysicalVerificationMaster::selectRaw('physical_verification.* , rma.id as rma_id , cus.name as customer_name , rc.site as location')->leftJoin('receipt as rc' , 'rc.id' , 'physical_verification.receipt_id' )->leftJoin('ma_customer as cus' ,'cus.id' , 'rc.customer_id') ->leftJoin('rma' , 'rma.receipt_id' , 'rc.id')->where('physical_verification.id', $id)->first();
 
         if($physicalverification) {
             return response()->json(['physicalverification' => $physicalverification , 'status' => 'success'], 200);
@@ -178,7 +178,7 @@ class PhysicalVerificationController extends Controller
 
     public function GetPhysicalVerificationForReceiptId($receipt_id)
     {
-    	$physicalverification = PhysicalVerificationMaster::selectRaw('physical_verification.*')->where('receipt_id', $receipt_id)->get();
+    	$physicalverification = PhysicalVerificationMaster::selectRaw('physical_verification.*')->leftJoin('receipt as rc' , 'rc.id' , 'physical_verification.receipt_id' )->where('receipt_id', $receipt_id)->get();
     	if($physicalverification) {
             return response()->json(['physicalverification' => $physicalverification , 'status' => 'success'], 200);
         }
@@ -301,12 +301,14 @@ class PhysicalVerificationController extends Controller
                         ->where('physical_verification.id', $PVM->id)->first();
         $PVM->rma_id = $rma_and_cus->rma_id;
         $PVM->customer_name = $rma_and_cus->customer_name;
+        $PVM->location = $physical ['location'];
+
         return response()->json(['data' => $PVM, 'status' => 'success', 'message' => $message], 200);
     }
 
     public function PVWithReceipts($cat)
     {
-        $pvs = PhysicalVerificationMaster::selectRaw('physical_verification.id as pv_id,ROUND(UNIX_TIMESTAMP(receipt.receipt_date) * 1000 +50000000) as date_unix, physical_verification.serial_no, pt.part_no, receipt.id as receipt_id, receipt_date, total_boxes, end_customer, receipt.courier_name, receipt.docket_details, cus.name as customer_name')
+        $pvs = PhysicalVerificationMaster::selectRaw('physical_verification.id as pv_id,ROUND(UNIX_TIMESTAMP(receipt.receipt_date) * 1000 +50000000) as date_unix, physical_verification.serial_no, pt.part_no, receipt.id as receipt_id, receipt_date, total_boxes, end_customer, receipt.courier_name, receipt.docket_details,receipt.site as location, cus.name as customer_name')
                 ->Join('receipt', 'receipt.id', 'physical_verification.receipt_id')->leftJoin('ma_product as pt', 'pt.id', 'physical_verification.product_id')->leftJoin('ma_customer as cus', 'cus.id', 'receipt.customer_id');
         if ($cat == 'open')
             $pvs = $pvs->where('receipt.status', 1);

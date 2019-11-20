@@ -31,7 +31,7 @@
                 </div>
             </div>--}}
             <div class="row">
-                <div class="col-lg-3 h-25">
+                <div class="col-lg-2 h-25">
                     <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
                         <div class="au-card-title" style="background-image:url('images/bg-title-01.jpg');" >
                             <div class="bg-overlay bg-overlay--androidblue"></div>
@@ -65,7 +65,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 h-25">
+                <div class="col-lg-2 h-25">
                     <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
                         <div class="au-card-title"  >
                             <div class="bg-overlay bg-overlay--androidblue"></div>
@@ -99,7 +99,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 h-25">
+                <div class="col-lg-2 h-25">
                     <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
                         <div class="au-card-title"  >
                             <div class="bg-overlay bg-overlay--androidblue"></div>
@@ -134,7 +134,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3">
+                <div class="col-lg-2">
                     <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
                         <div class="au-card-title"  >
                             <div class="bg-overlay bg-overlay--androidblue"></div>
@@ -168,7 +168,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-2">
                     <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
                         <div class="au-card-title"  >
                             <div class="bg-overlay bg-overlay--androidblue"></div>
@@ -202,7 +202,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-2">
                     <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
                         <div class="au-card-title"  >
                             <div class="bg-overlay bg-overlay--androidblue"></div>
@@ -236,7 +236,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-2">
                     <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
                         <div class="au-card-title"  >
                             <div class="bg-overlay bg-overlay--androidblue"></div>
@@ -270,7 +270,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-2">
                     <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
                         <div class="au-card-title"  >
                             <div class="bg-overlay bg-overlay--androidblue"></div>
