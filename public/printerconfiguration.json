@@ -1,6 +1,6 @@
 {
-    "LabelPrinterIP": "192.168.1.3",
+    "LabelPrinterIP": "10.5.181.74",
     "LabelPrinterUSB": "",
-    "ReceiptPrinterIP": "192.168.1.3",
+    "ReceiptPrinterIP": "10.5.181.74",
     "ReceiptPrinterUSB": ""
 }
