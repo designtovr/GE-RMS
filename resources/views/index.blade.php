@@ -188,7 +188,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr ng-repeat="test in dashboardvalues.for_test">
+                                        <tr ng-repeat="test in dashboardvalues.for_aging">
                                             <td ng-bind="test.type_name"></td>
                                             <td ng-bind="test.total"></td>
                                             <td> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s" ng-bind="test.overdue"></span></td>
@@ -222,10 +222,10 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr ng-repeat="pack in dashboardvalues.for_pack">
-                                            <td ng-bind="pack.type_name"></td>
-                                            <td ng-bind="pack.total"></td>
-                                            <td> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s" ng-bind="pack.overdue"></span></td>
+                                        <tr ng-repeat="verifi in dashboardvalues.for_verifi">
+                                            <td ng-bind="verifi.type_name"></td>
+                                            <td ng-bind="verifi.total"></td>
+                                            <td> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s" ng-bind="verifi.overdue"></span></td>
                                         </tr>
                                         </tbody>
                                     </table>
