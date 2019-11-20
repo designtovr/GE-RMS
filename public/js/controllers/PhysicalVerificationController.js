@@ -80,7 +80,7 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 						,
 						onScopeReady: function (scope) {
 							scope.customer_name = $scope.physicalVerification.customer_name;
-							scope.location = $scope.physicalVerification.customer_name;
+							scope.location = $scope.physicalVerification.location;
 					var self = this;
 					scope.textChange = function () {
 						console.log (scope.customer_name);
