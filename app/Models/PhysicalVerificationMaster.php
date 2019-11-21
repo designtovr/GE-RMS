@@ -35,9 +35,9 @@ class PhysicalVerificationMaster extends Model
 
     public function getFormattedRMAIdAttribute()
     {
-    	$RMA = RMA::where('receipt_id', $this->receipt_id)->first();
-    	if ($RMA)
-    		return $this->FormatRMAId($RMA->id);
+    	$RMAUI = RMAUnitInformation::where('pv_id', $this->id)->first();
+    	if ($RMAUI)
+    		return $this->FormatRMAId($RMAUI->rma_id);
     	else
     		return '';
     }

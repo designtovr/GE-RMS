@@ -10,6 +10,7 @@ use App\Models\JobTicket;
 use App\Models\JobTicketMaterials;
 use App\Http\Requests\SaveJobTicketMaterialRequest;
 use App\Http\Requests\CompleteJobTicketRequest;
+use App\Http\Requests\UpdateSiteCardJobTicketRequest;
 use App\Http\Repositories\PVStatusRepositories;
 use Carbon\Carbon;
 
@@ -181,4 +182,15 @@ class JobTicketController extends Controller
 
     	return response()->json(['status' => 'success', 'message' => 'Ticket Completed Successfully']);
     }
+
+    public function UpdateSiteCardJobTicket(UpdateSiteCardJobTicketRequest $request)
+    {
+        $jobticket = $request->get('jobticket');
+        $materials = $jobticket['job_ticket_materials'];
+        foreach ($materials as $key => $material) {
+            JobTicketMaterials::where('id', $material['id'])->update(['new_pcp' => $material['new_pcp']]);
+        }
+        return response()->json(['status' => 'success', 'message' => 'Ticket Updated Successfully']);
+    }
+
 }

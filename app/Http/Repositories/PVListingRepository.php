@@ -11,10 +11,10 @@ use Illuminate\Support\Facades\DB;
 class PVListingRepository
 {
 
-	private function PVList($status_id)
+	private function PVList($status_id, $service_type=[1, 2])
 	{
 		$pv = PhysicalVerificationMaster::
-				selectRaw('physical_verification.*, ROUND(UNIX_TIMESTAMP(physical_verification.pvdate) * 1000 +50000000) as date_unix ,receipt.gs_no, receipt.customer_id, cus.name as customer_name,rma.end_customer,pr.part_no,pt.category,ma_pv_status.status, ma_pv_status.close_status, rmu.sw_version, rmu.rma_id, rmu.desc_of_fault as customer_comment, warranty.comment as manager_comment, tes.comment as testing_comment, jt.comment as repair_comment, aging.comment as aging_comment, tes.created_at as tes_created_at, IF(pvl.priority > 0, pvl.priority, 999999) as pvl_priority, IF(pvl.priority > 0, pvl.priority, "NA") as pvl_priority_for_display')
+				selectRaw('physical_verification.*, ROUND(UNIX_TIMESTAMP(physical_verification.pvdate) * 1000 +50000000) as date_unix ,receipt.gs_no, receipt.customer_id, cus.name as customer_name,rma.end_customer,pr.part_no, rma.service_type,pt.category,ma_pv_status.status, ma_pv_status.close_status, rmu.sw_version, rmu.rma_id, rmu.desc_of_fault as customer_comment, warranty.comment as manager_comment, tes.comment as testing_comment, jt.comment as repair_comment, aging.comment as aging_comment, tes.created_at as tes_created_at, IF(pvl.priority > 0, pvl.priority, 999999) as pvl_priority, IF(pvl.priority > 0, pvl.priority, "NA") as pvl_priority_for_display')
 				->leftJoin('receipt', 'physical_verification.receipt_id', 'receipt.id')
 				->leftJoin('ma_product as pr', 'pr.id', 'physical_verification.product_id')
 				->leftJoin('ma_product_type as pt', 'pt.id', 'physical_verification.producttype_id')
@@ -29,7 +29,11 @@ class PVListingRepository
 				->leftJoin('ma_customer as cus', 'cus.id', 'receipt.customer_id')
 				->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'physical_verification.id')
 				->whereNotIn('pt.category', ["'omu'","'boj'"])
-				->whereIn('pv_status.current_status_id', $status_id)->orderBy('pvl_priority', 'asc')->orderBy('physical_verification.id')->get();
+				->whereIn('pv_status.current_status_id', $status_id)
+				->whereIn('rma.service_type', $service_type);
+
+		$pv = $pv->orderBy('pvl_priority', 'asc')->orderBy('physical_verification.id')->get();
+
 		return $pv;
 	}
 
@@ -170,6 +174,12 @@ class PVListingRepository
     {
     	$status_id = array(6,7,8,9,10);
     	return (new self)->PVList($status_id);
+    }
+
+    public static function SiteCardAfterJobTicketCompleted()
+    {
+    	$status_id = array(6,7,8,9,10,11,12,14);
+    	return (new self)->PVList($status_id, array (2));
     }
 
     public static function DashBoardValues()

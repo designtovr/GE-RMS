@@ -78,7 +78,7 @@
 									<th>
 										<input id="customerFilter" type="text"
 											   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
-											   placeholder="ustomer Name" ng-change="gridActions.filter()"
+											   placeholder="Customer" ng-change="gridActions.filter()"
 											   ng-model="filterCustomer" filter-by="customer_name"
 											   filter-type="text">
 									</th>
@@ -128,6 +128,9 @@
 									</li>
 									<li class="nav-item" ng-click="LoadData('jobticketcompleted')">
 										<a class="nav-link" id="withoutrma-tab" data-toggle="tab" href="#completed" role="tab" aria-controls="withoutrma" aria-selected="false">Completed</a>
+									</li>
+									<li class="nav-item" ng-click="LoadData('sitecardafterjobticketcompleted')">
+										<a class="nav-link" id="afterjtcompleted-tab" data-toggle="tab" href="#afterjtcompleted" role="tab" aria-controls="afterjtcompleted" aria-selected="false">Site Card Completed</a>
 									</li>
 
 
@@ -215,7 +218,7 @@
 									<td ng-bind="item.pvl_priority_for_display"></td>
 									<td>
                                         <div class="table-data-feature">
-                                        	<div class="btn-group">
+                                        	<div class="btn-group" ng-if="page != 'sitecardafterjobticketcompleted'">
 	                                            <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-success" >Priority</button>
 	                                            <div tabindex="-1" aria-hidden="true" role="menu" class="dropdown-menu scrollable-menu">
 	                                            	<button ng-if="item.pvl_priority == 999999" type="button" tabindex="0" class="dropdown-item" ng-click="SetPVPriority(item.id, pvprioritylistmax)">Set New: @{{pvprioritylistmax}}</button>
@@ -450,7 +453,7 @@
 	                    <div class="card-body card-block">
 	                    	<form action="" method="post" class="form-horizontal" name="MaterialForm" id="MaterialForm">
 	                    		<div ng-repeat="job_ticket_material in jobticket.job_ticket_materials track by $index" class="m-b-10">
-	                    			<div class="row">
+	                    			<div class="row" ng-if="page != 'sitecardafterjobticketcompleted'">
 		                            	<div class="col col-md-12">
 		                            		<button type="button" class="btn btn-danger btn-sm float-right" ng-click="RemoveMaterial($index);">
 	                                    	Remove</button>
@@ -547,21 +550,24 @@
 	                            </div>
 	                            <div class="row">
 	                            	<div class="col col-md-12">
-	                            		<button type="button" class="btn btn-success btn-md" ng-click="AddMaterial();">
+	                            		<button ng-if="page != 'sitecardafterjobticketcompleted'" type="button" class="btn btn-success btn-md" ng-click="AddMaterial();">
                                     	Add</button>
 	                            	</div>
 	                            </div>
 	                            <div class="row">
 	                            	<div class="col col-md-12">
-	                            		<button type="button" class="btn btn-primary btn-md float-right" ng-click="SaveMaterial();" ng-disabled="MaterialForm.$invalid">
+	                            		<button ng-if="page != 'sitecardafterjobticketcompleted'" type="button" class="btn btn-primary btn-md float-right" ng-click="SaveMaterial();" ng-disabled="MaterialForm.$invalid">
                                     	Save</button>
 	                            	</div>
 	                            </div>
 	                    	</form>
 	                    </div>
 	                    <div class="card-footer">
-	                        <button type="submit" class="btn btn-primary btn-sm" ng-click="CompleteJTForm();">
+	                        <button ng-if="page != 'sitecardafterjobticketcompleted'" type="submit" class="btn btn-primary btn-sm" ng-click="CompleteJTForm();">
 	                            <i class="fa fa-dot-circle-o"></i> Complete
+	                        </button>
+	                        <button ng-if="page == 'sitecardafterjobticketcompleted'" type="submit" class="btn btn-primary btn-sm" ng-click="UpdateSiteJTForm();">
+	                            <i class="fa fa-dot-circle-o"></i> Update Site Card
 	                        </button>
 	                        <!-- <button type="reset" class="btn btn-danger btn-sm">
 	                            <i class="fa fa-ban"></i> Reset

@@ -189,6 +189,7 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 			url: '/ge/jobticket/'+item.id,
 		}).then(function success(response) {
 			$scope.jobticket =  response.data.data;
+			$scope.jobticket.service_type = item.service_type;
 			if ($scope.jobticket.job_ticket_materials.length == 0)
 			{
 				$scope.jobticket.job_ticket_materials = [];
@@ -227,6 +228,42 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 		$scope.showjtform = false;
 	}
 
+	$scope.UpdateSiteJTForm = function()
+	{
+		console.log($scope.jobticket);
+		for (var i = 0; i < $scope.jobticket.job_ticket_materials.length; i++) {
+			if ($scope.jobticket.job_ticket_materials[i].new_pcp == '' || $scope.jobticket.job_ticket_materials[i].new_pcp == null)
+			{
+				Notification.error("Fill Every New PCB");
+					return;
+			}
+		}
+		$http({
+			method: 'POST',
+			url: '/ge/updatesitecardjobticket',
+			data: {
+				'jobticket': $scope.jobticket
+			}
+		}).then(function success(response) {
+			if (response.data.status == 'success')
+			{
+				Notification.success(response.data.message);
+				$scope.LoadData($scope.page);
+				$scope.showjtform = false;
+			}
+		}, function error(response) {
+			if (response.status == 422)
+			{
+				var errors = response.data.errors;
+				for(var error in errors)
+				{
+					Notification.error(errors[error][0]);
+					break;
+				}
+			}
+		});
+	}
+
 	$scope.CompleteJTForm = function()
 	{
 		console.log($scope.jobticket)
@@ -241,10 +278,15 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 				Notification.error("Fill Every Defective PCB");
  				return;
 			}
-			if ($scope.jobticket.job_ticket_materials[i].new_pcp == '' || $scope.jobticket.job_ticket_materials[i].new_pcp == null)
+			//If the service type is Serivce Card
+			//Allow the Job ticket without New PCB
+			if ($scope.jobticket.service_type != 2)
 			{
-				Notification.error("Fill Every New PCB");
- 				return;
+				if ($scope.jobticket.job_ticket_materials[i].new_pcp == '' || $scope.jobticket.job_ticket_materials[i].new_pcp == null)
+				{
+					Notification.error("Fill Every New PCB");
+	 				return;
+				}
 			}
 		}
 
