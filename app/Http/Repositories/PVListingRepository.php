@@ -166,6 +166,12 @@ class PVListingRepository
         return (new self)->PVList($status_id);
     }
 
+    public static function InRepair()
+    {
+    	$status_id = array(6,7,8,9,10);
+    	return (new self)->PVList($status_id);
+    }
+
     public static function DashBoardValues()
     {
     	$pvs = array();

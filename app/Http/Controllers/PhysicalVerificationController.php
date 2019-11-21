@@ -90,6 +90,11 @@ class PhysicalVerificationController extends Controller
             $pv = PVListingRepository::Dispatched();
         }
 
+        else if($cat == 'inrepair')
+        {
+            $pv = PVListingRepository::InRepair();
+        }
+
 		return response()->json(['physicalverification' => $pv , 'status' => 'success'], 200);
 	}
 

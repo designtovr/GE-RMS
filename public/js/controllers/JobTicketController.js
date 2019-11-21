@@ -119,18 +119,7 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 	{
 		$scope.showjtform = false;
 		$scope.jobticket = {};
-		if ($scope.tab == 'jobticketopen')
-		{
-			$('#withrma-tab').removeClass('active');
-			$('#all-tab').addClass('active');
-			$scope.LoadData('jobticketopen');
-		}
-		else if($scope.tab == 'jobticketstarted')
-		{
-			$('#withrma-tab').addClass('active');
-			$('#all-tab').removeClass('active');
-			$scope.LoadData('jobticketstarted');
-		}
+		$scope.LoadData($scope.page);
 	}
 
 	$scope.startTab = false;
@@ -168,8 +157,14 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 		if(page == 'jobticketstarted')
 			$scope.startTab = true;
 
+		//we're using page value for category
+		//so change page value to inrepair
+		//according to new flow
 		if (page == 'jobticketcompleted')
+		{
+			page = 'inrepair';
 			$scope.completedTab = true;
+		}
 
 		$http({
 			method: 'GET',
@@ -187,7 +182,7 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 		$scope.GetJTMaterialsPartNos();
 		$scope.showjtform = true;
 		var exists = false;
-		if (item.status == "Job Ticket Started")
+		if (item.status != "Job Ticket Open")
 			exists = true;
 		$http({
 			method: 'GET',
@@ -228,9 +223,7 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 			return;
 		}
 		$scope.ChangePVStatus($scope.selectedpvs, 'jobticketstarted');
-		$('#withrma-tab').addClass('active');
-		$('#all-tab').removeClass('active');
-		$scope.LoadData('jobticketstarted');
+		$scope.LoadData($scope.page);
 		$scope.showjtform = false;
 	}
 
@@ -275,13 +268,11 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 							text: 'Print',
 							btnClass: 'btn-blue',
 							action: function(){
-								/*$('#withrma-tab').addClass('active');*/
 								$scope.LoadData($scope.page);
 								$scope.showjtform = false;
 							}
 						},
 						close: function () {
-							/*$('#withrma-tab').addClass('active');*/
 							$scope.LoadData($scope.page);
 							$scope.showjtform = false;
 						}
@@ -362,20 +353,6 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 			{
 				Notification.success(response.data.message);
 				$scope.LoadData($scope.page);
-				/*$scope.openTab = false;
-				$scope.startTab = false;
-				if ($scope.openTab)
-				{
-					$('#all-tab').addClass('active');
-					$('#withrma-tab').removeClass('active');
-					$scope.LoadData('jobticketopen');
-				}
-				else if($scope.startTab)
-				{
-					$('#withrma-tab').addClass('active');
-					$('#all-tab').removeClass('active');
-					$scope.LoadData('jobticketstarted');
-				}*/
 				$scope.showjtform = false;
 			}
 		}, function error(response) {

@@ -125,7 +125,7 @@
 										<li class="nav-item" ng-click="LoadData('2');GetPV('atbstarted');">
 											<a class="nav-link" id="withrma-tab" data-toggle="tab" href="#started" role="tab" aria-controls="withrma" aria-selected="false">Started</a>
 										</li>
-										<li class="nav-item" ng-click="LoadData('3');GetPV('atbcompleted');">
+										<li class="nav-item" ng-click="LoadData('3');GetPV('inrepair');">
 											<a class="nav-link" id="withoutrma-tab" data-toggle="tab" href="#completed" role="tab" aria-controls="withoutrma" aria-selected="false">Completed</a>
 										</li>
 
@@ -141,7 +141,7 @@
 									<!-- <button type="button" class="btn btn-primary btn-sm" ng-show="startTab" ng-click="ChangeStatus('atbcompleted')">
 										<i class="fa fa-check"></i>&nbsp; Completed
 									</button> -->
-									<button type="button" class="btn btn-primary btn-sm" ng-click="OpenTestBenchModal();" ng-show="startTab">
+									<button type="button" class="btn btn-primary btn-sm" ng-click="OpenTestBenchModal();" ng-show="startTab || completedTab">
 										<i class="fa fa-plus"></i>&nbsp;Test
 									</button>
 									</div>
@@ -156,7 +156,7 @@
 								<thead>
 								<tr>
 
-									<th ng-if="openTab || startTab">
+									<th>
 										Select
 									</th>
 									<th sortable="formatted_pv_id" class="sortable">
@@ -189,14 +189,14 @@
 									<th sortable="pvl_priority_for_display" class="sortable">
 										Priority
 									</th>
-									<th ng-show="!completedTab">
+									<th>
 										Actions
 									</th>
 								</tr>
 								</thead>
 								<tbody>
 								<tr grid-item>
-									<td ng-if="openTab || startTab">
+									<td>
                                         <label class="au-checkbox">
                                             <input type="checkbox" ng-model="item.create_wc">
                                             <span class="au-checkmark"></span>
@@ -212,7 +212,7 @@
 									<td ng-bind="item.repair_comment"></td>
 									<td ng-if="!openTab" ng-bind="item.testing_comment"></td>
 									<td ng-bind="item.pvl_priority_for_display"></td>
-									<td ng-show="!completedTab">
+									<td>
 										<div class="btn-group">
                                             <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-success" >Priority</button>
                                             <div tabindex="-1" aria-hidden="true" role="menu" class="dropdown-menu scrollable-menu">

@@ -47,9 +47,8 @@ app.controller('AutoTestBenchController', ['$scope', '$http','Notification','Cha
 			if (response.data.status == 'success')
 			{
 				Notification.success(response.data.message);
-				$('#withrma-tab').addClass('active');
-				$scope.LoadData('2');
-				$scope.GetPV('atbstarted');
+				$scope.LoadData($scope.page);
+				$scope.GetPV($scope.status);
 				$scope.CloseTestBenchModal();
 			}
 		}, function error(response) {
@@ -167,8 +166,6 @@ app.controller('AutoTestBenchController', ['$scope', '$http','Notification','Cha
 
 
 				$scope.ChangePVStatus($scope.selectedpvs ,status);
-				$('#all-tab').addClass('active');
-				$('#withrma-tab').removeClass('active');
 				$scope.LoadData('1');
 				$scope.GetPV('atbopen');
 			}

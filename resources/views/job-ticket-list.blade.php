@@ -190,7 +190,7 @@
 									<th sortable="pvl_priority_for_display" class="sortable">
 										Priority
 									</th>
-									<th ng-show="!completedTab">
+									<th>
 										Actions
 									</th>
 								</tr>
@@ -213,7 +213,7 @@
 									<td ng-bind="item.manager_comment"></td>
 									<td ng-show="completedTab" ng-bind="item.repair_comment"></td>
 									<td ng-bind="item.pvl_priority_for_display"></td>
-									<td ng-show="!completedTab">
+									<td>
                                         <div class="table-data-feature">
                                         	<div class="btn-group">
 	                                            <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-success" >Priority</button>

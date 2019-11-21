@@ -48,6 +48,10 @@ class AgingController extends Controller
     		{
     			PVStatusRepositories::ChangeStatusToAgingCompleted($AG->pv_id);
     		}
+            else if ($test['result'] == 0)
+            {
+                PVStatusRepositories::ChangeStatusToAgingStarted($AG->pv_id);
+            }
     	}
 
     	return response()->json(['status' => 'success', 'message' => 'Aging Saved Successfully'], 200);

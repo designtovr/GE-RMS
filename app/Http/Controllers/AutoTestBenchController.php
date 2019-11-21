@@ -48,6 +48,11 @@ class AutoTestBenchController extends Controller
     		{
     			PVStatusRepositories::ChangeStatusToAutoTestBenchCompleted($ATB->pv_id);
     		}
+
+            else if ($test['result'] == 0)
+            {
+                PVStatusRepositories::ChangeStatusToAutoTestBenchStarted($ATB->pv_id);
+            }
     	}
 
     	return response()->json(['status' => 'success', 'message' => 'Test Result Saved Successfully'], 200);
