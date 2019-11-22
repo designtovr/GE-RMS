@@ -314,7 +314,7 @@ class PVListingRepository
     				->join('pv_status as sta', 'sta.pv_id', 'pv.id')
     				->leftJoin('rms', 'rms.pv_id', 'pv.id')
     				->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'pv.id')
-    				->whereIn('sta.current_status_id', [3,4,5,6,7,8,9,10,11,12,15])
+    				->whereIn('sta.current_status_id', [3,4,5,6,7,8,9,10,11])
     				->orderBy('pvl_priority')->orderBy('pv.id')->get()->take(10);
 
 		//today status

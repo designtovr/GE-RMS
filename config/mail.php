@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'designtovr@gmail.com'),
-        'name' => env('MAIL_FROM_NAME', 'D2VR'),
+        'address' => env('MAIL_FROM_ADDRESS', 'shared.crc@ge.com'),
+        'name' => env('MAIL_FROM_NAME', 'GE-CRC'),
     ],
 
     /*
