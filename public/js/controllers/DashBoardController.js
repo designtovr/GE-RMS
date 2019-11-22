@@ -1,4 +1,4 @@
-app.controller('DashBoardController', ['$scope', '$http', 'Notification' , '$location' , '$window' , function($scope, $http ,  Notification , $location , $window)
+app.controller('DashBoardController', ['$scope', '$http', 'Notification' , '$location' , '$window' , '$interval', function($scope, $http ,  Notification , $location , $window, $interval)
 {
     $scope.dashboardvalues = {};
 
@@ -7,6 +7,10 @@ app.controller('DashBoardController', ['$scope', '$http', 'Notification' , '$loc
         $location.url('/receipt');
         console.log("colled");
     };
+
+    $interval(function(){
+        $scope.GetDashboardValues();
+    }, 10000);
 
     $scope.GetDashboardValues = function()
     {
