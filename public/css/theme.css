@@ -50,6 +50,21 @@ Notes:	decreasing heading by 0.4em with every subsequent heading level
     margin-left: 50px;
 }
 
+body, html {
+}
+
+.bg {
+    /* The image used */
+/*    background-image: url("../images/240px-ge-logo.png");*/
+    background: #026cb6;
+    /* Full height */
+    height: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 .card-title
 {
     color : #0a0a0a !important;
@@ -14680,7 +14695,7 @@ section {
 }
 
 .bg-overlay--androidblue{
-    background: -webkit-linear-gradient(90deg, #04c 0%, #007bff 100%) !important;
+    background: -webkit-linear-gradient(90deg, #001235 0%, #0259b5 100%) !important;
 }
 
 .table-data3-blue thead {

@@ -3,13 +3,15 @@
 @section('title', 'Dashboard')
 
 @section('content')
-<div class="main-content" ng-controller="DashBoardController">
-    <div class="section__content section__content--p30" ng-init="GetDashboardValues();">
+
+<div class="main-content bg" ng-controller="DashBoardController">
+    <div class="section__content section__content--p30 " ng-init="GetDashboardValues();">
+
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6">
                     <div class="overview-wrap">
-                        <h2 class="title-1" id="DashBoard">CRC Dashboard</h2>
+                        <h2 class="title-1 text-white" id="DashBoard">CRC Dashboard</h2>
                     </div>
                 </div>
                 <div class="col-md-6">

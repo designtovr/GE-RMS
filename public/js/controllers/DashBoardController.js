@@ -27,7 +27,7 @@ app.controller('DashBoardController', ['$scope', '$http', 'Notification' , '$loc
 
         ]
     }
-    
+
     var ctx = document.getElementById("Warranty");
     if (ctx) {
         ctx.height = 200;
