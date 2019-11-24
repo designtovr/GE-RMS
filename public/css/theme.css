@@ -41,6 +41,7 @@ Notes:	decreasing heading by 0.4em with every subsequent heading level
 /*-----------------------------------------------------*/
 /* ----- Normalize ----- */
 /* Position and style the close button (top right corner) */
+
 .menu-sidebar .closebtn {
     position: absolute;
     top: 0;
