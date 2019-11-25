@@ -6,7 +6,7 @@ app.controller('DashBoardController', ['$scope', '$http', 'Notification' , '$loc
         datasets: [
             {
                 label: "Time Exceeded Relays",
-                data: [90, 59 ,90, 59],
+                data: [92, 59 ,90, 59],
                 stack: 'Stack 0',
                 borderColor: "rgba(0,0,0,0.09)",
                 borderWidth: "0",
@@ -487,9 +487,10 @@ app.controller('DashBoardController', ['$scope', '$http', 'Notification' , '$loc
                 }
 
                 try {
-
+                        console.log(warrantydata);
+                        console.log("warrantydata");
                     //Warranty chart
-
+                        stackedBar.data.datasets[0].data[0] = 95;
                         stackedBar.update();
 
                 }
