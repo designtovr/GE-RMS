@@ -322,7 +322,7 @@ class PVListingRepository
 			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
 			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
 			->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'pv.id')
-			->whereIn('pt.code', ['Px40', 'C264', 'Agile'])
+			->whereIn('pt.name', ['Px40', 'C264', 'Agile'])
 			->whereDate('pv.created_at', date('Y-m-d'))
 			->where('sta.current_status_id', 12)
 			->count();
@@ -331,7 +331,7 @@ class PVListingRepository
 		->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
 		->join('pv_status as sta', 'sta.pv_id', 'pv.id')
 		->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'pv.id')
-		->whereIn('pt.code', ['Px40', 'C264', 'Agile'])
+		->whereIn('pt.name', ['Px40', 'C264', 'Agile'])
 		->whereDate('pv.created_at', date('Y-m-d'))
 		->where('sta.current_status_id', '<>', 12)
 		->count();
@@ -340,7 +340,7 @@ class PVListingRepository
 			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
 			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
 			->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'pv.id')
-			->whereIn('pt.code', ['Other'])
+			->whereIn('pt.name', ['Other'])
 			->whereDate('pv.created_at', date('Y-m-d'))
 			->where('sta.current_status_id', 12)
 			->count();
@@ -349,7 +349,7 @@ class PVListingRepository
 		->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
 		->join('pv_status as sta', 'sta.pv_id', 'pv.id')
 		->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'pv.id')
-		->whereIn('pt.code', ['Other'])
+		->whereIn('pt.name', ['Other'])
 		->whereDate('pv.created_at', date('Y-m-d'))
 		->where('sta.current_status_id', '<>', 12)
 		->count();
@@ -359,7 +359,7 @@ class PVListingRepository
 			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
 			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
 			->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'pv.id')
-			->whereIn('pt.code', ['Px40', 'C264', 'Agile'])
+			->whereIn('pt.name', ['Px40', 'C264', 'Agile'])
 			->whereMonth('pv.created_at', date('m'))
 			->where('sta.current_status_id', 12)
 			->count();
@@ -368,7 +368,7 @@ class PVListingRepository
 		->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
 		->join('pv_status as sta', 'sta.pv_id', 'pv.id')
 		->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'pv.id')
-		->whereIn('pt.code', ['Px40', 'C264', 'Agile'])
+		->whereIn('pt.name', ['Px40', 'C264', 'Agile'])
 		->whereMonth('pv.created_at', date('m'))
 		->where('sta.current_status_id', '<>', 12)
 		->count();
@@ -377,7 +377,7 @@ class PVListingRepository
 			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
 			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
 			->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'pv.id')
-			->whereIn('pt.code', ['Other'])
+			->whereIn('pt.name', ['Other'])
 			->whereMonth('pv.created_at', date('m'))
 			->where('sta.current_status_id', 12)
 			->count();
@@ -386,17 +386,181 @@ class PVListingRepository
 		->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
 		->join('pv_status as sta', 'sta.pv_id', 'pv.id')
 		->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'pv.id')
-		->whereIn('pt.code', ['Other'])
+		->whereIn('pt.name', ['Other'])
 		->whereMonth('pv.created_at', date('m'))
 		->where('sta.current_status_id', '<>', 12)
 		->count();
 
-		$pvs['repair_warranty'] = DB::table('warranty as wa')->selectRaw('pt.name as type_name, COUNT(*) as total')
+		//repair warranty chart
+		$pvs['repair_warranty']['px40']['total'] = DB::table('warranty as wa')
 			->join('physical_verification as pv', 'pv.id', 'wa.pv_id')
 			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
 			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
-			->groupBy('pt.code')
-			->get();
+			->where('pt.name', 'Px40')
+			->where('wa.smp', 2)
+			->where('wa.pcp', 2)
+			->get()->count();
+
+		$pvs['repair_warranty']['px40']['time_exceeded'] = DB::table('warranty as wa')
+			->join('physical_verification as pv', 'pv.id', 'wa.pv_id')
+			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+			->where('pt.name', 'Px40')
+			->where('wa.smp', 2)
+			->where('wa.pcp', 2)
+			->whereRaw('DATEDIFF("'. Carbon::now() .'", wa.created_at) > 0')
+			->get()->count();
+
+		$pvs['repair_warranty']['c264']['total'] = DB::table('warranty as wa')
+			->join('physical_verification as pv', 'pv.id', 'wa.pv_id')
+			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+			->where('pt.name', 'C264')
+			->where('wa.smp', 2)
+			->where('wa.pcp', 2)
+			->get()->count();
+
+		$pvs['repair_warranty']['c264']['time_exceeded'] = DB::table('warranty as wa')
+			->join('physical_verification as pv', 'pv.id', 'wa.pv_id')
+			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+			->where('pt.name', 'C264')
+			->where('wa.smp', 2)
+			->where('wa.pcp', 2)
+			->whereRaw('DATEDIFF("'. Carbon::now() .'", wa.created_at) > 0')
+			->get()->count();
+
+		$pvs['repair_warranty']['agile']['total'] = DB::table('warranty as wa')
+			->join('physical_verification as pv', 'pv.id', 'wa.pv_id')
+			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+			->where('pt.name', 'Agile')
+			->where('wa.smp', 2)
+			->where('wa.pcp', 2)
+			->get()->count();
+
+		$pvs['repair_warranty']['agile']['time_exceeded'] = DB::table('warranty as wa')
+			->join('physical_verification as pv', 'pv.id', 'wa.pv_id')
+			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+			->where('pt.name', 'Agile')
+			->where('wa.smp', 2)
+			->where('wa.pcp', 2)
+			->whereRaw('DATEDIFF("'. Carbon::now() .'", wa.created_at) > 0')
+			->get()->count();
+
+		$pvs['repair_warranty']['conventional']['total'] = DB::table('warranty as wa')
+			->join('physical_verification as pv', 'pv.id', 'wa.pv_id')
+			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+			->where('pt.name', 'Conventional')
+			->where('wa.smp', 2)
+			->where('wa.pcp', 2)
+			->get()->count();
+
+		$pvs['repair_warranty']['conventional']['time_exceeded'] = DB::table('warranty as wa')
+			->join('physical_verification as pv', 'pv.id', 'wa.pv_id')
+			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+			->where('pt.name', 'Conventional')
+			->where('wa.smp', 2)
+			->where('wa.pcp', 2)
+			->whereRaw('DATEDIFF("'. Carbon::now() .'", wa.created_at) > 0')
+			->get()->count();
+
+		//repair chargable chart
+		$pvs['repair_chargable']['px40']['total'] = DB::table('warranty as wa')
+			->join('physical_verification as pv', 'pv.id', 'wa.pv_id')
+			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+			->where('pt.name', 'Px40')
+			->where(function($query)
+			{
+				$query->where('wa.smp', 1)->orWhere('wa.pcp', 1);
+			})
+			->get()->count();
+
+		$pvs['repair_chargable']['px40']['time_exceeded'] = DB::table('warranty as wa')
+			->join('physical_verification as pv', 'pv.id', 'wa.pv_id')
+			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+			->where('pt.name', 'Px40')
+			->where(function($query)
+			{
+				$query->where('wa.smp', 1)->orWhere('wa.pcp', 1);
+			})
+			->whereRaw('DATEDIFF("'. Carbon::now() .'", wa.created_at) > 0')
+			->get()->count();
+
+		$pvs['repair_chargable']['c264']['total'] = DB::table('warranty as wa')
+			->join('physical_verification as pv', 'pv.id', 'wa.pv_id')
+			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+			->where('pt.name', 'C264')
+			->where(function($query)
+			{
+				$query->where('wa.smp', 1)->orWhere('wa.pcp', 1);
+			})
+			->get()->count();
+
+		$pvs['repair_chargable']['c264']['time_exceeded'] = DB::table('warranty as wa')
+			->join('physical_verification as pv', 'pv.id', 'wa.pv_id')
+			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+			->where('pt.name', 'C264')
+			->where(function($query)
+			{
+				$query->where('wa.smp', 1)->orWhere('wa.pcp', 1);
+			})
+			->whereRaw('DATEDIFF("'. Carbon::now() .'", wa.created_at) > 0')
+			->get()->count();
+
+		$pvs['repair_chargable']['agile']['total'] = DB::table('warranty as wa')
+			->join('physical_verification as pv', 'pv.id', 'wa.pv_id')
+			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+			->where('pt.name', 'Agile')
+			->where(function($query)
+			{
+				$query->where('wa.smp', 1)->orWhere('wa.pcp', 1);
+			})
+			->get()->count();
+
+		$pvs['repair_chargable']['agile']['time_exceeded'] = DB::table('warranty as wa')
+			->join('physical_verification as pv', 'pv.id', 'wa.pv_id')
+			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+			->where('pt.name', 'Agile')
+			->where(function($query)
+			{
+				$query->where('wa.smp', 1)->orWhere('wa.pcp', 1);
+			})
+			->whereRaw('DATEDIFF("'. Carbon::now() .'", wa.created_at) > 0')
+			->get()->count();
+
+		$pvs['repair_chargable']['conventional']['total'] = DB::table('warranty as wa')
+			->join('physical_verification as pv', 'pv.id', 'wa.pv_id')
+			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+			->where('pt.name', 'Conventional')
+			->where(function($query)
+			{
+				$query->where('wa.smp', 1)->orWhere('wa.pcp', 1);
+			})
+			->get()->count();
+
+		$pvs['repair_chargable']['conventional']['time_exceeded'] = DB::table('warranty as wa')
+			->join('physical_verification as pv', 'pv.id', 'wa.pv_id')
+			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+			->where('pt.name', 'Conventional')
+			->where(function($query)
+			{
+				$query->where('wa.smp', 1)->orWhere('wa.pcp', 1);
+			})
+			->whereRaw('DATEDIFF("'. Carbon::now() .'", wa.created_at) > 0')
+			->get()->count();
+
     	return $pvs;
     }
 
