@@ -116,7 +116,7 @@
                  						<li class="nav-item" ng-click="LoadData('2');GetPV('agingstarted')">
                  							<a class="nav-link" id="withrma-tab" data-toggle="tab" href="#started" role="tab" aria-controls="withrma" aria-selected="false">Started</a>
                  						</li>
-                 						<li class="nav-item" ng-click="LoadData('3');GetPV('inrepair')">
+                 						<li class="nav-item" ng-click="LoadData('3');GetPV('agingcompleted')">
                  							<a class="nav-link" id="withoutrma-tab" data-toggle="tab" href="#completed" role="tab" aria-controls="withoutrma" aria-selected="false">Completed</a>
                  						</li>
                  					</ul>
@@ -127,7 +127,7 @@
                  							<i class="fa fa-check"></i>&nbsp; Started
                  						</button>
 
-                 						<button type="button" class="btn btn-primary btn-sm" ng-show="startTab || completedTab" ng-click="OpenAgingModal()">
+                 						<button type="button" class="btn btn-primary btn-sm" ng-show="startTab" ng-click="OpenAgingModal()">
                  							<i class="fa fa-check"></i>&nbsp; Result
                  						</button>
                  					</div>
@@ -141,7 +141,7 @@
                  					<table class="table table-borderless table-data3  ">
                  						<thead>
                  							<tr>
-                 								<th>
+                 								<th ng-if="openTab || startTab">
                  									Select
                  								</th>
                  								<th sortable="formatted_pv_id" class="sortable">
@@ -176,7 +176,7 @@
                                                 <th sortable="pvl_priority_for_display" class="sortable">
                                                     Priority
                                                 </th>
-                                                <th>
+                                                <th ng-if="openTab || startTab">
                                                     Actions
                                                 </th>
                  								<!-- <th ng-if="openTab || startTab">
@@ -186,7 +186,7 @@
                  						</thead>
                  						<tbody>
                  							<tr grid-item>
-                 								<td>
+                 								<td ng-if="openTab || startTab">
                  									<label class="au-checkbox">
                  										<input type="checkbox" ng-model="item.create_wc">
                  										<span class="au-checkmark"></span>
@@ -202,7 +202,7 @@
                  								<td ng-bind="item.testing_comment"></td>
                                                 <td ng-show="startTab || !openTab" ng-bind="item.aging_comment"></td>
                  								<td ng-bind="item.pvl_priority_for_display"></td>
-                                                <td>
+                                                <td ng-if="openTab || startTab">
                                                     <div class="btn-group">
                                                         <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-success" >Priority</button>
                                                         <div tabindex="-1" aria-hidden="true" role="menu" class="dropdown-menu scrollable-menu">

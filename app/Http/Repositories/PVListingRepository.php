@@ -184,6 +184,7 @@ class PVListingRepository
 
     public static function DashBoardValues()
     {
+    	$start = microtime(true);
     	$pvs = array();
     	//get data for physicalverification
     	$pvs['for_physical_verification'] = DB::table('physical_verification as pv')->selectRaw('pv.receipt_id, rc.customer_id, cus.name as customer_name, COUNT(*) as total')
@@ -561,6 +562,7 @@ class PVListingRepository
 			->whereRaw('DATEDIFF("'. Carbon::now() .'", wa.created_at) > 0')
 			->get()->count();
 
+		$pvs['profiling'] = microtime(true) - $start;
     	return $pvs;
     }
 
