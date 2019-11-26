@@ -86,7 +86,7 @@ app.controller('DashBoardController', ['$scope', '$http', 'Notification' , '$loc
     var ctx = document.getElementById("Warranty");
     if (ctx) {
         ctx.height = 200;
-        var stackedBar = new Chart(ctx, {
+        var Warranty = new Chart(ctx, {
             type: 'horizontalBar',
             data: warrantydata,
             options: {
@@ -240,7 +240,7 @@ app.controller('DashBoardController', ['$scope', '$http', 'Notification' , '$loc
         var ctx = document.getElementById("OutOfWarranty");
         if (ctx) {
             ctx.height = 200;
-            var war = new Chart(ctx, {
+            var OutOfWarranty = new Chart(ctx, {
                 type: 'horizontalBar',
                 data: outofwarrantydata,
                 options: {
@@ -531,7 +531,6 @@ app.controller('DashBoardController', ['$scope', '$http', 'Notification' , '$loc
                         console.log("warrantydata");
 
                         //outofwarranty
-                        war
                         //TodayChart
                         TodayChart.data.datasets[0].data =     [
                         $scope.dashboardvalues.today_status.numerical.completed,
@@ -546,11 +545,43 @@ app.controller('DashBoardController', ['$scope', '$http', 'Notification' , '$loc
                         $scope.dashboardvalues.monthly_status.numerical.pending,
                         $scope.dashboardvalues.monthly_status.conventional.pending,
                     ]
+
+                    TodayChart.update();
                         //Monthly Chart
-                        monthlyChart
-                        //Warranty chart
-                        stackedBar.data.datasets[0].data[0] = 95;
-                        stackedBar.update();
+                        //WWarrantyarranty chart
+                            Warranty.data.datasets[0].data = [
+                                $scope.dashboardvalues.repair_warranty.px40.time_exceeded,
+                                $scope.dashboardvalues.repair_warranty.c264.time_exceeded ,
+                                $scope.dashboardvalues.repair_warranty.agile.time_exceeded ,
+                                $scope.dashboardvalues.repair_warranty.conventional.time_exceeded]
+
+                    Warranty.data.datasets[1].data = [
+                        $scope.dashboardvalues.repair_warranty.px40.total - $scope.dashboardvalues.repair_warranty.px40.time_exceeded  ,
+                        $scope.dashboardvalues.repair_warranty.c264.total - $scope.dashboardvalues.repair_warranty.c264.time_exceeded  ,
+
+                        $scope.dashboardvalues.repair_warranty.agile.total -  $scope.dashboardvalues.repair_warranty.agile.time_exceeded ,
+                        $scope.dashboardvalues.repair_warranty.conventional.total - $scope.dashboardvalues.repair_warranty.conventional.time_exceeded ]
+
+
+                        Warranty.update();
+
+                    OutOfWarranty.data.datasets[0].data = [
+                        $scope.dashboardvalues.repair_chargable.px40.time_exceeded,
+                        $scope.dashboardvalues.repair_chargable.c264.time_exceeded ,
+                        $scope.dashboardvalues.repair_chargable.agile.time_exceeded ,
+                        $scope.dashboardvalues.repair_chargable.conventional.time_exceeded]
+
+                    OutOfWarranty.data.datasets[1].data = [
+                        $scope.dashboardvalues.repair_chargable.px40.total - $scope.dashboardvalues.repair_chargable.px40.time_exceeded  ,
+                        $scope.dashboardvalues.repair_chargable.c264.total - $scope.dashboardvalues.repair_chargable.c264.time_exceeded  ,
+
+                        $scope.dashboardvalues.repair_chargable.agile.total -  $scope.dashboardvalues.repair_chargable.agile.time_exceeded ,
+                        $scope.dashboardvalues.repair_chargable.conventional.total - $scope.dashboardvalues.repair_chargable.conventional.time_exceeded ]
+
+
+
+
+                    OutOfWarranty
 
                 }
                 catch (error)
