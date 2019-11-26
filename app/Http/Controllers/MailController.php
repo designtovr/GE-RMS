@@ -14,7 +14,7 @@ class MailController extends Controller {
    		ini_set('max_execution_time', 300);
    		$data = array('name'=>"Virat Gandhi");
    		Mail::send(['text'=>'mail'], $data, function($message) {
-	         $message->to('srinivasktss@gmail.com', 'Tutorials Point')->subject
+	         $message->to('srinivas.s@designtovr.com', 'Tutorials Point')->subject
 	            ('Laravel Basic Testing Mail');
 	      });
       	echo "Basic Email Sent. Check your inbox.";
