@@ -255,6 +255,7 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 				$scope.physicalVerification.courier_name = receipt.courier_name;
 				$scope.physicalVerification.serial_no = '';
 				$scope.physicalVerification.part_no = '';
+				$scope.physicalVerification.location = receipt.location;
 				delete $scope.physicalVerification.id;
 				console.log($scope.physicalVerification)
 			}

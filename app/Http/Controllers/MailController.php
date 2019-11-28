@@ -33,7 +33,7 @@ class MailController extends Controller {
 
           //Recipients
           $mail->setFrom('srinivas.s@designtovr.com', 'Srinivas');
-          $mail->addAddress('srinivasktss@gmail.com');     // Add a recipient
+          $mail->addAddress('illango007@gmail.com');     // Add a recipient
 
           // Attachments
           /*$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
