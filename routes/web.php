@@ -161,6 +161,9 @@ Route::group(['middleware' => 'auth'], function(){
 		return view('add-job-ticket');
 	});
 
+    Route::get('/job-ticket-form', function(){
+        return view('job-ticket-form');
+    });
 
     Route::get('/qrcode', function(){
         return view('webqrtest');
