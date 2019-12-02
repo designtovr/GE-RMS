@@ -21,10 +21,10 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        <input id="codeFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Code" ng-change="gridActions.filter()" ng-model="filterCode" filter-by="code" filter-type="text">
+                                        <input id="codeFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Family" ng-change="gridActions.filter()" ng-model="filterCode" filter-by="code" filter-type="text">
                                     </th>
                                     <th>
-                                       <input id="nameFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Name" ng-change="gridActions.filter()" ng-model="filterName" filter-by="name" filter-type="text">
+                                       <input id="nameFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Type" ng-change="gridActions.filter()" ng-model="filterName" filter-by="name" filter-type="text">
                                    </th>
                                    <th>
                                         <input id="categoryFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Category" ng-change="gridActions.filter()" ng-model="filterCategory" filter-by="category" filter-type="text">
@@ -128,8 +128,10 @@
                                             required>
                                             <option value="" style="display: none;"></option>
                                             <option value="ge">GE</option>
+                                            <option value="smp">SMP</option>
                                             <option value="omu">OMU</option>
                                             <option value="boj">BOJ</option>
+                                            <option value="others">Others</option>
                                         </select>
                                         <div ng-show="ProductTypeForm.productcategory.$touched && ProductTypeForm.productcategory.$error">
                                             <span class="help-block" ng-show="ProductTypeForm.productcategory.$error.required">
@@ -181,7 +183,7 @@
                                                 ng-model="producttype.name"
                                                 placeholder="Product Type"
                                                 class="form-control"
-                                                ng-minlength="3"
+                                                ng-minlength="2"
                                                 ng-maxlength="50"
                                                 required>
                                         <div ng-show="ProductTypeForm.producttypename.$touched && ProductTypeForm.producttypename.$error">
@@ -191,7 +193,7 @@
                                             </span>
                                             <span class="help-block"
                                               ng-show="ProductTypeForm.producttypename.$error.minlength">
-                                                Minimum 3 Characters Required
+                                                Minimum 2 Characters Required
                                             </span>
                                             <span class="help-block"
                                               ng-show="ProductTypeForm.producttypename.$error.maxlength">

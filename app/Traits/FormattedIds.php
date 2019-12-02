@@ -11,17 +11,17 @@ trait Formattedids
 
 	public function FormatReceiptId($id)
 	{
-		return $this->FormatId($id, FormatType::RC);
+		return FormatType::RC.str_pad($id, 5, 0, STR_PAD_LEFT);
 	}
 
 	public function FormatRMAId($id)
 	{
-		return $this->FormatId($id, FormatType::RMA);
+		return $id;
 	}
 
 	public function FormatPvId($id)
 	{
-		return $this->FormatId($id, FormatType::R);
+		return FormatType::R.str_pad($id, 5, 0, STR_PAD_LEFT);
 	}
 }
 

@@ -1,0 +1,6 @@
+TRUNCATE rma;
+ALTER TABLE rma AUTO_INCREMENT=40220001;
+TRUNCATE physical_verification;
+ALTER table physical_verification AUTO_INCREMENT=1;
+TRUNCATE receipt;
+ALTER table receipt AUTO_INCREMENT=1;
