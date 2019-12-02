@@ -49,6 +49,7 @@ Route::get('/forms', function() {
 Route::get('/storedprocedure','MailController@StoredProcedure');
 
 Route::get('/samplepdf', 'MailController@SamplePdf');
+Route::get('/import-product', 'MailController@ImportProduct');
 Route::get('sendphpmailer', 'MailController@phpmailer_email');
 Route::get('sendbasicemail','MailController@basic_email');
 Route::get('sendhtmlemail','MailController@html_email');

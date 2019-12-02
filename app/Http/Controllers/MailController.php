@@ -12,7 +12,10 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 use App;
 use PDF;
+use Excel;
 use App\Models\PhysicalVerificationMaster;
+use App\Models\ProductMaster;
+use Carbon\Carbon;
 
 class MailController extends Controller {
 
@@ -57,7 +60,7 @@ class MailController extends Controller {
    		ini_set('max_execution_time', 300);
    		$data = array('name'=>"Virat Gandhi");
    		Mail::send(['text'=>'mail'], $data, function($message) {
-	         $message->to('srinivas.s@designtovr.com', 'Tutorials Point')->subject
+	         $message->to('srinivasktss@gmail.com', 'Tutorials Point')->subject
 	            ('Laravel Basic Testing Mail');
 	      });
       	echo "Basic Email Sent. Check your inbox.";
@@ -98,5 +101,78 @@ class MailController extends Controller {
       $data['title'] = 'invoice';
       $pdf = PDF::loadView('pdf.invoice', $data);
       return $pdf->stream();
+   }
+
+   public function ImportProduct(Request $request)
+   {
+      ini_set('max_execution_time', '0');
+      Excel::load('ProductDatabase.xlsx', function($reader) {
+          $firstsheet = $reader->first();
+          $firstsheet->each(function($row){
+              if (!empty($row['product']))
+              {
+                  $PR = new ProductMaster();
+                  $PR->part_no = $row['product'];
+                  $PR->created_by = 1;
+                  $PR->updated_by = 1;
+                  $PR->created_at = Carbon::now();
+                  if (strcasecmp($row['platform'], "C264") == 0)
+                  {
+                    $PR->type = 1;
+                  }
+                  else if (strcasecmp($row['platform'], "STATIC") == 0)
+                  {
+                    $PR->type = 2;
+                  }
+                  else if (strcasecmp($row['platform'], "Agile") == 0)
+                  {
+                    $PR->type = 3;
+                  }
+                  else if (strcasecmp($row['platform'], "H49") == 0)
+                  {
+                    $PR->type = 4;
+                  }
+                  else if (strcasecmp($row['platform'], "M870D") == 0)
+                  {
+                    $PR->type = 5;
+                  }
+                  else if (strcasecmp($row['platform'], "M87x") == 0)
+                  {
+                    $PR->type = 6;
+                  }
+                  else if (strcasecmp($row['platform'], "HA") == 0)
+                  {
+                    $PR->type = 7;
+                  }
+                  else if (strcasecmp($row['platform'], "HAMIDOS-Export") == 0)
+                  {
+                    $PR->type = 8;
+                  }
+                  else if (strcasecmp($row['platform'], "RPV") == 0)
+                  {
+                    $PR->type = 9;
+                  }
+                  else if (strcasecmp($row['platform'], "RT430") == 0)
+                  {
+                    $PR->type = 10;
+                  }
+                  else if (strcasecmp($row['platform'], "DISC") == 0)
+                  {
+                    $PR->type = 11;
+                  }
+                  else if (strcasecmp($row['platform'], "HAMIDOS-Local") == 0)
+                  {
+                    $PR->type = 12;
+                  }
+                  else if (strcasecmp($row['platform'], "Px40") == 0)
+                  {
+                    $PR->type = 13;
+                  }
+
+                  $PR->save();
+              }
+          });
+      });
+      echo "success";
    }
 }
