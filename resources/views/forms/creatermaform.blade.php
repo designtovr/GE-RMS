@@ -100,7 +100,7 @@
                             <div class="card-header" id="heading@{{$index}}">
                               <h5 class="mb-0">
                                 <button class="btn btn-link" data-toggle="collapse" data-target="#collapse@{{$index}}" aria-expanded="true" aria-controls="collapse@{{$index}}">
-                                  Relay Id #@{{pv.id}}
+                                  Relay Id #@{{pv.formatted_pv_id}}
                                 </button>
                               </h5>
                             </div>
@@ -492,48 +492,17 @@
                         </div>
                         <div class="row form-group">
                             <div class="col col-md-4">
-                                <label for="end_cus" class=" form-control-label">End Customer <span class="mandatory">*</span></label>
+                                <label for="end_customer" class=" form-control-label">End Customer <span class="mandatory">*</span></label>
                             </div>
                             <div class="col-12 col-md-8">
-                            	<ui-select ng-model="rmaformdata.invoice_info.end_cus" theme="selectize" title="Select End Customer" id="end_cus" 
-                                name="end_cus" required>
-								    <ui-select-match placeholder="Select End Customer">@{{$select.selected.end_customer}}</ui-select-match>
-								    <ui-select-choices repeat="customer in endcustomers | filter: $select.search">
-								      <span ng-bind-html="customer.end_customer | highlight: $select.search"></span>
-								    </ui-select-choices>
-								  </ui-select>
-                                  <div ng-show="RMAForm5.end_cus.$touched && RMAForm5.end_cus.$error">
-                                        <span class="help-block"
-                                         ng-show="RMAForm5.end_cus.$error.required">
-                                            Please Select End Customer
-                                        </span>
-                                    </div>
-								  <div ng-if="rmaformdata.invoice_info.end_cus.end_customer == 'Add New'">
-								  	<input 
-                                        type="text" 
-                                        id="manual_end_customer"
-                                        name="manual_end_customer" 
-                                        ng-model="rmaformdata.invoice_info.manual_end_customer" 
-                                        placeholder="End Cusotmer"
-                                        class="form-control"
-                                        ng-minlength="3"
-                                        ng-maxlength="25"
-                                        required>
-                                        <div ng-show="RMAForm5.manual_end_customer.$touched && RMAForm5.manual_end_customer.$error">
-                                            <span class="help-block"
-                                             ng-show="RMAForm5.manual_end_customer.$error.required">
-                                                Please Enter End Customer
-                                            </span>
-                                            <span class="help-block"
-                                             ng-show="RMAForm5.manual_end_customer.$error.minlength">
-                                                Minimum 3 Characters Required
-                                            </span>
-                                            <span class="help-block"
-                                             ng-show="RMAForm5.manual_end_customer.$error.maxlength">
-                                                Maximum 25 Characters Allowed
-                                            </span>
-                                        </div>
-								  </div>
+                                <input type="text" id="end_customer" name="end_customer" ng-model="rmaformdata.invoice_info.end_customer" uib-typeahead="customer.end_customer for customer in endcustomers | filter:$viewValue | limitTo:8" placeholder="End Customer" class="form-control" typeahead-popup-template-url="{{url('public/bower_components/angular-bootstrap/template/typeahead/typeahead-popup.html')}}"
+                                typeahead-template-url="{{url('public/bower_components/angular-bootstrap/template/typeahead/typeahead-match.html')}}" required>
+                                <div ng-show="RMAForm5.end_customer.$touched && RMAForm5.end_customer.$error">
+                                    <span class="help-block"
+                                     ng-show="RMAForm5.end_customer.$error.required">
+                                        Please Enter End Customer
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <div class="row form-group">
@@ -649,7 +618,7 @@
                                 ng-model="rmaformdata.delivery_info.address" 
                                 class="form-control"
                                 ng-minlength="3" 
-                                ng-maxlength="100"
+                                ng-maxlength="200"
                                 required></textarea>
                                 <div ng-show="RMAForm6.delivery_address.$touched && RMAForm6.delivery_address.$error">
                                     <span class="help-block"
@@ -662,7 +631,7 @@
                                     </span>
                                     <span class="help-block"
                                      ng-show="RMAForm6.delivery_address.$error.maxlength">
-                                        Maximum 100 Characters Allowed
+                                        Maximum 200 Characters Allowed
                                     </span>
                                 </div>
                             </div>

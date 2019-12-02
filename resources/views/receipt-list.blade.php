@@ -276,21 +276,6 @@
                                         </div>
                                     </div>
                                 </div> -->
-                                <!-- <div class="row form-group">
-                                    <div class="col col-md-3">
-                                        <label for="site" class=" form-control-label">Site <span class="mandatory">*</span></label>
-                                    </div>
-                                    <div class="col-12 col-md-6">
-                                        <ui-select ng-model="receipt.site_id" id="site" name="site" theme="selectize" title="Select Site" required>
-                                            <ui-select-match placeholder="Select Site">@{{$select.selected.name}}</ui-select-match>
-                                            <ui-select-choices 
-                                                 repeat="site.id as site in sites | filter: $select.search">
-                                              <span ng-bind-html="site.name | highlight: $select.search"></span>
-                                              <small ng-bind-html="site.code | highlight: $select.search"></small>
-                                            </ui-select-choices>
-                                        </ui-select>
-                                    </div>
-                                </div> -->
                                 <div class="row form-group">
                                     <div class="col col-md-3">
                                         <label for="site" class=" form-control-label">Site<span class="mandatory">*</span></label>
@@ -298,14 +283,6 @@
                                     <div class="col-12 col-md-6">
                                         <input type="text" id="site" name="site" ng-model="receipt.site" uib-typeahead="site for site in sites | filter:$viewValue | limitTo:8" placeholder="Site" class="form-control" typeahead-popup-template-url="{{url('public/bower_components/angular-bootstrap/template/typeahead/typeahead-popup.html')}}"
                                         typeahead-template-url="{{url('public/bower_components/angular-bootstrap/template/typeahead/typeahead-match.html')}}" required>
-                                        <!-- <ui-select ng-model="receipt.site_id1" id="site1" name="site1" theme="selectize" title="Select Site" ng-change="" required>
-                                            <ui-select-match placeholder="Select Site">@{{$select.selected.name}}</ui-select-match>
-                                            <ui-select-choices 
-                                                 repeat="site.id as site in sites | filter: $select.search">
-                                              <span ng-bind-html="site.name | highlight: $select.search"></span>
-                                              <small ng-bind-html="site.code | highlight: $select.search"></small>
-                                            </ui-select-choices>
-                                        </ui-select> -->
                                     </div>
                                 </div>
                                 <div class="row form-group">

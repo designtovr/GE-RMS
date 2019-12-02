@@ -4,3 +4,9 @@ TRUNCATE physical_verification;
 ALTER table physical_verification AUTO_INCREMENT=1;
 TRUNCATE receipt;
 ALTER table receipt AUTO_INCREMENT=1;
+
+ALTER TABLE `rma_delivery_address` CHANGE `address` `address` VARCHAR(200) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+MAIL_DRIVER=mailgun
+MAILGUN_DOMAIN=mg.designtovr.com
+MAILGUN_SECRET=0374796178366e490cae636b84a0302d-816b23ef-11d02095

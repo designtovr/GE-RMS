@@ -270,7 +270,7 @@
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <input type="text" id="rid" name="rid" placeholder="RID No" class="form-control"
-											   ng-model="dispatch.id"
+											   ng-model="dispatch.formatted_pv_id"
 											   disabled>
                                     </div>
                                 </div>

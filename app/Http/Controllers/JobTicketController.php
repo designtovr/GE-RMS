@@ -18,8 +18,8 @@ class JobTicketController extends Controller
 {
     public function JobTicket($pvid)
     {
-    	$jt = DB::table('physical_verification as pv')
-    			->selectRaw('jt.id, pv.id as pv_id, ru.desc_of_fault as customer_comment, pv.serial_no, pr.part_no, jt.comment, 
+    	$jt = PhysicalVerificationMaster::from( 'physical_verification as pv')
+    			->selectRaw('jt.id, pv.id as pv_id, pv.receipt_id, ru.desc_of_fault as customer_comment, pv.serial_no, pr.part_no, jt.comment, 
     				jt.power_on_test, w.type, w.comment as repair_comment, ru.rma_id, pv.pvdate as givendate, 
     				pvst.created_at as po_date, cus.name as customer_name, rma.end_customer')
     			->leftJoin('job_tickets as jt', 'pv.id', 'jt.pv_id')

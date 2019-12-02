@@ -570,7 +570,7 @@
                             <div class="col-12 col-md-8">
                                 <input type="text" id="receipt_id" name="receipt_id"
                                 placeholder="Receipt No" class="form-control" disabled
-                                ng-model="physicalVerification.receipt_id"
+                                ng-model="physicalVerification.formatted_receipt_id"
                                 disabled>
                             </div>
                         </div>

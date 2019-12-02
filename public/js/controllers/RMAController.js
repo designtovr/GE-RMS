@@ -224,7 +224,7 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 	    		if ($scope.rmaformdata.invoice_info != undefined && $scope.rmaformdata.invoice_info != null)
 	    		{
 	    			if ($scope.rmaformdata.end_customer != undefined && $scope.rmaformdata.end_customer != null)
-	    				$scope.rmaformdata.invoice_info.end_cus = {'end_customer': $scope.rmaformdata.end_customer};
+	    				$scope.rmaformdata.invoice_info.end_customer = $scope.rmaformdata.end_customer;
 	    		}
 	    		console.log($scope.rmaformdata)
 	    	}
@@ -276,8 +276,6 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 			if (response.data.status == 'success')
 			{
 				$scope.endcustomers = response.data.data;
-			    var addoption = {'end_customer': 'Add New'};
-			    $scope.endcustomers.push(addoption);
 			}
 		}, function error(response) {
 		});
@@ -549,24 +547,12 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 			Notification.error("Please Select Customer");
 			return;
 		}
-		if ($scope.rmaformdata.invoice_info.end_cus == undefined || $scope.rmaformdata.invoice_info.end_cus == null)
+		if ($scope.rmaformdata.invoice_info.end_customer == undefined || $scope.rmaformdata.invoice_info.end_customer == null)
 		{
-			Notification.error("Please Select End Customer");
+			Notification.error("Please Enter End Customer");
 			return;
 		}
-		if ($scope.rmaformdata.invoice_info.end_cus.end_customer == 'Add New')
-		{
-			if ($scope.rmaformdata.invoice_info.manual_end_customer == null || $scope.rmaformdata.invoice_info.manual_end_customer == undefined)
-			{
-				Notification.error("Please Enter End Customer");
-				return;
-			}
-			$scope.rmaformdata.invoice_info.end_customer = $scope.rmaformdata.invoice_info.manual_end_customer;
-		}
-		else
-		{
-			$scope.rmaformdata.invoice_info.end_customer = $scope.rmaformdata.invoice_info.end_cus.end_customer;
-		}
+
 		$scope.rmaformdata.customer_address_id = $scope.rmaformdata.invoice_info.invoice_customer_name.id;
 		if (($scope.rmaformdata.delivery_info.contact_person == undefined || $scope.rmaformdata.delivery_info.contact_person == null)
 			|| ($scope.rmaformdata.delivery_info.address == undefined || $scope.rmaformdata.delivery_info.address == null) 
@@ -648,11 +634,7 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 			return;
 		}
 		$scope.sitecardform.customer_address_id = $scope.sitecardform.invoice_info.customer_name.id;
-		if ($scope.sitecardform.invoice_info.end_cus.end_customer == 'Add New')
-		{
-			$scope.sitecardform.end_customer = $scope.sitecardform.manual_end_customer;
-		}
-		console.log($scope.sitecardform);
+		$scope.sitecardform.end_customer = $scope.sitecardform.invoice_info.end_customer;
 		$http({
 			url: '/ge/addscrma',
 			method: 'POST',
@@ -726,25 +708,7 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 		///i need to change this part
 		if ($scope.sitecardform.invoice_info != undefined && $scope.sitecardform.invoice_info != null)
 		{
-			if ($scope.sitecardform.invoice_info.end_cus != undefined && $scope.sitecardform.invoice_info.end_cus != null)
-			{
-				if ($scope.sitecardform.invoice_info.end_cus.end_customer != undefined && $scope.sitecardform.invoice_info.end_cus.end_customer != null)
-				{
-					if ($scope.sitecardform.invoice_info.end_cus.end_customer == 'Add New')
-					{
-						if ($scope.sitecardform.invoice_info.manual_end_customer == undefined || $scope.sitecardform.invoice_info.manual_end_customer == null)
-						{
-							Notification.error("Please Enter End Customer");
-							return;
-						}
-						$scope.sitecardform.end_customer = $scope.sitecardform.invoice_info.manual_end_customer;
-					}
-					else
-					{
-						$scope.sitecardform.end_customer = $scope.sitecardform.invoice_info.end_cus.end_customer;
-					}
-				}
-			}
+			$scope.sitecardform.end_customer = $scope.sitecardform.invoice_info.end_customer;
 		}
 
 		console.log($scope.sitecardform)
@@ -791,27 +755,13 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 			Notification.error("Please Select Customer");
 			return;
 		}
-		if ($scope.rmaformdata.invoice_info.end_cus == undefined || $scope.rmaformdata.invoice_info.end_cus == null)
+		if ($scope.rmaformdata.invoice_info.end_customer == undefined || $scope.rmaformdata.invoice_info.end_customer == null)
 		{
-			Notification.error("Please Select End Customer");
+			Notification.error("Please Enter End Customer");
 			return;
 		}
-		console.log($scope.rmaformdata.invoice_info)
-		if ($scope.rmaformdata.invoice_info.end_cus.end_customer == 'Add New')
-		{
-			if ($scope.rmaformdata.invoice_info.manual_end_customer == null || $scope.rmaformdata.invoice_info.manual_end_customer == undefined)
-			{
-				Notification.error("Please Enter End Customer");
-				return;
-			}
-			$scope.rmaformdata.invoice_info.end_customer = $scope.rmaformdata.invoice_info.manual_end_customer;
-		}
-		else
-		{
-			$scope.rmaformdata.invoice_info.end_customer = $scope.rmaformdata.invoice_info.end_cus.end_customer;
-		}
+
 		$scope.rmaformdata.customer_address_id = $scope.rmaformdata.invoice_info.invoice_customer_name.id;
-		
 		$http({
 			url: '/ge/saverma',
 			method: 'POST',

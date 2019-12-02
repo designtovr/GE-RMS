@@ -26,7 +26,7 @@ class PVListingRepository
 				->leftJoin('auto_test_bench as tes', 'tes.pv_id', 'physical_verification.id')
 				->leftJoin('job_tickets as jt', 'jt.pv_id', 'physical_verification.id')
 				->leftJoin('aging', 'aging.pv_id', 'physical_verification.id')
-				->leftJoin('ma_customer as cus', 'cus.id', 'receipt.customer_id')
+				->leftJoin('ma_customer as cus', 'cus.id', 'rma.customer_address_id')
 				->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'physical_verification.id')
 				->whereNotIn('pt.category', ["'omu'","'boj'"])
 				->whereIn('pv_status.current_status_id', $status_id);

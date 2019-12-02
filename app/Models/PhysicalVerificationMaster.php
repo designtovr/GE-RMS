@@ -36,6 +36,11 @@ class PhysicalVerificationMaster extends Model
     public function getFormattedRMAIdAttribute()
     {
     	$RMAUI = RMAUnitInformation::where('pv_id', $this->id)->first();
+        //Job Ticket page formatted data return empty
+        //So including the new condition as checking with pv_id
+        if(!$RMAUI)
+            $RMAUI = RMAUnitInformation::where('pv_id', $this->pv_id)->first();
+
     	if ($RMAUI)
     		return $this->FormatRMAId($RMAUI->rma_id);
     	else

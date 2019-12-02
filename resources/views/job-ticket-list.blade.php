@@ -293,7 +293,7 @@
 			                                    <label for="rid" class=" form-control-label">RID <span class="mandatory">*</span></label>
 			                                </div>
 			                                <div class="col-12 col-md-8">
-			                                    <input type="text" ng-model = "jobticket.pv_id" id="pv_id" name="pv_id" placeholder="RID" class="form-control" disabled>
+			                                    <input type="text" ng-model = "jobticket.formatted_pv_id" id="pv_id" name="pv_id" placeholder="RID" class="form-control" disabled>
 			                                </div>
 			                            </div>
 		                			</div>

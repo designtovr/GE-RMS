@@ -4,7 +4,7 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 	$scope.openTab = false;
 	$scope.jobticket = {};
 	$scope.tab = 'jobticketopen';
-	$scope.page = 1;
+	$scope.page = 'jobticketopen';
 	$scope.pvprioritylist = [];
 	$scope.pvprioritylistmax = 0;
 	$scope.jtmaterialspartnos = [];

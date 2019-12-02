@@ -454,45 +454,14 @@
                                 <label for="end_customer" class=" form-control-label">End Customer <span class="mandatory">*</span></label>
                             </div>
                             <div class="col-12 col-md-8">
-                            	<ui-select ng-model="sitecardform.invoice_info.end_cus" theme="selectize" title="Select End Customer" id="end_customer" 
-                                name="end_customer" ng-change="AssignSCEndCustomer();" required>
-								    <ui-select-match placeholder="Select End Customer">@{{$select.selected.end_customer}}</ui-select-match>
-								    <ui-select-choices repeat="customer in endcustomers | filter: $select.search">
-								      <span ng-bind-html="customer.end_customer | highlight: $select.search"></span>
-								    </ui-select-choices>
-								  </ui-select>
-								  <div ng-show="SiteCardForm5.end_customer.$touched && SiteCardForm5.end_customer.$error">
-	                                    <span class="help-block"
-	                                     ng-show="SiteCardForm5.end_customer.$error.required">
-	                                        Please Select End Customer
-	                                    </span>
-	                                </div>
-								  <div ng-if="sitecardform.invoice_info.end_cus.end_customer == 'Add New'">
-								  	<input 
-                                        type="text" 
-                                        id="manual_end_customer"
-                                        name="manual_end_customer" 
-                                        ng-model="sitecardform.invoice_info.manual_end_customer" 
-                                        placeholder="End Cusotmer"
-                                        class="form-control"
-                                        ng-minlength="3"
-                                        ng-maxlength="25"
-                                        required>
-                                        <div ng-show="SiteCardForm5.manual_end_customer.$touched && SiteCardForm5.manual_end_customer.$error">
-                                            <span class="help-block"
-                                             ng-show="SiteCardForm5.manual_end_customer.$error.required">
-                                                Please Enter End Customer
-                                            </span>
-                                            <span class="help-block"
-                                             ng-show="SiteCardForm5.manual_end_customer.$error.minlength">
-                                                Minimum 3 Characters Required
-                                            </span>
-                                            <span class="help-block"
-                                             ng-show="SiteCardForm5.manual_end_customer.$error.maxlength">
-                                                Maximum 25 Characters Allowed
-                                            </span>
-                                        </div>
-								  </div>
+                                <input type="text" id="end_customer" name="end_customer" ng-model="sitecardform.invoice_info.end_customer" uib-typeahead="customer.end_customer for customer in endcustomers | filter:$viewValue | limitTo:8" placeholder="End Customer" class="form-control" typeahead-popup-template-url="{{url('public/bower_components/angular-bootstrap/template/typeahead/typeahead-popup.html')}}"
+                                typeahead-template-url="{{url('public/bower_components/angular-bootstrap/template/typeahead/typeahead-match.html')}}" required>
+                                <div ng-show="SiteCardForm5.end_customer.$touched && SiteCardForm5.end_customer.$error">
+                                    <span class="help-block"
+                                     ng-show="SiteCardForm5.end_customer.$error.required">
+                                        Please Enter End Customer
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <div class="row form-group">
@@ -608,7 +577,7 @@
                                 ng-model="sitecardform.delivery_info.address" 
                                 class="form-control"
                                 ng-minlength="3" 
-                                ng-maxlength="100"
+                                ng-maxlength="200"
                                 required></textarea>
                                 <div ng-show="SiteCardForm6.delivery_address.$touched && SiteCardForm6.delivery_address.$error">
                                     <span class="help-block"
@@ -621,7 +590,7 @@
                                     </span>
                                     <span class="help-block"
                                      ng-show="SiteCardForm6.delivery_address.$error.maxlength">
-                                        Maximum 100 Characters Allowed
+                                        Maximum 200 Characters Allowed
                                     </span>
                                 </div>
                             </div>
@@ -639,7 +608,7 @@
                                 placeholder="Contact Name"
                                 class="form-control"
                                 ng-minlength="3" 
-                                ng-maxlength="10"
+                                ng-maxlength="50"
                                 required>
                                 <div ng-show="SiteCardForm6.delivery_contact_name.$touched && SiteCardForm6.delivery_contact_name.$error">
                                     <span class="help-block"
@@ -652,7 +621,7 @@
                                     </span>
                                     <span class="help-block"
                                      ng-show="SiteCardForm6.delivery_contact_name.$error.maxlength">
-                                        Maximum 10 Characters Allowed
+                                        Maximum 50 Characters Allowed
                                     </span>
                                 </div>
                             </div>
@@ -734,7 +703,6 @@
                                 class="form-control"
                                 ng-minlength="15" 
                                 ng-maxlength="15"
-                                ng-pattern="/^([0]{1}[1-9]{1}|[1-2]{1}[0-9]{1}|[3]{1}[0-7]{1})([a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}[1-9a-zA-Z]{1}[zZ]{1}[0-9a-zA-Z]{1})+$/g"
                                 required>
                                 <div ng-show="SiteCardForm6.gst_number.$touched && SiteCardForm6.gst_number.$error">
                                     <span class="help-block"
@@ -742,8 +710,12 @@
                                         Please Enter GST Number
                                     </span>
                                     <span class="help-block"
-                                     ng-show="SiteCardForm6.gst_number.$error.pattern">
-                                        Invalid Format
+                                     ng-show="SiteCardForm6.gst_number.$error.minlength">
+                                        Should Not Be Less Than 15 Characters
+                                    </span>
+                                    <span class="help-block"
+                                     ng-show="SiteCardForm6.gst_number.$error.maxlength">
+                                        Should Not Be Greater Than 15 Characters
                                     </span>
                                 </div>
                             </div>

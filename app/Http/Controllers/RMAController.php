@@ -321,7 +321,7 @@ class RMAController extends Controller
                 $RMAUnitInformation->rma_id = $RMA->id;
                 $RMAUnitInformation->pv_id = $unit['id'];
                 $RMAUnitInformation->sw_version = (array_key_exists('sw_version', $unit))?$unit['sw_version']:'';
-                $RMAUnitInformation->service_type = (array_key_exists('service_type', $unit))?$unit['service_type']:1;
+                $RMAUnitInformation->service_type = (array_key_exists('service_type', $unit) && !is_null($unit['service_type']))?$unit['service_type']:1;
                 $RMAUnitInformation->warrenty = (array_key_exists('warrenty', $unit))?$unit['warrenty']:-1;
                 $RMAUnitInformation->desc_of_fault = (array_key_exists('desc_of_fault', $unit))?$unit['desc_of_fault']:'';
                 $RMAUnitInformation->sales_order_no = (array_key_exists('sales_order_no', $unit))?$unit['sales_order_no']:'';
@@ -642,7 +642,7 @@ class RMAController extends Controller
         {
             //save rma table
             $RMA = new RMA();
-            $RMA->receipt_id = 0;
+            $RMA->receipt_id = -1;
             $RMA->gs_no = (array_key_exists('gs_no', $sitecardrma))?$sitecardrma['gs_no']:'';
             $RMA->act_reference = (array_key_exists('act_reference', $sitecardrma))?$sitecardrma['act_reference']:'';
             if (array_key_exists('date', $sitecardrma))
