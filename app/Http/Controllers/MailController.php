@@ -27,16 +27,16 @@ class MailController extends Controller {
           //Server settings
           $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
           $mail->isSMTP();                                            // Send using SMTP
-          $mail->Host       = 'sg2plcpnl0170.prod.sin2.secureserver.net';                    // Set the SMTP server to send through
+          $mail->Host       = 'e2ksmtp01.e2k.ad.ge.com';                    // Set the SMTP server to send through
           $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-          $mail->Username   = 'srinivas.s@designtovr.com';                     // SMTP username
-          $mail->Password   = 'Admin@123';                               // SMTP password
-          $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
-          $mail->Port       = 465;                                    // TCP port to connect to
+          $mail->Username   = 'krishnan.sudhakar@ge.com';                     // SMTP username
+          $mail->Password   = 'A111swejh';                               // SMTP password
+          $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
+          $mail->Port       = 25;                                    // TCP port to connect to
 
           //Recipients
-          $mail->setFrom('srinivas.s@designtovr.com', 'Srinivas');
-          $mail->addAddress('illango007@gmail.com');     // Add a recipient
+          $mail->setFrom('krishnan.sudhakar@ge.com', 'Sudhakar Krishnan');
+          $mail->addAddress('designtovr@gmail.com', "Sudhakar");     // Add a recipient
 
           // Attachments
           /*$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
@@ -58,10 +58,10 @@ class MailController extends Controller {
    public function basic_email() {
    	try {
    		ini_set('max_execution_time', 300);
-   		$data = array('name'=>"Virat Gandhi");
+   		$data = array('name'=>"Srinivas");
    		Mail::send(['text'=>'mail'], $data, function($message) {
-	         $message->to('srinivasktss@gmail.com', 'Tutorials Point')->subject
-	            ('Laravel Basic Testing Mail');
+	         $message->to('krishnan.sudhakar@ge.com', 'GE-CRC')->subject
+	            ('Test Mail From CRCRMS');
 	      });
       	echo "Basic Email Sent. Check your inbox.";
    	} catch (Exception $e) {
