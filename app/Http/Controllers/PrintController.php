@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App;
+use PDF;
+use Excel;
+use App\Models\PhysicalVerificationMaster;
 
 class PrintController extends Controller
 {
@@ -112,5 +116,13 @@ class PrintController extends Controller
 
         return 'success';
         // str_replace("world","Peter","Hello world!");
+    }
+
+    public function JobTicketForm($pv_id)
+    {
+        ini_set('max_execution_time', 300);
+        $data = PhysicalVerificationMaster::find($pv_id);
+        $data['title'] = 'invoice';
+        return view('pdf.jobticketform', $data);
     }
 }

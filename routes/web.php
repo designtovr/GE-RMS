@@ -161,9 +161,7 @@ Route::group(['middleware' => 'auth'], function(){
 		return view('add-job-ticket');
 	});
 
-    Route::get('/job-ticket-form', function(){
-        return view('job-ticket-form');
-    });
+    Route::get('/job-ticket-form/{pv_id}','PrintController@JobTicketForm');
 
     Route::get('/physical-verification-form', function(){
         return view('physical-verification-form');
