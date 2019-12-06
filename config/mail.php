@@ -29,7 +29,7 @@ return [
     |
     */
 
-    'host' => env('MAIL_HOST', 'smtp.gmail.com'),
+    'host' => env('MAIL_HOST', 'e2ksmtp01.e2k.ad.ge.com'),
 
     /*
     |--------------------------------------------------------------------------
@@ -42,7 +42,7 @@ return [
     |
     */
 
-    'port' => env('MAIL_PORT', 587),
+    'port' => env('MAIL_PORT', 25),
 
     /*
     |--------------------------------------------------------------------------
@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'shared.crc@ge.com'),
-        'name' => env('MAIL_FROM_NAME', 'GE-CRC'),
+        'address' => env('MAIL_FROM_ADDRESS', 'service.crc@ge.com'),
+        'name' => env('MAIL_FROM_NAME', 'GECRC'),
     ],
 
     /*

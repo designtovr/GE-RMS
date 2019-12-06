@@ -4392,6 +4392,40 @@ section {
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+.tableStyle td {
+    font-weight: normal; !important;
+    font-size: 26px;
+}
+
+.h-40
+{
+    height:40px;
+    font-size: 12px !important;
+
+}
+
+.text-nowrap {
+    white-space: nowrap;
+}
+
+.no-padding thead th
+{
+    padding : 0px !important;
+}
+
+.tableStyle tr {
+    font-weight: normal; !important;
+    font-size: 26px;
+}
+
+.footerText
+{
+    margin-top: 25px;
+    font-weight: normal;
+    font-size: 10px;
+    color :#000000;
+}
+
 .table-top-countries tbody tr:last-child td {
     border-bottom: none;
 }
