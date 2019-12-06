@@ -8,6 +8,7 @@ use App;
 use PDF;
 use Excel;
 use App\Models\PhysicalVerificationMaster;
+use App\Models\JobTicketMaterials;
 
 class PrintController extends Controller
 {
@@ -121,8 +122,20 @@ class PrintController extends Controller
     public function JobTicketForm($pv_id)
     {
         ini_set('max_execution_time', 300);
-        $data = PhysicalVerificationMaster::find($pv_id);
-        $data['title'] = 'invoice';
+        $data = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.*, jt.id as jt_id, jt.created_at as podate, cus.name as customer_name, rma.end_customer, pro.part_no as model_no, pv.comment as nature_of_defect, jt.power_on_test, wt.type')
+                ->leftJoin('job_tickets as jt', 'jt.pv_id', 'pv.id')
+                ->leftJoin('rma_unit_information as rui', 'rui.pv_id', 'pv.id')
+                ->leftJoin('rma', 'rma.id', 'rui.rma_id')
+                ->leftJoin('ma_customer as cus', 'cus.id', 'rma.customer_address_id')
+                ->leftJoin('ma_product as pro', 'pro.id', 'pv.product_id')
+                ->leftJoin('warranty as wt', 'wt.pv_id', 'pv.id')
+                ->where('pv.id', $pv_id)->first();
+
+        $data['job_materials'] = JobTicketMaterials::where('jt_id', $data['jt_id'])->get();
+        $data['title'] = 'Job Ticket';
+        return view('pdf.jobticketform', $data);
+        $pdf = PDF::loadView('pdf.jobticketform', $data);
+        return $pdf->stream();
         return view('pdf.jobticketform', $data);
     }
 }

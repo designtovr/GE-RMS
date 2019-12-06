@@ -4418,6 +4418,14 @@ section {
     font-size: 26px;
 }
 
+.tableStyle td {
+    text-align: center !important;
+}
+
+.tableStyle th {
+    text-align: center !important;
+}
+
 .footerText
 {
     margin-top: 25px;
