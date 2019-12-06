@@ -160,13 +160,14 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::get('/add-job-ticket', function(){
 		return view('add-job-ticket');
 	});
-
-
     Route::get('/qrcode', function(){
         return view('webqrtest');
     });
     Route::get('/qr', function(){
         return view('qr');
+    });
+    Route::get('/relay-stages-report', function(){
+    	return view('relay-stages-report');
     });
 });
 
@@ -316,4 +317,8 @@ Route::group(['middleware' => ['auth']], function(){
     Route::post('/printreceipt', 'PrintController@PrintReceipt');
 
 	Route::delete('/site/{id}', 'SiteController@DeleteSite');
+
+	Route::get('/dataforrelaysstagereport', 'ReportsController@DataForRelaysStageReport');
+
+	Route::get('/relaystagereport/{id}', 'ReportsController@RelayStageReport');
 });

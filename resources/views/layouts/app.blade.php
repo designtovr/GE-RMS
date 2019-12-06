@@ -212,6 +212,17 @@
                                 </li> -->
                             </ul>
                         </li>
+                        <li class="has-sub">
+                            <a class="js-arrow" href="#">
+                                <i class="fas fa-database"></i>Reports</a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+
+                                <li>
+                                    <a href="{{url('/relay-stages-report')}}">
+                                        <i class="far fa-check-square"></i>Relay Stages</a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </nav>
             </div>
