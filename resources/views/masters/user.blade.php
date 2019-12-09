@@ -45,33 +45,35 @@
                 <div class="col-md-12">
                     <!-- DATA TABLE-->
                     <div grid-data grid-options="usergridOptions" grid-actions="gridActions">
-                        <table class="table table-borderless table-data3">
-                            <thead>
-                                <tr>
-                                    <th sortable="name" class="sortable">Name</th>
-                                    <th sortable="email" class="sortable">Email</th>
-                                    <th sortable="role" class="sortable">Role</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr grid-item>
-    	                            <td ng-bind="item.name"></td>
-                                    <td ng-bind="item.email"></td>
-                                    <td ng-bind="item.role"></td>
-                                    <td>
-    	                                <div class="table-data-feature">
-    	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="OpenUserModal(item)">
-    	                                        <i class="zmdi zmdi-edit"></i>
-    	                                    </button>
-    	                                    <button ng-if="item.id != 1" class="item" data-toggle="tooltip" data-placement="top" title="Delete" ng-click="DeleteUser(item)">
-    	                                        <i class="zmdi zmdi-delete"></i>
-    	                                    </button>
-    	                                </div>
-    	                            </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="overflow-auto">
+                            <table class="table table-borderless table-data3">
+                                <thead>
+                                    <tr>
+                                        <th sortable="name" class="sortable">Name</th>
+                                        <th sortable="email" class="sortable">Email</th>
+                                        <th sortable="role" class="sortable">Role</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr grid-item>
+        	                            <td ng-bind="item.name"></td>
+                                        <td ng-bind="item.email"></td>
+                                        <td ng-bind="item.role"></td>
+                                        <td>
+        	                                <div class="table-data-feature">
+        	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="OpenUserModal(item)">
+        	                                        <i class="zmdi zmdi-edit"></i>
+        	                                    </button>
+        	                                    <button ng-if="item.id != 1" class="item" data-toggle="tooltip" data-placement="top" title="Delete" ng-click="DeleteUser(item)">
+        	                                        <i class="zmdi zmdi-delete"></i>
+        	                                    </button>
+        	                                </div>
+        	                            </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                         <form class="form-inline pull-right margin-bottom-basic">
                             <div class="form-group">
                                 <grid-pagination max-size="5"

@@ -107,71 +107,71 @@
                             <!-- DATA TABLE-->
                             <div grid-data grid-options="gridOptions" grid-actions="gridActions">
                                 <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
-                                <table class="table table-borderless table-data3 ">
-                                    <thead>
-                                        <tr>
-                                            <th sortable="formatted_receipt_id" class="sortable">
-                                                Receipt No
-                                            </th>
-                                            <th sortable="date_unix" class="sortable">
-                                                Receipt Date
-                                            </th>
+                                    <table class="table table-borderless table-data3 table-responsive">
+                                        <thead>
+                                            <tr>
+                                                <th sortable="formatted_receipt_id" class="sortable">
+                                                    Receipt No
+                                                </th>
+                                                <th sortable="date_unix" class="sortable">
+                                                    Receipt Date
+                                                </th>
 
-                                            <th sortable="customer_name" class="sortable">
-                                                Customer Name
-                                            </th>
-                                            <!-- <th sortable="end_customer" class="sortable">
-                                                End Customer
-                                            </th> -->
-                                            <th sortable="courier_name" class="sortable">
-                                                Courier Name
-                                            </th>
-                                            <th sortable="docket_details" class="sortable">
-                                                Docket Details
-                                            </th>
-                                            <th sortable="total_boxes" class="sortable">
-                                                Number of Boxes
-                                            </th>
-                                            <th>
-                                                Actions
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr grid-item>
-                                            <td ng-bind="item.formatted_receipt_id"></td>
-                                            <td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
+                                                <th sortable="customer_name" class="sortable">
+                                                    Customer Name
+                                                </th>
+                                                <!-- <th sortable="end_customer" class="sortable">
+                                                    End Customer
+                                                </th> -->
+                                                <th sortable="courier_name" class="sortable">
+                                                    Courier Name
+                                                </th>
+                                                <th sortable="docket_details" class="sortable">
+                                                    Docket Details
+                                                </th>
+                                                <th sortable="total_boxes" class="sortable">
+                                                    Number of Boxes
+                                                </th>
+                                                <th>
+                                                    Actions
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr grid-item>
+                                                <td ng-bind="item.formatted_receipt_id"></td>
+                                                <td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
 
-                                            <td ng-bind="item.customer_name"></td>
-                                            <!-- <td ng-bind="item.end_customer"></td> -->
-                                            <td ng-bind="item.courier_name"></td>
-                                            <td ng-bind="item.docket_details"></td>
-                                            <td ng-bind="item.total_boxes"></td>
-                                            <td>
-                                                <div class="table-data-feature">
-                                                <!-- <button class="item" data-toggle="tooltip" data-placement="top" title="Edit"
-                                                        ng-click="OpenPVForm(item, true);">
-                                                    <i class="zmdi zmdi-edit"></i>
-                                                </button> -->
-                                                <button class="item" data-toggle="tooltip" data-placement="top"
-                                                title="Add"
-                                                ng-click="OpenPVForm(item, false);">
-                                                    <i class="zmdi zmdi-plus-box"></i>
-                                                </button>
-                                                <!-- <button class="item" data-toggle="tooltip" data-placement="top" title="Close"
-                                                        ng-click="CloseReceipts(item.id);">
-                                                    <i class="zmdi zmdi-close-circle"></i>
-                                                </button> -->
-                                                <!-- <button class="item" data-toggle="tooltip" data-placement="top"
-                                                title="Delete"
-                                                ng-click="DeletePV(item.id);">
-                                                    <i class="zmdi zmdi-delete"></i>
-                                                </button> -->
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                                <td ng-bind="item.customer_name"></td>
+                                                <!-- <td ng-bind="item.end_customer"></td> -->
+                                                <td ng-bind="item.courier_name"></td>
+                                                <td ng-bind="item.docket_details"></td>
+                                                <td ng-bind="item.total_boxes"></td>
+                                                <td>
+                                                    <div class="table-data-feature">
+                                                    <!-- <button class="item" data-toggle="tooltip" data-placement="top" title="Edit"
+                                                            ng-click="OpenPVForm(item, true);">
+                                                        <i class="zmdi zmdi-edit"></i>
+                                                    </button> -->
+                                                    <button class="item" data-toggle="tooltip" data-placement="top"
+                                                    title="Add"
+                                                    ng-click="OpenPVForm(item, false);">
+                                                        <i class="zmdi zmdi-plus-box"></i>
+                                                    </button>
+                                                    <!-- <button class="item" data-toggle="tooltip" data-placement="top" title="Close"
+                                                            ng-click="CloseReceipts(item.id);">
+                                                        <i class="zmdi zmdi-close-circle"></i>
+                                                    </button> -->
+                                                    <!-- <button class="item" data-toggle="tooltip" data-placement="top"
+                                                    title="Delete"
+                                                    ng-click="DeletePV(item.id);">
+                                                        <i class="zmdi zmdi-delete"></i>
+                                                    </button> -->
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 <form class="form-inline pull-right margin-bottom-basic">
                                     <div class="form-group">
                                         <grid-pagination max-size="5"
@@ -206,82 +206,82 @@
                             <!-- DATA TABLE-->
                             <div grid-data grid-options="gridOptions" grid-actions="gridActions">
                                     <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
-                                    <table class="table table-borderless table-data3 ">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    Select
-                                                </th>
-                                                <th sortable="formatted_receipt_id" class="sortable">
-                                                    Receipt Id
-                                                </th>
-                                                <th sortable="formatted_pv_id" class="sortable">
-                                                    R Id
-                                                </th>
-                                                <th sortable="date_unix" class="sortable">
-                                                    Receipt Date
-                                                </th>
-                                                <th sortable="part_no" class="sortable">
-                                                    Model No
-                                                </th>
-                                                <th sortable="serial_no" class="sortable">
-                                                    Serial No
-                                                </th>
-                                                <th sortable="customer_name" class="sortable">
-                                                    Customer Name
-                                                </th>
-                                                <!-- <th sortable="end_customer" class="sortable">
-                                                    End Customer
-                                                </th> -->
-                                                <th sortable="total_boxes" class="sortable">
-                                                    Number of Boxes
-                                                </th>
-                                                <th>
-                                                    Actions
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr grid-item>
-                                                <td>
-                                                    <label class="au-checkbox">
-                                                        <input type="checkbox" ng-model="item.close">
-                                                        <span class="au-checkmark"></span>
-                                                    </label>
-                                                </td>
-                                                <td ng-bind="item.formatted_receipt_id"></td>
-                                                <td ng-bind="item.formatted_pv_id"></td>
-                                                <td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
-                                                <td ng-bind="item.part_no"></td>
-                                                <td ng-bind="item.serial_no"></td>
-                                                <td ng-bind="item.customer_name"></td>
-                                                <!-- <td ng-bind="item.end_customer"></td> -->
-                                                <td ng-bind="item.total_boxes"></td>
-                                                <td>
-                                                    <div class="table-data-feature">
-                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit"
-                                                            ng-click="OpenPVForm(item, true);">
-                                                        <i class="zmdi zmdi-edit"></i>
-                                                    </button>
-                                                    <button class="item" data-toggle="tooltip" data-placement="top"
-                                                    title="Add"
-                                                    ng-click="OpenPVForm(item, false);">
-                                                        <i class="zmdi zmdi-plus-box"></i>
-                                                    </button>
-                                                    <!-- <button class="item" data-toggle="tooltip" data-placement="top" title="Close"
-                                                            ng-click="CloseReceipts(item.id);">
-                                                        <i class="zmdi zmdi-close-circle"></i>
-                                                    </button> -->
-                                                    <!-- <button class="item" data-toggle="tooltip" data-placement="top"
-                                                    title="Delete"
-                                                    ng-click="DeletePV(item.id);">
-                                                        <i class="zmdi zmdi-delete"></i>
-                                                    </button> -->
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                        <table class="table table-borderless table-data3 table-responsive">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        Select
+                                                    </th>
+                                                    <th sortable="formatted_receipt_id" class="sortable">
+                                                        Receipt Id
+                                                    </th>
+                                                    <th sortable="formatted_pv_id" class="sortable">
+                                                        R Id
+                                                    </th>
+                                                    <th sortable="date_unix" class="sortable">
+                                                        Receipt Date
+                                                    </th>
+                                                    <th sortable="part_no" class="sortable">
+                                                        Model No
+                                                    </th>
+                                                    <th sortable="serial_no" class="sortable">
+                                                        Serial No
+                                                    </th>
+                                                    <th sortable="customer_name" class="sortable">
+                                                        Customer Name
+                                                    </th>
+                                                    <!-- <th sortable="end_customer" class="sortable">
+                                                        End Customer
+                                                    </th> -->
+                                                    <th sortable="total_boxes" class="sortable">
+                                                        Number of Boxes
+                                                    </th>
+                                                    <th>
+                                                        Actions
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr grid-item>
+                                                    <td>
+                                                        <label class="au-checkbox">
+                                                            <input type="checkbox" ng-model="item.close">
+                                                            <span class="au-checkmark"></span>
+                                                        </label>
+                                                    </td>
+                                                    <td ng-bind="item.formatted_receipt_id"></td>
+                                                    <td ng-bind="item.formatted_pv_id"></td>
+                                                    <td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
+                                                    <td ng-bind="item.part_no"></td>
+                                                    <td ng-bind="item.serial_no"></td>
+                                                    <td ng-bind="item.customer_name"></td>
+                                                    <!-- <td ng-bind="item.end_customer"></td> -->
+                                                    <td ng-bind="item.total_boxes"></td>
+                                                    <td>
+                                                        <div class="table-data-feature">
+                                                        <button class="item" data-toggle="tooltip" data-placement="top" title="Edit"
+                                                                ng-click="OpenPVForm(item, true);">
+                                                            <i class="zmdi zmdi-edit"></i>
+                                                        </button>
+                                                        <button class="item" data-toggle="tooltip" data-placement="top"
+                                                        title="Add"
+                                                        ng-click="OpenPVForm(item, false);">
+                                                            <i class="zmdi zmdi-plus-box"></i>
+                                                        </button>
+                                                        <!-- <button class="item" data-toggle="tooltip" data-placement="top" title="Close"
+                                                                ng-click="CloseReceipts(item.id);">
+                                                            <i class="zmdi zmdi-close-circle"></i>
+                                                        </button> -->
+                                                        <!-- <button class="item" data-toggle="tooltip" data-placement="top"
+                                                        title="Delete"
+                                                        ng-click="DeletePV(item.id);">
+                                                            <i class="zmdi zmdi-delete"></i>
+                                                        </button> -->
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     <form class="form-inline pull-right margin-bottom-basic">
                                         <div class="form-group">
                                             <grid-pagination max-size="5"
@@ -316,53 +316,53 @@
                             <!-- DATA TABLE-->
                             <div grid-data grid-options="pvgridOptions" grid-actions="pvgridActions">
                                 <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
-                                <table class="table table-borderless table-data3 ">
-                                    <thead>
-                                        <tr>
-                                            <th >
-                                                Select
-                                            </th>
-                                            <th sortable="id" class="sortable">
-                                                Id
-                                            </th>
-                                            <th sortable="receipt_id" class="sortable">
-                                                Receipt Id
-                                            </th>
-                                            <th  sortable="date_unix" class="sortable">
-                                                Date
-                                            </th>
-                                            <th  sortable="customer_name" class="sortable">
-                                                Customer Name
-                                            </th>
-                                            <!-- <th  sortable="end_customer" class="sortable">
-                                                End Customer
-                                            </th> -->
-                                            <th  sortable="courier_name" class="sortable">
-                                                Courier Name
-                                            </th>
-                                            <th  sortable="docket_details" class="sortable">
-                                                Docket Details
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr grid-item>
-                                            <td>
-                                                <label class="au-checkbox">
-                                                    <input type="checkbox" ng-model="item.create_rma">
-                                                    <span class="au-checkmark"></span>
-                                                </label>
-                                            </td>
-                                            <td ng-bind="item.id"></td>
-                                            <td ng-bind="'RC ' + item.receipt_id"></td>
-                                            <td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
-                                            <td ng-bind="item.customer_name"></td>
-                                            <!-- <td ng-bind="item.end_customer"></td> -->
-                                            <td ng-bind="item.courier_name"></td>
-                                            <td ng-bind="item.docket_details"></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                    <table class="table table-borderless table-data3 table-responsive">
+                                        <thead>
+                                            <tr>
+                                                <th >
+                                                    Select
+                                                </th>
+                                                <th sortable="id" class="sortable">
+                                                    Id
+                                                </th>
+                                                <th sortable="receipt_id" class="sortable">
+                                                    Receipt Id
+                                                </th>
+                                                <th  sortable="date_unix" class="sortable">
+                                                    Date
+                                                </th>
+                                                <th  sortable="customer_name" class="sortable">
+                                                    Customer Name
+                                                </th>
+                                                <!-- <th  sortable="end_customer" class="sortable">
+                                                    End Customer
+                                                </th> -->
+                                                <th  sortable="courier_name" class="sortable">
+                                                    Courier Name
+                                                </th>
+                                                <th  sortable="docket_details" class="sortable">
+                                                    Docket Details
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr grid-item>
+                                                <td>
+                                                    <label class="au-checkbox">
+                                                        <input type="checkbox" ng-model="item.create_rma">
+                                                        <span class="au-checkmark"></span>
+                                                    </label>
+                                                </td>
+                                                <td ng-bind="item.id"></td>
+                                                <td ng-bind="'RC ' + item.receipt_id"></td>
+                                                <td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
+                                                <td ng-bind="item.customer_name"></td>
+                                                <!-- <td ng-bind="item.end_customer"></td> -->
+                                                <td ng-bind="item.courier_name"></td>
+                                                <td ng-bind="item.docket_details"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 <form class="form-inline pull-right margin-bottom-basic">
                                     <div class="form-group">
                                         <grid-pagination max-size="5"
@@ -397,53 +397,53 @@
                         <!-- DATA TABLE-->
                         <div grid-data grid-options="pvgridOptions" grid-actions="pvgridActions">
                             <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
-                            <table class="table table-borderless table-data3 ">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            Select
-                                        </th>
-                                        <th>
-                                            Id
-                                        </th>
-                                        <th>
-                                            Receipt Id
-                                        </th>
-                                        <th>
-                                            Date
-                                        </th>
-                                        <th>
-                                            Customer Name
-                                        </th>
-                                        <!-- <th>
-                                            End Customer
-                                        </th> -->
-                                        <th>
-                                            Courier Name
-                                        </th>
-                                        <th>
-                                            Docket Details
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr grid-item>
-                                        <td>
-                                            <label class="au-checkbox">
-                                                <input type="checkbox" ng-model="item.create_rma">
-                                                <span class="au-checkmark"></span>
-                                            </label>
-                                        </td>
-                                        <td ng-bind="item.id"></td>
-                                        <td ng-bind="'RC ' + item.receipt_id"></td>
-                                        <td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
-                                        <td ng-bind="item.customer_name"></td>
-                                        <!-- <td ng-bind="item.end_customer"></td> -->
-                                        <td ng-bind="item.courier_name"></td>
-                                        <td ng-bind="item.docket_details"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                <table class="table table-borderless table-data3 table-responsive">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Select
+                                            </th>
+                                            <th>
+                                                Id
+                                            </th>
+                                            <th>
+                                                Receipt Id
+                                            </th>
+                                            <th>
+                                                Date
+                                            </th>
+                                            <th>
+                                                Customer Name
+                                            </th>
+                                            <!-- <th>
+                                                End Customer
+                                            </th> -->
+                                            <th>
+                                                Courier Name
+                                            </th>
+                                            <th>
+                                                Docket Details
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr grid-item>
+                                            <td>
+                                                <label class="au-checkbox">
+                                                    <input type="checkbox" ng-model="item.create_rma">
+                                                    <span class="au-checkmark"></span>
+                                                </label>
+                                            </td>
+                                            <td ng-bind="item.id"></td>
+                                            <td ng-bind="'RC ' + item.receipt_id"></td>
+                                            <td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
+                                            <td ng-bind="item.customer_name"></td>
+                                            <!-- <td ng-bind="item.end_customer"></td> -->
+                                            <td ng-bind="item.courier_name"></td>
+                                            <td ng-bind="item.docket_details"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             <form class="form-inline pull-right margin-bottom-basic">
                                 <div class="form-group">
                                     <grid-pagination max-size="5"
@@ -474,40 +474,40 @@
                         <!-- DATA TABLE-->
                         <div grid-data grid-options="gridOptions" grid-actions="gridOptions">
                             <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
-                            <table class="table table-borderless table-data3 ">
-                                <thead>
-                                    <tr>
-                                        <th sortable="item.formatted_receipt_id" class="sortable">
-                                            Receipt Id
-                                        </th>
-                                        <th sortable="item.date_unix" class="sortable">
-                                            Date
-                                        </th>
-                                        <th sortable="item.customer_name" class="sortable">
-                                            Customer Name
-                                        </th>
-                                        <!-- <th sortable="item.end_customer" class="sortable">
-                                            End Customer
-                                        </th> -->
-                                        <th sortable="item.courier_name" class="sortable">
-                                            Courier Name
-                                        </th>
-                                        <th sortable="item.docket_details" class="sortable">
-                                            Docket Details
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr grid-item>
-                                        <td ng-bind="item.formatted_receipt_id"></td>
-                                        <td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
-                                        <td ng-bind="item.customer_name"></td>
-                                        <!-- <td ng-bind="item.end_customer"></td> -->
-                                        <td ng-bind="item.courier_name"></td>
-                                        <td ng-bind="item.docket_details"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                <table class="table table-borderless table-data3 table-responsive">
+                                    <thead>
+                                        <tr>
+                                            <th sortable="item.formatted_receipt_id" class="sortable">
+                                                Receipt Id
+                                            </th>
+                                            <th sortable="item.date_unix" class="sortable">
+                                                Date
+                                            </th>
+                                            <th sortable="item.customer_name" class="sortable">
+                                                Customer Name
+                                            </th>
+                                            <!-- <th sortable="item.end_customer" class="sortable">
+                                                End Customer
+                                            </th> -->
+                                            <th sortable="item.courier_name" class="sortable">
+                                                Courier Name
+                                            </th>
+                                            <th sortable="item.docket_details" class="sortable">
+                                                Docket Details
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr grid-item>
+                                            <td ng-bind="item.formatted_receipt_id"></td>
+                                            <td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
+                                            <td ng-bind="item.customer_name"></td>
+                                            <!-- <td ng-bind="item.end_customer"></td> -->
+                                            <td ng-bind="item.courier_name"></td>
+                                            <td ng-bind="item.docket_details"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             <form class="form-inline pull-right margin-bottom-basic">
                                 <div class="form-group">
                                     <grid-pagination max-size="5"

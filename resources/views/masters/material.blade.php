@@ -57,33 +57,35 @@
                 <div class="col-md-12">
                     <!-- DATA TABLE-->
                     <div class="table-responsive m-b-40">
-                        <table class="table table-borderless table-data3">
-                            <thead>
-                                <tr>
-                                    <th>Part No</th>
-                                    <th>Type</th>
-                                    <th>Description</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="material in materials">
-    	                            <td>@{{material.part_no}}</td>
-                                    <td>@{{material.type}}</td>
-                                    <td>@{{material.description}}</td>
-                                    <td>
-    	                                <div class="table-data-feature">
-    	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-    	                                        <i class="zmdi zmdi-edit"></i>
-    	                                    </button>
-    	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-    	                                        <i class="zmdi zmdi-delete"></i>
-    	                                    </button>
-    	                                </div>
-    	                            </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="overflow-auto">
+                            <table class="table table-borderless table-data3">
+                                <thead>
+                                    <tr>
+                                        <th>Part No</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="material in materials">
+        	                            <td>@{{material.part_no}}</td>
+                                        <td>@{{material.type}}</td>
+                                        <td>@{{material.description}}</td>
+                                        <td>
+        	                                <div class="table-data-feature">
+        	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
+        	                                        <i class="zmdi zmdi-edit"></i>
+        	                                    </button>
+        	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
+        	                                        <i class="zmdi zmdi-delete"></i>
+        	                                    </button>
+        	                                </div>
+        	                            </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <!-- END DATA TABLE-->
                 </div>

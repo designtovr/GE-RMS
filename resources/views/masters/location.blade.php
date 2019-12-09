@@ -42,31 +42,33 @@
                 <div class="col-md-12">
                     <!-- DATA TABLE-->
                     <div grid-data grid-options="locationgridOptions" grid-actions="gridActions">
-                        <table class="table table-borderless table-data3">
-                            <thead>
-                                <tr>
-                                    <th sortable="code" class="sortable">Code</th>
-                                    <th sortable="name" class="sortable">Name</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr grid-item>
-    	                            <td ng-bind="item.code"></td>
-    	                            <td ng-bind="item.name"></td>
-                                    <td>
-    	                                <div class="table-data-feature">
-    	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="OpenLocationModal(item)">
-    	                                        <i class="zmdi zmdi-edit"></i>
-    	                                    </button>
-    	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete" ng-click="DeleteLocation(item.id, item.code);">
-    	                                        <i class="zmdi zmdi-delete"></i>
-    	                                    </button>
-    	                                </div>
-    	                            </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="overflow-auto">
+                            <table class="table table-borderless table-data3">
+                                <thead>
+                                    <tr>
+                                        <th sortable="code" class="sortable">Code</th>
+                                        <th sortable="name" class="sortable">Name</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr grid-item>
+        	                            <td ng-bind="item.code"></td>
+        	                            <td ng-bind="item.name"></td>
+                                        <td>
+        	                                <div class="table-data-feature">
+        	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="OpenLocationModal(item)">
+        	                                        <i class="zmdi zmdi-edit"></i>
+        	                                    </button>
+        	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete" ng-click="DeleteLocation(item.id, item.code);">
+        	                                        <i class="zmdi zmdi-delete"></i>
+        	                                    </button>
+        	                                </div>
+        	                            </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                         <form class="form-inline pull-right margin-bottom-basic">
                             <div class="form-group">
                                 <grid-pagination max-size="5"

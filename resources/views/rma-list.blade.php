@@ -129,7 +129,7 @@
                                         <!-- DATA TABLE-->
                                         <div grid-data grid-options="gridOptions" grid-actions="gridActions" class="">
                                             <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
-                                            <table class="table table-borderless table-data3">
+                                            <table class="table table-borderless table-data3 table-responsive">
                                                 <thead>
                                                 <tr>
                                                     <th sortable="formatted_rma_id" class="sortable">
@@ -218,7 +218,7 @@
                                     <!-- DATA TABLE-->
                                     <div grid-data grid-options="pvgridOptions" grid-actions="pvgridActions">
                                         <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
-                                        <table class="table table-borderless table-data3 ">
+                                        <table class="table table-borderless table-data3 table-responsive">
                                             <thead>
                                                 <tr>
                                                     <th >
@@ -294,7 +294,7 @@
                                     <!-- DATA TABLE-->
                                     <div grid-data grid-options="pvgridOptions" grid-actions="pvgridActions">
                                         <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
-                                        <table class="table table-borderless table-data3 ">
+                                        <table class="table table-borderless table-data3 table-responsive">
                                             <thead>
                                                 <tr>
                                                     <th>
@@ -367,7 +367,7 @@
                                         <!-- DATA TABLE-->
                                         <div grid-data grid-options="gridOptions" grid-actions="gridActions" class="">
                                             <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
-                                            <table class="table table-borderless table-data3">
+                                            <table class="table table-borderless table-data3 table-responsive">
                                                 <thead>
                                                 <tr>
                                                     <th sortable="formatted_rma_id" class="sortable">
@@ -455,7 +455,7 @@
                                         <!-- DATA TABLE-->
                                         <div grid-data grid-options="gridOptions" grid-actions="gridActions" class="">
                                             <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
-                                            <table class="table table-borderless table-data3">
+                                            <table class="table table-borderless table-data3 table-responsive">
                                                 <thead>
                                                 <tr>
                                                     <th sortable="formatted_rma_id" class="sortable">

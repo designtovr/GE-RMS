@@ -17,26 +17,28 @@
                         Search 
                     </div>
                     <div class="table-responsive">
-                        <table class="table table-borderless table-data3 table-custom">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        <input id="codeFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Code" ng-change="gridActions.filter()" ng-model="filterCode" filter-by="code" filter-type="text">
-                                    </th>
-                                    <th>
-                                       <input id="nameFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Name" ng-change="gridActions.filter()" ng-model="filterName" filter-by="name" filter-type="text">
-                                   </th>
-                                   <th>
-                                        <button type="button" class="btn btn-outline-secondary btn-sm" ng-click="ResetSiteSearch();gridActions.filter()">Reset</button>
-                                    </th>
-                                    <th>
-                                        <!-- <button type="button" class="btn btn-outline-primary btn-sm">
-                                            <i class="fa fa-search"></i>&nbsp; Search
-                                        </button> -->
-                                    </th>
-                                </tr>
-                            </thead>
-                        </table>
+                        <div class="overflow-auto">
+                            <table class="table table-borderless table-data3 table-custom">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <input id="codeFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Code" ng-change="gridActions.filter()" ng-model="filterCode" filter-by="code" filter-type="text">
+                                        </th>
+                                        <th>
+                                           <input id="nameFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Name" ng-change="gridActions.filter()" ng-model="filterName" filter-by="name" filter-type="text">
+                                       </th>
+                                       <th>
+                                            <button type="button" class="btn btn-outline-secondary btn-sm" ng-click="ResetSiteSearch();gridActions.filter()">Reset</button>
+                                        </th>
+                                        <th>
+                                            <!-- <button type="button" class="btn btn-outline-primary btn-sm">
+                                                <i class="fa fa-search"></i>&nbsp; Search
+                                            </button> -->
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-12">

@@ -87,59 +87,61 @@
                         <!-- DATA TABLE-->
                         <div grid-data grid-options="gridOptions" grid-actions="gridActions" >
                             <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
-                            <table class="table table-borderless table-data3">
-                                <thead>
-                                    <tr>
-                                        <th sortable="formatted_receipt_id" class="sortable">
-                                            Receipt Id
-                                        </th>
-                                        <th sortable="formatted_rma_id" class="sortable">
-                                            RMA No
-                                        </th>
-                                        <th sortable="date_unix" class="sortable">
-                                            Receipt Date
-                                        </th>
+                            <div class="overflow-auto">
+                                <table class="table table-borderless table-data3">
+                                    <thead>
+                                        <tr>
+                                            <th sortable="formatted_receipt_id" class="sortable">
+                                                Receipt Id
+                                            </th>
+                                            <th sortable="formatted_rma_id" class="sortable">
+                                                RMA No
+                                            </th>
+                                            <th sortable="date_unix" class="sortable">
+                                                Receipt Date
+                                            </th>
 
-                                        <th  sortable="customer_name" class="sortable">
-                                            Customer Name
-                                        </th>
-                                        <th sortable="site_name" class="sortable">
-                                            Site
-                                        </th>
-                                        <th sortable="courier_name" class="sortable">
-                                            Courier Name
-                                        </th>
-                                         <th sortable="docket_details" class="sortable">
-                                            Docket Details
-                                        </th>
-                                          <th sortable="total_boxes" class="sortable">
-                                            Number of Boxes
-                                        </th>
-                                        <th>
-                                            Actions
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr grid-item>
-                                        <td ng-bind="item.formatted_receipt_id"></td>
-                                        <td ng-bind="item.formatted_rma_id"></td>
-                                        <td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
-                                        <td ng-bind="item.customer_name"></td>
-                                        <td ng-bind="item.site_name"></td>
-                                        <td ng-bind="item.courier_name"></td>
-                                        <td ng-bind="item.docket_details"></td>
-                                        <td ng-bind="item.total_boxes"></td>
-                                        <td>
-                                            <div class="table-data-feature">
-                                                <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="EditReceipt(item);">
-                                                    <i class="zmdi zmdi-edit"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                            <th  sortable="customer_name" class="sortable">
+                                                Customer Name
+                                            </th>
+                                            <th sortable="site_name" class="sortable">
+                                                Site
+                                            </th>
+                                            <th sortable="courier_name" class="sortable">
+                                                Courier Name
+                                            </th>
+                                             <th sortable="docket_details" class="sortable">
+                                                Docket Details
+                                            </th>
+                                              <th sortable="total_boxes" class="sortable">
+                                                Number of Boxes
+                                            </th>
+                                            <th>
+                                                Actions
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr grid-item>
+                                            <td ng-bind="item.formatted_receipt_id"></td>
+                                            <td ng-bind="item.formatted_rma_id"></td>
+                                            <td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
+                                            <td ng-bind="item.customer_name"></td>
+                                            <td ng-bind="item.site_name"></td>
+                                            <td ng-bind="item.courier_name"></td>
+                                            <td ng-bind="item.docket_details"></td>
+                                            <td ng-bind="item.total_boxes"></td>
+                                            <td>
+                                                <div class="table-data-feature">
+                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="EditReceipt(item);">
+                                                        <i class="zmdi zmdi-edit"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                             <form class="form-inline pull-right margin-bottom-basic">
                                 <div class="form-group">
                                     <grid-pagination max-size="5"
