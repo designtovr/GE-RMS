@@ -142,7 +142,7 @@ class RMAController extends Controller
                 $RMAUnitInformation->rma_id = $RMA->id;
                 $RMAUnitInformation->pv_id = $unit['id'];
                 $RMAUnitInformation->sw_version = (array_key_exists('sw_version', $unit))?$unit['sw_version']:'';
-                $RMAUnitInformation->service_type = (array_key_exists('service_type', $unit))?$unit['service_type']:1;
+                $RMAUnitInformation->service_type = (array_key_exists('service_type', $unit) && !is_null($unit['service_type']))?$unit['service_type']:1;
                 $RMAUnitInformation->warrenty = $unit['warrenty'];
                 $RMAUnitInformation->desc_of_fault = (array_key_exists('desc_of_fault', $unit))?$unit['desc_of_fault']:'';
                 $RMAUnitInformation->sales_order_no = (array_key_exists('wbs', $unit))?$unit['wbs']:'';
@@ -213,7 +213,7 @@ class RMAController extends Controller
                 {
                     if (array_key_exists('sw_version', $unit))
                         $RMAUnitInformation->sw_version = $unit['sw_version'];
-                    if (array_key_exists('service_type', $unit))
+                    if (array_key_exists('service_type', $unit) && !is_null($unit['service_type']))
                         $RMAUnitInformation->service_type = $unit['service_type'];
                     if (array_key_exists('warrenty', $unit))
                         $RMAUnitInformation->warrenty = $unit['warrenty'];
@@ -242,7 +242,7 @@ class RMAController extends Controller
                     $RMAUnitInformation = new RMAUnitInformation();
                     $RMAUnitInformation->rma_id = $RMA->id();
                     $RMAUnitInformation->sw_version = (array_key_exists('sw_version', $unit))?$unit['sw_version']:'';
-                    $RMAUnitInformation->service_type = (array_key_exists('service_type', $unit))?$unit['service_type']:1;
+                    $RMAUnitInformation->service_type = (array_key_exists('service_type', $unit) && !is_null($unit['service_type']))?$unit['service_type']:1;
                     $RMAUnitInformation->warrenty = $unit['warrenty'];
                     $RMAUnitInformation->desc_of_fault = (array_key_exists('desc_of_fault', $unit))?$unit['desc_of_fault']:'';
                     $RMAUnitInformation->sales_order_no = (array_key_exists('sales_order_no', $unit))?$unit['sales_order_no']:'';
@@ -408,7 +408,7 @@ class RMAController extends Controller
             foreach ($pvdata as $key => $unit) {
                 $RMAUnitInformation = RMAUnitInformation::where('pv_id', $unit['id'])->where('rma_id', $unit['rma_id'])->first();
                 $RMAUnitInformation->sw_version = (array_key_exists('sw_version', $unit))?$unit['sw_version']:'';
-                $RMAUnitInformation->service_type = (array_key_exists('service_type', $unit))?$unit['service_type']:1;
+                $RMAUnitInformation->service_type = (array_key_exists('service_type', $unit) && !is_null($unit['service_type']))?$unit['service_type']:1;
                 $RMAUnitInformation->warrenty = (array_key_exists('warrenty', $unit))?$unit['warrenty']:-1;
                 $RMAUnitInformation->desc_of_fault = (array_key_exists('desc_of_fault', $unit))?$unit['desc_of_fault']:'';
                 $RMAUnitInformation->sales_order_no = (array_key_exists('sales_order_no', $unit))?$unit['sales_order_no']:'';
