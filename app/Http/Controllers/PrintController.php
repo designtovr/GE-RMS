@@ -138,4 +138,21 @@ class PrintController extends Controller
         return $pdf->stream();
         return view('pdf.jobticketform', $data);
     }
+
+    public function TestReportForm($pv_id)
+    {
+        $data = PhysicalVerificationMaster::from('physical_verification as pv')
+                ->selectRaw('pv.*, cus.name as customer_name, pro.part_no as model_no, rui.sw_version, vc.updated_no_of_terminal_blocks, vc.updated_sw_version, vc.updated_no_of_short_links,
+                    vc.clio_test, vc.rtd_test, vc.nic_test, vc.received_with_screws,
+                    vc.received_with_terminal, vc.case as vc_case, vc.battery as vc_battery, vc.flops as vc_flops, vc.updated_at as vc_updated_at')
+                ->leftJoin('verification_completion as vc', 'vc.pv_id', 'pv.id')
+                ->leftJoin('rma_unit_information as rui', 'rui.pv_id', 'pv.id')
+                ->leftJoin('rma', 'rma.id', 'rui.rma_id')
+                ->leftJoin('ma_customer as cus', 'cus.id', 'rma.customer_address_id')
+                ->leftJoin('ma_product as pro', 'pro.id', 'pv.product_id')
+                ->where('pv.id', $pv_id)
+                ->first();
+
+        return view('pdf.test-report-form', $data);
+    }
 }

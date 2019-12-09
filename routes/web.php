@@ -167,9 +167,7 @@ Route::group(['middleware' => 'auth'], function(){
         return view('physical-verification-form');
     });
 
-    Route::get('/test-report-form', function(){
-        return view('test-report-form');
-    });
+    Route::get('/test-report-form/{pv_id}', 'PrintController@TestReportForm');
 
     Route::get('/qrcode', function(){
         return view('webqrtest');
