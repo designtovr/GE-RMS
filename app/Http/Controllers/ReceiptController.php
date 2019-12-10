@@ -89,8 +89,8 @@ class ReceiptController extends Controller
         /*$RM->end_customer = $receipt['end_customer'];*/
         //$RM->site_id = $receipt['site_id'];
         $RM->site = $receipt['site'];
-        $RM->courier_name = $receipt['courier_name'];
-        $RM->docket_details = $receipt['docket_details'];
+        $RM->courier_name = (array_key_exists('courier_name', $receipt))?$receipt['courier_name']:'';
+        $RM->docket_details = (array_key_exists('docket_details', $receipt))?$receipt['docket_details']:'';
         $RM->total_boxes = $receipt['total_boxes'];
         $RM->status = 1;
 

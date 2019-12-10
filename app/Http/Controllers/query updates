@@ -7,6 +7,5 @@ ALTER table receipt AUTO_INCREMENT=1;
 
 ALTER TABLE `rma_delivery_address` CHANGE `address` `address` VARCHAR(200) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
 
-MAIL_DRIVER=mailgun
-MAILGUN_DOMAIN=mg.designtovr.com
-MAILGUN_SECRET=0374796178366e490cae636b84a0302d-816b23ef-11d02095
+ALTER TABLE `receipt` ADD `email` VARCHAR(100) NULL DEFAULT NULL AFTER `site`;
+ALTER TABLE `receipt` CHANGE `courier_name` `courier_name` VARCHAR(35) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL, CHANGE `docket_details` `docket_details` VARCHAR(35) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;

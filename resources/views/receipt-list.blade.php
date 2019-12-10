@@ -289,8 +289,26 @@
                                 </div>
                                 <div class="row form-group">
                                     <div class="col col-md-3">
-                                        <label for="courier_name" class=" form-control-label">Courier Name <span
-                                                    class="mandatory">*</span></label>
+                                        <label for="email" class=" form-control-label">Email</label>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <input 
+                                        type="email" 
+                                        id="email" 
+                                        name="email" 
+                                        ng-model="receipt.email" 
+                                        placeholder="Email" 
+                                        class="form-control" 
+                                        ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/"
+                                        >
+                                        <div ng-show="AddReceiptForm.email.$touched && AddReceiptForm.email.$error">
+                                            <span class="help-block" ng-show="AddReceiptForm.email.$error.pattern">Invalid Email</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="courier_name" class=" form-control-label">Courier Name</label>
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <input
@@ -299,56 +317,21 @@
                                                 name="courier_name"
                                                 ng-model="receipt.courier_name"
                                                 placeholder="Courier Name"
-                                                class="form-control"
-                                                ng-minlength="3"
-                                                ng-maxlength="20"
-                                                required>
-                                        <div ng-show="AddReceiptForm.courier_name.$touched && AddReceiptForm.courier_name.$error">
-                                        <span class="help-block"
-                                              ng-show="AddReceiptForm.courier_name.$error.required">
-                                            Please Enter Courier Name
-                                        </span>
-                                            <span class="help-block"
-                                                  ng-show="AddReceiptForm.courier_name.$error.minlength">
-                                            Minimum 3 Characters Required
-                                        </span>
-                                            <span class="help-block"
-                                                  ng-show="AddReceiptForm.courier_name.$error.maxlength">
-                                            Maximum 20 Characters Allowed
-                                        </span>
-                                        </div>
+                                                class="form-control">
                                     </div>
                                 </div>
                                 <div class="row form-group">
                                     <div class="col col-md-3">
-                                        <label for="docket_details" class=" form-control-label">Docket Details <span
-                                                    class="mandatory">*</span></label>
+                                        <label for="docket_details" class=" form-control-label">Docket Details</label>
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <input
-                                                type="text"
-                                                id="docket_details"
-                                                name="docket_details"
-                                                ng-model="receipt.docket_details"
-                                                placeholder="Docket Details"
-                                                class="form-control"
-                                                ng-minlength="3"
-                                                ng-maxlength="20"
-                                                required>
-                                        <div ng-show="AddReceiptForm.docket_details.$touched && AddReceiptForm.docket_details.$error">
-                                        <span class="help-block"
-                                              ng-show="AddReceiptForm.docket_details.$error.required">
-                                            Please Enter Docket Details
-                                        </span>
-                                            <span class="help-block"
-                                                  ng-show="AddReceiptForm.docket_details.$error.minlength">
-                                            Minimum 3 Characters Required
-                                        </span>
-                                            <span class="help-block"
-                                                  ng-show="AddReceiptForm.docket_details.$error.maxlength">
-                                            Maximum 20 Characters Allowed
-                                        </span>
-                                        </div>
+                                            type="text"
+                                            id="docket_details"
+                                            name="docket_details"
+                                            ng-model="receipt.docket_details"
+                                            placeholder="Docket Details"
+                                            class="form-control">
                                     </div>
                                 </div>
                                 <div class="row form-group">
