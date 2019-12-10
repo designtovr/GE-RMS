@@ -42,6 +42,43 @@ Notes:	decreasing heading by 0.4em with every subsequent heading level
 /* ----- Normalize ----- */
 /* Position and style the close button (top right corner) */
 
+.loader {
+    display:none;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 120px;
+    height: 120px;
+
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    z-index: 9999;
+
+
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+}
+
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.menu-sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+}
+
+
 .menu-sidebar .closebtn {
     position: absolute;
     top: 0;
@@ -49,6 +86,7 @@ Notes:	decreasing heading by 0.4em with every subsequent heading level
     font-size: 36px;
     margin-left: 50px;
 }
+
 
 body, html {
 }
@@ -96,11 +134,10 @@ body, html {
     z-index: 10;
     font-size: 20px;
     cursor: pointer;
-    background-color: #111;
     color: white;
     padding: 10px 15px;
-    padding-left: 300px !important;
     border: none;
+    display: none;
 }
 
 .openbtn:hover {

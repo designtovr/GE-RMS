@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App;
+use mysql_xdevapi\Exception;
 use PDF;
 use Excel;
 use App\Models\PhysicalVerificationMaster;
@@ -110,12 +111,24 @@ class PrintController extends Controller
         return $getReceipt; */
 
         $daneDoDruku = $template;
+        $message = "success";
+        $status = "success";
 //return $template;
-        $poloczenie = pfsockopen("$ip", 9100);
-        fputs($poloczenie, $daneDoDruku);
-        fclose($poloczenie);
+        try {
+            $poloczenie = pfsockopen("$ip", 9100);
+            fputs($poloczenie, $daneDoDruku);
+            fclose($poloczenie);
+        }
 
-        return 'success';
+        catch(Exception $e)
+        {
+            $message = $e;
+            $status = "failure";
+
+        }
+
+        return response()->json(['message' => $message, 'status' => $status], 200);
+
         // str_replace("world","Peter","Hello world!");
     }
 

@@ -2,6 +2,8 @@
 @section('title', 'Physical Verification List')
 @section('content')
 <div class="main-content" ng-controller="PhysicalVerificationController">
+    <div class="loader" id= "Loader" ng-style="Loader">
+    </div>
     <div class="section__content section__content--p30" ng-init="ChangeTab('open');GetProductTypeList();GetProductList();">
         <div class="container-fluid">
             <div class="row" ng-show="!pvform && !showcreatermaform">

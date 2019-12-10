@@ -70,6 +70,9 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 									$scope.PrintLabels($data);
 									$scope.ClosePVForm();
 									$scope.ChangeTab($scope.tab);
+									$scope.Loader = {
+										"display": "block"
+									}
 								}
 							},
 							close: function () {
@@ -113,16 +116,24 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 		}).then(function success(response) {
 			console.log("12311");
 			if (response.data.status == 'success') {
+				Notification.success("Printed Successfully");
+				$scope.Loader = {
+					"display": "none"
+				}
 				console.log("123");
 			}
 		}, function failure(response){
-			if (response.status == 422)
+			if (response.status == 'failure')
 			{
 
 				var errors = response.data.errors;
 				for(var error in errors)
 				{
-					Notification.error(errors[error][0]);
+					Notification.error("Print Unsuccessful");
+
+					$scope.Loader = {
+						"display": "none"
+					};
 					break;
 				}
 			}
