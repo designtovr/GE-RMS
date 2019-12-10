@@ -44,13 +44,13 @@ class CustomerController extends Controller
         if (array_key_exists('id', $customer))
         {
             $CM = CustomerMaster::find($customer['id']);
-            $CM->code = $customer['code'];
+            //$CM->code = $customer['code'];
             $CM->name = $customer['name'];
             $CM->address = $customer['address'];
             $CM->pincode = $customer['pincode'];
             $CM->contact_person = $customer['contact_person'];
             $CM->email = $customer['email'];
-            $CM->gst = $customer['gst'];
+            $CM->gst = (array_key_exists('gst', $customer))?$customer['gst']:$CM->gst;
             $CM->contact = $customer['contact'];
             $CM->updated_by = Auth::id();
             $CM->updated_at = Carbon::now();
@@ -91,13 +91,13 @@ class CustomerController extends Controller
         else
         {
             $CM = new CustomerMaster();
-            $CM->code = $customer['code'];
+            //$CM->code = $customer['code'];
             $CM->name = $customer['name'];
             $CM->address = $customer['address'];
             $CM->pincode = $customer['pincode'];
             $CM->contact_person = $customer['contact_person'];
             $CM->email = $customer['email'];
-            $CM->gst = $customer['gst'];
+            $CM->gst = (array_key_exists('gst', $customer))?$customer['gst']:'';
             $CM->contact = $customer['contact'];
             $CM->created_by = Auth::id();
             $CM->updated_by = Auth::id();

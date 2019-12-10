@@ -21,3 +21,7 @@ ALTER TABLE `dispatch` CHANGE `docket_details` `docket_details` VARCHAR(100) CHA
 ALTER TABLE `dispatch` DROP `rma_id`;
 
 ALTER TABLE `dispatch` ADD `concern_name` VARCHAR(50) NOT NULL AFTER `person_name`, ADD `contact` VARCHAR(15) NOT NULL AFTER `concern_name`;
+
+ALTER TABLE `ma_customer` CHANGE `gst` `gst` VARCHAR(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;
+
+ALTER TABLE `ma_customer` CHANGE `code` `code` VARCHAR(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;

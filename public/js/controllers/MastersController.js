@@ -575,7 +575,7 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		}).then(function success(response){
 			if (response.data.status == 'success')
 			{
-				Notification.success(response.data.message + ' with Id: ' + response.data.data.code);
+				Notification.success(response.data.message);
 				$('#customermodal').modal('hide');
 				$scope.getcustomers();
 			}

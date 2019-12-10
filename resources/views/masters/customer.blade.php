@@ -21,9 +21,6 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        <input id="customerCodeFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Customer Code" ng-change="gridActions.filter()" ng-model="filtercustomercode" filter-by="code" filter-type="text">
-                                    </th>
-                                    <th>
                                        <input id="customerNameFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Customer Name" ng-change="gridActions.filter()" ng-model="filterCustomerName" filter-by="name" filter-type="text">
                                    </th>
                                    <th>
@@ -67,7 +64,6 @@
                             <table class="table table-borderless table-data3">
                                 <thead>
                                     <tr>
-                                        <th sortable="code" class="sortable">Customer Code</th>
                                         <th sortable="name" class="sortable">Customer Name</th>
                                         <th sortable="address" class="sortable">Address</th>
                                         <th sortable="contact_person" class="sortable">Contact Person</th>
@@ -81,7 +77,6 @@
                                 </thead>
                                 <tbody>
                                     <tr grid-item>
-                                        <td ng-bind="item.code"></td>
                                         <td ng-bind="item.name"></td>
                                         <td ng-bind="item.address"></td>
                                         <td ng-bind="item.contact_person"></td>
@@ -147,7 +142,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <form action="" method="post" class="form-horizontal" name="AddCustomerForm" id="AddCustomerForm" novalidate>
-                                <div class="row form-group">
+                                <!-- <div class="row form-group">
                                     <div class="col col-md-3">
                                         <label for="customer-code" class=" form-control-label" >Customer Code <span class="mandatory">*</span></label>
                                     </div>
@@ -177,7 +172,7 @@
                                                 </span>
                                             </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="row form-group">
                                     <div class="col col-md-3">
                                         <label for="customername" class=" form-control-label">Customer Name <span class="mandatory" >*</span></label>
@@ -288,7 +283,7 @@
                                 </div>
                                 <div class="row form-group">
                                     <div class="col col-md-3">
-                                        <label for="gst" class=" form-control-label">GST <span class="mandatory">*</span></label>
+                                        <label for="gst" class=" form-control-label">GST</label>
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <input 
@@ -299,13 +294,8 @@
                                         placeholder="GST" 
                                         class="form-control"
                                         ng-minlength="15"
-                                        ng-maxlength="15"
-                                        required>
+                                        ng-maxlength="15">
                                         <div ng-show="AddCustomerForm.gst.$touched && AddCustomerForm.gst.$error">
-                                            <span class="help-block" 
-                                            ng-show="AddCustomerForm.gst.$error.required">
-                                                Please Enter GST
-                                            </span>
                                             <span class="help-block" 
                                             ng-show="AddCustomerForm.gst.$error.minlength">
                                                 Should Not Be Less Than 15 Digits

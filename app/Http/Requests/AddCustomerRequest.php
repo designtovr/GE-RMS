@@ -25,12 +25,12 @@ class AddCustomerRequest extends FormRequest
     {
         return [
             'customer.id' => 'nullable|exists:ma_customer,id',
-            'customer.code' => 'required|string|min:1|max:25',
+            //'customer.code' => 'required|string|min:1|max:25',
             'customer.name' => 'required|string|min:2|max:100',
             'customer.address' => 'required|string|min:3|max:200',
             'customer.pincode' => 'required',
             'customer.contact_person' => 'required|string|min:3|max:20',
-            'customer.gst' => 'required|string|min:15|max:15',
+            'customer.gst' => 'nullable|string|min:15|max:15',
             'customer.email' => 'required|email',
             'customer.contact' => 'required|numeric|digits_between:6,16',
             'customer.site_id' => 'nullable|numeric|exists:ma_site,id',
