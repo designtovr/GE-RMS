@@ -125,7 +125,10 @@ app.controller('AgingCompleteController', ['$scope', '$http','Notification','Cha
 			return;
 		}
 		console.log($scope.selectedpvs);
-		$('#agingmodal').modal('show');
+		$('#agingmodal').modal({
+			show: true,
+			backdrop: 'static',
+		});
 	}
 
 	$scope.CloseAgingModal = function()

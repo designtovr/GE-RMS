@@ -24,7 +24,10 @@ app.controller('AutoTestBenchController', ['$scope', '$http','Notification','Cha
 			return;
 		}
 		console.log($scope.selectedpvs);
-		$('#testbenchmodal').modal('show');
+		$('#testbenchmodal').modal({
+			show: true,
+			backdrop: 'static',
+		});
 	}
 
 	$scope.SaveTestResult = function()

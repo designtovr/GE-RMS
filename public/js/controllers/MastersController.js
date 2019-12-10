@@ -299,7 +299,10 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 
 			});
 		}
-		$('#customermodal').modal('show');
+		$('#customermodal').modal({
+			show: true,
+			backdrop: 'static',
+		});
 	}
 
 	$scope.CloseCustomerModal = function()
@@ -326,7 +329,10 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 			$scope.producttype.description = producttype.description;
 			$scope.producttype.edit = true;
 		}
-		$('#producttypemodal').modal('show');
+		$('#producttypemodal').modal({
+			show: true,
+			backdrop: 'static',
+		});
 	}
 
 	$scope.OpenProductModal = function(product)
@@ -349,7 +355,10 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 			$scope.product.description = product.description;
 			$scope.product.edit = true;
 		}
-		$('#productmodal').modal('show');
+		$('#productmodal').modal({
+			show: true,
+			backdrop: 'static',
+		});
 	}
 
 	$scope.OpenLocationModal = function(location=0)
@@ -369,7 +378,10 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 			$scope.location.code = location.code;
 			$scope.location.name = location.name;
 		}
-		$('#locationmodal').modal('show');
+		$('#locationmodal').modal({
+			show: true,
+			backdrop: 'static',
+		});
 	}
 
 	$scope.OpenSiteModal = function(site=0)
@@ -389,7 +401,10 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 			$scope.site.id = site.id;
 			$scope.sitemodal.edit = true;
 		}
-		$('#sitemodal').modal('show');
+		$('#sitemodal').modal({
+			show: true,
+			backdrop: 'static',
+		});
 	}
 
 	$scope.OpenRackModal = function(id=0)
@@ -490,7 +505,10 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 			$scope.user.password = user.password;
 			console.log($scope.user)
 		}
-		$('#usermodal').modal('show');
+		$('#usermodal').modal({
+			show: true,
+			backdrop: 'static',
+		});
 	}
 
 	$scope.OpenMaterialModal = function(id=0)

@@ -36,7 +36,10 @@ $scope.gridOptions = {
 		}
 		$scope.rmsmodal = $scope.selectedpvs[0];
 		console.log($scope.selectedpvs);
-   		$('#rmsmodal').modal('show');
+   		$('#rmsmodal').modal({
+			show: true,
+			backdrop: 'static',
+		});
    	}
    	$scope.CloseRMSModal = function()
    	{

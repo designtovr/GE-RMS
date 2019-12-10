@@ -123,7 +123,10 @@ app.controller('WarrantyController' ,['$scope', '$http','Notification' , 'DataSh
 			$scope.warrantymodal.move = 0;
 			$scope.OnRCAChanged();
 		}
-		$('#warrantymodal').modal('show');
+		$('#warrantymodal').modal({
+			show: true,
+			backdrop: 'static',
+		});
 
 	}
 
