@@ -25,7 +25,7 @@ class ADDRMARequest extends FormRequest
     {
         //$rules['rma.ref_no'] = 'required|string|min:3|max:10';
         $rules['rma.id'] = 'nullable|exists:rma,id';
-        $rules['rma.gs_no'] = 'required|string|min:3|max:50';
+        //$rules['rma.gs_no'] = 'required|string|min:3|max:50';
         /*$rules['rma.act_reference'] = 'required|string|min:3|max:50';*/
         $rules['rma.date'] = 'required|date_format:d/m/Y';
         /*$rules['rma.desc_of_fault'] = 'required|string|min:3|max:100';
@@ -58,7 +58,7 @@ class ADDRMARequest extends FormRequest
         $rules['pvs.*.id'] = 'required|exists:physical_verification,id';
         /*$rules['pvs.*.sw_version'] = 'required|string|min:1|max:5';*/
         /*$rules['pvs.*.service_type'] = 'required|numeric|digits_between:0,1';*/
-        $rules['pvs.*.warrenty'] = 'required|numeric|digits_between:0,1';
+        /*$rules['pvs.*.warrenty'] = 'required|numeric|digits_between:0,1';*/
         /*$rules['pvs.*.desc_of_fault'] = 'required|string|min:3|max:100';*/
         $rules['pvs.*.field_volts_used'] = 'required|numeric|digits_between:0,1';
         $rules['pvs.*.equip_failed_on_installation'] = 'required|numeric|digits_between:0,1';

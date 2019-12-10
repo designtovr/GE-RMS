@@ -20,11 +20,12 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 		urlSync: true};
 		$scope.rids = [];
 		$scope.products = [];
-		$scope.producttypes = {};
+		$scope.producttypes = [];
 		$scope.selected = {};
 		$scope.conditions = [
 		{ name: 'Damaged', value: 1 },
 		{ name: 'Undamaged', value: 2},
+		{ name: 'Not Applicable', value: 3}
 		];
 		$scope.ridoptions = [];
 		$scope.tab = 'open';
@@ -368,10 +369,12 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 		$scope.CloseReceipts = function()
 		{
 			$scope.selectedrcs = [];
+			$scope.selectedformattedrcs = [];
 			for (var i = 0; i < $scope.gridOptions.data.length; i++) {
 				if ($scope.gridOptions.data[i].close != undefined && $scope.gridOptions.data[i].close)
 				{
 					$scope.selectedrcs.push($scope.gridOptions.data[i].receipt_id);
+					$scope.selectedformattedrcs.push($scope.gridOptions.data[i].formatted_receipt_id);
 				}
 			}
 			if ($scope.selectedrcs.length == 0)
@@ -388,9 +391,17 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 				}
 			}
 			console.log($scope.trimedselectedrcs)
+			$scope.formattedtrimedselectedrcs = [];
+			for (var i = 0; i < $scope.selectedformattedrcs.length; i++) {
+				var result = $scope.formattedtrimedselectedrcs.filter(rc => rc == $scope.selectedformattedrcs[i]);
+				if (result.length == 0)
+				{
+					$scope.formattedtrimedselectedrcs.push($scope.selectedformattedrcs[i]);
+				}
+			}
 			$ngConfirm({
 				title: 'Warning!',
-				content: 'Are you sure want to close Receipt Id:'+ $scope.trimedselectedrcs.join() +'?',
+				content: 'Are you sure want to close Receipt Id: <b>'+ $scope.formattedtrimedselectedrcs.join() +'</b>?',
 				type: 'red',
 				typeAnimated: true,
 				buttons: {

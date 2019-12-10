@@ -16,24 +16,7 @@
                         name="gs_no" 
                         ng-model="sitecardform.gs_no"
                         placeholder="GS No"
-                        class="form-control"
-                        ng-minlength="3"
-                        ng-maxlength="50"
-                        required>
-                        <div ng-show="SiteCardForm1.gs_no.$touched && SiteCardForm1.gs_no.$error">
-                            <span class="help-block"
-                             ng-show="SiteCardForm1.gs_no.$error.required">
-                                Please Enter GS Number
-                            </span>
-                            <span class="help-block"
-                             ng-show="SiteCardForm1.gs_no.$error.minlength">
-                                Minimum 3 Characters Required
-                            </span>
-                            <span class="help-block"
-                             ng-show="SiteCardForm1.gs_no.$error.maxlength">
-                                Maximum 50 Characters Allowed
-                            </span>
-                        </div>
+                        class="form-control">
                     </div>
                 </div>
                 <div class="row form-group">
@@ -191,7 +174,7 @@
 			                                        </div>
 			                                    </div>
 			                        		</div>
-			                        		<div class="col-lg-6">
+			                        		<!-- <div class="col-lg-6">
 			                        			<div class="row form-group">
 			                                        <div class="col col-md-4">
 			                                            <label class=" form-control-label">Warranty</label>
@@ -226,7 +209,7 @@
 			                                            </div>
 			                                        </div>
 			                                    </div>
-			                        		</div>
+			                        		</div> -->
 			                        	</div>
 			                        	<div class="row">
 			                        		<div class="col-lg-12">

@@ -28,7 +28,7 @@ class AddSCRMARequest extends FormRequest
             'rma.unit_information.*.model' => 'required|array',
             'rma.unit_information.*.serial_no' => 'required',
             'rma.unit_information.*.field_volts_used' => 'required',
-            'rma.unit_information.*.warrenty' => 'required',
+            /*'rma.unit_information.*.warrenty' => 'required',*/
             'rma.unit_information.*.equip_failed_on_service' => 'required',
             'rma.unit_information.*.equip_failed_on_installation' => 'required',
             'rma.customer_address_id' => 'required|exists:ma_customer,id',

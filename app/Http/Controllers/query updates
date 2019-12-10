@@ -9,3 +9,5 @@ ALTER TABLE `rma_delivery_address` CHANGE `address` `address` VARCHAR(200) CHARA
 
 ALTER TABLE `receipt` ADD `email` VARCHAR(100) NULL DEFAULT NULL AFTER `site`;
 ALTER TABLE `receipt` CHANGE `courier_name` `courier_name` VARCHAR(35) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL, CHANGE `docket_details` `docket_details` VARCHAR(35) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `rma_unit_information` DROP `warrenty`;

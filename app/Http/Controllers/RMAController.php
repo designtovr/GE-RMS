@@ -112,7 +112,7 @@ class RMAController extends Controller
             $RMA = RMA::where('receipt_id', $pv_to_get_receipt_id->receipt_id)->first();
             if (!$RMA)
                 return response()->json(['status' => 'failure', 'message' => 'No RMA Found'], 200);
-            $RMA->gs_no = $requestdata['gs_no'];
+            $RMA->gs_no = (array_key_exists('gs_no', $requestdata))?$requestdata['gs_no']:'';
             $RMA->act_reference = (array_key_exists('act_reference', $requestdata))?$requestdata['act_reference']:'';
             $date = Carbon::createFromFormat('d/m/Y',$requestdata['date']);
             $RMA->date = $date->format('Y-m-d');
@@ -143,7 +143,7 @@ class RMAController extends Controller
                 $RMAUnitInformation->pv_id = $unit['id'];
                 $RMAUnitInformation->sw_version = (array_key_exists('sw_version', $unit))?$unit['sw_version']:'';
                 $RMAUnitInformation->service_type = (array_key_exists('service_type', $unit) && !is_null($unit['service_type']))?$unit['service_type']:1;
-                $RMAUnitInformation->warrenty = $unit['warrenty'];
+                //$RMAUnitInformation->warrenty = $unit['warrenty'];
                 $RMAUnitInformation->desc_of_fault = (array_key_exists('desc_of_fault', $unit))?$unit['desc_of_fault']:'';
                 $RMAUnitInformation->sales_order_no = (array_key_exists('wbs', $unit))?$unit['wbs']:'';
                 $RMAUnitInformation->field_volts_used = $unit['field_volts_used'];
@@ -167,7 +167,7 @@ class RMAController extends Controller
         else
         {
             $RMA = RMA::where('id', $requestdata['id'])->first();
-            $RMA->gs_no = $requestdata['gs_no'];
+            $RMA->gs_no = (array_key_exists('gs_no', $requestdata))?$requestdata['gs_no']:'';
             if (array_key_exists('act_reference', $requestdata))
                 $RMA->act_reference = $requestdata['act_reference'];
             /*$date = Carbon::createFromFormat('d/m/Y',$requestdata['date']);
@@ -215,8 +215,8 @@ class RMAController extends Controller
                         $RMAUnitInformation->sw_version = $unit['sw_version'];
                     if (array_key_exists('service_type', $unit) && !is_null($unit['service_type']))
                         $RMAUnitInformation->service_type = $unit['service_type'];
-                    if (array_key_exists('warrenty', $unit))
-                        $RMAUnitInformation->warrenty = $unit['warrenty'];
+                    /*if (array_key_exists('warrenty', $unit))
+                        $RMAUnitInformation->warrenty = $unit['warrenty'];*/
                     if (array_key_exists('desc_of_fault', $unit))
                         $RMAUnitInformation->desc_of_fault = $unit['desc_of_fault'];
                     if (array_key_exists('sales_order_no', $unit))
@@ -243,7 +243,7 @@ class RMAController extends Controller
                     $RMAUnitInformation->rma_id = $RMA->id();
                     $RMAUnitInformation->sw_version = (array_key_exists('sw_version', $unit))?$unit['sw_version']:'';
                     $RMAUnitInformation->service_type = (array_key_exists('service_type', $unit) && !is_null($unit['service_type']))?$unit['service_type']:1;
-                    $RMAUnitInformation->warrenty = $unit['warrenty'];
+                    //$RMAUnitInformation->warrenty = $unit['warrenty'];
                     $RMAUnitInformation->desc_of_fault = (array_key_exists('desc_of_fault', $unit))?$unit['desc_of_fault']:'';
                     $RMAUnitInformation->sales_order_no = (array_key_exists('sales_order_no', $unit))?$unit['sales_order_no']:'';
                     $RMAUnitInformation->field_volts_used = $unit['field_volts_used'];
@@ -322,7 +322,7 @@ class RMAController extends Controller
                 $RMAUnitInformation->pv_id = $unit['id'];
                 $RMAUnitInformation->sw_version = (array_key_exists('sw_version', $unit))?$unit['sw_version']:'';
                 $RMAUnitInformation->service_type = (array_key_exists('service_type', $unit) && !is_null($unit['service_type']))?$unit['service_type']:1;
-                $RMAUnitInformation->warrenty = (array_key_exists('warrenty', $unit))?$unit['warrenty']:-1;
+                //$RMAUnitInformation->warrenty = (array_key_exists('warrenty', $unit))?$unit['warrenty']:-1;
                 $RMAUnitInformation->desc_of_fault = (array_key_exists('desc_of_fault', $unit))?$unit['desc_of_fault']:'';
                 $RMAUnitInformation->sales_order_no = (array_key_exists('sales_order_no', $unit))?$unit['sales_order_no']:'';
                 $RMAUnitInformation->field_volts_used = (array_key_exists('field_volts_used', $unit))?$unit['field_volts_used']:-1;
@@ -409,7 +409,7 @@ class RMAController extends Controller
                 $RMAUnitInformation = RMAUnitInformation::where('pv_id', $unit['id'])->where('rma_id', $unit['rma_id'])->first();
                 $RMAUnitInformation->sw_version = (array_key_exists('sw_version', $unit))?$unit['sw_version']:'';
                 $RMAUnitInformation->service_type = (array_key_exists('service_type', $unit) && !is_null($unit['service_type']))?$unit['service_type']:1;
-                $RMAUnitInformation->warrenty = (array_key_exists('warrenty', $unit))?$unit['warrenty']:-1;
+                //$RMAUnitInformation->warrenty = (array_key_exists('warrenty', $unit))?$unit['warrenty']:-1;
                 $RMAUnitInformation->desc_of_fault = (array_key_exists('desc_of_fault', $unit))?$unit['desc_of_fault']:'';
                 $RMAUnitInformation->sales_order_no = (array_key_exists('sales_order_no', $unit))?$unit['sales_order_no']:'';
                 $RMAUnitInformation->field_volts_used = (array_key_exists('field_volts_used', $unit))?$unit['field_volts_used']:-1;
@@ -488,7 +488,7 @@ class RMAController extends Controller
             $RMAUT->pv_id = $PVT->id;
             $RMAUT->service_type = 2;
             $RMAUT->sw_version = (array_key_exists('sw_version', $unit))?$unit['sw_version']:'';
-            $RMAUT->warrenty = (array_key_exists('warrenty', $unit))?$unit['warrenty']:0;
+            //$RMAUT->warrenty = (array_key_exists('warrenty', $unit))?$unit['warrenty']:0;
             $RMAUT->desc_of_fault = (array_key_exists('desc_of_fault', $unit))?$unit['desc_of_fault']:'';
             $RMAUT->sales_order_no = (array_key_exists('sales_order_no', $unit))?$unit['sales_order_no']:'';
             $RMAUT->field_volts_used = (array_key_exists('field_volts_used', $unit))?$unit['field_volts_used']:0;
@@ -575,8 +575,8 @@ class RMAController extends Controller
                     {
                         if (array_key_exists('sw_version', $unit))
                         $RMAUT->sw_version = $unit['sw_version'];
-                        if (array_key_exists('warrenty', $unit))
-                            $RMAUT->warrenty = $unit['warrenty'];
+                        /*if (array_key_exists('warrenty', $unit))
+                            $RMAUT->warrenty = $unit['warrenty'];*/
                         if (array_key_exists('desc_of_fault', $unit))
                             $RMAUT->desc_of_fault = $unit['desc_of_fault'];
                         if (array_key_exists('sales_order_no', $unit))
@@ -619,7 +619,7 @@ class RMAController extends Controller
                     $RMAUT->pv_id = $PVT->id;
                     $RMAUT->service_type = 2;
                     $RMAUT->sw_version = (array_key_exists('sw_version', $unit))?$unit['sw_version']:'';
-                    $RMAUT->warrenty = (array_key_exists('warrenty', $unit))?$unit['warrenty']:0;
+                    //$RMAUT->warrenty = (array_key_exists('warrenty', $unit))?$unit['warrenty']:0;
                     $RMAUT->desc_of_fault = (array_key_exists('desc_of_fault', $unit))?$unit['desc_of_fault']:'';
                     $RMAUT->sales_order_no = (array_key_exists('sales_order_no', $unit))?$unit['sales_order_no']:'';
                     $RMAUT->field_volts_used = (array_key_exists('field_volts_used', $unit))?$unit['field_volts_used']:0;
@@ -700,7 +700,7 @@ class RMAController extends Controller
                 $RMAUT->pv_id = $PVT->id;
                 $RMAUT->service_type = 2;
                 $RMAUT->sw_version = (array_key_exists('sw_version', $unit))?$unit['sw_version']:'';
-                $RMAUT->warrenty = (array_key_exists('warrenty', $unit))?$unit['warrenty']:0;
+                //$RMAUT->warrenty = (array_key_exists('warrenty', $unit))?$unit['warrenty']:0;
                 $RMAUT->desc_of_fault = (array_key_exists('desc_of_fault', $unit))?$unit['desc_of_fault']:'';
                 $RMAUT->sales_order_no = (array_key_exists('sales_order_no', $unit))?$unit['sales_order_no']:'';
                 $RMAUT->field_volts_used = (array_key_exists('field_volts_used', $unit))?$unit['field_volts_used']:0;

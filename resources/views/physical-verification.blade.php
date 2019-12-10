@@ -663,14 +663,20 @@
                                             <label for="producttype" class=" form-control-label">Product Type <span class="mandatory">*</span></label>
                                         </div>
                                         <div class="col-12 col-md-8">
-                                            <select id="producttype" name="producttype"
+                                            <!-- <select id="producttype" name="producttype"
                                             ng-model="physicalVerification.producttype"
                                             class="form-control"
                                             ng-change="ChangeProductType();"
                                             ng-options="pt as pt.name for pt in producttypes" 
                                             required>
-                                            <option value="" style="display:none"></option>>
-                                        </select>
+                                                <option value="" style="display:none"></option>>
+                                            </select> -->
+                                            <ui-select id="producttype" name="producttype" ng-model="physicalVerification.producttype" theme="selectize" title="Select Product Type" ng-change="ChangeProductType();" required>
+                                                <ui-select-match placeholder="Select Product Type">@{{$select.selected.name}}</ui-select-match>
+                                                <ui-select-choices repeat="pt in producttypes | filter: $select.search">
+                                                    <span ng-bind-html="pt.name | highlight: $select.search"></span>
+                                                </ui-select-choices>
+                                            </ui-select>
                                         <div ng-show="EditPhysicalVerification.producttype.$touched && EditPhysicalVerification.producttype.$error">
                                             <span class="help-block form-text"
                                             ng-show="EditPhysicalVerification.producttype.$error.required">Please Select Product Type
