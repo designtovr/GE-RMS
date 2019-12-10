@@ -264,7 +264,7 @@
 											   required>
                                     </div>
                                 </div>
-                                <div class="row form-group">
+                                <!-- <div class="row form-group">
                                     <div class="col col-md-3">
                                         <label for="rid" class=" form-control-label">RID No <span class="mandatory">*</span></label>
                                     </div>
@@ -273,7 +273,17 @@
 											   ng-model="dispatch.formatted_pv_id"
 											   disabled>
                                     </div>
-                                </div>
+                                </div> -->
+                                <!-- <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="rma" class=" form-control-label">RMA No <span class="mandatory">*</span></label>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <input type="text" id="rma" name="rma" placeholder="RMA" class="form-control"
+                                               ng-model="dispatch.rma_id"
+                                               disabled>
+                                    </div>
+                                </div> -->
                                 <div class="row form-group">
                                     <div class="col col-md-3">
                                         <label for="dc-no" class=" form-control-label">DC No <span class="mandatory">*</span></label>
@@ -286,6 +296,26 @@
                                 </div>
                                 <div class="row form-group">
                                     <div class="col col-md-3">
+                                        <label class=" form-control-label">Dispatch Method <span
+                                        class="mandatory">*</span></label>
+                                    </div>
+                                    <div class="col col-md-6">
+                                        <div class="form-check-inline form-check">
+                                            <label for="method1" class="form-check-label ">
+                                                <input type="radio" id="method1" name="method"
+                                                ng-model="dispatch.method" ng-value="1"
+                                                class="form-check-input">By Courier
+                                            </label>
+                                            <label for="method2" class="form-check-label ">
+                                                <input type="radio" id="method2" name="method"
+                                                ng-model="dispatch.method" ng-value="2"
+                                                class="form-check-input">By Hand
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-group" ng-if="dispatch.method == 1">
+                                    <div class="col col-md-3">
                                         <label for="docket-details" class=" form-control-label">Docket Details <span class="mandatory">*</span></label>
                                     </div>
                                     <div class="col-12 col-md-6">
@@ -294,17 +324,7 @@
 											   required>
                                     </div>
                                 </div>
-                                <div class="row form-group">
-                                    <div class="col col-md-3">
-                                        <label for="rma" class=" form-control-label">RMA No <span class="mandatory">*</span></label>
-                                    </div>
-                                    <div class="col-12 col-md-6">
-                                        <input type="text" id="rma" name="rma" placeholder="RMA" class="form-control"
-											   ng-model="dispatch.rma_id"
-											   disabled>
-                                    </div>
-                                </div>
-                                <div class="row form-group">
+                                <div class="row form-group" ng-if="dispatch.method == 1">
                                     <div class="col col-md-3">
                                         <label for="courier-name" class=" form-control-label">Courier Name <span class="mandatory">*</span></label>
                                     </div>
@@ -314,14 +334,42 @@
 											   required>
                                     </div>
                                 </div>
-                                <div class="row form-group">
+                                <div class="row form-group" ng-if="dispatch.method == 2">
                                     <div class="col col-md-3">
-                                        <label for="person-name" class=" form-control-label">Person  Name <span class="mandatory">*</span></label>
+                                        <label for="person_name" class=" form-control-label">Person Name <span class="mandatory">*</span></label>
                                     </div>
                                     <div class="col-12 col-md-6">
-                                        <input type="text" id="person-name" name="person-name" placeholder="Person Name" class="form-control"
+                                        <input type="text" id="person_name" name="person_name" placeholder="Person Name" class="form-control"
 											   ng-model="dispatch.person_name"
 											   required>
+                                    </div>
+                                </div>
+                                <div class="row form-group" ng-if="dispatch.method == 2">
+                                    <div class="col col-md-3">
+                                        <label for="concern_name" class=" form-control-label">Concern Name <span class="mandatory">*</span></label>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <input type="text" id="concern_name" name="concern_name" placeholder="Concern Name" class="form-control"
+                                               ng-model="dispatch.concern_name"
+                                               required>
+                                    </div>
+                                </div>
+                                <div class="row form-group" ng-if="dispatch.method == 2">
+                                    <div class="col col-md-3">
+                                        <label for="contact" class=" form-control-label">Contact No <span class="mandatory">*</span></label>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <input 
+                                        type="text" 
+                                        id="contact" 
+                                        name="contact" 
+                                        ng-model="dispatch.contact" 
+                                        placeholder="Contact No" 
+                                        class="form-control"
+                                        ng-minlength="7" 
+                                        ng-maxlength="15"
+                                        ng-pattern="/^[0-9]*$/" 
+                                        required>
                                     </div>
                                 </div>
     	                	</form>

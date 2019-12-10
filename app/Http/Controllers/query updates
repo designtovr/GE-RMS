@@ -15,3 +15,9 @@ ALTER TABLE `rma_unit_information` DROP `warrenty`;
 ALTER TABLE `job_ticket_materials` CHANGE `old_pcp` `old_pcp` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL, CHANGE `new_pcp` `new_pcp` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
 
 ALTER TABLE `verification_completion` CHANGE `updated_sw_version` `updated_sw_version` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `dispatch` CHANGE `docket_details` `docket_details` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL, CHANGE `courier_name` `courier_name` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL, CHANGE `person_name` `person_name` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `dispatch` DROP `rma_id`;
+
+ALTER TABLE `dispatch` ADD `concern_name` VARCHAR(50) NOT NULL AFTER `person_name`, ADD `contact` VARCHAR(15) NOT NULL AFTER `concern_name`;

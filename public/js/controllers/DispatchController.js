@@ -58,6 +58,7 @@ app.controller('DispatchController', ['$scope', '$http','$filter','Notification'
 						$scope.dispatch= $scope.gridOptions.data[i];
 						$scope.dispatch.docket_details = '';
 						$scope.dispatch.courier_name = '';
+						$scope.dispatch.method = 1;
 						$scope.dispatch.date = $filter('date')(new Date(),'dd/MM/yyyy');
 					}
 				}
@@ -66,11 +67,11 @@ app.controller('DispatchController', ['$scope', '$http','$filter','Notification'
 					Notification.error("No Relay Selected");
 					return;
 				}
-				if ($scope.selectedpvs.length > 1)
+				/*if ($scope.selectedpvs.length > 1)
 				{
 					Notification.error("Select One Relay");
 					return;
-				}
+				}*/
 				console.log($scope.selectedpvs);
 
 				/*$scope.ChangePVStatus($scope.selectedpvs ,status);
@@ -174,11 +175,12 @@ app.controller('DispatchController', ['$scope', '$http','$filter','Notification'
 				url: '/ge/adddispatch',
 				data: {
 					'dispatch': $scope.dispatch,
+					'selectedpvs': $scope.selectedpvs
 				},
 			}).then(function success(response){
 				if (response.status == 200)
 				{
-					var content = response.data.message + ' With Relay Id:<b>'+ response.data.data.pv_id + '</b>, Are You Want to Print?';
+					var content = response.data.message + ', Are You Want to Print?';
 					$ngConfirm({
 						title: '<b>Print!!</b>',
 						content: content,
@@ -230,13 +232,8 @@ app.controller('DispatchController', ['$scope', '$http','$filter','Notification'
 	$scope.ShowDPForm = function()
 	{
 		$scope.ChangeStatus('dispatched');
-		
-
 
 		if($scope.selectedpvs.length == 0)
-			return;
-
-		if ($scope.selectedpvs.length > 1)
 			return;
 
 		$scope.showdpform = true;
