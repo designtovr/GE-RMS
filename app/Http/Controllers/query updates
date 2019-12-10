@@ -13,3 +13,5 @@ ALTER TABLE `receipt` CHANGE `courier_name` `courier_name` VARCHAR(35) CHARACTER
 ALTER TABLE `rma_unit_information` DROP `warrenty`;
 
 ALTER TABLE `job_ticket_materials` CHANGE `old_pcp` `old_pcp` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL, CHANGE `new_pcp` `new_pcp` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `verification_completion` CHANGE `updated_sw_version` `updated_sw_version` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;

@@ -164,10 +164,10 @@ app.controller('VerificationCompleteController', ['$scope', '$http', 'Notificati
    		$scope.vcformdata.clio_test = false;
    		$scope.vcformdata.rtd_test = false;
    		$scope.vcformdata.nic_test = false;
-   		$scope.vcformdata.received_with_screws = false;
-   		$scope.vcformdata.received_with_terminal = false;
-   		$scope.vcformdata.case = false;
-   		$scope.vcformdata.battery = false;
+   		$scope.vcformdata.received_with_screws = (item.screws == 1)?true:false;
+   		$scope.vcformdata.received_with_terminal = (item.terminal_blocks == 1)?true:false;
+   		$scope.vcformdata.case = (item.case == 1)?true:false;
+   		$scope.vcformdata.battery = (item.battery)?true:false;
    		$scope.vcformdata.flops = false;
    		$scope.vcformdata.date = $filter('date')(new Date(),'dd/MM/yyyy');
    		$scope.vcformdata.updated_no_of_short_links = '';

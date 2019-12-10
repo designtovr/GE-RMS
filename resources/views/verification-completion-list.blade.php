@@ -427,11 +427,11 @@
 	                            </div>
 	                            <div class="row form-group">
 	                                <div class="col col-md-3">
-	                                    <label for="received_with_screws" class=" form-control-label">Relay Received With Screw <span class="mandatory">*</span></label>
+	                                    <label for="received_with_screws" class=" form-control-label">Relay Received With Screw</label>
 	                                </div>
 	                                <div class="col-12 col-md-6">
 	                                    <label class="switch switch-text switch-success switch-pill">
-					                      <input type="checkbox" class="switch-input" checked="true" name="received_with_screws" id="received_with_screws" ng-model="vcformdata.received_with_screws">
+					                      <input type="checkbox" class="switch-input" checked="true" name="received_with_screws" id="received_with_screws" ng-model="vcformdata.received_with_screws" disabled>
 					                      <span data-on="Yes" data-off="No" class="switch-label"></span>
 					                      <span class="switch-handle"></span>
 					                    </label>
@@ -439,11 +439,11 @@
 	                            </div>
 	                            <div class="row form-group">
 	                                <div class="col col-md-3">
-	                                    <label for="received_with_terminal" class=" form-control-label">Relay Received With Terminal Block <span class="mandatory">*</span></label>
+	                                    <label for="received_with_terminal" class=" form-control-label">Relay Received With Terminal Block</label>
 	                                </div>
 	                                <div class="col-12 col-md-6">
 	                                    <label class="switch switch-text switch-success switch-pill">
-					                      <input type="checkbox" class="switch-input" checked="true" name="received_with_terminal" id="received_with_terminal" ng-model="vcformdata.received_with_terminal">
+					                      <input type="checkbox" class="switch-input" checked="true" name="received_with_terminal" id="received_with_terminal" ng-model="vcformdata.received_with_terminal" disabled>
 					                      <span data-on="Yes" data-off="No" class="switch-label"></span>
 					                      <span class="switch-handle"></span>
 					                    </label>
@@ -451,11 +451,11 @@
 	                            </div>
                                 <div class="row form-group">
                                     <div class="col col-md-3">
-                                        <label for="case" class=" form-control-label">Case <span class="mandatory">*</span></label>
+                                        <label for="case" class=" form-control-label">Case</label>
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <label class="switch switch-text switch-success switch-pill">
-                                          <input type="checkbox" class="switch-input" checked="true" name="case" id="case" ng-model="vcformdata.case">
+                                          <input type="checkbox" class="switch-input" checked="true" name="case" id="case" ng-model="vcformdata.case" disabled>
                                           <span data-on="Yes" data-off="No" class="switch-label"></span>
                                           <span class="switch-handle"></span>
                                         </label>
@@ -463,11 +463,11 @@
                                 </div>
                                 <div class="row form-group">
                                     <div class="col col-md-3">
-                                        <label for="battery" class=" form-control-label">Battery <span class="mandatory">*</span></label>
+                                        <label for="battery" class=" form-control-label">Battery</label>
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <label class="switch switch-text switch-success switch-pill">
-                                          <input type="checkbox" class="switch-input" checked="true" name="battery" id="battery" ng-model="vcformdata.battery">
+                                          <input type="checkbox" class="switch-input" checked="true" name="battery" id="battery" ng-model="vcformdata.battery" disabled>
                                           <span data-on="Yes" data-off="No" class="switch-label"></span>
                                           <span class="switch-handle"></span>
                                         </label>
@@ -475,11 +475,11 @@
                                 </div>
                                 <div class="row form-group">
                                     <div class="col col-md-3">
-                                        <label for="flops" class=" form-control-label">Flops <span class="mandatory">*</span></label>
+                                        <label for="flops" class=" form-control-label">Flops</label>
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <label class="switch switch-text switch-success switch-pill">
-                                          <input type="checkbox" class="switch-input" checked="true" name="flops" id="flops" ng-model="vcformdata.flops">
+                                          <input type="checkbox" class="switch-input" checked="true" name="flops" id="flops" ng-model="vcformdata.flops" disabled>
                                           <span data-on="Yes" data-off="No" class="switch-label"></span>
                                           <span class="switch-handle"></span>
                                         </label>
