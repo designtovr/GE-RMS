@@ -1,7 +1,7 @@
 app.controller('AgingCompleteController', ['$scope', '$http','Notification','ChangePVStatusService', 'PVPriorityService', function($scope, $http , Notification,ChangePVStatusService, PVPriorityService)
 {
 	$scope.agingmodal = {};
-	$scope.agingmodal.title = 'Aging Modal';
+	$scope.agingmodal.title = 'Aging Process';
 	$scope.status='atbcompleted';
 	$scope.page = 1;
 	$scope.pvprioritylist = [];
@@ -111,7 +111,7 @@ app.controller('AgingCompleteController', ['$scope', '$http','Notification','Cha
 	{
 		console.log($scope.gridOptions.data);
 		$scope.agingmodal = {};
-		$scope.agingmodal.title = 'Aging Modal';
+		$scope.agingmodal.title = 'Aging Process';
 		$scope.selectedpvs = [];
 		for (var i = 0; i < $scope.gridOptions.data.length; i++) {
 			if ($scope.gridOptions.data[i].create_wc != undefined && $scope.gridOptions.data[i].create_wc)

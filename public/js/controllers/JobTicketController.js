@@ -189,8 +189,9 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 			url: '/ge/jobticket/'+item.id,
 		}).then(function success(response) {
 			$scope.jobticket =  response.data.data;
+			console.log($scope.jobticket);
 			$scope.jobticket.service_type = item.service_type;
-			if ($scope.jobticket.job_ticket_materials.length == 0)
+			if ($scope.jobticket.job_ticket_materials.length == 0 && $scope.page != 'jobticketcompleted')
 			{
 				$scope.jobticket.job_ticket_materials = [];
 				var jobmaterial = {}
@@ -347,12 +348,7 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 
 	$scope.RemoveMaterial = function(index)
 	{
-		if ($scope.jobticket.job_ticket_materials.length == 1)
-		{
-			Notification.error("Atleast One Required");
-			return;
-		}
-		$scope.jobticket.job_ticket_materials.splice(index);
+		$scope.jobticket.job_ticket_materials.splice(index, 1);
 	}
 
 	$scope.GetJTMaterialsPartNos = function()
@@ -375,7 +371,7 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 	{
 		for (var i = 0; i < $scope.jobticket.job_ticket_materials.length; i++) {
 			if ($scope.jobticket.job_ticket_materials[i].part_no == '' 
-				&& $scope.jobticket.job_ticket_materials[i].quanity == ''
+				&& $scope.jobticket.job_ticket_materials[i].quantity == ''
 				&& $scope.jobticket.job_ticket_materials[i].old_pcp == '' 
 				&& $scope.jobticket.job_ticket_materials[i].new_pcp == ''
 				)

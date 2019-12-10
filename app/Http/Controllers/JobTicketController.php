@@ -70,6 +70,8 @@ class JobTicketController extends Controller
     			$JTM->save();
     		}
 
+            PVStatusRepositories::ChangeStatusToJobTicketStarted($JT->pv_id);
+
     		return response()->json(['status' => 'success', 'message' => 'Material Added Successfully']);
     	}
     	else

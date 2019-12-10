@@ -278,7 +278,7 @@
 		                			<div class="col-md-6">
 		                				<div class="row form-group">
 			                                <div class="col col-md-4">
-			                                    <label for="type" class=" form-control-label">Type Of Work <span class="mandatory">*</span></label>
+			                                    <label for="type" class=" form-control-label">Type Of Work</label>
 			                                </div>
 			                                <div class="col-12 col-md-8">
 			                                    <select name="type" ng-model = "jobticket.type"  id="case-condition" ng-options="type.id as type.value for type in type_of_work" class="form-control" disabled>
@@ -290,7 +290,7 @@
 		                			<div class="col-md-6">
 		                				<div class="row form-group">
 			                                <div class="col col-md-4">
-			                                    <label for="rid" class=" form-control-label">RID <span class="mandatory">*</span></label>
+			                                    <label for="rid" class=" form-control-label">RID</label>
 			                                </div>
 			                                <div class="col-12 col-md-8">
 			                                    <input type="text" ng-model = "jobticket.formatted_pv_id" id="pv_id" name="pv_id" placeholder="RID" class="form-control" disabled>
@@ -302,7 +302,7 @@
 		                			<div class="col-md-6">
 		                				<div class="row form-group">
 			                                <div class="col col-md-4">
-			                                    <label for="rma-no" class=" form-control-label">RMA Id <span class="mandatory">*</span></label>
+			                                    <label for="rma-no" class=" form-control-label">RMA Id</label>
 			                                </div>
 			                                <div class="col-12 col-md-8">
 			                                    <input type="text" id="rma_id" ng-model = "jobticket.rma_id" name="rma_id" placeholder="RMA NO" class="form-control" disabled>
@@ -358,7 +358,7 @@
 		                			<div class="col-md-6">
 		                				<div class="row form-group">
 			                                <div class="col col-md-4">
-			                                    <label for="end_customer" class=" form-control-label">End Customer <span class="mandatory">*</span></label>
+			                                    <label for="end_customer" class=" form-control-label">End Customer</label>
 			                                </div>
 			                                <div class="col-12 col-md-8">
 			                                    <input type="text" id="end_customer" ng-model = "jobticket.end_customer" name="end_customer" placeholder="End Customer" class="form-control" disabled>
@@ -412,7 +412,7 @@
 		                			<div class="col-md-6">
 		                				<div class="row form-group">
 			                                <div class="col col-md-4">
-			                                    <label for="comment" class=" form-control-label">Repair Comment </label>
+			                                    <label for="comment" class=" form-control-label">Repair Comment <span class="mandatory">*</span> </label>
 			                                </div>
 			                                <div class="col-12 col-md-8">
 			                                    <textarea 
@@ -422,7 +422,7 @@
 			                                    rows="4" 
 			                                    placeholder="" 
 			                                    class="form-control"
-			                                    >
+			                                    required>
 			                                    </textarea>
 			                                </div>
 			                            </div>
@@ -520,7 +520,7 @@
 		                            </div>
 		                            <div class="row form-group">
 		                                <div class="col col-md-3">
-		                                    <label for="new_pcp_@{{$index}}" class=" form-control-label">New PCB</label>
+		                                    <label for="new_pcp_@{{$index}}" class=" form-control-label">Healthy PCB</label>
 		                                </div>
 		                                <div class="col-12 col-md-6">
 		                                    <input 
@@ -528,7 +528,7 @@
 		                                    id="new_pcp_@{{$index}}" 
 		                                    ng-model="job_ticket_material.new_pcp"
 		                                    name="new_pcp_@{{$index}}" 
-		                                    placeholder="New PCB" 
+		                                    placeholder="Healthy PCB" 
 		                                    class="form-control">
 		                                </div>
 		                            </div>
@@ -563,7 +563,7 @@
 	                    	</form>
 	                    </div>
 	                    <div class="card-footer">
-	                        <button ng-if="page != 'sitecardafterjobticketcompleted'" type="submit" class="btn btn-primary btn-sm" ng-click="CompleteJTForm();">
+	                        <button ng-if="page != 'sitecardafterjobticketcompleted'" type="submit" class="btn btn-primary btn-sm" ng-click="CompleteJTForm();" ng-disabled="AddJobTicket.$invalid">
 	                            <i class="fa fa-dot-circle-o"></i> Complete
 	                        </button>
 	                        <button ng-if="page == 'sitecardafterjobticketcompleted'" type="submit" class="btn btn-primary btn-sm" ng-click="UpdateSiteJTForm();">
