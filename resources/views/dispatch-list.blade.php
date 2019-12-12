@@ -379,7 +379,7 @@
                                 <i class="fa fa-dot-circle-o"></i> Submit
                             </button>
                             <button type="reset" class="btn btn-secondary btn-sm" ng-click="HideDPForm();">
-	                            <i class="fa fa-ban"></i> Close
+	                            <i class="fa fa-ban"></i> Cancel
 	                        </button>
                         </div>
                     </div>

@@ -377,7 +377,7 @@
                                 <i class="fa fa-dot-circle-o"></i> Update
                             </button>
                             <button class="btn btn-danger btn-sm" ng-click="HideReceiptForm();">
-                                <i class="fa fa-ban"></i> Close
+                                <i class="fa fa-ban"></i> Cancel
                             </button>
 
                             <!-- <div class="pull-right">

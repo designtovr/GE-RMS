@@ -437,7 +437,7 @@
                         <i class="fa fa-dot-circle-o"></i> Save Unit
                     </button>
                     <button id="closermabutton" name="closermabutton" class="btn btn-secondary btn-sm" ng-click="HideRMAForm();CloseCreateRMA();">
-                        <i class="fa fa-ban"></i> Close
+                        <i class="fa fa-ban"></i> Cancel
                     </button>
                 </div>
             </div>
@@ -763,7 +763,7 @@
                         <i class="fa fa-save"></i> Save
                     </button>
                     <button id="closermabutton" name="closermabutton" class="btn btn-danger btn-sm" ng-click="HideRMAForm();">
-                        <i class="fa fa-ban"></i> Close
+                        <i class="fa fa-ban"></i> Cancel
                     </button>
                 </div>
             </div>

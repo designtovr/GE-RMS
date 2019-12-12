@@ -178,7 +178,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger btn-sm" ng-click="CloseRMSModal();">
-                        <i class="fa fa-ban"></i> Close
+                        <i class="fa fa-ban"></i> Cancel
                     </button>
                     <button type="submit" class="btn btn-primary btn-sm"  ng-click="AddRMS();">
                         <i class="fa fa-dot-circle-o"></i> Save

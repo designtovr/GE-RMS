@@ -573,7 +573,7 @@
 	                            <i class="fa fa-ban"></i> Reset
 	                        </button> -->
 	                        <button type="reset" class="btn btn-secondary btn-sm" ng-click="CloseJTForm();">
-	                            <i class="fa fa-ban"></i> Close
+	                            <i class="fa fa-ban"></i> Cancel
 	                        </button>
 	                    </div>
 	                </div>

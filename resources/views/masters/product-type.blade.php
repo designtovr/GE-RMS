@@ -227,7 +227,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger btn-sm" ng-click="CloseProductTypeModal()">
-                        <i class="fa fa-ban"></i> Close
+                        <i class="fa fa-ban"></i> Cancel
                     </button>
                     <button ng-if="!producttype.edit" type="submit" class="btn btn-primary btn-sm" ng-disabled="ProductTypeForm.$invalid" ng-click="AddProductType();">
                         <i class="fa fa-dot-circle-o"></i> Submit

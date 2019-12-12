@@ -719,7 +719,7 @@
                         <i class="fa fa-save"></i> Save
                     </button>
                     <button type="reset" class="btn btn-danger btn-sm" ng-click="HideSiteCardForm();">
-                        <i class="fa fa-ban"></i> Close
+                        <i class="fa fa-ban"></i> Cancel
                     </button>
                 </div>
             </div>

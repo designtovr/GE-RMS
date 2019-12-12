@@ -407,7 +407,7 @@
                         <i class="fa fa-dot-circle-o"></i> Update
                     </button>
                     <button type="button" class="btn btn-danger btn-sm" ng-click="CloseCustomerModal()">
-                        <i class="fa fa-ban"></i> Close
+                        <i class="fa fa-ban"></i> Cancel
                     </button>
                 </div>
             </div>

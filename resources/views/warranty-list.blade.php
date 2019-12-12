@@ -682,7 +682,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-danger btn-sm" ng-click="CloseWarrantyModal();">
-                                        <i class="fa fa-ban"></i> Close
+                                        <i class="fa fa-ban"></i> Cancel
                                     </button>
                                     <button type="submit" class="btn btn-primary btn-sm" ng-disabled="AddUserForm.$invalid"
                                     ng-click="AddWC();" ng-if="tab!='customerapproval'">

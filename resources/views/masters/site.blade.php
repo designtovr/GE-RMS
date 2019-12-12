@@ -180,7 +180,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-danger btn-sm" ng-click="CloseSiteModal()">
-                        <i class="fa fa-ban"></i> Close
+                        <i class="fa fa-ban"></i> Cancel
                     </button>
                     <button ng-if="!sitemodal.edit" type="submit" class="btn btn-primary btn-sm" ng-disabled="AddSiteForm.$invalid" ng-click="AddSite();">
                         <i class="fa fa-dot-circle-o"></i> Submit

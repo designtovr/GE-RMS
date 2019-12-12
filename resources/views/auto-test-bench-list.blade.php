@@ -313,7 +313,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger btn-sm" ng-click="CloseTestBenchModal();">
-                        <i class="fa fa-ban"></i> Close
+                        <i class="fa fa-ban"></i> Cancel
                     </button>
                     <button type="submit" class="btn btn-primary btn-sm" ng-disabled="AddUserForm.$invalid" ng-click="SaveTestResult();">
                         <i class="fa fa-dot-circle-o"></i> Save

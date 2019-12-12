@@ -180,7 +180,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger btn-sm" ng-click="CloseLocationModal()">
-                        <i class="fa fa-ban"></i> Close
+                        <i class="fa fa-ban"></i> Cancel
                     </button>
                     <button ng-if="!locationmodal.edit" type="submit" class="btn btn-primary btn-sm" ng-disabled="AddLocationForm.$invalid" ng-click="AddLocation();">
                         <i class="fa fa-dot-circle-o"></i> Submit
