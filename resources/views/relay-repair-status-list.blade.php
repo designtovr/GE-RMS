@@ -56,21 +56,40 @@
 	                    <table class="table table-borderless table-data3">
 	                        <thead>
 	                            <tr>
+	                            	<th>Actions</th>
 	                                <th>RID</th>
 	                                <th>RMA No</th>
 	                                <th>Comment</th>
 	                                <th>Status</th>
-	                                <th>Actions</th>
 	                            </tr>
 	                        </thead>
 	                        <tbody>
 	                            <tr>
+	                            	<td>
+	                                	<div class="table-data-feature float-left">
+			                                <div class="btn-group">
+	                                            <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-info">Action</button>
+	                                            <!-- <button class="item" data-toggle="dropdown" data-placement="top" title="More" aria-haspopup="true" aria-expanded="false">
+			                                        <i class="zmdi zmdi-more"></i>
+			                                    </button> -->
+	                                            <div tabindex="-1" aria-hidden="true" role="menu" class="dropdown-menu">
+	                                                <button type="button" tabindex="0" class="dropdown-item">Open</button>
+	                                                <button type="button" tabindex="0" class="dropdown-item">Completed</button>
+	                                                <button type="button" tabindex="0" class="dropdown-item">Processed</button>
+	                                                <div tabindex="-1" class="dropdown-divider"></div>
+	                                                <button type="button" tabindex="0" class="dropdown-item">Denied</button>
+	                                            </div>
+	                                        </div>
+	                                    </div>
+		                            </td>
 	                                <td>1</td>
 	                                <td>1234</td>
 	                                <td>Comment</td>
 	                                <td class="process">Processed</td>
-	                                <td>
-	                                	<div class="table-data-feature">
+	                            </tr>
+	                            <tr>
+	                            	<td>
+	                                	<div class="table-data-feature float-left">
 			                                <div class="btn-group">
 	                                            <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-info">Action</button>
 	                                            <!-- <button class="item" data-toggle="dropdown" data-placement="top" title="More" aria-haspopup="true" aria-expanded="false">
@@ -86,16 +105,19 @@
 	                                        </div>
 	                                    </div>
 		                            </td>
-	                            </tr>
-	                            <tr>
 	                                <td>2</td>
 	                                <td>12345</td>
 	                                <td>Comment 2</td>
 	                                <td class="denied">Closed</td>
-	                                <td>
-		                                <div class="table-data-feature">
+	                            </tr>
+	                            <tr>
+	                            	<td>
+	                                	<div class="table-data-feature float-left">
 			                                <div class="btn-group">
 	                                            <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-info">Action</button>
+	                                            <!-- <button class="item" data-toggle="dropdown" data-placement="top" title="More" aria-haspopup="true" aria-expanded="false">
+			                                        <i class="zmdi zmdi-more"></i>
+			                                    </button> -->
 	                                            <div tabindex="-1" aria-hidden="true" role="menu" class="dropdown-menu">
 	                                                <button type="button" tabindex="0" class="dropdown-item">Open</button>
 	                                                <button type="button" tabindex="0" class="dropdown-item">Completed</button>
@@ -106,14 +128,14 @@
 	                                        </div>
 	                                    </div>
 		                            </td>
-	                            </tr>
-	                            <tr>
 	                                <td>3</td>
 	                                <td>12346</td>
 	                                <td>Comment 3</td>
 	                                <td class="process">Open</td>
-	                                <td>
-		                                <div class="table-data-feature">
+	                            </tr>
+	                            <tr>
+	                            	<td>
+	                                	<div class="table-data-feature float-left">
 			                                <div class="btn-group">
 	                                            <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-info">Action</button>
 	                                            <!-- <button class="item" data-toggle="dropdown" data-placement="top" title="More" aria-haspopup="true" aria-expanded="false">
@@ -129,29 +151,10 @@
 	                                        </div>
 	                                    </div>
 		                            </td>
-	                            </tr>
-	                            <tr>
 	                                <td>4</td>
 	                                <td>12347</td>
 	                                <td>Comment 5</td>
 	                                <td class="denied">Denied</td>
-	                                <td>
-		                                <div class="table-data-feature">
-			                                <div class="btn-group">
-	                                            <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-info">Action</button>
-	                                            <!-- <button class="item" data-toggle="dropdown" data-placement="top" title="More" aria-haspopup="true" aria-expanded="false">
-			                                        <i class="zmdi zmdi-more"></i>
-			                                    </button> -->
-	                                            <div tabindex="-1" aria-hidden="true" role="menu" class="dropdown-menu">
-	                                                <button type="button" tabindex="0" class="dropdown-item">Open</button>
-	                                                <button type="button" tabindex="0" class="dropdown-item">Completed</button>
-	                                                <button type="button" tabindex="0" class="dropdown-item">Processed</button>
-	                                                <div tabindex="-1" class="dropdown-divider"></div>
-	                                                <button type="button" tabindex="0" class="dropdown-item">Denied</button>
-	                                            </div>
-	                                        </div>
-	                                    </div>
-		                            </td>
 	                            </tr>
 	                        </tbody>
 	                    </table>

@@ -91,6 +91,9 @@
                                 <table class="table table-borderless table-data3">
                                     <thead>
                                         <tr>
+                                            <th>
+                                                Actions
+                                            </th>
                                             <th sortable="formatted_receipt_id" class="sortable">
                                                 Receipt Id
                                             </th>
@@ -116,13 +119,17 @@
                                               <th sortable="total_boxes" class="sortable">
                                                 Number of Boxes
                                             </th>
-                                            <th>
-                                                Actions
-                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr grid-item>
+                                            <td>
+                                                <div class="table-data-feature float-left">
+                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="EditReceipt(item);">
+                                                        <i class="zmdi zmdi-edit"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
                                             <td ng-bind="item.formatted_receipt_id"></td>
                                             <td ng-bind="item.formatted_rma_id"></td>
                                             <td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
@@ -131,13 +138,6 @@
                                             <td ng-bind="item.courier_name"></td>
                                             <td ng-bind="item.docket_details"></td>
                                             <td ng-bind="item.total_boxes"></td>
-                                            <td>
-                                                <div class="table-data-feature">
-                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="EditReceipt(item);">
-                                                        <i class="zmdi zmdi-edit"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>

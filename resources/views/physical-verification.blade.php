@@ -112,6 +112,9 @@
                                     <table class="table table-borderless table-data3 table-responsive">
                                         <thead>
                                             <tr>
+                                                <th>
+                                                    Actions
+                                                </th>
                                                 <th sortable="formatted_receipt_id" class="sortable">
                                                     Receipt No
                                                 </th>
@@ -134,23 +137,12 @@
                                                 <th sortable="total_boxes" class="sortable">
                                                     Number of Boxes
                                                 </th>
-                                                <th>
-                                                    Actions
-                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr grid-item>
-                                                <td ng-bind="item.formatted_receipt_id"></td>
-                                                <td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
-
-                                                <td ng-bind="item.customer_name"></td>
-                                                <!-- <td ng-bind="item.end_customer"></td> -->
-                                                <td ng-bind="item.courier_name"></td>
-                                                <td ng-bind="item.docket_details"></td>
-                                                <td ng-bind="item.total_boxes"></td>
                                                 <td>
-                                                    <div class="table-data-feature">
+                                                    <div class="table-data-feature float-left">
                                                     <!-- <button class="item" data-toggle="tooltip" data-placement="top" title="Edit"
                                                             ng-click="OpenPVForm(item, true);">
                                                         <i class="zmdi zmdi-edit"></i>
@@ -171,6 +163,14 @@
                                                     </button> -->
                                                     </div>
                                                 </td>
+                                                <td ng-bind="item.formatted_receipt_id"></td>
+                                                <td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
+
+                                                <td ng-bind="item.customer_name"></td>
+                                                <!-- <td ng-bind="item.end_customer"></td> -->
+                                                <td ng-bind="item.courier_name"></td>
+                                                <td ng-bind="item.docket_details"></td>
+                                                <td ng-bind="item.total_boxes"></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -214,6 +214,9 @@
                                                     <th>
                                                         Select
                                                     </th>
+                                                    <th>
+                                                        Actions
+                                                    </th>
                                                     <th sortable="formatted_receipt_id" class="sortable">
                                                         Receipt Id
                                                     </th>
@@ -238,9 +241,6 @@
                                                     <th sortable="total_boxes" class="sortable">
                                                         Number of Boxes
                                                     </th>
-                                                    <th>
-                                                        Actions
-                                                    </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -251,16 +251,8 @@
                                                             <span class="au-checkmark"></span>
                                                         </label>
                                                     </td>
-                                                    <td ng-bind="item.formatted_receipt_id"></td>
-                                                    <td ng-bind="item.formatted_pv_id"></td>
-                                                    <td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
-                                                    <td ng-bind="item.part_no"></td>
-                                                    <td ng-bind="item.serial_no"></td>
-                                                    <td ng-bind="item.customer_name"></td>
-                                                    <!-- <td ng-bind="item.end_customer"></td> -->
-                                                    <td ng-bind="item.total_boxes"></td>
                                                     <td>
-                                                        <div class="table-data-feature">
+                                                        <div class="table-data-feature float-left">
                                                         <button class="item" data-toggle="tooltip" data-placement="top" title="Edit"
                                                                 ng-click="OpenPVForm(item, true);">
                                                             <i class="zmdi zmdi-edit"></i>
@@ -281,6 +273,14 @@
                                                         </button> -->
                                                         </div>
                                                     </td>
+                                                    <td ng-bind="item.formatted_receipt_id"></td>
+                                                    <td ng-bind="item.formatted_pv_id"></td>
+                                                    <td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
+                                                    <td ng-bind="item.part_no"></td>
+                                                    <td ng-bind="item.serial_no"></td>
+                                                    <td ng-bind="item.customer_name"></td>
+                                                    <!-- <td ng-bind="item.end_customer"></td> -->
+                                                    <td ng-bind="item.total_boxes"></td>
                                                 </tr>
                                             </tbody>
                                         </table>

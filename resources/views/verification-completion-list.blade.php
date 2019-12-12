@@ -150,6 +150,9 @@
          					<table class="table table-borderless table-data3  ">
          						<thead>
          							<tr>
+                                        <th ng-if="status == 'agingcompleted'">
+                                            Actions
+                                        </th>
                                         <th sortable="formatted_pv_id" class="sortable">
                                             RID
                                         </th>
@@ -178,13 +181,25 @@
                                         <th sortable="pvl_priority_for_display" class="sortable">
                                             Priority
                                         </th>
-         								<th ng-if="status == 'agingcompleted'">
-         									Actions
-         								</th>
          							</tr>
          						</thead>
          						<tbody>
          							<tr grid-item>
+                                        <td ng-if="status == 'agingcompleted'">
+                                            <div class="table-data-feature float-left">
+                                                <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="ShowVCForm(item);">
+                                                    <i class="zmdi zmdi-edit"></i>
+                                                </button>
+                                                <div class="btn-group">
+                                                    <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-success" >Priority</button>
+                                                    <div tabindex="-1" aria-hidden="true" role="menu" class="dropdown-menu scrollable-menu">
+                                                        <button ng-if="item.pvl_priority == 999999" type="button" tabindex="0" class="dropdown-item" ng-click="SetPVPriority(item.id, pvprioritylistmax)">Set New: @{{pvprioritylistmax}}</button>
+                                                        <div ng-if="item.pvl_priority == 999999" tabindex="-1" class="dropdown-divider"></div>
+                                                        <button ng-if="item.pvl_priority != pr.priority" type="button" tabindex="0" class="dropdown-item" ng-repeat="pr in pvprioritylist" ng-click="SetPVPriority(item.id, pr.priority)">@{{pr.priority}}</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                         </td>
                                         <td ng-bind="item.formatted_pv_id"></td>
                                         <td ng-bind="item.formatted_rma_id"></td>
          								<td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
@@ -194,21 +209,6 @@
          								<td ng-bind="item.end_customer"></td>
          								<td ng-bind="item.manager_comment"></td>
          						        <td ng-bind="item.pvl_priority_for_display"></td>
-                                        <td ng-if="status == 'agingcompleted'">
-        		                         	<div class="table-data-feature">
-        		                         		<button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="ShowVCForm(item);">
-        	                                        <i class="zmdi zmdi-edit"></i>
-        	                                    </button>
-        	                                    <div class="btn-group">
-                                                    <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-success" >Priority</button>
-                                                    <div tabindex="-1" aria-hidden="true" role="menu" class="dropdown-menu scrollable-menu">
-                                                        <button ng-if="item.pvl_priority == 999999" type="button" tabindex="0" class="dropdown-item" ng-click="SetPVPriority(item.id, pvprioritylistmax)">Set New: @{{pvprioritylistmax}}</button>
-                                                        <div ng-if="item.pvl_priority == 999999" tabindex="-1" class="dropdown-divider"></div>
-                                                        <button ng-if="item.pvl_priority != pr.priority" type="button" tabindex="0" class="dropdown-item" ng-repeat="pr in pvprioritylist" ng-click="SetPVPriority(item.id, pr.priority)">@{{pr.priority}}</button>
-                                                    </div>
-                                                </div>
-        	                                </div>
-        		                         </td>
          							</tr>
          						</tbody>
          					</table>

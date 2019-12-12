@@ -132,6 +132,9 @@
                                             <table class="table table-borderless table-data3 table-responsive">
                                                 <thead>
                                                 <tr>
+                                                    <th>
+                                                        Actions
+                                                    </th>
                                                     <th sortable="formatted_rma_id" class="sortable">
                                                         RMA No
                                                     </th>
@@ -151,22 +154,12 @@
                                                     <th sortable="end_customer" class="sortable">
                                                         End Customer
                                                     </th>
-                                                    <th>
-                                                        Actions
-                                                    </th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 <tr grid-item>
-                                                    <td ng-bind="item.formatted_rma_id"></td>
-                                                    <td ng-bind="item.date | date:'dd/MM/yyyy'"></td>
-
-                                                    <td ng-bind="item.gs_no"></td>
-                                                    <td ng-bind="item.act_reference"></td>
-                                                    <td ng-bind="item.customer_name"></td>
-                                                    <td ng-bind="item.end_customer"></td>
                                                     <td>
-                                                        <div class="table-data-feature">
+                                                        <div class="table-data-feature float-left">
                                                             <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="EditRMAForm(item.id);">
                                                                 <i class="zmdi zmdi-edit"></i>
                                                             </button>
@@ -180,6 +173,13 @@
                                                             </button> -->
                                                         </div>
                                                     </td>
+                                                    <td ng-bind="item.formatted_rma_id"></td>
+                                                    <td ng-bind="item.date | date:'dd/MM/yyyy'"></td>
+
+                                                    <td ng-bind="item.gs_no"></td>
+                                                    <td ng-bind="item.act_reference"></td>
+                                                    <td ng-bind="item.customer_name"></td>
+                                                    <td ng-bind="item.end_customer"></td>
                                                 </tr>
                                                 </tbody>
                                             </table>
@@ -370,6 +370,9 @@
                                             <table class="table table-borderless table-data3 table-responsive">
                                                 <thead>
                                                 <tr>
+                                                    <th>
+                                                        Actions
+                                                    </th>
                                                     <th sortable="formatted_rma_id" class="sortable">
                                                         RMA No
                                                     </th>
@@ -389,22 +392,12 @@
                                                     <th sortable="end_customer" class="sortable">
                                                         End Customer
                                                     </th>
-                                                    <th>
-                                                        Actions
-                                                    </th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 <tr grid-item>
-                                                    <td ng-bind="item.formatted_rma_id"></td>
-                                                    <td ng-bind="item.date | date:'dd/MM/yyyy'"></td>
-
-                                                    <td ng-bind="item.gs_no"></td>
-                                                    <td ng-bind="item.act_reference"></td>
-                                                    <td ng-bind="item.customer_name"></td>
-                                                    <td ng-bind="item.end_customer"></td>
                                                     <td>
-                                                        <div class="table-data-feature">
+                                                        <div class="table-data-feature float-left">
                                                             <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="EditRMAForm(item.id);">
                                                                 <i class="zmdi zmdi-edit"></i>
                                                             </button>
@@ -418,6 +411,13 @@
                                                             </button> -->
                                                         </div>
                                                     </td>
+                                                    <td ng-bind="item.formatted_rma_id"></td>
+                                                    <td ng-bind="item.date | date:'dd/MM/yyyy'"></td>
+
+                                                    <td ng-bind="item.gs_no"></td>
+                                                    <td ng-bind="item.act_reference"></td>
+                                                    <td ng-bind="item.customer_name"></td>
+                                                    <td ng-bind="item.end_customer"></td>
                                                 </tr>
                                                 </tbody>
                                             </table>
@@ -458,6 +458,9 @@
                                             <table class="table table-borderless table-data3 table-responsive">
                                                 <thead>
                                                 <tr>
+                                                    <th>
+                                                        Actions
+                                                    </th>
                                                     <th sortable="formatted_rma_id" class="sortable">
                                                         RMA No
                                                     </th>
@@ -476,22 +479,12 @@
                                                     <th sortable="end_customer" class="sortable">
                                                         End Customer
                                                     </th>
-                                                    <th>
-                                                        Actions
-                                                    </th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 <tr grid-item>
-                                                    <td ng-bind="item.formatted_rma_id"></td>
-                                                    <td ng-bind="item.date | date:'dd/MM/yyyy'"></td>
-
-                                                    <td ng-bind="item.gs_no"></td>
-                                                    <td ng-bind="item.act_reference"></td>
-                                                    <td ng-bind="item.customer_name"></td>
-                                                    <td ng-bind="item.end_customer"></td>
                                                     <td>
-                                                        <div class="table-data-feature">
+                                                        <div class="table-data-feature float-left">
                                                             <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="EditRMAForm(item.id);">
                                                                 <i class="zmdi zmdi-edit"></i>
                                                             </button>
@@ -500,6 +493,13 @@
                                                             </button> -->
                                                         </div>
                                                     </td>
+                                                    <td ng-bind="item.formatted_rma_id"></td>
+                                                    <td ng-bind="item.date | date:'dd/MM/yyyy'"></td>
+
+                                                    <td ng-bind="item.gs_no"></td>
+                                                    <td ng-bind="item.act_reference"></td>
+                                                    <td ng-bind="item.customer_name"></td>
+                                                    <td ng-bind="item.end_customer"></td>
                                                 </tr>
                                                 </tbody>
                                             </table>

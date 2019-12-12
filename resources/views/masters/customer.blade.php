@@ -64,6 +64,7 @@
                             <table class="table table-borderless table-data3">
                                 <thead>
                                     <tr>
+                                        <th>Actions</th>
                                         <th sortable="name" class="sortable">Customer Name</th>
                                         <th sortable="address" class="sortable">Address</th>
                                         <th sortable="contact_person" class="sortable">Contact Person</th>
@@ -72,11 +73,20 @@
                                         <th sortable="contact" class="sortable">Contact</th>
                                         <th sortable="site_name" class="sortable">Site</th>
                                         <th sortable="location_name" class="sortable">Location</th>
-                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr grid-item>
+                                        <td>
+                                            <div class="table-data-feature float-left">
+                                                <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="OpenCustomerModal(item.id)">
+                                                    <i class="zmdi zmdi-edit"></i>
+                                                </button>
+                                                <button class="item" data-toggle="tooltip" data-placement="top" title="Delete" ng-click="DeleteCustomer(item.id, item.code);">
+                                                    <i class="zmdi zmdi-delete"></i>
+                                                </button>
+                                            </div>
+                                        </td>
                                         <td ng-bind="item.name"></td>
                                         <td ng-bind="item.address"></td>
                                         <td ng-bind="item.contact_person"></td>
@@ -85,16 +95,6 @@
         	                            <td ng-bind="item.contact"></td>
         	                            <td ng-bind="item.site_name"></td>
         	                            <td ng-bind="item.location_name"></td>
-                                        <td>
-        	                                <div class="table-data-feature">
-        	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="OpenCustomerModal(item.id)">
-        	                                        <i class="zmdi zmdi-edit"></i>
-        	                                    </button>
-        	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete" ng-click="DeleteCustomer(item.id, item.code);">
-        	                                        <i class="zmdi zmdi-delete"></i>
-        	                                    </button>
-        	                                </div>
-        	                            </td>
                                     </tr>
                                 </tbody>
                             </table>

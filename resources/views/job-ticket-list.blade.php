@@ -163,6 +163,9 @@
 									<!-- <th ng-show="openTab">
 										Select
 									</th> -->
+									<th>
+										Actions
+									</th>
 									<th sortable="formatted_pv_id" class="sortable">
 										RID
 									</th>
@@ -193,9 +196,6 @@
 									<th sortable="pvl_priority_for_display" class="sortable">
 										Priority
 									</th>
-									<th>
-										Actions
-									</th>
 								</tr>
 								</thead>
 								<tbody>
@@ -206,18 +206,8 @@
 											<span class="au-checkmark"></span>
 										</label>
 									</td> -->
-									<td ng-bind="item.formatted_pv_id"></td>
-									<td ng-bind="item.formatted_rma_id"></td>
-									<td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
-									<td ng-bind="item.part_no"></td>
-									<td ng-bind="item.serial_no"></td>
-									<td ng-bind="item.customer_name"></td>
-									<td ng-bind="item.end_customer"></td>
-									<td ng-bind="item.manager_comment"></td>
-									<td ng-show="completedTab" ng-bind="item.repair_comment"></td>
-									<td ng-bind="item.pvl_priority_for_display"></td>
 									<td>
-                                        <div class="table-data-feature">
+                                        <div class="table-data-feature float-left">
                                         	<div class="btn-group" ng-if="page != 'sitecardafterjobticketcompleted'">
 	                                            <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-success" >Priority</button>
 	                                            <div tabindex="-1" aria-hidden="true" role="menu" class="dropdown-menu scrollable-menu">
@@ -231,6 +221,16 @@
 											</button>
                                         </div>
 									</td>
+									<td ng-bind="item.formatted_pv_id"></td>
+									<td ng-bind="item.formatted_rma_id"></td>
+									<td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
+									<td ng-bind="item.part_no"></td>
+									<td ng-bind="item.serial_no"></td>
+									<td ng-bind="item.customer_name"></td>
+									<td ng-bind="item.end_customer"></td>
+									<td ng-bind="item.manager_comment"></td>
+									<td ng-show="completedTab" ng-bind="item.repair_comment"></td>
+									<td ng-bind="item.pvl_priority_for_display"></td>
 								</tr>
 								</tbody>
 							</table>

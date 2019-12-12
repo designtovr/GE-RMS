@@ -49,27 +49,27 @@
                             <table class="table table-borderless table-data3">
                                 <thead>
                                     <tr>
+                                        <th>Actions</th>
                                         <th sortable="code" class="sortable">Family</th>
                                         <th sortable="name" class="sortable">Type</th>
                                         <th sortable="category" class="sortable">Category</th>
-                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr grid-item>
+                                        <td>
+                                            <div class="table-data-feature float-left">
+                                                <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="OpenProductTypeModal(item)">
+                                                    <i class="zmdi zmdi-edit"></i>
+                                                </button>
+                                                <button class="item" data-toggle="tooltip" data-placement="top" title="Delete" ng-click="DeleteProductType(item.id, item.code)">
+                                                    <i class="zmdi zmdi-delete"></i>
+                                                </button>
+                                            </div>
+                                        </td>
         	                            <td ng-bind="item.code"></td>
         	                            <td ng-bind="item.name"></td>
                                         <td ng-bind="item.category | uppercase"></td>
-                                        <td>
-        	                                <div class="table-data-feature">
-        	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="OpenProductTypeModal(item)">
-        	                                        <i class="zmdi zmdi-edit"></i>
-        	                                    </button>
-        	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete" ng-click="DeleteProductType(item.id, item.code)">
-        	                                        <i class="zmdi zmdi-delete"></i>
-        	                                    </button>
-        	                                </div>
-        	                            </td>
                                     </tr>
                                 </tbody>
                             </table>
