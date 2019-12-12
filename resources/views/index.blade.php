@@ -699,10 +699,10 @@
                                                      </tr>
                                                      </thead>
                                                      <tbody>
-                                                     <tr ng-repeat="forwc in dashboardvalues.wch">
-                                                         <td ng-bind="forwc.type_name"></td>
-                                                         <td ng-bind="forwc.total"></td>
-                                                         <td> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s" ng-bind="forwc.overdue"></span></td>
+                                                     <tr ng-repeat="repair in dashboardvalues.for_repair">
+                                                         <td ng-bind="repair.type_name"></td>
+                                                         <td ng-bind="repair.total"></td>
+                                                         <td> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s" ng-bind="repair.overdue"></span></td>
                                                      </tr>
                                                      </tbody>
                                                  </table>
@@ -1452,7 +1452,7 @@
                                     <div class="carousel-item active">
                                         <h3 class="card-title">Physical Verification:</h3>
                                         <br>
-                                        <h4>Total Overdues: <b><span class="badge-danger badge-fs-25 animated infinite flash slower-5s p-md-l-10 p-md-r-10 p-md-t-10 p-md-b-10">25</span></b></h4>
+                                        <h4>Total Overdues: <b><span class="badge-danger badge-fs-25 animated infinite flash slower-5s p-md-l-10 p-md-r-10 p-md-t-10 p-md-b-10" ng-bind="dashboardvalues.total_overdue.for_pv"></span></b></h4>
                                         <br>
                                         <br>
                                         <br>
@@ -1462,7 +1462,7 @@
                                     <div class="carousel-item">
                                         <h3 class="card-title">W/Ch. Declaration:</h3>
                                         <br>
-                                        <h4>Total Overdues: <b>2</b></h4>
+                                        <h4>Total Overdues: <b><span class="badge-danger badge-fs-25 animated infinite flash slower-5s p-md-l-10 p-md-r-10 p-md-t-10 p-md-b-10" ng-bind="dashboardvalues.total_overdue.wch"></span></b></h4>
                                         <br>
                                         <br>
                                         <br>
@@ -1472,7 +1472,7 @@
                                     <div class="carousel-item">
                                         <h3 class="card-title"> Testing:</h3>
                                         <br>
-                                        <h4>Total Overdues: <b class=""><span class="badge-danger badge-fs-25 animated infinite flash slower-5s p-md-l-10">2</span></b></h4>
+                                        <h4>Total Overdues: <b class=""><span class="badge-danger badge-fs-25 animated infinite flash slower-5s p-md-l-10" ng-bind="dashboardvalues.total_overdue.for_test">2</span></b></h4>
                                         <br>
                                         <br>
                                         <br>
