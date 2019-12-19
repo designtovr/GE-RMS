@@ -181,7 +181,7 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 
 	$scope.PrintPVForm = function(id)
 	{
-		$window.open('/ge/physical-verification-form/'+id, '_blank');
+		$window.open('/ge/physical-verification-form/'+id, '_self');
 	}
 
 	$scope.GetRMAList = function(tab = 'open', type = 'physcial')

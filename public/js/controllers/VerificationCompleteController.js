@@ -225,7 +225,7 @@ app.controller('VerificationCompleteController', ['$scope', '$http', 'Notificati
 
    	$scope.PrintForm = function(pv_id)
    	{
-   		$window.open('/ge/test-report-form/'+pv_id, '_blank');
+   		$window.open('/ge/test-report-form/'+pv_id, '_self');
    	}
 
 }]);

@@ -340,7 +340,7 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 
 	$scope.PrintForm = function(pv_id)
 	{
-		$window.open('/ge/job-ticket-form/'+pv_id, '_blank');
+		$window.open('/ge/job-ticket-form/'+pv_id, '_self');
 	}
 
 	$scope.AddMaterial = function()
