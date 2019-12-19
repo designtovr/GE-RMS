@@ -119,6 +119,7 @@ class JobTicketController extends Controller
     public function CompleteJobTicket(CompleteJobTicketRequest $request)
     {
     	$jobticket = $request->get('jobticket');
+        $JT = new JobTicket();
     	if ($jobticket['id'] == null)
     	{
     		$JT = new JobTicket();
@@ -182,7 +183,7 @@ class JobTicketController extends Controller
     		PVStatusRepositories::ChangeStatusToJobTicketCompleted($JT->pv_id);
     	}
 
-    	return response()->json(['status' => 'success', 'message' => 'Ticket Completed Successfully']);
+    	return response()->json(['status' => 'success', 'job_ticket' => $JT, 'message' => 'Ticket Completed Successfully']);
     }
 
     public function UpdateSiteCardJobTicket(UpdateSiteCardJobTicketRequest $request)

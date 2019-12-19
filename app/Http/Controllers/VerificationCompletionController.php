@@ -34,6 +34,6 @@ class VerificationCompletionController extends Controller
     	$VC->updated_at = Carbon::now();
     	$VC->save();
     	PVStatusRepositories::ChangeStatusToVerificationCompleted($VC->pv_id);
-    	return response()->json(['status' => 'success', 'message' => 'Verification Completed']);
+    	return response()->json(['status' => 'success', 'vc' => $VC, 'message' => 'Verification Completed']);
     }
 }

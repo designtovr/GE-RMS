@@ -219,6 +219,11 @@
                                         	<button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="OpenJTForm(item);">
 												<i class="zmdi zmdi-edit"></i>
 											</button>
+											<button ng-if="page == 'sitecardafterjobticketcompleted' || page == 'jobticketcompleted'" class="item" data-toggle="tooltip" data-placement="top"
+                                                    title="Print"
+                                                    ng-click="PrintForm(item.id);">
+                                                <i class="zmdi zmdi-print"></i>
+                                            </button>
                                         </div>
 									</td>
 									<td ng-bind="item.formatted_pv_id"></td>

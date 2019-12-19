@@ -1,4 +1,4 @@
-app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '$timeout' , 'DataShareService', '$ngConfirm', function($scope, $http, $filter, Notification, $timeout, DataShareService, $ngConfirm){
+app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '$timeout' , 'DataShareService', '$ngConfirm', '$window', function($scope, $http, $filter, Notification, $timeout, DataShareService, $ngConfirm, $window){
 	$scope.showrmaform = false;
 	$scope.showsitecardform = false;
 	$scope.addpvform = false;
@@ -177,6 +177,11 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 		$scope.sitecardform.unit_information[index].type_of_material = $filter('uppercase')(info.model.category);
 		$scope.sitecardform.unit_information[index].product_id = info.model.id;
 		$scope.sitecardform.unit_information[index].producttype_id = info.model.type;
+	}
+
+	$scope.PrintPVForm = function(id)
+	{
+		$window.open('/ge/physical-verification-form/'+id, '_blank');
 	}
 
 	$scope.GetRMAList = function(tab = 'open', type = 'physcial')

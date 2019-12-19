@@ -25,3 +25,5 @@ ALTER TABLE `dispatch` ADD `concern_name` VARCHAR(50) NOT NULL AFTER `person_nam
 ALTER TABLE `ma_customer` CHANGE `gst` `gst` VARCHAR(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;
 
 ALTER TABLE `ma_customer` CHANGE `code` `code` VARCHAR(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;
+
+ALTER TABLE `physical_verification` CHANGE `no_of_terminal_blocks` `no_of_terminal_blocks` VARCHAR(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT '0';

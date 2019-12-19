@@ -163,9 +163,7 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('/job-ticket-form/{pv_id}','PrintController@JobTicketForm');
 
-    Route::get('/physical-verification-form', function(){
-        return view('physical-verification-form');
-    });
+    Route::get('/physical-verification-form/{rma_id}', 'PrintController@PhysicalVerificationForm');
 
     Route::get('/test-report-form/{pv_id}', 'PrintController@TestReportForm');
 
@@ -330,4 +328,6 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::get('/dataforrelaysstagereport', 'ReportsController@DataForRelaysStageReport');
 
 	Route::get('/relaystagereport/{id}', 'ReportsController@RelayStageReport');
+
+	Route::get('/receipt-mail', 'MailController@ReceiptMail');
 });

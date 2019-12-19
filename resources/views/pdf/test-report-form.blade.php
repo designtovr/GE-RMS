@@ -48,7 +48,14 @@
 			<h2 class="text-left float-left col-12" style="font-size: 22px; color: #000000"><strong>Model Number 		:  </strong>{{$model_no}}</h2>
 			<h2 class="text-left float-left col-12" style="font-size: 22px; color: #000000"><strong>Serial Number 		:  </strong>{{$serial_no}}</h2>
 			<h2 class="text-left float-left col-12" style="font-size: 22px; color: #000000"><strong>Software Reference  :  </strong>{{$sw_version}}</h2>
-			<h2 class="text-left float-left col-12" style="font-size: 22px; color: #000000"><strong>Terminal Block 		:  </strong>{{substr($no_of_terminal_blocks, 0, 2)}} + {{substr($no_of_terminal_blocks, 2, 2)}}</h2>
+			<h2 class="text-left float-left col-12" style="font-size: 22px; color: #000000">
+				<strong>Terminal Block 		:  </strong>
+				@if($no_of_terminal_blocks == 0)
+					0
+				@else
+					{{substr($no_of_terminal_blocks, 0, 2)}} + {{substr($no_of_terminal_blocks, 2, 2)}}
+				@endif
+			</h2>
 			<h2 class="text-left float-left col-12" style="font-size: 22px; color: #000000"><strong>Short Links 		:  </strong>
 				@if($no_of_short_links == null)
 					0
@@ -90,9 +97,8 @@
 				<table class="table tableStyle table-bordered text-center no-padding" >
 					<thead>
 					<tr>
-						<th>Pass</th>
+						<th style="background-color: #d3d3d3">Pass</th>
 						<th>Fail</th>
-
 					</tr>
 					</thead>
 				</table>
@@ -110,7 +116,7 @@
 				<table class="table tableStyle table-bordered text-center no-padding" >
 					<thead>
 					<tr>
-						<th>Pass</th>
+						<th style="background-color: #d3d3d3">Pass</th>
 						<th>Fail <i class="zmdi zmdi-check"></i></th>
 					</tr>
 					</thead>
@@ -123,7 +129,7 @@
 
 	<div class="row h-40" style="margin-top: 9px;margin-left: 1px;">
 		<div class="col-6 text-left float-left m-l-10">
-			<h4 class ="col-12" style="color:#000000; font-weight: bold">CLIO Tests: <u></u></h4></div>
+			<h4 class ="col-12" style="color:#000000; font-weight: bold">CLIO Tests*: <u></u></h4></div>
 
 		<div class="col-3 text-left float-right">
 			<div class="table-responsive">
@@ -131,11 +137,11 @@
 					<thead>
 					<tr>
 						@if($clio_test)
-							<th style="background-color: #d3d3d3">Yes</th>
-							<th>No</th>
+							<th style="background-color: #d3d3d3">Pass</th>
+							<th>Fail</th>
 						@else
-							<th>Yes</th>
-							<th style="background-color: #d3d3d3">No</th>
+							<th>Pass</th>
+							<th style="background-color: #d3d3d3">Fail</th>
 						@endif
 					</tr>
 					</thead>
@@ -148,7 +154,7 @@
 
 	<div class="row h-40" style="margin-top: 9px;margin-left: 1px;">
 		<div class="col-6 text-left float-left m-l-10">
-			<h4 class ="col-12" style="color:#000000; font-weight: bold">RTD Tests: <u></u></h4></div>
+			<h4 class ="col-12" style="color:#000000; font-weight: bold">RTD Tests*: <u></u></h4></div>
 
 		<div class="col-3 text-left float-right">
 			<div class="table-responsive">
@@ -156,11 +162,11 @@
 					<thead>
 					<tr>
 						@if($rtd_test)
-							<th style="background-color: #d3d3d3">Yes</th>
-							<th>No</th>
+							<th style="background-color: #d3d3d3">Pass</th>
+							<th>Fail</th>
 						@else
-							<th>Yes</th>
-							<th style="background-color: #d3d3d3">No</th>
+							<th>Pass</th>
+							<th style="background-color: #d3d3d3">Fail</th>
 						@endif
 					</tr>
 					</thead>
@@ -179,7 +185,7 @@
 				<table class="table tableStyle table-bordered text-center no-padding" >
 					<thead>
 					<tr>
-						<th>Pass</th>
+						<th style="background-color: #d3d3d3">Pass</th>
 						<th>Fail</th>
 
 					</tr>
@@ -219,7 +225,7 @@
 				<table class="table tableStyle table-bordered text-center no-padding" >
 					<thead>
 					<tr>
-						<th>Pass</th>
+						<th style="background-color: #d3d3d3">Pass</th>
 						<th>Fail</th>
 
 					</tr>
@@ -239,7 +245,7 @@
 				<table class="table tableStyle table-bordered text-center no-padding" >
 					<thead>
 					<tr>
-						<th>Pass</th>
+						<th style="background-color: #d3d3d3">Pass</th>
 						<th>Fail</th>
 
 					</tr>
@@ -259,7 +265,7 @@
 				<table class="table tableStyle table-bordered text-center no-padding" >
 					<thead>
 					<tr>
-						<th>Pass</th>
+						<th style="background-color: #d3d3d3">Pass</th>
 						<th>Fail</th>
 
 					</tr>
@@ -278,7 +284,7 @@
 				<table class="table tableStyle table-bordered text-center no-padding" >
 					<thead>
 					<tr>
-						<th>Pass</th>
+						<th style="background-color: #d3d3d3">Pass</th>
 						<th>Fail</th>
 
 					</tr>
@@ -291,7 +297,7 @@
 
 	<div class="row h-40" style="margin-top: 9px;margin-left: 1px;">
 		<div class="col-6 text-left float-left m-l-10">
-			<h4 class ="col-12" style="color:#000000; font-weight: bold">VA Burden Checks : <u></u></h4></div>
+			<h4 class ="col-12" style="color:#000000; font-weight: bold">VA Burden Checks*: <u></u></h4></div>
 
 		<div class="col-3 text-left float-right">
 			<div class="table-responsive">
@@ -316,7 +322,7 @@
 				<table class="table tableStyle table-bordered text-center no-padding" >
 					<thead>
 					<tr>
-						<th>Pass</th>
+						<th style="background-color: #d3d3d3">Pass</th>
 						<th>Fail</th>
 
 					</tr>
@@ -334,7 +340,7 @@
 				<table class="table tableStyle table-bordered text-center no-padding" >
 					<thead>
 					<tr>
-						<th>Pass</th>
+						<th style="background-color: #d3d3d3">Pass</th>
 						<th>Fail</th>
 
 					</tr>
@@ -352,6 +358,26 @@
 				<table class="table tableStyle table-bordered text-center no-padding" >
 					<thead>
 					<tr>
+						<th style="background-color: #d3d3d3">Pass</th>
+						<th>Fail</th>
+
+					</tr>
+					</thead>
+				</table>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="row  h-40 " style="margin-top: 9px;margin-left: 1px;">
+		<div class="col-6 text-left float-left m-l-10">
+			<h4 class ="col-12" style="color:#000000; font-weight: bold">Loaded Customer Settings* <u></u></h4></div>
+
+		<div class="col-3 text-left float-right">
+			<div class="table-responsive">
+				<table class="table tableStyle table-bordered text-center no-padding" >
+					<thead>
+					<tr>
 						<th>Pass</th>
 						<th>Fail</th>
 
@@ -361,7 +387,10 @@
 			</div>
 		</div>
 
-	</div>	<div class="row h-40 " style="margin-top: 9px;margin-left: 1px;">
+	</div>
+
+
+		<div class="row h-40 " style="margin-top: 9px;margin-left: 1px;">
 		<div class="col-6 text-left float-left m-l-10">
 			<h4 class ="col-12" style="color:#000000; font-weight: bold">Aging Test(Power On Test For 24 hours)<br> <u></u></h4></div>
 
@@ -370,7 +399,7 @@
 				<table class="table tableStyle table-bordered text-center no-padding" >
 					<thead>
 					<tr>
-						<th>Pass</th>
+						<th style="background-color: #d3d3d3">Pass</th>
 						<th>Fail</th>
 
 					</tr>
@@ -431,7 +460,7 @@
 				<table class="table tableStyle table-bordered text-center no-padding" >
 					<thead>
 					<tr>
-						<th>Pass</th>
+						<th style="background-color: #d3d3d3">Pass</th>
 						<th>Fail</th>
 
 					</tr>
@@ -451,9 +480,9 @@
 					<tr>
 						@if($battery)
 							<th style="background-color: #d3d3d3">Yes</th>
-							<th>No</th>
+							<th>Fail</th>
 						@else
-							<th>Yes</th>
+							<th>Pass</th>
 							<th style="background-color: #d3d3d3">No</th>
 						@endif
 					</tr>
@@ -473,9 +502,9 @@
 					<tr>
 						@if($case)
 							<th style="background-color: #d3d3d3">Yes</th>
-							<th>No</th>
+							<th>Fail</th>
 						@else
-							<th>Yes</th>
+							<th>Pass</th>
 							<th style="background-color: #d3d3d3">No</th>
 						@endif
 					</tr>
@@ -496,9 +525,9 @@
 						<tr>
 							@if($received_with_screws)
 								<th style="background-color: #d3d3d3">Yes</th>
-								<th>No</th>
+								<th>Fail</th>
 							@else
-								<th>Yes</th>
+								<th>Pass</th>
 								<th style="background-color: #d3d3d3">No</th>
 							@endif
 						</tr>
@@ -518,9 +547,9 @@
 						<tr>
 							@if($received_with_terminal)
 								<th style="background-color: #d3d3d3">Yes</th>
-								<th>No</th>
+								<th>Fail</th>
 							@else
-								<th>Yes</th>
+								<th>Pass</th>
 								<th style="background-color: #d3d3d3">No</th>
 							@endif
 						</tr>
@@ -574,4 +603,10 @@
 </div>
 	</div>
 </body>
+<script src="{{url('public/bower_components/jquery/dist/jquery.min.js')}}"></script>
+<script>
+	$(document).ready(function(){
+	  window.print();
+	});
+</script>
 </html>

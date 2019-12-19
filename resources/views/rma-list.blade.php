@@ -168,6 +168,16 @@
                                                                     ng-click="AddPVForm(item.id);">
                                                                 <i class="zmdi zmdi-plus-box"></i>
                                                             </button>
+                                                            <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle item"><span><i class="zmdi zmdi-print"></i></span></button>
+                                                            <div tabindex="-1" aria-hidden="true" role="menu" class="dropdown-menu">
+                                                                <button type="button" tabindex="0" class="dropdown-item">RMA Form</button>
+                                                                <button ng-click="PrintPVForm(item.id);" type="button" tabindex="0" class="dropdown-item">PV Form</button>
+                                                            </div>
+                                                                <!-- <button class="item" data-toggle="tooltip" data-placement="top"
+                                                                        title="Add"
+                                                                        ng-click="PrintPVForm(item.id);">
+                                                                    <i class="zmdi zmdi-print"></i>
+                                                                </button> -->
                                                             <!-- <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
                                                                 <i class="zmdi zmdi-delete"></i>
                                                             </button> -->

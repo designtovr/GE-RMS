@@ -9,6 +9,7 @@ use App\Models\RMAUnitInformation;
 use App\Models\RMAUnitSerialNumber;
 use App\Models\PhysicalVerificationMaster;
 use App\Models\CustomerMaster;
+use App\Models\PVStatus;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ADDRMARequest;
 use App\Http\Requests\AddRmaUnitRequest;
@@ -258,8 +259,9 @@ class RMAController extends Controller
                     $PV->is_rma_available = 1;
                     $PV->update();
                 }
-
-                PVStatusRepositories::ChangeStatusToManagerApproval($RMAUnitInformation->pv_id);
+                $need_to_update = PVStatus::where('pv_id', $RMAUnitInformation->pv_id)->where('current_status_id', 15)->first();
+                if($need_to_update)
+                    PVStatusRepositories::ChangeStatusToManagerApproval($RMAUnitInformation->pv_id);
             }
 
             return response()->json(['data' => $RMA, 'status' => 'success', 'message' => 'RMA Updated Successfully'], 200);

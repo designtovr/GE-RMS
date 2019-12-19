@@ -16,47 +16,21 @@ use Excel;
 use App\Models\PhysicalVerificationMaster;
 use App\Models\ProductMaster;
 use Carbon\Carbon;
+use App\Http\Repositories\MailRepository;
 
-class MailController extends Controller {
+class MailController extends Controller 
+{
 
-   public function phpmailer_email()
-   {
-      $mail = new PHPMailer(true);
+  protected $mailRepository;
 
-      try {
-          //Server settings
-          $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
-          $mail->isSMTP();                                            // Send using SMTP
-          $mail->Host       = 'e2ksmtp01.e2k.ad.ge.com';                    // Set the SMTP server to send through
-          $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-          $mail->Username   = 'krishnan.sudhakar@ge.com';                     // SMTP username
-          $mail->Password   = 'A111swejh';                               // SMTP password
-          $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
-          $mail->Port       = 25;                                    // TCP port to connect to
-
-          //Recipients
-          $mail->setFrom('krishnan.sudhakar@ge.com', 'Sudhakar Krishnan');
-          $mail->addAddress('designtovr@gmail.com', "Sudhakar");     // Add a recipient
-
-          // Attachments
-          /*$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
-          $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name*/
-
-          // Content
-          $mail->isHTML(true);                                  // Set email format to HTML
-          $mail->Subject = 'Here is the subject';
-          $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
-          $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-
-          $mail->send();
-          echo 'Message has been sent';
-      } catch (Exception $e) {
-          echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-      }
-   }
+  function __construct(MailRepository $mailRepository)
+  {
+    $this->mailRepository = $mailRepository;
+  }
 
    public function basic_email() {
-   	try {
+   	try 
+    {
    		ini_set('max_execution_time', 300);
    		$data = array('name'=>"Srinivas");
    		Mail::send(['text'=>'mail'], $data, function($message) {
@@ -69,26 +43,7 @@ class MailController extends Controller {
    	}
       
    }
-   public function html_email() {
-      $data = array('name'=>"Virat Gandhi");
-      Mail::send('mail', $data, function($message) {
-         $message->to('abc@gmail.com', 'Tutorials Point')->subject
-            ('Laravel HTML Testing Mail');
-         $message->from('xyz@gmail.com','Virat Gandhi');
-      });
-      echo "HTML Email Sent. Check your inbox.";
-   }
-   public function attachment_email() {
-      $data = array('name'=>"Virat Gandhi");
-      Mail::send('mail', $data, function($message) {
-         $message->to('abc@gmail.com', 'Tutorials Point')->subject
-            ('Laravel Testing Mail with Attachment');
-         $message->attach('C:\laravel-master\laravel\public\uploads\image.png');
-         $message->attach('C:\laravel-master\laravel\public\uploads\test.txt');
-         $message->from('xyz@gmail.com','Virat Gandhi');
-      });
-      echo "Email Sent with attachment. Check your inbox.";
-   }
+
    public function StoredProcedure()
    {
       $status = DB::select('call displaypvstatus()');
@@ -174,5 +129,11 @@ class MailController extends Controller {
           });
       });
       echo "success";
+   }
+
+   public function ReceiptMail(Request $request)
+   {
+      $result = $this->mailRepository->ReceiptMail(); 
+      return $result;
    }
 }

@@ -10,6 +10,8 @@ use PDF;
 use Excel;
 use App\Models\PhysicalVerificationMaster;
 use App\Models\JobTicketMaterials;
+use App\Models\RMA;
+use App\Models\RMAUnitInformation;
 
 class PrintController extends Controller
 {
@@ -134,7 +136,6 @@ class PrintController extends Controller
 
     public function JobTicketForm($pv_id)
     {
-        ini_set('max_execution_time', 300);
         $data = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.*, jt.id as jt_id, jt.created_at as podate, cus.name as customer_name, rma.end_customer, pro.part_no as model_no, pv.comment as nature_of_defect, jt.power_on_test, wt.type')
                 ->leftJoin('job_tickets as jt', 'jt.pv_id', 'pv.id')
                 ->leftJoin('rma_unit_information as rui', 'rui.pv_id', 'pv.id')
@@ -168,4 +169,20 @@ class PrintController extends Controller
 
         return view('pdf.test-report-form', $data);
     }
+
+    public function PhysicalVerificationForm($rma_id)
+    {
+        $data = RMA::selectRaw('rma.*, cus.name as customer_name')
+                ->where('rma.id', $rma_id)
+                ->leftJoin('ma_customer as cus', 'cus.id', 'rma.customer_address_id')
+                ->first()->toArray();
+
+        $data['unit_information'] = PhysicalVerificationMaster::selectRaw('serial_no, pro.part_no, battery, terminal_blocks, screws, no_of_terminal_blocks, physical_verification.comment as remark, top_bottom_cover')
+                    ->leftJoin('ma_product as pro', 'pro.id', 'physical_verification.product_id')
+                    ->leftJoin('rma_unit_information as rui', 'rui.pv_id', 'physical_verification.id')
+                    ->where('rui.rma_id', $rma_id)->get();
+
+        return view('pdf.physical-verification-form', $data);
+    }
+
 }

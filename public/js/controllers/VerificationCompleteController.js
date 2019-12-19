@@ -1,4 +1,4 @@
-app.controller('VerificationCompleteController', ['$scope', '$http', 'Notification','ChangePVStatusService', '$filter', '$ngConfirm', 'PVPriorityService', function($scope, $http ,Notification,ChangePVStatusService, $filter , $ngConfirm, PVPriorityService){
+app.controller('VerificationCompleteController', ['$scope', '$http', 'Notification','ChangePVStatusService', '$filter', '$ngConfirm', 'PVPriorityService', '$window', '$timeout', function($scope, $http ,Notification,ChangePVStatusService, $filter , $ngConfirm, PVPriorityService, $window, $timeout){
 	$scope.vcform = false;
 	$scope.vcformdata = {};
 	$scope.status='agingcompleted';
@@ -197,7 +197,7 @@ app.controller('VerificationCompleteController', ['$scope', '$http', 'Notificati
 				Notification.success(response.data.message);
 				$ngConfirm({
 					title: 'Print',
-					content: 'Are you want to print?',
+					content: 'Do you want to Print?',
 					type: 'blue',
 					typeAnimated: true,
 					buttons: {
@@ -207,6 +207,9 @@ app.controller('VerificationCompleteController', ['$scope', '$http', 'Notificati
 							action: function(){
 								$scope.CloseVCForm();
 								$scope.GetPV('agingcompleted');
+								$timeout(function(){
+									$scope.PrintForm(response.data.vc.pv_id);
+								}, 500);
 							}
 						},
 						close: function () {
@@ -218,6 +221,11 @@ app.controller('VerificationCompleteController', ['$scope', '$http', 'Notificati
 			}
 		}, function error(response) {
 		});
+   	}
+
+   	$scope.PrintForm = function(pv_id)
+   	{
+   		$window.open('/ge/test-report-form/'+pv_id, '_blank');
    	}
 
 }]);

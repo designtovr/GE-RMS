@@ -238,9 +238,9 @@
                                                     <!-- <th sortable="end_customer" class="sortable">
                                                         End Customer
                                                     </th> -->
-                                                    <th sortable="total_boxes" class="sortable">
+                                                    <!-- <th sortable="total_boxes" class="sortable">
                                                         Number of Boxes
-                                                    </th>
+                                                    </th> -->
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -280,7 +280,7 @@
                                                     <td ng-bind="item.serial_no"></td>
                                                     <td ng-bind="item.customer_name"></td>
                                                     <!-- <td ng-bind="item.end_customer"></td> -->
-                                                    <td ng-bind="item.total_boxes"></td>
+                                                    <!-- <td ng-bind="item.total_boxes"></td> -->
                                                 </tr>
                                             </tbody>
                                         </table>

@@ -231,7 +231,11 @@
         		<div class="col-sm-6">
         			<label class="form-check-label" for="exampleCheck1">Terminal Blocks: 
         				<u>
-        					{{substr($no_of_terminal_blocks, 0, 2)}} + {{substr($no_of_terminal_blocks, 2, 2)}}
+        					@if($no_of_terminal_blocks == 0)
+        						{{ $no_of_terminal_blocks }}
+        					@else
+        						{{substr($no_of_terminal_blocks, 0, 2)}} + {{substr($no_of_terminal_blocks, 2, 2)}}
+        					@endif
         				</u>
         			</label>
         		</div>
@@ -305,5 +309,11 @@
 </div>
 </div>
 </body>
+<script src="{{url('public/bower_components/jquery/dist/jquery.min.js')}}"></script>
+<script>
+	$(document).ready(function(){
+	  window.print();
+	});
+</script>
 </html>
 
