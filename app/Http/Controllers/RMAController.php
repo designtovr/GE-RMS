@@ -17,9 +17,17 @@ use App\Http\Requests\AddSCRMARequest;
 use App\Http\Repositories\PVStatusRepositories;
 use App\Http\Repositories\PVListingRepository;
 use Carbon\Carbon;
+use App\Http\Repositories\MailRepository;
 
 class RMAController extends Controller
 {
+
+    protected $mailRepository;
+
+    function __construct(MailRepository $mailRepository)
+    {
+        $this->mailRepository = $mailRepository;
+    }
 
 	public function GetRMAList($cat = 'all', $type = 'all')
 	{
@@ -163,7 +171,10 @@ class RMAController extends Controller
                 PVStatusRepositories::ChangeStatusToManagerApproval($RMAUnitInformation->pv_id);
             }
 
-            return response()->json(['data' => $RMA, 'status' => 'success', 'message' => 'RMA Updated Successfully'], 200);
+            //Sending mail
+            $mail_result = $this->mailRepository->PhysicalVerificationCompletion($RMA);
+
+            return response()->json(['data' => $RMA, 'status' => 'success', 'message' => 'RMA Updated Successfully', 'mail_result' => $mail_result], 200);
         }
         else
         {
@@ -261,10 +272,15 @@ class RMAController extends Controller
                 }
                 $need_to_update = PVStatus::where('pv_id', $RMAUnitInformation->pv_id)->where('current_status_id', 15)->first();
                 if($need_to_update)
+                {
                     PVStatusRepositories::ChangeStatusToManagerApproval($RMAUnitInformation->pv_id);
+                }
             }
 
-            return response()->json(['data' => $RMA, 'status' => 'success', 'message' => 'RMA Updated Successfully'], 200);
+            //Sending mail
+            $mail_result = $this->mailRepository->PhysicalVerificationCompletion($RMA);
+
+            return response()->json(['data' => $RMA, 'status' => 'success', 'message' => 'RMA Updated Successfully', 'mail_result' => $mail_result], 200);
         }
     	
     }

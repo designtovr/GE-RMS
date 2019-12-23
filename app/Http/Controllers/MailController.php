@@ -15,6 +15,7 @@ use PDF;
 use Excel;
 use App\Models\PhysicalVerificationMaster;
 use App\Models\ProductMaster;
+use App\Models\RMA;
 use Carbon\Carbon;
 use App\Http\Repositories\MailRepository;
 
@@ -134,6 +135,16 @@ class MailController extends Controller
    public function ReceiptMail(Request $request)
    {
       $result = $this->mailRepository->ReceiptMail(); 
+      return $result;
+   }
+
+   public function PVCompletionMail($rma_id)
+   {
+      $RMA = RMA::find($rma_id);
+      if(!$RMA)
+        return "No RMA Found";
+
+      $result = $this->mailRepository->PhysicalVerificationCompletion($RMA); 
       return $result;
    }
 }

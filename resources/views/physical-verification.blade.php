@@ -476,7 +476,7 @@
                         <!-- DATA TABLE-->
                         <div grid-data grid-options="gridOptions" grid-actions="gridOptions">
                             <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
-                                <table class="table table-borderless table-data3 table-responsive">
+                                <table class="table table-borderless table-data3">
                                     <thead>
                                         <tr>
                                             <th sortable="item.formatted_receipt_id" class="sortable">

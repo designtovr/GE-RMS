@@ -15,9 +15,18 @@ use App\Http\Requests\AddReceiptRequest;
 use App\Http\Requests\AddPhysicalVerificationRequest;
 use App\Models\RMA;
 use Carbon\Carbon;
+use App\Http\Repositories\MailRepository;
 
 class ReceiptController extends Controller
 {
+
+        protected $mailRepository;
+
+      function __construct(MailRepository $mailRepository)
+      {
+        $this->mailRepository = $mailRepository;
+      }
+
     public function Receipts($cat='all')
     {
         $receipt = ReceiptMaster::selectRaw('receipt.*,ROUND(UNIX_TIMESTAMP(receipt.receipt_date) * 1000 +50000000) as date_unix , receipt.id as receipt_id, rma.id as rma_id, receipt.site as site_name,receipt.site as location, cus.name as customer_name')->leftJoin('ma_customer as cus', 'cus.id', 'receipt.customer_id')/*->leftJoin('ma_site as site', 'site.id', 'receipt.site_id')*/->leftJoin('rma', 'rma.receipt_id', 'receipt.id');
@@ -93,6 +102,8 @@ class ReceiptController extends Controller
         $RM->docket_details = (array_key_exists('docket_details', $receipt))?$receipt['docket_details']:'';
         $RM->total_boxes = $receipt['total_boxes'];
         $RM->status = 1;
+        if(isset($receipt['email']) && !is_null($receipt['email']))
+            $RM->email = $receipt['email'];
 
         if ($exists) {
             $RM->updated_by = Auth::id();
@@ -109,7 +120,7 @@ class ReceiptController extends Controller
 
             $message = 'Receipt Added Successfully';
         }
-  $name = CustomerMaster::select('name')->find($RM->customer_id);
+        $name = CustomerMaster::select('name')->find($RM->customer_id);
         //Creating Empty RMA Entry for print
         $RMA = RMA::where('receipt_id', $RM->id)->first();
         if ($RMA)
@@ -130,9 +141,12 @@ class ReceiptController extends Controller
             $RMA->created_at = Carbon::now();
             $RMA->save();
         }
-  $RM['customer'] = $name->name;
+        $mail_result = 'No Mail Id';
+        if(isset($receipt['email']) && !is_null($receipt['email']))
+            $mail_result = $this->mailRepository->ReceiptMail($RM); 
+        $RM['customer'] = $name->name;
 
-        return response()->json(['data' => $RM, 'status' => 'success', 'message' => $message], 200);
+        return response()->json(['data' => $RM, 'status' => 'success', 'message' => $message, 'mail_result' => $mail_result], 200);
     }
 
     private function GetNextRMANo()
@@ -141,7 +155,7 @@ class ReceiptController extends Controller
         if ($num == 0)
             $num = config('numberseries.rma_no');
         else
-            $num += 1; 
+            $num += 1;
         return $num;
     }
 
