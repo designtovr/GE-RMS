@@ -332,4 +332,8 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::get('/relaystagereport/{id}', 'ReportsController@RelayStageReport');
 
 	Route::get('/receipt-mail', 'MailController@ReceiptMail');
+
+	Route::get('/wcmail/{pv_id}', 'MailController@WCCompletionMail');
+
+	Route::get('/dispatchcompletionmail/{pv_id}', 'MailController@DispatchCompletionMail');
 });

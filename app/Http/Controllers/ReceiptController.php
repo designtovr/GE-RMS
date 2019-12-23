@@ -20,7 +20,7 @@ use App\Http\Repositories\MailRepository;
 class ReceiptController extends Controller
 {
 
-        protected $mailRepository;
+    protected $mailRepository;
 
       function __construct(MailRepository $mailRepository)
       {

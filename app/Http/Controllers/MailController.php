@@ -18,6 +18,8 @@ use App\Models\ProductMaster;
 use App\Models\RMA;
 use Carbon\Carbon;
 use App\Http\Repositories\MailRepository;
+use App\Models\WarrantyMaster;
+use App\Models\DispatchMaster;
 
 class MailController extends Controller 
 {
@@ -147,4 +149,23 @@ class MailController extends Controller
       $result = $this->mailRepository->PhysicalVerificationCompletion($RMA); 
       return $result;
    }
+
+   public function WCCompletionMail($pv_id)
+   {
+      $wr = WarrantyMaster::where('pv_id', $pv_id)->first();
+
+      if (!$wr)
+        return "Warranty Not Found";
+
+      $result = $this->mailRepository->WCCompletionMail($wr); 
+      return $result;
+   }
+
+   public function DispatchCompletionMail($pv_id)
+   {
+      $dis = DispatchMaster::whereIn('id', [6,7,8])->get();
+      $result = $this->mailRepository->DispatchCompletionMail($dis); 
+      return $result;
+   }
+
 }

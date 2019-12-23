@@ -14,9 +14,18 @@ use App\Http\Repositories\PVPriorityRepositories;
 use App\Http\Repositories\PVStatusRepositories;
 use Carbon\Carbon;
 use App\Http\Repositories\RMSRepositories;
+use App\Http\Repositories\MailRepository;
 
 class DispatchController extends Controller
 {
+
+    protected $mailRepository;
+
+      function __construct(MailRepository $mailRepository)
+      {
+        $this->mailRepository = $mailRepository;
+      }
+
     public function Dispatches(Request $request)
     {
         $dispatch = DispatchMaster::selectRaw('dispatch.*,dispatch_no,date, rid_no ,dc_no,docket_details,rma_no,courier_name,person_name')->get();
@@ -33,6 +42,7 @@ class DispatchController extends Controller
     {
         $dispatch = $request->get('dispatch');
         $pvs = $request->get('selectedpvs');
+        $dispatch_list = array();
         foreach ($pvs as $key => $pv) {
             $DM = new DispatchMaster();
             $date = Carbon::createFromFormat('d/m/Y',$dispatch['date']);
@@ -59,8 +69,12 @@ class DispatchController extends Controller
             PVPriorityRepositories::ChangingPriorityAfterDispatching($DM->pv_id);
             //delete from RMS
             RMSRepositories::DeleteRMS($DM->pv_id);
+
+            array_push($dispatch_list, $DM);
         }
 
-        return response()->json(['data' => $pvs, 'status' => 'success', 'message' => 'Dispatch Added Successfully'], 200);
+        $mail_result = $this->mailRepository->DispatchCompletionMail($dispatch_list); 
+
+        return response()->json(['data' => $pvs, 'status' => 'success', 'message' => 'Dispatch Added Successfully', 'mail_result' => $mail_result], 200);
     }
 }

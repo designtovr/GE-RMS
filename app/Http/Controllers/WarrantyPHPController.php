@@ -15,9 +15,19 @@ use App\Http\Requests\AddPhysicalVerificationRequest;
 use Carbon\Carbon;
 use App\Http\Repositories\PVStatusRepositories;
 use App\Http\Repositories\RMSRepositories;
+use App\Http\Repositories\MailRepository;
 
 class WarrantyPHPController extends Controller
 {
+
+    protected $mailRepository;
+
+    function __construct(MailRepository $mailRepository)
+    {
+        $this->mailRepository = $mailRepository;
+    }
+
+
     public function Receipts(Request $request)
     {
         $warranty= WarrantyMaster::selectRaw('warranty.*')->get();
@@ -60,6 +70,8 @@ class WarrantyPHPController extends Controller
             else if ($WM->move == 2) {
                 PVStatusRepositories::ChangeStatusToCustomerApproval($pv);
             }
+            $mail_result = $this->mailRepository->WCCompletionMail($WM);
+
             $rms_response = RMSRepositories::MoveRelayToId($pv, '', $WM->move);
 
         }
@@ -99,7 +111,9 @@ class WarrantyPHPController extends Controller
             PVStatusRepositories::ChangeStatusToCustomerApproval($WM->pv_id);
         }
 
-        return response()->json(['status' => 'success', 'message' => 'Warranty Updated Successfully'], 200);
+        $mail_result = $this->mailRepository->WCCompletionMail($WM);
+
+        return response()->json(['status' => 'success', 'message' => 'Warranty Updated Successfully', 'mail_result' => $mail_result], 200);
     }
 
     public function GetWarranty($pv_id)
