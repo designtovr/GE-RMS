@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\CustomerLocationTransaction;
 use App\Models\CustomerSiteTransaction;
+use App\Models\RMADeliveryAddress;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\AddReceiptRequest;
@@ -51,7 +52,14 @@ class ReceiptController extends Controller
 
     public function GetReceipt($id)
     {
-        $receipt = ReceiptMaster::with('Customer')->selectRaw('receipt.*, cus.name as customer_name, rma.id as rma_id, receipt.site as site_name, cus.name as customer_name')->leftJoin('ma_customer as cus', 'cus.id', 'receipt.customer_id')->where('receipt.id', $id)/*->leftJoin('ma_site as site', 'site.id', 'receipt.site_id')*/->leftJoin('rma', 'rma.receipt_id', 'receipt.id')->first();
+        $receipt = ReceiptMaster::with('Customer')->selectRaw('receipt.*, cus.name as customer_name, rma.id as rma_id, receipt.site as site_name, cus.name as customer_name, rma.end_customer as end_customer, rma.date as rma_date')->leftJoin('ma_customer as cus', 'cus.id', 'receipt.customer_id')->where('receipt.id', $id)->leftJoin('rma', 'rma.receipt_id', 'receipt.id')->first();
+
+        $receipt['delivery_info'] = null;
+        if(!is_null($receipt->rma_id))
+        {
+            $receipt['delivery_info'] = RMADeliveryAddress::where('rma_id', $receipt->rma_id)->first();
+        }
+
         return response()->json(['receipt' => $receipt, 'status' => 'success'], 200);
     }
 
@@ -90,18 +98,13 @@ class ReceiptController extends Controller
             $RM = new ReceiptMaster();
             $exists = false;
         }
-        /*$RM->gs_no = $receipt['gs_no'];*/
         $date = Carbon::createFromFormat('d/m/Y', $receipt['receipt_date']);
         $RM->receipt_date = $date->format('Y-m-d');
         $RM->customer_id = $receipt['customer_id'];
-        //$RM->customer_name = $receipt['customer_name'];
-        /*$RM->end_customer = $receipt['end_customer'];*/
-        //$RM->site_id = $receipt['site_id'];
         $RM->site = $receipt['site'];
         $RM->courier_name = (array_key_exists('courier_name', $receipt))?$receipt['courier_name']:'';
         $RM->docket_details = (array_key_exists('docket_details', $receipt))?$receipt['docket_details']:'';
         $RM->total_boxes = $receipt['total_boxes'];
-        $RM->status = 1;
         if(isset($receipt['email']) && !is_null($receipt['email']))
             $RM->email = $receipt['email'];
 
@@ -111,7 +114,7 @@ class ReceiptController extends Controller
             $RM->update();
             $message = 'Receipt Updated Successfully';
         } else {
-            //$RM->rma_no = $this->GetNextRMANo();
+            $RM->status = 1;
             $RM->created_by = Auth::id();
             $RM->updated_by = Auth::id();
             $RM->created_at = Carbon::now();

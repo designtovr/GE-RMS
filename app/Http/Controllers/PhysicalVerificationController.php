@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\CustomerLocationTransaction;
 use App\Models\CustomerSiteTransaction;
+use App\Models\PVStatus;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\AddReceiptRequest;
@@ -273,14 +274,14 @@ class PhysicalVerificationController extends Controller
             $PVM->updated_by = Auth::id();
             $PVM->updated_at = Carbon::now();
             $PVM->update();
-            if ($PVM->is_rma_available)
+            /*if ($PVM->is_rma_available)
             {
                 $pvstatusRepositories->ChangeStatusToRelayWithRMA($PVM->id);
             }
             else
             {
                 $pvstatusRepositories->ChangeStatusToRelayWithOutRMA($PVM->id);
-            }
+            }*/
             $message = 'Relay Updated Successfully';
         } else {
             $PVM->created_by = Auth::id();

@@ -393,9 +393,12 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 			if (response.data.status == 'success')
 			{
 				var receipt = response.data.receipt;
-				$scope.rmaformdata.date = $filter('date')(new Date(), 'dd/MM/yyyy');
+				console.log(receipt);
+				$scope.rmaformdata.date = $filter('date')(receipt.rma_date, 'dd/MM/yyyy');
 		    	$scope.showrmaform = true;
 		    	$scope.rmaformdata.invoice_info.invoice_customer_name = receipt.customer;
+		    	$scope.rmaformdata.invoice_info.end_customer = receipt.end_customer;
+		    	$scope.rmaformdata.delivery_info = receipt.delivery_info;
 		    	$scope.ChangeInvoiceAddress(receipt.customer);
 			}
 		}, function error(response) {
