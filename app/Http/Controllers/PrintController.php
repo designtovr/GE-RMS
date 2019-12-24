@@ -29,16 +29,8 @@ class PrintController extends Controller
     public function PrintReceipt(Request $request)
     {
 
-        $receipt = $request->get('receipt');
-        /*$RM->gs_no = $receipt['gs_no'];*/
-/*        $RM->customer_id = $receipt['customer_id'];
-        //$RM->customer_name = $receipt['customer_name'];
-        /*$RM->end_customer = $receipt['end_customer'];*/
-   /*     $RM->site_id = $receipt['site_id'];
-        $RM->courier_name = $receipt['courier_name'];
-        $RM->docket_details = $receipt['docket_details'];
-        $RM->total_boxes = $receipt['total_boxes'];
-        $RM->status = 1;*/
+        try {
+            $receipt = $request->get('receipt');
         $file = 'public\ReceiptPrintFile.prn';
 
         $template = file_get_contents($file);
@@ -59,16 +51,11 @@ class PrintController extends Controller
         $jsonfile = 'public\printerconfiguration.json';
 
         $strJsonFileContents = file_get_contents($jsonfile);
-// Convert to array
+        // Convert to array
         $array = json_decode($strJsonFileContents, true);
         $templateModified = "";
 
         $ip =  $array['ReceiptPrinterIP'];
-        /* foreach(file('public\RID Print Variable.prn') as $line) {
-            $getReceipt += $line;
-            // loop with $line for each line of yourfile.txt
-        }
-        return $getReceipt; */
 
         $daneDoDruku = $template;
 
@@ -80,58 +67,41 @@ class PrintController extends Controller
             fclose($poloczenie);
 
         }
-                    //return $templateModified;
-
-                return 'success';
-       // str_replace("world","Peter","Hello world!");
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'failure', 'message' => $e->getMessage()]);
+        }
+        return response()->json(['status' => 'success', 'message' => 'Print Successfully']);
     }
 
     public function PrintLabel(Request $request)
     {
-        $label = $request->get('receipt');
-        //return $request;
-        $file = 'public\LabelPrintFile.prn';
-
-        $template = file_get_contents($file);
-        $template = str_replace("riddata",$label['id'],$template);
-        $template = str_replace("qrcode",$label['id'],$template);
-        $template = str_replace("rmadata",$label['rma_id'], $template);
-        $template = str_replace("customer",$label['customer_name'], $template);
-        $template = str_replace("location",$label['location'], $template);
-        $jsonfile = 'public\printerconfiguration.json';
-
-        $strJsonFileContents = file_get_contents($jsonfile);
-    // Convert to array
-        $array = json_decode($strJsonFileContents, true);
-
-
-        $ip =  $array['LabelPrinterIP'];
-        /* foreach(file('public\RID Print Variable.prn') as $line) {
-            $getReceipt += $line;
-            // loop with $line for each line of yourfile.txt
-        }
-        return $getReceipt; */
-
-        $daneDoDruku = $template;
-        $message = "success";
-        $status = "success";
-//return $template;
         try {
+            $label = $request->get('receipt');
+            $file = 'public\LabelPrintFile.prn';
+
+            $template = file_get_contents($file);
+            $template = str_replace("riddata",$label['id'],$template);
+            $template = str_replace("qrcode",$label['id'],$template);
+            $template = str_replace("rmadata",$label['rma_id'], $template);
+            $template = str_replace("customer",$label['customer_name'], $template);
+            $template = str_replace("location",$label['location'], $template);
+            $jsonfile = 'public\printerconfiguration.json';
+
+            $strJsonFileContents = file_get_contents($jsonfile);
+            $array = json_decode($strJsonFileContents, true);
+            $ip =  $array['LabelPrinterIP'];
+
+            $daneDoDruku = $template;
+
             $poloczenie = pfsockopen("$ip", 9100);
             fputs($poloczenie, $daneDoDruku);
             fclose($poloczenie);
+
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'failure', 'message' => $e->getMessage()]);
         }
-
-        catch(Exception $e)
-        {
-            $message = $e;
-            $status = "failure";
-
-        }
-
-        return response()->json(['message' => $message, 'status' => $status], 200);
-
-        // str_replace("world","Peter","Hello world!");
+        return response()->json(['status' => 'success', 'message' => 'Print Successfully']);
+        
     }
 
     public function JobTicketForm($pv_id)

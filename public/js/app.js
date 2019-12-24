@@ -30,7 +30,7 @@ app.config(['$httpProvider', 'NotificationProvider', 'uiMask.ConfigProvider', fu
 	$httpProvider.interceptors.push('HttpInterceptor');
 
 	NotificationProvider.setOptions({
-	    delay: 1500,
+	    delay: 2000,
 	    startTop: 20,
 	    startRight: 10,
 	    verticalSpacing: 20,

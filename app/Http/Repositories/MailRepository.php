@@ -28,10 +28,14 @@ class MailRepository
 		if (is_null($receipt['email']))
 			return "No Mail Address";
 
-		Mail::send('mails.receiptcompletion',$receipt, function ($message) use ($receipt) {
-			$message->to($receipt['email']);
-			$message->subject('Receipt Completion');
- 		});
+		try {
+			Mail::send('mails.receiptcompletion',$receipt, function ($message) use ($receipt) {
+				$message->to($receipt['email']);
+				$message->subject('Receipt Completion');
+	 		});
+		} catch (\Exception $e) {
+			return $e->getMessage();
+		}
 
  		return "Sent";
 	}
@@ -56,10 +60,14 @@ class MailRepository
 		$data['email'] = $this->GetToAddress($receipt->email);
 		$data = $data->toArray();
 
-		Mail::send('mails.pvcompletion',$data, function ($message) use ($data, $receipt) {
-			$message->to($data['email']);
-			$message->subject('Physical Verification Completion');
- 		});
+		try {
+			Mail::send('mails.pvcompletion',$data, function ($message) use ($data, $receipt) {
+				$message->to($data['email']);
+				$message->subject('Physical Verification Completion');
+	 		});
+		} catch (\Exception $e) {
+			return $e->getMessage();
+		}
 
  		return "Sent";
 	}
@@ -91,11 +99,14 @@ class MailRepository
 
 		$data = $data->toArray();
 
-		Mail::send('mails.wccompletion',$data, function ($message) use ($data, $receipt) {
-			$message->to($data['email']);
-			$message->subject('W/C Declaration');
- 		});
-
+		try {
+			Mail::send('mails.wccompletion',$data, function ($message) use ($data, $receipt) {
+				$message->to($data['email']);
+				$message->subject('W/C Declaration');
+	 		});
+		} catch (\Exception $e) {
+			return $e->getMessage();
+		}
  		return "Sent";
 	}
 
@@ -125,15 +136,15 @@ class MailRepository
 			return "RMA Not Found";
 
 		$receipt = ReceiptMaster::where('id', $rma->receipt_id)->first();
-		/*if($receipt)
-			return "Receipt Not Found";*/
 
-		//$data['receipt_id'] = $receipt->id;
-
-		Mail::send('mails.dispatchcompletion',$data, function ($message) use ($data) {
-			$message->to($data['email']);
-			$message->subject('Dispatch Completion');
- 		});
+		try {
+			Mail::send('mails.dispatchcompletion',$data, function ($message) use ($data) {
+				$message->to($data['email']);
+				$message->subject('Dispatch Completion');
+	 		});
+		} catch (\Exception $e) {
+			return $e->getMessage();
+		}
 
  		return "sent";
 	}

@@ -50,15 +50,16 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 							btnClass: 'btn-blue',
 							action: function(){
 								$scope.PrintReceipts(response.data.data);
-								$scope.HideReceiptForm();
+								return false;
 							}
 						},
 						close: function () {
 							$scope.HideReceiptForm();
+							$scope.GetSiteList();
 						}
 					}
 				});
-				$scope.GetSiteList();
+				
 			}
 		}, function failure(response){
 			if (response.status == 422)
@@ -126,7 +127,13 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 		}).then(function success(response) {
 			console.log("12311");
 			if (response.data.status == 'success') {
-				console.log("123");
+				Notification.success(response.data.message);
+				$scope.HideReceiptForm();
+				$scope.GetSiteList();
+			}
+			else if(response.data.status == 'failure')
+			{
+				Notification.error(response.data.message);
 			}
 		}, function failure(response){
 				if (response.status == 422)
