@@ -42,6 +42,102 @@ Notes:	decreasing heading by 0.4em with every subsequent heading level
 /* ----- Normalize ----- */
 /* Position and style the close button (top right corner) */
 
+.tablesmall
+{
+    margin-bottom:0rem !important;
+}
+
+
+.container-fluid p{
+    color : #000000;
+}
+
+.f8
+{
+    font-size:8px;
+}
+
+.f10
+{
+    font-size:10px;
+}
+
+.f20
+ {
+     font-size:20px;
+ }
+
+.f13
+{
+    font-size:13px;
+}
+
+.f12
+ {
+     font-size:12px;
+ }
+
+.f15
+{
+    font-size:15px;
+}
+
+.p-10
+{
+    padding : 10px;
+}
+
+.border-3
+{
+    border-left: 3px solid #000000;
+    border-right: 3px solid #000000;
+    border-top: 3px solid #000000;
+}
+
+.border-3-all
+{
+    border-left: 3px solid #000000;
+    border-right: 3px solid #000000;
+    border-top: 3px solid #000000;
+    border-bottom: 3px solid #000000;
+}
+
+.bg-grey
+{
+    background-color: #e3e0d7;
+}
+
+.border-l-r-3
+  {
+      border-left: 3px solid;
+      border-right: 3px solid;
+  }
+
+.border-l-3
+{
+    border-left: 3px solid;
+}
+
+.border-r-3
+{
+    border-right: 3px solid;
+}
+
+.border-b-3 {
+    border-bottom: 3px solid;
+}
+
+.border-top-2
+{
+    border-top: 2px solid;
+}
+
+.color-black
+  {
+      color : #0a0a0a;
+  }
+
+
 .loader {
     display:none;
     border: 16px solid #f3f3f3;

@@ -157,9 +157,16 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::get('/job-ticket', function(){
 		return view('job-ticket-list');
 	});
+
 	Route::get('/add-job-ticket', function(){
 		return view('add-job-ticket');
 	});
+
+    Route::get('/rma-form', function(){
+        return view('pdf/RMAform');
+    });
+
+
 
     Route::get('/job-ticket-form/{pv_id}','PrintController@JobTicketForm');
 
@@ -289,7 +296,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/pvforrmaid/{id}', 'PhysicalVerificationController@PVForRmaId');
 	Route::post('/addproducttype', 'ProductTypeController@AddProductType');
 	Route::delete('/producttype/{id}', 'ProductTypeController@DeleteProductType');
-	Route::get('/jobticket/{pvid}','JobTicketController@JobTicket');
+    Route::get('/jobticket/{pvid}','JobTicketController@JobTicket');
 	Route::post('/savejobticketmaterial', 'JobTicketController@SaveJobTicketMaterial');
 	Route::post('/completejobticket', 'JobTicketController@CompleteJobTicket');
 	Route::post('/updatesitecardjobticket', 'JobTicketController@UpdateSiteCardJobTicket');
