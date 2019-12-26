@@ -155,4 +155,12 @@ class PrintController extends Controller
         return view('pdf.physical-verification-form', $data);
     }
 
+    public function RMAForm($rma_id)
+    {
+        $data = RMA::find($rma_id);
+        if(!$data)
+            return "RMA Not Found";
+        return view('pdf/RMAform', $data);
+    }
+
 }

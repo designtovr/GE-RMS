@@ -179,6 +179,11 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 		$scope.sitecardform.unit_information[index].producttype_id = info.model.type;
 	}
 
+	$scope.PrintRMAForm = function(id)
+	{
+		$window.open('/ge/rma-form/'+id, '_self');
+	}
+
 	$scope.PrintPVForm = function(id)
 	{
 		$window.open('/ge/physical-verification-form/'+id, '_self');

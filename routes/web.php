@@ -162,11 +162,7 @@ Route::group(['middleware' => 'auth'], function(){
 		return view('add-job-ticket');
 	});
 
-    Route::get('/rma-form', function(){
-        return view('pdf/RMAform');
-    });
-
-
+    Route::get('/rma-form/{rma_id}', 'PrintController@RMAForm');
 
     Route::get('/job-ticket-form/{pv_id}','PrintController@JobTicketForm');
 
