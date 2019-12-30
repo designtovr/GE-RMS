@@ -162,6 +162,10 @@ Route::group(['middleware' => 'auth'], function(){
 		return view('add-job-ticket');
 	});
 
+	Route::get('masters-page/printerips', function(){
+		return view('masters.printerips');
+	});
+
     Route::get('/rma-form/{rma_id}', 'PrintController@RMAForm');
 
     Route::get('/job-ticket-form/{pv_id}','PrintController@JobTicketForm');
@@ -340,4 +344,8 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::get('/wcmail/{pv_id}', 'MailController@WCCompletionMail');
 
 	Route::get('/dispatchcompletionmail/{pv_id}', 'MailController@DispatchCompletionMail');
+
+	Route::get('/lableprintersip', 'PrintController@LablePrintersIP');
+
+	Route::post('/changeprinterip', 'PrintController@ChangePrinterIP');
 });

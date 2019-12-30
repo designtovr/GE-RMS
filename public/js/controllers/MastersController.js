@@ -35,6 +35,7 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 	$scope.manufacturemodal = [];
 	$scope.user = {};
 	$scope.usermodal = [];
+	$scope.printeripsmodal = {};
 
 	//need to declare seperate gridoptions, because i have common controller for all Master Pages
 	//so it will affects each master pages
@@ -98,6 +99,17 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 	   	},
 	   	urlSync: true
 	};
+
+	$scope.printersipsgridOptions = {
+		pagination: {
+			itemsPerPage: '10'
+		},
+		data:[],
+	   	sort: {
+
+	   	},
+	   	urlSync: true
+	}
 
 	$scope.getcustomers = function()
 	{
@@ -271,6 +283,32 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		});
 	}
 
+	$scope.getprintersip = function()
+	{
+		$http({
+		  method: 'GET',
+		  url: '/ge/lableprintersip'
+		}).then(function success(response) {
+		    $scope.lableprintersip = response.data.data;
+		    $scope.printers = [];
+		    var obj1 = {
+		    	"code": "LabelPrinterIP",
+		    	"name": "Label Printer",
+		    	"ip": $scope.lableprintersip.LabelPrinterIP
+		    }
+		    var obj2 = {
+		    	"code": "ReceiptPrinterIP",
+		    	"name": "Receipt Printer",
+		    	"ip": $scope.lableprintersip.ReceiptPrinterIP
+		    }
+		    $scope.printers.push(obj1);
+		    $scope.printers.push(obj2);
+		    $scope.printersipsgridOptions.data = $scope.printers;
+		}, function error(response) {
+
+		});
+	}
+
 	$scope.OpenCustomerModal = function(id = 0)
 	{
 		$scope.getsites();
@@ -308,6 +346,45 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 	$scope.CloseCustomerModal = function()
 	{
 		$('#customermodal').modal('hide');
+	}
+
+	$scope.OpenPrintersIPModal = function(item)
+	{
+		$scope.printeripsmodal = item;
+		$('#printersipmodal').modal({
+			show: true,
+			backdrop: 'static',
+		});
+	}
+
+	$scope.ClosePrintersIPModal = function()
+	{
+		$('#printersipmodal').modal('hide');
+		$scope.getprintersip();
+	}
+
+	$scope.ChangePrinterIP = function()
+	{
+		$http({
+			method: 'post',
+			url: '../changeprinterip',
+			data: {
+				'printer': $scope.printeripsmodal,
+			},
+		}).then(function success(response){
+			if (response.data.status == 'success')
+			{
+				Notification.success(response.data.message);
+				$('#printersipmodal').modal('hide');
+				$scope.getprintersip();
+			}
+			else if(response.data.status == 'failure')
+			{
+				Notification.error(response.data.message);
+			}
+		}, function failure(response){
+			
+		});
 	}
 
 	$scope.OpenProductTypeModal = function(producttype)

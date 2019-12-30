@@ -31,42 +31,42 @@ class PrintController extends Controller
 
         try {
             $receipt = $request->get('receipt');
-        $file = 'public\ReceiptPrintFile.prn';
+            $file = 'public\ReceiptPrintFile.prn';
 
-        $template = file_get_contents($file);
-        $receiptID = 'RC';
-        $receiptID .= $receipt['id'];
+            $template = file_get_contents($file);
+            $receiptID = 'RC';
+            $receiptID .= $receipt['id'];
 
-        $template = str_replace("receiptid",$receiptID,$template);
-        $template = str_replace("cusname",$receipt['customer'],$template);
-        $template = str_replace("courierData",$receipt['courier_name'],$template);
-        $template = str_replace("dcdata",$receipt['docket_details'],$template);
-        $template = str_replace("location",$receipt['site'],$template);
-        $template = str_replace("qrcode",$receipt['id'],$template);
-        $template = str_replace("total",$receipt['total_boxes'],$template);
+            $template = str_replace("receiptid",$receiptID,$template);
+            $template = str_replace("cusname",$receipt['customer'],$template);
+            $template = str_replace("courierData",$receipt['courier_name'],$template);
+            $template = str_replace("dcdata",$receipt['docket_details'],$template);
+            $template = str_replace("location",$receipt['site'],$template);
+            $template = str_replace("qrcode",$receipt['id'],$template);
+            $template = str_replace("total",$receipt['total_boxes'],$template);
 
-        $template = str_replace("time",Carbon::now(), $template);
+            $template = str_replace("time",Carbon::now(), $template);
 
 
-        $jsonfile = 'public\printerconfiguration.json';
+            $jsonfile = 'public\printerconfiguration.json';
 
-        $strJsonFileContents = file_get_contents($jsonfile);
-        // Convert to array
-        $array = json_decode($strJsonFileContents, true);
-        $templateModified = "";
+            $strJsonFileContents = file_get_contents($jsonfile);
+            // Convert to array
+            $array = json_decode($strJsonFileContents, true);
+            $templateModified = "";
 
-        $ip =  $array['ReceiptPrinterIP'];
+            $ip =  $array['ReceiptPrinterIP'];
 
-        $daneDoDruku = $template;
+            $daneDoDruku = $template;
 
-        for($i = 1 ; $i<= $receipt['total_boxes'] ; $i++)
-        {
-            $poloczenie = pfsockopen("$ip", 9100);
-            $templateModified = str_replace("currentbox",$i,$template);
-            fputs($poloczenie, $templateModified);
-            fclose($poloczenie);
+            for($i = 1 ; $i<= $receipt['total_boxes'] ; $i++)
+            {
+                $poloczenie = pfsockopen("$ip", 9100);
+                $templateModified = str_replace("currentbox",$i,$template);
+                fputs($poloczenie, $templateModified);
+                fclose($poloczenie);
 
-        }
+            }
         } catch (\Exception $e) {
             return response()->json(['status' => 'failure', 'message' => $e->getMessage()]);
         }
@@ -161,6 +161,40 @@ class PrintController extends Controller
         if(!$data)
             return "RMA Not Found";
         return view('pdf/RMAform', $data);
+    }
+
+    public function LablePrintersIP(Request $request)
+    {
+        try 
+        {
+            $path = 'public\printerconfiguration.json';
+            $content = file_get_contents($path);
+            $data = json_decode($content, true);
+            //$new_content = json_encode($array);
+            //file_put_contents("public\printerconfiguration.json", $new_content);
+
+            return response()->json(['status' => 'success', 'message' => 'IP Fetched Successfully', 'data' => $data]);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'failure', 'message' => $e->getMessage()]);
+        }
+    }
+
+    public function ChangePrinterIP(Request $request)
+    {
+        try {
+            $requestData = $request->get('printer');
+            $path = 'public\printerconfiguration.json';
+            $content = file_get_contents($path);
+            $data = json_decode($content, true);
+            $data[$requestData['code']] = $requestData['ip'];
+            $new_content = json_encode($data);
+            file_put_contents("public\printerconfiguration.json", $new_content);
+
+        return response()->json(['status' => 'success', 'message' => 'IP Changed']);
+
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'failure', 'message' => $e->getMessage()]);
+        }
     }
 
 }

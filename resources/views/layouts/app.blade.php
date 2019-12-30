@@ -195,27 +195,12 @@
                             <li>
                                 <a href="{{url('/masters-page/site')}}">Site</a>
                             </li>
-                        <!-- <li>
-                                    <a href="{{url('/masters-page/rack')}}">Rack</a>
-                                </li> -->
-                        <!-- <li>
-                                    <a href="{{url('/masters-page/rack-type')}}">Rack Type</a>
-                                </li> -->
-                        <!-- <li>
-                                    <a href="{{url('/masters-page/material')}}">Material</a>
-                                </li> -->
-                        <!-- <li>
-                                    <a href="{{url('/masters-page/packing-style')}}">Packing Style</a>
-                                </li> -->
                             <li>
                                 <a href="{{url('/masters-page/product-type')}}">Product Type</a>
                             </li>
-                        <!-- <li>
-                                    <a href="{{url('/masters-page/material-type')}}">Material Type</a>
-                                </li> -->
-                        <!-- <li>
-                                    <a href="{{url('/masters-page/manufacture')}}">Manufacture</a>
-                                </li> -->
+                            <li>
+                                <a href="{{url('/masters-page/printerips')}}">Printer IPs</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="has-sub">
@@ -247,7 +232,7 @@
                     <div class="col-md-12">
                         <div class="header-wrap float-left">
                             <div class="header-button">
-                                <button class="openbtn bg-primary item " id="MenuBtn" onclick="openNav()"><span class="zmdi zmdi-menu" </button>
+                                <button class="openbtn bg-primary item " id="MenuBtn" onclick="openNav()"><span class="zmdi zmdi-menu"> </button>
                             </div>
                         </div>
                         <div class="header-wrap float-right">
