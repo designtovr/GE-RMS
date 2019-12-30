@@ -42,7 +42,15 @@ class User extends Authenticatable
         return $this->hasOne(RoleUser::class, 'user_id');
     }
 
-    public function isAdministrator() {
+    public function isAdmin() {
        return $this->Roles()->where('role_id', 1)->exists();
+    }
+
+    public function isManager() {
+        return $this->Roles()->where('role_id', 2)->exists();
+    }
+
+    public function isTechnician() {
+        return $this->Roles()->where('role_id', 3)->exists();
     }
 }

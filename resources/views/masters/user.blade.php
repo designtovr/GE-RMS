@@ -8,8 +8,10 @@
     			<div class="col-md-12">
     		        <div class="overview-wrap">
     		            <h6 class="pb-4 display-5">Users</h6>
+                        @if(Auth::user()->isManager() || Auth::user()->isAdmin())
     		            <button type="button" class="btn btn-primary btn-sm" ng-click="OpenUserModal(0);">
                             <i class="fa fa-plus"></i>&nbsp; Add User</button>
+                        @endif
     		        </div>
     		    </div>
                 <div class="col-md-12 ">
@@ -49,7 +51,9 @@
                             <table class="table table-borderless table-data3">
                                 <thead>
                                     <tr>
+                                        @if(Auth::user()->isManager() || Auth::user()->isAdmin())
                                         <th>Actions</th>
+                                        @endif
                                         <th sortable="name" class="sortable">Name</th>
                                         <th sortable="email" class="sortable">Email</th>
                                         <th sortable="role" class="sortable">Role</th>
@@ -57,6 +61,7 @@
                                 </thead>
                                 <tbody>
                                     <tr grid-item>
+                                        @if(Auth::user()->isManager() || Auth::user()->isAdmin())
                                         <td>
                                             <div class="table-data-feature float-left">
                                                 <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="OpenUserModal(item)">
@@ -67,6 +72,7 @@
                                                 </button>
                                             </div>
                                         </td>
+                                        @endif
         	                            <td ng-bind="item.name"></td>
                                         <td ng-bind="item.email"></td>
                                         <td ng-bind="item.role"></td>

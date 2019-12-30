@@ -103,12 +103,14 @@
                             </div>
                         </div>
                     </div>
+                    @if(Auth::user()->isManager() || Auth::user()->isAdmin())
                     <div class="col-md-12 p-b-20">
                         <button type="button" class="btn btn-primary btn-md float-right"
                                 ng-click="ChangeStatus('dispatchapproved');">
                             <i class="fa fa-plus"></i>&nbsp;Approve
                         </button>
                     </div>
+                    @endif
                     <div class="col-md-12">
                         <!-- DATA TABLE-->
                         <div grid-data grid-options="gridOptions" grid-actions="gridActions">
@@ -117,10 +119,11 @@
                                 <table class="table table-borderless table-data3  ">
                                     <thead>
                                     <tr>
-
+                                        @if(Auth::user()->isManager() || Auth::user()->isAdmin())
                                         <th>
                                             Select
                                         </th>
+                                        @endif
                                         <th>
                                             Actions
                                         </th>
@@ -156,12 +159,14 @@
                                     </thead>
                                     <tbody>
                                     <tr grid-item>
+                                        @if(Auth::user()->isManager() || Auth::user()->isAdmin())
                                         <td>
                                             <label class="au-checkbox">
                                                 <input type="checkbox" ng-model="item.create_wc">
                                                 <span class="au-checkmark"></span>
                                             </label>
                                         </td>
+                                        @endif
                                         <td>
                                             <div class="btn-group float-left">
                                                 <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-success" >Priority</button>

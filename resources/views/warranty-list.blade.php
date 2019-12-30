@@ -113,10 +113,11 @@
                                                     <table class="table table-borderless table-data3  ">
                                                         <thead>
                                                             <tr>
-
-                                                                <th >
+                                                                @if(Auth::user()->isManager() || Auth::user()->isAdmin())
+                                                                <th>
                                                                     Select
                                                                 </th>
+                                                                @endif
                                                                 <th sortable="formatted_pv_id" class="sortable">
                                                                     RID
                                                                 </th>
@@ -148,12 +149,14 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr grid-item>
+                                                                @if(Auth::user()->isManager() || Auth::user()->isAdmin())
                                                                 <td>
                                                                     <label class="au-checkbox">
                                                                         <input type="checkbox" ng-model="item.create_wc">
                                                                         <span class="au-checkmark"></span>
                                                                     </label>
                                                                 </td>
+                                                                @endif
                                                                 <td ng-bind="item.formatted_pv_id"></td>
                                                                 <td ng-bind="item.formatted_rma_id"></td>
                                                                 <td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
@@ -210,9 +213,11 @@
                                                     <table class="table table-borderless table-data3  ">
                                                         <thead>
                                                             <tr>
+                                                                @if(Auth::user()->isManager() || Auth::user()->isAdmin())
                                                                 <th>
                                                                     Select
                                                                 </th>
+                                                                @endif
                                                                 <th sortable="formatted_pv_id" class="sortable">
                                                                     RID
                                                                 </th>
@@ -248,12 +253,14 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr grid-item>
+                                                                @if(Auth::user()->isManager() || Auth::user()->isAdmin())
                                                                 <td>
                                                                     <label class="au-checkbox">
                                                                         <input type="checkbox" ng-model="item.create_wc">
                                                                         <span class="au-checkmark"></span>
                                                                     </label>
                                                                 </td>
+                                                                @endif
                                                                 <td ng-bind="item.formatted_pv_id"></td>
                                                                 <td ng-bind="item.formatted_rma_id"></td>
                                                                 <td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>

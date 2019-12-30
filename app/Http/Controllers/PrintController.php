@@ -170,8 +170,6 @@ class PrintController extends Controller
             $path = 'public\printerconfiguration.json';
             $content = file_get_contents($path);
             $data = json_decode($content, true);
-            //$new_content = json_encode($array);
-            //file_put_contents("public\printerconfiguration.json", $new_content);
 
             return response()->json(['status' => 'success', 'message' => 'IP Fetched Successfully', 'data' => $data]);
         } catch (\Exception $e) {

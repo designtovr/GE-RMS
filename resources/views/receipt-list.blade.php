@@ -77,11 +77,13 @@
                         </table>
                     </div>
                     <div class = "row">
+                        @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
                         <div class="col-md-12 p-b-20">
                              <button type="button" class="btn btn-primary btn-md float-right" ng-click="ShowReceiptForm();">
                                 <i class="fa fa-plus"></i>&nbsp;Create
                             </button>
                         </div>
+                        @endif
                     </div>
                     <div class="col-md-12">
                         <!-- DATA TABLE-->
@@ -91,9 +93,11 @@
                                 <table class="table table-borderless table-data3">
                                     <thead>
                                         <tr>
+                                            @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
                                             <th>
                                                 Actions
                                             </th>
+                                            @endif
                                             <th sortable="formatted_receipt_id" class="sortable">
                                                 Receipt Id
                                             </th>
@@ -123,6 +127,7 @@
                                     </thead>
                                     <tbody>
                                         <tr grid-item>
+                                            @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
                                             <td>
                                                 <div class="table-data-feature float-left">
                                                     <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="EditReceipt(item);">
@@ -130,6 +135,7 @@
                                                     </button>
                                                 </div>
                                             </td>
+                                            @endif
                                             <td ng-bind="item.formatted_receipt_id"></td>
                                             <td ng-bind="item.formatted_rma_id"></td>
                                             <td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>

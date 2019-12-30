@@ -132,9 +132,11 @@
                                             <table class="table table-borderless table-data3 table-responsive">
                                                 <thead>
                                                 <tr>
+                                                    @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
                                                     <th>
                                                         Actions
                                                     </th>
+                                                    @endif
                                                     <th sortable="formatted_rma_id" class="sortable">
                                                         RMA No
                                                     </th>
@@ -158,6 +160,7 @@
                                                 </thead>
                                                 <tbody>
                                                 <tr grid-item>
+                                                    @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
                                                     <td>
                                                         <div class="table-data-feature float-left">
                                                             <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="EditRMAForm(item.id);">
@@ -173,19 +176,11 @@
                                                                 <button ng-click="PrintRMAForm(item.id)" type="button" tabindex="0" class="dropdown-item">RMA Form</button>
                                                                 <button ng-click="PrintPVForm(item.id);" type="button" tabindex="0" class="dropdown-item">PV Form</button>
                                                             </div>
-                                                                <!-- <button class="item" data-toggle="tooltip" data-placement="top"
-                                                                        title="Add"
-                                                                        ng-click="PrintPVForm(item.id);">
-                                                                    <i class="zmdi zmdi-print"></i>
-                                                                </button> -->
-                                                            <!-- <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                                <i class="zmdi zmdi-delete"></i>
-                                                            </button> -->
                                                         </div>
                                                     </td>
+                                                    @endif
                                                     <td ng-bind="item.formatted_rma_id"></td>
                                                     <td ng-bind="item.date | date:'dd/MM/yyyy'"></td>
-
                                                     <td ng-bind="item.gs_no"></td>
                                                     <td ng-bind="item.act_reference"></td>
                                                     <td ng-bind="item.customer_name"></td>
@@ -220,20 +215,24 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane fade show active" id="withrma" role="tabpanel" aria-labelledby="withrma-tab">
+                                    @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
                                     <div class="col-md-12">
                                         <button type="button" class="btn btn-primary btn-md pull-right m-b-10" ng-click="CreateRMA();">
                                             <i class="fa fa-check-circle"></i>&nbsp;Create RMA
                                         </button>
                                     </div>
+                                    @endif
                                     <!-- DATA TABLE-->
                                     <div grid-data grid-options="pvgridOptions" grid-actions="pvgridActions">
                                         <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
                                         <table class="table table-borderless table-data3 table-responsive">
                                             <thead>
                                                 <tr>
-                                                    <th >
+                                                    @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
+                                                    <th>
                                                         Select
                                                     </th>
+                                                    @endif
                                                     <th sortable="formatted_pv_id" class="sortable">
                                                         R Id
                                                     </th>
@@ -256,12 +255,14 @@
                                             </thead>
                                             <tbody>
                                                 <tr grid-item>
+                                                    @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
                                                     <td>
                                                         <label class="au-checkbox">
                                                             <input type="checkbox" ng-model="item.create_rma">
                                                             <span class="au-checkmark"></span>
                                                         </label>
                                                     </td>
+                                                    @endif
                                                     <td ng-bind="item.formatted_pv_id"></td>
                                                     <td ng-bind="item.formatted_receipt_id"></td>
                                                     <td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
@@ -296,20 +297,24 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="withoutrma" role="tabpanel" aria-labelledby="withoutrma-tab">
+                                    @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
                                     <div class="col-md-12">
                                         <button type="button" class="btn btn-primary btn-md pull-right m-b-10" ng-click="CreateRMA();">
                                             <i class="fa fa-check-circle"></i>&nbsp;Create RMA
                                         </button>
                                     </div>
+                                    @endif
                                     <!-- DATA TABLE-->
                                     <div grid-data grid-options="pvgridOptions" grid-actions="pvgridActions">
                                         <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
                                         <table class="table table-borderless table-data3 table-responsive">
                                             <thead>
                                                 <tr>
+                                                    @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
                                                     <th>
                                                         Select
                                                     </th>
+                                                    @endif
                                                     <th>
                                                         R Id
                                                     </th>
@@ -332,12 +337,14 @@
                                             </thead>
                                             <tbody>
                                                 <tr grid-item>
+                                                    @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
                                                     <td>
                                                         <label class="au-checkbox">
                                                             <input type="checkbox" ng-model="item.create_rma">
                                                             <span class="au-checkmark"></span>
                                                         </label>
                                                     </td>
+                                                    @endif
                                                     <td ng-bind="item.formatted_pv_id"></td>
                                                     <td ng-bind="item.formatted_receipt_id"></td>
                                                     <td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
@@ -380,9 +387,11 @@
                                             <table class="table table-borderless table-data3 table-responsive">
                                                 <thead>
                                                 <tr>
+                                                    @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
                                                     <th>
                                                         Actions
                                                     </th>
+                                                    @endif
                                                     <th sortable="formatted_rma_id" class="sortable">
                                                         RMA No
                                                     </th>
@@ -406,6 +415,7 @@
                                                 </thead>
                                                 <tbody>
                                                 <tr grid-item>
+                                                    @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
                                                     <td>
                                                         <div class="table-data-feature float-left">
                                                             <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="EditRMAForm(item.id);">
@@ -421,6 +431,7 @@
                                                             </button> -->
                                                         </div>
                                                     </td>
+                                                    @endif
                                                     <td ng-bind="item.formatted_rma_id"></td>
                                                     <td ng-bind="item.date | date:'dd/MM/yyyy'"></td>
 
@@ -459,18 +470,22 @@
                                 </div>
                                 <div class="tab-pane fade" id="opensitecard" role="tabpanel" aria-labelledby="opensitecard-tab">
                                     <div class="col-md-12">
+                                        @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
                                         <button type="button" class="btn btn-primary btn-md pull-right m-b-10" ng-click="CreateSiteCard();">
                                             <i class="fa fa-check-circle"></i>&nbsp;Create SiteCard
                                         </button>
+                                        @endif
                                         <!-- DATA TABLE-->
                                         <div grid-data grid-options="gridOptions" grid-actions="gridActions" class="">
                                             <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
                                             <table class="table table-borderless table-data3 table-responsive">
                                                 <thead>
                                                 <tr>
+                                                    @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
                                                     <th>
                                                         Actions
                                                     </th>
+                                                    @endif
                                                     <th sortable="formatted_rma_id" class="sortable">
                                                         RMA No
                                                     </th>
@@ -493,6 +508,7 @@
                                                 </thead>
                                                 <tbody>
                                                 <tr grid-item>
+                                                    @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
                                                     <td>
                                                         <div class="table-data-feature float-left">
                                                             <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="EditRMAForm(item.id);">
@@ -503,6 +519,7 @@
                                                             </button> -->
                                                         </div>
                                                     </td>
+                                                    @endif
                                                     <td ng-bind="item.formatted_rma_id"></td>
                                                     <td ng-bind="item.date | date:'dd/MM/yyyy'"></td>
 

@@ -27,3 +27,8 @@ ALTER TABLE `ma_customer` CHANGE `gst` `gst` VARCHAR(15) CHARACTER SET utf8mb4 C
 ALTER TABLE `ma_customer` CHANGE `code` `code` VARCHAR(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;
 
 ALTER TABLE `physical_verification` CHANGE `no_of_terminal_blocks` `no_of_terminal_blocks` VARCHAR(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT '0';
+
+UPDATE `roles` SET `name` = 'Manager' WHERE `roles`.`id` = 2;
+INSERT INTO `roles` (`id`, `name`) VALUES (NULL, 'Technician');
+`ALTER TABLE ``role_user`` DROP INDEX ``role_user_user_id_foreign``;`
+`ALTER TABLE ``role_user`` DROP INDEX ``role_user_role_id_foreign``;`

@@ -132,6 +132,7 @@
 
 									</ul>
 								</div>
+								@if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
 								<div class="col-md-3 col-md-offset-3  p-0 m-r-0" >
 									<div class = "pull-right">
 									<button type="button" class="btn btn-primary btn-sm" ng-show="openTab" ng-click="ChangeStatus('atbstarted')">
@@ -146,6 +147,7 @@
 									</button>
 									</div>
 								</div>
+								@endif
 							</div>
 							{{--Tab Ends--}}
 					<!-- DATA TABLE-->
@@ -155,10 +157,11 @@
 							<table class="table table-borderless table-data3  ">
 								<thead>
 								<tr>
-
+									@if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
 									<th ng-if="openTab || startTab">
 										Select
 									</th>
+									@endif
 									<th ng-if="openTab || startTab">
 										Actions
 									</th>
@@ -196,12 +199,14 @@
 								</thead>
 								<tbody>
 								<tr grid-item>
+									@if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
 									<td ng-if="openTab || startTab">
                                         <label class="au-checkbox">
                                             <input type="checkbox" ng-model="item.create_wc">
                                             <span class="au-checkmark"></span>
                                         </label>
                                     </td>
+                                    @endif
                                     <td ng-if="openTab || startTab">
 										<div class="btn-group float-left">
                                             <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-success" >Priority</button>

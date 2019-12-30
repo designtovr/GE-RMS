@@ -66,9 +66,6 @@
                                 <th>
                                     <input id="customerFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Customer Name" ng-change="pvgridActions.filter()" ng-model="filterCustomerothers" filter-by="customer_name" filter-type="text">
                                 </th>
-                                <!-- <th>
-                                    <input id="endcustomerFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="End Customer" ng-change="pvgridActions.filter()" ng-model="filterEndCustomerothers" filter-by="end_customer" filter-type="text">
-                                </th> -->
                                 <th>
                                     <button type="button" class="btn btn-outline-secondary btn-sm" ng-click="Reset();gridActions.filter()">Reset</button>
                                 </th>
@@ -97,12 +94,6 @@
                         <li class="nav-item" ng-click="ChangeTab('closed')">
                             <a class="nav-link" id="closed-tab" data-toggle="tab" href="#closed" role="tab" aria-controls="closed" aria-selected="false">Closed Receipts</a>
                         </li>
-                        <!-- <li class="nav-item" ng-click="ChangeTab('withrma')">
-                            <a class="nav-link" id="withrma-tab" data-toggle="tab" href="#withrma" role="tab" aria-controls="withrma" aria-selected="false">With RMA</a>
-                        </li>
-                        <li class="nav-item" ng-click="ChangeTab('withoutrma')">
-                            <a class="nav-link" id="withoutrma-tab" data-toggle="tab" href="#withoutrma" role="tab" aria-controls="withoutrma" aria-selected="false">Without RMA</a>
-                        </li> -->
                     </ul>
                     <div class="tab-content pl-3 p-1" id="myTabContent">
                         <div class="tab-pane fade show active" id="open" role="tabpanel" aria-labelledby="open-tab">
@@ -112,9 +103,11 @@
                                     <table class="table table-borderless table-data3 table-responsive">
                                         <thead>
                                             <tr>
+                                                @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
                                                 <th>
                                                     Actions
                                                 </th>
+                                                @endif
                                                 <th sortable="formatted_receipt_id" class="sortable">
                                                     Receipt No
                                                 </th>
@@ -141,28 +134,17 @@
                                         </thead>
                                         <tbody>
                                             <tr grid-item>
+                                                @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
                                                 <td>
                                                     <div class="table-data-feature float-left">
-                                                    <!-- <button class="item" data-toggle="tooltip" data-placement="top" title="Edit"
-                                                            ng-click="OpenPVForm(item, true);">
-                                                        <i class="zmdi zmdi-edit"></i>
-                                                    </button> -->
                                                     <button class="item" data-toggle="tooltip" data-placement="top"
                                                     title="Add"
                                                     ng-click="OpenPVForm(item, false);">
                                                         <i class="zmdi zmdi-plus-box"></i>
                                                     </button>
-                                                    <!-- <button class="item" data-toggle="tooltip" data-placement="top" title="Close"
-                                                            ng-click="CloseReceipts(item.id);">
-                                                        <i class="zmdi zmdi-close-circle"></i>
-                                                    </button> -->
-                                                    <!-- <button class="item" data-toggle="tooltip" data-placement="top"
-                                                    title="Delete"
-                                                    ng-click="DeletePV(item.id);">
-                                                        <i class="zmdi zmdi-delete"></i>
-                                                    </button> -->
                                                     </div>
                                                 </td>
+                                                @endif
                                                 <td ng-bind="item.formatted_receipt_id"></td>
                                                 <td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
 
@@ -214,9 +196,11 @@
                                                     <th>
                                                         Select
                                                     </th>
+                                                    @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
                                                     <th>
                                                         Actions
                                                     </th>
+                                                    @endif
                                                     <th sortable="formatted_receipt_id" class="sortable">
                                                         Receipt Id
                                                     </th>
@@ -235,12 +219,6 @@
                                                     <th sortable="customer_name" class="sortable">
                                                         Customer Name
                                                     </th>
-                                                    <!-- <th sortable="end_customer" class="sortable">
-                                                        End Customer
-                                                    </th> -->
-                                                    <!-- <th sortable="total_boxes" class="sortable">
-                                                        Number of Boxes
-                                                    </th> -->
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -251,6 +229,7 @@
                                                             <span class="au-checkmark"></span>
                                                         </label>
                                                     </td>
+                                                    @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
                                                     <td>
                                                         <div class="table-data-feature float-left">
                                                         <button class="item" data-toggle="tooltip" data-placement="top" title="Edit"
@@ -262,17 +241,9 @@
                                                         ng-click="OpenPVForm(item, false);">
                                                             <i class="zmdi zmdi-plus-box"></i>
                                                         </button>
-                                                        <!-- <button class="item" data-toggle="tooltip" data-placement="top" title="Close"
-                                                                ng-click="CloseReceipts(item.id);">
-                                                            <i class="zmdi zmdi-close-circle"></i>
-                                                        </button> -->
-                                                        <!-- <button class="item" data-toggle="tooltip" data-placement="top"
-                                                        title="Delete"
-                                                        ng-click="DeletePV(item.id);">
-                                                            <i class="zmdi zmdi-delete"></i>
-                                                        </button> -->
                                                         </div>
                                                     </td>
+                                                    @endif
                                                     <td ng-bind="item.formatted_receipt_id"></td>
                                                     <td ng-bind="item.formatted_pv_id"></td>
                                                     <td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>

@@ -26,9 +26,11 @@
                                     <tr grid-item>
                                         <td>
                                             <div class="table-data-feature float-left">
+                                                @if(Auth::user()->isManager() || Auth::user()->isAdmin())
                                                 <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="OpenPrintersIPModal(item)">
                                                     <i class="zmdi zmdi-edit"></i>
                                                 </button>
+                                                @endif
                                             </div>
                                         </td>
         	                            <td ng-bind="item.name"></td>

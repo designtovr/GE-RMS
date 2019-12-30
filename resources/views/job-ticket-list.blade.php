@@ -160,12 +160,11 @@
 								<thead>
 								<tr>
 
-									<!-- <th ng-show="openTab">
-										Select
-									</th> -->
+									@if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
 									<th>
 										Actions
 									</th>
+									@endif
 									<th sortable="formatted_pv_id" class="sortable">
 										RID
 									</th>
@@ -200,12 +199,7 @@
 								</thead>
 								<tbody>
 								<tr grid-item>
-									<!-- <td ng-show="openTab">
-										<label class="au-checkbox">
-											<input type="checkbox" ng-model="item.create_jc">
-											<span class="au-checkmark"></span>
-										</label>
-									</td> -->
+									@if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
 									<td>
                                         <div class="table-data-feature float-left">
                                         	<div class="btn-group" ng-if="page != 'sitecardafterjobticketcompleted'">
@@ -226,6 +220,7 @@
                                             </button>
                                         </div>
 									</td>
+									@endif
 									<td ng-bind="item.formatted_pv_id"></td>
 									<td ng-bind="item.formatted_rma_id"></td>
 									<td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>

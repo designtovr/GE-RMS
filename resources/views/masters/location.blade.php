@@ -58,9 +58,11 @@
                                                 <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="OpenLocationModal(item)">
                                                     <i class="zmdi zmdi-edit"></i>
                                                 </button>
+                                                @if(Auth::user()->isManager() || Auth::user()->isAdmin())
                                                 <button class="item" data-toggle="tooltip" data-placement="top" title="Delete" ng-click="DeleteLocation(item.id, item.code);">
                                                     <i class="zmdi zmdi-delete"></i>
                                                 </button>
+                                                @endif
                                             </div>
                                         </td>
         	                            <td ng-bind="item.code"></td>
