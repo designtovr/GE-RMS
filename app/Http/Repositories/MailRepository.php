@@ -12,6 +12,7 @@ use App\Models\RMA;
 use App\Models\RMAUnitInformation;
 use App\Models\WarrantyMaster;
 use App\Models\DispatchMaster;
+use App\Models\RMADeliveryAddress;
 
 class MailRepository
 {
@@ -52,12 +53,14 @@ class MailRepository
 					->leftJoin('receipt as rc', 'rc.id', 'rma.receipt_id')
 					->where('rma.id', $rma->id)->first();
 
-		$data['unit_information'] = RMAUnitInformation::select('pv.serial_no', 'pro.part_no', 'rma_unit_information.pv_id')
+		$data['unit_information'] = RMAUnitInformation::selectRaw('pv.serial_no, pro.part_no, rma_unit_information.pv_id, pv.case, pv.case_condition, pv.battery, pv.battery_condition, pv.terminal_blocks, pv.terminal_blocks_condition, pv.no_of_terminal_blocks, pv.top_bottom_cover, pv.top_bottom_cover_condition, pv.short_links, pv.short_links_condition, pv.no_of_short_links, screws')
 				->leftJoin('physical_verification as pv', 'pv.id', 'rma_unit_information.pv_id')
 				->leftJoin('ma_product as pro', 'pro.id', 'pv.product_id')
 				->where('rma_unit_information.rma_id', $data->id)->get();
 
-		$data['email'] = $this->GetToAddress($receipt->email);
+		$rma_delivery = RMADeliveryAddress::where('rma_id', $rma->id)->first();
+
+		$data['email'] = $this->GetToAddress($rma_delivery->email);
 		$data = $data->toArray();
 
 		try {
@@ -75,28 +78,26 @@ class MailRepository
 	public function WCCompletionMail(WarrantyMaster $warranty)
 	{
 		$data = PhysicalVerificationMaster::selectRaw('physical_verification.id, physical_verification.receipt_id,physical_verification.serial_no, physical_verification.comment, pro.part_no, wc.smp,
-			wc.pcp, wc.type, wc.created_at as created_date')
+			wc.pcp, wc.type, wc.created_at as created_date, rui.rma_id')
 				->join('warranty as wc', 'wc.pv_id', 'physical_verification.id')
 				->leftJoin('ma_product as pro', 'pro.id', 'physical_verification.product_id')
 				->leftJoin('rma_unit_information as rui', 'rui.pv_id', 'physical_verification.id')
 				->where('wc.pv_id', $warranty->pv_id)->first();
 
-
 		if(!$data)
 			return "No Warranty Found";
 
 		$receipt = ReceiptMaster::find($data->receipt_id);
+		$rma_delivery = RMADeliveryAddress::where('rma_id', $data->rma_id)->first();
+
 		if(!$receipt)
 			return "No Receipt Found";
 		if(!is_null($receipt->email))
 			return "No Mail Id";
 
-		$data['email'] = $this->GetToAddress($receipt->email);
+		$data['email'] = $this->GetToAddress($rma_delivery->email);
 		$time = strtotime($data['created_date']. ' + 3 days');
-
-		
 		$data['created_date'] = date('d/m/Y',$time);
-
 		$data = $data->toArray();
 
 		try {
@@ -115,7 +116,7 @@ class MailRepository
 		$dispatch_list = array();
 
 		foreach ($dispatches as $key => $dispatch) {
-			$dis = PhysicalVerificationMaster::selectRaw('physical_verification.id, physical_verification.receipt_id,physical_verification.serial_no, pro.part_no, rui.rma_id, dis.dc_no, dis.courier_name, dis.docket_details')
+			$dis = PhysicalVerificationMaster::selectRaw('physical_verification.id, physical_verification.receipt_id,physical_verification.serial_no, pro.part_no, rui.rma_id, dis.dc_no, dis.courier_name, dis.docket_details, rui.rma_id')
 					->leftJoin('dispatch as dis', 'dis.pv_id', 'physical_verification.id')
 					->leftJoin('ma_product as pro', 'pro.id', 'physical_verification.product_id')
 					->leftJoin('rma_unit_information as rui', 'rui.pv_id', 'physical_verification.id')
@@ -128,14 +129,13 @@ class MailRepository
 		if (sizeof($dispatch_list) <= 0)
 			return "Dispatch Not Found";
 
-		$data['email'] = $this->GetToAddress('srinivas.s@designtovr.com');
 		$data['dispatches'] = $dispatch_list;
 
 		$rma = RMA::where('id', $dispatch_list[0]->rma_id)->first();
 		if (!$rma)
 			return "RMA Not Found";
-
-		$receipt = ReceiptMaster::where('id', $rma->receipt_id)->first();
+		$rma_delivery = RMADeliveryAddress::where('rma_id', $rma->id)->first();
+		$data['email'] = $this->GetToAddress($rma_delivery->email);
 
 		try {
 			Mail::send('mails.dispatchcompletion',$data, function ($message) use ($data) {

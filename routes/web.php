@@ -245,7 +245,6 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::get('/getrmalist/{cat?}/{type?}', 'RMAController@GetRMAList');
 	Route::post('/getrma/{id}', 'RMAController@GetRma');
 	Route::post('/addrma', 'RMAController@AddRMA');
-	Route::get('/pvcompletionmail/{rma_id}', 'MailController@PVCompletionMail');
 	Route::post('/saverma', 'RMAController@SaveRMA');
 	Route::post('/savesitecardrma', 'RMAController@SaveSiteCardRMA');
 	Route::post('/addrmaunit', 'RMAController@AddRmaUnit');
@@ -335,6 +334,8 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::get('/relaystagereport/{id}', 'ReportsController@RelayStageReport');
 
 	Route::get('/receipt-mail', 'MailController@ReceiptMail');
+
+	Route::get('/pvcompletionmail/{rma_id}', 'MailController@PVCompletionMail');
 
 	Route::get('/wcmail/{pv_id}', 'MailController@WCCompletionMail');
 

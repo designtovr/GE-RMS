@@ -67,18 +67,15 @@ app.controller('DispatchController', ['$scope', '$http','$filter','Notification'
 					Notification.error("No Relay Selected");
 					return;
 				}
-				/*if ($scope.selectedpvs.length > 1)
-				{
-					Notification.error("Select One Relay");
-					return;
-				}*/
-				console.log($scope.selectedpvs);
 
-				/*$scope.ChangePVStatus($scope.selectedpvs ,status);
-				$('#all-tab').addClass('active');
-				$('#withrma-tab').removeClass('active');
-				$scope.LoadData('1');
-				$scope.GetPV('atbopen');*/
+				$scope.rma_check1 = $scope.selectedpvs[0].rma_id;
+				$scope.no_same_rma = false;
+				for (var i = 1; i < $scope.selectedpvs.length; i++) {
+					if ($scope.selectedpvs[i] != $scope.rma_check1)
+						$scope.no_same_rma = true;
+				}
+				if ($scope.no_same_rma)
+					Notification.error("You Selected Different RMA");
 			}
 
 		$scope.GetPVPriorityList = function()

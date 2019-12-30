@@ -8,11 +8,11 @@
 			The below product shall be dispatched today with the below correspondance
 	<br>
 	<br>
-	Delivery Challan: {{$dispatches[0]->dc_no}}
+	<b>Delivery Challan:</b> {{$dispatches[0]->dc_no}}
 	<br>
-	Courier Name : {{$dispatches[0]->courier_name}}
+	<b>Courier Name:</b> {{$dispatches[0]->courier_name}}
 	<br>
-	Dispatch Docket : {{$dispatches[0]->docket_details}}
+	<b>Dispatch Docket:</b> {{$dispatches[0]->docket_details}}
 	<br>
 	<br>
 	@foreach($dispatches as $key => $dispatch)

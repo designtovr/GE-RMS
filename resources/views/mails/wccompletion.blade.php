@@ -19,9 +19,9 @@
 	<b>Defect reported by customer:</b> {{$comment}}
 	<br>
 	<br>
-	@if($smp == 2 && $pcp == 2)
+	@if($pcp == 2)
 		The tentative date of dispatch would be <b>{{ $created_date }}</b>
-	@else
+	@elseif($pcp == 1)
 		A quote containig Repair / Modification Charges would be updated you separately. 
 	@endif
 	<br>
