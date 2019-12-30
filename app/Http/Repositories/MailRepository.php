@@ -46,8 +46,6 @@ class MailRepository
 		$receipt = ReceiptMaster::find($rma->receipt_id);
 		if(!$receipt)
 			return "No Receipt Found";
-		if(!is_null($receipt->email))
-			return "No Mail Id";
 
 		$data = RMA::selectRaw('rma.*')
 					->leftJoin('receipt as rc', 'rc.id', 'rma.receipt_id')
@@ -59,12 +57,37 @@ class MailRepository
 				->where('rma_unit_information.rma_id', $data->id)->get();
 
 		$rma_delivery = RMADeliveryAddress::where('rma_id', $rma->id)->first();
-
 		$data['email'] = $this->GetToAddress($rma_delivery->email);
 		$data = $data->toArray();
 
 		try {
 			Mail::send('mails.pvcompletion',$data, function ($message) use ($data, $receipt) {
+				$message->to($data['email']);
+				$message->subject('Physical Verification Completion');
+	 		});
+		} catch (\Exception $e) {
+			return $e->getMessage();
+		}
+
+ 		return "Sent";
+	}
+
+	public function SCPhysicalVerificationCompletion(RMA $rma)
+	{
+		$receipt = ReceiptMaster::find($rma->receipt_id);
+
+		$data = RMA::selectRaw('rma.*')->where('rma.id', $rma->id)->first();
+		$data['unit_information'] = RMAUnitInformation::selectRaw('pv.serial_no, pro.part_no, rma_unit_information.pv_id, pv.case, pv.case_condition, pv.battery, pv.battery_condition, pv.terminal_blocks, pv.terminal_blocks_condition, pv.no_of_terminal_blocks, pv.top_bottom_cover, pv.top_bottom_cover_condition, pv.short_links, pv.short_links_condition, pv.no_of_short_links, screws')
+				->leftJoin('physical_verification as pv', 'pv.id', 'rma_unit_information.pv_id')
+				->leftJoin('ma_product as pro', 'pro.id', 'pv.product_id')
+				->where('rma_unit_information.rma_id', $data->id)->get();
+
+		$rma_delivery = RMADeliveryAddress::where('rma_id', $rma->id)->first();
+		$data['email'] = $this->GetToAddress($rma_delivery->email);
+		$data = $data->toArray();
+
+		try {
+			Mail::send('mails.scpvcompletion',$data, function ($message) use ($data, $receipt) {
 				$message->to($data['email']);
 				$message->subject('Physical Verification Completion');
 	 		});

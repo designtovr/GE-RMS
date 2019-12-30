@@ -150,6 +150,16 @@ class MailController extends Controller
       return $result;
    }
 
+   public function SCPVCompletionMail($rma_id)
+   {
+      $RMA = RMA::find($rma_id);
+      if(!$RMA)
+        return "No RMA Found";
+
+      $result = $this->mailRepository->SCPhysicalVerificationCompletion($RMA); 
+      return $result;
+   }
+
    public function WCCompletionMail($pv_id)
    {
       $wr = WarrantyMaster::where('pv_id', $pv_id)->first();

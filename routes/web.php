@@ -341,6 +341,8 @@ Route::group(['middleware' => ['auth']], function(){
 
 	Route::get('/pvcompletionmail/{rma_id}', 'MailController@PVCompletionMail');
 
+	Route::get('/scpvcompletionmail/{rma_id}', 'MailController@SCPVCompletionMail');
+
 	Route::get('/wcmail/{pv_id}', 'MailController@WCCompletionMail');
 
 	Route::get('/dispatchcompletionmail/{pv_id}', 'MailController@DispatchCompletionMail');

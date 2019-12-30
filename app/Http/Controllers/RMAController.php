@@ -172,7 +172,11 @@ class RMAController extends Controller
             }
 
             //Sending mail
-            $mail_result = $this->mailRepository->PhysicalVerificationCompletion($RMA);
+            $mail_result = '';
+            if($RMA->service_type == 1)
+                $mail_result = $this->mailRepository->PhysicalVerificationCompletion($RMA);
+            else if($RMA->service_type == 2)
+                $mail_result = $this->mailRepository->SCPhysicalVerificationCompletion($RMA);
 
             return response()->json(['data' => $RMA, 'status' => 'success', 'message' => 'RMA Updated Successfully', 'mail_result' => $mail_result], 200);
         }
@@ -278,7 +282,11 @@ class RMAController extends Controller
             }
 
             //Sending mail
-            $mail_result = $this->mailRepository->PhysicalVerificationCompletion($RMA);
+            $mail_result = '';
+            if($RMA->service_type == 1)
+                $mail_result = $this->mailRepository->PhysicalVerificationCompletion($RMA);
+            else if($RMA->service_type == 2)
+                $mail_result = $this->mailRepository->SCPhysicalVerificationCompletion($RMA);
 
             return response()->json(['data' => $RMA, 'status' => 'success', 'message' => 'RMA Updated Successfully', 'mail_result' => $mail_result], 200);
         }
@@ -522,7 +530,9 @@ class RMAController extends Controller
             PVStatusRepositories::ChangeStatusToManagerApproval($RMAUT->pv_id);
         }
 
-        return response()->json(['data' => $RMAT, 'status' => 'success', 'message' => 'RMA Created Successfully'], 200);
+        $mail_result = $this->mailRepository->SCPhysicalVerificationCompletion($RMAT);
+
+        return response()->json(['data' => $RMAT, 'status' => 'success', 'message' => 'RMA Created Successfully', 'mail_result' => $mail_result], 200);
     }
 
     public function SaveSiteCardRMA(Request $request)
