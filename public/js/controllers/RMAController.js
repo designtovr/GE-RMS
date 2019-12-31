@@ -473,13 +473,17 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 
 	$scope.ChangeSCInvoiceAddress = function(customer)
 	{
-		$scope.sitecardform.invoice_info.id = customer.id;
-		$scope.sitecardform.invoice_info.invoice_address = customer.address;
-		$scope.sitecardform.invoice_info.contact_name = customer.contact_person;
-		$scope.sitecardform.invoice_info.invoice_tel_no = customer.contact;
-		$scope.sitecardform.invoice_info.invoice_email = customer.email;
-		$scope.sitecardform.invoice_info.gst = customer.gst;
-		$scope.ChangeSCDeliveryAddress();
+		if ($scope.sitecardform.copy_delivery_address_to_invoice_address)
+		{
+			//to avoid reference type
+			//we are assigning separately
+			$scope.sitecardform.invoice_info.name = $scope.sitecardform.delivery_info.name;
+			$scope.sitecardform.invoice_info.address = $scope.sitecardform.delivery_info.address;
+			$scope.sitecardform.invoice_info.contact_person = $scope.sitecardform.delivery_info.contact_person;
+			$scope.sitecardform.invoice_info.tel_no = $scope.sitecardform.delivery_info.tel_no;
+			$scope.sitecardform.invoice_info.email = $scope.sitecardform.delivery_info.email;
+			$scope.sitecardform.invoice_info.gst = $scope.sitecardform.delivery_info.gst;
+		}
 	}
 
 	$scope.ChangeSCDeliveryAddress = function()
@@ -645,7 +649,6 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 			Notification.error("Invalid Date Format");
 			return;
 		}
-		$scope.sitecardform.customer_address_id = $scope.sitecardform.invoice_info.customer_name.id;
 		$scope.sitecardform.end_customer = $scope.sitecardform.invoice_info.end_customer;
 		$http({
 			url: '/ge/addscrma',
@@ -704,23 +707,6 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 				Notification.error("Please Enter All Software Version");
 				return;
 			}
-		}
-
-		//after the first save invoice_info set null from backend
-		//so we checking invoice_info
-		if ($scope.sitecardform.invoice_info != undefined && $scope.sitecardform.invoice_info != null)
-		{
-			if ($scope.sitecardform.invoice_info.invoice_customer_name != undefined && $scope.sitecardform.invoice_info.invoice_customer_name != null)
-			{
-				$scope.sitecardform.customer_address_id = $scope.sitecardform.invoice_info.invoice_customer_name.id;
-			}
-		}
-
-		//this is worst part of my code
-		///i need to change this part
-		if ($scope.sitecardform.invoice_info != undefined && $scope.sitecardform.invoice_info != null)
-		{
-			$scope.sitecardform.end_customer = $scope.sitecardform.invoice_info.end_customer;
 		}
 
 		console.log($scope.sitecardform)

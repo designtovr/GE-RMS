@@ -174,42 +174,6 @@
 			                                        </div>
 			                                    </div>
 			                        		</div>
-			                        		<!-- <div class="col-lg-6">
-			                        			<div class="row form-group">
-			                                        <div class="col col-md-4">
-			                                            <label class=" form-control-label">Warranty</label>
-			                                        </div>
-			                                        <div class="col col-md-8">
-			                                            <div class="form-check">
-			                                                <div class="radio">
-			                                                    <label for="warrenty1_@{{$index}}"
-			                                                           class="form-check-label">
-			                                                        <input 
-			                                                        type="radio" 
-			                                                        id="warrenty1_@{{$index}}"
-			                                                        name="warrenty_@{{$index}}"
-			                                                        ng-model="info.warrenty"
-			                                                        ng-value="1"
-			                                                        class="form-check-input">Yes
-			                                                    </label>
-			                                                </div>
-			                                                <div class="radio">
-			                                                    <label for="warrenty2_@{{$index}}"
-			                                                           class="form-check-label ">
-			                                                        <input 
-			                                                        type="radio" 
-			                                                        id="warrenty2_@{{$index}}"
-			                                                        name="warrenty_@{{$index}}"
-			                                                        ng-model="info.warrenty"
-			                                                        ng-checked="info.warrenty == 0"
-			                                                        ng-value="0"
-			                                                        class="form-check-input">No
-			                                                    </label>
-			                                                </div>
-			                                            </div>
-			                                        </div>
-			                                    </div>
-			                        		</div> -->
 			                        	</div>
 			                        	<div class="row">
 			                        		<div class="col-lg-12">
@@ -412,22 +376,42 @@
                 	<form name="SiteCardForm5" id="SiteCardForm5" class="form-horizontal" novalidate>
                 		<div class="row form-group">
                             <div class="col col-md-4">
-                                <label for="customer_name" class=" form-control-label">Customer Name
-                                    <span class="mandatory">*</span></label>
+                                <label for="copy_invoice_address" class=" form-control-label">Copy Delivery Address <span class="mandatory">*</span></label>
                             </div>
                             <div class="col-12 col-md-8">
-                                <ui-select id="customer_name" 
-                                name="customer_name" ng-model="sitecardform.invoice_info.customer_name" theme="selectize" title="Select Customer" ng-change="ChangeSCInvoiceAddress(sitecardform.invoice_info.customer_name);" required>
-								    <ui-select-match placeholder="Select Customer">@{{$select.selected.name}}</ui-select-match>
-								    <ui-select-choices repeat="customer in customers | filter: $select.search">
-								      <span ng-bind-html="customer.name | highlight: $select.search"></span>
-								      <small ng-bind-html="customer.site_name | highlight: $select.search"></small>
-								    </ui-select-choices>
-								  </ui-select>
-								  <div ng-show="SiteCardForm5.customer_name.$touched && SiteCardForm5.customer_name.$error">
+                                <label class="au-checkbox">
+                                    <input type="checkbox" ng-model="sitecardform.copy_delivery_address_to_invoice_address" ng-change="ChangeSCInvoiceAddress();">
+                                    <span class="au-checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-4">
+                                <label for="customer_name" class=" form-control-label">Customer Name <span class="mandatory">*</span></label>
+                            </div>
+                            <div class="col-12 col-md-8">
+                                <input 
+                                type="text" 
+                                id="customer_name"
+                                name="customer_name" 
+                                ng-model="sitecardform.invoice_info.name" 
+                                placeholder="Name"
+                                class="form-control"
+                                ng-minlength="3" 
+                                ng-maxlength="200"
+                                required>
+                                <div ng-show="SiteCardForm5.customer_name.$touched && SiteCardForm5.customer_name.$error">
                                     <span class="help-block"
                                      ng-show="SiteCardForm5.customer_name.$error.required">
-                                        Please Select Customer Name
+                                        Please Enter Name
+                                    </span>
+                                    <span class="help-block"
+                                     ng-show="SiteCardForm5.customer_name.$error.minlength">
+                                        Minimum 3 Characters Required
+                                    </span>
+                                    <span class="help-block"
+                                     ng-show="SiteCardForm5.customer_name.$error.maxlength">
+                                        Maximum 200 Characters Allowed
                                     </span>
                                 </div>
                             </div>
@@ -457,9 +441,25 @@
                                 id="invoice_address" 
                                 rows="3" 
                                 placeholder="Address..."
-                                ng-model="sitecardform.invoice_info.invoice_address" 
+                                ng-model="sitecardform.invoice_info.address" 
                                 class="form-control"
-                                disabled></textarea>
+                                ng-minlength="3" 
+                                ng-maxlength="200"
+                                required></textarea>
+                                <div ng-show="SiteCardForm5.invoice_address.$touched && SiteCardForm5.invoice_address.$error">
+                                    <span class="help-block"
+                                     ng-show="SiteCardForm5.invoice_address.$error.required">
+                                        Please Enter Address
+                                    </span>
+                                    <span class="help-block"
+                                     ng-show="SiteCardForm5.invoice_address.$error.minlength">
+                                        Minimum 3 Characters Required
+                                    </span>
+                                    <span class="help-block"
+                                     ng-show="SiteCardForm5.invoice_address.$error.maxlength">
+                                        Maximum 200 Characters Allowed
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <div class="row form-group">
@@ -471,10 +471,26 @@
                                 type="text" 
                                 id="invoice_contact_name"
                                 name="invoice_contact_name" 
-                                ng-model="sitecardform.invoice_info.contact_name" 
+                                ng-model="sitecardform.invoice_info.contact_person" 
                                 placeholder="Contact Name"
                                 class="form-control"
-                                disabled>
+                                ng-minlength="3" 
+                                ng-maxlength="50"
+                                required>
+                                <div ng-show="SiteCardForm5.invoice_contact_name.$touched && SiteCardForm5.invoice_contact_name.$error">
+                                    <span class="help-block"
+                                     ng-show="SiteCardForm5.invoice_contact_name.$error.required">
+                                        Please Enter Name
+                                    </span>
+                                    <span class="help-block"
+                                     ng-show="SiteCardForm5.invoice_contact_name.$error.minlength">
+                                        Minimum 3 Characters Required
+                                    </span>
+                                    <span class="help-block"
+                                     ng-show="SiteCardForm5.invoice_contact_name.$error.maxlength">
+                                        Maximum 50 Characters Allowed
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <div class="row form-group">
@@ -487,10 +503,31 @@
                                 type="text" 
                                 id="invoice_tel_no" 
                                 name="invoice_tel_no"
-                                ng-model="sitecardform.invoice_info.invoice_tel_no" 
+                                ng-model="sitecardform.invoice_info.tel_no" 
                                 placeholder="Tel No" 
                                 class="form-control"
-                                disabled>
+                                ng-minlength="7" 
+                                ng-maxlength="15"
+                                ng-pattern="/^[0-9]*$/"
+                                required>
+                                <div ng-show="SiteCardForm5.invoice_tel_no.$touched && SiteCardForm5.invoice_tel_no.$error">
+                                    <span class="help-block"
+                                     ng-show="SiteCardForm5.invoice_tel_no.$error.required">
+                                        Please Enter Tel No
+                                    </span>
+                                    <span class="help-block"
+                                     ng-show="SiteCardForm5.invoice_tel_no.$error.minlength">
+                                        Minimum 7 Numbers Required
+                                    </span>
+                                    <span class="help-block"
+                                     ng-show="SiteCardForm5.invoice_tel_no.$error.maxlength">
+                                        Maximum 15 Numbers Allowed
+                                    </span>
+                                    <span class="help-block"
+                                     ng-show="SiteCardForm5.invoice_tel_no.$error.pattern">
+                                        Only Numbers Allowed
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <div class="row form-group">
@@ -503,10 +540,21 @@
                                 type="text" 
                                 id="invoice_email" 
                                 name="invoice_email"
-                                ng-model="sitecardform.invoice_info.invoice_email"
+                                ng-model="sitecardform.invoice_info.email"
                                 placeholder="Email" 
                                 class="form-control"
-                                disabled>
+                                ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/"
+                                required>
+                                <div ng-show="SiteCardForm5.invoice_email.$touched && SiteCardForm5.invoice_email.$error">
+                                    <span class="help-block"
+                                     ng-show="SiteCardForm5.invoice_email.$error.required">
+                                        Please Enter Email
+                                    </span>
+                                    <span class="help-block"
+                                     ng-show="SiteCardForm5.invoice_email.$error.pattern">
+                                        Invalid Email
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <div class="row form-group">
@@ -522,7 +570,23 @@
                                 ng-model="sitecardform.invoice_info.gst"
                                 placeholder="GST" 
                                 class="form-control"
-                                disabled>
+                                ng-minlength="15" 
+                                ng-maxlength="15"
+                                required>
+                                <div ng-show="SiteCardForm5.invoice_gst.$touched && SiteCardForm5.invoice_gst.$error">
+                                    <span class="help-block"
+                                     ng-show="SiteCardForm5.invoice_gst.$error.required">
+                                        Please Enter GST Number
+                                    </span>
+                                    <span class="help-block"
+                                     ng-show="SiteCardForm5.invoice_gst.$error.minlength">
+                                        Should Not Be Less Than 15 Characters
+                                    </span>
+                                    <span class="help-block"
+                                     ng-show="SiteCardForm5.invoice_gst.$error.maxlength">
+                                        Should Not Be Greater Than 15 Characters
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -536,15 +600,51 @@
                 </div>
                 <div class="card-body card-block">
                 	<form name="SiteCardForm6" id="SiteCardForm6" class="form-horizontal" novalidate>
-                		<div class="row form-group">
+                		<!-- <div class="row form-group">
                             <div class="col col-md-4">
-                                <label for="copy_invoice_address" class=" form-control-label">Copy Invoice Address <span class="mandatory">*</span></label>
+                                <label for="delivery_select_customer" class=" form-control-label">Select Customer
+                                    <span class="mandatory">*</span></label>
                             </div>
                             <div class="col-12 col-md-8">
-                                <label class="au-checkbox">
-                                    <input type="checkbox" ng-model="sitecardform.copy_invoice_address_to_delivery_address" ng-change="ChangeSCDeliveryAddress();">
-                                    <span class="au-checkmark"></span>
-                                </label>
+                                <ui-select id="delivery_select_customer" 
+                                name="delivery_select_customer" ng-model="sitecardform.delivery_info.delivery_select_customer" theme="selectize" title="Select Customer" ng-change="ChangeSCDeliveryAddress(sitecardform.delivery_info.delivery_select_customer);">
+								    <ui-select-match placeholder="Select Customer">@{{$select.selected.name}}</ui-select-match>
+								    <ui-select-choices repeat="customer in customers | filter: $select.search">
+								      <span ng-bind-html="customer.name | highlight: $select.search"></span>
+								      <small ng-bind-html="customer.site_name | highlight: $select.search"></small>
+								    </ui-select-choices>
+								  </ui-select>
+                            </div>
+                        </div> -->
+                		<div class="row form-group">
+                            <div class="col col-md-4">
+                                <label for="delivery_customer_name" class=" form-control-label">Customer Name <span class="mandatory">*</span></label>
+                            </div>
+                            <div class="col-12 col-md-8">
+                                <input 
+                                type="text" 
+                                id="delivery_customer_name"
+                                name="delivery_customer_name" 
+                                ng-model="sitecardform.delivery_info.name" 
+                                placeholder="Name"
+                                class="form-control"
+                                ng-minlength="3" 
+                                ng-maxlength="200"
+                                required>
+                                <div ng-show="SiteCardForm6.delivery_customer_name.$touched && SiteCardForm6.delivery_customer_name.$error">
+                                    <span class="help-block"
+                                     ng-show="SiteCardForm6.delivery_customer_name.$error.required">
+                                        Please Enter Name
+                                    </span>
+                                    <span class="help-block"
+                                     ng-show="SiteCardForm6.delivery_customer_name.$error.minlength">
+                                        Minimum 3 Characters Required
+                                    </span>
+                                    <span class="help-block"
+                                     ng-show="SiteCardForm6.delivery_customer_name.$error.maxlength">
+                                        Maximum 200 Characters Allowed
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <div class="row form-group">
@@ -653,7 +753,7 @@
                             <div class="col-12 col-md-8">
                                 <input 
                                 type="text" 
-                                id="delivery-email" 
+                                id="delivery_email" 
                                 name="delivery_email"
                                 ng-model="sitecardform.delivery_info.email" 
                                 placeholder="Email" 
@@ -674,7 +774,7 @@
                         </div>
                         <div class="row form-group">
                             <div class="col col-md-4">
-                                <label for="gst_number" class=" form-control-label">GST Number <span class="mandatory">*</span></label>
+                                <label for="gst_number" class=" form-control-label">GST <span class="mandatory">*</span></label>
                             </div>
                             <div class="col-12 col-md-8">
                                 <input 
@@ -682,7 +782,7 @@
                                 id="gst_number" 
                                 name="gst_number"
                                 ng-model="sitecardform.delivery_info.gst" 
-                                placeholder="GST Number" 
+                                placeholder="GST" 
                                 class="form-control"
                                 ng-minlength="15" 
                                 ng-maxlength="15"
