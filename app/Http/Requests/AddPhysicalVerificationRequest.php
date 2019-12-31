@@ -27,8 +27,8 @@ class AddPhysicalVerificationRequest extends FormRequest
 
             'physicalverification.id' => 'nullable|exists:physical_verification,id',
             'physicalverification.receipt_id' => 'required|numeric|exists:receipt,id',
-            'physicalverification.courier_name' => 'required|string',
-            'physicalverification.docket_details' => 'required|string',
+            /*'physicalverification.courier_name' => 'required|string',
+            'physicalverification.docket_details' => 'required|string',*/
             'physicalverification.pvdate' => 'required|string',
             'physicalverification.producttype_id' => 'required|exists:ma_product_type,id',
             'physicalverification.product' => 'required_without:manual_part_no|array',

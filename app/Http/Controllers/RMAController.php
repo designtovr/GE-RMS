@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\RMA;
 use App\Models\RMADeliveryAddress;
+use App\Models\RMAInvoiceAddress;
 use App\Models\RMAUnitInformation;
 use App\Models\RMAUnitSerialNumber;
 use App\Models\PhysicalVerificationMaster;
@@ -60,9 +61,9 @@ class RMAController extends Controller
 
 	public function GetRma($id)
 	{
-		$rma = RMA::where('rma.id', $id)->first();
+		$rma = RMA::selectRaw('rma.*, rma.status as rma_status')->where('rma.id', $id)->first();
 		$rma['unit_information'] = RMAUnitInformation::selectRaw('rma_unit_information.*,pv.id as id,pv.serial_no, pr.part_no,pt.category')->where('rma_id',$id)->leftJoin('physical_verification as pv', 'pv.id', 'rma_unit_information.pv_id')->leftJoin('ma_product as pr', 'pr.id', 'pv.product_id')->leftJoin('ma_product_type as pt', 'pt.id', 'pr.type')->get();
-		$rma['invoice_info'] = CustomerMaster::where('id', $rma['customer_address_id'])->first();
+		$rma['invoice_info'] = RMAInvoiceAddress::where('rma_id', $id)->first();
 		$rma['delivery_info'] = RMADeliveryAddress::where('rma_id', $id)->first();
 		return response()->json(['data' => $rma, 'status' => 'success']);
 	}
@@ -125,7 +126,7 @@ class RMAController extends Controller
             $RMA->act_reference = (array_key_exists('act_reference', $requestdata))?$requestdata['act_reference']:'';
             $date = Carbon::createFromFormat('d/m/Y',$requestdata['date']);
             $RMA->date = $date->format('Y-m-d');
-            $RMA->customer_address_id = $requestdata['customer_address_id'];
+            //$RMA->customer_address_id = $requestdata['customer_address_id'];
             $RMA->end_customer = $requestdata['invoice_info']['end_customer'];
             $RMA->status = 3;
             $RMA->created_by = Auth::id();
@@ -136,6 +137,7 @@ class RMAController extends Controller
             $delivery_info = $requestdata['delivery_info'];
             $RMADelivery = new RMADeliveryAddress();
             $RMADelivery->rma_id = $RMA->id;
+            $RMADelivery->name = $delivery_info['name'];
             $RMADelivery->address = $delivery_info['address'];
             $RMADelivery->contact_person = $delivery_info['contact_person'];
             $RMADelivery->tel_no = $delivery_info['tel_no'];
@@ -145,6 +147,20 @@ class RMAController extends Controller
             $RMADelivery->updated_by = Auth::id();
             $RMADelivery->updated_at = Carbon::now();
             $RMADelivery->save();
+
+            $invoice_info = $requestdata['invoice_info'];
+            $RMAInvoice = new RMAInvoiceAddress();
+            $RMAInvoice->rma_id = $RMA->id;
+            $RMAInvoice->name = $invoice_info['name'];
+            $RMAInvoice->address = $invoice_info['address'];
+            $RMAInvoice->contact_person = $invoice_info['contact_person'];
+            $RMAInvoice->tel_no = $invoice_info['tel_no'];
+            $RMAInvoice->email = $invoice_info['email'];
+            $RMAInvoice->gst = $invoice_info['gst'];
+            $RMAInvoice->created_by = Auth::id();
+            $RMAInvoice->updated_by = Auth::id();
+            $RMAInvoice->updated_at = Carbon::now();
+            $RMAInvoice->save();
 
             foreach ($pvdata as $key => $unit) {
                 $RMAUnitInformation = new RMAUnitInformation();
@@ -216,12 +232,50 @@ class RMAController extends Controller
                 $RMADelivery->email = $delivery_info['email'];
             if (array_key_exists('gst', $delivery_info))
                 $RMADelivery->gst = $delivery_info['gst'];
+            if (array_key_exists('name', $delivery_info))
+                $RMADelivery->name = $delivery_info['name'];
             $RMADelivery->updated_by = Auth::id();
             $RMADelivery->updated_at = Carbon::now();
             if ($dexists)                
                 $RMADelivery->update();
             else
                 $RMADelivery->save();
+
+            $invoice_info = $requestdata['invoice_info'];
+            $RMAInvoice = RMAInvoiceAddress::where('rma_id', $requestdata['id'])->first();
+            if($RMAInvoice)
+            {
+                if (array_key_exists('address', $invoice_info))
+                    $RMAInvoice->address = $invoice_info['address'];
+                if (array_key_exists('contact_person', $invoice_info))
+                    $RMAInvoice->contact_person = $invoice_info['contact_person'];
+                if (array_key_exists('tel_no', $invoice_info))
+                    $RMAInvoice->tel_no = $invoice_info['tel_no'];
+                if (array_key_exists('email', $invoice_info))
+                    $RMAInvoice->email = $invoice_info['email'];
+                if (array_key_exists('gst', $invoice_info))
+                    $RMAInvoice->gst = $invoice_info['gst'];
+                if (array_key_exists('name', $invoice_info))
+                    $RMAInvoice->name = $invoice_info['name'];
+
+                $RMAInvoice->updated_by = Auth::id();
+                $RMAInvoice->updated_at = Carbon::now();
+                $RMAInvoice->update();
+            }
+            else
+            {
+                $RMAInvoice = new RMAInvoiceAddress();
+                $RMAInvoice->address = $invoice_info['address'];
+                $RMAInvoice->contact_person = $invoice_info['contact_person'];
+                $RMAInvoice->tel_no = $invoice_info['tel_no'];
+                $RMAInvoice->email = $invoice_info['email'];
+                $RMAInvoice->gst = $invoice_info['gst'];
+                $RMAInvoice->name = $invoice_info['name'];
+
+                $RMAInvoice->created_by = Auth::id();
+                $RMAInvoice->created_at = Carbon::now();
+                $RMAInvoice->save();
+            }
 
             foreach ($pvdata as $key => $unit) {
                 $RMAUnitInformation = RMAUnitInformation::where('pv_id', $unit['id'])->where('rma_id', $unit['rma_id'])->first();
@@ -314,7 +368,6 @@ class RMAController extends Controller
                $date = Carbon::createFromFormat('d/m/Y',$rmadata['date']);
                 $RMA->date = $date->format('Y-m-d'); 
             }
-            $RMA->customer_address_id = (array_key_exists('customer_address_id', $rmadata))?$rmadata['customer_address_id']:0;
             if (isset($rmadata['invoice_info']['end_customer']))
                 $RMA->end_customer = $rmadata['invoice_info']['end_customer'];
             else
@@ -342,13 +395,29 @@ class RMAController extends Controller
                 $RMAD->save();
             }
 
+            if (isset($rmadata['invoice_info']))
+            {
+                $invoice_info = $rmadata['invoice_info'];
+                $RMAI = new RMAInvoiceAddress();
+                $RMAI->rma_id = $RMA->id;
+                $RMAI->address = (array_key_exists('address', $delivery_info))?$delivery_info['address']:'';
+                $RMAI->contact_person = (array_key_exists('contact_person', $delivery_info))?$delivery_info['contact_person']:'';
+                $RMAI->tel_no = (array_key_exists('tel_no', $delivery_info))?$delivery_info['tel_no']:'';
+                $RMAI->email = (array_key_exists('email', $delivery_info))?$delivery_info['email']:'';
+                $RMAI->gst = (array_key_exists('gst', $delivery_info))?$delivery_info['gst']:'';
+                $RMAI->created_by = Auth::id();
+                $RMAI->updated_by = Auth::id();
+                $RMAI->created_at = Carbon::now();
+                $RMAI->updated_at = Carbon::now();
+                $RMAI->save();
+            }
+
             foreach ($pvdata as $key => $unit) {
                 $RMAUnitInformation = new RMAUnitInformation();
                 $RMAUnitInformation->rma_id = $RMA->id;
                 $RMAUnitInformation->pv_id = $unit['id'];
                 $RMAUnitInformation->sw_version = (array_key_exists('sw_version', $unit))?$unit['sw_version']:'';
                 $RMAUnitInformation->service_type = (array_key_exists('service_type', $unit) && !is_null($unit['service_type']))?$unit['service_type']:1;
-                //$RMAUnitInformation->warrenty = (array_key_exists('warrenty', $unit))?$unit['warrenty']:-1;
                 $RMAUnitInformation->desc_of_fault = (array_key_exists('desc_of_fault', $unit))?$unit['desc_of_fault']:'';
                 $RMAUnitInformation->sales_order_no = (array_key_exists('sales_order_no', $unit))?$unit['sales_order_no']:'';
                 $RMAUnitInformation->field_volts_used = (array_key_exists('field_volts_used', $unit))?$unit['field_volts_used']:-1;
@@ -428,6 +497,45 @@ class RMAController extends Controller
                     $RMAD->created_at = Carbon::now();
                     $RMAD->updated_at = Carbon::now();
                     $RMAD->save();
+                }
+            }
+
+            $RMAI = RMAInvoiceAddress::where('rma_id', $rmadata['id'])->first();
+            if ($RMAI)
+            {
+                $invoice_info = $rmadata['invoice_info'];
+                if (array_key_exists('address', $invoice_info))
+                    $RMAI->address = $invoice_info['address'];
+                if (array_key_exists('contact_person', $invoice_info))
+                    $RMAI->contact_person = $invoice_info['contact_person'];
+                if (array_key_exists('tel_no', $invoice_info))
+                    $RMAI->tel_no = $invoice_info['tel_no'];
+                if (array_key_exists('email', $invoice_info))
+                    $RMAI->email = $invoice_info['email'];
+                if (array_key_exists('gst', $invoice_info))
+                    $RMAI->gst = $invoice_info['gst'];
+                $RMAI->updated_by = Auth::id();
+                $RMAI->updated_at = Carbon::now();
+                $RMAI->update();
+            }
+            else
+            {
+                if (isset($rmadata['invoice_info']))
+                {
+                    $invoice_info = $rmadata['invoice_info'];
+                    $RMAI = new RMAInvoiceAddress();
+                    $RMAI->rma_id = $rmadata['id'];
+                    $RMAI->tel_no = (array_key_exists('tel_no', $invoice_info))?$invoice_info['tel_no']:'';
+                    $RMAI->address = (array_key_exists('address', $invoice_info))?$invoice_info['address']:'';
+                    $RMAI->contact_person = (array_key_exists('contact_person', $invoice_info))?$invoice_info['contact_person']:'';
+                    $RMAI->tel_no = (array_key_exists('tel_no', $invoice_info))?$invoice_info['tel_no']:'';
+                    $RMAI->email = (array_key_exists('email', $invoice_info))?$invoice_info['email']:'';
+                    $RMAI->gst = (array_key_exists('gst', $invoice_info))?$invoice_info['gst']:'';
+                    $RMAI->created_by = Auth::id();
+                    $RMAI->updated_by = Auth::id();
+                    $RMAI->created_at = Carbon::now();
+                    $RMAI->updated_at = Carbon::now();
+                    $RMAI->save();
                 }
             }
 

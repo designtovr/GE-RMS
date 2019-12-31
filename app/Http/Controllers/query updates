@@ -32,3 +32,13 @@ UPDATE `roles` SET `name` = 'Manager' WHERE `roles`.`id` = 2;
 INSERT INTO `roles` (`id`, `name`) VALUES (NULL, 'Technician');
 `ALTER TABLE ``role_user`` DROP INDEX ``role_user_user_id_foreign``;`
 `ALTER TABLE ``role_user`` DROP INDEX ``role_user_role_id_foreign``;`
+
+ALTER TABLE `rma_delivery_address` ADD `name` VARCHAR(200) NULL DEFAULT NULL AFTER `rma_id`;
+
+ALTER TABLE `rma_invoice_address` ADD `name` VARCHAR(200) NULL DEFAULT NULL AFTER `rma_id`;
+
+ALTER TABLE `rma` CHANGE `customer_address_id` `customer_address_id` INT(11) NULL DEFAULT NULL;
+
+ALTER TABLE `rma_invoice_address` CHANGE `updated_by` `updated_by` INT(11) NULL DEFAULT NULL, CHANGE `updated_at` `updated_at` DATETIME NULL DEFAULT NULL;
+
+ALTER TABLE `rma_delivery_address` CHANGE `updated_by` `updated_by` INT(11) NULL DEFAULT NULL, CHANGE `updated_at` `updated_at` DATETIME NULL DEFAULT NULL;

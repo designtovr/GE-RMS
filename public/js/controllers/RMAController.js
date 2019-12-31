@@ -399,12 +399,16 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 			{
 				var receipt = response.data.receipt;
 				console.log(receipt);
-				$scope.rmaformdata.date = $filter('date')(receipt.rma_date, 'dd/MM/yyyy');
+				if(receipt.rma_date == null)
+					$scope.rmaformdata.date = $filter('date')(new Date(), 'dd/MM/yyyy');
+				else
+					$scope.rmaformdata.date = $filter('date')(receipt.rma_date, 'dd/MM/yyyy');
 		    	$scope.showrmaform = true;
-		    	$scope.rmaformdata.invoice_info.invoice_customer_name = receipt.customer;
-		    	$scope.rmaformdata.invoice_info.end_customer = receipt.end_customer;
+		    	$scope.rmaformdata.invoice_info = receipt.invoice_info;
+		    	if ($scope.rmaformdata.invoice_info != null)
+		    		$scope.rmaformdata.invoice_info.end_customer = receipt.end_customer;
 		    	$scope.rmaformdata.delivery_info = receipt.delivery_info;
-		    	$scope.ChangeInvoiceAddress(receipt.customer);
+		    	$scope.rmaformdata.rma_status = receipt.rma_status;
 			}
 		}, function error(response) {
 		});
@@ -458,26 +462,12 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 		}
 	}
 
-	$scope.ChangeInvoiceAddress = function(customer)
+	$scope.ChangeInvoiceAddress = function()
 	{
-		$scope.rmaformdata.invoice_info.id = customer.id;
-		$scope.rmaformdata.invoice_info.invoice_address = customer.address;
-		$scope.rmaformdata.invoice_info.contact_name = customer.contact_person;
-		$scope.rmaformdata.invoice_info.invoice_tel_no = customer.contact;
-		$scope.rmaformdata.invoice_info.invoice_email = customer.email;
-		$scope.rmaformdata.invoice_info.gst = customer.gst;
-		$scope.ChangeDeliveryAddress();
-	}
-
-	$scope.ChangeDeliveryAddress = function()
-	{
-		if ($scope.rmaformdata.copy_invoice_address_to_delivery_address)
+		console.log($scope.rmaformdata.delivery_info);
+		if ($scope.rmaformdata.copy_delivery_address_to_invoice_address)
 		{
-			$scope.rmaformdata.delivery_info.address = $scope.rmaformdata.invoice_info.invoice_address;
-			$scope.rmaformdata.delivery_info.contact_person = $scope.rmaformdata.invoice_info.contact_name;
-			$scope.rmaformdata.delivery_info.tel_no = $scope.rmaformdata.invoice_info.invoice_tel_no;
-			$scope.rmaformdata.delivery_info.email = $scope.rmaformdata.invoice_info.invoice_email;
-			$scope.rmaformdata.delivery_info.gst = $scope.rmaformdata.invoice_info.gst;
+			$scope.rmaformdata.invoice_info = $scope.rmaformdata.delivery_info;
 		}
 	}
 
@@ -556,23 +546,31 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 			Notification.error("Invalid Date Format");
 			return;
 		}
-		if ($scope.rmaformdata.invoice_info.invoice_customer_name == undefined || $scope.rmaformdata.invoice_info.invoice_customer_name == null)
+
+		if (($scope.rmaformdata.invoice_info.contact_person == undefined || $scope.rmaformdata.invoice_info.contact_person == null)
+			|| ($scope.rmaformdata.invoice_info.address == undefined || $scope.rmaformdata.invoice_info.address == null) 
+			|| ($scope.rmaformdata.invoice_info.tel_no == undefined || $scope.rmaformdata.invoice_info.tel_no == null)
+			|| ($scope.rmaformdata.invoice_info.email == undefined || $scope.rmaformdata.invoice_info.email == null)
+			|| ($scope.rmaformdata.invoice_info.gst == undefined || $scope.rmaformdata.invoice_info.gst == null)
+			|| ($scope.rmaformdata.invoice_info.name == undefined || $scope.rmaformdata.invoice_info.name == null)
+		)
 		{
-			Notification.error("Please Select Customer");
+			Notification.error("Please Enter Invoice Information");
 			return;
 		}
+
 		if ($scope.rmaformdata.invoice_info.end_customer == undefined || $scope.rmaformdata.invoice_info.end_customer == null)
 		{
 			Notification.error("Please Enter End Customer");
 			return;
 		}
 
-		$scope.rmaformdata.customer_address_id = $scope.rmaformdata.invoice_info.invoice_customer_name.id;
 		if (($scope.rmaformdata.delivery_info.contact_person == undefined || $scope.rmaformdata.delivery_info.contact_person == null)
 			|| ($scope.rmaformdata.delivery_info.address == undefined || $scope.rmaformdata.delivery_info.address == null) 
 			|| ($scope.rmaformdata.delivery_info.tel_no == undefined || $scope.rmaformdata.delivery_info.tel_no == null)
 			|| ($scope.rmaformdata.delivery_info.email == undefined || $scope.rmaformdata.delivery_info.email == null)
 			|| ($scope.rmaformdata.delivery_info.gst == undefined || $scope.rmaformdata.delivery_info.gst == null)
+			|| ($scope.rmaformdata.delivery_info.name == undefined || $scope.rmaformdata.delivery_info.name == null)
 		)
 		{
 			Notification.error("Please Enter Delivery Information");
@@ -764,18 +762,7 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 			Notification.error("Invalid Date Format");
 			return;
 		}
-		if ($scope.rmaformdata.invoice_info.invoice_customer_name == undefined || $scope.rmaformdata.invoice_info.invoice_customer_name == null)
-		{
-			Notification.error("Please Select Customer");
-			return;
-		}
-		if ($scope.rmaformdata.invoice_info.end_customer == undefined || $scope.rmaformdata.invoice_info.end_customer == null)
-		{
-			Notification.error("Please Enter End Customer");
-			return;
-		}
 
-		$scope.rmaformdata.customer_address_id = $scope.rmaformdata.invoice_info.invoice_customer_name.id;
 		$http({
 			url: '/ge/saverma',
 			method: 'POST',

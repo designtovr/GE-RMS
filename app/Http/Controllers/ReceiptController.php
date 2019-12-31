@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\CustomerLocationTransaction;
 use App\Models\CustomerSiteTransaction;
 use App\Models\RMADeliveryAddress;
+use App\Models\RMAInvoiceAddress;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\AddReceiptRequest;
@@ -30,7 +31,7 @@ class ReceiptController extends Controller
 
     public function Receipts($cat='all')
     {
-        $receipt = ReceiptMaster::selectRaw('receipt.*,ROUND(UNIX_TIMESTAMP(receipt.receipt_date) * 1000 +50000000) as date_unix , receipt.id as receipt_id, rma.id as rma_id, receipt.site as site_name,receipt.site as location, cus.name as customer_name')->leftJoin('ma_customer as cus', 'cus.id', 'receipt.customer_id')/*->leftJoin('ma_site as site', 'site.id', 'receipt.site_id')*/->leftJoin('rma', 'rma.receipt_id', 'receipt.id');
+        $receipt = ReceiptMaster::selectRaw('receipt.*,ROUND(UNIX_TIMESTAMP(receipt.receipt_date) * 1000 +50000000) as date_unix , receipt.id as receipt_id, rma.id as rma_id, receipt.site as site_name,receipt.site as location, cus.name as customer_name')->leftJoin('ma_customer as cus', 'cus.id', 'receipt.customer_id')->leftJoin('rma', 'rma.receipt_id', 'receipt.id');
         if ($cat == 'open')
         {
             $receipt = $receipt->where('receipt.status', 1)->orderBy('receipt.id')->get();
@@ -52,12 +53,21 @@ class ReceiptController extends Controller
 
     public function GetReceipt($id)
     {
-        $receipt = ReceiptMaster::with('Customer')->selectRaw('receipt.*, cus.name as customer_name, rma.id as rma_id, receipt.site as site_name, cus.name as customer_name, rma.end_customer as end_customer, rma.date as rma_date')->leftJoin('ma_customer as cus', 'cus.id', 'receipt.customer_id')->where('receipt.id', $id)->leftJoin('rma', 'rma.receipt_id', 'receipt.id')->first();
+        $receipt = ReceiptMaster::with('Customer')->selectRaw('receipt.*, cus.name as customer_name, rma.id as rma_id, receipt.site as site_name, cus.name as customer_name, rma.end_customer as end_customer, rma.date as rma_date, rma.status as rma_status')->leftJoin('ma_customer as cus', 'cus.id', 'receipt.customer_id')->where('receipt.id', $id)->leftJoin('rma', 'rma.receipt_id', 'receipt.id')->first();
 
         $receipt['delivery_info'] = null;
         if(!is_null($receipt->rma_id))
         {
             $receipt['delivery_info'] = RMADeliveryAddress::where('rma_id', $receipt->rma_id)->first();
+        }
+        if(is_null($receipt['delivery_info']))
+        {
+            $receipt['delivery_info'] = CustomerMaster::selectRaw('name, address, contact_person, contact as tel_no, email, gst')->where('id', $receipt->customer_id)->first();
+        }
+        $receipt['invoice_info'] = null;
+        if(!is_null($receipt->rma_id))
+        {
+            $receipt['invoice_info'] = RMAInvoiceAddress::where('rma_id', $receipt->rma_id)->first();
         }
 
         return response()->json(['receipt' => $receipt, 'status' => 'success'], 200);
