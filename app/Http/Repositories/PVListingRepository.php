@@ -14,7 +14,7 @@ class PVListingRepository
 	private function PVList($status_id, $service_type=array())
 	{
 		$pv = PhysicalVerificationMaster::
-				selectRaw('physical_verification.*, ROUND(UNIX_TIMESTAMP(physical_verification.pvdate) * 1000 +50000000) as date_unix ,receipt.gs_no, receipt.customer_id, cus.name as customer_name,rma.end_customer,pr.part_no, rma.service_type,pt.category,ma_pv_status.status, ma_pv_status.close_status, rmu.sw_version, rmu.rma_id, rmu.desc_of_fault as customer_comment, warranty.comment as manager_comment, tes.comment as testing_comment, jt.comment as repair_comment, aging.comment as aging_comment, tes.created_at as tes_created_at, IF(pvl.priority > 0, pvl.priority, 999999) as pvl_priority, IF(pvl.priority > 0, pvl.priority, "NA") as pvl_priority_for_display')
+				selectRaw('physical_verification.*, ROUND(UNIX_TIMESTAMP(physical_verification.pvdate) * 1000 +50000000) as date_unix ,receipt.gs_no, receipt.customer_id, rma.end_customer,pr.part_no, rma.service_type,pt.category,ma_pv_status.status, ma_pv_status.close_status, rmu.sw_version, rmu.rma_id, rmu.desc_of_fault as customer_comment, warranty.comment as manager_comment, tes.comment as testing_comment, jt.comment as repair_comment, aging.comment as aging_comment, tes.created_at as tes_created_at, IF(pvl.priority > 0, pvl.priority, 999999) as pvl_priority, IF(pvl.priority > 0, pvl.priority, "NA") as pvl_priority_for_display, ria.name as customer_name')
 				->leftJoin('receipt', 'physical_verification.receipt_id', 'receipt.id')
 				->leftJoin('ma_product as pr', 'pr.id', 'physical_verification.product_id')
 				->leftJoin('ma_product_type as pt', 'pt.id', 'physical_verification.producttype_id')
@@ -28,6 +28,8 @@ class PVListingRepository
 				->leftJoin('aging', 'aging.pv_id', 'physical_verification.id')
 				->leftJoin('ma_customer as cus', 'cus.id', 'rma.customer_address_id')
 				->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'physical_verification.id')
+				->leftJoin('rma_delivery_address as rda', 'rda.rma_id', 'rma.id')
+				->leftJoin('rma_invoice_address as ria', 'ria.rma_id', 'rma.id')
 				->whereNotIn('pt.category', ["'omu'","'boj'"])
 				->whereIn('pv_status.current_status_id', $status_id);
 		if (sizeof($service_type) > 0)

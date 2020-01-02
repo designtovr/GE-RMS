@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 30, 2019 at 09:25 AM
+-- Generation Time: Jan 02, 2020 at 07:25 AM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.11
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `ge_rms`
+-- Database: `ge_rms_1`
 --
 
 DELIMITER $$
@@ -2051,7 +2051,7 @@ INSERT INTO `physical_verification` (`id`, `receipt_id`, `docket_details`, `cour
 (16, 8, 'DESC098737', 'Fed', '2019-12-24', 13, 409, 'VCXNVCHGF', '', 2, 2, 2, 2, 2, 2, '0', 1, 2, 2, 2, 0, 1, '', 1, '2019-12-24 06:19:20', '2019-12-24 06:19:20', 1, 1),
 (17, 8, 'DESC098737', 'Fed', '2019-12-24', 1, 3, 'SKDFJGKJNK', '', 1, 2, 1, 2, 1, 2, '5464', 1, 2, 1, 2, 756, 1, '', 1, '2019-12-24 07:33:22', '2019-12-24 06:22:11', 1, 1),
 (18, 8, 'DESC098737', 'Fed', '2019-12-27', 1, 36, 'SDASFSADFS', NULL, 1, 2, 1, 2, 2, 2, '0', 1, 2, 2, 2, 0, 1, NULL, 1, '2019-12-27 09:58:14', '2019-12-24 07:34:15', 1, 1),
-(19, 1, 'CASAD', 'ASDA', '2019-12-27', 3, 48, '32424242', 'NA', 2, 2, 2, 2, 2, 2, '0', 2, 2, 2, 2, 0, 1, '', 0, '2019-12-27 08:20:30', '2019-12-27 08:20:30', 1, 1);
+(19, 1, 'CASAD', 'ASDA', '2019-12-27', 3, 48, '32424242', 'NA', 2, 2, 2, 2, 2, 2, '0', 2, 2, 2, 2, 0, 1, '', 1, '2020-01-02 06:24:37', '2019-12-27 08:20:30', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -2184,7 +2184,7 @@ INSERT INTO `pv_status` (`pv_id`, `current_status_id`, `created_at`, `created_by
 (16, 11, '2019-12-27 10:04:26', 1),
 (17, 13, '2019-12-24 07:33:22', 1),
 (18, 2, '2019-12-24 07:34:15', 1),
-(19, 1, '2019-12-27 08:20:30', 1),
+(19, 13, '2020-01-02 06:24:37', 1),
 (104, 2, '2019-11-14 07:20:32', 1),
 (105, 3, '2019-11-09 18:44:08', 1),
 (106, 12, '2019-11-14 06:59:38', 1),
@@ -2622,7 +2622,8 @@ INSERT INTO `pv_status_tracking` (`pv_id`, `status_id`, `created_at`, `created_b
 (16, 9, '2019-12-27 10:03:47', 1),
 (16, 10, '2019-12-27 10:03:57', 1),
 (16, 11, '2019-12-27 10:04:26', 1),
-(1, 12, '2019-12-30 07:54:24', 1);
+(1, 12, '2019-12-30 07:54:24', 1),
+(19, 13, '2020-01-02 06:24:37', 1);
 
 -- --------------------------------------------------------
 
@@ -2674,7 +2675,7 @@ CREATE TABLE `rma` (
   `gs_no` varchar(50) DEFAULT NULL,
   `act_reference` varchar(50) DEFAULT NULL,
   `date` date DEFAULT NULL,
-  `customer_address_id` int(11) NOT NULL,
+  `customer_address_id` int(11) DEFAULT NULL,
   `end_customer` varchar(50) DEFAULT NULL,
   `status` tinyint(4) NOT NULL COMMENT '1.Open, 2.Saved, 3.Completed',
   `service_type` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1.Physical, 2.Site Card',
@@ -2689,7 +2690,7 @@ CREATE TABLE `rma` (
 --
 
 INSERT INTO `rma` (`id`, `receipt_id`, `gs_no`, `act_reference`, `date`, `customer_address_id`, `end_customer`, `status`, `service_type`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
-(40220001, 1, '', '', '2019-12-19', 2, 'B2', 3, 1, 1, 1, '2019-12-27 09:11:04', '2019-12-27 14:41:04'),
+(40220001, 1, '', '', '2019-12-19', 2, 'Reliance Electronics', 3, 1, 1, 1, '2020-01-02 06:24:37', '2020-01-02 11:54:37'),
 (40220002, -1, 'GS23434', 'CSEF', '2019-12-02', 3, 'D2', 3, 2, 1, 1, '2019-12-02 06:50:32', '2019-12-02 12:20:32'),
 (40220003, -1, 'GS124', 'VAFE', '2019-12-02', 2, 'B2', 3, 2, 1, 1, '2019-12-02 06:59:24', '2019-12-02 12:28:24'),
 (40220004, 2, '', '', '2019-12-24', 3, 'B2', 3, 1, 1, 1, '2019-12-24 06:02:45', '2019-12-24 11:32:45'),
@@ -2710,53 +2711,83 @@ INSERT INTO `rma` (`id`, `receipt_id`, `gs_no`, `act_reference`, `date`, `custom
 CREATE TABLE `rma_delivery_address` (
   `id` bigint(11) NOT NULL,
   `rma_id` bigint(20) NOT NULL,
+  `name` varchar(200) DEFAULT NULL,
   `address` varchar(200) DEFAULT NULL,
   `contact_person` varchar(25) DEFAULT NULL,
   `tel_no` varchar(15) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `gst` varchar(15) DEFAULT NULL,
   `created_by` int(11) NOT NULL,
-  `updated_by` int(11) NOT NULL,
+  `updated_by` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_at` datetime NOT NULL
+  `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `rma_delivery_address`
 --
 
-INSERT INTO `rma_delivery_address` (`id`, `rma_id`, `address`, `contact_person`, `tel_no`, `email`, `gst`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
-(1, 2, 'Vidyut Soudha, Gunadala,Eluru Rd, Vijayawada, Andhra Pradesh 520004', 'Praveen Kumar', '87845613366', 'praveenkumar@aptransco.co.in', '29AADCC9174H1ZA', 1, 1, '2019-11-09 18:35:51', '2019-11-10 00:05:51'),
-(2, 3, 'Vidyut Soudha, Gunadala,Eluru Rd, Vijayawada, Andhra Pradesh 520004', 'Praveen Kumar', '87845613366', 'praveenkumar@aptransco.co.in', '29AADCC9174H1ZA', 1, 1, '2019-11-09 18:41:23', '2019-11-10 00:11:23'),
-(3, 4, 'Vidyut Soudha, Gunadala,Eluru Rd, Vijayawada, Andhra Pradesh 520004', 'Praveen Kumar', '87845613366', 'praveenkumar@aptransco.co.in', '29AADCC9174H1ZA', 1, 1, '2019-11-09 18:42:53', '2019-11-10 00:12:53'),
-(4, 6, 'Vidyut Soudha, Gunadala,Eluru Rd, Vijayawada, Andhra Pradesh 520004', 'Praveen Kumar', '87845613366', 'praveenkumar@aptransco.co.in', '29AADCC9174H1ZA', 1, 1, '2019-11-10 06:03:53', '2019-11-10 11:33:53'),
-(5, 8, 'Vidyut Soudha, Gunadala,Eluru Rd, Vijayawada, Andhra Pradesh 520004', 'Praveen Kumar', '87845613366', 'praveenkumar@aptransco.co.in', '29AADCC9174H1ZA', 1, 1, '2019-11-10 16:07:49', '2019-11-10 21:37:49'),
-(6, 5, 'Vidyut Soudha, Gunadala,Eluru Rd, Vijayawada, Andhra Pradesh 520004', 'Praveen Kumar', '87845613366', 'praveenkumar@aptransco.co.in', '29AADCC9174H1ZA', 1, 1, '2019-11-10 16:10:40', '2019-11-10 21:40:40'),
-(7, 9, 'Vidyut Soudha, Gunadala,Eluru Rd, Vijayawada, Andhra Pradesh 520004', 'Praveen Kumar', '87845613366', 'praveenkumar@aptransco.co.in', '29AADCC9174H1ZA', 1, 1, '2019-11-10 16:19:45', '2019-11-10 21:49:45'),
-(8, 10, '1st Main 3rd Cross Road, Sharadhamba Nagar, Jalahalli Village, Jalahalli, Bengaluru, Karnataka 56001', 'prabu', '8744662616', 'kumargs@venuselectricals.co.in', '25AABCO6063D1ZQ', 1, 1, '2019-11-13 12:14:18', '2019-11-13 17:44:18'),
-(9, 7, 'Vidyut Soudha, Gunadala,Eluru Rd, Vijayawada, Andhra Pradesh 520004', 'Praveen Kumar', '87845613366', 'praveenkumar@aptransco.co.in', '29AADCC9174H1ZA', 1, 1, '2019-11-13 12:26:11', '2019-11-13 17:56:11'),
-(10, 1, 'Vidyut Soudha, Gunadala,Eluru Rd, Vijayawada, Andhra Pradesh 520004', 'Praveen Kumar', '87845613366', 'praveenkumar@aptransco.co.in', '29AADCC9174H1ZA', 1, 1, '2019-11-13 14:59:41', '2019-11-13 20:29:41'),
-(11, 1, 'Vidyut Soudha, Gunadala,Eluru Rd, Vijayawada, Andhra Pradesh 520004', 'Praveen Kumar', '87845613366', 'praveenkumar@aptransco.co.in', '29AADCC9174H1ZA', 1, 1, '2019-11-14 06:22:39', '2019-11-14 11:52:39'),
-(12, 1, 'Vidyut Soudha, Gunadala,Eluru Rd, Vijayawada, Andhra Pradesh 520004', 'Praveen Kumar', '87845613366', 'praveenkumar@aptransco.co.in', '29AADCC9174H1ZA', 1, 1, '2019-11-14 06:39:55', '2019-11-14 12:09:55'),
-(13, 1, 'Vidyut Soudha, Gunadala,Eluru Rd, Vijayawada, Andhra Pradesh 520004', 'Praveen Kumar', '87845613366', 'praveenkumar@aptransco.co.in', '29AADCC9174H1ZA', 1, 1, '2019-11-14 06:41:45', '2019-11-14 12:11:45'),
-(14, 12, '1st Main 3rd Cross Road, Sharadhamba Nagar,Jalahalli Village, Jalahalli, Bengaluru, Karnataka 560013', 'prabu', '8744662616', 'kumargs@venuselectricals.co.in', '25AABCO6063D1ZQ', 1, 1, '2019-11-21 07:02:20', '2019-11-21 12:32:20'),
-(15, 40220001, 'Plot No. 54, Beside Riya-Revti Resort, Opp. Ambe Vidhyalaya, 390008, Sama-Savli Rd, Chanakyapuri Society, Kasturba Nagar, New Sama, Vadodara, Gujarat 391740', 'NikalKumar', '7463234499', 'nikalkumar.n@pgcil.com', '24AAACP0252G1ZZ', 1, 1, '2019-12-10 09:14:37', '2019-12-10 14:44:37'),
-(16, 40220001, 'Plot No. 54, Beside Riya-Revti Resort, Opp. Ambe Vidhyalaya, 390008, Sama-Savli Rd, Chanakyapuri Society, Kasturba Nagar, New Sama, Vadodara, Gujarat 391740', 'NikalKumar', '7463234499', 'nikalkumar.n@pgcil.com', '24AAACP0252G1ZZ', 1, 1, '2019-12-02 05:18:18', '2019-12-02 10:48:18'),
-(17, 40220002, '1st Main 3rd Cross Road, Sharadhamba Nagar, Jalahalli Village, Jalahalli, Bengaluru, Karnataka 560013', 'prabu', '8744662616', 'kumargs@venuselectricals.co.in', '25AABCO6063D1ZQ', 1, 1, '2019-12-02 06:50:32', '2019-12-02 12:20:32'),
-(18, 40220003, 'Plot No. 54, Beside Riya-Revti Resort, Opp. Ambe Vidhyalaya, 390008, Sama-Savli Rd, Chanakyapuri Society, Kasturba Nagar, New Sama, Vadodara, Gujarat 391740', 'NikalKumar', '7463234499', 'nikalkumar.n@pgcil.com', '24AAACP0252G1ZZ', 1, 1, '2019-12-02 06:58:24', '2019-12-02 12:28:24'),
-(19, 40220001, 'Plot No. 54, Beside Riya-Revti Resort, Opp. Ambe Vidhyalaya, 390008, Sama-Savli Rd, Chanakyapuri Society, Kasturba Nagar, New Sama, Vadodara, Gujarat 391740', 'NikalKumar', '7463234499', 'nikalkumar.n@pgcil.com', '24AAACP0252G1ZZ', 1, 1, '2019-12-10 08:21:42', '2019-12-10 13:51:42'),
-(20, 40220005, 'Plot No. 54, Beside Riya-Revti Resort, Opp. Ambe Vidhyalaya, 390008, Sama-Savli Rd, Chanakyapuri Society, Kasturba Nagar, New Sama, Vadodara, Gujarat 391740', 'NikalKumar', '7463234499', 'nikalkumar.n@pgcil.com', '24AAACP0252G1ZZ', 1, 1, '2019-12-10 08:22:59', '2019-12-10 13:52:59'),
-(21, 40220004, '1st Main 3rd Cross Road, Sharadhamba Nagar, Jalahalli Village, Jalahalli, Bengaluru, Karnataka 560013', 'prabu', '8744662616', 'kumargs@venuselectricals.co.in', '25AABCO6063D1ZQ', 1, 1, '2019-12-12 04:54:35', '2019-12-12 10:24:35'),
-(22, 40220004, '1st Main 3rd Cross Road, Sharadhamba Nagar, Jalahalli Village, Jalahalli, Bengaluru, Karnataka 560013', 'prabu', '8744662616', 'kumargs@venuselectricals.co.in', '25AABCO6063D1ZQ', 1, 1, '2019-12-16 11:59:18', '2019-12-16 17:29:18'),
-(23, 40220004, '1st Main 3rd Cross Road, Sharadhamba Nagar, Jalahalli Village, Jalahalli, Bengaluru, Karnataka 560013', 'prabu', '8744662616', 'kumargs@venuselectricals.co.in', '25AABCO6063D1ZQ', 1, 1, '2019-12-16 14:08:54', '2019-12-16 19:38:54'),
-(24, 40220001, 'Plot No. 54, Beside Riya-Revti Resort, Opp. Ambe Vidhyalaya, 390008, Sama-Savli Rd, Chanakyapuri Society, Kasturba Nagar, New Sama, Vadodara, Gujarat 391740', 'NikalKumar', '7463234499', 'nikalkumar.n@pgcil.com', '24AAACP0252G1ZZ', 1, 1, '2019-12-19 08:22:33', '2019-12-19 13:52:33'),
-(25, 40220004, '1st Main 3rd Cross Road, Sharadhamba Nagar, Jalahalli Village, Jalahalli, Bengaluru, Karnataka 560013', 'prabu', '8744662616', 'kumargs@venuselectricals.co.in', '25AABCO6063D1ZQ', 1, 1, '2019-12-19 12:09:03', '2019-12-19 17:39:03'),
-(26, 40220004, '1st Main 3rd Cross Road, Sharadhamba Nagar, Jalahalli Village, Jalahalli, Bengaluru, Karnataka 560013', 'prabu', '8744662616', 'kumargs@venuselectricals.co.in', '25AABCO6063D1ZQ', 1, 1, '2019-12-23 07:09:19', '2019-12-23 12:39:19'),
-(27, 40220004, '1st Main 3rd Cross Road, Sharadhamba Nagar, Jalahalli Village, Jalahalli, Bengaluru, Karnataka 560013', 'prabu', '8744662616', 'kumargs@venuselectricals.co.in', '25AABCO6063D1ZQ', 1, 1, '2019-12-23 11:01:01', '2019-12-23 16:31:01'),
-(28, 40220004, '1st Main 3rd Cross Road, Sharadhamba Nagar, Jalahalli Village, Jalahalli, Bengaluru, Karnataka 560013', 'prabu', '8744662616', 'kumargs@venuselectricals.co.in', '25AABCO6063D1ZQ', 1, 1, '2019-12-24 05:59:30', '2019-12-24 11:29:30'),
-(29, 40220004, '1st Main 3rd Cross Road, Sharadhamba Nagar, Jalahalli Village, Jalahalli, Bengaluru, Karnataka 560013', 'prabu', '8744662616', 'kumargs@venuselectricals.co.in', '25AABCO6063D1ZQ', 1, 1, '2019-12-24 06:02:45', '2019-12-24 11:32:45'),
-(30, 40220011, '1st Main 3rd Cross Road, Sharadhamba Nagar, Jalahalli Village, Jalahalli, Bengaluru, Karnataka 560013', 'prabu', '8744662616', 'kumargs@venuselectricals.co.in', '25AABCO6063D1ZQ', 1, 1, '2019-12-24 06:27:48', '2019-12-24 11:57:48'),
-(31, 40220011, '1st Main 3rd Cross Road, Sharadhamba Nagar, Jalahalli Village, Jalahalli, Bengaluru, Karnataka 560013', 'prabu', '8744662616', 'kumargs@venuselectricals.co.in', '25AABCO6063D1ZQ', 1, 1, '2019-12-24 07:33:22', '2019-12-24 13:03:22');
+INSERT INTO `rma_delivery_address` (`id`, `rma_id`, `name`, `address`, `contact_person`, `tel_no`, `email`, `gst`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(1, 2, NULL, 'Vidyut Soudha, Gunadala,Eluru Rd, Vijayawada, Andhra Pradesh 520004', 'Praveen Kumar', '87845613366', 'praveenkumar@aptransco.co.in', '29AADCC9174H1ZA', 1, 1, '2019-11-09 18:35:51', '2019-11-10 00:05:51'),
+(2, 3, NULL, 'Vidyut Soudha, Gunadala,Eluru Rd, Vijayawada, Andhra Pradesh 520004', 'Praveen Kumar', '87845613366', 'praveenkumar@aptransco.co.in', '29AADCC9174H1ZA', 1, 1, '2019-11-09 18:41:23', '2019-11-10 00:11:23'),
+(3, 4, NULL, 'Vidyut Soudha, Gunadala,Eluru Rd, Vijayawada, Andhra Pradesh 520004', 'Praveen Kumar', '87845613366', 'praveenkumar@aptransco.co.in', '29AADCC9174H1ZA', 1, 1, '2019-11-09 18:42:53', '2019-11-10 00:12:53'),
+(4, 6, NULL, 'Vidyut Soudha, Gunadala,Eluru Rd, Vijayawada, Andhra Pradesh 520004', 'Praveen Kumar', '87845613366', 'praveenkumar@aptransco.co.in', '29AADCC9174H1ZA', 1, 1, '2019-11-10 06:03:53', '2019-11-10 11:33:53'),
+(5, 8, NULL, 'Vidyut Soudha, Gunadala,Eluru Rd, Vijayawada, Andhra Pradesh 520004', 'Praveen Kumar', '87845613366', 'praveenkumar@aptransco.co.in', '29AADCC9174H1ZA', 1, 1, '2019-11-10 16:07:49', '2019-11-10 21:37:49'),
+(6, 5, NULL, 'Vidyut Soudha, Gunadala,Eluru Rd, Vijayawada, Andhra Pradesh 520004', 'Praveen Kumar', '87845613366', 'praveenkumar@aptransco.co.in', '29AADCC9174H1ZA', 1, 1, '2019-11-10 16:10:40', '2019-11-10 21:40:40'),
+(7, 9, NULL, 'Vidyut Soudha, Gunadala,Eluru Rd, Vijayawada, Andhra Pradesh 520004', 'Praveen Kumar', '87845613366', 'praveenkumar@aptransco.co.in', '29AADCC9174H1ZA', 1, 1, '2019-11-10 16:19:45', '2019-11-10 21:49:45'),
+(8, 10, NULL, '1st Main 3rd Cross Road, Sharadhamba Nagar, Jalahalli Village, Jalahalli, Bengaluru, Karnataka 56001', 'prabu', '8744662616', 'kumargs@venuselectricals.co.in', '25AABCO6063D1ZQ', 1, 1, '2019-11-13 12:14:18', '2019-11-13 17:44:18'),
+(9, 7, NULL, 'Vidyut Soudha, Gunadala,Eluru Rd, Vijayawada, Andhra Pradesh 520004', 'Praveen Kumar', '87845613366', 'praveenkumar@aptransco.co.in', '29AADCC9174H1ZA', 1, 1, '2019-11-13 12:26:11', '2019-11-13 17:56:11'),
+(10, 1, NULL, 'Vidyut Soudha, Gunadala,Eluru Rd, Vijayawada, Andhra Pradesh 520004', 'Praveen Kumar', '87845613366', 'praveenkumar@aptransco.co.in', '29AADCC9174H1ZA', 1, 1, '2019-11-13 14:59:41', '2019-11-13 20:29:41'),
+(11, 1, NULL, 'Vidyut Soudha, Gunadala,Eluru Rd, Vijayawada, Andhra Pradesh 520004', 'Praveen Kumar', '87845613366', 'praveenkumar@aptransco.co.in', '29AADCC9174H1ZA', 1, 1, '2019-11-14 06:22:39', '2019-11-14 11:52:39'),
+(12, 1, NULL, 'Vidyut Soudha, Gunadala,Eluru Rd, Vijayawada, Andhra Pradesh 520004', 'Praveen Kumar', '87845613366', 'praveenkumar@aptransco.co.in', '29AADCC9174H1ZA', 1, 1, '2019-11-14 06:39:55', '2019-11-14 12:09:55'),
+(13, 1, NULL, 'Vidyut Soudha, Gunadala,Eluru Rd, Vijayawada, Andhra Pradesh 520004', 'Praveen Kumar', '87845613366', 'praveenkumar@aptransco.co.in', '29AADCC9174H1ZA', 1, 1, '2019-11-14 06:41:45', '2019-11-14 12:11:45'),
+(14, 12, NULL, '1st Main 3rd Cross Road, Sharadhamba Nagar,Jalahalli Village, Jalahalli, Bengaluru, Karnataka 560013', 'prabu', '8744662616', 'kumargs@venuselectricals.co.in', '25AABCO6063D1ZQ', 1, 1, '2019-11-21 07:02:20', '2019-11-21 12:32:20'),
+(15, 40220001, NULL, 'Plot No. 54, Beside Riya-Revti Resort, Opp. Ambe Vidhyalaya, 390008, Sama-Savli Rd, Chanakyapuri Society, Kasturba Nagar, New Sama, Vadodara, Gujarat 391740', 'NikalKumar', '7463234499', 'nikalkumar.n@pgcil.com', '24AAACP0252G1ZZ', 1, 1, '2019-12-10 09:14:37', '2019-12-10 14:44:37'),
+(16, 40220001, NULL, 'Plot No. 54, Beside Riya-Revti Resort, Opp. Ambe Vidhyalaya, 390008, Sama-Savli Rd, Chanakyapuri Society, Kasturba Nagar, New Sama, Vadodara, Gujarat 391740', 'NikalKumar', '7463234499', 'nikalkumar.n@pgcil.com', '24AAACP0252G1ZZ', 1, 1, '2019-12-02 05:18:18', '2019-12-02 10:48:18'),
+(17, 40220002, NULL, '1st Main 3rd Cross Road, Sharadhamba Nagar, Jalahalli Village, Jalahalli, Bengaluru, Karnataka 560013', 'prabu', '8744662616', 'kumargs@venuselectricals.co.in', '25AABCO6063D1ZQ', 1, 1, '2019-12-02 06:50:32', '2019-12-02 12:20:32'),
+(18, 40220003, NULL, 'Plot No. 54, Beside Riya-Revti Resort, Opp. Ambe Vidhyalaya, 390008, Sama-Savli Rd, Chanakyapuri Society, Kasturba Nagar, New Sama, Vadodara, Gujarat 391740', 'NikalKumar', '7463234499', 'nikalkumar.n@pgcil.com', '24AAACP0252G1ZZ', 1, 1, '2019-12-02 06:58:24', '2019-12-02 12:28:24'),
+(19, 40220001, NULL, 'Plot No. 54, Beside Riya-Revti Resort, Opp. Ambe Vidhyalaya, 390008, Sama-Savli Rd, Chanakyapuri Society, Kasturba Nagar, New Sama, Vadodara, Gujarat 391740', 'NikalKumar', '7463234499', 'nikalkumar.n@pgcil.com', '24AAACP0252G1ZZ', 1, 1, '2019-12-10 08:21:42', '2019-12-10 13:51:42'),
+(20, 40220005, NULL, 'Plot No. 54, Beside Riya-Revti Resort, Opp. Ambe Vidhyalaya, 390008, Sama-Savli Rd, Chanakyapuri Society, Kasturba Nagar, New Sama, Vadodara, Gujarat 391740', 'NikalKumar', '7463234499', 'nikalkumar.n@pgcil.com', '24AAACP0252G1ZZ', 1, 1, '2019-12-10 08:22:59', '2019-12-10 13:52:59'),
+(21, 40220004, NULL, '1st Main 3rd Cross Road, Sharadhamba Nagar, Jalahalli Village, Jalahalli, Bengaluru, Karnataka 560013', 'prabu', '8744662616', 'kumargs@venuselectricals.co.in', '25AABCO6063D1ZQ', 1, 1, '2019-12-12 04:54:35', '2019-12-12 10:24:35'),
+(22, 40220004, NULL, '1st Main 3rd Cross Road, Sharadhamba Nagar, Jalahalli Village, Jalahalli, Bengaluru, Karnataka 560013', 'prabu', '8744662616', 'kumargs@venuselectricals.co.in', '25AABCO6063D1ZQ', 1, 1, '2019-12-16 11:59:18', '2019-12-16 17:29:18'),
+(23, 40220004, NULL, '1st Main 3rd Cross Road, Sharadhamba Nagar, Jalahalli Village, Jalahalli, Bengaluru, Karnataka 560013', 'prabu', '8744662616', 'kumargs@venuselectricals.co.in', '25AABCO6063D1ZQ', 1, 1, '2019-12-16 14:08:54', '2019-12-16 19:38:54'),
+(24, 40220001, NULL, 'Plot No. 54, Beside Riya-Revti Resort, Opp. Ambe Vidhyalaya, 390008, Sama-Savli Rd, Chanakyapuri Society, Kasturba Nagar, New Sama, Vadodara, Gujarat 391740', 'NikalKumar', '7463234499', 'nikalkumar.n@pgcil.com', '24AAACP0252G1ZZ', 1, 1, '2019-12-19 08:22:33', '2019-12-19 13:52:33'),
+(25, 40220004, NULL, '1st Main 3rd Cross Road, Sharadhamba Nagar, Jalahalli Village, Jalahalli, Bengaluru, Karnataka 560013', 'prabu', '8744662616', 'kumargs@venuselectricals.co.in', '25AABCO6063D1ZQ', 1, 1, '2019-12-19 12:09:03', '2019-12-19 17:39:03'),
+(26, 40220004, NULL, '1st Main 3rd Cross Road, Sharadhamba Nagar, Jalahalli Village, Jalahalli, Bengaluru, Karnataka 560013', 'prabu', '8744662616', 'kumargs@venuselectricals.co.in', '25AABCO6063D1ZQ', 1, 1, '2019-12-23 07:09:19', '2019-12-23 12:39:19'),
+(27, 40220004, NULL, '1st Main 3rd Cross Road, Sharadhamba Nagar, Jalahalli Village, Jalahalli, Bengaluru, Karnataka 560013', 'prabu', '8744662616', 'kumargs@venuselectricals.co.in', '25AABCO6063D1ZQ', 1, 1, '2019-12-23 11:01:01', '2019-12-23 16:31:01'),
+(28, 40220004, NULL, '1st Main 3rd Cross Road, Sharadhamba Nagar, Jalahalli Village, Jalahalli, Bengaluru, Karnataka 560013', 'prabu', '8744662616', 'kumargs@venuselectricals.co.in', '25AABCO6063D1ZQ', 1, 1, '2019-12-24 05:59:30', '2019-12-24 11:29:30'),
+(29, 40220004, NULL, '1st Main 3rd Cross Road, Sharadhamba Nagar, Jalahalli Village, Jalahalli, Bengaluru, Karnataka 560013', 'prabu', '8744662616', 'kumargs@venuselectricals.co.in', '25AABCO6063D1ZQ', 1, 1, '2019-12-24 06:02:45', '2019-12-24 11:32:45'),
+(30, 40220011, NULL, '1st Main 3rd Cross Road, Sharadhamba Nagar, Jalahalli Village, Jalahalli, Bengaluru, Karnataka 560013', 'prabu', '8744662616', 'kumargs@venuselectricals.co.in', '25AABCO6063D1ZQ', 1, 1, '2019-12-24 06:27:48', '2019-12-24 11:57:48'),
+(31, 40220011, NULL, '1st Main 3rd Cross Road, Sharadhamba Nagar, Jalahalli Village, Jalahalli, Bengaluru, Karnataka 560013', 'prabu', '8744662616', 'kumargs@venuselectricals.co.in', '25AABCO6063D1ZQ', 1, 1, '2019-12-24 07:33:22', '2019-12-24 13:03:22'),
+(32, 40220001, 'Ram', 'Plot No. 54, Beside Riya-Revti Resort, Opp. Ambe Vidhyalaya, 390008, Sama-Savli Rd, Chanakyapuri Society, Kasturba Nagar, New Sama, Vadodara, Gujarat 391740', 'NikalKumar', '7463234499', 'nikalkumar.n@pgcil.com', '24AAACP0252G1ZZ', 1, 1, '2020-01-02 06:24:37', '2020-01-02 11:54:37');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rma_invoice_address`
+--
+
+CREATE TABLE `rma_invoice_address` (
+  `id` bigint(11) NOT NULL,
+  `rma_id` bigint(20) NOT NULL,
+  `name` varchar(200) DEFAULT NULL,
+  `address` varchar(200) DEFAULT NULL,
+  `contact_person` varchar(25) DEFAULT NULL,
+  `tel_no` varchar(15) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `gst` varchar(15) DEFAULT NULL,
+  `created_by` int(11) NOT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `rma_invoice_address`
+--
+
+INSERT INTO `rma_invoice_address` (`id`, `rma_id`, `name`, `address`, `contact_person`, `tel_no`, `email`, `gst`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(1, 40220001, 'Ram', 'Plot No. 54, Beside Riya-Revti Resort, Opp. Ambe Vidhyalaya, 390008, Sama-Savli Rd, Chanakyapuri Society, Kasturba Nagar, New Sama, Vadodara, Gujarat 391740', 'NikalKumar', '7463234499', 'nikalkumar.n@pgcil.com', '24AAACP0252G1ZZ', 1, 1, '2020-01-02 06:24:37', '2020-01-02 11:54:37');
 
 -- --------------------------------------------------------
 
@@ -2829,7 +2860,8 @@ INSERT INTO `rma_unit_information` (`id`, `rma_id`, `pv_id`, `sw_version`, `serv
 (40, 40220004, 5, NULL, 1, '', '', 0, 0, 0, '', 1, 1, '2019-12-24 05:59:30', '2019-12-24 11:29:30'),
 (41, 40220004, 14, NULL, 1, '', '', 0, 0, 0, '', 1, 1, '2019-12-24 06:02:45', '2019-12-24 11:32:45'),
 (42, 40220011, 16, NULL, 1, '', '', 0, 0, 0, '', 1, 1, '2019-12-24 06:27:48', '2019-12-24 11:57:48'),
-(43, 40220011, 17, NULL, 1, '', '', 0, 0, 0, '', 1, 1, '2019-12-24 07:33:22', '2019-12-24 13:03:22');
+(43, 40220011, 17, NULL, 1, '', '', 0, 0, 0, '', 1, 1, '2019-12-24 07:33:22', '2019-12-24 13:03:22'),
+(44, 40220001, 19, NULL, 1, '', '', 0, 0, 0, '', 1, 1, '2020-01-02 06:24:37', '2020-01-02 11:54:37');
 
 -- --------------------------------------------------------
 
@@ -2918,7 +2950,8 @@ CREATE TABLE `roles` (
 
 INSERT INTO `roles` (`id`, `name`) VALUES
 (1, 'Admin'),
-(2, 'Inbound User');
+(2, 'Manager'),
+(3, 'Technician');
 
 -- --------------------------------------------------------
 
@@ -2927,9 +2960,9 @@ INSERT INTO `roles` (`id`, `name`) VALUES
 --
 
 CREATE TABLE `role_user` (
-  `user_id` bigint(20) UNSIGNED NOT NULL,
-  `role_id` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `user_id` bigint(20) NOT NULL,
+  `role_id` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `role_user`
@@ -2937,9 +2970,8 @@ CREATE TABLE `role_user` (
 
 INSERT INTO `role_user` (`user_id`, `role_id`) VALUES
 (1, 1),
-(4, 2),
-(5, 2),
-(2, 2);
+(6, 2),
+(7, 3);
 
 -- --------------------------------------------------------
 
@@ -2965,10 +2997,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(1, 'Admin', 'admin@admin.com', NULL, '$2y$10$cml2/aLiRi345NMh0L5Zt.gZUJzCATgulxM6krtplr9iW7Pk2uaHG', NULL, NULL, NULL, 0, 0),
-(2, 'Inbound User', 'iu@iu.com', NULL, '$2y$10$1Txo56Y26edjgaEWk/IT3O80k1430PONZrSYGtguByIkJRKYJQliu', NULL, NULL, '2019-10-29 08:19:47', 0, 1),
-(4, 'Sujan', 'sujan@su.com', NULL, '$2y$10$GFHFDMKUHa.LABP5RgiQje86qTii5SOG.i3V62U5cOTK9/NMsIVjC', NULL, '2019-08-27 01:31:44', '2019-08-27 01:31:44', 0, 0),
-(5, 'Arun', 'arun@designtovr.com', NULL, '$2y$10$ccCJ0gDNrV2LbHfTF6w2vOoXvrsm91TZL7Wo.Pslgd9ytOg5SHpxW', NULL, '2019-10-29 07:13:26', '2019-10-29 07:13:26', 0, 0);
+(1, 'Admin', 'admin@ge.com', NULL, '$2y$10$cml2/aLiRi345NMh0L5Zt.gZUJzCATgulxM6krtplr9iW7Pk2uaHG', NULL, NULL, '2020-01-02 06:19:55', 0, 1),
+(6, 'Manager', 'manager@ge.com', NULL, '$2y$10$h1o1FE8IrMfrN3JL3/2lUee1gwJul5b8pEigaAC1IEcSZpJH0A/bS', NULL, '2020-01-02 06:18:34', '2020-01-02 06:18:34', 1, 0),
+(7, 'Technician', 'technician@ge.com', NULL, '$2y$10$/JvAkyr6sIpJbS76kCY44.kewKbjueQe7ZuZvu9/n.LGCrXGcOME2', NULL, '2020-01-02 06:18:52', '2020-01-02 06:18:52', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -3227,6 +3258,12 @@ ALTER TABLE `rma_delivery_address`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `rma_invoice_address`
+--
+ALTER TABLE `rma_invoice_address`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `rma_unit_information`
 --
 ALTER TABLE `rma_unit_information`
@@ -3249,13 +3286,6 @@ ALTER TABLE `rms`
 --
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `role_user`
---
-ALTER TABLE `role_user`
-  ADD KEY `role_user_user_id_foreign` (`user_id`),
-  ADD KEY `role_user_role_id_foreign` (`role_id`);
 
 --
 -- Indexes for table `users`
@@ -3398,13 +3428,19 @@ ALTER TABLE `rma`
 -- AUTO_INCREMENT for table `rma_delivery_address`
 --
 ALTER TABLE `rma_delivery_address`
-  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+
+--
+-- AUTO_INCREMENT for table `rma_invoice_address`
+--
+ALTER TABLE `rma_invoice_address`
+  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `rma_unit_information`
 --
 ALTER TABLE `rma_unit_information`
-  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `rma_unit_serial_number`
@@ -3416,30 +3452,19 @@ ALTER TABLE `rma_unit_serial_number`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `warranty`
 --
 ALTER TABLE `warranty`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `role_user`
---
-ALTER TABLE `role_user`
-  ADD CONSTRAINT `role_user_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`),
-  ADD CONSTRAINT `role_user_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
