@@ -603,6 +603,7 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 							btnClass: 'btn-blue',
 							action: function(){
 								$scope.rmaformdata = {};
+								$scope.rmaformdata.edit = false;
 								$scope.rmaformdata.unit_information = [];
 								$scope.rmaformdata.repair_instruction = {};
 								$scope.rmaformdata.invoice_info = {};
@@ -612,6 +613,7 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 						},
 						close: function () {
 							$scope.rmaformdata = {};
+							$scope.rmaformdata.edit = false;
 							$scope.rmaformdata.unit_information = [];
 							$scope.rmaformdata.repair_instruction = {};
 							$scope.rmaformdata.invoice_info = {};

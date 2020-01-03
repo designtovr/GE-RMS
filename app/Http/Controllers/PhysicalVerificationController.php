@@ -274,14 +274,18 @@ class PhysicalVerificationController extends Controller
             $PVM->updated_by = Auth::id();
             $PVM->updated_at = Carbon::now();
             $PVM->update();
-            /*if ($PVM->is_rma_available)
+            //only change status if it is in starting stage
+            if(PVStatus::where('pv_id', $PVM->id)->whereIn('current_status_id', [1,2])->first())
             {
-                $pvstatusRepositories->ChangeStatusToRelayWithRMA($PVM->id);
+                if ($PVM->is_rma_available)
+                {
+                    $pvstatusRepositories->ChangeStatusToRelayWithRMA($PVM->id);
+                }
+                else
+                {
+                    $pvstatusRepositories->ChangeStatusToRelayWithOutRMA($PVM->id);
+                }
             }
-            else
-            {
-                $pvstatusRepositories->ChangeStatusToRelayWithOutRMA($PVM->id);
-            }*/
             $message = 'Relay Updated Successfully';
         } else {
             $PVM->created_by = Auth::id();
