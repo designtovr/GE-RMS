@@ -12,6 +12,8 @@ use App\Models\PhysicalVerificationMaster;
 use App\Models\JobTicketMaterials;
 use App\Models\RMA;
 use App\Models\RMAUnitInformation;
+use App\Models\RMADeliveryAddress;
+use App\Models\RMAInvoiceAddress;
 
 class PrintController extends Controller
 {
@@ -34,8 +36,7 @@ class PrintController extends Controller
             $file = 'public\ReceiptPrintFile.prn';
 
             $template = file_get_contents($file);
-            $receiptID = 'RC';
-            $receiptID .= $receipt['id'];
+            $receiptID = $receipt['formatted_receipt_id'];
 
             $template = str_replace("receiptid",$receiptID,$template);
             $template = str_replace("cusname",$receipt['customer'],$template);
@@ -80,9 +81,9 @@ class PrintController extends Controller
             $file = 'public\LabelPrintFile.prn';
 
             $template = file_get_contents($file);
-            $template = str_replace("riddata",$label['id'],$template);
-            $template = str_replace("qrcode",$label['id'],$template);
-            $template = str_replace("rmadata",$label['rma_id'], $template);
+            $template = str_replace("riddata",$label['formatted_pv_id'],$template);
+            $template = str_replace("qrcode",$label['formatted_pv_id'],$template);
+            $template = str_replace("rmadata",$label['formatted_rma_id'], $template);
             $template = str_replace("customer",$label['customer_name'], $template);
             $template = str_replace("location",$label['location'], $template);
             $jsonfile = 'public\printerconfiguration.json';
@@ -160,6 +161,11 @@ class PrintController extends Controller
         $data = RMA::find($rma_id);
         if(!$data)
             return "RMA Not Found";
+        $data['delivery_info'] = RMADeliveryAddress::where('rma_id', $data->id)->first();
+        $data['invoice_info'] = RMAInvoiceAddress::where('rma_id', $data->id)->first();
+        $data['unit_information'] = RMAUnitInformation::from('rma_unit_information as rui')->selectRaw('rui.sw_version, rui.desc_of_fault, rui.field_volts_used, pv.serial_no, pro.part_no')
+            ->leftJoin('physical_verification as pv', 'pv.id', 'rui.pv_id')
+            ->leftJoin('ma_product as pro', 'pro.id', 'pv.product_id')->where('rui.rma_id', $data->id)->get();
         return view('pdf/RMAform', $data);
     }
 

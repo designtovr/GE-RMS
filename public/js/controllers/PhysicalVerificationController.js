@@ -50,6 +50,7 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 				if (response.data.status == 'success')
 				{
 					//Notification.success(response.data.message + 'with Id: ' + response.data.data.id);
+					$scope.physicalVerification.customer_name = response.data.data.customer_name;
 			console.log('HI : ' + $scope.physicalVerification.customer_name);
 
 					$ngConfirm({
@@ -64,8 +65,12 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 								action: function(scope){
 									console.log(scope.customer_name);
 									console.log(scope.location);
-									$scope.physicalVerification.cus_name = scope.customer_name;
+									$scope.physicalVerification.customer_name = scope.customer_name;
 									$scope.physicalVerification.location = scope.location;
+									$scope.physicalVerification.id = response.data.data.id;
+									$scope.physicalVerification.formatted_receipt_id = response.data.data.formatted_receipt_id;
+									$scope.physicalVerification.formatted_pv_id = response.data.data.formatted_pv_id;
+									$scope.physicalVerification.formatted_rma_id = response.data.data.formatted_rma_id;
 									$data = $scope.physicalVerification;
 									$scope.PrintLabels($data);
 									return false;
