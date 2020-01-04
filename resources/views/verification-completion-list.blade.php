@@ -190,6 +190,7 @@
                                                 <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="ShowVCForm(item);">
                                                     <i class="zmdi zmdi-edit"></i>
                                                 </button>
+                                                @if(Auth::user()->isManager() || Auth::user()->isAdmin())
                                                 <div class="btn-group">
                                                     <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-success" >Priority</button>
                                                     <div tabindex="-1" aria-hidden="true" role="menu" class="dropdown-menu scrollable-menu">
@@ -198,6 +199,7 @@
                                                         <button ng-if="item.pvl_priority != pr.priority" type="button" tabindex="0" class="dropdown-item" ng-repeat="pr in pvprioritylist" ng-click="SetPVPriority(item.id, pr.priority)">@{{pr.priority}}</button>
                                                     </div>
                                                 </div>
+                                                @endif
                                             </div>
                                          </td>
                                         <td ng-bind="item.formatted_pv_id"></td>
