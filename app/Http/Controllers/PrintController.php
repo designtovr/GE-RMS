@@ -107,13 +107,14 @@ class PrintController extends Controller
 
     public function JobTicketForm($pv_id)
     {
-        $data = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.*, jt.id as jt_id, jt.created_at as podate, cus.name as customer_name, rma.end_customer, pro.part_no as model_no, pv.comment as nature_of_defect, jt.power_on_test, wt.type')
+        $data = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.*, jt.id as jt_id, jt.created_at as podate, rda.name as customer_name, rma.end_customer, pro.part_no as model_no, pv.comment as nature_of_defect, jt.power_on_test, wt.type')
                 ->leftJoin('job_tickets as jt', 'jt.pv_id', 'pv.id')
                 ->leftJoin('rma_unit_information as rui', 'rui.pv_id', 'pv.id')
                 ->leftJoin('rma', 'rma.id', 'rui.rma_id')
                 ->leftJoin('ma_customer as cus', 'cus.id', 'rma.customer_address_id')
                 ->leftJoin('ma_product as pro', 'pro.id', 'pv.product_id')
                 ->leftJoin('warranty as wt', 'wt.pv_id', 'pv.id')
+                ->leftJoin('rma_delivery_address as rda', 'rda.rma_id', 'rma.id')
                 ->where('pv.id', $pv_id)->first();
 
         $data['job_materials'] = JobTicketMaterials::where('jt_id', $data['jt_id'])->get();
@@ -127,7 +128,7 @@ class PrintController extends Controller
     public function TestReportForm($pv_id)
     {
         $data = PhysicalVerificationMaster::from('physical_verification as pv')
-                ->selectRaw('pv.*, cus.name as customer_name, pro.part_no as model_no, rui.sw_version, vc.updated_no_of_terminal_blocks, vc.updated_sw_version, vc.updated_no_of_short_links,
+                ->selectRaw('pv.*, rda.name as customer_name, pro.part_no as model_no, rui.sw_version, vc.updated_no_of_terminal_blocks, vc.updated_sw_version, vc.updated_no_of_short_links,
                     vc.clio_test, vc.rtd_test, vc.nic_test, vc.received_with_screws,
                     vc.received_with_terminal, vc.case as vc_case, vc.battery as vc_battery, vc.flops as vc_flops, vc.updated_at as vc_updated_at')
                 ->leftJoin('verification_completion as vc', 'vc.pv_id', 'pv.id')
@@ -135,6 +136,7 @@ class PrintController extends Controller
                 ->leftJoin('rma', 'rma.id', 'rui.rma_id')
                 ->leftJoin('ma_customer as cus', 'cus.id', 'rma.customer_address_id')
                 ->leftJoin('ma_product as pro', 'pro.id', 'pv.product_id')
+                ->leftJoin('rma_delivery_address as rda', 'rda.rma_id', 'rma.id')
                 ->where('pv.id', $pv_id)
                 ->first();
 

@@ -480,9 +480,9 @@
 					<tr>
 						@if($battery)
 							<th style="background-color: #d3d3d3">Yes</th>
-							<th>Fail</th>
+							<th>No</th>
 						@else
-							<th>Pass</th>
+							<th>Yes</th>
 							<th style="background-color: #d3d3d3">No</th>
 						@endif
 					</tr>
@@ -502,9 +502,9 @@
 					<tr>
 						@if($case)
 							<th style="background-color: #d3d3d3">Yes</th>
-							<th>Fail</th>
+							<th>No</th>
 						@else
-							<th>Pass</th>
+							<th>Yes</th>
 							<th style="background-color: #d3d3d3">No</th>
 						@endif
 					</tr>
@@ -525,9 +525,9 @@
 						<tr>
 							@if($received_with_screws)
 								<th style="background-color: #d3d3d3">Yes</th>
-								<th>Fail</th>
+								<th>No</th>
 							@else
-								<th>Pass</th>
+								<th>Yes</th>
 								<th style="background-color: #d3d3d3">No</th>
 							@endif
 						</tr>
@@ -547,9 +547,9 @@
 						<tr>
 							@if($received_with_terminal)
 								<th style="background-color: #d3d3d3">Yes</th>
-								<th>Fail</th>
+								<th>No</th>
 							@else
-								<th>Pass</th>
+								<th>Yes</th>
 								<th style="background-color: #d3d3d3">No</th>
 							@endif
 						</tr>

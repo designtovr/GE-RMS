@@ -200,12 +200,16 @@
 						<div class="col-6  float-left">
 							<h1 class="text-left" style="font-size:12px;color:#000000;" > <u>Customer Invoice Address if paid(M)</u></h1>
 							<br>
+							{{$invoice_info['name']}}
+							<br>
 							{{$invoice_info['address']}}
 							<br>
 							GST: {{$invoice_info['gst']}}
 						</div>
 						<div class="col-6 float-right   border-left border-dark ">
 							<h1 class="text-left" style="font-size:12px;color:#000000;" > <u>Customer Return Delivery Address (Full Screen Address)(M)</u></h1>
+							<br>
+							{{$delivery_info['name']}}
 							<br>
 							{{$delivery_info['address']}}
 							<br>

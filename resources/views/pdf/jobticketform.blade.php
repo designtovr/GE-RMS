@@ -92,19 +92,19 @@
 			<h1 class="text-left float-left" style="font-size: 26px;margin-left: 18px;color: #000000">{{$power_on_test}}</h1>
 		</div>
 	</div>
-	<div class="row" style="margin-top: -1px;margin-left: 1px;">
+	<!-- <div class="row" style="margin-top: -1px;margin-left: 1px;">
 		<div class="col" style="margin-top: 8px;">
 			<h1 class="text-left float-left" style="font-size: 26px;height:  ;color: #000000">FIRMWARE               : </h1>
 			<h1 class="text-left float-left" style="font-size: 26px;margin-left: 18px;color: #000000">Repair </h1>
 		</div>
-	</div>
+	</div> -->
 	<div class="table-responsive">
 		<table class="table tableStyle table-bordered">
 			<thead>
 			<tr>
 				<th>SL No.</th>
-				<th>Description</th>
 				<th>Material Part No</th>
+				<th>Description</th>
 				<th>Qty</th>
 				<th>Value (Rs)</th>
 			</tr>
@@ -113,8 +113,8 @@
 			@foreach($job_materials as $index => $material)
 			<tr>
 				<td>{{$index + 1}}</td>
-				<td>{{$material['comment']}}</td>
 				<td>{{$material['part_no']}}</td>
+				<td>{{$material['comment']}}</td>
 				<td>{{$material['quantity']}}</td>
 				<td>{{$material['value']}}</td>
 			</tr>

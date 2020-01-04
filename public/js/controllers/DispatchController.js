@@ -175,10 +175,11 @@ app.controller('DispatchController', ['$scope', '$http','$filter','Notification'
 					'selectedpvs': $scope.selectedpvs
 				},
 			}).then(function success(response){
-				if (response.status == 200)
+				if (response.data.status == 'success')
 				{
-					var content = response.data.message + ', Are You Want to Print?';
-					$ngConfirm({
+					var content = response.data.message;
+					Notification.success(content);
+					/*$ngConfirm({
 						title: '<b>Print!!</b>',
 						content: content,
 						type: 'blue',
@@ -197,7 +198,9 @@ app.controller('DispatchController', ['$scope', '$http','$filter','Notification'
 								$scope.GetPV('dispatchapproved');
 							}
 						}
-					});
+					});*/
+					$scope.HideDPForm();
+					$scope.GetPV('dispatchapproved');
 				}
 			}, function failure(response){
 				if (response.status == 422)

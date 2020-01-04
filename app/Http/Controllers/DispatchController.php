@@ -75,6 +75,6 @@ class DispatchController extends Controller
 
         $mail_result = $this->mailRepository->DispatchCompletionMail($dispatch_list); 
 
-        return response()->json(['data' => $pvs, 'status' => 'success', 'message' => 'Dispatch Added Successfully', 'mail_result' => $mail_result], 200);
+        return response()->json(['data' => $pvs, 'status' => 'success', 'message' => 'Dispatched Successfully', 'mail_result' => $mail_result], 200);
     }
 }
