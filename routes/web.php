@@ -58,6 +58,7 @@ Route::get('sendattachmentemail','MailController@attachment_email');
 Route::get('/usercheck', 'UserController@UserCheck');
 
 Route::post('/dologin', 'UserController@DoLogin');
+Route::post('/forgotpassword', 'UserController@ForgotPassword');
 
 Route::group(['middleware' => 'auth'], function(){
 

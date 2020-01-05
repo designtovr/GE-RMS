@@ -1,8 +1,11 @@
-app.controller('LoginController', function($scope, $http){
+app.controller('LoginController', function($scope, $http, $ngConfirm, Notification){
 	$scope.logindata = [];
 	$scope.logindata.username = '';
 	$scope.logindata.password = '';
 	$scope.invalid_credentials = false;
+	$scope.form = 'login';
+	$scope.forgotpass = {};
+	$scope.forgotpass.username = '';
 
 	$scope.login = function()
 	{
@@ -22,6 +25,39 @@ app.controller('LoginController', function($scope, $http){
 			else if (data.status == 'failure')
 			{
 				$scope.invalid_credentials = true;
+			}
+		}, function failure(response) {
+			console.log(response.data)
+		});
+	}
+
+	$scope.ChangeTab = function(name)
+	{
+		$scope.form = name;
+	}
+
+	$scope.ForgotPassword = function()
+	{
+		if ($scope.forgotpass.username == '' || $scope.forgotpass.username == null || $scope.forgotpass.username == undefined)
+		{
+			Notification.error("Please Enter Username");
+		}
+
+		$http({
+			method: 'POST',
+			url: 'forgotpassword',
+			data: {
+				'username': $scope.forgotpass.username,
+			},
+		}).then(function success(response){
+			var data = response.data;
+			if (data.status == 'success')
+			{
+				Notification.success(data.message);
+			}
+			else if (data.status == 'failure')
+			{
+				Notification.error(data.message);
 			}
 		}, function failure(response) {
 			console.log(response.data)

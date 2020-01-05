@@ -172,4 +172,22 @@ class MailRepository
  		return "sent";
 	}
 
+	public function ForgotPasswordMail($email, $username, $password)
+	{
+		$data  = array();
+		$data['email'] = $this->GetToAddress($email);
+		$data['username'] = $username;
+		$data['password'] = $password;
+		try {
+			Mail::send('mails.forgotpass',$data, function ($message) use ($data) {
+				$message->to($data['email']);
+				$message->subject('Password Recovery');
+	 		});
+		} catch (\Exception $e) {
+			return $e->getMessage();
+		}
+
+ 		return "success";
+	}
+
 }

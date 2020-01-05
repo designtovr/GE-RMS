@@ -10,9 +10,16 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\AddUserRequest;
 use Hash;
 use Carbon\Carbon;
+use App\Http\Repositories\MailRepository;
 
 class UserController extends Controller
 {
+    protected $mailRepository;
+
+    function __construct(MailRepository $mailRepository)
+    {
+        $this->mailRepository = $mailRepository;
+    }
     //
     public function UserCheck(Request $request)
     {
@@ -43,6 +50,41 @@ class UserController extends Controller
     {
     	Auth::logout();
     	return redirect()->route('login');
+    }
+
+    public function ForgotPassword(Request $request)
+    {
+        $data = $request->all();
+        if (!array_key_exists('username', $data) || is_null($data['username']))
+            return response()->json(['status' => 'failure', 'message' => 'Username Required'], 200);
+        $US = User::where('username', $data['username'])->first();
+        if(!$US)
+            return response()->json(['status' => 'failure', 'message' => 'Invalid Username'], 200);
+        $email = $US->email;
+        $username = $US->username;
+        $password = mt_rand(111111, 999999);
+        $message = 'New Password sent to your mail.';
+        if(is_null($email) || empty($email))
+        {
+            $admin = User::find(1);
+            $email = $admin->email;
+            $message = 'Please, Contact your Admin for New Password.';
+        }
+        $mail_result = $this->mailRepository->ForgotPasswordMail($email, $username, $password);
+        if(strcasecmp('success', $mail_result) == 0)
+        {
+            $US->password = Hash::make($password);
+            $US->updated_at = Carbon::now();
+            $US->updated_by = Auth::id();
+            $US->update();
+
+            return response()->json(['status' => 'success', 'message' => $message], 200);
+        }
+        else
+        {
+            return response()->json(['status' => 'failure', 'message' => 'Mail Service is not working.Please, Contact Admin.'], 200);
+        }
+
     }
 
     public function Users(Request $request)

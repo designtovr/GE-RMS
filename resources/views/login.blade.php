@@ -50,7 +50,7 @@
                                 <img src="{{url('public/images/179x52px-ge-logo.png')}}" alt="GE">
                             </a>
                         </div>
-                        <div class="login-form">
+                        <div class="login-form" ng-if="form == 'login'">
                             <form>
                                 <div class="form-group">
                                     <label>Username</label>
@@ -68,7 +68,7 @@
                                         <a href="#">Invalid Credentials!</a>
                                     </label>
                                     <label>
-                                        <a href="#">Forgot Password?</a>
+                                        <a href="#" ng-click="ChangeTab('forgotpass')">Forgot Password?</a>
                                     </label>
                                 </div>
                                 <button class="au-btn au-btn--block au-btn--blue2 m-b-20" type="submit" ng-click="login();">sign in</button>
@@ -85,6 +85,16 @@
                                     <a href="#">Sign Up Here</a>
                                 </p>
                             </div> -->
+                        </div>
+                        <div class="forgotpass-form" ng-if="form == 'forgotpass'">
+                            <form name="ForgotPassForm" id="ForgotPassForm" novalidate>
+                                <div class="form-group">
+                                    <label>Username</label>
+                                    <input class="au-input au-input--full" type="text" ng-model="forgotpass.username" name="username" placeholder="Username" required>
+                                </div>
+                                <button class="au-btn au-btn--block au-btn--green m-b-20" ng-click="ForgotPassword()" type="submit">submit</button>
+                                <button class="au-btn au-btn--block au-btn--blue2 m-b-20" type="submit" ng-click="ChangeTab('login')">Back</button>
+                            </form>
                         </div>
                     </div>
                 </div>
