@@ -53,8 +53,8 @@
                         <div class="login-form">
                             <form>
                                 <div class="form-group">
-                                    <label>Email Address</label>
-                                    <input class="au-input au-input--full" type="email" ng-model="logindata.email" placeholder="Email">
+                                    <label>Username</label>
+                                    <input class="au-input au-input--full" type="text" ng-model="logindata.username" placeholder="Username">
                                 </div>
                                 <div class="form-group">
                                     <label>Password</label>
@@ -68,7 +68,7 @@
                                         <a href="#">Invalid Credentials!</a>
                                     </label>
                                     <label>
-                                        <a href="#">Forgotten Password?</a>
+                                        <a href="#">Forgot Password?</a>
                                     </label>
                                 </div>
                                 <button class="au-btn au-btn--block au-btn--blue2 m-b-20" type="submit" ng-click="login();">sign in</button>

@@ -1,6 +1,6 @@
 app.controller('LoginController', function($scope, $http){
 	$scope.logindata = [];
-	$scope.logindata.email = '';
+	$scope.logindata.username = '';
 	$scope.logindata.password = '';
 	$scope.invalid_credentials = false;
 
@@ -10,7 +10,7 @@ app.controller('LoginController', function($scope, $http){
 			method: 'POST',
 			url: 'dologin',
 			data: {
-				'email': $scope.logindata.email,
+				'username': $scope.logindata.username,
 				'password': $scope.logindata.password,
 			},
 		}).then(function success(response){

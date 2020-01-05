@@ -55,6 +55,7 @@
                                         <th>Actions</th>
                                         @endif
                                         <th sortable="name" class="sortable">Name</th>
+                                        <th sortable="username" class="sortable">Username</th>
                                         <th sortable="email" class="sortable">Email</th>
                                         <th sortable="role" class="sortable">Role</th>
                                     </tr>
@@ -74,6 +75,7 @@
                                         </td>
                                         @endif
         	                            <td ng-bind="item.name"></td>
+                                        <td ng-bind="item.username"></td>
                                         <td ng-bind="item.email"></td>
                                         <td ng-bind="item.role"></td>
                                     </tr>
@@ -125,6 +127,37 @@
                             <form action="" method="post" class="form-horizontal" name="AddUserForm" id="AddUserForm" novalidate>
                                 <div class="row form-group">
                                     <div class="col col-md-3">
+                                        <label for="name" class=" form-control-label" >Name <span class="mandatory">*</span></label>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <input 
+                                            type="text" 
+                                            id="name" 
+                                            name="name" 
+                                            ng-model="user.name" 
+                                            placeholder="Name" 
+                                            class="form-control"
+                                            ng-minlength="3" 
+                                            ng-maxlength="50"
+                                            required>
+                                            <div ng-show="AddUserForm.name.$touched && AddUserForm.name.$error">
+                                                <span class="help-block"
+                                                 ng-show="AddUserForm.name.$error.required">
+                                                    Please Enter Name
+                                                </span>
+                                                <span class="help-block"
+                                                 ng-show="AddUserForm.name.$error.minlength">
+                                                    Minimum 3 Characters Required
+                                                </span>
+                                                <span class="help-block"
+                                                 ng-show="AddUserForm.name.$error.maxlength">
+                                                    Maximum 50 Characters Allowed
+                                                </span>
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
                                         <label for="username" class=" form-control-label" >User Name <span class="mandatory">*</span></label>
                                     </div>
                                     <div class="col-12 col-md-6">
@@ -132,8 +165,8 @@
                                             type="text" 
                                             id="username" 
                                             name="username" 
-                                            ng-model="user.name" 
-                                            placeholder="User Name" 
+                                            ng-model="user.username" 
+                                            placeholder="Username" 
                                             class="form-control"
                                             ng-minlength="3" 
                                             ng-maxlength="50"
@@ -141,7 +174,7 @@
                                             <div ng-show="AddUserForm.username.$touched && AddUserForm.username.$error">
                                                 <span class="help-block"
                                                  ng-show="AddUserForm.username.$error.required">
-                                                    Please Enter User Name
+                                                    Please Enter Username
                                                 </span>
                                                 <span class="help-block"
                                                  ng-show="AddUserForm.username.$error.minlength">
@@ -156,7 +189,7 @@
                                 </div>
                                 <div class="row form-group">
                                     <div class="col col-md-3">
-                                        <label for="email" class=" form-control-label">Email <span class="mandatory">*</span></label>
+                                        <label for="email" class=" form-control-label">Email</label>
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <input 
@@ -167,7 +200,7 @@
                                         placeholder="Email" 
                                         class="form-control" 
                                         ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/"
-                                        required>
+                                        >
                                         <div ng-show="AddUserForm.email.$touched && AddUserForm.email.$error">
                                             <span class="help-block" ng-show="AddUserForm.email.$error.required">Please Enter Email</span>
                                             <span class="help-block" ng-show="AddUserForm.email.$error.pattern">Invalid Email</span>
@@ -193,7 +226,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row form-group">
+                                <div class="row form-group" ng-if="!usermodal.edit">
                                     <div class="col col-md-3">
                                         <label for="password" class=" form-control-label">Password <span class="mandatory">*</span></label>
                                     </div>

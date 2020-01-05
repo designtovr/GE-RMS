@@ -27,7 +27,8 @@ class AddUserRequest extends FormRequest
             /*'user.code' => 'required|string|min:3|max:10',*/
             'user.id' => 'nullable|exists:users,id',
             'user.name' => 'required|string|min:3|max:50',
-            'user.email' => 'required|email',
+            'user.username' => 'required|string|min:3|max:50',
+            'user.email' => 'nullable|email',
             'user.password' => 'required|string',
             'user.role' => 'required|exists:roles,id'
         ];
@@ -36,10 +37,14 @@ class AddUserRequest extends FormRequest
     public function messages()
     {
         return [
-            'user.name.required'  => 'User Name Is Required',
-            'user.name.string'  => 'User Name Should Be String',
-            'user.name.min' => 'User Name Should Not Be Less Than 3',
-            'user.name.max' => 'User Name Should Not Be Greater Than 20',
+            'user.name.required'  => 'Name Is Required',
+            'user.name.string'  => 'Name Should Be String',
+            'user.name.min' => 'Name Should Not Be Less Than 3',
+            'user.name.max' => 'Name Should Not Be Greater Than 50',
+            'user.username.required'  => 'Username Is Required',
+            'user.username.string'  => 'Username Should Be String',
+            'user.username.min' => 'Username Should Not Be Less Than 3',
+            'user.username.max' => 'Username Should Not Be Greater Than 50',
             'user.email.required' => 'Email Is Required',
             'user.email.email' => 'Invalid Email Format',
             'user.password.required' => 'Password Is Required',

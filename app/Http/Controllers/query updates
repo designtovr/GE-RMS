@@ -44,3 +44,7 @@ ALTER TABLE `rma_invoice_address` CHANGE `updated_by` `updated_by` INT(11) NULL 
 ALTER TABLE `rma_delivery_address` CHANGE `updated_by` `updated_by` INT(11) NULL DEFAULT NULL, CHANGE `updated_at` `updated_at` DATETIME NULL DEFAULT NULL;
 
 CREATE TABLE `ge_rms_1`.`role_user` ( `user_id` BIGINT NOT NULL , `role_id` BIGINT NOT NULL ) ENGINE = InnoDB;
+
+ALTER TABLE `users` CHANGE `email` `email` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;
+
+ALTER TABLE `users` ADD `username` VARCHAR(255) NOT NULL AFTER `name`;

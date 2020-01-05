@@ -580,6 +580,7 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 			$scope.user.email = user.email;
 			$scope.user.role = user.role_id;
 			$scope.user.password = user.password;
+			$scope.user.username = user.username;
 			console.log($scope.user)
 		}
 		$('#usermodal').modal({
@@ -1032,6 +1033,10 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 				Notification.success(response.data.message + ' With Id: <b>'+ response.data.data.name + '</b>');
 				$('#usermodal').modal('hide');
 				$scope.getusers();
+			}
+			else if(response.data.status == 'failure')
+			{
+				Notification.error(response.data.message);
 			}
 		}, function failure(response){
 			if (response.status == 422)

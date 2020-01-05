@@ -30,9 +30,9 @@ class UserController extends Controller
 
     public function DoLogin(Request $request)
     {
-    	$credentials = $request->only('email', 'password');
+    	$credentials = $request->only('username', 'password');
     	if (Auth::attempt($credentials)) {
-    		$user = User::where('email', $credentials['email'])->first();
+    		$user = User::where('username', $credentials['username'])->first();
     		Auth::login($user);
             return response()->json(["status" => "success"]);
         }
@@ -47,7 +47,7 @@ class UserController extends Controller
 
     public function Users(Request $request)
     {
-        $users = User::selectRaw('users.id, users.name, users.email, users.password, ro.name as role, ro.id as role_id')->leftJoin('role_user as ru', 'users.id', 'ru.user_id')->leftJoin('roles as ro', 'ro.id', 'ru.role_id')->orderBy('users.id')->get();
+        $users = User::selectRaw('users.id, users.name, users.username, users.email, users.password, ro.name as role, ro.id as role_id')->leftJoin('role_user as ru', 'users.id', 'ru.user_id')->leftJoin('roles as ro', 'ro.id', 'ru.role_id')->orderBy('users.id')->get();
 
         return response()->json(['data' => $users, 'status' => 'success']);
     }
@@ -55,11 +55,26 @@ class UserController extends Controller
     public function AddUser(AddUserRequest $request)
     {
         $user = $request->get('user');
+        if (preg_match('/\s/',$user['username'])) {
+            return response()->json(['status' => 'failure', 'message' => 'Space Not Allowed in Username'], 200);
+        }
+        if(ctype_space($user['username']))
+        {
+            return response()->json(['status' => 'failure', 'message' => 'Space Not Allowed in Username'], 200);
+        }
         if (array_key_exists('id', $user))
         {
+            if(User::where('username', $user['username'])->where('id', '<>',$user['id'])->first())
+            {
+                return response()->json(['status' => 'failure', 'message' => 'Username already exists'], 200);
+            }
             $US = User::find($user['id']);
             $US->name = $user['name'];
-            $US->email = $user['email'];
+            $US->username = trim($user['username']);
+            if(array_key_exists('email', $user))
+            {
+                $US->email = $user['email'];
+            }
             if (Hash::needsRehash($user['password'])) {
                 $US->password = Hash::make($user['password']);
             }
@@ -83,9 +98,14 @@ class UserController extends Controller
         }
         else
         {
+            if(User::where('username', $user['username'])->first())
+            {
+                return response()->json(['status' => 'failure', 'message' => 'Username already exists'], 200);
+            }
             $US = new User();
             $US->name = $user['name'];
-            $US->email = $user['email'];
+            $US->username = trim($user['username']);
+            $US->email = (array_key_exists('email', $user))?$user['email']:'';
             $US->password = Hash::make($user['password']);
             $US->created_by = Auth::id();
             $US->created_at = Carbon::now();
