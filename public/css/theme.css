@@ -112,27 +112,27 @@ Notes:	decreasing heading by 0.4em with every subsequent heading level
 
 .border-l-r-3
   {
-      border-left: 3px solid;
+      border-left: 3px solid #000000 !important;
       border-right: 3px solid;
   }
 
 .border-l-3
 {
-    border-left: 3px solid;
+    border-left: 3px solid #000000 !important;
 }
 
 .border-r-3
 {
-    border-right: 3px solid;
+    border-right: 3px solid #000000 !important;
 }
 
 .border-b-3 {
-    border-bottom: 3px solid;
+    border-bottom: 3px solid #000000 !important;
 }
 
 .border-top-2
 {
-    border-top: 2px solid;
+    border-top: 2px solid !important;
 }
 
 .color-black
@@ -1333,6 +1333,12 @@ section {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+.aucbab {
+    position: absolute !important;
+    margin-top: 10px !important;
+    margin-left: 20px !important;
 }
 
 .au-checkbox input {
@@ -4537,7 +4543,15 @@ section {
 
 }
 
+@media print {
+   .table .bgOn {
+        background-color: #d3d3d3 !important;
+        -webkit-print-color-adjust: exact;
+    }
+}
+
 .tableStyle th{
+
     border-color: black;
 
     font-weight: Bold; !important;
@@ -4551,6 +4565,28 @@ section {
 }
 
 .tableStyle thead th{
+    border: 2px solid #000000 !important;
+}
+
+.tableStyle1 tbody td{
+    border: 2px solid #000000 !important;
+    padding: 3px;
+}
+
+.tableStyle1 th{
+    border-color: black;
+
+    font-weight: Bold; !important;
+    color : #0a0a0a;
+    text-align: center !important;
+}
+
+.tableStyle1, .tableStyle thead td{
+    border-color: black;
+}
+
+
+.tableStyle1 thead th{
     border: 2px solid #000000 !important;
 }
 
