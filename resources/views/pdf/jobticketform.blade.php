@@ -18,7 +18,7 @@
 <div class="section__content section__content--p30">
 <div class="container-fluid ">
 <div class = "front">
-<div class="text-uppercase">
+<div class="text-uppercase ftr">
 	<div class="row">
 		<div class="col" style="padding: 0;">
 			<h1 class="text-right float-left d-md-flex justify-content-md-end" style="color: #000000;margin-top: 89px;margin-left: 350px;"><strong>Job Ticket</strong></h1><img src="{{url('public/images/240px-ge-logo.png')}}" class="img-fluid float-right d-md-flex justify-content-end align-items-end justify-content-md-end align-items-md-end" style="width: 100px;height: 100px;margin: 48px;margin-bottom: 0;"
@@ -27,8 +27,7 @@
 	<div class="row" style="margin-top: 9px;margin-left: 1px;">
 		<div class="col">
 			<h2 class="text-left float-left" style="font-size: 26px; color: #000000"><strong>Type Of Work : </strong></h2>
-			<h1 class="text-left float-left" style="font-size: 26px;margin-left: 18px;color: #000000">
-				<strong>
+			<h1 class="text-left float-left" style="font-size: 26px;font-weight: normal ;margin-left: 18px;color: #000000">
 					@if($type == 1)
 						Repair
 					@elseif($type == 2)
@@ -36,60 +35,59 @@
 					@elseif($type == 3)
 						Investigation
 					@endif
-				</strong>
 			</h1>
 		</div>
 	</div>
 	<div class="row" style="margin-top: 9px;margin-left: 1px;">
 		<div class="col" style="margin-top: 8px;">
 			<h1 class="text-left float-left" style="font-size: 26px;color: #000000;height:  ;">P.O Date      : </h1>
-			<h1 class="text-left float-left" style="font-size: 26px;margin-left: 18px;color: #000000">{{ date('d/m/Y',strtotime($podate))}}</h1>
+			<h1 class="text-left float-left" style="font-size: 26px;font-weight: normal ;margin-left: 18px;color: #000000">{{ date('d/m/Y',strtotime($podate))}}</h1>
 		</div>
 		<div class="col" style="margin-top: 8px;">
 			<h1 class="text-left float-left" style="font-size: 26px;color: #000000">RMA<strong></strong>No    <strong>: </strong></h1>
-			<h1 class="text-left float-left" style="font-size: 26px;margin-left: 18px;color: #000000">{{$formatted_rma_id}}<strong></strong></h1>
+			<h1 class="text-left float-left" style="font-size: 26px;font-weight: normal ;margin-left: 18px;color: #000000">{{$formatted_rma_id}}<strong></strong></h1>
 		</div>
 	</div>
 	<div class="row" style="margin-top: 9px;margin-left: 1px;">
 		<div class="col" style="margin-top: 8px;">
 			<h1 class="text-left float-left" style="font-size: 26px;color: #000000">Given Date<strong>  : </strong></h1>
-			<h1 class="text-left float-left" style="font-size: 26px;margin-left: 18px;color: #000000">{{ date('d/m/Y',strtotime($pvdate))}} </h1>
+			<h1 class="text-left float-left" style="font-size: 26px;font-weight: normal ;margin-left: 18px;color: #000000">{{ date('d/m/Y',strtotime($pvdate))}} </h1>
 		</div>
 		<div class="col" style="margin-top: 8px;">
 			<h1 class="text-left float-left" style="font-size: 26px;color: #000000">Customer  <strong>: </strong></h1>
-			<h1 class="text-left float-left" style="font-size: 26px;margin-left: 18px;color: #000000">{{$customer_name}}</h1>
+			<h1 class="text-left float-left" style="font-size: 26px;font-weight: normal ;margin-left: 18px;color: #000000">{{$customer_name}}</h1>
 		</div>
 	</div>
 	<div class="row" style="margin-top: 9px;margin-left: 1px;">
 		<div class="col" style="margin-top: 8px;">
 			<h1 class="text-left float-left" style="font-size: 26px;color: #000000">Taken Date  : </h1>
-			<h1 class="text-left float-left" style="font-size: 26px;margin-left: 18px;color: #000000">Repair </h1>
+			<h1 class="text-left float-left" style="font-size: 26px;font-weight: normal ;margin-left: 18px;color: #000000">Repair </h1>
 		</div>
 		<div class="col" style="margin-top: 8px;">
 			<h1 class="text-left float-left" style="font-size: 26px;color: #000000">End Customer  : </h1>
-			<h1 class="text-left float-left" style="font-size: 26px;margin-left: 18px;color: #000000">{{$end_customer}}<strong></strong></h1>
+			<h1 class="text-left float-left" style="font-size: 26px;font-weight: normal ;margin-left: 18px;color: #000000">{{$end_customer}}<strong></strong></h1>
 		</div>
 	</div>
 	<div class="row" style="margin-top: 9px;margin-left: 1px;">
 		<div class="col" style="margin-top: 8px;">
 			<h1 class="text-left float-left" style="font-size: 26px;color: #000000">Model No   : </h1>
-			<h1 class="text-left float-left" style="font-size: 26px;margin-left: 18px;color: #000000">{{$model_no}}</h1>
+			<h1 class="text-left float-left" style="font-size: 26px;font-weight: normal ;margin-left: 18px;color: #000000">{{$model_no}}</h1>
 		</div>
 		<div class="col" style="margin-top: 8px;">
 			<h1 class="text-left float-left" style="font-size: 26px;color: #000000">Serial No : </h1>
-			<h1 class="text-left float-left" style="font-size: 26px;margin-left: 18px;color: #000000">{{$serial_no}}</h1>
+			<h1 class="text-left float-left" style="font-size: 26px;font-weight: normal ;margin-left: 18px;color: #000000">{{$serial_no}}</h1>
 		</div>
 	</div>
 	<div class="row" style="margin-top: 45px;margin-left: 1px;">
 		<div class="col" style="margin-top: 8px;">
 			<h1 class="text-left float-left" style="font-size: 26px;height:  ;color: #000000">NATURE OF DEFECT : </h1>
-			<h1 class="text-left float-left" style="font-size: 26px;margin-left: 18px;color: #000000">{{$nature_of_defect}}</h1>
+			<h1 class="text-left float-left" style="font-size: 26px;font-weight: normal ;margin-left: 18px;color: #000000">{{$nature_of_defect}}</h1>
 		</div>
 	</div>
 	<div class="row" style="margin-top: -1px;margin-left: 1px;">
 		<div class="col" style="margin-top: 8px;">
 			<h1 class="text-left float-left" style="font-size: 26px;height:  ;color: #000000">POWER ON TEST      : </h1>
-			<h1 class="text-left float-left" style="font-size: 26px;margin-left: 18px;color: #000000">{{$power_on_test}}</h1>
+			<h1 class="text-left float-left" style="font-size: 26px;font-weight: normal ;margin-left: 18px;color: #000000">{{$power_on_test}}</h1>
 		</div>
 	</div>
 	<!-- <div class="row" style="margin-top: -1px;margin-left: 1px;">
@@ -136,7 +134,7 @@
 		</div>
 	</div>
 </div>
-<div class ="Footer" style="margin-top:100px;">
+<div class ="Footer ftr" style="margin-top:150px;">
 	<div class="row ">
 		<div class="col" style="padding: 0;">
 			<img src="{{url('public/images/240px-ge-logo.png')}}" class="img-fluid float-left d-md-flex justify-content-end align-items-end justify-content-md-end align-items-md-end" style="width: 100px;height: 100px;margin: 48px 0px;margin-bottom: 0;"
@@ -144,19 +142,19 @@
 		</div>
 	</div>
 	<div class = "row footerText">
-		<h6> ALSTOM T&D India LTD , 19/1 , G.S.T Road ,Pallavaram,Chennai - 600 043</h6>
+		<h6 style="color:#000000; font-weight:normal;"> ALSTOM T&D India LTD , 19/1 , G.S.T Road ,Pallavaram,Chennai - 600 043</h6>
 		<br>
-		<h6 class ="font-weight-bold "> Tel: +91 44 22648000 FAX: +91 442264 0040.<u>www.alstom.com</u> </h6>
+		<h6 class ="font-weight-bold" >    Tel: +91 44 22648000 FAX: +91 442264 0040.<u>www.alstom.com</u> </h6>
 	</div>
 	<div class ="row border-bottom border-dark">
 	</div>
 	<div class ="row">
 		<div>
-			<h6 style="color:#000000;margin-top:10px;">REGISTERED OFFICE: A18 - 1st floor, Okhla Industrial Area , Phase - II , New Delhi - 110 020</h6>
+			<h6 style="color:#000000; font-weight:normal;margin-top:10px;">REGISTERED OFFICE: A18 - 1st floor, Okhla Industrial Area , Phase - II , New Delhi - 110 020</h6>
 		</div>
 	</div>
 </div>
-<div class = "back">
+<div class = "back ftr">
 	<div class = "row m-t-70">
 		<div class="col-md-12 m-t-70">
 			<h1 class="text-center font-weight-bold" style="font-size:24px;color:#000000;" > <u>Details of Changed Components</u>
@@ -164,7 +162,7 @@
     	</div>
 	</div>
 	<div class = "row ">
-		<div class="col-12">
+		<div class="col-12 p-l-0 p-r-0">
 			<div class="table-responsive">
 				<table class="table tableStyle table-bordered">
 			    <thead>

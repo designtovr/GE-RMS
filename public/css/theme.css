@@ -41,6 +41,9 @@ Notes:	decreasing heading by 0.4em with every subsequent heading level
 /*-----------------------------------------------------*/
 /* ----- Normalize ----- */
 /* Position and style the close button (top right corner) */
+.ftr{
+    font-family: "Times New Roman", Times, serif;
+}
 
 .tablesmall
 {
@@ -4528,6 +4531,27 @@ section {
 .tableStyle td {
     font-weight: normal; !important;
     font-size: 26px;
+    border-color: black;
+    color : #0a0a0a;
+
+
+}
+
+.tableStyle th{
+    border-color: black;
+
+    font-weight: Bold; !important;
+    color : #0a0a0a;
+    font-size: 26px;
+    text-align: center !important;
+}
+
+.tableStyle, .tableStyle thead td{
+    border-color: black;
+}
+
+.tableStyle thead th{
+    border: 2px solid #000000 !important;
 }
 
 .h-40
@@ -4555,9 +4579,7 @@ section {
     text-align: center !important;
 }
 
-.tableStyle th {
-    text-align: center !important;
-}
+
 
 .footerText
 {
@@ -5012,6 +5034,12 @@ section {
     padding: 12px 20px;
   /* //padding-right: 10px;*/
     font-weight: bold;
+}
+
+.table-data4 tbody td {
+    font-size: 22px !important;
+    color: #0a0a0a !important;
+    font-weight: bolder !important;
 }
 
 .table-data3 tbody td.process {
