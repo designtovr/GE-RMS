@@ -20,10 +20,13 @@
 		                            <thead>
 		                                <tr>
 		                                    <th>
-		                                        <input id="ridFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="R Id#" ng-change="gridActions.filter()" ng-model="filterRId" filter-by="rid" filter-type="text">
+		                                        <input id="ridFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="R Id#" ng-change="gridActions.filter()" ng-model="filterRId" filter-by="formatted_pv_id" filter-type="text">
+		                                    </th>
+		                                    <th>
+		                                        <input id="serialnoFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Serial No#" ng-change="gridActions.filter()" ng-model="filterSerialNo" filter-by="serial_no" filter-type="text">
 		                                    </th>
 		                                   <th>
-		                                        <button type="button" class="btn btn-outline-secondary btn-sm" ng-click="ResetSiteSearch();gridActions.filter()">Reset</button>
+		                                        <button type="button" class="btn btn-outline-secondary btn-sm" ng-click="ResetSearch();gridActions.filter()">Reset</button>
 		                                    </th>
 		                                </tr>
 		                            </thead>
@@ -37,15 +40,21 @@
 	                        <table class="table table-borderless table-data3">
 	                            <thead>
 	                                <tr>
-	                                    <th sortable="code" class="sortable">RId</th>
-	                                    <th sortable="name" class="sortable">Customer Name</th>
+	                                    <th sortable="formatted_pv_id" class="sortable">RId</th>
+	                                    <th sortable="formatted_rma_id" class="sortable">RMA No</th>
+	                                    <th sortable="formatted_receipt_id" class="sortable">Receipt Id</th>
+	                                    <th sortable="serial_no" class="sortable">Serial No</th>
+	                                    <th sortable="customer_name" class="sortable">Customer Name</th>
 	                                    <th>Actions</th>
 	                                </tr>
 	                            </thead>
 	                            <tbody>
 	                                <tr grid-item>
 	    	                            <td ng-bind="item.formatted_pv_id"></td>
-	                                    <td></td>
+	    	                            <td ng-bind="item.formatted_rma_id"></td>
+	    	                            <td ng-bind="item.formatted_receipt_id"></td>
+	    	                            <td ng-bind="item.serial_no"></td>
+	                                    <td ng-bind="item.customer_name"></td>
 	                                    <td>
 	    	                                <div class="table-data-feature">
 	    	                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Report" ng-click="GenerateReport(item.id)">

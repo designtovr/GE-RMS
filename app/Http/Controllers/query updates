@@ -48,3 +48,5 @@ CREATE TABLE `ge_rms_1`.`role_user` ( `user_id` BIGINT NOT NULL , `role_id` BIGI
 ALTER TABLE `users` CHANGE `email` `email` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;
 
 ALTER TABLE `users` ADD `username` VARCHAR(255) NOT NULL AFTER `name`;
+
+ALTER TABLE `verification_completion` CHANGE `updated_no_of_terminal_blocks` `updated_no_of_terminal_blocks` VARCHAR(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT '0';

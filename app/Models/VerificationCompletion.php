@@ -9,9 +9,9 @@ class VerificationCompletion extends Model
     protected $table = 'verification_completion';
 
     protected $hidden = [
-    	'created_at',
+    	/*'created_at',
     	'created_by',
     	'updated_at',
-    	'updated_by'
+    	'updated_by'*/
     ];
 }

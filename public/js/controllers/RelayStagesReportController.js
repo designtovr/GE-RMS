@@ -39,4 +39,15 @@ app.controller('RelayStagesReportController', ['$scope', '$http', '$window', fun
 		window.location.href = '/ge/relaystagereport/' + id;
 	}
 
+	$scope.ResetSearch = function()
+	{
+		$scope.filterRId = '';
+		$scope.filterSerialNo = '';
+	}
+
+	$scope.Back = function()
+	{
+		window.location.href = '/ge/relay-stages-report/';
+	}
+
 }]);
