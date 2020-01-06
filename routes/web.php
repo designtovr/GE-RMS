@@ -59,6 +59,7 @@ Route::get('/usercheck', 'UserController@UserCheck');
 
 Route::post('/dologin', 'UserController@DoLogin');
 Route::post('/forgotpassword', 'UserController@ForgotPassword');
+Route::post('/changepassword', 'UserController@ChangePassword');
 
 Route::group(['middleware' => 'auth'], function(){
 

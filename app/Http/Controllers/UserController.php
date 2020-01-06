@@ -87,6 +87,19 @@ class UserController extends Controller
 
     }
 
+    public function ChangePassword(Request $request)
+    {
+        $changepassword = $request->get('changepassword');
+        if(strcasecmp($changepassword['new_password'], $changepassword['confirm_password']) != 0)
+        {
+            return response()->json(['status' => 'failure', 'message' => 'New Password are not similar'], 200);
+        }
+        $US = User::find(Auth::id());
+        $US->password = Hash::make($changepassword['new_password']);
+        $US->update();
+        return response()->json(['status' => 'success', 'message' => 'Password Changed Successfully'], 200);
+    }
+
     public function Users(Request $request)
     {
         $users = User::selectRaw('users.id, users.name, users.username, users.email, users.password, ro.name as role, ro.id as role_id')->leftJoin('role_user as ru', 'users.id', 'ru.user_id')->leftJoin('roles as ro', 'ro.id', 'ru.role_id')->orderBy('users.id')->get();

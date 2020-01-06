@@ -6,6 +6,7 @@ app.controller('LoginController', function($scope, $http, $ngConfirm, Notificati
 	$scope.form = 'login';
 	$scope.forgotpass = {};
 	$scope.forgotpass.username = '';
+	$scope.changepassword = {};
 
 	$scope.login = function()
 	{
@@ -61,6 +62,45 @@ app.controller('LoginController', function($scope, $http, $ngConfirm, Notificati
 			}
 		}, function failure(response) {
 			console.log(response.data)
+		});
+	}
+
+	$scope.OpenChangePasswordModal = function()
+	{
+		$('#ChangePasswordModal').modal({
+			show: true,
+			backdrop: 'static',
+		});
+	}
+
+	$scope.CloseChangePasswordModal = function()
+	{
+		$('#ChangePasswordModal').modal('hide');
+	}
+
+	$scope.ChangePassword = function()
+	{
+
+		console.log($scope.changepassword)
+		$http({
+			method: 'POST',
+			url: 'changepassword',
+			data: {
+				'changepassword': $scope.changepassword,
+			},
+		}).then(function success(response){
+			var data = response.data;
+			if (data.status == 'success')
+			{
+				Notification.success(data.message);
+				$('#ChangePasswordModal').modal('hide');
+			}
+			else if (data.status == 'failure')
+			{
+				Notification.error(data.message);
+			}
+		}, function failure(response) {
+			console.log(response)
 		});
 	}
 

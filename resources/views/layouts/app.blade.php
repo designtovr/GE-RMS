@@ -349,7 +349,7 @@
                                         </div>
                                     </div> -->
                                 </div>
-                                <div class="account-wrap">
+                                <div class="account-wrap" ng-controller="LoginController">
                                     <div class="account-item clearfix js-item-menu">
                                         <div class="image">
                                             <img src="{{url('public/images/icon/male-user-100.png')}}" alt="{{ Auth::user()->name }}" />
@@ -373,7 +373,7 @@
                                             </div>
                                             <div class="account-dropdown__body">
                                                 <div class="account-dropdown__item">
-                                                    <a href="#">
+                                                    <a href="#" ng-click="OpenChangePasswordModal();">
                                                         <i class="zmdi zmdi-settings"></i>Change Password</a>
                                                 </div>
                                             </div>
@@ -394,7 +394,98 @@
 
         <!-- MAIN CONTENT-->
     @yield('content')
-
+    <!-- modal scroll -->
+    <div class="modal fade" id="ChangePasswordModal" tabindex="-1" role="dialog" aria-labelledby="usermodalLabel" aria-hidden="true" ng-controller="LoginController">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="usermodalLabel">Change Password</h5>
+                    <button type="button" class="close" ng-click="CloseChangePasswordModal();" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <form action="" method="post" class="form-horizontal" name="ChangePasswordForm" id="ChangePasswordForm" novalidate>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="new_password" class=" form-control-label">New Password <span class="mandatory">*</span></label>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <input 
+                                            type="text" 
+                                            id="new_password" 
+                                            name="new_password" 
+                                            ng-model="changepassword.new_password" 
+                                            placeholder="New Password" 
+                                            class="form-control"
+                                            ng-minlength="6" 
+                                            ng-maxlength="12"
+                                            required>
+                                            <div ng-show="ChangePasswordForm.new_password.$touched && ChangePasswordForm.new_password.$error">
+                                                <span class="help-block"
+                                                 ng-show="ChangePasswordForm.new_password.$error.required">
+                                                    Please Enter New Password
+                                                </span>
+                                                <span class="help-block"
+                                                 ng-show="ChangePasswordForm.new_password.$error.minlength">
+                                                    Minimum 3 Characters Required
+                                                </span>
+                                                <span class="help-block"
+                                                 ng-show="ChangePasswordForm.new_password.$error.maxlength">
+                                                    Maximum 12 Characters Allowed
+                                                </span>
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="confirm_password" class=" form-control-label">Confirm Password <span class="mandatory">*</span></label>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <input 
+                                            type="password" 
+                                            id="confirm_password" 
+                                            name="confirm_password" 
+                                            ng-model="changepassword.confirm_password" 
+                                            placeholder="Confirm Password" 
+                                            class="form-control"
+                                            ng-minlength="6" 
+                                            ng-maxlength="12"
+                                            required>
+                                            <div ng-show="ChangePasswordForm.confirm_password.$touched && ChangePasswordForm.confirm_password.$error">
+                                                <span class="help-block"
+                                                 ng-show="ChangePasswordForm.confirm_password.$error.required">
+                                                    Please Enter New Password
+                                                </span>
+                                                <span class="help-block"
+                                                 ng-show="ChangePasswordForm.confirm_password.$error.minlength">
+                                                    Minimum 3 Characters Required
+                                                </span>
+                                                <span class="help-block"
+                                                 ng-show="ChangePasswordForm.confirm_password.$error.maxlength">
+                                                    Maximum 12 Characters Allowed
+                                                </span>
+                                            </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger btn-sm" ng-click="CloseChangePasswordModal();">
+                        <i class="fa fa-ban"></i> Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary btn-sm" ng-disabled="ChangePasswordForm.$invalid" ng-click="ChangePassword();">
+                        <i class="fa fa-dot-circle-o"></i> Submit
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end modal scroll -->
     <!-- END MAIN CONTENT-->
         <!-- END PAGE CONTAINER-->
     </div>
@@ -442,6 +533,7 @@
 <script type="text/javascript" src="{{url('public/js/services/datashareservice.js')}}"></script>
 <script type="text/javascript" src="{{url('public/js/services/ChangePVStatusService.js')}}"></script>
 <script type="text/javascript" src="{{url('public/js/services/PVPriorityService.js')}}"></script>
+<script type="text/javascript" src="{{url('public/js/controllers/LoginController.js')}}"></script>
 <script>
     function openNav() {
         document.getElementById("mySidebar").style.width = "300px";
