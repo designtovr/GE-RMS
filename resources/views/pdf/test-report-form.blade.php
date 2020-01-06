@@ -20,7 +20,7 @@
 	<div class="section__content section__content--p30" ng-init="Start();">
 	    <div class="container-fluid ">
 
-<div class = "front">
+<div class = "front ftr">
 <div class="text-uppercase">
 			<div class="row">
 				<div class="col" style="padding: 0;">
@@ -38,30 +38,34 @@
 	<div class="row" style="margin-top: 9px;margin-left: 1px;">
 		<div class="col-12">
 		<div class="col-6 float-left">
-			<h2 class="text-left float-left" style="font-size: 26px; color: #000000"><strong>Date :  </strong>{{ date('d/m/Y',strtotime($vc_updated_at))}}</h2>
+			<h2 class="text-left float-left" style="font-size: 26px; color: #000000"><strong>Date :  </strong><span class="text-nowrap" style="font-weight: normal">{{ date('d/m/Y',strtotime($vc_updated_at))}}</span></h2>
 
 		</div>
 
 		<div class="col-6 float-right text-nowrap">
-			<h2 class="text-left float-left col-12" style="font-size: 22px; color: #000000"><span class="text-nowrap"><strong>RMA No          	:  </strong>{{$formatted_rma_id}}</span></h2>
-			<h2 class="text-left float-left col-12" style="font-size: 22px; color: #000000"><strong>Customer 			:  </strong>{{$customer_name}}</h2>
-			<h2 class="text-left float-left col-12" style="font-size: 22px; color: #000000"><strong>Model Number 		:  </strong>{{$model_no}}</h2>
-			<h2 class="text-left float-left col-12" style="font-size: 22px; color: #000000"><strong>Serial Number 		:  </strong>{{$serial_no}}</h2>
-			<h2 class="text-left float-left col-12" style="font-size: 22px; color: #000000"><strong>Software Reference  :  </strong>{{$sw_version}}</h2>
+			<h2 class="text-left float-left col-12" style="font-size: 22px; color: #000000"><strong>RMA No          	:  </strong><span class="text-nowrap" style="font-weight: normal">{{$formatted_rma_id}}</span></h2>
+			<h2 class="text-left float-left col-12" style="font-size: 22px; color: #000000"><strong>Customer 			:  </strong><span class="text-nowrap" style="font-weight: normal">{{$customer_name}}</span></h2>
+			<h2 class="text-left float-left col-12" style="font-size: 22px; color: #000000"><strong>Model Number 		:  </strong><span class="text-nowrap" style="font-weight: normal">{{$model_no}}</span></h2>
+			<h2 class="text-left float-left col-12" style="font-size: 22px; color: #000000"><strong>Serial Number 		:  </strong><span class="text-nowrap" style="font-weight: normal">{{$serial_no}}</span></h2>
+			<h2 class="text-left float-left col-12" style="font-size: 22px; color: #000000"><strong>Software Reference  :  </strong><span class="text-nowrap" style="font-weight: normal">{{$sw_version}}</span></h2>
 			<h2 class="text-left float-left col-12" style="font-size: 22px; color: #000000">
 				<strong>Terminal Block 		:  </strong>
+				<span class="text-nowrap" style="font-weight: normal">
 				@if($no_of_terminal_blocks == 0)
 					0
 				@else
 					{{substr($no_of_terminal_blocks, 0, 2)}} + {{substr($no_of_terminal_blocks, 2, 2)}}
 				@endif
+				</span>
 			</h2>
 			<h2 class="text-left float-left col-12" style="font-size: 22px; color: #000000"><strong>Short Links 		:  </strong>
+				<span class="text-nowrap" style="font-weight: normal">
 				@if($no_of_short_links == null)
 					0
 				@else
 					{{$no_of_short_links}}
 				@endif
+				</span>
 			</h2>
 
 		</div>
@@ -97,7 +101,7 @@
 				<table class="table tableStyle table-bordered text-center no-padding" >
 					<thead>
 					<tr>
-						<th style="background-color: #d3d3d3">Pass</th>
+						<th class ="bgOn" style="background-color: #d3d3d3">Pass</th>
 						<th>Fail</th>
 					</tr>
 					</thead>
@@ -116,8 +120,8 @@
 				<table class="table tableStyle table-bordered text-center no-padding" >
 					<thead>
 					<tr>
-						<th style="background-color: #d3d3d3">Pass</th>
-						<th>Fail <i class="zmdi zmdi-check"></i></th>
+						<th class ="bgOn" style="background-color: #d3d3d3">Pass</th>
+						<th >Fail <i class="zmdi zmdi-check"></i></th>
 					</tr>
 					</thead>
 				</table>
@@ -137,11 +141,11 @@
 					<thead>
 					<tr>
 						@if($clio_test)
-							<th style="background-color: #d3d3d3">Pass</th>
+							<th class ="bgOn" style="background-color: #d3d3d3">Pass</th>
 							<th>Fail</th>
 						@else
 							<th>Pass</th>
-							<th style="background-color: #d3d3d3">Fail</th>
+							<th class ="bgOn"  style="background-color: #d3d3d3">Fail</th>
 						@endif
 					</tr>
 					</thead>
@@ -162,11 +166,11 @@
 					<thead>
 					<tr>
 						@if($rtd_test)
-							<th style="background-color: #d3d3d3">Pass</th>
+							<th class ="bgOn" style="background-color: #d3d3d3">Pass</th>
 							<th>Fail</th>
 						@else
 							<th>Pass</th>
-							<th style="background-color: #d3d3d3">Fail</th>
+							<th class ="bgOn" style="background-color: #d3d3d3">Fail</th>
 						@endif
 					</tr>
 					</thead>
@@ -185,7 +189,7 @@
 				<table class="table tableStyle table-bordered text-center no-padding" >
 					<thead>
 					<tr>
-						<th style="background-color: #d3d3d3">Pass</th>
+						<th class ="bgOn" style="background-color: #d3d3d3">Pass</th>
 						<th>Fail</th>
 
 					</tr>
@@ -205,7 +209,7 @@
 				<table class="table tableStyle table-bordered text-center no-padding" >
 					<thead>
 					<tr>
-						<th>Pass</th>
+						<th class ="bgOn" >Pass</th>
 						<th>Fail</th>
 
 					</tr>
@@ -225,7 +229,7 @@
 				<table class="table tableStyle table-bordered text-center no-padding" >
 					<thead>
 					<tr>
-						<th style="background-color: #d3d3d3">Pass</th>
+						<th class ="bgOn" style="background-color: #d3d3d3">Pass</th>
 						<th>Fail</th>
 
 					</tr>
@@ -245,7 +249,7 @@
 				<table class="table tableStyle table-bordered text-center no-padding" >
 					<thead>
 					<tr>
-						<th style="background-color: #d3d3d3">Pass</th>
+						<th class ="bgOn" style="background-color: #d3d3d3">Pass</th>
 						<th>Fail</th>
 
 					</tr>
@@ -265,7 +269,7 @@
 				<table class="table tableStyle table-bordered text-center no-padding" >
 					<thead>
 					<tr>
-						<th style="background-color: #d3d3d3">Pass</th>
+						<th class ="bgOn" style="background-color: #d3d3d3">Pass</th>
 						<th>Fail</th>
 
 					</tr>
@@ -284,7 +288,7 @@
 				<table class="table tableStyle table-bordered text-center no-padding" >
 					<thead>
 					<tr>
-						<th style="background-color: #d3d3d3">Pass</th>
+						<th class ="bgOn" style="background-color: #d3d3d3">Pass</th>
 						<th>Fail</th>
 
 					</tr>
@@ -304,7 +308,7 @@
 				<table class="table tableStyle table-bordered text-center no-padding" >
 					<thead>
 					<tr>
-						<th>Pass</th>
+						<th class ="bgOn">Pass</th>
 						<th>Fail</th>
 
 					</tr>
@@ -322,7 +326,7 @@
 				<table class="table tableStyle table-bordered text-center no-padding" >
 					<thead>
 					<tr>
-						<th style="background-color: #d3d3d3">Pass</th>
+						<th class ="bgOn" style="background-color: #d3d3d3">Pass</th>
 						<th>Fail</th>
 
 					</tr>
@@ -340,7 +344,7 @@
 				<table class="table tableStyle table-bordered text-center no-padding" >
 					<thead>
 					<tr>
-						<th style="background-color: #d3d3d3">Pass</th>
+						<th class ="bgOn" style="background-color: #d3d3d3">Pass</th>
 						<th>Fail</th>
 
 					</tr>
@@ -358,7 +362,7 @@
 				<table class="table tableStyle table-bordered text-center no-padding" >
 					<thead>
 					<tr>
-						<th style="background-color: #d3d3d3">Pass</th>
+						<th class ="bgOn" style="background-color: #d3d3d3">Pass</th>
 						<th>Fail</th>
 
 					</tr>
@@ -378,7 +382,7 @@
 				<table class="table tableStyle table-bordered text-center no-padding" >
 					<thead>
 					<tr>
-						<th>Pass</th>
+						<th class ="bgOn">Pass</th>
 						<th>Fail</th>
 
 					</tr>
@@ -399,7 +403,7 @@
 				<table class="table tableStyle table-bordered text-center no-padding" >
 					<thead>
 					<tr>
-						<th style="background-color: #d3d3d3">Pass</th>
+						<th class ="bgOn" style="background-color: #d3d3d3">Pass</th>
 						<th>Fail</th>
 
 					</tr>
@@ -418,7 +422,7 @@
 
 		<div class = "row footerText text-left">
 			<div class="col-12">
-			<h6> GE T&D India LTD , 19/1 , G.S.T Road ,Pallavaram,Chennai - 600 043</h6></div>
+			<h6 style="font-weight: normal"> GE T&D India LTD , 19/1 , G.S.T Road ,Pallavaram,Chennai - 600 043</h6></div>
 			<div class="col-12">
 			<h6 class ="font-weight-bold "> Tel: +91 44 22648000 FAX: +91 442264 0040.<u>www.alstom.com</u> </h6>
 			</div>
@@ -428,7 +432,7 @@
 		</div>
 		<div class ="row">
 			<div>
-				<h6 style="color:#000000;margin-top:10px;">REGISTERED OFFICE: A18 - 1st floor, Okhla Industrial Area , Phase - II , New Delhi - 110 020</h6>
+				<h6 style="color:#000000;margin-top:10px;font-weight: normal">REGISTERED OFFICE: A18 - 1st floor, Okhla Industrial Area , Phase - II , New Delhi - 110 020</h6>
 			</div>
 		</div>
 	</div>
@@ -460,7 +464,7 @@
 				<table class="table tableStyle table-bordered text-center no-padding" >
 					<thead>
 					<tr>
-						<th style="background-color: #d3d3d3">Pass</th>
+						<th  class ="bgOn" style="background-color: #d3d3d3">Pass</th>
 						<th>Fail</th>
 
 					</tr>
@@ -479,11 +483,11 @@
 					<thead>
 					<tr>
 						@if($battery)
-							<th style="background-color: #d3d3d3">Yes</th>
+							<th class ="bgOn" style="background-color: #d3d3d3">Yes</th>
 							<th>No</th>
 						@else
 							<th>Yes</th>
-							<th style="background-color: #d3d3d3">No</th>
+							<th class ="bgOn" style="background-color: #d3d3d3">No</th>
 						@endif
 					</tr>
 					</thead>
@@ -501,11 +505,11 @@
 					<thead>
 					<tr>
 						@if($case)
-							<th style="background-color: #d3d3d3">Yes</th>
+							<th class ="bgOn" style="background-color: #d3d3d3">Yes</th>
 							<th>No</th>
 						@else
 							<th>Yes</th>
-							<th style="background-color: #d3d3d3">No</th>
+							<th class ="bgOn" style="background-color: #d3d3d3">No</th>
 						@endif
 					</tr>
 					</thead>
@@ -524,11 +528,11 @@
 						<thead>
 						<tr>
 							@if($received_with_screws)
-								<th style="background-color: #d3d3d3">Yes</th>
+								<th class ="bgOn" style="background-color: #d3d3d3">Yes</th>
 								<th>No</th>
 							@else
 								<th>Yes</th>
-								<th style="background-color: #d3d3d3">No</th>
+								<th class ="bgOn" style="background-color: #d3d3d3">No</th>
 							@endif
 						</tr>
 						</thead>
@@ -546,11 +550,11 @@
 						<thead>
 						<tr>
 							@if($received_with_terminal)
-								<th style="background-color: #d3d3d3">Yes</th>
+								<th class ="bgOn" style="background-color: #d3d3d3">Yes</th>
 								<th>No</th>
 							@else
 								<th>Yes</th>
-								<th style="background-color: #d3d3d3">No</th>
+								<th class ="bgOn" style="background-color: #d3d3d3">No</th>
 							@endif
 						</tr>
 						</thead>
@@ -569,18 +573,21 @@
 	<br>
 	<div class="row" style="margin-top: 9px;margin-left: 1px;">
 		<div class="col-9  float-right m-l-10">
-			<h4 class ="col-12" style="color:#000000; font-weight: normal;font-size: 20px"><u>Tested By</u></h4></div>
+			<h4 class ="col-12" style="color:#000000; font-weight: normal;font-size: 20px"><u>Tested By :</u></h4></div>
 			<br>
 			<br>
-			<h4 class ="col-9" style="color:#000000; font-weight: normal;font-size: 20px">Sign:</h4></div>
+			<h4 class ="col-9" style="color:#000000; font-weight: normal;font-size: 20px">Sign:</h4>
+		<br>
+
 			<br>
 			<h4 class ="col-9" style="color:#000000; font-weight: normal;font-size: 20px">Name:</h4></div>
+</div>
 
 
-			<div class ="Footer" style="margin-top:800px;">
+			<div class ="Footer ftr" style="margin-top:800px;">
 				<div class = "row footerText text-left">
 					<div class="col-12">
-						<h6> GE T&D India LTD , 19/1 , G.S.T Road ,Pallavaram,Chennai - 600 043</h6></div>
+						<h6 style="font-weight: normal"> GE T&D India LTD , 19/1 , G.S.T Road ,Pallavaram,Chennai - 600 043</h6></div>
 					<div class="col-12">
 						<h6 class ="font-weight-bold "> Tel: +91 44 22648000 FAX: +91 442264 0040.<u>www.alstom.com</u> </h6>
 					</div>
@@ -590,7 +597,7 @@
 				</div>
 				<div class ="row">
 					<div>
-						<h6 style="color:#000000;margin-top:10px;">REGISTERED OFFICE: A18 - 1st floor, Okhla Industrial Area , Phase - II , New Delhi - 110 020</h6>
+						<h6 style="color:#000000;margin-top:10px;font-weight: normal">REGISTERED OFFICE: A18 - 1st floor, Okhla Industrial Area , Phase - II , New Delhi - 110 020</h6>
 					</div>
 				</div>
 			</div>

@@ -15,12 +15,12 @@
 	<link href="{{url('public/css/theme.css')}}" rel="stylesheet" media="all">
 
 </head>
-<body class="text-right" style="height: 1196px;padding-left: 30px;padding-right: 30px; font-family: 'Oswald', sans-serif !important;">
+<body class="text-right ftr" style="height: 1196px;padding-left: 30px;padding-right: 30px; font-family: 'Oswald', sans-serif !important;">
 <div class="main-content" ng-controller="TestReportFormController">
 	<div class="section__content section__content--p30" ng-init="Start();">
 	    <div class="container-fluid ">
 
-<div class = "front">
+<div class = "front ftr">
 <div class="text-uppercase">
 			<div class="row">
 				<div class="col" style="padding: 0;">
@@ -29,12 +29,12 @@
 
 	<div class="row" style="margin-top: 9px;margin-left: 1px;">
 		<div class="col-6">
-			<h2 class="text-left float-left" style="font-size: 26px; color: #000000"><strong>RMA :  {{ $id }}</strong></h2>
+			<h2 class="text-left float-left" style="font-size: 26px; color: #000000"><strong>RMA :</strong>  <span style="font-weight: normal;">{{ $id }}</span> </h2>
 
 		</div>
 
 		<div class="col-6">
-			<h2 class="text-left float-left" style="font-size: 26px; color: #000000"><strong>Customer :  {{ $customer_name }}</strong></h2>
+			<h2 class="text-left float-left" style="font-size: 26px; color: #000000"><strong>Customer : </strong>  <span style="font-weight: normal;">{{ $customer_name }}</span></h2>
 
 		</div>
 	</div>
@@ -69,19 +69,27 @@
 
 						<tr>
 							<td>
+								<label class="au-checkbox aucbab">
 								@if($unit['battery'] == 1)
-								<input type="checkbox" class="m-t-10" checked="1" disabled>
+								<input type="checkbox" class="m-t-10 cb01" checked="1" disabled>
 								@else
 								<input type="checkbox" class="m-t-10" disabled>
 								@endif
+								<span class="au-checkmark"></span>
+								</label>
+
 								<label class="form-check-label" for="exampleCheck1">Battery : </label>
 							</td>
 							<td>
+								<label class="au-checkbox aucbab">
+
 								@if($unit['terminal_blocks'] == 1)
 								<input type="checkbox" class="m-t-10" checked="1" disabled>
 								@else
 								<input type="checkbox" class="m-t-10" disabled>
 								@endif
+									<span class="au-checkmark"></span>
+								</label>
 								<label class="form-check-label" for="exampleCheck1">TBs :
 									@if($unit['no_of_terminal_blocks'] == 0)
 										{{$unit['no_of_terminal_blocks']}}
@@ -94,29 +102,45 @@
 						</tr>
 						<tr>
 							<td>
+								<label class="au-checkbox aucbab">
+
 								@if($unit['top_bottom_cover'] == 1)
 									<input type="checkbox" class="m-t-10" checked="1" disabled>
 								@else
 									<input type="checkbox" class="m-t-10" disabled>
 								@endif
+									<span class="au-checkmark"></span>
+								</label>
 								<label class="form-check-label" for="exampleCheck1">Flops : </label>
 							</td>
 							<td>
+								<label class="au-checkbox aucbab">
+
 								@if($unit['screws'] == 1)
 								<input type="checkbox" class="m-t-10" checked="1" disabled>
 								@else
 								<input type="checkbox" class="m-t-10" disabled>
 								@endif
+									<span class="au-checkmark"></span>
+								</label>
 								<label class="form-check-label" for="exampleCheck1">Screws : </label>
 							</td>
 
 						</tr>
 						<tr>
 							<td>
+								<label class="au-checkbox aucbab">
+
 								<input type="checkbox" class="m-t-10" disabled>
+								<span class="au-checkmark"></span>
+								</label>
 								<label class="form-check-label" for="exampleCheck1">Rusted : </label></td>
 							<td>
+								<label class="au-checkbox aucbab">
+
 								<input type="checkbox" class="m-t-10" disabled>
+								<span class="au-checkmark"></span>
+								</label>
 								<label class="form-check-label" for="exampleCheck1">Damaged : </label>
 							</td>
 

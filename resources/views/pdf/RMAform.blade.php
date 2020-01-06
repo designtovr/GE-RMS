@@ -26,7 +26,7 @@
 							<h5 class=" float-left d-md-flex justify-content-md-end" style="color: #000000;margin-top: 89px;">Repair / Modification Return Authorization Form  - RMA Form</h5><img src="{{url('public/images/240px-ge-logo.png')}}" class="img-fluid float-right d-md-flex justify-content-end align-items-end justify-content-md-end align-items-md-end" style="width: 100px;height: 100px;margin: 48px;margin-bottom: 15px;"/></div>
 					</div>
 					<div class = "border-3 border-dark bg-grey p-10 ">
-						<div class="row" style="margin-top: 9px;margin-left: 1px;">
+						<div class="row" style="margin-top: 9px;">
 							<div class="col">
 								<div class = "float-left text-left f13"><p>FIELD ONLY TO BE FILLED IN BY A <b>GE Grid Automation</b> REPRESENTATIVE</p></div>
 								<div class = "float-right text-left"><p> Date : {{ date('d/m/Y',strtotime($date))}}</p></div>
@@ -128,9 +128,14 @@
 							<strong>Yes</strong> How Long?
 						</div>
 					</div> -->
-					<div class="row color-black" style="margin-left:1px;">
+					<div class="row color-black" style="margin-left: 1px">
+                        <div class="row" style="margin-top: 9px;margin-left: 1px;">
+                            <div class="col-12 color-black">
+                                <div class = " text-left f15 font-weight-bold">1. Identification Of Unit & Fault Information</div>
+                            </div>
+                        </div>
 						<div class="table-responsive">
-							<table class="table tablesmall table-bordered">
+							<table class="table tablesmall table-bordered tableStyle1 ">
 								<thead >
 								<tr>
 									<th>Qty</th>
@@ -165,29 +170,31 @@
 							</table>
 						</div>
 					</div>
-					<div class="row color-black">
-						<div class = "col-3 text-left border-l-3 border-b-3 f13" style="margin-left: 14px;">
+					<div class="row color-black border-r-3 border-l-3 border-b-3" style="margin-left: 1px">
+						<div class = "col-3 text-left   f13" style="margin-left: 14px;">
 							<label><strong>(M)</strong> Equipment failed during Installation / Community</label>
 						</div>
-						<div class = "col-2 text-right border-r-3 border-b-3">
+						<div class = "col-2 text-right border-r-3 ">
 							<input type="checkbox" class="form-check-input" id="exampleCheck1">
 							<strong>Yes</strong>
 						</div>
-						<div class = "col-4 text-left  f13 border-b-3" >
+						<div class = "col-4 text-left  f13" >
 							<label><strong>(M)</strong> Equipment failed during Service</label>
 						</div>
-						<div class = "col-2 text-right border-r-3 f13 border-b-3">
-							<input type="checkbox" class="form-check-input" id="exampleCheck1">
-							<strong>Yes</strong> How Long?
-						</div>
+                        <div class = "col-2 text-right  f13 >
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                            <strong>Yes</strong> How Long?
+                        </div>
+
+
 					</div>
 			<div class = "back">
-				<div class="row" style="margin-top: 9px;margin-left: 1px;">
+				<div class="row" style="margin-top: 9px; margin-left: 1px" >
 					<div class="col-12 color-black">
 						<div class = " text-left f15 font-weight-bold">2.CUSTOMS AND INVOICING INFORMATION REQUIRED TO ALLOW RETURN OF REPAIRED ITEMS - Mention your GST NO</div>
 					</div>
 				</div>
-				<div class = "row border-3">
+				<div class = "row border-3 "  style="margin-left: 1px">
 					<div class="col-md-12 m-t-10">
 						<h1 class="text-center font-weight-bold" style="font-size:18px;color:#000000;" > <u>Value for Customs (M) : </u></h1>
 						<h1 class="text-center font-weight-bold f12" style="color:#000000;" > In case the product requires Export</h1>
@@ -195,56 +202,60 @@
 
 
 				</div>
-				<div class = "row ">
-					<div class="col-12 border-top border-l-r-3 border-dark">
-						<div class="col-6  float-left">
+				<div class = "row border-3 "  style="margin-left: 1px">
+					<div class="col-12 border-top ">
+						<div class="col-6  float-left border-r-3">
 							<h1 class="text-left" style="font-size:12px;color:#000000;" > <u>Customer Invoice Address if paid(M)</u></h1>
-							<br>
+							<p class="text-left" style="font-size:12px;color:#000000;" ><br>
 							{{$invoice_info['name']}}
 							<br>
 							{{$invoice_info['address']}}
 							<br>
 							GST: {{$invoice_info['gst']}}
-						</div>
-						<div class="col-6 float-right   border-left border-dark ">
+                            </p>
+                        </div>
+
+						<div class="col-6 float-right   border-left  ">
 							<h1 class="text-left" style="font-size:12px;color:#000000;" > <u>Customer Return Delivery Address (Full Screen Address)(M)</u></h1>
-							<br>
+                            <p class="text-left" style="font-size:12px;color:#000000;" ><br>
 							{{$delivery_info['name']}}
 							<br>
 							{{$delivery_info['address']}}
 							<br>
 							GST: {{$delivery_info['gst']}}
+                            </p>
 						</div>
+
 					</div>
 				</div>
 
-				<div class = "row border-l-r-3 border-dark">
-					<div class="col-12">
-						<div class="col-6 float-left  h-250" style="height:100px">
+				<div class = "row border-l-3  "  style="margin-left: 1px">
+					<div class="col-12 border-r-3">
+						<div class="col-6 float-left  border-r-3 h-250" style="height:100px">
 						</div>
-						<div class="col-6 float-right border-left border-dark  h-250" style="height:100px">
+						<div class="col-6 float-right  h-250" style="height:100px">
 						</div>
 					</div>
 				</div>
-				<div class = "row ">
-					<div class="col-12  border-l-r-3 border-dark">
-						<div class="col-6 border-right border-dark float-left">
+				<div class = "row border-b-3"  style="margin-left: 1px">
+					<div class="col-12  border-l-r-3 ">
+						<div class="col-6 border-right   border-r-3 float-left"><span>.</span>
 						</div>
-						<div class="col-6 float-right  border-left border-dark">
+						<div class="col-6 float-right  border border-left">
 							<h1 class="text-left" style="font-size:12px;color:#000000;">Part Shipment Accepted (Yes/No)- </h1>
 
 						</div>
 					</div>
 				</div>
 
-				<div class = "row ">
-					<div class="col-12 border-top border-l-r-3 border-b-3 border-dark">
-						<div class="col-6  float-left">
+				<div class = "row "  style="margin-left: 1px">
+					<div class="col-12 border-top border-l-r-3 border-b-3 ">
+						<div class="col-6  float-left border-r-3">
 							<h1 class="text-left" style="font-size:12px;color:#000000; margin-top: 5px;" >Contact Name : {{$invoice_info['contact_person']}}</h1>
 							<h1 class="text-left" style="font-size:12px;color:#000000; margin-top: 5px;" >Tel No : {{$invoice_info['tel_no']}}</h1>
 							<h1 class="text-left" style="font-size:12px;color:#000000; margin-top: 5px;" >Email : {{$invoice_info['email']}}</h1>
 						</div>
-						<div class="col-6 float-right   border-left border-dark ">
+						<div class="col-6 float-right   border-left ">
 							<h1 class="text-left" style="font-size:12px;color:#000000; margin-top: 5px;" >Contact Name : {{$delivery_info['contact_person']}}</h1>
 							<h1 class="text-left" style="font-size:12px;color:#000000; margin-top: 5px;" >Tel No : {{$delivery_info['tel_no']}}</h1>
 							<h1 class="text-left" style="font-size:12px;color:#000000; margin-top: 5px;" >Email : {{$delivery_info['email']}}</h1>
@@ -252,7 +263,7 @@
 					</div>
 				</div>
 
-				<div class="row" style="margin-top: 9px;margin-left: 1px;">
+				<div class="row" style="margin-top: 9px;"  style="margin-left: 1px">
 					<div class="col-12 color-black">
 						<div class = " text-left f15 font-weight-bold">3.Repair Terms And Condition</div>
 					</div>
