@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 03, 2020 at 11:53 AM
+-- Generation Time: Jan 06, 2020 at 05:34 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.11
 
@@ -48,6 +48,18 @@ CREATE TABLE `aging` (
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `aging`
+--
+
+INSERT INTO `aging` (`pv_id`, `result`, `comment`, `created_by`, `created_at`, `updated_by`, `updated_at`) VALUES
+(1, 1, '', 1, '2020-01-04 10:27:13', NULL, '2020-01-04 15:57:13'),
+(2, 1, '', 1, '2020-01-04 10:48:55', NULL, '2020-01-04 16:18:55'),
+(3, 1, '', 1, '2020-01-04 10:52:44', NULL, '2020-01-04 16:22:44'),
+(4, 1, '', 1, '2020-01-04 10:56:16', NULL, '2020-01-04 16:26:16'),
+(5, 1, '', 1, '2020-01-04 11:00:25', NULL, '2020-01-04 16:30:25'),
+(6, 1, '', 7, '2020-01-04 11:14:56', NULL, '2020-01-04 16:44:56');
+
 -- --------------------------------------------------------
 
 --
@@ -61,6 +73,18 @@ CREATE TABLE `aging_tracking` (
   `created_by` tinyint(4) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `aging_tracking`
+--
+
+INSERT INTO `aging_tracking` (`pv_id`, `result`, `comment`, `created_by`, `created_at`) VALUES
+(1, 1, '', 1, '2020-01-04 10:27:13'),
+(2, 1, '', 1, '2020-01-04 10:48:55'),
+(3, 1, '', 1, '2020-01-04 10:52:44'),
+(4, 1, '', 1, '2020-01-04 10:56:16'),
+(5, 1, '', 1, '2020-01-04 11:00:25'),
+(6, 1, '', 7, '2020-01-04 11:14:56');
 
 -- --------------------------------------------------------
 
@@ -78,6 +102,18 @@ CREATE TABLE `auto_test_bench` (
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `auto_test_bench`
+--
+
+INSERT INTO `auto_test_bench` (`pv_id`, `result`, `comment`, `created_by`, `created_at`, `updated_by`, `updated_at`) VALUES
+(1, 1, '', 1, '2020-01-04 10:26:16', NULL, '2020-01-04 15:56:16'),
+(2, 1, '', 1, '2020-01-04 10:48:38', NULL, '2020-01-04 16:18:38'),
+(3, 1, '', 1, '2020-01-04 10:52:28', NULL, '2020-01-04 16:22:28'),
+(4, 1, '', 1, '2020-01-04 10:56:01', NULL, '2020-01-04 16:26:01'),
+(5, 1, '', 1, '2020-01-04 11:00:11', NULL, '2020-01-04 16:30:11'),
+(6, 1, '', 7, '2020-01-04 11:14:04', NULL, '2020-01-04 16:44:04');
+
 -- --------------------------------------------------------
 
 --
@@ -91,6 +127,18 @@ CREATE TABLE `auto_test_bench_tracking` (
   `created_by` tinyint(4) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `auto_test_bench_tracking`
+--
+
+INSERT INTO `auto_test_bench_tracking` (`pv_id`, `result`, `comment`, `created_by`, `created_at`) VALUES
+(1, 1, '', 1, '2020-01-04 10:26:16'),
+(2, 1, '', 1, '2020-01-04 10:48:38'),
+(3, 1, '', 1, '2020-01-04 10:52:28'),
+(4, 1, '', 1, '2020-01-04 10:56:01'),
+(5, 1, '', 1, '2020-01-04 11:00:11'),
+(6, 1, '', 7, '2020-01-04 11:14:04');
 
 -- --------------------------------------------------------
 
@@ -113,6 +161,17 @@ CREATE TABLE `dispatch` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `dispatch`
+--
+
+INSERT INTO `dispatch` (`id`, `date`, `pv_id`, `dc_no`, `docket_details`, `courier_name`, `person_name`, `concern_name`, `contact`, `created_by`, `updated_at`, `created_at`) VALUES
+(1, '2020-01-04', 1, 'CS093', 'KIS098', 'MNGS', NULL, '', '', 1, '2020-01-04 10:46:40', '2020-01-04 10:46:40'),
+(2, '2020-01-04', 2, 'KLOS', 'MNS192', 'FED', NULL, '', '', 1, '2020-01-04 10:49:55', '2020-01-04 10:49:55'),
+(3, '2020-01-04', 3, 'GR433', 'ASDG', 'FED', NULL, '', '', 1, '2020-01-04 10:53:50', '2020-01-04 10:53:50'),
+(4, '2020-01-04', 4, 'FR6543', 'NNBTY', 'FED', NULL, '', '', 1, '2020-01-04 10:57:05', '2020-01-04 10:57:05'),
+(5, '2020-01-04', 5, 'QW422', 'BGU754', 'FED', NULL, '', '', 1, '2020-01-04 11:01:07', '2020-01-04 11:01:07');
+
 -- --------------------------------------------------------
 
 --
@@ -130,6 +189,18 @@ CREATE TABLE `job_tickets` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `job_tickets`
+--
+
+INSERT INTO `job_tickets` (`id`, `pv_id`, `nature_of_defect`, `comment`, `power_on_test`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(1, 1, '', 'CSA', NULL, 1, 1, '2020-01-04 10:12:08', '2020-01-04 15:42:08'),
+(2, 2, '', 'ZS', NULL, 1, 1, '2020-01-04 10:47:55', '2020-01-04 16:17:55'),
+(3, 3, '', 'AXCDE', NULL, 1, 1, '2020-01-04 10:52:09', '2020-01-04 16:22:09'),
+(4, 4, '', 'CVGTRE', NULL, 1, 1, '2020-01-04 10:55:38', '2020-01-04 16:25:38'),
+(5, 5, '', 'As', NULL, 1, 1, '2020-01-04 10:59:50', '2020-01-04 16:29:50'),
+(6, 6, '', 'XAS', NULL, 7, 7, '2020-01-04 11:12:55', '2020-01-04 16:42:55');
 
 -- --------------------------------------------------------
 
@@ -151,6 +222,13 @@ CREATE TABLE `job_ticket_materials` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `job_ticket_materials`
+--
+
+INSERT INTO `job_ticket_materials` (`id`, `jt_id`, `part_no`, `value`, `quantity`, `old_pcp`, `new_pcp`, `comment`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(1, 1, 'MNOPWIYHKS', NULL, 2, 'XCVVFFDEAS', 'BNMKOUYGG', NULL, 1, 1, '2020-01-04 10:12:08', '2020-01-04 15:42:08');
 
 -- --------------------------------------------------------
 
@@ -1824,6 +1902,19 @@ CREATE TABLE `physical_verification` (
   `created_by` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `physical_verification`
+--
+
+INSERT INTO `physical_verification` (`id`, `receipt_id`, `docket_details`, `courier_name`, `pvdate`, `producttype_id`, `product_id`, `serial_no`, `comment`, `case`, `case_condition`, `battery`, `battery_condition`, `terminal_blocks`, `terminal_blocks_condition`, `no_of_terminal_blocks`, `top_bottom_cover`, `top_bottom_cover_condition`, `short_links`, `short_links_condition`, `no_of_short_links`, `screws`, `sales_order_no`, `is_rma_available`, `updated_at`, `created_at`, `updated_by`, `created_by`) VALUES
+(1, 1, 'DOC0927', 'ABT', '2020-01-03', 13, 279, 'ASDFWQ1244', NULL, 1, 1, 1, 1, 1, 1, '0103', 1, 2, 2, 3, 0, 1, NULL, 1, '2020-01-03 11:24:41', '2020-01-03 11:10:46', 1, 1),
+(2, 1, 'DOC0927', 'ABT', '2020-01-03', 3, 333, 'SF24352', '', 1, 2, 1, 2, 2, 2, '0', 1, 2, 2, 2, 0, 1, '', 1, '2020-01-03 11:23:19', '2020-01-03 11:23:19', 1, 1),
+(3, 1, 'DOC0927', 'ABT', '2020-01-03', 3, 37, 'FDSF243', '', 1, 2, 1, 2, 2, 2, '0', 1, 2, 2, 2, 0, 1, '', 1, '2020-01-03 11:58:42', '2020-01-03 11:58:42', 1, 1),
+(4, 1, 'DOC0927', 'ABT', '2020-01-03', 4, 66, 'ASDWE3232', '', 1, 2, 2, 3, 1, 2, '0706', 1, 2, 3, 3, 0, 1, '', 1, '2020-01-03 11:59:42', '2020-01-03 11:59:22', 1, 1),
+(5, 1, 'DOC0927', 'ABT', '2020-01-03', 13, 312, 'DDG54543', '', 1, 2, 2, 3, 1, 2, '0301', 2, 3, 1, 2, 2, 1, '', 1, '2020-01-03 12:07:03', '2020-01-03 12:07:03', 1, 1),
+(6, 1, 'DOC0927', 'ABT', '2020-01-03', 2, 42, 'SGER34534', '', 1, 2, 2, 2, 2, 2, '0', 2, 2, 2, 2, 0, 2, '', 1, '2020-01-03 12:10:26', '2020-01-03 12:07:42', 1, 1),
+(7, 1, 'DOC0927', 'ABT', '2020-01-03', 1, 7, 'SDADQ34234', '', 2, 2, 2, 2, 2, 2, '0', 1, 2, 2, 2, 0, 1, '', 1, '2020-01-03 12:09:33', '2020-01-03 12:09:33', 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -1853,6 +1944,25 @@ CREATE TABLE `pv_rms_tracking` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `pv_rms_tracking`
+--
+
+INSERT INTO `pv_rms_tracking` (`pv_id`, `rack_id`, `rack_type`, `created_by`, `created_at`) VALUES
+(1, '', 5, 1, '2020-01-03 11:10:46'),
+(2, '', 5, 1, '2020-01-03 11:23:19'),
+(3, '', 5, 1, '2020-01-03 11:58:42'),
+(4, '', 5, 1, '2020-01-03 11:59:22'),
+(5, '', 5, 1, '2020-01-03 12:07:03'),
+(6, '', 5, 1, '2020-01-03 12:07:42'),
+(7, '', 5, 1, '2020-01-03 12:09:33'),
+(1, '', 1, 1, '2020-01-04 10:11:12'),
+(2, '', 1, 1, '2020-01-04 10:25:34'),
+(3, '', 1, 1, '2020-01-04 10:51:49'),
+(4, '', 1, 1, '2020-01-04 10:55:19'),
+(5, '', 1, 1, '2020-01-04 10:59:04'),
+(6, '', 1, 1, '2020-01-04 11:09:40');
+
 -- --------------------------------------------------------
 
 --
@@ -1866,6 +1976,19 @@ CREATE TABLE `pv_status` (
   `created_by` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `pv_status`
+--
+
+INSERT INTO `pv_status` (`pv_id`, `current_status_id`, `created_at`, `created_by`) VALUES
+(1, 12, '2020-01-04 10:46:40', 1),
+(2, 12, '2020-01-04 10:49:55', 1),
+(3, 12, '2020-01-04 10:53:50', 1),
+(4, 12, '2020-01-04 10:57:05', 1),
+(5, 12, '2020-01-04 11:01:07', 1),
+(6, 14, '2020-01-04 11:17:54', 6),
+(7, 13, '2020-01-03 12:10:03', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -1878,6 +2001,81 @@ CREATE TABLE `pv_status_tracking` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created_by` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pv_status_tracking`
+--
+
+INSERT INTO `pv_status_tracking` (`pv_id`, `status_id`, `created_at`, `created_by`) VALUES
+(1, 1, '2020-01-03 11:10:46', 1),
+(1, 2, '2020-01-03 11:22:19', 1),
+(1, 1, '2020-01-03 11:22:32', 1),
+(2, 2, '2020-01-03 11:23:19', 1),
+(2, 13, '2020-01-03 11:23:40', 1),
+(1, 13, '2020-01-03 11:24:41', 1),
+(3, 2, '2020-01-03 11:58:42', 1),
+(4, 1, '2020-01-03 11:59:22', 1),
+(4, 13, '2020-01-03 11:59:42', 1),
+(3, 13, '2020-01-03 12:05:41', 1),
+(5, 2, '2020-01-03 12:07:03', 1),
+(6, 1, '2020-01-03 12:07:42', 1),
+(5, 13, '2020-01-03 12:08:06', 1),
+(7, 2, '2020-01-03 12:09:33', 1),
+(7, 13, '2020-01-03 12:10:03', 1),
+(6, 13, '2020-01-03 12:10:26', 1),
+(1, 4, '2020-01-04 10:11:08', 1),
+(1, 6, '2020-01-04 10:12:08', 1),
+(2, 4, '2020-01-04 10:25:29', 1),
+(1, 7, '2020-01-04 10:26:10', 1),
+(1, 8, '2020-01-04 10:26:16', 1),
+(1, 9, '2020-01-04 10:26:26', 1),
+(1, 10, '2020-01-04 10:27:13', 1),
+(1, 11, '2020-01-04 10:27:44', 1),
+(1, 14, '2020-01-04 10:42:51', 1),
+(1, 12, '2020-01-04 10:46:40', 1),
+(2, 6, '2020-01-04 10:47:55', 1),
+(2, 7, '2020-01-04 10:48:30', 1),
+(2, 8, '2020-01-04 10:48:38', 1),
+(2, 9, '2020-01-04 10:48:48', 1),
+(2, 10, '2020-01-04 10:48:55', 1),
+(2, 11, '2020-01-04 10:49:10', 1),
+(2, 14, '2020-01-04 10:49:31', 1),
+(2, 12, '2020-01-04 10:49:55', 1),
+(3, 4, '2020-01-04 10:51:45', 1),
+(3, 6, '2020-01-04 10:52:09', 1),
+(3, 7, '2020-01-04 10:52:20', 1),
+(3, 8, '2020-01-04 10:52:28', 1),
+(3, 9, '2020-01-04 10:52:37', 1),
+(3, 10, '2020-01-04 10:52:44', 1),
+(3, 11, '2020-01-04 10:53:01', 1),
+(3, 14, '2020-01-04 10:53:13', 1),
+(3, 12, '2020-01-04 10:53:50', 1),
+(4, 4, '2020-01-04 10:55:15', 1),
+(4, 6, '2020-01-04 10:55:38', 1),
+(4, 7, '2020-01-04 10:55:55', 1),
+(4, 8, '2020-01-04 10:56:01', 1),
+(4, 9, '2020-01-04 10:56:10', 1),
+(4, 10, '2020-01-04 10:56:16', 1),
+(4, 11, '2020-01-04 10:56:36', 1),
+(4, 14, '2020-01-04 10:56:47', 1),
+(4, 12, '2020-01-04 10:57:05', 1),
+(5, 4, '2020-01-04 10:59:00', 1),
+(5, 6, '2020-01-04 10:59:50', 1),
+(5, 7, '2020-01-04 11:00:05', 1),
+(5, 8, '2020-01-04 11:00:11', 1),
+(5, 9, '2020-01-04 11:00:20', 1),
+(5, 10, '2020-01-04 11:00:25', 1),
+(5, 11, '2020-01-04 11:00:39', 1),
+(5, 14, '2020-01-04 11:00:49', 1),
+(5, 12, '2020-01-04 11:01:07', 1),
+(6, 4, '2020-01-04 11:09:36', 1),
+(6, 6, '2020-01-04 11:12:56', 7),
+(6, 7, '2020-01-04 11:13:46', 7),
+(6, 8, '2020-01-04 11:14:04', 7),
+(6, 9, '2020-01-04 11:14:49', 7),
+(6, 10, '2020-01-04 11:14:56', 7),
+(6, 11, '2020-01-04 11:16:30', 7),
+(6, 14, '2020-01-04 11:17:54', 6);
 
 -- --------------------------------------------------------
 
@@ -1903,6 +2101,13 @@ CREATE TABLE `receipt` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `receipt`
+--
+
+INSERT INTO `receipt` (`id`, `gs_no`, `receipt_date`, `customer_id`, `end_customer`, `site`, `email`, `courier_name`, `docket_details`, `total_boxes`, `status`, `created_by`, `updated_by`, `updated_at`, `created_at`) VALUES
+(1, NULL, '2020-01-03', 1, NULL, 'Chennai', NULL, 'ABT', 'DOC0927', 2, 2, 1, 1, '2020-01-03 17:39:33', '2020-01-03 12:09:33');
+
 -- --------------------------------------------------------
 
 --
@@ -1925,6 +2130,13 @@ CREATE TABLE `rma` (
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `rma`
+--
+
+INSERT INTO `rma` (`id`, `receipt_id`, `gs_no`, `act_reference`, `date`, `customer_address_id`, `end_customer`, `status`, `service_type`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(40220001, 1, '', '', '2020-01-03', 1, 'GE', 3, 1, 1, 1, '2020-01-03 12:10:25', '2020-01-03 17:40:25');
+
 -- --------------------------------------------------------
 
 --
@@ -1946,6 +2158,13 @@ CREATE TABLE `rma_delivery_address` (
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `rma_delivery_address`
+--
+
+INSERT INTO `rma_delivery_address` (`id`, `rma_id`, `name`, `address`, `contact_person`, `tel_no`, `email`, `gst`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(1, 40220001, 'APTRANSCO', 'Vidyut Soudha, Gunadala,Eluru Rd, Vijayawada, Andhra Pradesh 520004', 'Praveen Kumar', '87845613366', 'praveenkumar@aptransco.co.in', '29AADCC9174H1ZA', 1, 1, '2020-01-03 12:10:25', '2020-01-03 17:40:25');
+
 -- --------------------------------------------------------
 
 --
@@ -1966,6 +2185,13 @@ CREATE TABLE `rma_invoice_address` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `rma_invoice_address`
+--
+
+INSERT INTO `rma_invoice_address` (`id`, `rma_id`, `name`, `address`, `contact_person`, `tel_no`, `email`, `gst`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(1, 40220001, 'APTRANSCO', 'Vidyut Soudha, Gunadala,Eluru Rd, Vijayawada, Andhra Pradesh 520004', 'Praveen Kumar', '87845613366', 'praveenkumar@aptransco.co.in', '29AADCC9174H1ZA', 1, 1, '2020-01-03 12:10:25', '2020-01-03 17:40:25');
 
 -- --------------------------------------------------------
 
@@ -1990,6 +2216,19 @@ CREATE TABLE `rma_unit_information` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `rma_unit_information`
+--
+
+INSERT INTO `rma_unit_information` (`id`, `rma_id`, `pv_id`, `sw_version`, `service_type`, `desc_of_fault`, `sales_order_no`, `field_volts_used`, `equip_failed_on_installation`, `equip_failed_on_service`, `how_long`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(1, 40220001, 2, NULL, 1, '', '', 0, 0, 0, '', 1, 1, '2020-01-03 11:23:40', '2020-01-03 16:53:40'),
+(2, 40220001, 1, NULL, 1, '', '', 0, 0, 0, '', 1, 1, '2020-01-03 11:24:41', '2020-01-03 16:54:41'),
+(3, 40220001, 4, NULL, 1, '', '', 0, 0, 0, '', 1, 1, '2020-01-03 11:59:42', '2020-01-03 17:29:42'),
+(4, 40220001, 3, NULL, 1, '', '', 0, 0, 0, '', 1, 1, '2020-01-03 12:05:41', '2020-01-03 17:35:41'),
+(5, 40220001, 5, NULL, 1, '', '', 0, 0, 0, '', 1, 1, '2020-01-03 12:08:06', '2020-01-03 17:38:06'),
+(6, 40220001, 7, NULL, 1, '', '', 0, 0, 0, '', 1, 1, '2020-01-03 12:10:03', '2020-01-03 17:40:03'),
+(7, 40220001, 6, NULL, 1, '', '', 0, 0, 0, '', 1, 1, '2020-01-03 12:10:26', '2020-01-03 17:40:26');
 
 -- --------------------------------------------------------
 
@@ -2023,6 +2262,14 @@ CREATE TABLE `rms` (
   `updated_by` bigint(20) NOT NULL,
   `created_by` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `rms`
+--
+
+INSERT INTO `rms` (`pv_id`, `rack_id`, `rack_type`, `moved_date`, `updated_at`, `created_at`, `updated_by`, `created_by`) VALUES
+(6, '', 1, '2020-01-04', '2020-01-04 11:09:40', '2020-01-03 12:07:42', 1, 1),
+(7, '', 5, '2020-01-03', '2020-01-03 12:09:33', '2020-01-03 12:09:33', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -2073,7 +2320,8 @@ INSERT INTO `role_user` (`user_id`, `role_id`) VALUES
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -2087,10 +2335,10 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(1, 'Admin', 'admin@ge.com', NULL, '$2y$10$cml2/aLiRi345NMh0L5Zt.gZUJzCATgulxM6krtplr9iW7Pk2uaHG', NULL, NULL, '2020-01-02 06:19:55', 0, 1),
-(6, 'Manager', 'manager@ge.com', NULL, '$2y$10$h1o1FE8IrMfrN3JL3/2lUee1gwJul5b8pEigaAC1IEcSZpJH0A/bS', NULL, '2020-01-02 06:18:34', '2020-01-02 06:18:34', 1, 0),
-(7, 'Technician', 'technician@ge.com', NULL, '$2y$10$/JvAkyr6sIpJbS76kCY44.kewKbjueQe7ZuZvu9/n.LGCrXGcOME2', NULL, '2020-01-02 06:18:52', '2020-01-02 06:18:52', 1, 0);
+INSERT INTO `users` (`id`, `name`, `username`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
+(1, 'Admin', 'admin', 'admin@ge.com', NULL, '$2y$10$ZQ6UQp7UMjCRvE4KehT7AeaEq2x/Ku.xfI1Ytz3Ie7zwsc9zzZUja', NULL, NULL, '2020-01-06 07:17:53', 0, 1),
+(6, 'Manager', 'manager', NULL, NULL, '$2y$10$IXntwaevuqKYJ348hBzOLeStOhYLSDzj1jIo1xzV.OaqrpKrZ6o1q', NULL, '2020-01-02 06:18:34', '2020-01-05 19:10:59', 1, 0),
+(7, 'Technician', 'technician', 'technician@ge.com', NULL, '$2y$10$/JvAkyr6sIpJbS76kCY44.kewKbjueQe7ZuZvu9/n.LGCrXGcOME2', NULL, '2020-01-02 06:18:52', '2020-01-05 17:48:01', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -2117,6 +2365,18 @@ CREATE TABLE `verification_completion` (
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `verification_completion`
+--
+
+INSERT INTO `verification_completion` (`pv_id`, `updated_no_of_terminal_blocks`, `updated_sw_version`, `updated_no_of_short_links`, `clio_test`, `rtd_test`, `nic_test`, `received_with_screws`, `received_with_terminal`, `case`, `battery`, `flops`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(1, NULL, NULL, NULL, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, '2020-01-04 10:27:44', '2020-01-04 15:57:44'),
+(2, NULL, NULL, NULL, 0, 0, 0, 1, 0, 1, 1, 0, 1, 1, '2020-01-04 10:49:10', '2020-01-04 16:19:10'),
+(3, NULL, NULL, NULL, 0, 0, 0, 1, 0, 1, 1, 0, 1, 1, '2020-01-04 10:53:01', '2020-01-04 16:23:01'),
+(4, NULL, NULL, NULL, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, '2020-01-04 10:56:36', '2020-01-04 16:26:36'),
+(5, NULL, NULL, NULL, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, '2020-01-04 11:00:39', '2020-01-04 16:30:39'),
+(6, NULL, NULL, NULL, 0, 0, 0, 0, 0, 1, 1, 0, 7, 7, '2020-01-04 11:16:30', '2020-01-04 16:46:30');
+
 -- --------------------------------------------------------
 
 --
@@ -2142,6 +2402,18 @@ CREATE TABLE `warranty` (
   `created_at` timestamp NULL DEFAULT NULL,
   `created_by` tinyint(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `warranty`
+--
+
+INSERT INTO `warranty` (`id`, `pv_id`, `smp`, `pcp`, `type`, `move`, `rca`, `comment`, `mail_to`, `cc`, `message`, `po`, `wbs`, `updated_at`, `updated_by`, `created_at`, `created_by`) VALUES
+(1, 1, 2, 2, 1, 1, 0, '', NULL, NULL, NULL, '', '', '2020-01-04 10:11:08', 1, '2020-01-04 10:11:08', 1),
+(2, 2, 2, 2, 1, 1, 0, '', NULL, NULL, NULL, '', '', '2020-01-04 10:25:29', 1, '2020-01-04 10:25:29', 1),
+(3, 3, 1, 1, 1, 1, 0, '', NULL, NULL, NULL, '45678', '', '2020-01-04 10:51:45', 1, '2020-01-04 10:51:45', 1),
+(4, 4, 2, 2, 1, 1, 0, '', NULL, NULL, NULL, '', '', '2020-01-04 10:55:15', 1, '2020-01-04 10:55:15', 1),
+(5, 5, 2, 2, 1, 1, 0, '', NULL, NULL, NULL, '', '', '2020-01-04 10:59:00', 1, '2020-01-04 10:59:00', 1),
+(6, 6, 1, 2, 1, 1, 0, '', NULL, NULL, NULL, '', 'LKJ878996THJ', '2020-01-04 11:09:36', 1, '2020-01-04 11:09:36', 1);
 
 --
 -- Indexes for dumped tables
@@ -2343,19 +2615,19 @@ ALTER TABLE `warranty`
 -- AUTO_INCREMENT for table `dispatch`
 --
 ALTER TABLE `dispatch`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `job_tickets`
 --
 ALTER TABLE `job_tickets`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `job_ticket_materials`
 --
 ALTER TABLE `job_ticket_materials`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `ma_customer`
@@ -2439,37 +2711,37 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `physical_verification`
 --
 ALTER TABLE `physical_verification`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `receipt`
 --
 ALTER TABLE `receipt`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `rma`
 --
 ALTER TABLE `rma`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40220001;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40220002;
 
 --
 -- AUTO_INCREMENT for table `rma_delivery_address`
 --
 ALTER TABLE `rma_delivery_address`
-  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `rma_invoice_address`
 --
 ALTER TABLE `rma_invoice_address`
-  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `rma_unit_information`
 --
 ALTER TABLE `rma_unit_information`
-  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `rma_unit_serial_number`
@@ -2493,7 +2765,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `warranty`
 --
 ALTER TABLE `warranty`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
