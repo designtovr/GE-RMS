@@ -213,7 +213,7 @@
                                     <div class="au-task js-list-load">
                                         <div class="au-task-list js-scrollbar3">
                                             <div class="table-responsive m-b-40">
-                                                <table class="table table-borderless table-data3 table-data3-blue">
+                                                <table class="table table-borderless table-data3 table-data4 table-data3-blue">
                                                     <thead>
                                                     <tr>
                                                         <th>Type</th>
@@ -248,7 +248,7 @@
                                     <div class="au-task js-list-load">
                                         <div class="au-task-list js-scrollbar3">
                                             <div class="table-responsive m-b-40">
-                                                <table class="table table-borderless table-data3 table-data3-blue">
+                                                <table class="table table-borderless table-data3 table-data3-blue table-data4">
                                                     <thead>
                                                     <tr>
                                                         <th>Type</th>
@@ -282,7 +282,7 @@
                                     <div class="au-task js-list-load">
                                         <div class="au-task-list js-scrollbar3">
                                             <div class="table-responsive m-b-40">
-                                                <table class="table table-borderless table-data3 table-data3-blue table-height200">
+                                                <table class="table table-borderless table-data3 table-data3-blue table-height200 table-data4 table-data4">
                                                     <thead>
                                                     <tr>
                                                         <th>Type</th>
