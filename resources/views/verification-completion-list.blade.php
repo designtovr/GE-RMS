@@ -187,9 +187,11 @@
          							<tr grid-item>
                                         <td ng-if="status == 'agingcompleted'">
                                             <div class="table-data-feature float-left">
+                                                @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
                                                 <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="ShowVCForm(item);">
                                                     <i class="zmdi zmdi-edit"></i>
                                                 </button>
+                                                @endif
                                                 @if(Auth::user()->isManager() || Auth::user()->isAdmin())
                                                 <div class="btn-group">
                                                     <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-success" >Priority</button>

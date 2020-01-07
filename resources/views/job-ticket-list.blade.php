@@ -160,11 +160,9 @@
 								<thead>
 								<tr>
 
-									@if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
 									<th>
 										Actions
 									</th>
-									@endif
 									<th sortable="formatted_pv_id" class="sortable">
 										RID
 									</th>
@@ -199,7 +197,6 @@
 								</thead>
 								<tbody>
 								<tr grid-item>
-									@if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
 									<td>
                                         <div class="table-data-feature float-left">
                                         	@if(Auth::user()->isManager() || Auth::user()->isAdmin())
@@ -212,9 +209,11 @@
 	                                            </div>
 	                                        </div>
 	                                        @endif
+	                                        @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
                                         	<button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="OpenJTForm(item);">
 												<i class="zmdi zmdi-edit"></i>
 											</button>
+											@endif
 											<button ng-if="page == 'sitecardafterjobticketcompleted' || page == 'jobticketcompleted'" class="item" data-toggle="tooltip" data-placement="top"
                                                     title="Print"
                                                     ng-click="PrintForm(item.id);">
@@ -222,7 +221,6 @@
                                             </button>
                                         </div>
 									</td>
-									@endif
 									<td ng-bind="item.formatted_pv_id"></td>
 									<td ng-bind="item.formatted_rma_id"></td>
 									<td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>

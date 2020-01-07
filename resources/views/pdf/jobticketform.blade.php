@@ -122,11 +122,8 @@
 	</div>
 	<div class="row" style="margin-top: 30px">
 		<div class="col-5 float-left">
-			<h1 class="text-left" style="font-size: 26px;color:#000000;margin-top:0px;">Test Results Documented :</h1>
 			<h1 class="text-left" style="font-size: 26px;color:#000000;margin-top: 25px;"></h1>
-			<h1 class="text-left" style="font-size: 26px;color:#000000;margin-top: 25px;">Tested:</h1>
 			<h1 class="text-left" style="font-size: 26px;color:#000000;margin-top: 25px;">Sign:</h1>
-			<h1 class="text-left" style="font-size: 26px;color:#000000;margin-top: 25px;">Completed Date :</h1>
 			<h1 class="text-left" style="font-size: 26px;color:#000000;margin-top: 25px;">Category      :</h1>
 		</div>
 		<div class="col-7 float-right">
@@ -189,11 +186,7 @@
 	</div>
     <div class = "row ">
         <div class="col-12 text-left border border-dark h-250" style="height:250px;color:#000000;font-size: 20px;">
-            <u>ACTIVITY :</u>
-        </div>
-
-        <div class="col-12 text-left border border-dark h-250" style="color:#000000;font-size: 20px;">
-            <u>TIME SPENT :</u>
+            <u>Notes :</u>
         </div>
     </div>
         <div class = "row">

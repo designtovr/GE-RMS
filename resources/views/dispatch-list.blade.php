@@ -124,12 +124,14 @@
                                 <button type="button" class="btn btn-primary btn-sm" ng-show="startTab" ng-click="ChangeStatus('agingcompleted')">
                                     <i class="fa fa-check"></i>&nbsp; Completed
                                 </button> -->
+                                @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
                                        <div class="col-md-12 p-b-20">
                         <button type="button" class="btn btn-primary btn-md float-right"
                              ng-show="openTab"    ng-click="ShowDPForm();">
                             <i class="fa fa-plus"></i>&nbsp;Create Dispatch
                         </button>
                     </div>
+                    @endif
                                 <!-- <button type="button" class="btn btn-primary btn-sm" ng-click="OpenTestBenchModal();">
                                     <i class="fa fa-plus"></i>&nbsp;Test
                                 </button> -->
