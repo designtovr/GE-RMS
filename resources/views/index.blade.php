@@ -1437,7 +1437,7 @@
 
                 <div class="col-lg-12">
                     <div class="card">
-                        <div class="card-header" style="background-color: #dc3545">
+                        <div class="card-header" style="background: -webkit-linear-gradient(90deg, #001235 0%, #0259b5 100%) !important">
                             <strong class="card-title text-light" style="color: white">Live Updates
                             </strong>
                         </div>
