@@ -207,10 +207,17 @@
                         <a class="js-arrow" href="#">
                             <i class="fas fa-database"></i>Reports</a>
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
-
                             <li>
                                 <a href="{{url('/relay-stages-report')}}">
                                     <i class="far fa-check-square"></i>Relay Stages</a>
+                            </li>
+                            <li>
+                                <a href="{{url('/rma-report')}}">
+                                    <i class="far fa-check-square"></i>RMA Report</a>
+                            </li>
+                            <li>
+                                <a href="{{url('/dispatch-report')}}">
+                                    <i class="far fa-check-square"></i>Dispatch Report</a>
                             </li>
                         </ul>
                     </li>

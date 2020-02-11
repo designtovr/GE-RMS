@@ -1,29 +1,29 @@
 @extends('layouts.app')
-@section('title', 'Relay Stage Report')
+@section('title', 'Dispatch Report')
 @section('content')
-<div class="main-content" ng-controller="RelayStagesReportController">
-	<div class="section__content section__content--p30" ng-init="GetRelayForStageReport();">
+<div class="main-content" ng-controller="DispatchReportController">
+	<div class="section__content section__content--p30" ng-init="GetRelayForReport();">
         <div class="container-fluid">
         	<div class="row">
         		<div class="col-md-12">
                     <div class="overview-wrap">
-                        <h6 class="pb-4 display-5">Relay Stages Report</h6>
+                        <h6 class="pb-4 display-5">Dispatch Report</h6>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="card-header card-title">
                         Search 
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                     	<div class="table-responsive">
 	                        <table class="table table-borderless table-data3 table-custom">
 	                            <thead>
 	                                <tr>
+	                                    <!-- <th>
+	                                        <input id="dateFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Date#" ng-change="gridActions.filter()" ng-model="filterDate" filter-by="date" filter-type="text">
+	                                    </th> -->
 	                                    <th>
-	                                        <input id="ridFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="R Id#" ng-change="gridActions.filter()" ng-model="filterRId" filter-by="formatted_pv_id" filter-type="text">
-	                                    </th>
-	                                    <th>
-	                                        <input id="serialnoFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Serial No#" ng-change="gridActions.filter()" ng-model="filterSerialNo" filter-by="serial_no" filter-type="text">
+	                                        <input id="rIdFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="R Id#" ng-change="gridActions.filter()" ng-model="filterRId" filter-by="formatted_pv_id" filter-type="text">
 	                                    </th>
 	                                   <th>
 	                                        <button type="button" class="btn btn-outline-secondary btn-sm" ng-click="ResetSearch();gridActions.filter()">Reset</button>
@@ -41,11 +41,8 @@
                             <thead>
                                 <tr>
                                 	<th>Actions</th>
-                                    <th sortable="formatted_pv_id" class="sortable">RId</th>
-                                    <th sortable="formatted_rma_id" class="sortable">RMA No</th>
-                                    <th sortable="formatted_receipt_id" class="sortable">Receipt Id</th>
-                                    <th sortable="serial_no" class="sortable">Serial No</th>
-                                    <th sortable="customer_name" class="sortable">Customer Name</th>
+                                    <th sortable="formatted_pv_id" class="sortable">R Id</th>
+                                    <th sortable="formatted_receipt_id" class="sortable">Dispatched Date</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -58,10 +55,7 @@
     	                                </div>
     	                            </td>
     	                            <td ng-bind="item.formatted_pv_id"></td>
-    	                            <td ng-bind="item.formatted_rma_id"></td>
-    	                            <td ng-bind="item.formatted_receipt_id"></td>
-    	                            <td ng-bind="item.serial_no"></td>
-                                    <td ng-bind="item.customer_name"></td>
+    	                            <td ng-bind="item.created_at"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -97,5 +91,5 @@
 </div>
 @endsection
 @section('scripts')
-	<script type="text/javascript" src="{{url('public/js/controllers/RelayStagesReportController.js')}}"></script>
+	<script type="text/javascript" src="{{url('public/js/controllers/DispatchReportController.js')}}"></script>
 @endsection

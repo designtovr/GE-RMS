@@ -19,11 +19,11 @@ class ReportsController extends Controller
     {
     	$data = $this->reportsRepository->DataForRelaysStageReport();
     	return response()->json(
-    		[
-    			'status' => 'success', 
-    			'data' => $data,
-    			'message' => 'Reports Fetched Successfully'
-    		]);
+		[
+			'status' => 'success', 
+			'data' => $data,
+			'message' => 'Reports Fetched Successfully'
+		]);
     }
 
     public function RelayStageReport($id)
@@ -32,5 +32,41 @@ class ReportsController extends Controller
         return $data;
 
     	return view('reports.relaystagereport', $data);
+    }
+
+    public function ListForRMAReport(Request $request)
+    {
+        $data = $this->reportsRepository->ListForRMAReport();
+
+        return response()->json(
+        [
+            'status' => 'success',
+            'data' => $data,
+            'message' => 'Reports Fetched Successfully'
+        ]);
+    }
+
+    public function RMAReport($id)
+    {
+        $data = $this->reportsRepository->RMAReport($id);
+        return view('reports.rmareport', $data);
+    }
+
+    public function ListForDispatchReport(Request $request)
+    {
+        $data = $this->reportsRepository->ListForDispatchReport();
+
+        return response()->json(
+        [
+            'status' => 'success',
+            'data' => $data,
+            'message' => 'Reports Fetched Successfully'
+        ]);
+    }
+
+    public function DispatchReport($id)
+    {
+        $data = $this->reportsRepository->DispatchReport($id);
+        return view('reports.dispatchreport', $data);
     }
 }

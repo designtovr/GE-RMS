@@ -185,6 +185,12 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/relay-stages-report', function(){
     	return view('relay-stages-report');
     });
+    Route::get('/rma-report', function(){
+    	return view('rma-report');
+    });
+    Route::get('/dispatch-report', function(){
+    	return view('dispatch-report');
+    });
 });
 
 Route::group(['middleware' => ['auth']], function(){
@@ -337,7 +343,15 @@ Route::group(['middleware' => ['auth']], function(){
 
 	Route::get('/dataforrelaysstagereport', 'ReportsController@DataForRelaysStageReport');
 
+	Route::get('/listforrmareport', 'ReportsController@ListForRMAReport');
+
+	Route::get('/listfordispatchreport', 'ReportsController@ListForDispatchReport');
+
 	Route::get('/relaystagereport/{id}', 'ReportsController@RelayStageReport');
+
+	Route::get('/rmareport/{id}', 'ReportsController@RMAReport');
+
+	Route::get('/dispatchreport/{id}', 'ReportsController@DispatchReport');
 
 	Route::get('/receipt-mail', 'MailController@ReceiptMail');
 

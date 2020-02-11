@@ -82,4 +82,56 @@ use Illuminate\Support\Facades\DB;
 
  		return $relay;
  	}
+
+ 	public function ListForRMAReport()
+ 	{
+ 		$rmas = RMA::get();
+
+ 		return $rmas;
+ 	}
+
+ 	public function RMAReport($id)
+ 	{
+ 		$rma = RMA::selectRaw('rma.*, c_user.name as created_by_name, u_user.name as updated_by_name, cus.name as customer_name')
+ 				->leftJoin('users as c_user', 'c_user.id', 'rma.created_by')
+ 				->leftJoin('users as u_user', 'u_user.id', 'rma.updated_by')
+ 				->leftJoin('ma_customer as cus', 'rma.customer_address_id', 'cus.id')
+ 				->where('rma.id', $id)->first();
+
+ 		$rma['receipt'] = ReceiptMaster::where('id', $rma->receipt_id)->first();
+
+ 		$rma['invoice_info'] = RMAInvoiceAddress::selectRaw('*')->where('rma_id', $rma->id)->first();
+		$rma['delivery_info'] = RMADeliveryAddress::selectRaw('*')->where('rma_id', $rma->id)->first();
+
+ 		$rma['physical_verification'] = PhysicalVerificationMaster::from('physical_verification as pv')
+ 					->selectRaw('pv.*, rui.desc_of_fault, pro.part_no, u_user.name as updated_by_name, msta.status as current_status')
+ 					->leftJoin('rma_unit_information as rui', 'rui.pv_id', 'pv.id')
+ 					->leftJoin('ma_product as pro', 'pv.product_id', 'pro.id')
+ 					->leftJoin('users as c_user', 'c_user.id', 'pv.created_by')
+					->leftJoin('users as u_user', 'u_user.id', 'pv.updated_by')
+					->leftJoin('pv_status as sta', 'sta.pv_id', 'pv.id')
+					->leftJoin('ma_pv_status as msta', 'msta.id', 'sta.current_status_id')
+ 					->where('rui.rma_id', $rma->id)->get();
+
+ 		return $rma;
+ 	}
+
+ 	public function ListForDispatchReport()
+ 	{
+ 		$dispatches = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.*')
+ 						->join('dispatch as dis', 'dis.pv_id', 'pv.id')
+ 						->get();
+
+		return $dispatches;
+ 	}
+
+ 	public function DispatchReport($id)
+ 	{
+ 		$dispatch = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.*, dis.dc_no, dis.docket_details, dis.courier_name, dis.person_name, dis.concern_name , dis.created_at as dispatched_date, dis.contact, c_user.name as dispatched_by')
+ 						->join('dispatch as dis', 'dis.pv_id', 'pv.id')
+ 						->leftJoin('users as c_user', 'c_user.id', 'dis.created_by')
+ 						->where('pv.id', $id)->first();
+
+ 		return $dispatch;
+ 	}
  } 
