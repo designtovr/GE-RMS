@@ -212,7 +212,7 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 	    		$scope.rmaformdata = {};
 	    		$scope.selectedpvs = {};
 	    		$scope.rmaformdata = response.data.data;
-	    		$scope.rmaformdata.date =   $filter('date')($scope.rmaformdata.date, "dd/MM/yyyy");
+	    		$scope.rmaformdata.date =  $filter('date')($scope.rmaformdata.date, "dd/MM/yyyy");
 	    		$scope.rmaformdata.edit = true;
 	    		if ($scope.rmaformdata.delivery_info == null || $scope.rmaformdata.delivery_info == undefined)
 	    			$scope.rmaformdata.delivery_info = {};

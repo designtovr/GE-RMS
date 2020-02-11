@@ -232,6 +232,7 @@
                                             <ui-select-choices id="customer_id" 
                                                 name="customer_id" repeat="customer.id as customer in customers | filter: $select.search">
                                               <span ng-bind-html="customer.name | highlight: $select.search"></span>
+                                              <small ng-bind-html="customer.location_name | highlight: $select.search"></small>
                                             </ui-select-choices>
                                         </ui-select>
                                           <!-- <input ng-if="receipt.customer_id.id == -1" type="text" id="customer_name_new" name="customer_name_new"
@@ -286,7 +287,7 @@
                                 </div> -->
                                 <div class="row form-group">
                                     <div class="col col-md-3">
-                                        <label for="site" class=" form-control-label">Site<span class="mandatory">*</span></label>
+                                        <label for="site" class=" form-control-label">Location<span class="mandatory">*</span></label>
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <input type="text" id="site" name="site" ng-model="receipt.site" uib-typeahead="site for site in sites | filter:$viewValue | limitTo:8" placeholder="Site" class="form-control" typeahead-popup-template-url="{{url('public/bower_components/angular-bootstrap/template/typeahead/typeahead-popup.html')}}"

@@ -150,10 +150,27 @@ class PrintController extends Controller
                 ->leftJoin('ma_customer as cus', 'cus.id', 'rma.customer_address_id')
                 ->first()->toArray();
 
-        $data['unit_information'] = PhysicalVerificationMaster::selectRaw('serial_no, pro.part_no, battery, terminal_blocks, screws, no_of_terminal_blocks, physical_verification.comment as remark, top_bottom_cover')
+        //this functionality is added because PV form needed before RMA Completion
+        //first we'll check the rma type
+        //if rma type is site card we'll take pv number directly from rma_unit_information table
+        //else we join receipt table, rma table, pv table
+        $data['unit_information'] = (object)[];
+        if ($data['service_type'] == 2)
+        {
+            $data['unit_information'] = PhysicalVerificationMaster::selectRaw('physical_verification.id, serial_no, pro.part_no, battery, terminal_blocks, screws, no_of_terminal_blocks, physical_verification.comment as remark, top_bottom_cover')
                     ->leftJoin('ma_product as pro', 'pro.id', 'physical_verification.product_id')
                     ->leftJoin('rma_unit_information as rui', 'rui.pv_id', 'physical_verification.id')
                     ->where('rui.rma_id', $rma_id)->get();
+        }
+        else if ($data['service_type'] == 1)
+        {
+            $data['unit_information'] = PhysicalVerificationMaster::selectRaw('physical_verification.id, serial_no, pro.part_no, battery, terminal_blocks, screws, no_of_terminal_blocks, physical_verification.comment as remark, top_bottom_cover')
+                    ->join('ma_product as pro', 'pro.id', 'physical_verification.product_id')
+                    ->join('receipt as rc', 'rc.id', 'physical_verification.receipt_id')
+                    ->join('rma', 'rma.receipt_id', 'rc.id')
+                    ->where('rma.id', $rma_id)->get();
+        }
+        
 
         return view('pdf.physical-verification-form', $data);
     }

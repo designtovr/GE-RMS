@@ -46,6 +46,7 @@
 					<table class="table tableStyle table-bordered text-center">
 						<thead>
 						<tr>
+							<th><u>R Id</u></th>
 							<th><u>Model No. </u></th>
 							<th><u>S No. </u></th>
 
@@ -53,6 +54,7 @@
 						</thead>
 						<tbody>
 						<tr>
+							<td>{{$unit['formatted_pv_id']}}</td>
 							<td>{{$unit['part_no']}}</td>
 							<td>{{$unit['serial_no']}}</td>
 						</tr>

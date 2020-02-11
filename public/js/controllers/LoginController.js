@@ -21,7 +21,7 @@ app.controller('LoginController', function($scope, $http, $ngConfirm, Notificati
 			var data = response.data;
 			if (data.status == 'success')
 			{
-				window.location.replace('dashboard'); 
+				window.location.replace('receipt'); 
 			}
 			else if (data.status == 'failure')
 			{

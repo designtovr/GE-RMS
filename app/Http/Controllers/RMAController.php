@@ -743,7 +743,6 @@ class RMAController extends Controller
     public function SaveSiteCardRMA(Request $request)
     {
         $sitecardrma = $request->get('sitecardrma');
-        return $sitecardrma;
         //if id exists update else save
         if (array_key_exists('id', $sitecardrma))
         {
@@ -764,8 +763,8 @@ class RMAController extends Controller
             }
             if (array_key_exists('customer_address_id', $sitecardrma))
                 $RMA->customer_address_id = $sitecardrma['customer_address_id'];
-            if (array_key_exists('end_customer', $sitecardrma))
-                $RMA->end_customer = $sitecardrma['end_customer'];
+            if (array_key_exists('end_customer', $sitecardrma['invoice_info']))
+                $RMA->end_customer = $sitecardrma['invoice_info']['end_customer'];
             $RMA->updated_by = Auth::id();
             $RMA->updated_at = Carbon::now();
             $RMA->update();
@@ -910,7 +909,7 @@ class RMAController extends Controller
                 $RMA->date = '';
             }
             $RMA->customer_address_id = (array_key_exists('customer_address_id', $sitecardrma))?$sitecardrma['customer_address_id']:0;
-            $RMA->end_customer = (array_key_exists('end_customer', $sitecardrma))?$sitecardrma['end_customer']:'';
+            $RMA->end_customer = (array_key_exists('end_customer', $sitecardrma['invoice_info']))?$sitecardrma['invoice_info']['end_customer']:'';
             $RMA->status = 2;
             $RMA->service_type = 2;
             $RMA->created_by = Auth::id();

@@ -122,6 +122,9 @@
                                 <li class="nav-item" ng-click="ChangeTab('completed')">
                                     <a class="nav-link" id="completed-tab" data-toggle="tab" href="#completed" role="tab" aria-controls="completed" aria-selected="true">Completed RMA</a>
                                 </li>
+                                <li class="nav-item" ng-click="ChangeTab('all')">
+                                    <a class="nav-link" id="all-tab" data-toggle="tab" href="#all" role="tab" aria-controls="all" aria-selected="true">All RMA</a>
+                                </li>
                             </ul>
                             <div class="tab-content pl-3 p-1" id="myTabContent">
                                 <div class="tab-pane fade" id="completed" role="tabpanel" aria-labelledby="completed-tab">
@@ -523,6 +526,93 @@
                                                     <td ng-bind="item.formatted_rma_id"></td>
                                                     <td ng-bind="item.date | date:'dd/MM/yyyy'"></td>
 
+                                                    <td ng-bind="item.gs_no"></td>
+                                                    <td ng-bind="item.act_reference"></td>
+                                                    <td ng-bind="item.customer_name"></td>
+                                                    <td ng-bind="item.end_customer"></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                              <form class="form-inline pull-right margin-bottom-basic">
+                                                <div class="form-group">
+                                                    <grid-pagination max-size="5"
+                                                    boundary-links="true"
+                                                    class="pagination-sm"
+                                                    total-items="paginationOptions.totalItems"
+                                                    ng-model="paginationOptions.currentPage"
+                                                    ng-change="reloadGrid()"
+                                                    items-per-page="paginationOptions.itemsPerPage"></grid-pagination>
+                                                </div>
+                                                <div class="form-group items-per-page">
+                                                    <label for="itemsOnPageSelect2">Items per page:</label>
+                                                    <select id="itemsOnPageSelect2" class="form-control input-sm"
+                                                        ng-init="paginationOptions.itemsPerPage = '10'"
+                                                        ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+                                                        <option>10</option>
+                                                        <option>25</option>
+                                                        <option>50</option>
+                                                        <option>75</option>
+                                                    </select>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <!-- END DATA TABLE-->
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="all" role="tabpanel" aria-labelledby="all-tab">
+                                    <div class="col-md-12">
+                                        <!-- DATA TABLE-->
+                                        <div grid-data grid-options="gridOptions" grid-actions="gridActions" class="">
+                                            <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
+                                            <table class="table table-borderless table-data3 table-responsive">
+                                                <thead>
+                                                <tr>
+                                                    @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
+                                                    <th>
+                                                        Actions
+                                                    </th>
+                                                    @endif
+                                                    <th sortable="formatted_rma_id" class="sortable">
+                                                        RMA No
+                                                    </th>
+                                                    <th sortable="date_unix" class="sortable">
+                                                        Date
+                                                    </th>
+                                                    <th sortable="status" class="sortable">
+                                                        Status
+                                                    </th>
+                                                    <th sortable="gs_no" class="sortable">
+                                                        GS No
+                                                    </th>
+                                                    <th sortable="act_reference" class="sortable">
+                                                        ACT Reference
+                                                    </th>
+                                                    <th sortable="customer_name" class="sortable">
+                                                        Customer Name
+                                                    </th>
+                                                    <th sortable="end_customer" class="sortable">
+                                                        End Customer
+                                                    </th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr grid-item>
+                                                    @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
+                                                    <td>
+                                                        <div class="table-data-feature float-left">
+                                                            <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle item"><span><i class="zmdi zmdi-print"></i></span></button>
+                                                            <div tabindex="-1" aria-hidden="true" role="menu" class="dropdown-menu">
+                                                                <!-- <button ng-click="PrintRMAForm(item.id)" type="button" tabindex="0" class="dropdown-item">RMA Form</button> -->
+                                                                <button ng-click="PrintPVForm(item.id);" type="button" tabindex="0" class="dropdown-item">PV Form</button>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    @endif
+                                                    <td ng-bind="item.formatted_rma_id"></td>
+                                                    <td ng-bind="item.date | date:'dd/MM/yyyy'"></td>
+                                                    <td ng-if="item.status == 1">Open</td>
+                                                    <td ng-if="item.status == 2">Saved</td>
+                                                    <td ng-if="item.status == 3">Completed</td>
                                                     <td ng-bind="item.gs_no"></td>
                                                     <td ng-bind="item.act_reference"></td>
                                                     <td ng-bind="item.customer_name"></td>

@@ -207,6 +207,40 @@
                                     <div class="au-card-title"  >
                                         <div class="bg-overlay bg-overlay--androidblue"></div>
                                         <h3>
+                                            <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>Repair Priority</h3>
+
+                                    </div>
+                                    <div class="au-task js-list-load">
+                                        <div class="au-task-list js-scrollbar3">
+                                            <div class="table-responsive m-b-40">
+                                                <table class="table table-borderless table-data3 table-data3-blue table-height200 table-data4 table-data4">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Type</th>
+                                                        <th>Serial Number</th>
+                                                        <th>Location</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr ng-repeat="pr in dashboardvalues.priority">
+                                                        <td ng-bind="pr.type_name"></td>
+                                                        <td ng-bind="pr.serial_no"></td>
+                                                        <td ng-bind="pr.rack_id"></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <!-- END DATA TABLE -->
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
+                                    <div class="au-card-title"  >
+                                        <div class="bg-overlay bg-overlay--androidblue"></div>
+                                        <h3>
                                             <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>Test</h3>
 
                                     </div>
@@ -261,40 +295,6 @@
                                                         <td ng-bind="pack.type_name"></td>
                                                         <td ng-bind="pack.total"></td>
                                                         <td> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-5s" ng-bind="pack.overdue"></span></td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <!-- END DATA TABLE -->
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
-                                    <div class="au-card-title"  >
-                                        <div class="bg-overlay bg-overlay--androidblue"></div>
-                                        <h3>
-                                            <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>Repair Priority</h3>
-
-                                    </div>
-                                    <div class="au-task js-list-load">
-                                        <div class="au-task-list js-scrollbar3">
-                                            <div class="table-responsive m-b-40">
-                                                <table class="table table-borderless table-data3 table-data3-blue table-height200 table-data4 table-data4">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Type</th>
-                                                        <th>Serial Number</th>
-                                                        <th>Location</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr ng-repeat="pr in dashboardvalues.priority">
-                                                        <td ng-bind="pr.type_name"></td>
-                                                        <td ng-bind="pr.serial_no"></td>
-                                                        <td ng-bind="pr.rack_id"></td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
