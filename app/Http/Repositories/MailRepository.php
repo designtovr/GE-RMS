@@ -115,8 +115,8 @@ class MailRepository
 
 		if(!$receipt)
 			return "No Receipt Found";
-		if(!is_null($receipt->email))
-			return "No Mail Id";
+		/*if(is_null($receipt->email))
+			return "No Mail Id";*/
 
 		$data['email'] = $this->GetToAddress($rma_delivery->email);
 		$time = strtotime($data['created_date']. ' + 3 days');
@@ -175,7 +175,7 @@ class MailRepository
 	public function ForgotPasswordMail($email, $username, $password)
 	{
 		$data  = array();
-		$data['email'] = $this->GetToAddress($email);
+		$data['email'] = $email;
 		$data['username'] = $username;
 		$data['password'] = $password;
 		try {

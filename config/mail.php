@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'designtovr@gmail.com'),
-        'name' => env('MAIL_FROM_NAME', 'D2VR'),
+        'address' => env('MAIL_FROM_ADDRESS', 'Service.CRC@ge.com'),
+        'name' => env('MAIL_FROM_NAME', 'CRC Service'),
     ],
 
     /*
@@ -133,6 +133,6 @@ return [
 
     'log_channel' => env('MAIL_LOG_CHANNEL'),
 
-    'mail_override' => 'srinivasktss@gmail.com',
+    'mail_override' => 'Service.CRC@ge.com',
 
 ];

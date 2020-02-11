@@ -29,6 +29,7 @@ class ReportsController extends Controller
     public function RelayStageReport($id)
     {
     	$data = $this->reportsRepository->RelayStageReport($id);
+        return $data;
 
     	return view('reports.relaystagereport', $data);
     }

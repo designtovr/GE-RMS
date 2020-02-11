@@ -61,6 +61,11 @@ use Illuminate\Support\Facades\DB;
 			->leftJoin('users as u_user', 'u_user.id', 'job_tickets.updated_by')->where('pv_id', $relay->id)->first();
 
 		$relay['job_ticket_materials'] = JobTicketMaterials::selectRaw('*')->where('jt_id', $relay['job_ticket']->id)->get();
+		if(!is_null($relay['job_ticket']))
+		{
+			$relay['job_ticket_materials'] = JobTicketMaterials::selectRaw('*')->where('jt_id', $relay['job_ticket']->id)->get();
+		}
+		
 
 		$relay['testing'] = AutoTestBenchTracking::selectRaw('auto_test_bench_tracking.*, c_user.name as created_by_name')
 								->leftJoin('users as c_user', 'c_user.id', 'auto_test_bench_tracking.created_by')

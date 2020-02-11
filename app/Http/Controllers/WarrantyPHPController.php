@@ -38,6 +38,7 @@ class WarrantyPHPController extends Controller
     {
         $warranty = $request->get('warranty');
         $pvs = $request->get('pvs');
+        $mail_result = 'Mail Not Initiated';
 
         foreach ($pvs as $key => $pv) {
             $WM = new WarrantyMaster();
@@ -77,7 +78,7 @@ class WarrantyPHPController extends Controller
         }
         $message = 'Warranty Saved Successfully';
 
-        return response()->json(['status' => 'success', 'message' => $message], 200);
+        return response()->json(['status' => 'success', 'message' => $message, 'mail_result' => $mail_result], 200);
     }
 
     public function UpdateWarranty(UpdateWarrantyRequest $request)
