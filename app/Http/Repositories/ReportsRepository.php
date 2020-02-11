@@ -60,7 +60,7 @@ use Illuminate\Support\Facades\DB;
 			->leftJoin('users as c_user', 'c_user.id', 'job_tickets.created_by')
 			->leftJoin('users as u_user', 'u_user.id', 'job_tickets.updated_by')->where('pv_id', $relay->id)->first();
 
-		$relay['job_ticket_materials'] = JobTicketMaterials::selectRaw('*')->where('jt_id', $relay['job_ticket']->id)->get();
+		$relay['job_ticket_materials'] = (object)[];
 		if(!is_null($relay['job_ticket']))
 		{
 			$relay['job_ticket_materials'] = JobTicketMaterials::selectRaw('*')->where('jt_id', $relay['job_ticket']->id)->get();
