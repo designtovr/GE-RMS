@@ -290,7 +290,7 @@
                                         <label for="site" class=" form-control-label">Location<span class="mandatory">*</span></label>
                                     </div>
                                     <div class="col-12 col-md-6">
-                                        <input type="text" id="site" name="site" ng-model="receipt.site" uib-typeahead="site for site in sites | filter:$viewValue | limitTo:8" placeholder="Site" class="form-control" typeahead-popup-template-url="{{url('public/bower_components/angular-bootstrap/template/typeahead/typeahead-popup.html')}}"
+                                        <input type="text" id="site" name="site" ng-model="receipt.site" uib-typeahead="site for site in sites | filter:$viewValue | limitTo:8" placeholder="Location" class="form-control" typeahead-popup-template-url="{{url('public/bower_components/angular-bootstrap/template/typeahead/typeahead-popup.html')}}"
                                         typeahead-template-url="{{url('public/bower_components/angular-bootstrap/template/typeahead/typeahead-match.html')}}" required>
                                     </div>
                                 </div>

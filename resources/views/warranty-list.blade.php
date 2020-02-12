@@ -475,8 +475,7 @@
                                         <div class="col-md-12">
                                             <div class="row form-group">
                                                 <div class="col col-md-3">
-                                                    <label for="po" class=" form-control-label"><b>PO</b>
-                                                        <span class="mandatory">*</span></label>
+                                                    <label for="po" class="form-control-label"><b>PO</b></label>
                                                     </div>
                                                     <div class="col-12 col-md-9">
                                                         <input 
@@ -487,20 +486,16 @@
                                                         ng-model="warrantymodal.po"
                                                         class="form-control"
                                                         ng-minlength="3"
-                                                        ng-maxlength="50"
-                                                        required>
+                                                        ng-maxlength="100"
+                                                        >
                                                         <div ng-show="AddWarrantyForm.po.$touched && AddWarrantyForm.po.$error">
-                                                            <span class="help-block"
-                                                             ng-show="AddWarrantyForm.po.$error.required">
-                                                                Please Enter PO
-                                                            </span>
                                                             <span class="help-block"
                                                              ng-show="AddWarrantyForm.po.$error.minlength">
                                                                 Minimum 3 Characters Required
                                                             </span>
                                                             <span class="help-block"
                                                              ng-show="AddWarrantyForm.po.$error.maxlength">
-                                                                Maximum 50 Characters Allowed
+                                                                Maximum 100 Characters Allowed
                                                             </span>
                                                         </div>
                                                     </div>
@@ -523,7 +518,7 @@
                                                             ng-model = "warrantymodal.wbs"
                                                             class="form-control"
                                                             ng-minlength="3"
-                                                            ng-maxlength="50"
+                                                            ng-maxlength="100"
                                                             required>
                                                             <div ng-show="AddWarrantyForm.wbs.$touched && AddWarrantyForm.wbs.$error">
                                                                 <span class="help-block"
@@ -536,7 +531,7 @@
                                                                 </span>
                                                                 <span class="help-block"
                                                                  ng-show="AddWarrantyForm.wbs.$error.maxlength">
-                                                                    Maximum 50 Characters Allowed
+                                                                    Maximum 100 Characters Allowed
                                                                 </span>
                                                             </div>
                                                         </div>

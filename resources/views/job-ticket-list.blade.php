@@ -412,6 +412,182 @@
 		                			<div class="col-md-6">
 		                				<div class="row form-group">
 			                                <div class="col col-md-4">
+			                                    <label for="sales_order_no" class=" form-control-label">WBS/SO</label>
+			                                </div>
+			                                <div class="col-12 col-md-8">
+		                                        <input type="text" 
+			                                    id="sales_order_no" 
+			                                    ng-model = "jobticket.sales_order_no" 
+			                                    name="sales_order_no" 
+			                                    placeholder="WBS" 
+			                                    class="form-control"
+			                                    disabled>
+		                                    </div>
+			                            </div>
+		                			</div>
+		                		</div>
+		                		<div class="row">
+		                			<div class="col-md-6">
+		                				<div class="row form-group">
+			                                <div class="col col-md-4">
+			                                    <label for="wch_status" class=" form-control-label">Warranty/CH Status</label>
+			                                </div>
+			                                <div class="col-12 col-md-8">
+			                                    <select name="wch_status" ng-model = "jobticket.wch_status"  id="wch_status" ng-options="type.id as type.value for type in wch_status" class="form-control" disabled>
+			                                        <option value="" style="display: none;"></option>
+			                                    </select>
+			                                </div>
+			                            </div>
+		                			</div>
+		                			<div class="col-md-6">
+		                				<div class="row form-group">
+		                                    <div class="col col-md-4">
+		                                        <label for="case" class=" form-control-label">Case</label>
+		                                    </div>
+		                                    <div class="col-12 col-md-8">
+		                                        <select name="case" ng-model = "jobticket.case"  id="case" ng-options="type.id as type.value for type in received_with_options" class="form-control" disabled>
+			                                        <option value="" style="display: none;"></option>
+			                                    </select>
+		                                    </div>
+		                                </div>
+		                			</div>
+		                		</div>
+		                		<div class="row">
+		                			<div class="col-md-6">
+		                				<div class="row form-group">
+			                                <div class="col col-md-4">
+			                                    <label for="battery" class=" form-control-label">Battery</label>
+			                                </div>
+			                                <div class="col-12 col-md-8">
+		                                        <select name="battery" ng-model = "jobticket.battery"  id="battery" ng-options="type.id as type.value for type in received_with_options" class="form-control" disabled>
+			                                        <option value="" style="display: none;"></option>
+			                                    </select>
+		                                    </div>
+			                            </div>
+		                			</div>
+		                			<div class="col-md-6">
+		                				<div class="row form-group">
+		                                    <div class="col col-md-4">
+		                                        <label for="terminal_blocks" class=" form-control-label">Terminal Blocks</label>
+		                                    </div>
+		                                    <div class="col-12 col-md-8">
+		                                        <select name="terminal_blocks" ng-model = "jobticket.terminal_blocks"  id="terminal_blocks" ng-options="type.id as type.value for type in received_with_options" class="form-control" disabled>
+			                                        <option value="" style="display: none;"></option>
+			                                    </select>
+		                                    </div>
+		                                </div>
+		                			</div>
+		                		</div>
+		                		<div class="row">
+		                			<div class="col-md-6">
+		                				<div class="row form-group">
+		                                    <div class="col col-md-4">
+		                                        <label for="no_of_terminal_blocks" class=" form-control-label">No Of Terminal Blocks</label>
+		                                    </div>
+		                                    <div class="col-12 col-md-8">
+		                                        <input type="text" id="no_of_terminal_blocks" name="no_of_terminal_blocks"
+                                                class="form-control"
+                                                ng-model="jobticket.no_of_terminal_blocks"
+                                                ui-mask="99 + 99" placeholder="0+0" 
+                                                add-default-placeholder="99 + 99"
+                                                ui-mask-placeholder-char="N"
+                                                disabled>
+		                                    </div>
+		                                </div>
+		                			</div>
+		                			<div class="col-md-6">
+		                				<div class="row form-group">
+			                                <div class="col col-md-4">
+			                                    <label for="top_bottom_cover" class=" form-control-label">Top/Bottom Access Cover</label>
+			                                </div>
+			                                <div class="col-12 col-md-8">
+		                                        <select name="top_bottom_cover" ng-model = "jobticket.top_bottom_cover"  id="top_bottom_cover" ng-options="type.id as type.value for type in received_with_options" class="form-control" disabled>
+			                                        <option value="" style="display: none;"></option>
+			                                    </select>
+		                                    </div>
+			                            </div>
+		                			</div>
+		                		</div>
+		                		<div class="row">
+		                			<div class="col-md-6">
+		                				<div class="row form-group">
+			                                <div class="col col-md-4">
+			                                    <label for="battery" class=" form-control-label">Battery</label>
+			                                </div>
+			                                <div class="col-12 col-md-8">
+		                                        <select name="battery" ng-model = "jobticket.battery"  id="battery" ng-options="type.id as type.value for type in received_with_options" class="form-control" disabled>
+			                                        <option value="" style="display: none;"></option>
+			                                    </select>
+		                                    </div>
+			                            </div>
+		                			</div>
+		                			<div class="col-md-6">
+		                				<div class="row form-group">
+		                                    <div class="col col-md-4">
+		                                        <label for="short_links" class=" form-control-label">Short links</label>
+		                                    </div>
+		                                    <div class="col-12 col-md-8">
+		                                        <select name="short_links" ng-model = "jobticket.short_links"  id="short_links" ng-options="type.id as type.value for type in received_with_options" class="form-control" disabled>
+			                                        <option value="" style="display: none;"></option>
+			                                    </select>
+		                                    </div>
+		                                </div>
+		                			</div>
+		                		</div>
+		                		<div class="row">
+		                			<div class="col-md-6">
+		                				<div class="row form-group">
+			                                <div class="col col-md-4">
+			                                    <label for="no_of_short_links" class=" form-control-label">No Of Short links</label>
+			                                </div>
+			                                <div class="col-12 col-md-8">
+		                                        <input type="text" 
+			                                    id="no_of_short_links" 
+			                                    ng-model = "jobticket.no_of_short_links" 
+			                                    name="no_of_short_links" 
+			                                    placeholder="No Of Short links" 
+			                                    class="form-control"
+			                                    disabled>
+		                                    </div>
+			                            </div>
+		                			</div>
+		                			<div class="col-md-6">
+		                				<div class="row form-group">
+		                                    <div class="col col-md-4">
+		                                        <label for="screws" class=" form-control-label">Screws</label>
+		                                    </div>
+		                                    <div class="col-12 col-md-8">
+		                                        <select name="screws" ng-model = "jobticket.screws"  id="screws" ng-options="type.id as type.value for type in received_with_options" class="form-control" disabled>
+			                                        <option value="" style="display: none;"></option>
+			                                    </select>
+		                                    </div>
+		                                </div>
+		                			</div>
+		                		</div>
+		                		<div class="row">
+		                			<div class="col-md-6">
+		                				<div class="row form-group">
+			                                <div class="col col-md-4">
+			                                    <label for="pv_comment" class=" form-control-label">PV Comment <span class="mandatory">*</span> </label>
+			                                </div>
+			                                <div class="col-12 col-md-8">
+			                                    <textarea 
+			                                    name="pv_comment" 
+			                                    ng-model = "jobticket.pv_comment" 
+			                                    id="pv_comment" 
+			                                    rows="4" 
+			                                    placeholder="" 
+			                                    class="form-control"
+			                                    disabled>
+			                                    </textarea>
+			                                </div>
+			                            </div>
+		                			</div>
+		                		</div>
+		                		<div class="row">
+		                			<div class="col-md-6">
+		                				<div class="row form-group">
+			                                <div class="col col-md-4">
 			                                    <label for="comment" class=" form-control-label">Repair Comment <span class="mandatory">*</span> </label>
 			                                </div>
 			                                <div class="col-12 col-md-8">
@@ -427,8 +603,6 @@
 			                                </div>
 			                            </div>
 		                			</div>
-		                		</div>
-		                		<div class="row">
 		                			<div class="col-md-6">
 		                				<div class="row form-group">
 			                                <div class="col col-md-4">

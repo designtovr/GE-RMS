@@ -102,7 +102,7 @@
 					<thead>
 					<tr>
 						<th class ="bgOn" style="background-color: #d3d3d3">Pass</th>
-						<th>Fail</th>
+						<th>NA</th>
 					</tr>
 					</thead>
 				</table>
@@ -121,7 +121,7 @@
 					<thead>
 					<tr>
 						<th class ="bgOn" style="background-color: #d3d3d3">Pass</th>
-						<th >Fail <i class="zmdi zmdi-check"></i></th>
+						<th >NA <i class="zmdi zmdi-check"></i></th>
 					</tr>
 					</thead>
 				</table>
@@ -142,10 +142,10 @@
 					<tr>
 						@if($clio_test)
 							<th class ="bgOn" style="background-color: #d3d3d3">Pass</th>
-							<th>Fail</th>
+							<th>NA</th>
 						@else
 							<th>Pass</th>
-							<th class ="bgOn"  style="background-color: #d3d3d3">Fail</th>
+							<th class ="bgOn"  style="background-color: #d3d3d3">NA</th>
 						@endif
 					</tr>
 					</thead>
@@ -167,10 +167,10 @@
 					<tr>
 						@if($rtd_test)
 							<th class ="bgOn" style="background-color: #d3d3d3">Pass</th>
-							<th>Fail</th>
+							<th>NA</th>
 						@else
 							<th>Pass</th>
-							<th class ="bgOn" style="background-color: #d3d3d3">Fail</th>
+							<th class ="bgOn" style="background-color: #d3d3d3">NA</th>
 						@endif
 					</tr>
 					</thead>
@@ -190,7 +190,7 @@
 					<thead>
 					<tr>
 						<th class ="bgOn" style="background-color: #d3d3d3">Pass</th>
-						<th>Fail</th>
+						<th>NA</th>
 
 					</tr>
 					</thead>
@@ -210,27 +210,7 @@
 					<thead>
 					<tr>
 						<th class ="bgOn" >Pass</th>
-						<th>Fail</th>
-
-					</tr>
-					</thead>
-				</table>
-			</div>
-		</div>
-
-	</div>
-
-	<div class="row h-40" style ="margin-top: 9px;margin-left: 1px;">
-		<div class="col-6 text-left float-left m-l-10">
-			<h4 class ="col-12" style="color:#000000; font-weight: bold">Output Contact Tests: <u></u></h4></div>
-
-		<div class="col-3 text-left float-right">
-			<div class="table-responsive">
-				<table class="table tableStyle table-bordered text-center no-padding" >
-					<thead>
-					<tr>
-						<th class ="bgOn" style="background-color: #d3d3d3">Pass</th>
-						<th>Fail</th>
+						<th>NA</th>
 
 					</tr>
 					</thead>
@@ -250,7 +230,7 @@
 					<thead>
 					<tr>
 						<th class ="bgOn" style="background-color: #d3d3d3">Pass</th>
-						<th>Fail</th>
+						<th>NA</th>
 
 					</tr>
 					</thead>
@@ -270,7 +250,7 @@
 					<thead>
 					<tr>
 						<th class ="bgOn" style="background-color: #d3d3d3">Pass</th>
-						<th>Fail</th>
+						<th>NA</th>
 
 					</tr>
 					</thead>
@@ -289,7 +269,7 @@
 					<thead>
 					<tr>
 						<th class ="bgOn" style="background-color: #d3d3d3">Pass</th>
-						<th>Fail</th>
+						<th>NA</th>
 
 					</tr>
 					</thead>
@@ -309,7 +289,7 @@
 					<thead>
 					<tr>
 						<th class ="bgOn">Pass</th>
-						<th>Fail</th>
+						<th>NA</th>
 
 					</tr>
 					</thead>
@@ -327,7 +307,7 @@
 					<thead>
 					<tr>
 						<th class ="bgOn" style="background-color: #d3d3d3">Pass</th>
-						<th>Fail</th>
+						<th>NA</th>
 
 					</tr>
 					</thead>
@@ -345,7 +325,7 @@
 					<thead>
 					<tr>
 						<th class ="bgOn" style="background-color: #d3d3d3">Pass</th>
-						<th>Fail</th>
+						<th>NA</th>
 
 					</tr>
 					</thead>
@@ -363,7 +343,7 @@
 					<thead>
 					<tr>
 						<th class ="bgOn" style="background-color: #d3d3d3">Pass</th>
-						<th>Fail</th>
+						<th>NA</th>
 
 					</tr>
 					</thead>
@@ -383,7 +363,7 @@
 					<thead>
 					<tr>
 						<th class ="bgOn">Pass</th>
-						<th>Fail</th>
+						<th>NA</th>
 
 					</tr>
 					</thead>
@@ -404,7 +384,7 @@
 					<thead>
 					<tr>
 						<th class ="bgOn" style="background-color: #d3d3d3">Pass</th>
-						<th>Fail</th>
+						<th>NA</th>
 
 					</tr>
 					</thead>
@@ -465,7 +445,7 @@
 					<thead>
 					<tr>
 						<th  class ="bgOn" style="background-color: #d3d3d3">Pass</th>
-						<th>Fail</th>
+						<th>NA</th>
 
 					</tr>
 					</thead>

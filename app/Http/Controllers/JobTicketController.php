@@ -21,7 +21,9 @@ class JobTicketController extends Controller
     	$jt = PhysicalVerificationMaster::from( 'physical_verification as pv')
     			->selectRaw('jt.id, pv.id as pv_id, pv.receipt_id, ru.desc_of_fault as customer_comment, pv.serial_no, pr.part_no, jt.comment, 
     				jt.power_on_test, w.type, w.comment as repair_comment, ru.rma_id, pv.pvdate as givendate, 
-    				pvst.created_at as po_date, cus.name as customer_name, rma.end_customer')
+    				pvst.created_at as po_date, cus.name as customer_name, rma.end_customer, pv.case, pv.battery, 
+                    pv.terminal_blocks, pv.no_of_terminal_blocks, pv.top_bottom_cover, pv.short_links,
+                    pv.no_of_short_links, pv.screws, pv.sales_order_no, w.pcp, w.smp, pv.comment as pv_comment')
     			->leftJoin('job_tickets as jt', 'pv.id', 'jt.pv_id')
     			->leftJoin('warranty as w', 'w.pv_id', 'pv.id')
     			->leftJoin('rma_unit_information as ru', 'ru.pv_id', 'pv.id')

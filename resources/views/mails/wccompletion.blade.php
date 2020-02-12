@@ -5,7 +5,14 @@
 </head>
 <body>
 	<p><b>Dear Customer,</b></p>
-			The below relay is declared to be repaired / Modified on <Warranty status> 
+			The below relay is declared to be repaired / Modified on 
+			@if($pcp == 1)
+				Chargable
+			@elseif($pcp == 2)
+				Warranty
+			@else
+				NA
+			@endif
 	<br>
 	<br>
 	<b>RMA:</b> {{$formatted_rma_id}}

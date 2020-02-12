@@ -227,19 +227,9 @@ app.controller('WarrantyController' ,['$scope', '$http','Notification' , 'DataSh
 			Notification.error("Select Move");
 			return;
 		}
-		if(($scope.warrantymodal.smp == 1 && $scope.warrantymodal.pcp == 1) && ($scope.warrantymodal.po == undefined || $scope.warrantymodal.po == ""))
-		{
-			Notification.error("Enter PO");
-			return;
-		}
 		if(($scope.warrantymodal.smp == 1 && $scope.warrantymodal.pcp == 2) && ($scope.warrantymodal.wbs == undefined || $scope.warrantymodal.wbs == ""))
 		{
 			Notification.error("Enter WBS");
-			return;
-		}
-		if(($scope.warrantymodal.smp == 2 && $scope.warrantymodal.pcp == 1) && ($scope.warrantymodal.po == undefined || $scope.warrantymodal.po == ""))
-		{
-			Notification.error("Enter PO");
 			return;
 		}
 		if ($scope.warrantymodal.rca)

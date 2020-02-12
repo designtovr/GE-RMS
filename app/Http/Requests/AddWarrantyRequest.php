@@ -32,8 +32,8 @@ class AddWarrantyRequest extends FormRequest
             'warranty.move' => 'required|numeric|digits_between:1,5',
             'warranty.rca' => 'required|boolean',
             /*'warranty.comment' => 'string|min:3|max:20',*/
-            'warranty.po' => 'string|min:3|max:20',
-            'warranty.wbs' => 'string|min:3|max:20',
+            /*'warranty.po' => 'string|min:3|max:20',
+            'warranty.wbs' => 'string|min:3|max:20',*/
 
             'pvs.*' => 'required|numeric|exists:physical_verification,id'
         ];

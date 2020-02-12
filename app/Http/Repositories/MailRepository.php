@@ -100,7 +100,7 @@ class MailRepository
 
 	public function WCCompletionMail(WarrantyMaster $warranty)
 	{
-		$data = PhysicalVerificationMaster::selectRaw('physical_verification.id, physical_verification.receipt_id,physical_verification.serial_no, physical_verification.comment, pro.part_no, wc.smp,
+		$data = PhysicalVerificationMaster::selectRaw('physical_verification.id, physical_verification.receipt_id,physical_verification.serial_no, rui.desc_of_fault as comment, pro.part_no, wc.smp,
 			wc.pcp, wc.type, wc.created_at as created_date, rui.rma_id')
 				->join('warranty as wc', 'wc.pv_id', 'physical_verification.id')
 				->leftJoin('ma_product as pro', 'pro.id', 'physical_verification.product_id')

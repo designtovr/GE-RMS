@@ -28,6 +28,19 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 		{ 'id': 3, 'value': 'Investigation'}
 	];
 
+	$scope.wch_status = [
+		{ 'id': 1, 'value': 'Chargable'},
+		{ 'id': 2, 'value': 'Warranty'},
+		{ 'id': 3, 'value': 'SMP-CH'},
+		{ 'id': 4, 'value': 'PCP-CH'}
+	];
+
+	$scope.received_with_options = [
+		{ 'id': 1, 'value': 'Yes'},
+		{ 'id': 2, 'value': 'No'},
+		{ 'id': 3, 'value': 'Not Applicable'}
+	];
+
 	$scope.selectedpvs = [];
 	$scope.Start = function()
 	{
@@ -191,6 +204,24 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 			$scope.jobticket =  response.data.data;
 			console.log($scope.jobticket);
 			$scope.jobticket.service_type = item.service_type;
+			if ($scope.jobticket.pcp == 1 && $scope.jobticket.smp == 1)
+			{
+				$scope.jobticket.wch_status = 1;
+			}
+			else if($scope.jobticket.pcp == 2 && $scope.jobticket.smp == 2)
+			{
+				$scope.jobticket.wch_status = 1;
+			}
+			else if($scope.jobticket.pcp == 2 && $scope.jobticket.smp == 1)
+			{
+				$scope.jobticket.wch_status = 3;
+			}
+			else if($scope.jobticket.pcp == 1 && $scope.jobticket.smp == 2)
+			{
+				$scope.jobticket.wch_status = 4;
+			}
+
+
 			if ($scope.jobticket.job_ticket_materials.length == 0 && $scope.page != 'jobticketcompleted')
 			{
 				$scope.jobticket.job_ticket_materials = [];

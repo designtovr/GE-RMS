@@ -50,3 +50,7 @@ ALTER TABLE `users` CHANGE `email` `email` VARCHAR(255) CHARACTER SET utf8mb4 CO
 ALTER TABLE `users` ADD `username` VARCHAR(255) NOT NULL AFTER `name`;
 
 ALTER TABLE `verification_completion` CHANGE `updated_no_of_terminal_blocks` `updated_no_of_terminal_blocks` VARCHAR(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT '0';
+
+12/02/20
+
+ALTER TABLE `warranty` CHANGE `cc` `cc` VARCHAR(200) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL, CHANGE `message` `message` VARCHAR(300) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL, CHANGE `po` `po` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL, CHANGE `wbs` `wbs` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
