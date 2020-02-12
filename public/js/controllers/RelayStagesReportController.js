@@ -15,6 +15,8 @@ app.controller('RelayStagesReportController', ['$scope', '$http', '$window', fun
 	   urlSync: true
 	};
 
+	$scope.rid = '';
+
 	$scope.GetRelayForStageReport = function()
 	{
 		$http({
@@ -36,7 +38,18 @@ app.controller('RelayStagesReportController', ['$scope', '$http', '$window', fun
 
 	$scope.GenerateReport = function(id)
 	{
+		$scope.rid = id;
 		window.location.href = '/ge/relaystagereport/' + id;
+	}
+
+	$scope.PrintJobTicketForm = function(id)
+	{
+		window.location.href = '/ge/job-ticket-form/' + id;
+	}
+
+	$scope.TestReportForm = function(id)
+	{
+		window.location.href = '/ge/test-report-form/' + id;
 	}
 
 	$scope.ResetSearch = function()

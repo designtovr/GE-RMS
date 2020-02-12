@@ -488,9 +488,6 @@
 		                                        <input type="text" id="no_of_terminal_blocks" name="no_of_terminal_blocks"
                                                 class="form-control"
                                                 ng-model="jobticket.no_of_terminal_blocks"
-                                                ui-mask="99 + 99" placeholder="0+0" 
-                                                add-default-placeholder="99 + 99"
-                                                ui-mask-placeholder-char="N"
                                                 disabled>
 		                                    </div>
 		                                </div>

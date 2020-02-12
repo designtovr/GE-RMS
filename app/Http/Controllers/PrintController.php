@@ -107,7 +107,7 @@ class PrintController extends Controller
 
     public function JobTicketForm($pv_id)
     {
-        $data = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.*, jt.id as jt_id, jt.created_at as podate, rda.name as customer_name, rma.end_customer, pro.part_no as model_no, pv.comment as nature_of_defect, jt.power_on_test, wt.type')
+        $data = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.*, jt.id as jt_id, jt.created_at as podate, rda.name as customer_name, rma.end_customer, pro.part_no as model_no, pv.comment as nature_of_defect, jt.power_on_test, wt.type, jt.comment as remarks')
                 ->leftJoin('job_tickets as jt', 'jt.pv_id', 'pv.id')
                 ->leftJoin('rma_unit_information as rui', 'rui.pv_id', 'pv.id')
                 ->leftJoin('rma', 'rma.id', 'rui.rma_id')
@@ -145,9 +145,9 @@ class PrintController extends Controller
 
     public function PhysicalVerificationForm($rma_id)
     {
-        $data = RMA::selectRaw('rma.*, cus.name as customer_name')
+        $data = RMA::selectRaw('rma.*, rda.name as customer_name')
                 ->where('rma.id', $rma_id)
-                ->leftJoin('ma_customer as cus', 'cus.id', 'rma.customer_address_id')
+                ->leftJoin('rma_delivery_address as rda', 'rda.rma_id', 'rma.id')
                 ->first()->toArray();
 
         //this functionality is added because PV form needed before RMA Completion

@@ -56,6 +56,7 @@ class JobTicketController extends Controller
     		$JT->updated_at = Carbon::now();
     		$JT->save();
 
+            JobTicketMaterials::where('jt_id', $JT->id)->delete();
     		$materials = $jobticket['job_ticket_materials'];
     		foreach ($materials as $key => $material) {
     			$JTM = new JobTicketMaterials();
@@ -87,6 +88,7 @@ class JobTicketController extends Controller
     		$JT->updated_at = Carbon::now();
     		$JT->update();
 
+            JobTicketMaterials::where('jt_id', $JT->id)->delete();
     		$materials = $jobticket['job_ticket_materials'];
     		foreach ($materials as $key => $material) {
     				JobTicketMaterials::destroy($material['id']);
@@ -135,6 +137,7 @@ class JobTicketController extends Controller
     		$JT->updated_at = Carbon::now();
     		$JT->save();
 
+            JobTicketMaterials::where('jt_id', $JT->id)->delete();
     		$materials = $jobticket['job_ticket_materials'];
     		foreach ($materials as $key => $material) {
     			$JTM = new JobTicketMaterials();
@@ -164,6 +167,7 @@ class JobTicketController extends Controller
     		$JT->updated_at = Carbon::now();
     		$JT->update();
 
+            JobTicketMaterials::where('jt_id', $JT->id)->delete();
     		$materials = $jobticket['job_ticket_materials'];
     		foreach ($materials as $key => $material) {
 	    			if (array_key_exists('id', $material))

@@ -41,6 +41,7 @@ use Illuminate\Support\Facades\DB;
 				->leftJoin('pv_status as pvs', 'pvs.pv_id', 'physical_verification.id')
 				->leftJoin('ma_pv_status as mpvs', 'mpvs.id', 'pvs.current_status_id')
  				->find($id);
+
  		$relay['receipt'] = ReceiptMaster::selectRaw('receipt.*, cus.name as customer_name, c_user.name as created_by_name, u_user.name as updated_by_name')
  							->leftJoin('ma_customer as cus', 'cus.id', 'receipt.customer_id')
  							->leftJoin('users as c_user', 'c_user.id', 'receipt.created_by')

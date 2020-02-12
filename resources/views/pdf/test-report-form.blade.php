@@ -37,36 +37,36 @@
 
 	<div class="row" style="margin-top: 9px;margin-left: 1px;">
 		<div class="col-12">
-		<div class="col-6 float-left">
-			<h2 class="text-left float-left" style="font-size: 26px; color: #000000"><strong>Date :  </strong><span class="text-nowrap" style="font-weight: normal">{{ date('d/m/Y',strtotime($vc_updated_at))}}</span></h2>
+		<div class="col-6 float-left text-nowrap">
+			<h2 class="text-left float-left col-12" style="font-size: 22px; color: #000000"><strong>R Id: </strong><span class="text-nowrap" style="font-weight: normal">{{$formatted_pv_id}}</span></h2>
+			<h2 class="text-left float-left col-12" style="font-size: 22px; color: #000000"><strong>RMA No: </strong><span class="text-nowrap" style="font-weight: normal">{{$formatted_rma_id}}</span></h2>
+			<h2 class="text-left float-left col-12" style="font-size: 22px; color: #000000"><strong>Customer: </strong><span class="text-nowrap" style="font-weight: normal">{{$customer_name}}</span></h2>
+			<h2 class="text-left float-left col-12" style="font-size: 22px; color: #000000"><strong>Model Number: </strong><span class="text-nowrap" style="font-weight: normal">{{$model_no}}</span></h2>
+			<h2 class="text-left float-left col-12" style="font-size: 22px; color: #000000"><strong>Serial Number: </strong><span class="text-nowrap" style="font-weight: normal">{{$serial_no}}</span></h2>
+			<h2 class="text-left float-left col-12" style="font-size: 22px; color: #000000"><strong>Software Reference: </strong><span class="text-nowrap" style="font-weight: normal">{{$updated_sw_version}}</span></h2>
+			<h2 class="text-left float-left col-12" style="font-size: 22px; color: #000000">
+				<strong>Terminal Block: </strong>
+				<span class="text-nowrap" style="font-weight: normal">
+				@if($updated_no_of_terminal_blocks == 0)
+					0
+				@else
+					{{substr($updated_no_of_terminal_blocks, 0, 2)}} + {{substr($updated_no_of_terminal_blocks, 2, 2)}}
+				@endif
+				</span>
+			</h2>
+			<h2 class="text-left float-left col-12" style="font-size: 22px; color: #000000"><strong>Short Links:  </strong>
+				<span class="text-nowrap" style="font-weight: normal">
+				@if($updated_no_of_short_links == null)
+					0
+				@else
+					{{$updated_no_of_short_links}}
+				@endif
+				</span>
+			</h2>
 
 		</div>
-
-		<div class="col-6 float-right text-nowrap">
-			<h2 class="text-left float-left col-12" style="font-size: 22px; color: #000000"><strong>RMA No          	:  </strong><span class="text-nowrap" style="font-weight: normal">{{$formatted_rma_id}}</span></h2>
-			<h2 class="text-left float-left col-12" style="font-size: 22px; color: #000000"><strong>Customer 			:  </strong><span class="text-nowrap" style="font-weight: normal">{{$customer_name}}</span></h2>
-			<h2 class="text-left float-left col-12" style="font-size: 22px; color: #000000"><strong>Model Number 		:  </strong><span class="text-nowrap" style="font-weight: normal">{{$model_no}}</span></h2>
-			<h2 class="text-left float-left col-12" style="font-size: 22px; color: #000000"><strong>Serial Number 		:  </strong><span class="text-nowrap" style="font-weight: normal">{{$serial_no}}</span></h2>
-			<h2 class="text-left float-left col-12" style="font-size: 22px; color: #000000"><strong>Software Reference  :  </strong><span class="text-nowrap" style="font-weight: normal">{{$sw_version}}</span></h2>
-			<h2 class="text-left float-left col-12" style="font-size: 22px; color: #000000">
-				<strong>Terminal Block 		:  </strong>
-				<span class="text-nowrap" style="font-weight: normal">
-				@if($no_of_terminal_blocks == 0)
-					0
-				@else
-					{{substr($no_of_terminal_blocks, 0, 2)}} + {{substr($no_of_terminal_blocks, 2, 2)}}
-				@endif
-				</span>
-			</h2>
-			<h2 class="text-left float-left col-12" style="font-size: 22px; color: #000000"><strong>Short Links 		:  </strong>
-				<span class="text-nowrap" style="font-weight: normal">
-				@if($no_of_short_links == null)
-					0
-				@else
-					{{$no_of_short_links}}
-				@endif
-				</span>
-			</h2>
+		<div class="col-6 float-right">
+			<h2 class="text-left float-left" style="font-size: 26px; color: #000000"><strong>Date :  </strong><span class="text-nowrap" style="font-weight: normal">{{ date('d/m/Y',strtotime($vc_updated_at))}}</span></h2>
 
 		</div>
 

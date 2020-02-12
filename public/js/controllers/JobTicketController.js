@@ -221,6 +221,16 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 				$scope.jobticket.wch_status = 4;
 			}
 
+			if($scope.jobticket.no_of_terminal_blocks == 0)
+			{
+				$scope.jobticket.no_of_terminal_blocks = 0;
+			}
+			else
+			{
+				var string = $scope.jobticket.no_of_terminal_blocks;
+				$scope.jobticket.no_of_terminal_blocks = string.substring(0, 1) + " + " + string(2, 4);
+			}
+
 
 			if ($scope.jobticket.job_ticket_materials.length == 0 && $scope.page != 'jobticketcompleted')
 			{

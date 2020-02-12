@@ -459,6 +459,9 @@
                                 <!-- END DATA TABLE-->
                             </form>
                         </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-info btn-sm" ng-click="PrintJobTicketForm({{$id}});">Print</button>
+                        </div>
                     </div>
 				</div>
 			</div>
@@ -626,6 +629,9 @@
 	                                </div>
 	                            </div>
                             </form>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-info btn-sm" ng-click="TestReportForm({{$id}});">Print</button>
                         </div>
                     </div>
                 </div>
