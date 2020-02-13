@@ -30,12 +30,15 @@
 	<div class="row" style="margin-top: 9px;margin-left: 1px;">
 		<div class="col-6">
 			<h2 class="text-left float-left" style="font-size: 18px; color: #000000"><strong>RMA :</strong>  <span style="font-weight: normal;">{{ $id }}</span> </h2>
-
 		</div>
 
 		<div class="col-6">
 			<h2 class="text-left float-left" style="font-size: 18px; color: #000000"><strong>Customer : </strong>  <span style="font-weight: normal;">{{ $customer_name }}</span></h2>
-
+		</div>
+	</div>
+	<div class="row" style="margin-top: 5px;margin-left: 1px;">
+		<div class="col-6">
+			<h2 class="text-left float-left" style="font-size: 18px; color: #000000"><strong>Location :</strong>  <span style="font-weight: normal;">{{ $location }}</span> </h2>
 		</div>
 	</div>
 

@@ -228,7 +228,9 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 			else
 			{
 				var string = $scope.jobticket.no_of_terminal_blocks;
-				$scope.jobticket.no_of_terminal_blocks = string.substring(0, 1) + " + " + string(2, 4);
+				var substr1 = string.slice(0, 2);
+				var substr2 = string.slice(2, 4);
+				$scope.jobticket.no_of_terminal_blocks = substr1.concat("+", substr2);
 			}
 
 

@@ -580,6 +580,22 @@
 			                                </div>
 			                            </div>
 		                			</div>
+		                			<div class="col-md-6">
+		                				<div class="row form-group">
+			                                <div class="col col-md-4">
+			                                    <label for="sw_version" class=" form-control-label">Software Reference</label>
+			                                </div>
+			                                <div class="col-12 col-md-8">
+			                                    <input type="text" 
+			                                    id="sw_version" 
+			                                    ng-model = "jobticket.sw_version" 
+			                                    name="sw_version" 
+			                                    placeholder="Software Reference" 
+			                                    class="form-control"
+			                                    >
+			                                </div>
+			                            </div>
+		                			</div>
 		                		</div>
 		                		<div class="row">
 		                			<div class="col-md-6">

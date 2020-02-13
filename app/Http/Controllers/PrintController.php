@@ -11,6 +11,7 @@ use Excel;
 use App\Models\PhysicalVerificationMaster;
 use App\Models\JobTicketMaterials;
 use App\Models\RMA;
+use App\Models\ReceiptMaster;
 use App\Models\RMAUnitInformation;
 use App\Models\RMADeliveryAddress;
 use App\Models\RMAInvoiceAddress;
@@ -107,7 +108,7 @@ class PrintController extends Controller
 
     public function JobTicketForm($pv_id)
     {
-        $data = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.*, jt.id as jt_id, jt.created_at as podate, rda.name as customer_name, rma.end_customer, pro.part_no as model_no, pv.comment as nature_of_defect, jt.power_on_test, wt.type, jt.comment as remarks')
+        $data = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.*, jt.id as jt_id, jt.created_at as podate, rda.name as customer_name, rma.end_customer, pro.part_no as model_no, pv.comment as nature_of_defect, jt.power_on_test, wt.type, jt.comment as remarks, rui.sw_version')
                 ->leftJoin('job_tickets as jt', 'jt.pv_id', 'pv.id')
                 ->leftJoin('rma_unit_information as rui', 'rui.pv_id', 'pv.id')
                 ->leftJoin('rma', 'rma.id', 'rui.rma_id')
@@ -119,7 +120,7 @@ class PrintController extends Controller
 
         $data['job_materials'] = JobTicketMaterials::where('jt_id', $data['jt_id'])->get();
         $data['title'] = 'Job Ticket';
-        return view('pdf.jobticketform', $data);
+        return view('pdf.jobticketform-new', $data);
         $pdf = PDF::loadView('pdf.jobticketform', $data);
         return $pdf->stream();
         return view('pdf.jobticketform', $data);
@@ -149,6 +150,16 @@ class PrintController extends Controller
                 ->where('rma.id', $rma_id)
                 ->leftJoin('rma_delivery_address as rda', 'rda.rma_id', 'rma.id')
                 ->first()->toArray();
+
+        $receipt = ReceiptMaster::where('id', $data['receipt_id'])->first();
+        if(!is_null($receipt))
+        {
+            $data['location'] = $receipt->site;
+        }
+        else
+        {
+            $data['location'] = 'NA';
+        }
 
         //this functionality is added because PV form needed before RMA Completion
         //first we'll check the rma type

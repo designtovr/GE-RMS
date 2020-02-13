@@ -176,6 +176,10 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('/test-report-form/{pv_id}', 'PrintController@TestReportForm');
 
+    Route::get('/header-footer-print', function(){
+    	return view('pdf.header-footer-print');
+    });
+
     Route::get('/qrcode', function(){
         return view('webqrtest');
     });

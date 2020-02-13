@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\PhysicalVerificationMaster;
 use App\Models\JobTicket;
 use App\Models\JobTicketMaterials;
+use App\Models\RMAUnitInformation;
 use App\Http\Requests\SaveJobTicketMaterialRequest;
 use App\Http\Requests\CompleteJobTicketRequest;
 use App\Http\Requests\UpdateSiteCardJobTicketRequest;
@@ -23,7 +24,7 @@ class JobTicketController extends Controller
     				jt.power_on_test, w.type, w.comment as repair_comment, ru.rma_id, pv.pvdate as givendate, 
     				pvst.created_at as po_date, cus.name as customer_name, rma.end_customer, pv.case, pv.battery, 
                     pv.terminal_blocks, pv.no_of_terminal_blocks, pv.top_bottom_cover, pv.short_links,
-                    pv.no_of_short_links, pv.screws, pv.sales_order_no, w.pcp, w.smp, pv.comment as pv_comment')
+                    pv.no_of_short_links, pv.screws, pv.sales_order_no, w.pcp, w.smp, pv.comment as pv_comment, ru.sw_version')
     			->leftJoin('job_tickets as jt', 'pv.id', 'jt.pv_id')
     			->leftJoin('warranty as w', 'w.pv_id', 'pv.id')
     			->leftJoin('rma_unit_information as ru', 'ru.pv_id', 'pv.id')
@@ -56,6 +57,11 @@ class JobTicketController extends Controller
     		$JT->updated_at = Carbon::now();
     		$JT->save();
 
+            if(!is_null($jobticket['sw_version']))
+            {
+                RMAUnitInformation::where('pv_id', $JT->pv_id)->update(['sw_version' => $jobticket['sw_version']]);
+            }
+
             JobTicketMaterials::where('jt_id', $JT->id)->delete();
     		$materials = $jobticket['job_ticket_materials'];
     		foreach ($materials as $key => $material) {
@@ -87,6 +93,11 @@ class JobTicketController extends Controller
     		$JT->updated_by = Auth::id();
     		$JT->updated_at = Carbon::now();
     		$JT->update();
+
+            if(!is_null($jobticket['sw_version']))
+            {
+                RMAUnitInformation::where('pv_id', $JT->pv_id)->update(['sw_version' => $jobticket['sw_version']]);
+            }
 
             JobTicketMaterials::where('jt_id', $JT->id)->delete();
     		$materials = $jobticket['job_ticket_materials'];
@@ -137,6 +148,12 @@ class JobTicketController extends Controller
     		$JT->updated_at = Carbon::now();
     		$JT->save();
 
+            //update sw_reference if not null
+            if(!is_null($jobticket['sw_version']))
+            {
+                RMAUnitInformation::where('pv_id', $JT->pv_id)->update(['sw_version' => $jobticket['sw_version']]);
+            }
+
             JobTicketMaterials::where('jt_id', $JT->id)->delete();
     		$materials = $jobticket['job_ticket_materials'];
     		foreach ($materials as $key => $material) {
@@ -166,6 +183,12 @@ class JobTicketController extends Controller
     		$JT->updated_by = Auth::id();
     		$JT->updated_at = Carbon::now();
     		$JT->update();
+
+            //update sw_reference if not null
+            if(!is_null($jobticket['sw_version']))
+            {
+                RMAUnitInformation::where('pv_id', $JT->pv_id)->update(['sw_version' => $jobticket['sw_version']]);
+            }
 
             JobTicketMaterials::where('jt_id', $JT->id)->delete();
     		$materials = $jobticket['job_ticket_materials'];

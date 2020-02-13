@@ -16,6 +16,64 @@
 		  position: fixed;
 		  bottom: 0;
 		}
+		.printform {
+
+		}
+		.printform table {
+			height: 450px !important;
+		}
+		.printform table thead th {
+			font-size: 15px !important;
+			border: 1px solid !important;
+		}
+		.printform table thead th:nth-child(1) {
+			width: 100px !important;
+		}
+		.printform table thead th:nth-child(2) {
+			width: 120px !important;
+		}
+		.printform table tr td {
+			font-size: 13px !important;
+			border: 1px solid !important;
+		}
+		.printform table tr td:nth-child(1) {
+			width: 100px !important;
+		}
+		.printform table tr td:nth-child(2) {
+			width: 120px !important;
+		}
+		.printform table tr td:nth-child(3) {
+			width: 800px !important;
+		}
+		.printform table tr td:nth-child(4) {
+			width: 80px !important;
+		}
+		.printform table tr td:nth-child(5) {
+			width: 100px !important;
+		}
+		@media print {
+		    .pagebreak { page-break-before: always; } /* page-break-after works, as well */
+		}
+		.component {
+
+		}
+		.component table {
+			height: 450px !important;
+		}
+		.component table tr {
+			height: 50px;
+		}
+		.component table thead th {
+			font-size: 15px !important;
+			border: 1px solid !important;
+		}
+		.component table tr td {
+			font-size: 13px !important;
+			border: 1px solid !important;
+		}
+		.check-label {
+			color: black;
+		}
 	</style>
 </head>
 <body class="text-right" style="height: 1196px;padding-left: 30px;padding-right: 30px; font-family: 'Oswald', sans-serif !important;">
@@ -92,6 +150,10 @@
 			<h1 class="text-left float-left" style="font-size: 18px;height:  ;color: #000000">POWER ON TEST: </h1>
 			<h1 class="text-left float-left" style="font-size: 18px;font-weight: normal ;margin-left: 10px;color: #000000">{{$power_on_test}}</h1>
 		</div>
+		<div class="col" style="margin-top: 8px;">
+			<h1 class="text-left float-left" style="font-size: 18px;color: #000000">Software Ref.: </h1>
+			<h1 class="text-left float-left" style="font-size: 18px;font-weight: normal ;margin-left: 10px;color: #000000">{{$sw_version}}</h1>
+		</div>
 	</div>
 	<div class="row" style="margin-top: 5px;margin-left: 1px;">
 		<div class="col" style="margin-top: 8px;">
@@ -100,73 +162,130 @@
 		</div>
 	</div>
 	<br>
-	<div class="table-responsive">
+	<div class="table-responsive printform">
 		<table class="table tableStyle table-bordered">
 			<thead>
 			<tr>
-				<th style="font-size: 18px">SL No.</th>
-				<th style="font-size: 18px">Material Part No</th>
-				<th style="font-size: 18px">Description</th>
-				<th style="font-size: 18px">Qty</th>
-				<th style="font-size: 18px">Value (Rs)</th>
+				<th>SL No.</th>
+				<th>Material Part No</th>
+				<th>Description</th>
+				<th>Qty</th>
+				<th>Value (Rs)</th>
 			</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td style="font-size: 15px">1</td>
-					<td style="font-size: 15px">{{$job_materials[0]['part_no']}}</td>
-					<td style="font-size: 15px">{{$job_materials[0]['comment']}}</td>
-					<td style="font-size: 15px">{{$job_materials[0]['quantity']}}</td>
-					<td style="font-size: 15px">{{$job_materials[0]['value']}}</td>
+					<td>1</td>
+					@if(isset($job_materials[0]))
+						<td>{{$job_materials[0]['part_no']}}</td>
+						<td>{{$job_materials[0]['comment']}}</td>
+						<td>{{$job_materials[0]['quantity']}}</td>
+						<td>{{$job_materials[0]['value']}}</td>
+					@else
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					@endif
+					
 				</tr>
 				<tr>
-					<td style="font-size: 15px">2</td>
-					<td style="font-size: 15px">{{$job_materials[1]['part_no']}}</td>
-					<td style="font-size: 15px">{{$job_materials[1]['comment']}}</td>
-					<td style="font-size: 15px">{{$job_materials[1]['quantity']}}</td>
-					<td style="font-size: 15px">{{$job_materials[1]['value']}}</td>
+					<td>2</td>
+					@if(isset($job_materials[1]))
+						<td>{{$job_materials[1]['part_no']}}</td>
+						<td>{{$job_materials[1]['comment']}}</td>
+						<td>{{$job_materials[1]['quantity']}}</td>
+						<td>{{$job_materials[1]['value']}}</td>
+					@else
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					@endif
 				</tr>
 				<tr>
-					<td style="font-size: 15px">3</td>
-					<td style="font-size: 15px">{{$job_materials[2]['part_no']}}</td>
-					<td style="font-size: 15px">{{$job_materials[2]['comment']}}</td>
-					<td style="font-size: 15px">{{$job_materials[2]['quantity']}}</td>
-					<td style="font-size: 15px">{{$job_materials[2]['value']}}</td>
+					<td>3</td>
+					@if(isset($job_materials[2]))
+						<td>{{$job_materials[2]['part_no']}}</td>
+						<td>{{$job_materials[2]['comment']}}</td>
+						<td>{{$job_materials[2]['quantity']}}</td>
+						<td>{{$job_materials[2]['value']}}</td>
+					@else
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					@endif
 				</tr>
 				<tr>
-					<td style="font-size: 15px">4</td>
-					<td style="font-size: 15px">{{$job_materials[3]['part_no']}}</td>
-					<td style="font-size: 15px">{{$job_materials[3]['comment']}}</td>
-					<td style="font-size: 15px">{{$job_materials[3]['quantity']}}</td>
-					<td style="font-size: 15px">{{$job_materials[3]['value']}}</td>
+					<td>4</td>
+					@if(isset($job_materials[3]))
+						<td>{{$job_materials[3]['part_no']}}</td>
+						<td>{{$job_materials[3]['comment']}}</td>
+						<td>{{$job_materials[3]['quantity']}}</td>
+						<td>{{$job_materials[3]['value']}}</td>
+					@else
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					@endif
 				</tr>
 				<tr>
-					<td style="font-size: 15px">5</td>
-					<td style="font-size: 15px">{{$job_materials[4]['part_no']}}</td>
-					<td style="font-size: 15px">{{$job_materials[4]['comment']}}</td>
-					<td style="font-size: 15px">{{$job_materials[4]['quantity']}}</td>
-					<td style="font-size: 15px">{{$job_materials[4]['value']}}</td>
+					<td>5</td>
+					@if(isset($job_materials[4]))
+						<td>{{$job_materials[4]['part_no']}}</td>
+						<td>{{$job_materials[4]['comment']}}</td>
+						<td>{{$job_materials[4]['quantity']}}</td>
+						<td>{{$job_materials[4]['value']}}</td>
+					@else
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					@endif
 				</tr>
 				<tr>
-					<td style="font-size: 15px">6</td>
-					<td style="font-size: 15px">{{$job_materials[5]['part_no']}}</td>
-					<td style="font-size: 15px">{{$job_materials[5]['comment']}}</td>
-					<td style="font-size: 15px">{{$job_materials[5]['quantity']}}</td>
-					<td style="font-size: 15px">{{$job_materials[5]['value']}}</td>
+					<td>6</td>
+					@if(isset($job_materials[5]))
+						<td>{{$job_materials[5]['part_no']}}</td>
+						<td>{{$job_materials[5]['comment']}}</td>
+						<td>{{$job_materials[5]['quantity']}}</td>
+						<td>{{$job_materials[5]['value']}}</td>
+					@else
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					@endif
 				</tr>
 				<tr>
-					<td style="font-size: 15px">7</td>
-					<td style="font-size: 15px">{{$job_materials[6]['part_no']}}</td>
-					<td style="font-size: 15px">{{$job_materials[6]['comment']}}</td>
-					<td style="font-size: 15px">{{$job_materials[6]['quantity']}}</td>
-					<td style="font-size: 15px">{{$job_materials[6]['value']}}</td>
+					<td>7</td>
+					@if(isset($job_materials[6]))
+						<td>{{$job_materials[6]['part_no']}}</td>
+						<td>{{$job_materials[6]['comment']}}</td>
+						<td>{{$job_materials[6]['quantity']}}</td>
+						<td>{{$job_materials[6]['value']}}</td>
+					@else
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					@endif
 				</tr>
 				<tr>
-					<td style="font-size: 15px">8</td>
-					<td style="font-size: 15px">{{$job_materials[7]['part_no']}}</td>
-					<td style="font-size: 15px">{{$job_materials[7]['comment']}}</td>
-					<td style="font-size: 15px">{{$job_materials[7]['quantity']}}</td>
-					<td style="font-size: 15px">{{$job_materials[7]['value']}}</td>
+					<td>8</td>
+					@if(isset($job_materials[7]))
+						<td>{{$job_materials[7]['part_no']}}</td>
+						<td>{{$job_materials[7]['comment']}}</td>
+						<td>{{$job_materials[7]['quantity']}}</td>
+						<td>{{$job_materials[7]['value']}}</td>
+					@else
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					@endif
 				</tr>
 			</tbody>
 		</table>
@@ -174,7 +293,7 @@
 	<br>
 	<div class="row" style="margin-top: 15px">
 		<div class="col-5 float-left">
-			<h1 class="text-left" style="font-size: 26px;color:#000000;margin-top: 25px;"></h1>
+			<h1 class="text-left" style="font-size: 18px;color:#000000;margin-top: 25px;"></h1>
 			<h1 class="text-left" style="font-size: 18px;color:#000000;margin-top: 25px;">Sign:</h1>
 			<h1 class="text-left" style="font-size: 18px;color:#000000;margin-top: 25px;">Category:</h1>
 		</div>
@@ -203,6 +322,7 @@
 		</div>
 	</div>
 </div>
+<div class="pagebreak"></div>
 <div class = "back ftr">
 	<div class = "row m-t-70">
 		<div class="col-md-12 m-t-70">
@@ -213,25 +333,91 @@
 	<br>
 	<div class = "row ">
 		<div class="col-12 p-l-0 p-r-0">
-			<div class="table-responsive">
+			<div class="table-responsive component">
 				<table class="table tableStyle table-bordered">
 			    <thead>
 			      <tr>
 			        <th>
-			        	<h1 class="text-center" style="font-size:18px;color:#000000;" >OLD COMPONENT</h1>
+			        	OLD COMPONENT
 			        </th>
 			        <th>
-			        	<h1 class="text-center" style="font-size:18px;color:#000000;" >NEW COMPONENT</h1>
+			        	NEW COMPONENT
 			        </th>
 			      </tr>
 			    </thead>
 			    <tbody>
-			    	@foreach($job_materials as $index => $material)
-					<tr>
-						<td style="font-size:15px">{{$material['old_pcp']}}</td>
-						<td style="font-size:15px">{{$material['new_pcp']}}</td>
+			    	<tr>
+			    		@if(isset($job_materials[0]))
+			    			<td>{{$job_materials[0]['old_pcp']}}</td>
+							<td>{{$job_materials[0]['new_pcp']}}</td>
+			    		@else
+				    		<td></td>
+				    		<td></td>
+			    		@endif
 					</tr>
-					@endforeach
+					<tr>
+			    		@if(isset($job_materials[1]))
+			    			<td>{{$job_materials[1]['old_pcp']}}</td>
+							<td>{{$job_materials[1]['new_pcp']}}</td>
+			    		@else
+				    		<td></td>
+				    		<td></td>
+			    		@endif
+					</tr>
+					<tr>
+			    		@if(isset($job_materials[2]))
+			    			<td>{{$job_materials[2]['old_pcp']}}</td>
+							<td>{{$job_materials[2]['new_pcp']}}</td>
+			    		@else
+				    		<td></td>
+				    		<td></td>
+			    		@endif
+					</tr>
+					<tr>
+			    		@if(isset($job_materials[3]))
+			    			<td>{{$job_materials[3]['old_pcp']}}</td>
+							<td>{{$job_materials[3]['new_pcp']}}</td>
+			    		@else
+				    		<td></td>
+				    		<td></td>
+			    		@endif
+					</tr>
+					<tr>
+			    		@if(isset($job_materials[4]))
+			    			<td>{{$job_materials[4]['old_pcp']}}</td>
+							<td>{{$job_materials[4]['new_pcp']}}</td>
+			    		@else
+				    		<td></td>
+				    		<td></td>
+			    		@endif
+					</tr>
+					<tr>
+			    		@if(isset($job_materials[5]))
+			    			<td>{{$job_materials[5]['old_pcp']}}</td>
+							<td>{{$job_materials[5]['new_pcp']}}</td>
+			    		@else
+				    		<td></td>
+				    		<td></td>
+			    		@endif
+					</tr>
+					<tr>
+			    		@if(isset($job_materials[6]))
+			    			<td>{{$job_materials[6]['old_pcp']}}</td>
+							<td>{{$job_materials[6]['new_pcp']}}</td>
+			    		@else
+				    		<td></td>
+				    		<td></td>
+			    		@endif
+					</tr>
+					<tr>
+			    		@if(isset($job_materials[7]))
+			    			<td>{{$job_materials[7]['old_pcp']}}</td>
+							<td>{{$job_materials[7]['new_pcp']}}</td>
+			    		@else
+				    		<td></td>
+				    		<td></td>
+			    		@endif
+					</tr>
 			    </tbody>
 			 </table>
 			</div>
@@ -243,6 +429,7 @@
             <u>Notes :</u>
         </div>
     </div>
+    <br>
         <div class = "row">
             <div class="col-12 text-left " style="color:#000000;font-size: 20px;">
                 <span class="zmdi zmdi-arrow-right"></span><u>Relay Received With</u>
@@ -259,7 +446,7 @@
 	                </label>
             	</div>
         		<div class="col-sm-3">
-        			<label class="form-check-label" for="exampleCheck1">Case</label>
+        			<label class="form-check-label check-label" for="exampleCheck1"><b>Case</b></label>
         		</div>
         	</div>
         	<div class="col-sm-6">
@@ -274,14 +461,12 @@
 	                </label>
             	</div>
         		<div class="col-sm-6">
-        			<label class="form-check-label" for="exampleCheck1">Terminal Blocks: 
-        				<u>
+        			<label class="form-check-label check-label" for="exampleCheck1"><b>Terminal Blocks:</b>
         					@if($no_of_terminal_blocks == 0)
         						{{ $no_of_terminal_blocks }}
         					@else
         						{{substr($no_of_terminal_blocks, 0, 2)}} + {{substr($no_of_terminal_blocks, 2, 2)}}
         					@endif
-        				</u>
         			</label>
         		</div>
         	</div>
@@ -298,7 +483,7 @@
 	                </label>
         		</div>
         		<div class="col-sm-3">
-        			<label class="form-check-label" for="exampleCheck1">Battery</label>
+        			<label class="form-check-label check-label" for="exampleCheck1"><b>Battery</b></label>
         		</div>
         	</div>
 
@@ -314,7 +499,7 @@
 	                </label>
             	</div>
         		<div class="col-sm-6">
-        			<label class="form-check-label" for="exampleCheck1">Short Links: <u>{{$no_of_short_links}}</u></label>
+        			<label class="form-check-label check-label" for="exampleCheck1"><b>Short Links:</b> {{$no_of_short_links}}</label>
         		</div>
         	</div>
 
@@ -330,7 +515,7 @@
 	                </label>
         		</div>
         		<div class="col-sm-3">
-        			<label class="form-check-label" for="exampleCheck1">Screws</label>
+        			<label class="form-check-label check-label" for="exampleCheck1"><b>Screws</b></label>
         		</div>
         	</div>
 
@@ -346,7 +531,7 @@
 	                </label>
         		</div>
         		<div class="col-sm-6">
-        			<label class="form-check-label" for="exampleCheck1">Top/Bottom Access Cover(Flops)</label>
+        			<label class="form-check-label check-label" for="exampleCheck1"><b>Top/Bottom Access Cover(Flops)</b></label>
         		</div>
         	</div>
     </div>

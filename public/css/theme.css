@@ -4536,7 +4536,7 @@ section {
 }
 
 .tableStyle td {
-    font-weight: normal; !important;
+    font-weight: normal !important;
     font-size: 26px;
     border-color: black;
     color : #0a0a0a;
@@ -4608,7 +4608,7 @@ section {
 }
 
 .tableStyle tr {
-    font-weight: normal; !important;
+    font-weight: normal !important;
     font-size: 26px;
 }
 
