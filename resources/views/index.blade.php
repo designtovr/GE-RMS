@@ -216,7 +216,7 @@
                                                 <table class="table table-borderless table-data3 table-data3-blue table-height200 table-data4 table-data4">
                                                     <thead>
                                                     <tr>
-                                                        <th>Type</th>
+                                                        <th>Family</th>
                                                         <th>Serial Number</th>
                                                         <th>Location</th>
                                                     </tr>
@@ -250,7 +250,7 @@
                                                 <table class="table table-borderless table-data3 table-data4 table-data3-blue">
                                                     <thead>
                                                     <tr>
-                                                        <th>Type</th>
+                                                        <th>Family</th>
                                                         <th>Total Relays</th>
                                                         <th>Over Due</th>
                                                     </tr>
@@ -285,7 +285,7 @@
                                                 <table class="table table-borderless table-data3 table-data3-blue table-data4">
                                                     <thead>
                                                     <tr>
-                                                        <th>Type</th>
+                                                        <th>Family</th>
                                                         <th>Total Relays</th>
                                                         <th>Over Due</th>
                                                     </tr>
@@ -360,7 +360,7 @@
                                                             <table class="table table-borderless table-data3 table-data3-blue">
                                                                 <thead>
                                                                 <tr>
-                                                                    <th>Type</th>
+                                                                    <th>Family</th>
                                                                     <th>Total Relays</th>
                                                                     <th>Over Due</th>
                                                                 </tr>
@@ -430,7 +430,7 @@
                                                  <table class="table table-borderless table-data3 table-data3-blue">
                                                      <thead>
                                                      <tr>
-                                                         <th>Type</th>
+                                                         <th>Family</th>
                                                          <th>Total Relays</th>
 
                                                          <th>Over Due</th>
@@ -472,7 +472,7 @@
                                                  <table class="table table-borderless table-data3 table-data3-blue">
                                                      <thead>
                                                      <tr>
-                                                         <th>Type</th>
+                                                         <th>Family</th>
                                                          <th>Total Relays</th>
                                                          <th>Over Due</th>
                                                      </tr>
@@ -532,7 +532,7 @@
                                                  <table class="table table-borderless table-data3 table-data3-blue">
                                                      <thead>
                                                      <tr>
-                                                         <th>Type</th>
+                                                         <th>Family</th>
                                                          <th>Total Relays</th>
                                                          <th>Over Due</th>
                                                      </tr>
@@ -573,7 +573,7 @@
                                                  <table class="table table-borderless table-data3 table-data3-blue">
                                                      <thead>
                                                      <tr>
-                                                         <th>Type</th>
+                                                         <th>Family</th>
                                                          <th>Over Due</th>
                                                      </tr>
                                                      </thead>
@@ -659,7 +659,7 @@
                                                  <table class="table table-borderless table-data3 table-data3-blue">
                                                      <thead>
                                                      <tr>
-                                                         <th>Type</th>
+                                                         <th>Family</th>
                                                          <th>Total Relays</th>
                                                          <th>Over Due</th>
                                                      </tr>
@@ -693,7 +693,7 @@
                                                  <table class="table table-borderless table-data3 table-data3-blue">
                                                      <thead>
                                                      <tr>
-                                                         <th>Type</th>
+                                                         <th>Family</th>
                                                          <th>Total Relays</th>
                                                          <th>Over Due</th>
                                                      </tr>
@@ -726,7 +726,7 @@
                                                                 <table class="table table-borderless table-data3 table-data3-blue">
                                                                     <thead>
                                                                     <tr>
-                                                                        <th>Type</th>
+                                                                        <th>Family</th>
                                                                         <th>Total Relays</th>
                                                                         <th>Over Due</th>
                                                                     </tr>
@@ -759,7 +759,7 @@
                                                                 <table class="table table-borderless table-data3 table-data3-blue">
                                                                     <thead>
                                                                     <tr>
-                                                                        <th>Type</th>
+                                                                        <th>Family</th>
                                                                         <th>Total Relays</th>
                                                                         <th>Over Due</th>
                                                                     </tr>
@@ -980,7 +980,7 @@
                                     <table class="table table-borderless table-data3 table-data3-blue">
                                         <thead>
                                         <tr>
-                                            <th>Type</th>
+                                            <th>Family</th>
                                             <th>Total Relays</th>
                                             <th>Over Due</th>
                                         </tr>
@@ -1015,7 +1015,7 @@
                                     <table class="table table-borderless table-data3 table-data3-blue">
                                         <thead>
                                         <tr>
-                                            <th>Type</th>
+                                            <th>Family</th>
                                             <th>Total Relays</th>
                                             <th>Over Due</th>
                                         </tr>
@@ -1049,7 +1049,7 @@
                                     <table class="table table-borderless table-data3 table-data3-blue table-height200">
                                         <thead>
                                         <tr>
-                                            <th>Type</th>
+                                            <th>Family</th>
                                             <th>Serial Number</th>
                                             <th>Location</th>
                                         </tr>
@@ -1115,7 +1115,7 @@
                                     <table class="table table-borderless table-data3 table-data3-blue">
                                         <thead>
                                         <tr>
-                                            <th>Type</th>
+                                            <th>Family</th>
                                             <th>Total Relays</th>
                                             <th>Over Due</th>
                                         </tr>
@@ -1185,7 +1185,7 @@
                                     <table class="table table-borderless table-data3 table-data3-blue">
                                         <thead>
                                         <tr>
-                                            <th>Type</th>
+                                            <th>Family</th>
                                             <th>Total Relays</th>
 
                                             <th>Over Due</th>
@@ -1227,7 +1227,7 @@
                                     <table class="table table-borderless table-data3 table-data3-blue">
                                         <thead>
                                         <tr>
-                                            <th>Type</th>
+                                            <th>Family</th>
                                             <th>Total Relays</th>
                                             <th>Over Due</th>
                                         </tr>
@@ -1287,7 +1287,7 @@
                                     <table class="table table-borderless table-data3 table-data3-blue">
                                         <thead>
                                         <tr>
-                                            <th>Type</th>
+                                            <th>Family</th>
                                             <th>Total Relays</th>
                                             <th>Over Due</th>
                                         </tr>
@@ -1328,7 +1328,7 @@
                                     <table class="table table-borderless table-data3 table-data3-blue">
                                         <thead>
                                         <tr>
-                                            <th>Type</th>
+                                            <th>Family</th>
                                             <th>Over Due</th>
                                         </tr>
                                         </thead>

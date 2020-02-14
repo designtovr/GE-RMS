@@ -450,11 +450,11 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 			});
 		}
 
-		$scope.DeletePV = function(id)
+		$scope.DeletePV = function(item)
 		{
 			$ngConfirm({
 				title: 'Warning!',
-				content: 'Are you sure want to delete?',
+				content: 'Are you sure want to delete,'+ '<b>'+ item.formatted_pv_id +'</b>?',
 				type: 'red',
 				typeAnimated: true,
 				buttons: {
@@ -464,12 +464,12 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 						action: function(){
 							$http({
 								method: 'DELETE',
-								url: './physicalverification/'+id,
+								url: './physicalverification/'+item.id,
 							}).then(function success(response) {
 								if (response.data.status == 'success')
 								{
 									Notification.success(response.data.message);
-									$scope.getReceipts();
+									$scope.ChangeTab($scope.tab);
 								}
 							}, function error(response) {
 
@@ -502,6 +502,16 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 					url: '/ge/pvwithreceipts/'+name
 				}).then(function success(response) {
 					$scope.gridOptions.data =  response.data.data;
+				}, function error(response) {
+					
+				});
+			}
+			else if($scope.tab == 'all'){
+				$http({
+					method: 'GET',
+					url: '/ge/physicalverification?cat='+name
+				}).then(function success(response) {
+					$scope.gridOptions.data =  response.data.physicalverification;
 				}, function error(response) {
 					
 				});

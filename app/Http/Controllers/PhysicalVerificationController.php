@@ -101,6 +101,11 @@ class PhysicalVerificationController extends Controller
             $pv = PVListingRepository::SiteCardAfterJobTicketCompleted();
         }
 
+        else if ($cat == 'all')
+        {
+            $pv = PVListingRepository::All();
+        }
+
 		return response()->json(['physicalverification' => $pv , 'status' => 'success'], 200);
 	}
 
@@ -203,7 +208,7 @@ class PhysicalVerificationController extends Controller
     public function DeletePV($id)
     {
     	PhysicalVerificationMaster::destroy($id);
-    	$message = 'Receipt Deleted Successfully';
+    	$message = 'Relay Deleted Successfully';
         return response()->json(['status' => 'success', 'message' => $message], 200);
     }
 

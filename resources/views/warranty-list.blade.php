@@ -143,7 +143,7 @@
                                                                     Physical Verification Comment
                                                                 </th>
                                                                 <th  sortable="customer_comment" class="sortable">
-                                                                    Customer Comment
+                                                                    Defect by Customer
                                                                 </th>
                                                             </tr>
                                                         </thead>
@@ -244,7 +244,7 @@
                                                                     Phy. Verification Comment
                                                                 </th>
                                                                 <th  sortable="customer_comment" class="sortable">
-                                                                    Customer Comment
+                                                                    Defect by Customer
                                                                 </th>
                                                                 <th  sortable="manager_comment" class="sortable">
                                                                     Manager Comment
