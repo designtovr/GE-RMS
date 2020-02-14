@@ -14,7 +14,7 @@
                     <div class="card-header card-title">
                         Search 
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                     	<div class="table-responsive">
 	                        <table class="table table-borderless table-data3 table-custom">
 	                            <thead>
@@ -22,9 +22,42 @@
 	                                    <th>
 	                                        <input id="ridFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="R Id#" ng-change="gridActions.filter()" ng-model="filterRId" filter-by="formatted_pv_id" filter-type="text">
 	                                    </th>
+                                        <th>
+                                            <input id="rmaFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="RMA No#" ng-change="gridActions.filter()" ng-model="filterRMANo" filter-by="formatted_rma_id" filter-type="text">
+                                        </th>
+                                        <th>
+                                            <input id="rcidFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="RC Id#" ng-change="gridActions.filter()" ng-model="filterRCId" filter-by="formatted_receipt_id" filter-type="text">
+                                        </th>
 	                                    <th>
 	                                        <input id="serialnoFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Serial No#" ng-change="gridActions.filter()" ng-model="filterSerialNo" filter-by="serial_no" filter-type="text">
 	                                    </th>
+                                        <th>
+                                            <input type="text"
+                                                class="form-control"
+                                               placeholder="From Date"
+
+                                               max-date="dateTo"
+                                               ng-model = "dateFrom"
+                                               filter-by="created_date_unix"
+
+                                               ng-change="gridActions.filter();"
+                                               id="dateFromFilter"
+                                               filter-type="dateFrom"
+                                            />
+                                        </th>
+                                        <th>
+                                            <input type="text"
+                                            placeholder="To Date"
+                                            filter-by="created_date_unix"
+                                            ng-change="gridActions.filter();"
+                                               id="dateToFilter"
+                                               class="form-control"
+                                               min-date="dateFrom"
+                                               close-text="Close"
+                                               ng-model="dateTo"
+                                               filter-type="dateTo"
+                                               close-text="Close">
+                                        </th>
 	                                   <th>
 	                                        <button type="button" class="btn btn-outline-secondary btn-sm" ng-click="ResetSearch();gridActions.filter()">Reset</button>
 	                                    </th>
@@ -46,6 +79,7 @@
                                     <th sortable="formatted_receipt_id" class="sortable">Receipt Id</th>
                                     <th sortable="serial_no" class="sortable">Serial No</th>
                                     <th sortable="customer_name" class="sortable">Customer Name</th>
+                                    <th sortable="created_date_unix" class="sortable">Created at</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -62,6 +96,7 @@
     	                            <td ng-bind="item.formatted_receipt_id"></td>
     	                            <td ng-bind="item.serial_no"></td>
                                     <td ng-bind="item.customer_name"></td>
+                                    <td ng-bind="item.created_date_unix | date:'dd/MM/yyyy'"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -98,4 +133,20 @@
 @endsection
 @section('scripts')
 	<script type="text/javascript" src="{{url('public/js/controllers/RelayStagesReportController.js')}}"></script>
+    <script>
+        $(document).ready(function () {
+            $("#dateFromFilter").datepicker({
+                autoclose: true,
+                format: 'yyyy-mm-dd',
+                todayHighlight: true,
+            });
+
+            $("#dateToFilter").datepicker({
+                autoclose: true,
+                format: 'yyyy-mm-dd',
+                todayHighlight: true,
+            });
+
+        });
+    </script>
 @endsection

@@ -45,6 +45,11 @@
                             <small> Details</small>
                         </div>
                         <div class="card-body card-block">
+                            <div class="row form-group">
+                                <div class="col-6">
+                                    <p><b>R ID: </b>{{$formatted_pv_id}}</p>
+                                </div>
+                            </div>
                         	<div class="row form-group">
                                 <div class="col-6">
                                     <p><b>Model No: </b>{{$part_no}}</p>

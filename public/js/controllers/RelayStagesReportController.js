@@ -55,7 +55,11 @@ app.controller('RelayStagesReportController', ['$scope', '$http', '$window', fun
 	$scope.ResetSearch = function()
 	{
 		$scope.filterRId = '';
+		$scope.rmaFilter = '';
+		$scope.rcidFilter = '';
 		$scope.filterSerialNo = '';
+		$scope.dateTo = '';
+		$scope.dateFrom = '';
 	}
 
 	$scope.Back = function()

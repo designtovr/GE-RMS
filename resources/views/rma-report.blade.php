@@ -19,18 +19,42 @@
 	                        <table class="table table-borderless table-data3 table-custom">
 	                            <thead>
 	                                <tr>
-	                                    <!-- <th>
-	                                        <input id="dateFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Date#" ng-change="gridActions.filter()" ng-model="filterDate" filter-by="date" filter-type="text">
-	                                    </th> -->
 	                                    <th>
 	                                        <input id="rmaFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="RMA Id#" ng-change="gridActions.filter()" ng-model="filterRMANo" filter-by="formatted_rma_id" filter-type="text">
 	                                    </th>
 	                                    <th>
 	                                        <input id="receiptFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Receipt Id#" ng-change="gridActions.filter()" ng-model="filterReceiptNo" filter-by="formatted_receipt_id" filter-type="text">
 	                                    </th>
-	                                   <th>
-	                                        <button type="button" class="btn btn-outline-secondary btn-sm" ng-click="ResetSearch();gridActions.filter()">Reset</button>
-	                                    </th>
+                                        <th>
+                                            <input type="text"
+                                                class="form-control"
+                                               placeholder="From Date"
+
+                                               max-date="dateTo"
+                                               ng-model = "dateFrom"
+                                               filter-by="created_date_unix"
+
+                                               ng-change="gridActions.filter();"
+                                               id="dateFromFilter"
+                                               filter-type="dateFrom"
+                                            />
+                                        </th>
+                                        <th>
+                                            <input type="text"
+                                            placeholder="To Date"
+                                            filter-by="created_date_unix"
+                                            ng-change="gridActions.filter();"
+                                               id="dateToFilter"
+                                               class="form-control"
+                                               min-date="dateFrom"
+                                               close-text="Close"
+                                               ng-model="dateTo"
+                                               filter-type="dateTo"
+                                               close-text="Close">
+                                        </th>
+                                        <th>
+                                            <button type="button" class="btn btn-outline-secondary btn-sm" ng-click="ResetSearch();gridActions.filter()">Reset</button>
+                                        </th>
 	                                </tr>
 	                            </thead>
 	                        </table>
@@ -47,6 +71,7 @@
                                     <th sortable="formatted_rma_id" class="sortable">RMA No</th>
                                     <th sortable="formatted_receipt_id" class="sortable">Receipt Id</th>
                                     <th sortable="end_customer" class="sortable">Customer</th>
+                                    <th sortable="created_date_unix" class="sortable">Created at</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -61,6 +86,7 @@
     	                            <td ng-bind="item.formatted_rma_id"></td>
     	                            <td ng-bind="item.formatted_receipt_id"></td>
                                     <td ng-bind="item.end_customer"></td>
+                                    <td ng-bind="item.created_date_unix | date:'dd/MM/yyyy'"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -97,4 +123,20 @@
 @endsection
 @section('scripts')
 	<script type="text/javascript" src="{{url('public/js/controllers/RMAReportController.js')}}"></script>
+    <script>
+        $(document).ready(function () {
+            $("#dateFromFilter").datepicker({
+                autoclose: true,
+                format: 'yyyy-mm-dd',
+                todayHighlight: true,
+            });
+
+            $("#dateToFilter").datepicker({
+                autoclose: true,
+                format: 'yyyy-mm-dd',
+                todayHighlight: true,
+            });
+
+        });
+    </script>
 @endsection

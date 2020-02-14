@@ -41,7 +41,8 @@ app.controller('DispatchReportController', ['$scope', '$http', '$window', functi
 
 	$scope.ResetSearch = function()
 	{
-		$scope.filterDate = '';
+		$scope.dateFrom = '';
+		$scope.dateTo = '';
 		$scope.filterRId = '';
 		$scope.filterReceiptNo = '';
 	}

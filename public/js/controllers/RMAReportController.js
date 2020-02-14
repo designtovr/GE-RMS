@@ -41,7 +41,8 @@ app.controller('RMAReportController', ['$scope', '$http', '$window', function($s
 
 	$scope.ResetSearch = function()
 	{
-		$scope.filterDate = '';
+		$scope.dateFrom = '';
+		$scope.dateTo = '';
 		$scope.filterRMANo = '';
 		$scope.filterReceiptNo = '';
 	}

@@ -19,12 +19,36 @@
 	                        <table class="table table-borderless table-data3 table-custom">
 	                            <thead>
 	                                <tr>
-	                                    <!-- <th>
-	                                        <input id="dateFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Date#" ng-change="gridActions.filter()" ng-model="filterDate" filter-by="date" filter-type="text">
-	                                    </th> -->
 	                                    <th>
 	                                        <input id="rIdFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="R Id#" ng-change="gridActions.filter()" ng-model="filterRId" filter-by="formatted_pv_id" filter-type="text">
 	                                    </th>
+                                        <th>
+                                            <input type="text"
+                                                class="form-control"
+                                               placeholder="From Date"
+
+                                               max-date="dateTo"
+                                               ng-model = "dateFrom"
+                                               filter-by="created_date_unix"
+
+                                               ng-change="gridActions.filter();"
+                                               id="dateFromFilter"
+                                               filter-type="dateFrom"
+                                            />
+                                        </th>
+                                        <th>
+                                            <input type="text"
+                                            placeholder="To Date"
+                                            filter-by="created_date_unix"
+                                            ng-change="gridActions.filter();"
+                                               id="dateToFilter"
+                                               class="form-control"
+                                               min-date="dateFrom"
+                                               close-text="Close"
+                                               ng-model="dateTo"
+                                               filter-type="dateTo"
+                                               close-text="Close">
+                                        </th>
 	                                   <th>
 	                                        <button type="button" class="btn btn-outline-secondary btn-sm" ng-click="ResetSearch();gridActions.filter()">Reset</button>
 	                                    </th>
@@ -42,7 +66,7 @@
                                 <tr>
                                 	<th>Actions</th>
                                     <th sortable="formatted_pv_id" class="sortable">R Id</th>
-                                    <th sortable="formatted_receipt_id" class="sortable">Dispatched Date</th>
+                                    <th sortable="created_date_unix" class="sortable">Dispatched at</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -55,7 +79,7 @@
     	                                </div>
     	                            </td>
     	                            <td ng-bind="item.formatted_pv_id"></td>
-    	                            <td ng-bind="item.created_at"></td>
+    	                            <td ng-bind="item.created_date_unix | date:'dd/MM/yyyy'"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -92,4 +116,20 @@
 @endsection
 @section('scripts')
 	<script type="text/javascript" src="{{url('public/js/controllers/DispatchReportController.js')}}"></script>
+    <script>
+        $(document).ready(function () {
+            $("#dateFromFilter").datepicker({
+                autoclose: true,
+                format: 'yyyy-mm-dd',
+                todayHighlight: true,
+            });
+
+            $("#dateToFilter").datepicker({
+                autoclose: true,
+                format: 'yyyy-mm-dd',
+                todayHighlight: true,
+            });
+
+        });
+    </script>
 @endsection

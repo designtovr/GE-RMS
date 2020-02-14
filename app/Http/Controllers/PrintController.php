@@ -108,7 +108,7 @@ class PrintController extends Controller
 
     public function JobTicketForm($pv_id)
     {
-        $data = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.*, jt.id as jt_id, jt.created_at as podate, rda.name as customer_name, rma.end_customer, pro.part_no as model_no, pv.comment as nature_of_defect, jt.power_on_test, wt.type, jt.comment as remarks, rui.sw_version')
+        $data = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.*, jt.id as jt_id, jt.created_at as podate, wt.pcp, wt.smp, rda.name as customer_name, rma.end_customer, pro.part_no as model_no, pv.comment as nature_of_defect, jt.power_on_test, wt.type, jt.comment as remarks, rui.sw_version')
                 ->leftJoin('job_tickets as jt', 'jt.pv_id', 'pv.id')
                 ->leftJoin('rma_unit_information as rui', 'rui.pv_id', 'pv.id')
                 ->leftJoin('rma', 'rma.id', 'rui.rma_id')
