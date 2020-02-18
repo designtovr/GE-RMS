@@ -301,6 +301,11 @@
                                                             <input type="radio" id="result2" name="result" value="0" class="form-check-input" ng-model="testbenchmodal.result">Fail
                                                         </label>
                                                     </div>
+                                                    <div class="radio">
+                                                        <label for="result3" class="form-check-label ">
+                                                            <input type="radio" id="result3" name="result" value="-1" class="form-check-input" ng-model="testbenchmodal.result">Not Required
+                                                        </label>
+                                                    </div>
                                                 </div>
                                             </div>
 			                            </div>

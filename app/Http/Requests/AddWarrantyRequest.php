@@ -24,17 +24,11 @@ class AddWarrantyRequest extends FormRequest
     public function rules()
     {
         return [
-
-
             'warranty.smp' => 'required|numeric|digits_between:1,2',
             'warranty.pcp' => 'required|numeric|digits_between:1,2',
             'warranty.type' => 'required|numeric|digits_between:1,2',
             'warranty.move' => 'required|numeric|digits_between:1,5',
             'warranty.rca' => 'required|boolean',
-            /*'warranty.comment' => 'string|min:3|max:20',*/
-            /*'warranty.po' => 'string|min:3|max:20',
-            'warranty.wbs' => 'string|min:3|max:20',*/
-
             'pvs.*' => 'required|numeric|exists:physical_verification,id'
         ];
     }

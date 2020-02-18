@@ -25,7 +25,7 @@ class SaveTestResultRequest extends FormRequest
     {
         return [
             'pvids' => 'required|array|exists:physical_verification,id',
-            'test.result' => 'required|digits_between:0,1'
+            'test.result' => 'required|numeric|min:-1|max:1'
         ];
     }
 

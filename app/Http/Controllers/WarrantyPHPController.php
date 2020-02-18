@@ -77,15 +77,29 @@ class WarrantyPHPController extends Controller
 
         }
         $message = 'Warranty Saved Successfully';
+        $rca_mail_result = 'Not Required';
+        if(array_key_exists('rca', $warranty) && $warranty['rca'])
+        {
+            $rca_mail_to = array_merge($warranty['selectedPeople'], $warranty['addmailarray']);
+            $rca_mail_cc = array_merge($warranty['selectedCCPeople'], $warranty['addccarray']);
+            $rca_mail_result = $this->mailRepository->RCAMail($rca_mail_to, $rca_mail_cc, $warranty['subject'], $warranty['message']);
+        }
 
-        return response()->json(['status' => 'success', 'message' => $message, 'mail_result' => $mail_result], 200);
+        return response()->json(['status' => 'success', 'message' => $message, 'mail_result' => $mail_result, 'rca_mail_result' => $rca_mail_result], 200);
     }
 
     public function UpdateWarranty(UpdateWarrantyRequest $request)
     {
         $warranty = $request->get('warranty');
-        $WM = WarrantyMaster::where('id', $warranty['id'])->first();
+        $rca_mail_result = 'Not Required';
+        if(array_key_exists('rca', $warranty) && $warranty['rca'])
+        {
+            $rca_mail_to = array_merge($warranty['selectedPeople'], $warranty['addmailarray']);
+            $rca_mail_cc = array_merge($warranty['selectedCCPeople'], $warranty['addccarray']);
+            $rca_mail_result = $this->mailRepository->RCAMail($rca_mail_to, $rca_mail_cc, $warranty['subject'], $warranty['message']);
+        }
 
+        $WM = WarrantyMaster::where('id', $warranty['id'])->first();
         $WM->pv_id = $warranty['pv_id'];
         $WM->smp = $warranty['smp'];
         $WM->pcp = $warranty['pcp'];
@@ -114,7 +128,15 @@ class WarrantyPHPController extends Controller
 
         $mail_result = $this->mailRepository->WCCompletionMail($WM);
 
-        return response()->json(['status' => 'success', 'message' => 'Warranty Updated Successfully', 'mail_result' => $mail_result], 200);
+        $rca_mail_result = 'Not Required';
+        if(array_key_exists('rca', $warranty) && $warranty['rca'])
+        {
+            $rca_mail_to = array_merge($warranty['selectedPeople'], $warranty['addmailarray']);
+            $rca_mail_cc = array_merge($warranty['selectedCCPeople'], $warranty['addccarray']);
+            $rca_mail_result = $this->mailRepository->RCAMail($rca_mail_to, $rca_mail_cc, $warranty['subject'], $warranty['message']);
+        }
+
+        return response()->json(['status' => 'success', 'message' => 'Warranty Updated Successfully', 'mail_result' => $mail_result, 'rca_mail_result' => $rca_mail_result], 200);
     }
 
     public function GetWarranty($pv_id)

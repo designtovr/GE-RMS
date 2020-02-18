@@ -44,7 +44,7 @@ class AutoTestBenchController extends Controller
             $ARBT->created_by = Auth::id();
             $ARBT->save();
 
-    		if ($test['result'] == 1)
+    		if ($test['result'] == 1 || $test['result'] == -1)
     		{
     			PVStatusRepositories::ChangeStatusToAutoTestBenchCompleted($ATB->pv_id);
     		}

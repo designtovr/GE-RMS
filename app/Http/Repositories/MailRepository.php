@@ -190,4 +190,27 @@ class MailRepository
  		return "success";
 	}
 
+	public function RCAMail($mailto, $cc, $subject, $msg)
+	{
+		try {
+			$data = array();
+			$data['mailto'] = $mailto;
+			$data['cc'] = $cc;
+			$data['subject'] = $subject;
+			$data['message'] = $msg;
+			$data['mailto'] = $this->GetToAddress($data['mailto']);
+			$data['cc'] = $this->GetToAddress($data['cc']);
+			
+			Mail::send([], [], function ($message) use ($data) {
+				$message->to($data['mailto']);
+				$message->subject($data['subject']);
+				$message->cc($data['cc']);
+				$message->setBody($data['message']);
+	 		});
+	 		return 'success';
+		} catch (\Exception $e) {
+			return $e->getMessage();
+		}
+	}
+
 }

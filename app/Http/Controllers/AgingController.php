@@ -44,7 +44,7 @@ class AgingController extends Controller
             $AGT->created_at = Carbon::now();
             $AGT->save();
 
-    		if ($test['result'] == 1)
+    		if ($test['result'] == 1 || $test['result'] == -1)
     		{
     			PVStatusRepositories::ChangeStatusToAgingCompleted($AG->pv_id);
     		}

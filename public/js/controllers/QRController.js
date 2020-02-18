@@ -61,11 +61,14 @@ app.controller('QRController', ['$scope', '$http', 'Notification' , function($sc
                 'rms': $scope.rmsmodal,
             },
         }).then(function success(response){
-            if (response.status == 200)
+            if (response.data.status == 'success')
             {
                 Notification.success(response.data.message);
                 $scope.CloseRMSModal();
-                //$scope.getRMS();
+            }
+            else if (response.data.status == 'failure')
+            {
+                Notification.error(response.data.message);
             }
         }, function failure(response){
             if (response.status == 422)

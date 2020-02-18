@@ -559,10 +559,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
-
                                                 <div ng-show = show_rca_options>
-                                                    <div class="row p-t-20">
+                                                    <!-- <div class="row p-t-20">
                                                         <div class="col-md-12">
                                                             <div class="row form-group">
                                                                 <div class="col col-md-3">
@@ -574,7 +572,6 @@
                                                                             <ui-select-match placeholder="Select RID...">@{{$item}}</ui-select-match>
                                                                             <ui-select-choices class = "d-block" repeat=" rid in selectedpvs | filter: $select.search">
                                                                                 <div ng-bind-html="rid"></div>
-
                                                                             </ui-select-choices>
                                                                         </ui-select>
                                                                     </div>
@@ -583,9 +580,8 @@
 
                                                             </div>
 
-                                                        </div>
+                                                        </div> -->
                                                     </div>
-
                                                     <div ng-show = show_rca_options>
                                                         <div class="row p-t-20">
                                                             <div class="col-md-12">
@@ -596,19 +592,31 @@
                                                                     </div>
                                                                     <div class="col-12 col-md-9">
                                                                         <ui-select multiple ng-model="warrantymodal.selectedPeople" theme="bootstrap"  sortable="true" close-on-select="false" >
-                                                                            <ui-select-match ng-change="Debug()" placeholder="Select person...">@{{$item.name}} &lt;@{{$item.email}}&gt;</ui-select-match>
-                                                                            <ui-select-choices class = "d-block" repeat="person.email as person in people | propsFilter: {name: $select.search, age: $select.search}">
-                                                                              <div ng-bind-html="person.name | highlight: $select.search"></div>
-                                                                              <small>
-                                                                                email: @{{person.email}}
-                                                                                age: <span ng-bind-html="''+person.age | highlight: $select.search"></span>
-                                                                            </small>
-                                                                        </ui-select-choices>
+                                                                            <ui-select-match ng-change="Debug()" placeholder="Select person...">@{{$item.email}}</ui-select-match>
+                                                                            <ui-select-choices class = "d-block" repeat="person.email as person in people | propsFilter: {name: $select.search}">
+                                                                                <div ng-bind-html="person.email | highlight: $select.search"></div>
+                                                                            </ui-select-choices>
                                                                     </ui-select>
                                                                 </div>
-
                                                             </div>
-
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                                <div class="row form-group">
+                                                                    <div class="col col-md-3">
+                                                                      <label for="addmail" class=" form-control-label"><b>Add Mail To: </b>
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col-12 col-md-9">
+                                                                        <input 
+                                                                        type="text" 
+                                                                        id="addmail"  
+                                                                        placeholder="Mails..." 
+                                                                        name="addmail" 
+                                                                        ng-model="warrantymodal.addmail"
+                                                                        class="form-control"
+                                                                        >
+                                                                    </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div ng-show = show_rca_options>
@@ -621,23 +629,60 @@
                                                                     </div>
                                                                     <div class="col-12 col-md-9">
                                                                         <ui-select multiple ng-model="warrantymodal.selectedCCPeople" theme="bootstrap"  sortable="true" close-on-select="false" >
-                                                                            <ui-select-match placeholder="Select person...">@{{$item.name}} &lt;@{{$item.email}}&gt;</ui-select-match>
-                                                                            <ui-select-choices class = "d-block" repeat="person.email as person in people | propsFilter: {name: $select.search, age: $select.search}">
-                                                                              <div ng-bind-html="person.name | highlight: $select.search"></div>
-                                                                              <small>
-                                                                                email: @{{person.email}}
-                                                                                age: <span ng-bind-html="''+person.age | highlight: $select.search"></span>
-                                                                            </small>
+                                                                            <ui-select-match placeholder="Select email...">@{{$item.email}}</ui-select-match>
+                                                                            <ui-select-choices class = "d-block" repeat="person.email as person in people | propsFilter: {name: $select.search}">
+                                                                              <div ng-bind-html="person.email | highlight: $select.search"></div>
                                                                         </ui-select-choices>
                                                                     </ui-select>
                                                                 </div>
-
                                                             </div>
-
                                                         </div>
-
+                                                        <div class="col-md-12">
+                                                                <div class="row form-group">
+                                                                    <div class="col col-md-3">
+                                                                      <label for="addcc" class=" form-control-label"><b>Add Cc: </b>
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col-12 col-md-9">
+                                                                        <input 
+                                                                        type="text" 
+                                                                        id="addcc"  
+                                                                        placeholder="Mails..." 
+                                                                        name="addcc" 
+                                                                        ng-model="warrantymodal.addcc"
+                                                                        class="form-control"
+                                                                        >
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                <div class="row p-t-20">
+                                                    <div class="col-md-12">
+                                                        <div class="row form-group">
+                                                            <div class="col col-md-3">
+                                                                <label for="subject" class=" form-control-label"><b>Subject</b>
+                                                                    <span class="mandatory">*</span></label>
+                                                            </div>
+                                                                <div class="col-12 col-md-9">
+                                                                    <input 
+                                                                        type="text" 
+                                                                        id="subject"  
+                                                                        placeholder="Subject" 
+                                                                        name="subject" 
+                                                                        ng-model="warrantymodal.subject"
+                                                                        class="form-control"
+                                                                        required>
+                                                                        <div ng-show="AddWarrantyForm.subject.$touched && AddWarrantyForm.subject.$error">
+                                                                            <span class="help-block"
+                                                                             ng-show="AddWarrantyForm.subject.$error.required">
+                                                                                Please Enter Subject
+                                                                            </span>
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
                                                 <div class="row p-t-20">
                                                     <div class="col-md-12">
@@ -654,23 +699,13 @@
                                                                     ng-model="warrantymodal.message"
                                                                     placeholder="Message" 
                                                                     class="form-control"
-                                                                    rows="3"
-                                                                    min-length="3"
-                                                                    max-length="100"
+                                                                    rows="5"
                                                                     required>
                                                                     </textarea>
                                                                     <div ng-show="AddWarrantyForm.message.$touched && AddWarrantyForm.message.$error">
                                                                         <span class="help-block"
                                                                          ng-show="AddWarrantyForm.message.$error.required">
                                                                             Please Enter Message
-                                                                        </span>
-                                                                        <span class="help-block"
-                                                                         ng-show="AddWarrantyForm.message.$error.minlength">
-                                                                            Minimum 3 Characters Required
-                                                                        </span>
-                                                                        <span class="help-block"
-                                                                         ng-show="AddWarrantyForm.message.$error.maxlength">
-                                                                            Maximum 100 Characters Allowed
                                                                         </span>
                                                                     </div>
                                                                 </div>

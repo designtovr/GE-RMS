@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\AddRMSRequest;
 use Carbon\Carbon;
 use App\Http\Repositories\RMSRepositories;
+use App\Traits\FormatType;
 
 class RMSController extends Controller
 {
@@ -21,7 +22,7 @@ class RMSController extends Controller
         return response()->json(['data' => $rms, 'status' => 'success']);
     }
 
-/*    public function GetReceipt($id)
+    /*public function GetReceipt($id)
     {
         $receipt = ReceiptMaster::selectRaw('receipt.*')->where('receipt.id', $id)->first();
         return response()->json(['receipt' => $receipt], 200);
@@ -30,6 +31,16 @@ class RMSController extends Controller
     public function AddRMS(AddRMSRequest $request)
     {
         $rms = $request->get('rms');
+        $pos = strpos($rms['pv_id'], FormatType::R);
+        if(!is_numeric($pos))
+        {
+            return response()->json(['status' => 'failure', 'message' => 'Invalid RId Format'], 200);
+        }
+        if(!ctype_digit(substr($rms['pv_id'], $pos+1, strlen($rms['pv_id'])-1)))
+        {
+            return response()->json(['status' => 'failure', 'message' => 'Invalid RID'], 200);
+        }
+        $rms['pv_id'] = substr($rms['pv_id'], $pos+1, strlen($rms['pv_id'])-1);
         if (!isset($rms['rack_type']))
             $rms['rack_type'] = '';
             

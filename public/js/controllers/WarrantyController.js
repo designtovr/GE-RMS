@@ -42,16 +42,15 @@ app.controller('WarrantyController' ,['$scope', '$http','Notification' , 'DataSh
 	$scope.show_rca_options = false;
 	$scope.tab = 'managerapproval';
 	$scope.people = [
-	{ name: 'Sudhakar',      email: 'Sudhakar@email.com',      age: 12, country: 'United States' },
-	{ name: 'Krishnan',    email: 'Krishnan@email.com',    age: 12, country: 'Argentina' },
-	{ name: 'Balaji', email: 'Balaji@email.com', age: 21, country: 'Argentina' },
-	{ name: 'Srinivas',    email: 'Srinivas@email.com',    age: 21, country: 'Ecuador' },
-	{ name: 'Arun',  email: 'Arun@email.com',  age: 30, country: 'Ecuador' },
-	{ name: 'Samantha',  email: 'samantha@email.com',  age: 30, country: 'United States' },
-	{ name: 'Nicole',    email: 'nicole@email.com',    age: 43, country: 'Colombia' },
-	{ name: 'Natasha',   email: 'natasha@email.com',   age: 54, country: 'Ecuador' },
-	{ name: 'Michael',   email: 'michael@email.com',   age: 15, country: 'Colombia' },
-	{ name: 'Nicolás',   email: 'nicolas@email.com',    age: 43, country: 'Colombia' }
+	{ name: 'GokulaKrishnan',      email: 'gokulakrishnan.a@ge.com'},
+	{ name: 'Paramasivam',    email: 'ravi.kolasi-paramasivam@ge.com'},
+	{ name: 'Jayakumaran', email: 'jayakumaran.s-r@ge.com'},
+	{ name: 'Jovin',    email: 'jovin.tp@ge.com'},
+	{ name: 'Naresh',  email: 'naresh.devaraj@ge.com'},
+	{ name: 'Raman',  email: 'raman.aravind@ge.com'},
+	{ name: 'Stanley',    email: 'stanley.p.geoffrey@ge.com'},
+	{ name: 'Jyothi',   email: 'jyothi.seetharaman@ge.com'},
+	{ name: 'Balaji',   email: 'kannan.balaji1@ge.com'},
 	];
 
 	$scope.loadedRIDs = [1234 , 54321 , 6578];
@@ -238,6 +237,48 @@ app.controller('WarrantyController' ,['$scope', '$http','Notification' , 'DataSh
 			{
 				Notification.error("Select Mail To");
 				return;
+			}
+
+			if($scope.warrantymodal.addmail != null && $scope.warrantymodal.addmail != "" && $scope.warrantymodal.addmail != undefined)
+			{
+				var emails = $scope.warrantymodal.addmail.split(" ");
+				$scope.warrantymodal.temp = [];
+				console.log(emails)
+				for (var i = 0; i < emails.length; i++) {
+					console.log(emails[i]);
+					if(!/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/.test(emails[i]))
+					{
+						Notification.error("Enter Valid Mail Ids Seperated by <b>Space</b> in <b>Add Mail To Field</b>");
+						return;
+					}
+					else
+					{
+						$scope.warrantymodal.temp.push(emails[i]);
+					}
+				}
+				$scope.warrantymodal.addmailarray = $scope.warrantymodal.temp;
+				console.log($scope.warrantymodal.addmailarray)
+			}
+
+			if($scope.warrantymodal.addcc != null && $scope.warrantymodal.addcc != "" && $scope.warrantymodal.addcc != undefined)
+			{
+				var emails = $scope.warrantymodal.addcc.split(" ");
+				$scope.warrantymodal.temp = [];
+				console.log(emails)
+				for (var i = 0; i < emails.length; i++) {
+					console.log(emails[i]);
+					if(!/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/.test(emails[i]))
+					{
+						Notification.error("Enter Valid Mail Ids Seperated by <b>Space</b> in <b>Add CC Field</b>");
+						return;
+					}
+					else
+					{
+						$scope.warrantymodal.temp.push(emails[i]);
+					}
+				}
+				$scope.warrantymodal.addccarray = $scope.warrantymodal.temp;
+				console.log($scope.warrantymodal.addccarray)
 			}
 
 			if ($scope.warrantymodal.selectedPeople.length == 0)
