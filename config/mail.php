@@ -133,6 +133,6 @@ return [
 
     'log_channel' => env('MAIL_LOG_CHANNEL'),
 
-    'mail_override' => 'srinivasktss@gmail.com',
+    'mail_override' => 'Service.CRC@ge.com',
 
 ];
