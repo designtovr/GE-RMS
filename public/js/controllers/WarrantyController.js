@@ -89,13 +89,13 @@ app.controller('WarrantyController' ,['$scope', '$http','Notification' , 'DataSh
 			Notification.error("No Relay Selected");
 			return;
 		}
-		else if ($scope.selectedpvs.length > 1 && $scope.tab == 'customerapproval')
+		else if ($scope.selectedpvs.length > 1 && ($scope.tab == 'customerapproval' || $scope.tab == 'jobticketopen'))
 		{
 			Notification.error("Select One Relay");
 			return;
 		}
 		console.log($scope.selectedpvs);
-		if ($scope.tab == 'customerapproval')
+		if ($scope.tab == 'customerapproval' || $scope.tab == 'jobticketopen')
 		{
 			$scope.warrantymodal = {};
 			$http({
@@ -312,7 +312,7 @@ app.controller('WarrantyController' ,['$scope', '$http','Notification' , 'DataSh
 			{
 				Notification.success(response.data.message);
 				$scope.CloseWarrantyModal();
-				$scope.GetPVList();
+				$scope.GetPVList($scope.tab);
 			}
 		}, function failure(response){
 			if (response.status == 422)

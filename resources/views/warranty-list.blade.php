@@ -95,6 +95,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link" id="customer-tab" ng-click="GetPVList('customerapproval')" data-toggle="tab" href="#customer" role="tab" aria-controls="customer" aria-selected="false">Waiting For Customer Approval</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="jobticket-tab" ng-click="GetPVList('jobticketopen')" data-toggle="tab" href="#jobticket" role="tab" aria-controls="jobticket" aria-selected="false">In Job Ticket</a>
+                                </li>
                             </ul>
                             <div class="tab-content pl-3 p-1" id="myTabContent">
                                 <div class="tab-pane fade show active" id="manager" role="tabpanel" aria-labelledby="manager-tab">
@@ -198,6 +201,111 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="customer" role="tabpanel" aria-labelledby="customer-tab">
+                                    <div class="row">
+                                        <div class="col-md-12 m-b-10">
+                                            <button type="button" class="btn btn-primary btn-md float-right"
+                                            ng-click="OpenWarrantyModal();">
+                                            <i class="fa fa-check-circle"></i>&nbsp;W/C
+                                            </button>
+                                        </div>
+                                        <div class="col-md-12">
+                                        <!-- DATA TABLE-->
+                                            <div grid-data grid-options="gridOptions" grid-actions="gridActions"  >
+                                                <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
+                                                <div class = "overflow-auto">
+                                                    <table class="table table-borderless table-data3  ">
+                                                        <thead>
+                                                            <tr>
+                                                                @if(Auth::user()->isManager() || Auth::user()->isAdmin())
+                                                                <th>
+                                                                    Select
+                                                                </th>
+                                                                @endif
+                                                                <th sortable="formatted_pv_id" class="sortable">
+                                                                    RID
+                                                                </th>
+                                                                <th sortable="formatted_rma_id" class="sortable">
+                                                                    RMA Id
+                                                                </th>
+                                                                <th  sortable="pvdate" class="sortable">
+                                                                    Date
+                                                                </th>
+                                                                <th sortable="part_no" class="sortable">
+                                                                    Model No
+                                                                </th>
+                                                                <th  sortable="serial_no" class="sortable">
+                                                                    Serial No
+                                                                </th>
+                                                                <th  sortable="customer_name" class="sortable">
+                                                                    Customer Name
+                                                                </th>
+                                                                <th  sortable="end_customer" class="sortable">
+                                                                    End Customer
+                                                                </th>
+
+                                                                <th  sortable="comment" class="sortable">
+                                                                    Phy. Verification Comment
+                                                                </th>
+                                                                <th  sortable="customer_comment" class="sortable">
+                                                                    Defect by Customer
+                                                                </th>
+                                                                <th  sortable="manager_comment" class="sortable">
+                                                                    Manager Comment
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr grid-item>
+                                                                @if(Auth::user()->isManager() || Auth::user()->isAdmin())
+                                                                <td>
+                                                                    <label class="au-checkbox">
+                                                                        <input type="checkbox" ng-model="item.create_wc">
+                                                                        <span class="au-checkmark"></span>
+                                                                    </label>
+                                                                </td>
+                                                                @endif
+                                                                <td ng-bind="item.formatted_pv_id"></td>
+                                                                <td ng-bind="item.formatted_rma_id"></td>
+                                                                <td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
+                                                                <td ng-bind="item.part_no"></td>
+                                                                <td ng-bind="item.serial_no"></td>
+                                                                <td ng-bind="item.customer_name"></td>
+                                                                <td ng-bind="item.end_customer"></td>
+                                                                <td ng-bind="item.comment"></td>
+                                                                <td ng-bind="item.customer_comment"></td>
+                                                                <td ng-bind="item.manager_comment"></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <form class="form-inline pull-right margin-bottom-basic">
+                                                    <div class="form-group">
+                                                        <grid-pagination max-size="5"
+                                                        boundary-links="true"
+                                                        class="pagination-sm"
+                                                        total-items="paginationOptions.totalItems"
+                                                        ng-model="paginationOptions.currentPage"
+                                                        ng-change="reloadGrid()"
+                                                        items-per-page="paginationOptions.itemsPerPage"></grid-pagination>
+                                                    </div>
+                                                    <div class="form-group items-per-page">
+                                                        <label for="itemsOnPageSelect2">Items per page:</label>
+                                                        <select id="itemsOnPageSelect2" class="form-control input-sm"
+                                                        ng-init="paginationOptions.itemsPerPage = '10'"
+                                                        ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+                                                        <option>10</option>
+                                                        <option>25</option>
+                                                        <option>50</option>
+                                                        <option>75</option>
+                                                    </select>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                    <!-- END DATA TABLE-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="jobticket" role="tabpanel" aria-labelledby="jobticket-tab">
                                     <div class="row">
                                         <div class="col-md-12 m-b-10">
                                             <button type="button" class="btn btn-primary btn-md float-right"

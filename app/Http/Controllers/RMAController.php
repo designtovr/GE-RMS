@@ -210,11 +210,18 @@ class RMAController extends Controller
                 $RMAUnitInformation->updated_at = Carbon::now();
                 $RMAUnitInformation->save();
 
-                $PV = PhysicalVerificationMaster::where('id', $RMAUnitInformation->pv_id)->first();
+                $PV = PhysicalVerificationMaster::selectRaw('physical_verification.*, pt.category')->where('physical_verification.id', $RMAUnitInformation->pv_id)->join('ma_product_type as pt', 'pt.id', 'physical_verification.producttype_id')->first();
                 $PV->is_rma_available = 1;
                 $PV->update();
 
-                PVStatusRepositories::ChangeStatusToManagerApproval($RMAUnitInformation->pv_id);
+                if(strcasecmp($PV->category, 'BOJ') == 0)
+                {
+                    PVStatusRepositories::ChangeStatusToManagerApproved($RMAUnitInformation->pv_id);
+                }
+                else
+                {
+                    PVStatusRepositories::ChangeStatusToManagerApproval($RMAUnitInformation->pv_id);
+                }
             }
 
             //Sending mail
@@ -359,7 +366,17 @@ class RMAController extends Controller
                 $need_to_update = PVStatus::where('pv_id', $RMAUnitInformation->pv_id)->where('current_status_id', 15)->first();
                 if($need_to_update)
                 {
-                    PVStatusRepositories::ChangeStatusToManagerApproval($RMAUnitInformation->pv_id);
+                    $pv = PhysicalVerificationMaster::selectRaw('physical_verification.*, pt.category')->join('ma_product_type as pt', 'pt.id', 'physical_verification.producttype_id')->where('id', $RMAUnitInformation->pv_id)->first();
+
+                    if(strcasecmp($pv->category, 'BOJ') == 0)
+                    {
+                        PVStatusRepositories::ChangeStatusToManagerApproved($RMAUnitInformation->pv_id);
+                    }
+                    else
+                    {
+                        PVStatusRepositories::ChangeStatusToManagerApproval($RMAUnitInformation->pv_id);
+                    }
+
                 }
             }
 
@@ -732,7 +749,15 @@ class RMAController extends Controller
             $RMAUT->updated_at = Carbon::now();
             $RMAUT->save();
 
-            PVStatusRepositories::ChangeStatusToManagerApproval($RMAUT->pv_id);
+            $PV = PhysicalVerificationMaster::selectRaw('physical_verification.*, pt.category')->join('ma_product_type as pt', 'pt.id', 'physical_verification.producttype_id')->where('id', $RMAUT->pv_id)->first();
+            if(strcasecmp($PV->category, 'BOJ') == 0)
+            {
+                PVStatusRepositories::ChangeStatusToManagerApproved($RMAUT->pv_id);
+            }
+            else
+            {
+                PVStatusRepositories::ChangeStatusToManagerApproval($RMAUT->pv_id);
+            }
         }
 
         $mail_result = $this->mailRepository->SCPhysicalVerificationCompletion($RMAT);

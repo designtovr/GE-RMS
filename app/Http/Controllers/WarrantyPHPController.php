@@ -41,7 +41,17 @@ class WarrantyPHPController extends Controller
         $mail_result = 'Mail Not Initiated';
 
         foreach ($pvs as $key => $pv) {
-            $WM = new WarrantyMaster();
+
+            $WM = WarrantyMaster::where('pv_id', $pv)->first();
+            $exists = false;
+            if($WM)
+            {
+                $exists = true;
+            }
+            else
+            {
+                $WM = new WarrantyMaster();
+            }
 
             $WM->pv_id = $pv;
             $WM->smp = $warranty['smp'];
@@ -62,7 +72,14 @@ class WarrantyPHPController extends Controller
             $WM->updated_by = Auth::id();
             $WM->created_at = Carbon::now();
             $WM->updated_at = Carbon::now();
-            $WM->save();
+            if($exists)
+            {
+                $WM->update();
+            }
+            else
+            {
+                $WM->save();
+            }
 
             if ($WM->move == 1)
             {

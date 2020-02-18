@@ -126,9 +126,9 @@
                                     <div class="col-12 col-md-6">
                                         <ui-select ng-model="product.type" id="producttype" 
                                         name="producttype" theme="selectize" ng-change="ChangeProductCategory();" title="Select Product Type" required>
-                                        <ui-select-match placeholder="Select Product Type">@{{$select.selected.name}}</ui-select-match>
+                                        <ui-select-match placeholder="Select Product Type">@{{$select.selected.code}}</ui-select-match>
                                         <ui-select-choices repeat="producttype.id as producttype in producttypes | filter: $select.search">
-                                          <span ng-bind-html="producttype.name | highlight: $select.search"></span>
+                                          <span ng-bind-html="producttype.code | highlight: $select.search"></span>
                                         </ui-select-choices>
                                       </ui-select>
                                         <div ng-show="ProductForm.producttype.$touched && ProductForm.producttype.$error">

@@ -566,8 +566,8 @@
                                             required>
                                                 <option value="" style="display:none"></option>>
                                             </select> -->
-                                            <ui-select id="producttype" name="producttype" ng-model="physicalVerification.producttype" theme="selectize" title="Select Product Type" ng-change="ChangeProductType();" required>
-                                                <ui-select-match placeholder="Select Product Family">@{{$select.selected.name}}</ui-select-match>
+                                            <ui-select id="producttype" name="producttype" ng-model="physicalVerification.producttype" theme="selectize" title="Select Product Family" ng-change="ChangeProductType();" required>
+                                                <ui-select-match placeholder="Select Product Family">@{{$select.selected.code}}</ui-select-match>
                                                 <ui-select-choices repeat="pt in producttypes | filter: $select.search">
                                                     <span ng-bind-html="pt.code | highlight: $select.search"></span>
                                                 </ui-select-choices>

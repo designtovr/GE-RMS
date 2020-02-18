@@ -30,7 +30,7 @@ class PVListingRepository
 				->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'physical_verification.id')
 				->leftJoin('rma_delivery_address as rda', 'rda.rma_id', 'rma.id')
 				->leftJoin('rma_invoice_address as ria', 'ria.rma_id', 'rma.id')
-				->whereNotIn('pt.category', ["'omu'","'boj'"])
+				//->whereNotIn('pt.category', ["'omu'","'boj'"])
 				->whereIn('pv_status.current_status_id', $status_id);
 		if (sizeof($service_type) > 0)
 			$pv = $pv->whereIn('rma.service_type', $service_type);
