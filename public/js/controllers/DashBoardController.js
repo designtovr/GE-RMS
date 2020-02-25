@@ -1,6 +1,7 @@
 app.controller('DashBoardController', ['$scope', '$http', 'Notification' , '$location' , '$window' , '$interval', function($scope, $http ,  Notification , $location , $window, $interval)
 {
     $scope.dashboardvalues = {};
+    $scope.modal = {};
     var warrantydata  = {
         labels: ["PX40", "C264" , "Agile" ,"Conventional" ],
         datasets: [
@@ -512,6 +513,21 @@ app.controller('DashBoardController', ['$scope', '$http', 'Notification' , '$loc
     $interval(function(){
         $scope.GetDashboardValues();
     }, 10000);
+
+    $scope.OnHoverShowStage = function(relay)
+    {
+        $('#smallmodal').modal('show');
+        $scope.modal.stage = relay.current_stage;
+        $scope.modal.serial_no = relay.serial_no;
+        $scope.modal.formatted_pv_id = relay.formatted_pv_id;
+        console.log($scope.modal)
+    }
+
+    $scope.OnHoverLeaveStage = function()
+    {
+        $('#smallmodal').modal('hide');
+        $scope.modal.stage = "";
+    }
 
     $scope.GetDashboardValues = function()
     {

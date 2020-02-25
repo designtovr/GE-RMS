@@ -25,26 +25,26 @@
 									<th>
 										<input id="ridFilter" type="text"
 											   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
-											   placeholder="Enter RID #" ng-change="gridActions.filter();"
+											   placeholder="Enter RID #" ng-change="gridActions.filter();ShowGridData()"
 											   ng-model="filterID" filter-by="formatted_pv_id" filter-type="text">
 									</th>
 									<th>
 										<input id="rmaidFilter" type="text"
 											   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
-											   placeholder="RMA Id#" ng-change="gridActions.filter();"
+											   placeholder="RMA Id#" ng-change="gridActions.filter();ShowGridData()"
 											   ng-model="filterrmaID" filter-by="formatted_rma_id" filter-type="text">
 									</th>
 									<th>
 										<input id="productFilter" type="text"
 											   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
-											   placeholder="Model No" ng-change="gridActions.filter();"
+											   placeholder="Model No" ng-change="gridActions.filter();ShowGridData()"
 											   ng-model="filterpartno" filter-by="part_no"
 											   filter-type="text">
 									</th>
 									<th>
 										<input id="serialFilter" type="text"
 											   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
-											   placeholder="Serial No" ng-change="gridActions.filter();"
+											   placeholder="Serial No" ng-change="gridActions.filter();ShowGridData()"
 											   ng-model="filterserialno" filter-by="serial_no"
 											   filter-type="text">
 									</th>
@@ -91,7 +91,7 @@
 									</th>
 									<th>
 										<button type="button" class="btn btn-outline-secondary btn-sm"
-												ng-click="Reset();gridActions.filter()">Reset
+												ng-click="Reset();gridActions.filter();ShowGridData();">Reset
 										</button>
 									</th>
 									<th>

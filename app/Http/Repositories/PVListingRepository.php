@@ -3,6 +3,7 @@
 namespace App\Http\Repositories;
 
 use App\Models\PhysicalVerificationMaster;
+use App\Models\ReceiptMaster;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -355,7 +356,7 @@ class PVListingRepository
     			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
     			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
     			->where('pt.id', $repair->pt_id)
-    			->whereIn('sta.current_status_id', array(6,7,8,9,10))
+    			->whereIn('sta.current_status_id', array(4,5,6,7,8,9,10))
     			->whereRaw('DATEDIFF("'. Carbon::now() .'", sta.created_at) > 0')
     			->get();
 
@@ -369,20 +370,22 @@ class PVListingRepository
 		}
 
     	//priority list
-    	$pvs['priority'] = DB::table('physical_verification as pv')->selectRaw('pv.serial_no, pt.code as type_name, IF(pvl.priority > 0, pvl.priority, 999999) as pvl_priority, rms.rack_id')
+    	$pvs['priority'] = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.id, pv.serial_no, pt.code as type_name, IF(pvl.priority > 0, pvl.priority, 999999) as pvl_priority, rms.rack_id, mps.status as current_stage')
     				->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
     				->join('pv_status as sta', 'sta.pv_id', 'pv.id')
     				->leftJoin('rms', 'rms.pv_id', 'pv.id')
     				->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'pv.id')
+    				->leftJoin('ma_pv_status as mps', 'mps.id', 'sta.current_status_id')
     				->whereIn('sta.current_status_id', [3,4,5,6,7,8,9,10,11])
-    				->orderBy('pvl_priority')->orderBy('pv.id')->get()->take(10);
+    				->where('pt.category', '!=', 'boj')
+    				->orderBy('pvl_priority')->orderBy('pv.id')->get()->take(6);
 
 		//today status
 		$pvs['today_status']['numerical']['completed'] = DB::table('physical_verification as pv')->selectRaw('pt.code as type_name, COUNT(*) as total')
 			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
 			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
 			->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'pv.id')
-			->whereIn('pt.name', ['Px40', 'C264', 'Agile'])
+			->whereIn('pt.name', ['Px40', 'C264', 'Agile', 'NUMERICAL'])
 			->whereDate('pv.created_at', date('Y-m-d'))
 			->where('sta.current_status_id', 12)
 			->count();
@@ -391,7 +394,7 @@ class PVListingRepository
 		->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
 		->join('pv_status as sta', 'sta.pv_id', 'pv.id')
 		->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'pv.id')
-		->whereIn('pt.name', ['Px40', 'C264', 'Agile'])
+		->whereIn('pt.name', ['Px40', 'C264', 'Agile', 'NUMERICAL'])
 		->whereDate('pv.created_at', date('Y-m-d'))
 		->where('sta.current_status_id', '<>', 12)
 		->count();
@@ -400,7 +403,7 @@ class PVListingRepository
 			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
 			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
 			->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'pv.id')
-			->whereIn('pt.name', ['Other'])
+			->whereIn('pt.name', ['CONVENTIONAL'])
 			->whereDate('pv.created_at', date('Y-m-d'))
 			->where('sta.current_status_id', 12)
 			->count();
@@ -409,7 +412,7 @@ class PVListingRepository
 		->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
 		->join('pv_status as sta', 'sta.pv_id', 'pv.id')
 		->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'pv.id')
-		->whereIn('pt.name', ['Other'])
+		->whereIn('pt.name', ['CONVENTIONAL'])
 		->whereDate('pv.created_at', date('Y-m-d'))
 		->where('sta.current_status_id', '<>', 12)
 		->count();
@@ -419,7 +422,7 @@ class PVListingRepository
 			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
 			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
 			->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'pv.id')
-			->whereIn('pt.name', ['Px40', 'C264', 'Agile'])
+			->whereIn('pt.name', ['Px40', 'C264', 'Agile', 'NUMERICAL'])
 			->whereMonth('pv.created_at', date('m'))
 			->where('sta.current_status_id', 12)
 			->count();
@@ -428,7 +431,7 @@ class PVListingRepository
 		->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
 		->join('pv_status as sta', 'sta.pv_id', 'pv.id')
 		->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'pv.id')
-		->whereIn('pt.name', ['Px40', 'C264', 'Agile'])
+		->whereIn('pt.name', ['Px40', 'C264', 'Agile', 'NUMERICAL'])
 		->whereMonth('pv.created_at', date('m'))
 		->where('sta.current_status_id', '<>', 12)
 		->count();
@@ -437,7 +440,7 @@ class PVListingRepository
 			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
 			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
 			->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'pv.id')
-			->whereIn('pt.name', ['Other'])
+			->whereIn('pt.name', ['CONVENTIONAL'])
 			->whereMonth('pv.created_at', date('m'))
 			->where('sta.current_status_id', 12)
 			->count();
@@ -446,7 +449,7 @@ class PVListingRepository
 		->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
 		->join('pv_status as sta', 'sta.pv_id', 'pv.id')
 		->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'pv.id')
-		->whereIn('pt.name', ['Other'])
+		->whereIn('pt.name', ['CONVENTIONAL'])
 		->whereMonth('pv.created_at', date('m'))
 		->where('sta.current_status_id', '<>', 12)
 		->count();
@@ -456,7 +459,7 @@ class PVListingRepository
 			->join('physical_verification as pv', 'pv.id', 'wa.pv_id')
 			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
 			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
-			->where('pt.name', 'Px40')
+			->where('pt.code', 'Px40')
 			->where('wa.smp', 2)
 			->where('wa.pcp', 2)
 			->get()->count();
@@ -465,7 +468,7 @@ class PVListingRepository
 			->join('physical_verification as pv', 'pv.id', 'wa.pv_id')
 			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
 			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
-			->where('pt.name', 'Px40')
+			->where('pt.code', 'Px40')
 			->where('wa.smp', 2)
 			->where('wa.pcp', 2)
 			->whereRaw('DATEDIFF("'. Carbon::now() .'", wa.created_at) > 0')
@@ -475,7 +478,7 @@ class PVListingRepository
 			->join('physical_verification as pv', 'pv.id', 'wa.pv_id')
 			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
 			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
-			->where('pt.name', 'C264')
+			->where('pt.code', 'C264')
 			->where('wa.smp', 2)
 			->where('wa.pcp', 2)
 			->get()->count();
@@ -484,7 +487,7 @@ class PVListingRepository
 			->join('physical_verification as pv', 'pv.id', 'wa.pv_id')
 			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
 			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
-			->where('pt.name', 'C264')
+			->where('pt.code', 'C264')
 			->where('wa.smp', 2)
 			->where('wa.pcp', 2)
 			->whereRaw('DATEDIFF("'. Carbon::now() .'", wa.created_at) > 0')
@@ -494,7 +497,7 @@ class PVListingRepository
 			->join('physical_verification as pv', 'pv.id', 'wa.pv_id')
 			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
 			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
-			->where('pt.name', 'Agile')
+			->where('pt.code', 'Agile')
 			->where('wa.smp', 2)
 			->where('wa.pcp', 2)
 			->get()->count();
@@ -503,7 +506,7 @@ class PVListingRepository
 			->join('physical_verification as pv', 'pv.id', 'wa.pv_id')
 			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
 			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
-			->where('pt.name', 'Agile')
+			->where('pt.code', 'Agile')
 			->where('wa.smp', 2)
 			->where('wa.pcp', 2)
 			->whereRaw('DATEDIFF("'. Carbon::now() .'", wa.created_at) > 0')
@@ -533,7 +536,7 @@ class PVListingRepository
 			->join('physical_verification as pv', 'pv.id', 'wa.pv_id')
 			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
 			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
-			->where('pt.name', 'Px40')
+			->where('pt.code', 'Px40')
 			->where(function($query)
 			{
 				$query->where('wa.smp', 1)->orWhere('wa.pcp', 1);
@@ -544,7 +547,7 @@ class PVListingRepository
 			->join('physical_verification as pv', 'pv.id', 'wa.pv_id')
 			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
 			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
-			->where('pt.name', 'Px40')
+			->where('pt.code', 'Px40')
 			->where(function($query)
 			{
 				$query->where('wa.smp', 1)->orWhere('wa.pcp', 1);
@@ -556,7 +559,7 @@ class PVListingRepository
 			->join('physical_verification as pv', 'pv.id', 'wa.pv_id')
 			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
 			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
-			->where('pt.name', 'C264')
+			->where('pt.code', 'C264')
 			->where(function($query)
 			{
 				$query->where('wa.smp', 1)->orWhere('wa.pcp', 1);
@@ -567,7 +570,7 @@ class PVListingRepository
 			->join('physical_verification as pv', 'pv.id', 'wa.pv_id')
 			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
 			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
-			->where('pt.name', 'C264')
+			->where('pt.code', 'C264')
 			->where(function($query)
 			{
 				$query->where('wa.smp', 1)->orWhere('wa.pcp', 1);
@@ -579,7 +582,7 @@ class PVListingRepository
 			->join('physical_verification as pv', 'pv.id', 'wa.pv_id')
 			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
 			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
-			->where('pt.name', 'Agile')
+			->where('pt.code', 'Agile')
 			->where(function($query)
 			{
 				$query->where('wa.smp', 1)->orWhere('wa.pcp', 1);
@@ -590,7 +593,7 @@ class PVListingRepository
 			->join('physical_verification as pv', 'pv.id', 'wa.pv_id')
 			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
 			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
-			->where('pt.name', 'Agile')
+			->where('pt.code', 'Agile')
 			->where(function($query)
 			{
 				$query->where('wa.smp', 1)->orWhere('wa.pcp', 1);
@@ -620,6 +623,8 @@ class PVListingRepository
 			})
 			->whereRaw('DATEDIFF("'. Carbon::now() .'", wa.created_at) > 0')
 			->get()->count();
+
+		$pvs['receipt'] = ReceiptMaster::selectRaw('receipt.total_boxes, cus.name as customer_name, IF(receipt.status=1, "Open", "Started") as status')->leftJoin('ma_customer as cus', 'cus.id', 'receipt.customer_id')->whereIn('receipt.status', [1, 2])->orderBy('receipt.created_at', 'DESC')->get();
 
 		$pvs['profiling'] = microtime(true) - $start;
     	return $pvs;

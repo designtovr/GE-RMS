@@ -366,7 +366,7 @@ class RMAController extends Controller
                 $need_to_update = PVStatus::where('pv_id', $RMAUnitInformation->pv_id)->where('current_status_id', 15)->first();
                 if($need_to_update)
                 {
-                    $pv = PhysicalVerificationMaster::selectRaw('physical_verification.*, pt.category')->join('ma_product_type as pt', 'pt.id', 'physical_verification.producttype_id')->where('id', $RMAUnitInformation->pv_id)->first();
+                    $pv = PhysicalVerificationMaster::selectRaw('physical_verification.*, pt.category')->join('ma_product_type as pt', 'pt.id', 'physical_verification.producttype_id')->where('physical_verification.id', $RMAUnitInformation->pv_id)->first();
 
                     if(strcasecmp($pv->category, 'BOJ') == 0)
                     {

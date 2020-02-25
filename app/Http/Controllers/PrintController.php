@@ -108,7 +108,7 @@ class PrintController extends Controller
 
     public function JobTicketForm($pv_id)
     {
-        $data = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.*, jt.id as jt_id, jt.created_at as podate, wt.pcp, wt.smp, rda.name as customer_name, rma.end_customer, pro.part_no as model_no, pv.comment as nature_of_defect, jt.power_on_test, wt.type, jt.comment as remarks, rui.sw_version')
+        $data = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.*, jt.id as jt_id, jt.created_at as podate, wt.pcp, wt.smp, rda.name as customer_name, rma.end_customer, pro.part_no as model_no, rui.desc_of_fault as nature_of_defect, jt.power_on_test, wt.type, jt.comment as remarks, rui.sw_version')
                 ->leftJoin('job_tickets as jt', 'jt.pv_id', 'pv.id')
                 ->leftJoin('rma_unit_information as rui', 'rui.pv_id', 'pv.id')
                 ->leftJoin('rma', 'rma.id', 'rui.rma_id')
@@ -175,7 +175,7 @@ class PrintController extends Controller
         }
         else if ($data['service_type'] == 1)
         {
-            $data['unit_information'] = PhysicalVerificationMaster::selectRaw('physical_verification.id, serial_no, pro.part_no, battery, terminal_blocks, screws, no_of_terminal_blocks, physical_verification.comment as remark, top_bottom_cover')
+            $data['unit_information'] = PhysicalVerificationMaster::selectRaw('physical_verification.id, physical_verification.created_at, serial_no, pro.part_no, battery, terminal_blocks, screws, no_of_terminal_blocks, physical_verification.comment as remark, top_bottom_cover')
                     ->join('ma_product as pro', 'pro.id', 'physical_verification.product_id')
                     ->join('receipt as rc', 'rc.id', 'physical_verification.receipt_id')
                     ->join('rma', 'rma.receipt_id', 'rc.id')

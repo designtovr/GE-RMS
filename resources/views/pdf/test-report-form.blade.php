@@ -444,8 +444,8 @@
 				<table class="table tableStyle table-bordered text-center no-padding" >
 					<thead>
 					<tr>
-						<th  class ="bgOn" style="background-color: #d3d3d3">Pass</th>
-						<th>NA</th>
+						<th  class ="bgOn" style="background-color: #d3d3d3">Yes</th>
+						<th>No</th>
 
 					</tr>
 					</thead>

@@ -46,11 +46,20 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 	{
 		$scope.openTab = true;
 		$scope.jobticket = {};
+		$scope.page = 'jobticketopen';
 		$http({
 			method: 'GET',
 			url: '/ge/physicalverification?cat=jobticketopen'
 		}).then(function success(response) {
-			$scope.gridOptions.data =  response.data.physicalverification;
+			if($scope.page != 'jobticketopen')
+			{
+				$scope.gridOptions.data =  response.data.physicalverification;
+			}
+			else
+			{
+				$scope.gridHideData = response.data.physicalverification;
+				$scope.gridOptions.data = [];
+			}
 		}, function error(response) {
 		});
 		
@@ -108,6 +117,8 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 		$scope.filterrmaID = '';
 		$scope.dateTo = '';
 		$scope.dateFrom = '';
+		$scope.filterserialno = '';
+		$scope.filterpartno = '';
 	}
 
 	$scope.Initiate = function()
@@ -183,10 +194,36 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 			method: 'GET',
 			url: '/ge/physicalverification?cat='+page
 		}).then(function success(response) {
-			$scope.gridOptions.data =  response.data.physicalverification;
+			if($scope.page != 'jobticketopen')
+			{
+				$scope.gridOptions.data =  response.data.physicalverification;
+			}
+			else
+			{
+				$scope.gridHideData = response.data.physicalverification;
+				$scope.gridOptions.data = [];
+			}
 			$scope.GetPVPriorityList();
 		}, function error(response) {
 		});
+	}
+
+	$scope.ShowGridData = function()
+	{
+		if($scope.page == 'jobticketopen')
+		{
+			console.log($scope.filterID);
+			console.log($scope.filterrmaID);
+			console.log($scope.filterpartno);
+			console.log($scope.filterserialno);
+			if( ($scope.filterID != "" && $scope.filterID != undefined) || ($scope.filterrmaID != "" && $scope.filterrmaID != undefined) 
+				|| ($scope.filterpartno != "" && $scope.filterpartno != undefined) || ($scope.filterserialno != "" && $scope.filterserialno != undefined))
+			{
+				$scope.gridOptions.data = $scope.gridHideData;
+			}
+			else
+				$scope.gridOptions.data = [];
+		}
 	}
 
 	$scope.OpenJTForm = function(item)

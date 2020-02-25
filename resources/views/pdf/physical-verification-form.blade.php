@@ -13,7 +13,16 @@
 
 	<link href="{{url('public/vendor/bootstrap-4.1/bootstrap.min.css')}}" rel="stylesheet" media="all">
 	<link href="{{url('public/css/theme.css')}}" rel="stylesheet" media="all">
-
+	<style type="text/css">
+		.printform table tr th {
+			font-size: 13px !important;
+			border: 1px solid !important;
+		}
+		.printform table tr td {
+			font-size: 13px !important;
+			border: 1px solid !important;
+		}
+	</style>
 </head>
 <body class="text-right ftr" style="height: 1196px;padding-left: 30px;padding-right: 30px; font-family: 'Oswald', sans-serif !important;">
 <div class="main-content" ng-controller="TestReportFormController">
@@ -40,18 +49,26 @@
 		<div class="col-6">
 			<h2 class="text-left float-left" style="font-size: 18px; color: #000000"><strong>Location :</strong>  <span style="font-weight: normal;">{{ $location }}</span> </h2>
 		</div>
+		<div class="col-6">
+			<h2 class="text-left float-left" style="font-size: 18px; color: #000000"><strong>Date :</strong>  <span style="font-weight: normal;">
+				@if(isset($unit_information[0]))
+					{{ date('d/m/Y',strtotime($unit_information[0]['created_at']))}}
+				@else
+					NA
+				@endif</span> </h2>
+		</div>
 	</div>
 
 	@foreach($unit_information as $unit)
 		<div class="row" style="margin-top: 9px;margin-left: 1px;">
 			<div class="col-7 float-left">
-				<div class="table-responsive">
+				<div class="table-responsive printform">
 					<table class="table tableStyle table-bordered text-center">
 						<thead>
 						<tr>
-							<th style="font-size: 15px;">R Id</th>
-							<th style="font-size: 15px;">Model No.</th>
-							<th style="font-size: 15px;">S No.</th>
+							<th style="font-size: 14px;">R Id</th>
+							<th style="font-size: 14px;">Model No.</th>
+							<th style="font-size: 14px;">S No.</th>
 
 						</tr>
 						</thead>
@@ -70,7 +87,7 @@
 				</div>
 			</div>
 			<div class="col-5 float-right">
-				<div class="table-responsive">
+				<div class="table-responsive printform">
 					<table class="table tableStyle table-bordered text-left">
 						<tbody>
 
