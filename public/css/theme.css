@@ -15079,3 +15079,15 @@ section {
     border-radius: 0;
     box-shadow: none;
   }
+
+  .carousel-control-prev{
+    display: none !important;
+  }
+
+  .carousel-control-next{
+    display: none !important;
+  }
+
+  .table-datacustom tbody td {
+    font-size: 15px !important;
+}

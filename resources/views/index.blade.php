@@ -53,7 +53,7 @@
                                      <div class="au-task js-list-load">
                                          <div class="au-task-list js-scrollbar3">
                                              <div class="table-responsive m-b-40">
-                                                 <table class="table table-borderless table-data3 table-data3-blue">
+                                                 <table class="table table-borderless table-data3 table-data3-blue table-datacustom">
                                                      <thead>
                                                      <tr>
                                                          <th>Family</th>
@@ -64,7 +64,7 @@
                                                      <tbody>
                                                      <tr ng-repeat="pr in dashboardvalues.repair_priority">
                                                         <td ng-bind="pr.type_name"></td>
-                                                        <td ng-bind="pr.serial_no" ng-mouseover="OnHoverShowStage(pr);"></td>
+                                                        <td ng-bind="pr.serial_no" style="cursor: pointer;" ng-click="OnHoverShowStage(pr);"></td>
                                                         <td ng-bind="pr.rack_id"></td>
                                                     </tr>
                                                      </tbody>
@@ -264,7 +264,7 @@
                                                     <tbody>
                                                     <tr ng-repeat="pr in dashboardvalues.priority">
                                                         <td ng-bind="pr.type_name"></td>
-                                                        <td ng-bind="pr.serial_no" ng-mouseover="OnHoverShowStage(pr);"></td>
+                                                        <td style="cursor: pointer;" ng-bind="pr.serial_no" ng-click="OnHoverShowStage(pr);"></td>
                                                         <td ng-bind="pr.rack_id"></td>
                                                     </tr>
                                                     </tbody>
