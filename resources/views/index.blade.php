@@ -253,7 +253,7 @@
                                     <div class="au-task js-list-load">
                                         <div class="au-task-list js-scrollbar3">
                                             <div class="table-responsive m-b-40">
-                                                <table class="table table-borderless table-data3 table-data3-blue">
+                                                <table class="table table-borderless table-data3 table-data3-blue table-datacustom">
                                                     <thead>
                                                     <tr>
                                                         <th>Family</th>
