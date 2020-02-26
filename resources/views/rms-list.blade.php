@@ -24,7 +24,7 @@
                                             <input id="ridFilter" type="text"
                                                    class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
                                                    placeholder="RID #" ng-change="gridActions.filter();"
-                                                   ng-model="filterID" filter-by="pv_id" filter-type="text">
+                                                   ng-model="filterID" filter-by="formatted_pv_id" filter-type="text">
                                         </th>
                                         <th>
 
@@ -96,7 +96,7 @@
                                 <th sortable='date' class="sortable">
                                      Date
                                  </th>
-		                         <th sortable="pv_id" class="sortable">
+		                         <th sortable="formatted_pv_id" class="sortable">
 		                             RID No
 		                         </th>
 								 <th sortable="rack_type" class="sortable">
@@ -116,7 +116,7 @@
                                     </label>
                                 </td>
                                 <td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
-                                <td ng-bind="item.pv_id"></td>
+                                <td ng-bind="item.formatted_pv_id"></td>
 		                         <td ng-if="item.rack_type == 0">Dummy Rack</td>
                                  <td ng-if="item.rack_type == 1">Repair Rack</td>
                                  <td ng-if="item.rack_type == 2">Customer Rack</td>
@@ -155,7 +155,7 @@
 			                                    <label for="comment" class=" form-control-label"><b>RID</b> <span class="mandatory">*</span></label>
 			                                </div>
 			                                <div class="col-12 col-md-9">
-			                                    <input type="text" id="comment" name="comment" ng-model = "rmsmodal.pv_id" placeholder="RID" class="form-control">
+			                                    <input type="text" id="comment" name="comment" ng-model = "rmsmodal.formatted_pv_id" placeholder="RID" class="form-control">
 			                                    <!-- <span class="help-block">Please Enter RID</span> -->
 			                                </div>
 			                            </div>

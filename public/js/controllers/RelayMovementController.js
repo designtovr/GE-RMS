@@ -48,6 +48,7 @@ $scope.gridOptions = {
 
    	$scope.AddRMS= function()
 	{
+		$scope.rmsmodal.pv_id = $scope.rmsmodal.formatted_pv_id;
 		$http({
 			method: 'post',
 			url: '/ge/addrms',
