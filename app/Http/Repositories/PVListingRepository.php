@@ -380,6 +380,16 @@ class PVListingRepository
     				->where('pt.category', '!=', 'boj')
     				->orderBy('pvl_priority')->orderBy('pv.id')->get()->take(6);
 
+		$pvs['repair_priority'] = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.id, pv.serial_no, pt.code as type_name, IF(pvl.priority > 0, pvl.priority, 999999) as pvl_priority, rms.rack_id, mps.status as current_stage')
+    				->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+    				->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+    				->leftJoin('rms', 'rms.pv_id', 'pv.id')
+    				->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'pv.id')
+    				->leftJoin('ma_pv_status as mps', 'mps.id', 'sta.current_status_id')
+    				->whereIn('sta.current_status_id', [4,5])
+    				->where('pt.category', '!=', 'boj')
+    				->orderBy('pvl_priority')->orderBy('pv.id')->get()->take(6);
+
 		//today status
 		$pvs['today_status']['numerical']['completed'] = DB::table('physical_verification as pv')->selectRaw('pt.code as type_name, COUNT(*) as total')
 			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')

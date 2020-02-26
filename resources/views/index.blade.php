@@ -35,47 +35,13 @@
             <div id="carouselExampleIndicators" class="carousel slide">
                 <ol class="carousel-indicators">
                     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <!-- <li data-target="#carouselExampleIndicators" data-slide-to="1"></li> -->
                     <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                     <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
                 </ol>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <div class="row">
-                            <div class="col-lg-4">
-                                <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
-                                    <div class="au-card-title"  >
-                                        <div class="bg-overlay bg-overlay--androidblue"></div>
-                                        <h3>
-                                            <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>Customer Priority</h3>
-
-                                    </div>
-                                    <div class="au-task js-list-load">
-                                        <div class="au-task-list js-scrollbar3">
-                                            <div class="table-responsive m-b-40">
-                                                <table class="table table-borderless table-data3 table-data3-blue table-height200 table-data4 table-data4">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Family</th>
-                                                        <th>Serial Number</th>
-                                                        <th>Location</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr ng-repeat="pr in dashboardvalues.priority">
-                                                        <td ng-bind="pr.type_name"></td>
-                                                        <td ng-bind="pr.serial_no" ng-mouseover="OnHoverShowStage(pr);"></td>
-                                                        <td ng-bind="pr.rack_id"></td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <!-- END DATA TABLE -->
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
                             <div class="col-lg-4 h-25">
                                  <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
                                      <div class="au-card-title"  >
@@ -91,16 +57,16 @@
                                                      <thead>
                                                      <tr>
                                                          <th>Family</th>
-                                                         <th>Total Relays</th>
-                                                         <th>Over Due</th>
+                                                         <th>Serial Number</th>
+                                                         <th>Location</th>
                                                      </tr>
                                                      </thead>
                                                      <tbody>
-                                                     <tr ng-repeat="repair in dashboardvalues.for_repair">
-                                                         <td ng-bind="repair.type_name"></td>
-                                                         <td ng-bind="repair.total"></td>
-                                                         <td> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-10s" ng-bind="repair.overdue"></span></td>
-                                                     </tr>
+                                                     <tr ng-repeat="pr in dashboardvalues.repair_priority">
+                                                        <td ng-bind="pr.type_name"></td>
+                                                        <td ng-bind="pr.serial_no" ng-mouseover="OnHoverShowStage(pr);"></td>
+                                                        <td ng-bind="pr.rack_id"></td>
+                                                    </tr>
                                                      </tbody>
                                                  </table>
                                              </div>
@@ -143,9 +109,42 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-lg-4">
+                                <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
+                                    <div class="au-card-title"  >
+                                        <div class="bg-overlay bg-overlay--androidblue"></div>
+                                        <h3>
+                                            <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>Dispatch</h3>
+
+                                    </div>
+                                    <div class="au-task js-list-load">
+                                        <div class="au-task-list js-scrollbar3">
+                                            <div class="table-responsive m-b-40">
+                                                <table class="table table-borderless table-data3 table-data3-blue table-data4">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Family</th>
+                                                        <th>Total Relays</th>
+                                                        <th>Over Due</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr ng-repeat="pack in dashboardvalues.for_pack">
+                                                        <td ng-bind="pack.type_name"></td>
+                                                        <td ng-bind="pack.total"></td>
+                                                        <td> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-10s" ng-bind="pack.overdue"></span></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="carousel-item">
+                    <!-- <div class="carousel-item">
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="au-card m-b-30">
@@ -172,7 +171,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="carousel-item">
                         <div class="row">
                                        <div class="col-lg-4 h-25">
@@ -243,30 +242,30 @@
                                      </div>
                                  </div>
                              </div>
-                             <div class="col-lg-4">
+                            <div class="col-lg-4">
                                 <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
                                     <div class="au-card-title"  >
                                         <div class="bg-overlay bg-overlay--androidblue"></div>
                                         <h3>
-                                            <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>Packing</h3>
+                                            <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>Customer Priority</h3>
 
                                     </div>
                                     <div class="au-task js-list-load">
                                         <div class="au-task-list js-scrollbar3">
                                             <div class="table-responsive m-b-40">
-                                                <table class="table table-borderless table-data3 table-data3-blue table-data4">
+                                                <table class="table table-borderless table-data3 table-data3-blue">
                                                     <thead>
                                                     <tr>
                                                         <th>Family</th>
-                                                        <th>Total Relays</th>
-                                                        <th>Over Due</th>
+                                                        <th>Serial Number</th>
+                                                        <th>Location</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr ng-repeat="pack in dashboardvalues.for_pack">
-                                                        <td ng-bind="pack.type_name"></td>
-                                                        <td ng-bind="pack.total"></td>
-                                                        <td> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-10s" ng-bind="pack.overdue"></span></td>
+                                                    <tr ng-repeat="pr in dashboardvalues.priority">
+                                                        <td ng-bind="pr.type_name"></td>
+                                                        <td ng-bind="pr.serial_no" ng-mouseover="OnHoverShowStage(pr);"></td>
+                                                        <td ng-bind="pr.rack_id"></td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -415,7 +414,7 @@
                             </div>
                             <div class="row">
                                 <div class="col col-3">
-                                    <p><b>R Id:</b></p>
+                                    <p><b>Current Stage:</b></p>
                                 </div>
                                 <div class="col col-6">
                                      <p style="font-weight: 500;" ng-bind="modal.stage"></p>
