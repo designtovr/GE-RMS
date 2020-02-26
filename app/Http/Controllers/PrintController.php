@@ -128,7 +128,7 @@ else{
             $ip =  $array['LabelPrinterIP'];
 
             $daneDoDruku = $template;
-return $template;
+//return $template;
             $poloczenie = pfsockopen("$ip", 9100);
             fputs($poloczenie, $daneDoDruku);
             fclose($poloczenie);
