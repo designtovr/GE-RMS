@@ -55,7 +55,7 @@
                                              <div class="table-responsive m-b-40">
                                                  <table class="table table-borderless table-data3-blue table-data4">
                                                      <thead>
-                                                     <tr>
+                                                     <tr style="background-color: #333333;color: white;">
                                                          <th>Family</th>
                                                          <th>Serial Number</th>
                                                          <th>Location</th>
@@ -255,7 +255,7 @@
                                             <div class="table-responsive m-b-40">
                                                 <table class="table table-borderless table-data4 table-data3-blue">
                                                     <thead>
-                                                    <tr>
+                                                    <tr style="background-color: #333333;color: white;">
                                                         <th>Family</th>
                                                         <th>Serial Number</th>
                                                         <th>Location</th>
