@@ -38,9 +38,25 @@ class PrintController extends Controller
 
             $template = file_get_contents($file);
             $receiptID = $receipt['formatted_receipt_id'];
+  
+            if(strlen($receipt['customer'])>25)
+            {
+    $cush = 56 - (strlen($receipt['customer']) - 25);
+}
+else{
+    $cush = 56;
+}
 
+            if(strlen($receipt['site'])>16){
+    $loch = 56 - (strlen($receipt['site']) - 16);
+}else{
+    $loch = 56;
+}
+          //return $cush;
             $template = str_replace("receiptid",$receiptID,$template);
             $template = str_replace("cusname",$receipt['customer'],$template);
+            $template = str_replace("cush",$cush,$template);
+            $template = str_replace("loch",$loch,$template);
             $template = str_replace("courierData",$receipt['courier_name'],$template);
             $template = str_replace("dcdata",$receipt['docket_details'],$template);
             $template = str_replace("location",$receipt['site'],$template);
@@ -60,7 +76,7 @@ class PrintController extends Controller
             $ip =  $array['ReceiptPrinterIP'];
 
             $daneDoDruku = $template;
-
+//return          $template ;
             for($i = 1 ; $i<= $receipt['total_boxes'] ; $i++)
             {
                 $poloczenie = pfsockopen("$ip", 9100);
@@ -81,11 +97,29 @@ class PrintController extends Controller
             $label = $request->get('receipt');
             $file = 'public\LabelPrintFile.prn';
 
+
+            if(strlen($label['customer_name'])>10)
+            {
+    $cush = 23 - (strlen($label['customer_name']) - 10);
+}
+
+else{
+    $cush = 23;
+}
+
+            if(strlen($label['location'])>10){
+    $loch = 23 - (strlen($label['location']) - 10);
+}else{
+    $loch = 23;
+}
+
             $template = file_get_contents($file);
             $template = str_replace("riddata",$label['formatted_pv_id'],$template);
             $template = str_replace("qrcode",$label['formatted_pv_id'],$template);
             $template = str_replace("rmadata",$label['formatted_rma_id'], $template);
             $template = str_replace("customer",$label['customer_name'], $template);
+            $template = str_replace("cush",$cush, $template);
+            $template = str_replace("loch",$loch, $template);
             $template = str_replace("location",$label['location'], $template);
             $jsonfile = 'public\printerconfiguration.json';
 
@@ -94,7 +128,7 @@ class PrintController extends Controller
             $ip =  $array['LabelPrinterIP'];
 
             $daneDoDruku = $template;
-
+//return $template;
             $poloczenie = pfsockopen("$ip", 9100);
             fputs($poloczenie, $daneDoDruku);
             fclose($poloczenie);
