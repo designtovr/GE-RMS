@@ -749,7 +749,8 @@ class RMAController extends Controller
             $RMAUT->updated_at = Carbon::now();
             $RMAUT->save();
 
-            $PV = PhysicalVerificationMaster::selectRaw('physical_verification.*, pt.category')->join('ma_product_type as pt', 'pt.id', 'physical_verification.producttype_id')->where('id', $RMAUT->pv_id)->first();
+            $PV = PhysicalVerificationMaster::selectRaw('physical_verification.*, pt.category')->join('ma_product_type as pt', 'pt.id', 'physical_verification.producttype_id')->where('physical_verification.id', $RMAUT->pv_id)->first();
+
             if(strcasecmp($PV->category, 'BOJ') == 0)
             {
                 PVStatusRepositories::ChangeStatusToManagerApproved($RMAUT->pv_id);
