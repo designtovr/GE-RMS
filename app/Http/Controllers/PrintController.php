@@ -97,18 +97,18 @@ else{
             $label = $request->get('receipt');
             $file = 'public\LabelPrintFile.prn';
 
-
-            if(strlen($label['customer_name'])>10)
+ $cush = 20;
+/*            if(strlen($label['customer_name'])>10)
             {
-    $cush = 23 - (strlen($label['customer_name']) - 10);
+    $cush = 23 - ((strlen($label['customer_name']) - 10) * .6);
 }
 
 else{
     $cush = 23;
-}
+}*/
 
             if(strlen($label['location'])>10){
-    $loch = 23 - (strlen($label['location']) - 10);
+    $loch = 23 - ((strlen($label['location']) - 10) * 1);
 }else{
     $loch = 23;
 }
