@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 14, 2020 at 09:55 AM
--- Server version: 10.4.8-MariaDB
--- PHP Version: 7.3.10
+-- Generation Time: Mar 06, 2020 at 07:35 AM
+-- Server version: 10.1.36-MariaDB
+-- PHP Version: 7.2.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `ge_rms_2`
+-- Database: `ge_rms_1`
 --
 
 DELIMITER $$
@@ -43,7 +43,7 @@ CREATE TABLE `aging` (
   `result` tinyint(4) NOT NULL,
   `comment` varchar(200) DEFAULT NULL,
   `created_by` tinyint(4) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_by` tinyint(4) DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -63,6 +63,7 @@ INSERT INTO `aging` (`pv_id`, `result`, `comment`, `created_by`, `created_at`, `
 (16, 1, 'RELAY HEATSOAKED IN THERMAL CYCLING CHAMBER', 9, '2020-02-12 06:41:03', NULL, '2020-02-12 12:11:03'),
 (66, 1, 'RELAY HEATSOAKED @ THERMAL CYCLING CHAMBER', 9, '2020-02-13 04:47:57', NULL, '2020-02-13 10:17:57'),
 (67, 1, 'RELAY HEATSOAKED IN THERMAL CYCLING CHAMBER', 9, '2020-02-13 05:00:35', NULL, '2020-02-13 10:30:35'),
+(71, 1, '', 1, '2020-02-18 06:09:27', 1, '2020-02-26 20:02:16'),
 (74, 1, 'RELAY HEATSOAKED IN THERMAL CYCLING CHAMBER', 9, '2020-02-14 08:31:48', NULL, '2020-02-14 14:01:48'),
 (80, 1, 'RELAY HEATSOAKED IN THERMAL CYCLING CHAMBER', 9, '2020-02-12 07:08:13', NULL, '2020-02-12 12:38:13'),
 (81, 1, 'RELAY HEATSOAKED @ THERMAL CYCLING CHAMBER', 9, '2020-02-12 08:44:22', NULL, '2020-02-12 14:14:22'),
@@ -96,7 +97,7 @@ CREATE TABLE `aging_tracking` (
   `result` tinyint(4) NOT NULL,
   `comment` varchar(200) DEFAULT NULL,
   `created_by` tinyint(4) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -134,7 +135,11 @@ INSERT INTO `aging_tracking` (`pv_id`, `result`, `comment`, `created_by`, `creat
 (110, 1, 'NOT REQUIRED AGING PROCESS', 9, '2020-02-14 06:04:28'),
 (74, 1, 'RELAY HEATSOAKED IN THERMAL CYCLING CHAMBER', 9, '2020-02-14 08:31:48'),
 (105, 1, 'NOT REQUIRED AGING PROCESS', 9, '2020-02-14 08:33:31'),
-(108, 1, 'NOT REQUIRED AGING PROCESS', 9, '2020-02-14 08:34:40');
+(108, 1, 'NOT REQUIRED AGING PROCESS', 9, '2020-02-14 08:34:40'),
+(71, 0, 'Fail', 1, '2020-02-18 06:09:27'),
+(71, 0, 'Fail 2', 1, '2020-02-18 06:09:40'),
+(71, -1, 'Not Required', 1, '2020-02-18 06:13:16'),
+(71, 1, '', 1, '2020-02-26 14:32:16');
 
 -- --------------------------------------------------------
 
@@ -147,7 +152,7 @@ CREATE TABLE `auto_test_bench` (
   `result` tinyint(4) NOT NULL,
   `comment` varchar(200) DEFAULT NULL,
   `created_by` tinyint(4) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_by` tinyint(4) DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -167,6 +172,7 @@ INSERT INTO `auto_test_bench` (`pv_id`, `result`, `comment`, `created_by`, `crea
 (16, 1, 'RELAY TESTED IN AUTOMATIC FUNCTIONAL TEST BENCH', 9, '2020-02-12 06:38:30', NULL, '2020-02-12 12:08:30'),
 (66, 1, 'RELAY TESTED @ AUTOMATIC FUNCTIONAL TEST BENCH', 9, '2020-02-13 04:46:02', NULL, '2020-02-13 10:16:02'),
 (67, 1, 'RELAY TESTED @ AUTOMATIC FUNCTIONAL TEST BENCH', 9, '2020-02-13 04:59:53', NULL, '2020-02-13 10:29:53'),
+(71, 1, '', 1, '2020-02-18 05:58:07', 1, '2020-02-26 20:01:52'),
 (74, 1, 'RELAY TESTED @ AUTOMATIC FUNCTIONAL TEST BENCH', 9, '2020-02-14 08:31:10', NULL, '2020-02-14 14:01:10'),
 (80, 1, 'RELAY TESTED IN AUTOMATIC FUNCTIONAL TEST BENCH', 9, '2020-02-12 07:07:31', NULL, '2020-02-12 12:37:31'),
 (81, 1, 'RELAY TESTED @ AUTOMATIC FUNCTIONAL TEST BENCH', 9, '2020-02-12 08:43:43', 9, '2020-02-12 14:13:44'),
@@ -200,7 +206,7 @@ CREATE TABLE `auto_test_bench_tracking` (
   `result` tinyint(4) NOT NULL,
   `comment` varchar(200) DEFAULT NULL,
   `created_by` tinyint(4) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -239,7 +245,9 @@ INSERT INTO `auto_test_bench_tracking` (`pv_id`, `result`, `comment`, `created_b
 (110, 1, 'NOT REQUIRED', 9, '2020-02-14 06:03:59'),
 (108, 1, 'NOT REQUIRED', 9, '2020-02-14 06:08:09'),
 (74, 1, 'RELAY TESTED @ AUTOMATIC FUNCTIONAL TEST BENCH', 9, '2020-02-14 08:31:10'),
-(105, 1, 'NOT REQUIRED', 9, '2020-02-14 08:33:05');
+(105, 1, 'NOT REQUIRED', 9, '2020-02-14 08:33:05'),
+(71, -1, 'Test Not Required', 1, '2020-02-18 05:58:07'),
+(71, 1, '', 1, '2020-02-26 14:31:52');
 
 -- --------------------------------------------------------
 
@@ -258,8 +266,8 @@ CREATE TABLE `dispatch` (
   `concern_name` varchar(100) NOT NULL,
   `contact` varchar(15) NOT NULL,
   `created_by` tinyint(4) NOT NULL,
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -271,7 +279,8 @@ INSERT INTO `dispatch` (`id`, `date`, `pv_id`, `dc_no`, `docket_details`, `couri
 (2, '2020-01-04', 2, 'KLOS', 'MNS192', 'FED', NULL, '', '', 1, '2020-01-04 10:49:55', '2020-01-04 10:49:55'),
 (3, '2020-01-04', 3, 'GR433', 'ASDG', 'FED', NULL, '', '', 1, '2020-01-04 10:53:50', '2020-01-04 10:53:50'),
 (4, '2020-01-04', 4, 'FR6543', 'NNBTY', 'FED', NULL, '', '', 1, '2020-01-04 10:57:05', '2020-01-04 10:57:05'),
-(5, '2020-01-04', 5, 'QW422', 'BGU754', 'FED', NULL, '', '', 1, '2020-01-04 11:01:07', '2020-01-04 11:01:07');
+(5, '2020-01-04', 5, 'QW422', 'BGU754', 'FED', NULL, '', '', 1, '2020-01-04 11:01:07', '2020-01-04 11:01:07'),
+(6, '2020-02-25', 6, 'XDW43', 'SF234DC', 'fWED', NULL, '', '', 1, '2020-02-25 08:27:13', '2020-02-25 08:27:13');
 
 -- --------------------------------------------------------
 
@@ -287,7 +296,7 @@ CREATE TABLE `job_tickets` (
   `power_on_test` varchar(200) DEFAULT NULL,
   `created_by` tinyint(4) NOT NULL,
   `updated_by` tinyint(4) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -326,7 +335,8 @@ INSERT INTO `job_tickets` (`id`, `pv_id`, `nature_of_defect`, `comment`, `power_
 (28, 111, '', 'FIRMWARE UPGRADED & RELAY BECOMES HEALTHY', 'ERROR CODE:0X350C002D & REBOOTING', 9, 9, '2020-02-14 05:58:30', '2020-02-14 11:28:36'),
 (29, 110, '', 'FIRMWARE UPGRADED & RELAY BECOMES HEALTHY', 'ERROR CODE:0X350C002D & REBOOTING', 9, 9, '2020-02-14 06:02:45', '2020-02-14 11:33:23'),
 (30, 108, '', 'FIRMWARE UPGRADED & RELAY BECOMES HEALTHY', 'ERROR CODE:0X350C002D & REBOOTING', 9, 9, '2020-02-14 06:07:37', '2020-02-14 11:37:37'),
-(31, 105, '', 'RELAY HEALTHY & TESTED OK', 'NORMAL BOOTING', 9, 9, '2020-02-14 06:34:02', '2020-02-14 12:04:12');
+(31, 105, '', 'RELAY HEALTHY & TESTED OK', 'NORMAL BOOTING', 9, 9, '2020-02-14 06:34:02', '2020-02-14 12:04:12'),
+(32, 71, '', 'NS', NULL, 1, 1, '2020-02-18 05:42:29', '2020-02-26 20:01:18');
 
 -- --------------------------------------------------------
 
@@ -345,7 +355,7 @@ CREATE TABLE `job_ticket_materials` (
   `comment` varchar(200) DEFAULT NULL,
   `created_by` tinyint(4) NOT NULL,
   `updated_by` tinyint(4) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -398,7 +408,9 @@ INSERT INTO `job_ticket_materials` (`id`, `jt_id`, `part_no`, `value`, `quantity
 (137, 30, 'NO MATERIAL USED', NULL, 0, 'NA', 'NA', 'FIRMWARE UPGRADED & RELAY BECOMES HEALTHY', 9, 9, '2020-02-14 06:07:37', '2020-02-14 11:37:37'),
 (139, 31, 'NO MATERIAL USED', NULL, 0, 'NA', 'NA', 'RELAY HEALTHY & TESTED OK', 9, 9, '2020-02-14 06:34:13', '2020-02-14 12:04:13'),
 (142, 16, 'EZN0084001', NULL, 6, 'SFO.ZN0084001.B04.B.16223040024,SFO.ZN0084001.B04.B.16244040033,SFO.ZN0084001.B04.B.16244040018,SFO.', 'SFO.ZN0084001.B04.D.19353040129,SFO.ZN0084001.B04.D.19353040083,SFO.ZN0084001.B04.D.20007040035,SFO.', 'COMM BOARD CHANGED DUE TO OLD DATA PACK AS PER CID', 9, 9, '2020-02-14 08:20:15', '2020-02-14 13:50:15'),
-(143, 16, 'EZN0084003', NULL, 1, 'SFO.ZN0084003.B05.C.16251040104', 'SFO.ZN0084003.B05.E.19338040132', 'CO-PROCESSOR BOARD CHANGED DUE TO OLD DATA PACK AS PER CID', 9, 9, '2020-02-14 08:20:15', '2020-02-14 13:50:15');
+(143, 16, 'EZN0084003', NULL, 1, 'SFO.ZN0084003.B05.C.16251040104', 'SFO.ZN0084003.B05.E.19338040132', 'CO-PROCESSOR BOARD CHANGED DUE TO OLD DATA PACK AS PER CID', 9, 9, '2020-02-14 08:20:15', '2020-02-14 13:50:15'),
+(145, 32, 'EGN0096001', NULL, 3, 'KJJKOSH', 'MNXJOSUY', NULL, 1, 1, '2020-02-26 14:31:18', '2020-02-26 20:01:18'),
+(146, 32, 'EZC0414001L', NULL, 2, 'ADSFADSFA', 'XCVXBXCVB', NULL, 1, 1, '2020-02-26 14:31:18', '2020-02-26 20:01:18');
 
 -- --------------------------------------------------------
 
@@ -1696,7 +1708,7 @@ INSERT INTO `ma_product` (`id`, `part_no`, `description`, `type`, `created_by`, 
 (276, 'P141711A2M0510J', NULL, 13, 1, 1, '2019-11-29 08:03:41', '2019-11-29 08:03:41'),
 (277, 'P141716A6M0500J', NULL, 13, 1, 1, '2019-11-29 08:03:41', '2019-11-29 08:03:41'),
 (278, 'P141716N6M0500J', NULL, 13, 1, 1, '2019-11-29 08:03:41', '2019-11-29 08:03:41'),
-(279, 'P14171JA6M0500J', NULL, 13, 1, 1, '2019-11-29 08:03:41', '2019-11-29 08:03:41'),
+(279, 'P14171JA6M0500JP14171JA6M0500JP14171JA6M0500J', NULL, 13, 1, 1, '2019-11-29 08:03:41', '2019-11-29 08:03:41'),
 (280, 'P14171JN6M0510J', NULL, 13, 1, 1, '2019-11-29 08:03:41', '2019-11-29 08:03:41'),
 (281, 'P141812A3M0500J', NULL, 13, 1, 1, '2019-11-29 08:03:41', '2019-11-29 08:03:41'),
 (282, 'P141817A3M0510J', NULL, 13, 1, 1, '2019-11-29 08:03:41', '2019-11-29 08:03:41'),
@@ -2034,7 +2046,8 @@ INSERT INTO `ma_product` (`id`, `part_no`, `description`, `type`, `created_by`, 
 (613, 'P54691NA6M0790M', '', 1, 11, 11, '2020-02-14 04:13:54', '2020-02-14 04:13:54'),
 (614, 'P642926A6M0060P', '', 1, 11, 11, '2020-02-14 05:30:23', '2020-02-14 05:30:23'),
 (615, 'P64391AA6M0050M', '', 13, 11, 11, '2020-02-14 07:37:51', '2020-02-14 07:37:51'),
-(616, 'P442912B3M0710M', '', 13, 11, 11, '2020-02-14 07:54:58', '2020-02-14 07:54:58');
+(616, 'P442912B3M0710M', '', 13, 11, 11, '2020-02-14 07:54:58', '2020-02-14 07:54:58'),
+(617, 'JSJK827934027JSKSJ834U', '', 21, 1, 1, '2020-02-18 18:23:37', '2020-02-18 18:23:37');
 
 -- --------------------------------------------------------
 
@@ -2278,23 +2291,23 @@ CREATE TABLE `physical_verification` (
   `product_id` int(11) DEFAULT NULL,
   `serial_no` varchar(50) NOT NULL,
   `comment` varchar(200) DEFAULT NULL,
-  `case` tinyint(3) NOT NULL DEFAULT -1,
-  `case_condition` tinyint(3) NOT NULL DEFAULT -1,
-  `battery` tinyint(3) NOT NULL DEFAULT -1,
-  `battery_condition` tinyint(3) NOT NULL DEFAULT -1,
-  `terminal_blocks` tinyint(3) DEFAULT -1,
-  `terminal_blocks_condition` tinyint(3) NOT NULL DEFAULT -1,
+  `case` tinyint(3) NOT NULL DEFAULT '-1',
+  `case_condition` tinyint(3) NOT NULL DEFAULT '-1',
+  `battery` tinyint(3) NOT NULL DEFAULT '-1',
+  `battery_condition` tinyint(3) NOT NULL DEFAULT '-1',
+  `terminal_blocks` tinyint(3) DEFAULT '-1',
+  `terminal_blocks_condition` tinyint(3) NOT NULL DEFAULT '-1',
   `no_of_terminal_blocks` varchar(11) DEFAULT '0',
-  `top_bottom_cover` tinyint(3) NOT NULL DEFAULT -1,
-  `top_bottom_cover_condition` tinyint(3) NOT NULL DEFAULT -1,
-  `short_links` tinyint(3) NOT NULL DEFAULT -1,
-  `short_links_condition` tinyint(3) NOT NULL DEFAULT -1,
+  `top_bottom_cover` tinyint(3) NOT NULL DEFAULT '-1',
+  `top_bottom_cover_condition` tinyint(3) NOT NULL DEFAULT '-1',
+  `short_links` tinyint(3) NOT NULL DEFAULT '-1',
+  `short_links_condition` tinyint(3) NOT NULL DEFAULT '-1',
   `no_of_short_links` smallint(11) DEFAULT NULL,
-  `screws` tinyint(4) NOT NULL DEFAULT -1,
+  `screws` tinyint(4) NOT NULL DEFAULT '-1',
   `sales_order_no` varchar(50) DEFAULT NULL,
   `is_rma_available` tinyint(4) NOT NULL,
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_by` bigint(20) NOT NULL,
   `created_by` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -2436,7 +2449,18 @@ INSERT INTO `physical_verification` (`id`, `receipt_id`, `docket_details`, `cour
 (140, 76, NULL, 'by hand', '2020-02-14', 13, 465, '33851654', NULL, 1, 2, 1, 2, 1, 2, '0301', 2, 2, 2, 2, 0, 2, NULL, 1, '2020-02-14 06:02:30', '2020-02-14 05:57:57', 11, 11),
 (141, 70, '50677179980', 'BLUE DART', '2020-02-14', 13, 504, '34384351/03/18', 'NO PHY DAMANGE', 1, 2, 1, 2, 1, 2, '0601', 2, 2, 2, 2, 0, 2, NULL, 1, '2020-02-14 06:51:07', '2020-02-14 06:47:50', 11, 11),
 (142, 77, NULL, 'by hand', '2020-02-14', 13, 615, '34353174/02/18', NULL, 1, 2, 1, 2, 1, 2, '0502', 2, 2, 2, 2, 0, 2, '3269044352', 1, '2020-02-14 08:00:21', '2020-02-14 07:48:49', 11, 11),
-(143, -1, '', '', '2020-02-14', 13, 616, '33726400/07/16', NULL, -1, -1, -1, -1, -1, -1, '0', -1, -1, -1, -1, NULL, -1, '', 1, '2020-02-14 07:59:13', '2020-02-14 07:59:13', 11, 11);
+(143, -1, '', '', '2020-02-14', 13, 616, '33726400/07/16', NULL, -1, -1, -1, -1, -1, -1, '0', -1, -1, -1, -1, NULL, -1, '', 1, '2020-02-14 07:59:13', '2020-02-14 07:59:13', 11, 11),
+(144, 1, 'DOC0927', 'ABT', '2020-02-18', 27, 595, 'vcbsxcgsdgd', '', 1, 2, 1, 2, 2, 2, '0', 1, 2, 2, 2, 0, 1, '', 1, '2020-02-18 18:27:47', '2020-02-18 18:20:27', 1, 1),
+(145, 1, 'DOC0927', 'ABT', '2020-02-18', 21, 617, 'SDFSDFSA', '', 1, 2, 1, 2, 2, 2, '0', 1, 2, 2, 2, 0, 1, '', 1, '2020-02-18 18:24:04', '2020-02-18 18:24:04', 1, 1),
+(146, 77, NULL, 'by hand', '2020-02-25', 19, 579, 'SDF2345235/FTWS435/G', 'sdfgasg', 1, 2, 1, 2, 2, 2, '0', 1, 2, 2, 2, 0, 1, '', 1, '2020-02-25 07:59:50', '2020-02-25 07:59:50', 1, 1),
+(147, 5, NULL, NULL, '2020-02-25', 3, 52, 'DFS4643DFBSFGAS', '', 1, 2, 1, 2, 2, 2, '0', 1, 2, 2, 2, 0, 1, '', 1, '2020-02-25 08:30:26', '2020-02-25 08:30:26', 1, 1),
+(148, -1, '', '', '2020-03-05', 1, 4, 'CVSR3543', NULL, -1, -1, -1, -1, -1, -1, '0', -1, -1, -1, -1, NULL, -1, '', 1, '2020-03-05 07:33:33', '2020-03-05 07:33:33', 1, 1),
+(149, -1, '', '', '2020-03-05', 1, 4, 'CVSR3543', NULL, -1, -1, -1, -1, -1, -1, '0', -1, -1, -1, -1, NULL, -1, '', 1, '2020-03-05 07:35:08', '2020-03-05 07:35:08', 1, 1),
+(150, -1, '', '', '2020-03-05', 1, 4, 'CVSR3543', NULL, -1, -1, -1, -1, -1, -1, '0', -1, -1, -1, -1, NULL, -1, '', 1, '2020-03-05 07:35:23', '2020-03-05 07:35:23', 1, 1),
+(151, -1, '', '', '2020-03-05', 1, 4, 'CVSR3543', NULL, -1, -1, -1, -1, -1, -1, '0', -1, -1, -1, -1, NULL, -1, '', 1, '2020-03-05 07:35:57', '2020-03-05 07:35:57', 1, 1),
+(152, -1, '', '', '2020-03-05', 1, 4, 'CVSR3543', NULL, -1, -1, -1, -1, -1, -1, '0', -1, -1, -1, -1, NULL, -1, '', 1, '2020-03-05 07:36:05', '2020-03-05 07:36:05', 1, 1),
+(153, -1, '', '', '2020-03-05', 1, 6, 'VCVBE4633', NULL, -1, -1, -1, -1, -1, -1, '0', -1, -1, -1, -1, NULL, -1, '', 1, '2020-03-05 07:36:05', '2020-03-05 07:36:05', 1, 1),
+(154, -1, '', '', '2020-03-05', 1, 35, 'XCVBH3456', NULL, -1, -1, -1, -1, -1, -1, '0', -1, -1, -1, -1, NULL, -1, '', 1, '2020-03-05 07:36:05', '2020-03-05 07:36:05', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -2448,7 +2472,7 @@ CREATE TABLE `pv_priority_list` (
   `pv_id` bigint(20) NOT NULL,
   `priority` smallint(6) NOT NULL,
   `created_by` tinyint(4) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_by` tinyint(4) DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -2458,10 +2482,10 @@ CREATE TABLE `pv_priority_list` (
 --
 
 INSERT INTO `pv_priority_list` (`pv_id`, `priority`, `created_by`, `created_at`, `updated_by`, `updated_at`) VALUES
-(6, 1, 1, '2020-02-07 06:38:39', 12, '2020-02-10 19:47:12'),
-(14, 2, 1, '2020-02-10 09:11:33', 12, '2020-02-10 19:47:12'),
-(7, 3, 12, '2020-02-10 14:17:14', NULL, '2020-02-10 19:47:14'),
-(9, 4, 12, '2020-02-10 14:17:18', NULL, '2020-02-10 19:47:18');
+(14, 2, 1, '2020-02-10 09:11:33', 1, '2020-02-25 13:57:13'),
+(7, 3, 12, '2020-02-10 14:17:14', 1, '2020-02-25 13:57:13'),
+(9, 4, 12, '2020-02-10 14:17:18', 1, '2020-02-25 13:57:13'),
+(146, 1, 1, '2020-02-25 08:02:04', NULL, '2020-02-25 13:32:04');
 
 -- --------------------------------------------------------
 
@@ -2474,7 +2498,7 @@ CREATE TABLE `pv_rms_tracking` (
   `rack_id` varchar(15) NOT NULL,
   `rack_type` tinyint(4) NOT NULL,
   `created_by` tinyint(4) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -2678,7 +2702,15 @@ INSERT INTO `pv_rms_tracking` (`pv_id`, `rack_id`, `rack_type`, `created_by`, `c
 (131, '', 1, 6, '2020-02-14 08:41:48'),
 (133, '', 1, 6, '2020-02-14 08:42:38'),
 (134, '', 1, 6, '2020-02-14 08:43:40'),
-(142, '', 1, 6, '2020-02-14 08:44:38');
+(142, '', 1, 6, '2020-02-14 08:44:38'),
+(144, '', 5, 1, '2020-02-18 18:20:27'),
+(145, '', 5, 1, '2020-02-18 18:24:04'),
+(72, '', 1, 1, '2020-02-18 19:00:13'),
+(72, '', 1, 1, '2020-02-18 19:02:13'),
+(72, '', 1, 1, '2020-02-18 19:02:37'),
+(146, '', 5, 1, '2020-02-25 07:59:50'),
+(147, '', 5, 1, '2020-02-25 08:30:26'),
+(7, 'ABC', 1, 1, '2020-02-26 14:49:37');
 
 -- --------------------------------------------------------
 
@@ -2689,7 +2721,7 @@ INSERT INTO `pv_rms_tracking` (`pv_id`, `rack_id`, `rack_type`, `created_by`, `c
 CREATE TABLE `pv_status` (
   `pv_id` bigint(20) NOT NULL,
   `current_status_id` tinyint(4) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `created_by` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -2703,7 +2735,7 @@ INSERT INTO `pv_status` (`pv_id`, `current_status_id`, `created_at`, `created_by
 (3, 12, '2020-01-04 10:53:50', 1),
 (4, 12, '2020-01-04 10:57:05', 1),
 (5, 12, '2020-01-04 11:01:07', 1),
-(6, 14, '2020-01-04 11:17:54', 6),
+(6, 12, '2020-02-25 08:27:13', 1),
 (7, 4, '2020-02-10 13:57:20', 12),
 (8, 2, '2020-01-07 09:41:54', 7),
 (9, 4, '2020-02-10 13:53:16', 12),
@@ -2713,7 +2745,7 @@ INSERT INTO `pv_status` (`pv_id`, `current_status_id`, `created_at`, `created_by
 (13, 4, '2020-02-10 13:48:03', 12),
 (14, 14, '2020-02-13 08:47:46', 12),
 (15, 4, '2020-02-10 14:05:13', 12),
-(16, 11, '2020-02-12 06:42:52', 9),
+(16, 14, '2020-02-26 14:32:50', 1),
 (17, 4, '2020-02-10 14:03:49', 12),
 (18, 4, '2020-02-11 03:45:39', 12),
 (19, 13, '2020-02-08 04:33:16', 11),
@@ -2763,13 +2795,13 @@ INSERT INTO `pv_status` (`pv_id`, `current_status_id`, `created_at`, `created_by
 (63, 13, '2020-02-08 11:52:22', 11),
 (64, 3, '2020-02-11 11:48:34', 12),
 (65, 3, '2020-02-11 03:09:45', 12),
-(66, 11, '2020-02-13 04:50:58', 9),
+(66, 14, '2020-02-26 14:34:18', 1),
 (67, 11, '2020-02-13 05:06:43', 9),
 (68, 13, '2020-02-10 09:50:01', 1),
 (69, 13, '2020-02-10 09:50:02', 1),
 (70, 13, '2020-02-10 09:50:02', 1),
-(71, 4, '2020-02-13 09:20:49', 6),
-(72, 4, '2020-02-13 09:21:40', 6),
+(71, 11, '2020-02-26 14:32:36', 1),
+(72, 4, '2020-02-18 19:02:34', 1),
 (73, 4, '2020-02-13 09:22:03', 6),
 (74, 11, '2020-02-14 08:32:18', 9),
 (75, 4, '2020-02-11 11:22:34', 6),
@@ -2802,14 +2834,14 @@ INSERT INTO `pv_status` (`pv_id`, `current_status_id`, `created_at`, `created_by
 (102, 4, '2020-02-13 09:12:58', 6),
 (103, 4, '2020-02-13 09:05:59', 6),
 (104, 4, '2020-02-13 09:06:32', 6),
-(105, 11, '2020-02-14 08:34:01', 9),
+(105, 14, '2020-02-26 14:34:35', 1),
 (106, 11, '2020-02-13 12:32:28', 9),
 (107, 11, '2020-02-13 12:39:07', 9),
 (108, 11, '2020-02-14 08:35:20', 9),
 (109, 11, '2020-02-14 05:52:49', 9),
 (110, 11, '2020-02-14 06:04:57', 9),
 (111, 11, '2020-02-14 06:00:34', 9),
-(112, 11, '2020-02-14 05:55:58', 9),
+(112, 14, '2020-02-26 14:34:18', 1),
 (113, 4, '2020-02-13 09:22:59', 6),
 (114, 13, '2020-02-13 08:36:10', 10),
 (115, 13, '2020-02-13 08:36:11', 10),
@@ -2840,7 +2872,14 @@ INSERT INTO `pv_status` (`pv_id`, `current_status_id`, `created_at`, `created_by
 (140, 4, '2020-02-14 07:21:36', 6),
 (141, 13, '2020-02-14 06:49:39', 11),
 (142, 4, '2020-02-14 08:44:33', 6),
-(143, 13, '2020-02-14 07:59:13', 11);
+(143, 13, '2020-02-14 07:59:13', 11),
+(144, 13, '2020-02-18 18:27:47', 1),
+(145, 4, '2020-02-18 18:26:37', 1),
+(146, 4, '2020-02-25 08:00:38', 1),
+(147, 13, '2020-02-25 08:37:53', 1),
+(152, 13, '2020-03-05 07:36:05', 1),
+(153, 13, '2020-03-05 07:36:05', 1),
+(154, 13, '2020-03-05 07:36:05', 1);
 
 -- --------------------------------------------------------
 
@@ -2851,7 +2890,7 @@ INSERT INTO `pv_status` (`pv_id`, `current_status_id`, `created_at`, `created_by
 CREATE TABLE `pv_status_tracking` (
   `pv_id` bigint(20) NOT NULL,
   `status_id` tinyint(4) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created_by` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -3444,7 +3483,41 @@ INSERT INTO `pv_status_tracking` (`pv_id`, `status_id`, `created_at`, `created_b
 (131, 4, '2020-02-14 08:41:43', 6),
 (133, 4, '2020-02-14 08:42:34', 6),
 (134, 4, '2020-02-14 08:43:35', 6),
-(142, 4, '2020-02-14 08:44:33', 6);
+(142, 4, '2020-02-14 08:44:33', 6),
+(71, 6, '2020-02-18 05:42:29', 1),
+(71, 7, '2020-02-18 05:42:54', 1),
+(71, 8, '2020-02-18 05:58:07', 1),
+(71, 9, '2020-02-18 05:58:33', 1),
+(71, 9, '2020-02-18 06:09:27', 1),
+(71, 9, '2020-02-18 06:09:40', 1),
+(71, 10, '2020-02-18 06:13:16', 1),
+(144, 1, '2020-02-18 18:20:27', 1),
+(145, 2, '2020-02-18 18:24:04', 1),
+(145, 4, '2020-02-18 18:26:37', 1),
+(144, 13, '2020-02-18 18:27:47', 1),
+(72, 4, '2020-02-18 19:00:10', 1),
+(72, 4, '2020-02-18 19:02:10', 1),
+(72, 4, '2020-02-18 19:02:34', 1),
+(146, 2, '2020-02-25 07:59:50', 1),
+(146, 4, '2020-02-25 08:00:38', 1),
+(6, 12, '2020-02-25 08:27:13', 1),
+(147, 2, '2020-02-25 08:30:26', 1),
+(147, 15, '2020-02-25 08:31:21', 1),
+(147, 15, '2020-02-25 08:34:07', 1),
+(147, 13, '2020-02-25 08:37:53', 1),
+(71, 6, '2020-02-26 14:31:18', 1),
+(71, 7, '2020-02-26 14:31:45', 1),
+(71, 8, '2020-02-26 14:31:52', 1),
+(71, 9, '2020-02-26 14:32:10', 1),
+(71, 10, '2020-02-26 14:32:16', 1),
+(71, 11, '2020-02-26 14:32:36', 1),
+(16, 14, '2020-02-26 14:32:50', 1),
+(66, 14, '2020-02-26 14:34:18', 1),
+(112, 14, '2020-02-26 14:34:18', 1),
+(105, 14, '2020-02-26 14:34:35', 1),
+(152, 13, '2020-03-05 07:36:05', 1),
+(153, 13, '2020-03-05 07:36:05', 1),
+(154, 13, '2020-03-05 07:36:05', 1);
 
 -- --------------------------------------------------------
 
@@ -3467,7 +3540,7 @@ CREATE TABLE `receipt` (
   `created_by` tinyint(4) NOT NULL,
   `updated_by` tinyint(4) NOT NULL,
   `updated_at` datetime NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -3475,11 +3548,11 @@ CREATE TABLE `receipt` (
 --
 
 INSERT INTO `receipt` (`id`, `gs_no`, `receipt_date`, `customer_id`, `end_customer`, `site`, `email`, `courier_name`, `docket_details`, `total_boxes`, `status`, `created_by`, `updated_by`, `updated_at`, `created_at`) VALUES
-(1, NULL, '2020-01-03', 1, NULL, 'Chennai', NULL, 'ABT', 'DOC0927', 2, 2, 1, 1, '2020-01-03 17:39:33', '2020-01-03 12:09:33'),
+(1, NULL, '2020-01-03', 1, NULL, 'Chennai', NULL, 'ABT', 'DOC0927', 2, 2, 1, 1, '2020-02-18 23:54:04', '2020-02-18 18:24:04'),
 (2, NULL, '2020-01-07', 6, NULL, 'NR ENERGY  SOLUTIONS', 'nirmal.kumar@nrec.com', 'BY HAND', 'NA', 1, 2, 7, 7, '2020-01-07 15:11:54', '2020-01-07 09:41:54'),
 (3, NULL, '2020-01-07', 8, NULL, 'ABB BANGALORE', 'rashmi.ts@abb.com', 'TCIEXPRESS', '262614774', 1, 2, 7, 7, '2020-01-07 16:36:38', '2020-01-07 11:06:38'),
 (4, NULL, '2020-01-07', 9, NULL, 'PCP CONTRACTS', 'ekambaram.hariharan@ge.com', '', '', 1, 2, 7, 7, '2020-01-07 17:03:53', '2020-01-07 11:33:53'),
-(5, NULL, '2020-01-07', 9, NULL, 'PCP CONTRACTS', 'ekambaram.hariharan@ge.com', '', '', 1, 1, 7, 7, '2020-01-07 16:59:55', '2020-01-07 11:29:55'),
+(5, NULL, '2020-01-07', 9, NULL, 'PCP CONTRACTS', 'ekambaram.hariharan@ge.com', '', '', 1, 2, 7, 7, '2020-02-25 14:00:26', '2020-02-25 08:30:26'),
 (6, NULL, '2020-01-08', 2, NULL, 'chennai', 'krishnan.sudhakar@ge.com', 'Proffessional', 'P56439032', 2, 1, 1, 1, '2020-01-08 17:11:51', '2020-01-08 11:41:51'),
 (7, NULL, '2020-02-04', 10, NULL, 'Chennai', 'snss.anil@gmail.com', 'Fedex', '814436628937', 1, 2, 13, 1, '2020-02-04 19:33:08', '2020-02-04 14:03:08'),
 (8, NULL, '2020-02-04', 2, NULL, 'Shikrapur', 'shikrapur765@powergrid.co.in', 'DTDC', 'D56584466', 1, 2, 15, 15, '2020-02-06 09:56:41', '2020-02-06 04:26:41'),
@@ -3551,7 +3624,7 @@ INSERT INTO `receipt` (`id`, `gs_no`, `receipt_date`, `customer_id`, `end_custom
 (74, NULL, '2020-02-13', 2, NULL, 'GUJARAT', NULL, 'TCI EXPRESS', '178885103', 1, 2, 11, 11, '2020-02-14 10:30:37', '2020-02-14 05:00:37'),
 (75, NULL, '2020-02-13', 7, NULL, 'HAVERI', 'nodalofficerhaveri@gmail.com', 'hvc', '2254100', 1, 2, 11, 11, '2020-02-13 17:44:38', '2020-02-13 12:14:38'),
 (76, NULL, '2020-02-14', 38, NULL, 'CHENNAI', 'guna.vinothkumar@ge.com', 'by hand', '', 5, 2, 11, 11, '2020-02-14 11:27:57', '2020-02-14 05:57:57'),
-(77, NULL, '2020-02-14', 9, NULL, 'CHENNAI', 'ekambarm.hariaharan@ge.com', 'by hand', '', 1, 2, 11, 11, '2020-02-14 13:18:49', '2020-02-14 07:48:49');
+(77, NULL, '2020-02-14', 9, NULL, 'CHENNAI', 'ekambarm.hariaharan@ge.com', 'by hand', '', 1, 2, 11, 11, '2020-02-25 13:29:50', '2020-02-25 07:59:50');
 
 -- --------------------------------------------------------
 
@@ -3568,10 +3641,10 @@ CREATE TABLE `rma` (
   `customer_address_id` int(11) DEFAULT NULL,
   `end_customer` varchar(50) DEFAULT NULL,
   `status` tinyint(4) NOT NULL COMMENT '1.Open, 2.Saved, 3.Completed',
-  `service_type` tinyint(4) NOT NULL DEFAULT 1 COMMENT '1.Physical, 2.Site Card',
+  `service_type` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1.Physical, 2.Site Card',
   `created_by` int(11) NOT NULL,
   `updated_by` int(11) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -3580,12 +3653,12 @@ CREATE TABLE `rma` (
 --
 
 INSERT INTO `rma` (`id`, `receipt_id`, `gs_no`, `act_reference`, `date`, `customer_address_id`, `end_customer`, `status`, `service_type`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
-(40220001, 1, '', '', '2020-01-03', 1, 'GE', 3, 1, 1, 1, '2020-01-03 12:10:25', '2020-01-03 17:40:25'),
+(40220001, 1, '', '', '2020-01-03', 1, 'GE', 3, 1, 1, 1, '2020-02-18 18:27:47', '2020-02-18 23:57:47'),
 (40220002, 2, '', '', '2020-01-07', 6, 'NR ENERGY SOLUTIONS', 3, 1, 7, 7, '2020-01-07 09:44:28', '2020-01-07 15:14:28'),
 (40220003, 0, '', '', '2020-01-07', NULL, 'KPTCL', 3, 2, 7, 7, '2020-01-07 10:52:09', '2020-01-07 16:22:09'),
 (40220004, 3, '', '', '2020-01-07', 8, 'ABB BANGALORE', 3, 1, 7, 7, '2020-01-07 11:07:31', '2020-01-07 16:37:31'),
 (40220005, 4, '', '', '2020-01-07', 9, 'PCP CONTRACTS', 3, 1, 7, 7, '2020-01-07 11:37:07', '2020-01-07 17:07:07'),
-(40220006, 5, NULL, NULL, NULL, 9, NULL, 1, 1, 7, NULL, '2020-01-07 11:29:55', '2020-01-07 16:59:55'),
+(40220006, 5, NULL, NULL, '2020-02-25', 9, 'PCP CONTRACTS', 3, 1, 1, 1, '2020-02-25 08:37:53', '2020-02-25 14:07:53'),
 (40220007, 6, NULL, NULL, NULL, 2, NULL, 1, 1, 1, 1, '2020-01-08 11:41:51', '2020-01-08 17:11:51'),
 (40220008, 7, '', '', '2020-02-04', 10, 'DSTPS', 3, 1, 11, 1, '2020-02-04 14:03:08', '2020-02-04 19:33:08'),
 (40220009, 8, '', '', '2020-02-05', 2, 'PGCIL', 3, 1, 11, 11, '2020-02-06 04:40:19', '2020-02-06 10:10:19'),
@@ -3667,8 +3740,13 @@ INSERT INTO `rma` (`id`, `receipt_id`, `gs_no`, `act_reference`, `date`, `custom
 (40220085, 75, '', '', '2020-02-13', 7, 'KPTCL', 3, 1, 11, 11, '2020-02-13 12:17:33', '2020-02-13 17:47:33'),
 (40220086, 0, '', '', '2020-02-13', NULL, 'trans global', 3, 2, 11, 11, '2020-02-13 12:34:39', '2020-02-13 18:04:39'),
 (40220087, 76, '', '', '2020-02-14', 38, 'PROCUREMENT', 3, 1, 11, 11, '2020-02-14 06:00:36', '2020-02-14 11:30:36'),
-(40220088, 77, '', '', '2020-02-14', 9, 'PCP CONTRACTS', 3, 1, 11, 11, '2020-02-14 07:52:05', '2020-02-14 13:22:05'),
-(40220089, 0, '', '', '2020-02-14', NULL, 'KPTCL', 3, 2, 11, 11, '2020-02-14 07:59:13', '2020-02-14 13:29:13');
+(40220088, 77, '', '', '2020-02-14', 9, 'PCP CONTRACTS', 3, 1, 1, 1, '2020-02-25 08:00:38', '2020-02-25 13:30:38'),
+(40220089, 0, '', '', '2020-02-14', NULL, 'KPTCL', 3, 2, 11, 11, '2020-02-14 07:59:13', '2020-02-14 13:29:13'),
+(40220090, 0, '', '', '2020-03-05', NULL, 'PCP CONTRACTS', 3, 2, 1, 1, '2020-03-05 07:33:33', '2020-03-05 13:03:33'),
+(40220091, 0, '', '', '2020-03-05', NULL, 'PCP CONTRACTS', 3, 2, 1, 1, '2020-03-05 07:35:08', '2020-03-05 13:05:08'),
+(40220092, 0, '', '', '2020-03-05', NULL, 'PCP CONTRACTS', 3, 2, 1, 1, '2020-03-05 07:35:23', '2020-03-05 13:05:23'),
+(40220093, 0, '', '', '2020-03-05', NULL, 'PCP CONTRACTS', 3, 2, 1, 1, '2020-03-05 07:35:57', '2020-03-05 13:05:57'),
+(40220094, 0, '', '', '2020-03-05', NULL, 'PCP CONTRACTS', 3, 2, 1, 1, '2020-03-05 07:36:05', '2020-03-05 13:06:05');
 
 -- --------------------------------------------------------
 
@@ -3687,7 +3765,7 @@ CREATE TABLE `rma_delivery_address` (
   `gst` varchar(15) DEFAULT NULL,
   `created_by` int(11) NOT NULL,
   `updated_by` int(11) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -3696,7 +3774,7 @@ CREATE TABLE `rma_delivery_address` (
 --
 
 INSERT INTO `rma_delivery_address` (`id`, `rma_id`, `name`, `address`, `contact_person`, `tel_no`, `email`, `gst`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
-(1, 40220001, 'APTRANSCO', 'Vidyut Soudha, Gunadala,Eluru Rd, Vijayawada, Andhra Pradesh 520004', 'Praveen Kumar', '87845613366', 'praveenkumar@aptransco.co.in', '29AADCC9174H1ZA', 1, 1, '2020-01-03 12:10:25', '2020-01-03 17:40:25'),
+(1, 40220001, 'APTRANSCO', 'Vidyut Soudha, Gunadala,Eluru Rd, Vijayawada, Andhra Pradesh 520004', 'Praveen Kumar', '87845613366', 'praveenkumar@aptransco.co.in', '29AADCC9174H1ZA', 1, 1, '2020-02-18 18:27:47', '2020-02-18 23:57:47'),
 (2, 40220002, 'NR ENERGY SOLUTIONS PVT LTD', 'PLOT NO:89 PANVEL IND \nCO-OP ESTATE LTD PANVEL\nNAVI MUMABI\nMAHARASHTRA', 'MR NIRMAL KUMAR', '9551385141', 'nirmal.kumar@nrec.com', '27AADCN9254B1ZI', 7, NULL, '2020-01-07 09:44:28', '2020-01-07 15:14:28'),
 (3, 40220003, 'KPTCL', 'EXECUTIVE ENGINEER\n220KV RS MAHALINGPUR KPTCL \nRABKAVI ROAD\nMAHALINGUR-587312', 'NR JOHN DAS', '7004706833', 'john.das@ge.com', '29AABCK7281M7ZR', 7, 7, '2020-01-07 10:52:09', '2020-01-07 16:22:09'),
 (4, 40220004, 'ABB', 'SERVICE CENTRE \nSB-115 3RD CROSS PEENYA INDUSTRIAL AREA \nBANGALORE', 'MRS RASHMI', '8022949687', 'rashmi.ts@abb.com', '29AAACA3834B1ZA', 7, NULL, '2020-01-07 11:07:31', '2020-01-07 16:37:31'),
@@ -3775,8 +3853,14 @@ INSERT INTO `rma_delivery_address` (`id`, `rma_id`, `name`, `address`, `contact_
 (77, 40220084, 'PGCIL', '765/400/220 KV BHUJ POOLING SS\nVILLAGE :PALAPUR(BADI)\nTK:NAKHATRANA KUTCH \nGUJARAT-370001', 'GHANSHYAM BHUT', '8980016036', 'nikalkumar.n@pgcil.com', '24AAACP0252G1ZZ', 11, NULL, '2020-02-14 05:03:33', '2020-02-14 10:33:33'),
 (78, 40220087, 'PROCUREMENT', 'ALSTOM T D INDIA LTD\n19/1 GST ROAD ,CHENNAI', 'MR GUNA VINOTH KUMAR', '9600067351', 'guna.vinothkumar@ge.com', '33AAACG2115R1ZO', 11, NULL, '2020-02-14 06:00:36', '2020-02-14 11:30:36'),
 (79, 40220080, 'DANISH PRIVATE LIMITED', 'F-679-680&G-694 , SITAPURA INDUSTRIAL PARK, JAIPUR-302022', 'MR B S SHEKHAWAT', '911415164500', 'info@danish.co.in', '08AABCD0834B1ZA', 11, NULL, '2020-02-14 06:49:39', '2020-02-14 12:19:39'),
-(80, 40220088, 'PCP CONTRACTS', 'GE TD INDIA LTD\nPALLAVARAM', 'MR  E HARIAHRAN', '9611896000', 'ekambaram.hariharan@ge.com', '33AAACG2115R1ZO', 11, NULL, '2020-02-14 07:52:05', '2020-02-14 13:22:05'),
-(81, 40220089, 'KPTCL', '220KV RECEIVING SS\nVAJAMANGALA MYSORE-570028', 'MR ASHUTHOSH', '9480813595', 'shahabad_220@yahoo.co.in', '29AABCK7281M7ZR', 11, 11, '2020-02-14 07:59:13', '2020-02-14 13:29:13');
+(80, 40220088, 'PCP CONTRACTS', 'GE TD INDIA LTD\nPALLAVARAM', 'MR  E HARIAHRAN', '9611896000', 'ekambaram.hariharan@ge.com', '33AAACG2115R1ZO', 11, 1, '2020-02-25 08:00:38', '2020-02-25 13:30:38'),
+(81, 40220089, 'KPTCL', '220KV RECEIVING SS\nVAJAMANGALA MYSORE-570028', 'MR ASHUTHOSH', '9480813595', 'shahabad_220@yahoo.co.in', '29AABCK7281M7ZR', 11, 11, '2020-02-14 07:59:13', '2020-02-14 13:29:13'),
+(82, 40220006, 'PCP CONTRACTS', 'GE TD INDIA LTD\nPALLAVARAM', 'MR  E HARIAHRAN', '9611896000', 'ekambaram.hariharan@ge.com', '638jdjwsmidf8us', 1, 1, '2020-02-25 08:37:53', '2020-02-25 14:07:53'),
+(83, 40220090, 'PCP CONTRACTS', 'GE TD INDIA LTD PALLAVARAM,', 'ARUN', '1234534', 'arun@pcp.cs', '123456789012345', 1, 1, '2020-03-05 07:33:33', '2020-03-05 13:03:33'),
+(84, 40220091, 'PCP CONTRACTS', 'GE TD INDIA LTD PALLAVARAM,', 'ARUN', '1234534', 'arun@pcp.cs', '123456789012345', 1, 1, '2020-03-05 07:35:08', '2020-03-05 13:05:08'),
+(85, 40220092, 'PCP CONTRACTS', 'GE TD INDIA LTD PALLAVARAM,', 'ARUN', '1234534', 'arun@pcp.cs', '123456789012345', 1, 1, '2020-03-05 07:35:23', '2020-03-05 13:05:23'),
+(86, 40220093, 'PCP CONTRACTS', 'GE TD INDIA LTD PALLAVARAM,', 'ARUN', '1234534', 'arun@pcp.cs', '123456789012345', 1, 1, '2020-03-05 07:35:57', '2020-03-05 13:05:57'),
+(87, 40220094, 'PCP CONTRACTS', 'GE TD INDIA LTD PALLAVARAM,', 'ARUN', '1234534', 'arun@pcp.cs', '123456789012345', 1, 1, '2020-03-05 07:36:05', '2020-03-05 13:06:05');
 
 -- --------------------------------------------------------
 
@@ -3795,7 +3879,7 @@ CREATE TABLE `rma_invoice_address` (
   `gst` varchar(15) DEFAULT NULL,
   `created_by` int(11) NOT NULL,
   `updated_by` int(11) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -3804,7 +3888,7 @@ CREATE TABLE `rma_invoice_address` (
 --
 
 INSERT INTO `rma_invoice_address` (`id`, `rma_id`, `name`, `address`, `contact_person`, `tel_no`, `email`, `gst`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
-(1, 40220001, 'APTRANSCO', 'Vidyut Soudha, Gunadala,Eluru Rd, Vijayawada, Andhra Pradesh 520004', 'Praveen Kumar', '87845613366', 'praveenkumar@aptransco.co.in', '29AADCC9174H1ZA', 1, 1, '2020-01-03 12:10:25', '2020-01-03 17:40:25'),
+(1, 40220001, 'APTRANSCO', 'Vidyut Soudha, Gunadala,Eluru Rd, Vijayawada, Andhra Pradesh 520004', 'Praveen Kumar', '87845613366', 'praveenkumar@aptransco.co.in', '29AADCC9174H1ZA', 1, 1, '2020-02-18 18:27:47', '2020-02-18 23:57:47'),
 (2, 40220002, 'NR ENERGY SOLUTIONS PVT LTD', 'PLOT NO:89 PANVEL IND \nCO-OP ESTATE LTD PANVEL\nNAVI MUMABI\nMAHARASHTRA', 'MR NIRMAL KUMAR', '9551385141', 'nirmal.kumar@nrec.com', '27AADCN9254B1ZI', 7, NULL, '2020-01-07 09:44:28', '2020-01-07 15:14:28'),
 (3, 40220003, 'KPTCL', 'EXECUTIVE ENGINEER\n220KV RS MAHALINGPUR KPTCL \nRABKAVI ROAD\nMAHALINGUR-587312', 'NR JOHN DAS', '7004706833', 'john.das@ge.com', '29AABCK7281M7ZR', 7, 7, '2020-01-07 10:52:09', '2020-01-07 16:22:09'),
 (4, 40220004, 'ABB', 'SERVICE CENTRE \nSB-115 3RD CROSS PEENYA INDUSTRIAL AREA \nBANGALORE', 'MRS RASHMI', '8022949687', 'rashmi.ts@abb.com', '29AAACA3834B1ZA', 7, NULL, '2020-01-07 11:07:31', '2020-01-07 16:37:31'),
@@ -3883,8 +3967,14 @@ INSERT INTO `rma_invoice_address` (`id`, `rma_id`, `name`, `address`, `contact_p
 (77, 40220084, 'PGCIL', '765/400/220 KV BHUJ POOLING SS\nVILLAGE :PALAPUR(BADI)\nTK:NAKHATRANA KUTCH \nGUJARAT-370001', 'GHANSHYAM BHUT', '8980016036', 'nikalkumar.n@pgcil.com', '24AAACP0252G1ZZ', 11, NULL, '2020-02-14 05:03:33', '2020-02-14 10:33:33'),
 (78, 40220087, 'PROCUREMENT', 'ALSTOM T D INDIA LTD\n19/1 GST ROAD ,CHENNAI', 'MR GUNA VINOTH KUMAR', '9600067351', 'guna.vinothkumar@ge.com', '33AAACG2115R1ZO', 11, NULL, '2020-02-14 06:00:36', '2020-02-14 11:30:36'),
 (79, 40220080, 'DANISH PRIVATE LIMITED', 'F-679-680&G-694 , SITAPURA INDUSTRIAL PARK, JAIPUR-302022', 'MR B S SHEKHAWAT', '911415164500', 'info@danish.co.in', '08AABCD0834B1ZA', 11, NULL, '2020-02-14 06:49:39', '2020-02-14 12:19:39'),
-(80, 40220088, 'PCP CONTRACTS', 'GE TD INDIA LTD\nPALLAVARAM', 'MR  E HARIAHRAN', '9611896000', 'ekambaram.hariharan@ge.com', '33AAACG2115R1ZO', 11, NULL, '2020-02-14 07:52:05', '2020-02-14 13:22:05'),
-(81, 40220089, 'KPTCL', '220KV RECEIVING SS\nVAJAMANGALA MYSORE-570028', 'MR ASHUTHOSH', '9480813595', 'shahabad_220@yahoo.co.in', '29AABCK7281M7ZR', 11, 11, '2020-02-14 07:59:13', '2020-02-14 13:29:13');
+(80, 40220088, 'PCP CONTRACTS', 'GE TD INDIA LTD\nPALLAVARAM', 'MR  E HARIAHRAN', '9611896000', 'ekambaram.hariharan@ge.com', '33AAACG2115R1ZO', 11, 1, '2020-02-25 08:00:38', '2020-02-25 13:30:38'),
+(81, 40220089, 'KPTCL', '220KV RECEIVING SS\nVAJAMANGALA MYSORE-570028', 'MR ASHUTHOSH', '9480813595', 'shahabad_220@yahoo.co.in', '29AABCK7281M7ZR', 11, 11, '2020-02-14 07:59:13', '2020-02-14 13:29:13'),
+(82, 40220006, 'PCP CONTRACTS', 'GE TD INDIA LTD\nPALLAVARAM', 'MR  E HARIAHRAN', '9611896000', 'ekambaram.hariharan@ge.com', '638jdjwsmidf8us', 1, 1, '2020-02-25 08:37:53', '2020-02-25 14:07:53'),
+(83, 40220090, 'PCP CONTRACTS', 'GE TD INDIA LTD PALLAVARAM,', 'ARUN', '1234534', 'arun@pcp.cs', '123456789012345', 1, 1, '2020-03-05 07:33:33', '2020-03-05 13:03:33'),
+(84, 40220091, 'PCP CONTRACTS', 'GE TD INDIA LTD PALLAVARAM,', 'ARUN', '1234534', 'arun@pcp.cs', '123456789012345', 1, 1, '2020-03-05 07:35:08', '2020-03-05 13:05:08'),
+(85, 40220092, 'PCP CONTRACTS', 'GE TD INDIA LTD PALLAVARAM,', 'ARUN', '1234534', 'arun@pcp.cs', '123456789012345', 1, 1, '2020-03-05 07:35:23', '2020-03-05 13:05:23'),
+(86, 40220093, 'PCP CONTRACTS', 'GE TD INDIA LTD PALLAVARAM,', 'ARUN', '1234534', 'arun@pcp.cs', '123456789012345', 1, 1, '2020-03-05 07:35:57', '2020-03-05 13:05:57'),
+(87, 40220094, 'PCP CONTRACTS', 'GE TD INDIA LTD PALLAVARAM,', 'ARUN', '1234534', 'arun@pcp.cs', '123456789012345', 1, 1, '2020-03-05 07:36:05', '2020-03-05 13:06:05');
 
 -- --------------------------------------------------------
 
@@ -3906,7 +3996,7 @@ CREATE TABLE `rma_unit_information` (
   `how_long` varchar(100) DEFAULT NULL,
   `created_by` int(11) NOT NULL,
   `updated_by` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -4065,7 +4155,19 @@ INSERT INTO `rma_unit_information` (`id`, `rma_id`, `pv_id`, `sw_version`, `serv
 (148, 40220087, 140, NULL, 1, 'P642926D6M0070P', '', 0, 0, 0, '3269PP1955/3269053274', 11, 11, '2020-02-14 06:00:37', '2020-02-14 11:30:37'),
 (149, 40220080, 141, '51', 1, 'ERROR CODE PROBLEM', '', 0, 0, 0, '', 11, 11, '2020-02-14 06:49:39', '2020-02-14 12:19:39'),
 (150, 40220088, 142, NULL, 1, 'TO P64392AE6M0060M', '', 0, 0, 0, '', 11, 11, '2020-02-14 07:52:05', '2020-02-14 13:22:05'),
-(151, 40220089, 143, '710_C', 2, 'NEED TO MODIFY RELSY TO P442916B7M0710M\nCOMMUNICATION CARD IS REQUIRED', '', 0, 0, 0, '', 11, 11, '2020-02-14 07:59:13', '2020-02-14 13:29:13');
+(151, 40220089, 143, '710_C', 2, 'NEED TO MODIFY RELSY TO P442916B7M0710M\nCOMMUNICATION CARD IS REQUIRED', '', 0, 0, 0, '', 11, 11, '2020-02-14 07:59:13', '2020-02-14 13:29:13'),
+(152, 40220001, 145, NULL, 1, '', '', 0, 0, 0, '', 1, 1, '2020-02-18 18:24:34', '2020-02-18 23:54:34'),
+(153, 40220001, 145, NULL, 1, '', '', 0, 0, 0, '', 1, 1, '2020-02-18 18:26:37', '2020-02-18 23:56:37'),
+(154, 40220001, 144, NULL, 1, '', '', 0, 0, 0, '', 1, 1, '2020-02-18 18:27:47', '2020-02-18 23:57:47'),
+(155, 40220088, 146, NULL, 1, 'CUSTOMER FAULT', '', 0, 0, 0, '', 1, 1, '2020-02-25 08:00:38', '2020-02-25 13:30:38'),
+(156, 40220006, 147, NULL, 1, 'CUSTOEMR DESC', NULL, 0, 0, 0, NULL, 1, 1, '2020-02-25 08:37:53', '2020-02-25 14:07:53'),
+(157, 40220090, 148, 'CX', 2, '', '', 0, 0, 0, '', 1, 1, '2020-03-05 07:33:33', '2020-03-05 13:03:33'),
+(158, 40220091, 149, 'CX', 2, '', '', 0, 0, 0, '', 1, 1, '2020-03-05 07:35:08', '2020-03-05 13:05:08'),
+(159, 40220092, 150, 'CX', 2, '', '', 0, 0, 0, '', 1, 1, '2020-03-05 07:35:23', '2020-03-05 13:05:23'),
+(160, 40220093, 151, 'CX', 2, '', '', 0, 0, 0, '', 1, 1, '2020-03-05 07:35:57', '2020-03-05 13:05:57'),
+(161, 40220094, 152, 'CX', 2, '', '', 0, 0, 0, '', 1, 1, '2020-03-05 07:36:05', '2020-03-05 13:06:05'),
+(162, 40220094, 153, 'VBC', 2, '', '', 0, 0, 0, '', 1, 1, '2020-03-05 07:36:05', '2020-03-05 13:06:05'),
+(163, 40220094, 154, '12', 2, '', '', 0, 0, 0, '', 1, 1, '2020-03-05 07:36:05', '2020-03-05 13:06:05');
 
 -- --------------------------------------------------------
 
@@ -4079,7 +4181,7 @@ CREATE TABLE `rma_unit_serial_number` (
   `serial_number` varchar(10) NOT NULL,
   `created_by` int(11) NOT NULL,
   `updated_by` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -4094,8 +4196,8 @@ CREATE TABLE `rms` (
   `rack_id` varchar(15) DEFAULT NULL,
   `rack_type` tinyint(4) DEFAULT NULL COMMENT '1.Repair, 2.Customer Rack, 3.Post Lab, 4.Application Lab, 5.PV Rack',
   `moved_date` date NOT NULL,
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_by` bigint(20) NOT NULL,
   `created_by` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -4105,8 +4207,7 @@ CREATE TABLE `rms` (
 --
 
 INSERT INTO `rms` (`pv_id`, `rack_id`, `rack_type`, `moved_date`, `updated_at`, `created_at`, `updated_by`, `created_by`) VALUES
-(6, '', 1, '2020-01-04', '2020-01-04 11:09:40', '2020-01-03 12:07:42', 1, 1),
-(7, '', 1, '2020-02-10', '2020-02-10 13:57:26', '2020-01-03 12:09:33', 12, 1),
+(7, 'ABC', 1, '2020-02-26', '2020-02-26 14:49:37', '2020-01-03 12:09:33', 1, 1),
 (8, 'A005', 5, '2020-02-06', '2020-02-06 09:34:12', '2020-01-07 09:41:54', 1, 7),
 (9, '', 1, '2020-02-10', '2020-02-10 13:53:16', '2020-01-07 09:41:54', 12, 7),
 (10, '', 1, '2020-02-10', '2020-02-10 14:00:59', '2020-02-10 14:00:59', 12, 12),
@@ -4171,7 +4272,7 @@ INSERT INTO `rms` (`pv_id`, `rack_id`, `rack_type`, `moved_date`, `updated_at`, 
 (69, '', 5, '2020-02-10', '2020-02-10 09:39:01', '2020-02-10 09:39:01', 1, 1),
 (70, '', 5, '2020-02-10', '2020-02-10 09:41:03', '2020-02-10 09:41:03', 1, 1),
 (71, '', 1, '2020-02-13', '2020-02-13 09:20:53', '2020-02-10 10:33:43', 6, 11),
-(72, '', 1, '2020-02-13', '2020-02-13 09:21:44', '2020-02-10 10:34:29', 6, 11),
+(72, '', 1, '2020-02-19', '2020-02-18 19:02:37', '2020-02-10 10:34:29', 1, 11),
 (73, '', 1, '2020-02-13', '2020-02-13 09:22:07', '2020-02-10 10:35:22', 6, 11),
 (74, '', 1, '2020-02-11', '2020-02-11 03:57:47', '2020-02-10 11:25:30', 12, 11),
 (75, '', 1, '2020-02-11', '2020-02-11 11:22:37', '2020-02-11 04:30:24', 6, 11),
@@ -4240,7 +4341,11 @@ INSERT INTO `rms` (`pv_id`, `rack_id`, `rack_type`, `moved_date`, `updated_at`, 
 (139, '', 1, '2020-02-14', '2020-02-14 07:21:05', '2020-02-14 05:57:05', 6, 11),
 (140, '', 1, '2020-02-14', '2020-02-14 07:21:40', '2020-02-14 05:57:57', 6, 11),
 (141, '', 5, '2020-02-14', '2020-02-14 06:47:50', '2020-02-14 06:47:50', 11, 11),
-(142, '', 1, '2020-02-14', '2020-02-14 08:44:38', '2020-02-14 07:48:50', 6, 11);
+(142, '', 1, '2020-02-14', '2020-02-14 08:44:38', '2020-02-14 07:48:50', 6, 11),
+(144, '', 5, '2020-02-18', '2020-02-18 18:20:27', '2020-02-18 18:20:27', 1, 1),
+(145, '', 5, '2020-02-18', '2020-02-18 18:24:04', '2020-02-18 18:24:04', 1, 1),
+(146, '', 5, '2020-02-25', '2020-02-25 07:59:50', '2020-02-25 07:59:50', 1, 1),
+(147, '', 5, '2020-02-25', '2020-02-25 08:30:26', '2020-02-25 08:30:26', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -4348,7 +4453,7 @@ CREATE TABLE `verification_completion` (
   `flops` tinyint(4) NOT NULL,
   `created_by` tinyint(4) NOT NULL,
   `updated_by` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -4367,6 +4472,7 @@ INSERT INTO `verification_completion` (`pv_id`, `updated_no_of_terminal_blocks`,
 (16, '0402', NULL, 0, 0, 0, 1, 1, 1, 1, 1, 0, 9, 9, '2020-02-12 06:42:52', '2020-02-12 12:12:52'),
 (66, '0502', '60_F', 0, 1, 1, 1, 0, 1, 1, 1, 0, 9, 9, '2020-02-13 04:50:58', '2020-02-13 10:20:58'),
 (67, NULL, NULL, 0, 1, 1, 1, 0, 0, 1, 1, 0, 9, 9, '2020-02-13 05:06:43', '2020-02-13 10:36:43'),
+(71, NULL, NULL, NULL, 0, 0, 0, 1, 0, 0, 1, 0, 1, 1, '2020-02-26 14:32:36', '2020-02-26 20:02:36'),
 (74, '0003', '51_K', 0, 1, 1, 1, 0, 1, 1, 1, 0, 9, 9, '2020-02-14 08:32:18', '2020-02-14 14:02:18'),
 (80, NULL, NULL, 0, 1, 1, 1, 0, 0, 0, 1, 0, 9, 9, '2020-02-12 07:08:38', '2020-02-12 12:38:38'),
 (81, '0402', '60_D', 0, 1, 1, 1, 0, 0, 0, 1, 0, 9, 9, '2020-02-12 08:45:17', '2020-02-12 14:15:17'),
@@ -4480,7 +4586,7 @@ INSERT INTO `warranty` (`id`, `pv_id`, `smp`, `pcp`, `type`, `move`, `rca`, `com
 (59, 101, 2, 2, 1, 1, 0, '', NULL, NULL, NULL, '', '', '2020-02-13 09:12:38', 6, '2020-02-13 09:12:38', 6),
 (60, 102, 2, 2, 1, 1, 0, '', NULL, NULL, NULL, '', '', '2020-02-13 09:12:58', 6, '2020-02-13 09:12:58', 6),
 (61, 71, 2, 2, 1, 1, 0, 'BOJ', NULL, NULL, NULL, '', '', '2020-02-13 09:20:49', 6, '2020-02-13 09:20:49', 6),
-(62, 72, 2, 2, 1, 1, 0, 'BOJ', NULL, NULL, NULL, '', '', '2020-02-13 09:21:40', 6, '2020-02-13 09:21:40', 6),
+(62, 72, 2, 2, 1, 1, 0, '', NULL, NULL, NULL, '', '', '2020-02-18 19:02:34', 1, '2020-02-18 19:02:34', 1),
 (63, 73, 2, 2, 1, 1, 0, '', NULL, NULL, NULL, '', '', '2020-02-13 09:22:03', 6, '2020-02-13 09:22:03', 6),
 (64, 113, 2, 2, 1, 1, 0, 'BOJ-  Intel   SMPS', NULL, NULL, NULL, '', '', '2020-02-13 09:22:59', 6, '2020-02-13 09:22:59', 6),
 (65, 136, 1, 2, 2, 1, 0, '', NULL, NULL, NULL, '', '3269PP1965', '2020-02-14 07:18:29', 6, '2020-02-14 07:18:29', 6),
@@ -4695,19 +4801,19 @@ ALTER TABLE `warranty`
 -- AUTO_INCREMENT for table `dispatch`
 --
 ALTER TABLE `dispatch`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `job_tickets`
 --
 ALTER TABLE `job_tickets`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `job_ticket_materials`
 --
 ALTER TABLE `job_ticket_materials`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=144;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=147;
 
 --
 -- AUTO_INCREMENT for table `ma_customer`
@@ -4749,7 +4855,7 @@ ALTER TABLE `ma_packing_style`
 -- AUTO_INCREMENT for table `ma_product`
 --
 ALTER TABLE `ma_product`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=617;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=618;
 
 --
 -- AUTO_INCREMENT for table `ma_product_type`
@@ -4791,7 +4897,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `physical_verification`
 --
 ALTER TABLE `physical_verification`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=144;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=155;
 
 --
 -- AUTO_INCREMENT for table `receipt`
@@ -4803,25 +4909,25 @@ ALTER TABLE `receipt`
 -- AUTO_INCREMENT for table `rma`
 --
 ALTER TABLE `rma`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40220090;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40220095;
 
 --
 -- AUTO_INCREMENT for table `rma_delivery_address`
 --
 ALTER TABLE `rma_delivery_address`
-  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT for table `rma_invoice_address`
 --
 ALTER TABLE `rma_invoice_address`
-  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT for table `rma_unit_information`
 --
 ALTER TABLE `rma_unit_information`
-  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=152;
+  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=164;
 
 --
 -- AUTO_INCREMENT for table `rma_unit_serial_number`
