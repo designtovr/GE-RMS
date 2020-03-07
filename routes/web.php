@@ -370,4 +370,8 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::get('/lableprintersip', 'PrintController@LablePrintersIP');
 
 	Route::post('/changeprinterip', 'PrintController@ChangePrinterIP');
+
+	Route::post('/exportfile', 'FileExportController@ExportExcelFile');
+
+	Route::get('/exportreceiptfile', 'FileExportController@ExportReceiptFile');
 });

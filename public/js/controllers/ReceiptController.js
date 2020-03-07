@@ -1,4 +1,4 @@
-app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter','$ngConfirm', function($scope, $http,Notification, $filter , $ngConfirm){
+app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter','$ngConfirm', 'Excel', '$timeout', 'Upload', function($scope, $http,Notification, $filter , $ngConfirm, Excel, $timeout, Upload){
 	$scope.receiptform = false;
 	$scope.receipts = [];
 	$scope.receipt = {};
@@ -19,14 +19,6 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 	$scope.states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Dakota', 'North Carolina', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
 	$scope.AddReceipt= function()
 	{
-		/*if ($scope.receipt.customer_name == 'Add New')
-		{
-			$scope.receipt.customer_name = $scope.receipt.customer_name_new;
-		}*/
-		/*if ($scope.receipt.selected_end_customer.end_customer == 'Add New')
-		{
-			$scope.receipt.end_customer = $scope.receipt.end_customer_new;
-		}*/
 		console.log($scope.receipt);
 		$http({
 			method: 'post',
@@ -73,6 +65,34 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 				}
 			}
 		});
+	}
+
+	$scope.exportToExcel=function(tableId){ // ex: '#my-table'
+		$scope.exportHref=Excel.tableToExcel(tableId,'Sheet1');
+		$timeout(function(){
+			//location.href=$scope.exportHref;
+			var file = dataURLtoFile($scope.exportHref, 'receipt.xls')
+			Upload.upload({
+	            url: '/ge/exportfile',
+	            data: {file: file, 'filename': 'Receipt.xls'}
+	        }).then(function (resp) {
+	            console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
+	        }, function (resp) {
+	            console.log('Error status: ' + resp.status);
+	        }, function (evt) {
+	            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+	            console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+	        });
+		},100); // trigger download
+	}
+
+	function dataURLtoFile(dataurl, filename) {
+		var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+	    bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+	    while(n--){
+	        u8arr[n] = bstr.charCodeAt(n);
+	    }
+	    return new File([u8arr], filename, {type:mime});
 	}
 
 	$scope.Reset = function()

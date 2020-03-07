@@ -28,11 +28,9 @@
                                         <input type="text"
                                         class="form-control"
                                                placeholder="From Date"
-
                                                max-date="dateTo"
                                                ng-model = "dateFrom"
                                                filter-by="date_unix"
-
                                                ng-change="gridActions.filter();"
                                                id="dateFromFilter"
                                                filter-type="dateFrom"
@@ -79,18 +77,28 @@
                     <div class = "row">
                         @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
                         <div class="col-md-12 p-b-20">
-                             <button type="button" class="btn btn-primary btn-md float-right" ng-click="ShowReceiptForm();">
-                                <i class="fa fa-plus"></i>&nbsp;Create
-                            </button>
+                            <ul class="list-inline">
+                                <li>
+                                    <button type="button" class="btn btn-primary btn-md float-right" ng-click="ShowReceiptForm();">
+                                        <i class="fa fa-plus"></i>&nbsp;Create
+                                    </button>
+                                </li>
+                                <li>
+                                    <button type="button" class="btn btn-primary btn-md float-right box" ng-click="exportToExcel('#receipttable')" 
+                                        style="margin-right: 10px;">
+                                        <i class="fa fa-file-excel-o"></i>&nbsp;Export
+                                    </button>
+                                </li>
+                            </ul>
                         </div>
                         @endif
                     </div>
                     <div class="col-md-12">
                         <!-- DATA TABLE-->
-                        <div grid-data grid-options="gridOptions" grid-actions="gridActions" >
+                        <div grid-data grid-options="gridOptions" grid-actions="gridActions">
                             <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
                             <div class="overflow-auto">
-                                <table class="table table-borderless table-data3">
+                                <table class="table table-borderless table-data3" id="receipttable" name="receipttable">
                                     <thead>
                                         <tr>
                                             @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
@@ -168,6 +176,7 @@
                                         <option>25</option>
                                         <option>50</option>
                                         <option>75</option>
+                                        <option>10000000</option>
                                     </select>
                                 </div>
                             </form>
@@ -235,56 +244,8 @@
                                               <small ng-bind-html="customer.location_name | highlight: $select.search"></small>
                                             </ui-select-choices>
                                         </ui-select>
-                                          <!-- <input ng-if="receipt.customer_id.id == -1" type="text" id="customer_name_new" name="customer_name_new"
-                                           placeholder="Customer Name" class="form-control"
-                                           ng-model="receipt.customer_name_new"
-                                           required>
-                                        <div ng-show="AddReceiptForm.customer_name_new.$touched && AddReceiptForm.customer_name_new.$error">
-                                            <span class="help-block"
-                                                  ng-show="AddReceiptForm.customer_name_new.$error.required">
-                                                Please Select Customer Name
-                                            </span>
-                                        </div> -->
                                     </div>
                                 </div>
-                                <!-- <div class="row form-group">
-                                    <div class="col col-md-3">
-                                        <label for="end_cusname" class=" form-control-label">End Customer <span
-                                                    class="mandatory">*</span></label>
-                                    </div>
-                                    <div class="col-12 col-md-6">
-                                        <ui-select ng-model="receipt.selected_end_customer" theme="selectize" title="Select End Customer" ng-change="AssignEndCutomer();" required>
-                                            <ui-select-match placeholder="Select End Customer">@{{$select.selected.end_customer}}</ui-select-match>
-                                            <ui-select-choices id="selected_end_customer" 
-                                                name="selected_end_customer" repeat="customer in end_customers | filter: $select.search">
-                                              <span ng-bind-html="customer.end_customer | highlight: $select.search"></span>
-                                            </ui-select-choices>
-                                        </ui-select>
-                                        <input
-                                                ng-if="receipt.selected_end_customer.end_customer == 'Add New'"
-                                                type="text"
-                                                id="end_customer_new"
-                                                name="end_customer_new"
-                                                ng-model="receipt.end_customer_new"
-                                                placeholder="End Customer"
-                                                class="form-control"
-                                                required>
-                                        <div ng-show="AddReceiptForm.end_customer_new.$touched && AddReceiptForm.end_customer_new.$error">
-                                            <span class="help-block"
-                                                  ng-show="AddReceiptForm.end_customer_new.$error.required">
-                                                Please Enter End Customer
-                                            </span>
-                                                <span class="help-block"
-                                                      ng-show="AddReceiptForm.end_customer_new.$error.minlength">
-                                                Minimum 3 Characters Required
-                                            </span>
-                                                <span class="help-block"
-                                                      ng-show="AddReceiptForm.end_customer_new.$error.maxlength">
-                                                Maximum 20 Characters Allowed
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div> -->
                                 <div class="row form-group">
                                     <div class="col col-md-3">
                                         <label for="site" class=" form-control-label">Location<span class="mandatory">*</span></label>
