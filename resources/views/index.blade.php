@@ -22,7 +22,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="float-right">
-                        <button type="button"  class="btn btn-lg btn-light m-l-10 m-b-10 "><a class="zmdi animated zoomIn  slower zmdi-home "  href="{{url('/receipt')}}"></a>
+                        <button type="button"  class="btn btn-lg btn-light m-l-10 m-b-10 " ng-click="GoToReceipt();"><a class="zmdi animated zoomIn  slower zmdi-home "  href="#"></a>
                             <span class="badge badge-light"></span>
                         </button>
                           <button type="button" class="btn btn-lg btn-danger m-l-10 m-b-10 animated infinite flash slower-10s">Live

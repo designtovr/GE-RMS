@@ -53,4 +53,24 @@ class User extends Authenticatable
     public function isTechnician() {
         return $this->Roles()->where('role_id', 3)->exists();
     }
+
+    public function Role()
+    {
+        if($this->isAdmin())
+        {
+            return 1;
+        }
+        else if($this->isManager())
+        {
+            return 2;
+        }
+        else if($this->isTechnician())
+        {
+            return 3;
+        }
+        else
+        {
+            return 0;
+        }
+    }
 }

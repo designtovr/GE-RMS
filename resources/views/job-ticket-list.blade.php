@@ -2,7 +2,7 @@
 @section('title', 'Job Ticket List')
 @section('content')
 <div class="main-content" ng-controller="JobTicketController">
-	<div class="section__content section__content--p30" ng-init="Start();">
+	<div class="section__content section__content--p30" ng-init="">
 	    <div class="container-fluid">
 	    	<div class="row" ng-show="!showjtform">
 				<div class="col-md-12">
@@ -98,6 +98,7 @@
 										<button type="button" class="btn btn-outline-primary btn-sm">
 											<i class="fa fa-search"></i>&nbsp; Search
 										</button>
+										<input id="userrole" name="userrole" type="hidden" ng-value="{{Auth::user()->Role()}}" ng-model="userrole">
 									</th>
 								</tr>
 								</thead>

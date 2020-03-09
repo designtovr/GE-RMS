@@ -505,9 +505,7 @@ app.controller('DashBoardController', ['$scope', '$http', 'Notification' , '$loc
 
 
     $scope.GoToReceipt = function() {
-        $window.location.href = url('/receipt');
-        $location.url('/receipt');
-        console.log("colled");
+        $window.location.href = "/ge/receipt";
     };
 
     $interval(function(){

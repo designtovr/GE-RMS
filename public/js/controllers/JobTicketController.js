@@ -8,6 +8,7 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 	$scope.pvprioritylist = [];
 	$scope.pvprioritylistmax = 0;
 	$scope.jtmaterialspartnos = [];
+	$scope.userrole = 0;
 
 	$scope.gridOptions = {
 		pagination: {
@@ -44,6 +45,7 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 	$scope.selectedpvs = [];
 	$scope.Start = function()
 	{
+		console.log($scope.userrole);
 		$scope.openTab = true;
 		$scope.jobticket = {};
 		$scope.page = 'jobticketopen';
@@ -51,7 +53,7 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 			method: 'GET',
 			url: '/ge/physicalverification?cat=jobticketopen'
 		}).then(function success(response) {
-			if($scope.page != 'jobticketopen')
+			if($scope.userrole != 3 && $scope.page == 'jobticketopen')
 			{
 				$scope.gridOptions.data =  response.data.physicalverification;
 			}
@@ -107,9 +109,21 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 		console.log($scope.pvlist);
 	}
 
+	$( document ).ready(function() {
+	    $scope.userrole = $('#userrole').val();
+		console.log($scope.userrole);
+		$scope.Start();
+	});
+
+	$scope.AssignRole = function()
+	{
+		$scope.userrole = $('#userrole').val();
+	}
+
 
 	$scope.Reset = function()
 	{
+		console.log($scope.userrole)
 		$scope.filterID = '';
 		$scope.filterreceipt_id = '';
 		$scope.filterpvdate = '';
@@ -194,7 +208,7 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 			method: 'GET',
 			url: '/ge/physicalverification?cat='+page
 		}).then(function success(response) {
-			if($scope.page != 'jobticketopen')
+			if($scope.userrole != 3 && $scope.page == 'jobticketopen')
 			{
 				$scope.gridOptions.data =  response.data.physicalverification;
 			}
@@ -210,7 +224,8 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 
 	$scope.ShowGridData = function()
 	{
-		if($scope.page == 'jobticketopen')
+		console.log($scope.gridHideData);
+		if($scope.page == 'jobticketopen' && $scope.userrole == 3)
 		{
 			console.log($scope.filterID);
 			console.log($scope.filterrmaID);
