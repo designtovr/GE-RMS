@@ -107,7 +107,7 @@
                                                     <tr ng-repeat="test in dashboardvalues.for_test">
                                                         <td ng-bind="test.type_name"></td>
                                                         <td ng-bind="test.total"></td>
-                                                        <td> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-10s" ng-bind="test.overdue"></span></td>
+                                                        <td style="cursor: pointer;" ng-click="ShowOverDueList('Test',test);"> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-10s" ng-bind="test.overdue"></span></td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -141,7 +141,7 @@
                                                     <tr ng-repeat="pack in dashboardvalues.for_pack">
                                                         <td ng-bind="pack.type_name"></td>
                                                         <td ng-bind="pack.total"></td>
-                                                        <td> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-10s" ng-bind="pack.overdue"></span></td>
+                                                        <td  style="cursor: pointer;" ng-click="ShowOverDueList('Dispatch',pack);"> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-10s" ng-bind="pack.overdue"></span></td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -206,7 +206,7 @@
                                                               <tr ng-repeat="forpv in dashboardvalues.for_physical_verification">
                                                                   <td ng-bind="forpv.customer_name | uppercase"></td>
                                                                   <td ng-bind="forpv.total"></td>
-                                                                  <td><span class="badge badge-danger badge-fs-15 animated infinite flash slower-10s" ng-bind="forpv.overdue"></span></td>
+                                                                  <td style="cursor: pointer;" ng-click="ShowOverDueList('Physical Verification',forpv);"><span class="badge badge-danger badge-fs-15 animated infinite flash slower-10s" ng-bind="forpv.overdue"></span></td>
                                                               </tr>
                                                               </tbody>
                                                           </table>
@@ -240,7 +240,7 @@
                                                      <tr ng-repeat="forwc in dashboardvalues.wch">
                                                          <td ng-bind="forwc.type_name"></td>
                                                          <td ng-bind="forwc.total"></td>
-                                                         <td> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-10s" ng-bind="forwc.overdue"></span></td>
+                                                         <td style="cursor: pointer;" ng-click="ShowOverDueList('W/Ch Declaration',forwc);"> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-10s" ng-bind="forwc.overdue"></span></td>
                                                      </tr>
                                                      </tbody>
                                                  </table>
@@ -351,10 +351,10 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr ng-repeat="repair in dashboardvalues.for_repair">
+                                                    <tr ng-repeat="repair in dashboardvalues.for_repair track by $index">
                                                         <td ng-bind="repair.type_name"></td>
                                                         <td ng-bind="repair.total"></td>
-                                                        <td> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-10s" ng-bind="repair.overdue"></span></td>
+                                                        <td style="cursor: pointer;" ng-click="ShowOverDueList('Repair',repair);"> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-10s" ng-bind="repair.overdue"></span></td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -396,7 +396,7 @@
                                     <div class="carousel-item active">
                                         <h3 class="card-title">Physical Verification:</h3>
                                         <br>
-                                        <h4>Total Overdues: <b><span class="badge-danger badge-fs-25 animated infinite flash slower-10s p-md-l-10 p-md-r-10 p-md-t-10 p-md-b-10" ng-bind="dashboardvalues.total_overdue.for_pv"></span></b></h4>
+                                        <h4 style="cursor: pointer;" ng-click="ShowTotalOverdue('Physical Verification', dashboardvalues.total_overdue.for_pv_due_list)">Total Overdues: <b ><span class="badge-danger badge-fs-25 animated infinite flash slower-10s p-md-l-10 p-md-r-10 p-md-t-10 p-md-b-10" ng-bind="dashboardvalues.total_overdue.for_pv"></span></b></h4>
                                         <br>
                                         <br>
                                         <br>
@@ -406,7 +406,7 @@
                                     <div class="carousel-item">
                                         <h3 class="card-title">W/Ch. Declaration:</h3>
                                         <br>
-                                        <h4>Total Overdues: <b><span class="badge-danger badge-fs-25 animated infinite flash slower-10s p-md-l-10 p-md-r-10 p-md-t-10 p-md-b-10" ng-bind="dashboardvalues.total_overdue.wch"></span></b></h4>
+                                        <h4 style="cursor: pointer;" ng-click="ShowTotalOverdue('W/Ch', dashboardvalues.total_overdue.wch_due_list)">Total Overdues: <b ><span class="badge-danger badge-fs-25 animated infinite flash slower-10s p-md-l-10 p-md-r-10 p-md-t-10 p-md-b-10" ng-bind="dashboardvalues.total_overdue.wch" ></span></b></h4>
                                         <br>
                                         <br>
                                         <br>
@@ -414,9 +414,9 @@
                                         <br>
                                     </div>
                                     <div class="carousel-item">
-                                        <h3 class="card-title"> Testing:</h3>
+                                        <h3 class="card-title">Testing:</h3>
                                         <br>
-                                        <h4>Total Overdues: <b class=""><span class="badge-danger badge-fs-25 animated infinite flash slower-10s p-md-l-10" ng-bind="dashboardvalues.total_overdue.for_test">2</span></b></h4>
+                                        <h4 style="cursor: pointer;" ng-click="ShowTotalOverdue('Test', dashboardvalues.total_overdue.for_test_due_list)">Total Overdues: <b class="" ><span class="badge-danger badge-fs-25 animated infinite flash slower-10s p-md-l-10" ng-bind="dashboardvalues.total_overdue.for_test">2</span></b></h4>
                                         <br>
                                         <br>
                                         <br>
@@ -481,6 +481,39 @@
                 </div>
             </div>
             <!-- end modal small -->
+            <!-- modal medium -->
+            <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-md" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="mediumModalLabel" ng-bind="overdueModal.title"></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- TOP CAMPAIGN-->
+                                <div class="top-campaign">
+                                    <h3 class="title-3 m-b-30">Relay Serial Nos.</h3>
+                                    <div class="table-responsive">
+                                        <table class="table table-top-campaign">
+                                            <tbody>
+                                                <tr ng-repeat="list in overdueModal.serial_no_list track by $index">
+                                                    <td style="text-align: left;"><span ng-bind="$index+1"></span><span>.</span> <span ng-bind="list"></span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!--  END TOP CAMPAIGN-->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end modal medium -->
         </div>
 
         </div>

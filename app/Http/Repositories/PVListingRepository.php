@@ -208,6 +208,7 @@ class PVListingRepository
     			->get();
     	//loop and add due count
 		$pvs['total_overdue']['for_pv'] = 0;
+		$pvs['total_overdue']['for_pv_due_list'] = array();
     	foreach ($pvs['for_physical_verification'] as $key => $for_pv) {
     		$for_pv->overdue_list = DB::table('physical_verification as pv')->selectRaw('pv.serial_no')
     			->join('receipt as rc', 'rc.id', 'pv.receipt_id')
@@ -223,6 +224,7 @@ class PVListingRepository
 			$for_pv->due_list = array();
 			foreach ($for_pv->overdue_list as $key => $list) {
 				array_push($for_pv->due_list, $list->serial_no);
+				array_push($pvs['total_overdue']['for_pv_due_list'], $list->serial_no);
 			}
 
 			$for_pv->overdue = sizeof($for_pv->overdue_list);
@@ -238,6 +240,7 @@ class PVListingRepository
     					->get();
     	//loop and add due count
 		$pvs['total_overdue']['wch'] = 0;
+		$pvs['total_overdue']['wch_due_list'] = array();
     	foreach ($pvs['wch'] as $key => $wc) {
     		$wc->overdue_list = DB::table('physical_verification as pv')->selectRaw('pv.serial_no')
     			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
@@ -250,6 +253,7 @@ class PVListingRepository
 			$wc->due_list = array();
 			foreach ($wc->overdue_list as $key => $list) {
 				array_push($wc->due_list, $list->serial_no);
+				array_push($pvs['total_overdue']['wch_due_list'], $list->serial_no);
 			}
 			$wc->overdue = sizeof($wc->overdue_list);
     		$pvs['total_overdue']['wch'] += $wc->overdue;
@@ -264,6 +268,7 @@ class PVListingRepository
     					->get();
     	//loop and add due count
 		$pvs['total_overdue']['for_test'] = 0;
+		$pvs['total_overdue']['for_test_due_list'] = array();
     	foreach ($pvs['for_test'] as $key => $test) {
     		$test->overdue_list = DB::table('physical_verification as pv')->selectRaw('pv.serial_no')
     			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
@@ -276,6 +281,7 @@ class PVListingRepository
     		$test->due_list = array();
 			foreach ($test->overdue_list as $key => $list) {
 				array_push($test->due_list, $list->serial_no);
+				array_push($pvs['total_overdue']['for_test_due_list'], $list->serial_no);
 			}
 			$test->overdue = sizeof($test->overdue_list);
 			$pvs['total_overdue']['for_test'] += $test->overdue;
@@ -331,14 +337,25 @@ class PVListingRepository
     					->get();
     	//loop and add due count
 		$pvs['total_overdue']['for_pack'] = 0;
+		$pvs['total_overdue']['for_pack_due_list'] = array();
     	foreach ($pvs['for_pack'] as $key => $pack) {
-    		$pack->overdue = DB::table('physical_verification as pv')->selectRaw('pv.receipt_id, DATEDIFF(pv.created_at,"'. Carbon::now() .'") AS DateDiff')
+    		$pack->overdue_list = DB::table('physical_verification as pv')->selectRaw('pv.serial_no')
     			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
     			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
     			->where('pt.id', $pack->pt_id)
     			->whereIn('sta.current_status_id', [14])
     			->whereRaw('DATEDIFF("'. Carbon::now() .'", sta.created_at) > 0')
-    			->get()->count();
+    			->get();
+
+			$pack->due_list = array();
+			foreach ($pack->overdue_list as $key => $list) {
+				array_push($pack->due_list, $list->serial_no);
+				array_push($pvs['total_overdue']['for_pack_due_list'], $list->serial_no);
+			}
+			$pack->overdue = sizeof($pack->overdue_list);
+    		$pvs['total_overdue']['for_pack'] += $pack->overdue;
+    		unset($pack->overdue_list);
+
 			$pvs['total_overdue']['for_pack'] += $pack->overdue;
     	}
 

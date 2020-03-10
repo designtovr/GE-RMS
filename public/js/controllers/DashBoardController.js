@@ -2,6 +2,7 @@ app.controller('DashBoardController', ['$scope', '$http', 'Notification' , '$loc
 {
     $scope.dashboardvalues = {};
     $scope.modal = {};
+    $scope.overdueModal = {};
     var warrantydata  = {
         labels: ["PX40", "C264" , "Agile" ,"Conventional" ],
         datasets: [
@@ -525,6 +526,26 @@ app.controller('DashBoardController', ['$scope', '$http', 'Notification' , '$loc
     {
         $('#smallmodal').modal('hide');
         $scope.modal.stage = "";
+    }
+
+    $scope.ShowTotalOverdue = function(stage, list)
+    {
+        console.log(stage)
+        console.log(list);
+        var obj = {
+            due_list: list,
+        };
+        $scope.ShowOverDueList(stage, obj);
+    }
+
+    $scope.ShowOverDueList = function(stage, obj)
+    {
+        $scope.overdueModal = {};
+        $scope.overdueModal.title = stage;
+        $scope.overdueModal.serial_no_list = obj.due_list;
+        console.log(stage)
+        console.log(obj);
+        $('#mediumModal').modal('show');
     }
 
     $scope.GetDashboardValues = function()
