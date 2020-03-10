@@ -47,13 +47,13 @@
                                      <div class="au-card-title"  >
                                          <div class="bg-overlay bg-overlay--androidblue"></div>
                                          <div class="row">
-                                             <div class="col-sm-6">
+                                             <div class="col-sm-7">
                                                  <h3>
                                                      <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>Repair Priority
                                                  </h3>
                                              </div>
-                                             <div class="col-sm-6">
-                                                 <h3 style="color: white; font-size: 25px;">
+                                             <div class="col-sm-5">
+                                                 <h3 style="color: white; font-size: 22px;font-weight: 500;">
                                                      Total Relays: <span style="font-weight: bolder;" ng-bind="dashboardvalues.repair_priority.length"></span>
                                                  </h3>
                                              </div>
