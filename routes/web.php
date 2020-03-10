@@ -195,6 +195,10 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/dispatch-report', function(){
     	return view('dispatch-report');
     });
+
+      Route::get('/daily-report', function(){
+    	return view('daily-report');
+    });
 });
 
 Route::group(['middleware' => ['auth']], function(){
