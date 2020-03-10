@@ -353,27 +353,6 @@
 
 	</div>
 
-	<div class="row  h-40 " style="margin-top: 9px;margin-left: 1px;">
-		<div class="col-6 text-left float-left m-l-10">
-			<h4 class ="col-12" style="color:#000000; font-weight: bold">Loaded Customer Settings* <u></u></h4></div>
-
-		<div class="col-3 text-left float-right">
-			<div class="table-responsive">
-				<table class="table tableStyle table-bordered text-center no-padding" >
-					<thead>
-					<tr>
-						<th class ="bgOn">Pass</th>
-						<th>NA</th>
-
-					</tr>
-					</thead>
-				</table>
-			</div>
-		</div>
-
-	</div>
-
-
 		<div class="row h-40 " style="margin-top: 9px;margin-left: 1px;">
 		<div class="col-6 text-left float-left m-l-10">
 			<h4 class ="col-12" style="color:#000000; font-weight: bold">Aging Test(Power On Test For 24 hours)<br> <u></u></h4></div>
@@ -393,6 +372,31 @@
 		</div>
 
 	</div>
+
+	<div class="row  h-40 " style="margin-top: 9px;margin-left: 1px;">
+		<div class="col-6 text-left float-left m-l-10">
+			<h4 class ="col-12" style="color:#000000; font-weight: bold">Loaded Customer Settings* <u></u></h4></div>
+
+		<div class="col-3 text-left float-right">
+			<div class="table-responsive">
+				<table class="table tableStyle table-bordered text-center no-padding" >
+					<thead>
+					<tr>
+						@if($download_customer_setting == 1)
+							<th class ="bgOn" style="background-color: #d3d3d3">Yes</th>
+							<th>No</th>
+						@else
+							<th>Yes</th>
+							<th class ="bgOn" style="background-color: #d3d3d3">No</th>
+						@endif
+					</tr>
+					</thead>
+				</table>
+			</div>
+		</div>
+
+	</div>
+	
 	<div class ="Footer" style="margin-top:10px;">
 	{{--	<div class="row ">
 			<div class="col" style="padding: 0;">

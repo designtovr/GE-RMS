@@ -5,6 +5,10 @@ app.controller('VerificationCompleteController', ['$scope', '$http', 'Notificati
 	$scope.page = 1;
 	$scope.pvprioritylist = [];
 	$scope.pvprioritylistmax = 0;
+	$scope.yes_no_options = [
+		{ 'id': 1, 'value': 'Yes'},
+		{ 'id': 2, 'value': 'No'},
+	];
 	$scope.gridOptions = {
 		pagination: {
 			itemsPerPage: '10'
@@ -173,6 +177,7 @@ app.controller('VerificationCompleteController', ['$scope', '$http', 'Notificati
    		$scope.vcformdata.updated_no_of_short_links = '';
    		$scope.vcformdata.updated_no_of_terminal_blocks = '';
    		$scope.vcformdata.updated_sw_version = '';
+   		$scope.vcformdata.restored_customer_setting = 2;
    		$scope.vcform = true;
 
    	}

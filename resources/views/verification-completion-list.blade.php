@@ -385,6 +385,18 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-6">
+                                        <div class="row form-group">
+                                            <div class="col col-md-4">
+                                                <label for="restored_customer_setting" class=" form-control-label">Restored Customer Settings</label>
+                                            </div>
+                                            <div class="col-12 col-md-8">
+                                                <select name="restored_customer_setting" ng-model = "vcformdata.restored_customer_setting"  id="restored_customer_setting" ng-options="type.id as type.value for type in yes_no_options" class="form-control">
+                                                    <option value="" style="display: none;"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 	                    	</form>
 	                    </div>

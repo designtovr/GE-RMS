@@ -28,6 +28,7 @@ class VerificationCompletionController extends Controller
         $VC->case = $vc['case'];
         $VC->battery = $vc['battery'];
         $VC->flops = $vc['flops'];
+        $VC->restored_customer_setting = (array_key_exists('restored_customer_setting', $vc))?$vc['restored_customer_setting']:2;
     	$VC->created_by = Auth::id();
     	$VC->updated_by = Auth::id();
     	$VC->created_at = Carbon::now();

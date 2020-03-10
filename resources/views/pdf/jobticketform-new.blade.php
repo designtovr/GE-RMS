@@ -178,6 +178,10 @@
 						<h1 class="text-left float-left" style="font-size: 18px;height:  ;color: #000000">NATURE OF DEFECT: </h1>
 						<h1 class="text-left float-left" style="font-size: 18px;font-weight: normal ;margin-left: 10px;color: #000000">{{$nature_of_defect}}</h1>
 					</div>
+					<div class="col" style="margin-top: 8px;">
+						<h1 class="text-left float-left" style="font-size: 18px;color: #000000">Downloaded Customer Setting: </h1>
+						<h1 class="text-left float-left" style="font-size: 18px;font-weight: normal ;margin-left: 10px;color: #000000">{{$download_customer_setting}}</h1>
+					</div>
 				</div>
 				<br>
 				<div class="table-responsive printform">

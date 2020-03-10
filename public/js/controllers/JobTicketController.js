@@ -42,6 +42,11 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 		{ 'id': 3, 'value': 'Not Applicable'}
 	];
 
+	$scope.yes_no_options = [
+		{ 'id': 1, 'value': 'Yes'},
+		{ 'id': 2, 'value': 'No'},
+	];	
+
 	$scope.selectedpvs = [];
 	$scope.Start = function()
 	{
@@ -208,17 +213,25 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 			method: 'GET',
 			url: '/ge/physicalverification?cat='+page
 		}).then(function success(response) {
-			if($scope.userrole != 3 && $scope.page == 'jobticketopen')
+			if($scope.userrole != 3)
 			{
 				$scope.gridOptions.data =  response.data.physicalverification;
 			}
 			else
 			{
-				$scope.gridHideData = response.data.physicalverification;
-				$scope.gridOptions.data = [];
+				if($scope.page == 'jobticketopen')
+				{
+					$scope.gridHideData = response.data.physicalverification;
+					$scope.gridOptions.data = [];
+				}
+				else
+				{
+					$scope.gridOptions.data =  response.data.physicalverification;
+				}
 			}
 			$scope.GetPVPriorityList();
 		}, function error(response) {
+
 		});
 	}
 
@@ -285,6 +298,11 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 				$scope.jobticket.no_of_terminal_blocks = substr1.concat("+", substr2);
 			}
 
+			if($scope.jobticket.download_customer_setting == null || $scope.jobticket.download_customer_setting == undefined)
+			{
+				$scope.jobticket.download_customer_setting = 2;
+			}
+
 
 			if ($scope.jobticket.job_ticket_materials.length == 0 && $scope.page != 'jobticketcompleted')
 			{
@@ -297,9 +315,11 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 				jobmaterial.comment = '';
 				$scope.jobticket.job_ticket_materials.push(jobmaterial);
 			}
-			console.log($scope.jobticket)
 			if (!exists)
+			{
 				$scope.ChangePVStatus([$scope.jobticket.pv_id], 'jobticketstarted');
+			}
+			console.log($scope.jobticket)
 		}, function error(response) {
 		});
 	}

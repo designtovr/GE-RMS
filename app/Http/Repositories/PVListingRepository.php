@@ -346,7 +346,7 @@ class PVListingRepository
     	$pvs['for_repair'] = DB::table('physical_verification as pv')->selectRaw('pt.code as type_name, pt.id as pt_id, COUNT(*) as total')
     					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
     					->join('pv_status as sta', 'sta.pv_id', 'pv.id')
-    					->whereIn('sta.current_status_id', array(6,7,8,9,10))
+    					->whereIn('sta.current_status_id', array(4,5,6,7,8))
     					->groupBy('pt.id')
     					->get();
 		//loop and add due count
@@ -365,7 +365,7 @@ class PVListingRepository
 				array_push($repair->due_list, $list->serial_no);
 			}
 			$repair->overdue = sizeof($repair->overdue_list);
-    		$pvs['total_overdue']['wch'] += $repair->overdue;
+    		$pvs['total_overdue']['for_repair'] += $repair->overdue;
     		unset($repair->overdue_list);
 		}
 
@@ -634,7 +634,7 @@ class PVListingRepository
 			->whereRaw('DATEDIFF("'. Carbon::now() .'", wa.created_at) > 0')
 			->get()->count();
 
-		$pvs['receipt'] = ReceiptMaster::selectRaw('receipt.total_boxes, cus.name as customer_name, IF(receipt.status=1, "Open", "Started") as status')->leftJoin('ma_customer as cus', 'cus.id', 'receipt.customer_id')->whereIn('receipt.status', [1, 2])->orderBy('receipt.created_at', 'DESC')->get();
+		$pvs['receipt'] = ReceiptMaster::selectRaw('receipt.total_boxes, cus.name as customer_name, IF(receipt.status=1, "Open", "Started") as status, DATEDIFF("'. Carbon::now() .'",receipt.created_at) AS DateDiff')->leftJoin('ma_customer as cus', 'cus.id', 'receipt.customer_id')->whereIn('receipt.status', [1, 2])->orderBy('receipt.created_at', 'DESC')->get();
 
 		$pvs['profiling'] = microtime(true) - $start;
     	return $pvs;

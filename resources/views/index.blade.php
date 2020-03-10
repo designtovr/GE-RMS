@@ -53,8 +53,8 @@
                                                  </h3>
                                              </div>
                                              <div class="col-sm-6">
-                                                 <h3 style="color: red; font-weight: bolder; font-size: 28px;">
-                                                     Total Relays: <span ng-bind="dashboardvalues.repair_priority.length"></span>
+                                                 <h3 style="color: white; font-size: 25px;">
+                                                     Total Relays: <span style="font-weight: bolder;" ng-bind="dashboardvalues.repair_priority.length"></span>
                                                  </h3>
                                              </div>
                                          </div>
@@ -305,6 +305,7 @@
                                                       <th>Customer</th>
                                                       <th>Total Boxes</th>
                                                       <th>Status</th>
+                                                      <th>Overdue Days</th>
                                                   </tr>
                                                   </thead>
                                                   <tbody>
@@ -312,6 +313,7 @@
                                                       <td ng-bind="rc.customer_name | uppercase"></td>
                                                       <td ng-bind="rc.total_boxes"></td>
                                                       <td ng-bind="rc.status"></td>
+                                                      <td><span class="badge badge-danger badge-fs-15 animated infinite flash slower-10s" ng-bind="rc.DateDiff"></span></td>
                                                   </tr>
                                                   </tbody>
                                               </table>
@@ -320,6 +322,48 @@
                                   </div>
                               </div>
                           </div>
+                          <div class="col-lg-4">
+                                <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
+                                    <div class="au-card-title"  >
+                                        <div class="bg-overlay bg-overlay--androidblue"></div>
+                                        <div class="row">
+                                             <div class="col-sm-6">
+                                                 <h3>
+                                                    <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>Repair
+                                                </h3>
+                                             </div>
+                                             <!-- <div class="col-sm-6">
+                                                 <h3 style="color: red; font-weight: bolder; font-size: 28px;">
+                                                     Total Relays: <span ng-bind="dashboardvalues.total_overdue.for_repair"></span>
+                                                 </h3>
+                                             </div> -->
+                                         </div>
+                                    </div>
+                                    <div class="au-task js-list-load">
+                                        <div class="au-task-list js-scrollbar3">
+                                            <div class="table-responsive m-b-40">
+                                                <table class="table table-borderless table-data3 table-data4 table-data3-blue">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Family</th>
+                                                        <th>Total Relays</th>
+                                                        <th>Over Due</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr ng-repeat="repair in dashboardvalues.for_repair">
+                                                        <td ng-bind="repair.type_name"></td>
+                                                        <td ng-bind="repair.total"></td>
+                                                        <td> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-10s" ng-bind="repair.overdue"></span></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <!-- END DATA TABLE -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

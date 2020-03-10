@@ -57,7 +57,7 @@
 											   ng-model = "dateFrom"
 											   filter-by="date_unix"
 
-											   ng-change="gridActions.filter();"
+											   ng-change="gridActions.filter();ShowGridData()"
 											   id="dateFromFilter"
 											   filter-type="dateFrom"
 										/>
@@ -66,7 +66,7 @@
 										<input type="text"
 											   placeholder="To Date"
 											   filter-by="date_unix"
-											   ng-change="gridActions.filter();"
+											   ng-change="gridActions.filter();ShowGridData()"
 											   id="dateToFilter"
 											   class="form-control"
 											   min-date="dateFrom"
@@ -78,14 +78,14 @@
 									<th>
 										<input id="customerFilter" type="text"
 											   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
-											   placeholder="Customer" ng-change="gridActions.filter()"
+											   placeholder="Customer" ng-change="gridActions.filter();ShowGridData()"
 											   ng-model="filterCustomer" filter-by="customer_name"
 											   filter-type="text">
 									</th>
 									<th>
 										<input id="endcustomerFilter" type="text"
 											   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
-											   placeholder="End Customer" ng-change="gridActions.filter()"
+											   placeholder="End Customer" ng-change="gridActions.filter();ShowGridData()"
 											   ng-model="filterendCustomer" filter-by="end_customer"
 											   filter-type="text">
 									</th>
@@ -633,6 +633,20 @@
 			                            </div>
 		                			</div>
 		                		</div>
+		                		<div class="row">
+		                			<div class="col-md-6">
+		                				<div class="row form-group">
+		                                    <div class="col col-md-4">
+		                                        <label for="download_customer_setting" class=" form-control-label">Downloaded Customer Settings <span class="mandatory">*</span></label>
+		                                    </div>
+		                                    <div class="col-12 col-md-8">
+		                                        <select name="download_customer_setting" ng-model = "jobticket.download_customer_setting"  id="download_customer_setting" ng-options="type.id as type.value for type in yes_no_options" class="form-control">
+			                                        <option value="" style="display: none;"></option>
+			                                    </select>
+		                                    </div>
+		                                </div>
+		                			</div>
+		                		</div>
 	                    	</form>
 	                    </div>
 	                    <div class="card-header">
@@ -647,20 +661,6 @@
 	                                    	Remove</button>
 		                            	</div>
 		                            </div>
-		                            <!-- <div class="row form-group">
-		                                <div class="col col-md-3">
-		                                    <label for="part_no_@{{$index}}" class=" form-control-label">Material Part No </label>
-		                                </div>
-		                                <div class="col-12 col-md-6">
-		                                    <input 
-		                                    type="text" 
-		                                    id="part_no_@{{$index}}" 
-		                                    ng-model = "job_ticket_material.part_no" 
-		                                    name="part_no_@{{$index}}" 
-		                                    placeholder="Material Part No" 
-		                                    class="form-control">
-		                                </div>
-		                            </div> -->
 		                            <div class="row form-group">
 	                                    <div class="col col-md-3">
 	                                        <label for="part_no_@{{$index}}" class=" form-control-label">Material Part No</label>

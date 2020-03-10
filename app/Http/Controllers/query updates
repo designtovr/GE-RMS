@@ -58,3 +58,8 @@ ALTER TABLE `warranty` CHANGE `cc` `cc` VARCHAR(200) CHARACTER SET latin1 COLLAT
 14/02/20
 
 ALTER TABLE `job_ticket_materials` CHANGE `old_pcp` `old_pcp` VARCHAR(500) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL, CHANGE `new_pcp` `new_pcp` VARCHAR(500) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+10/03/2020
+
+ALTER TABLE `job_tickets` ADD `download_customer_setting` TINYINT NOT NULL DEFAULT '2' AFTER `power_on_test`;
+ALTER TABLE `verification_completion` ADD `restored_customer_setting` TINYINT NOT NULL DEFAULT '2' AFTER `flops`;

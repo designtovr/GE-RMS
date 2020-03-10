@@ -24,7 +24,7 @@ class JobTicketController extends Controller
     				jt.power_on_test, w.type, w.comment as repair_comment, ru.rma_id, pv.pvdate as givendate, 
     				pvst.created_at as po_date, cus.name as customer_name, rma.end_customer, pv.case, pv.battery, 
                     pv.terminal_blocks, pv.no_of_terminal_blocks, pv.top_bottom_cover, pv.short_links,
-                    pv.no_of_short_links, pv.screws, pv.sales_order_no, w.pcp, w.smp, pv.comment as pv_comment, ru.sw_version')
+                    pv.no_of_short_links, pv.screws, pv.sales_order_no, w.pcp, w.smp, pv.comment as pv_comment, ru.sw_version, IF(jt.download_customer_setting=1,"Yes", "No")')
     			->leftJoin('job_tickets as jt', 'pv.id', 'jt.pv_id')
     			->leftJoin('warranty as w', 'w.pv_id', 'pv.id')
     			->leftJoin('rma_unit_information as ru', 'ru.pv_id', 'pv.id')
@@ -51,6 +51,7 @@ class JobTicketController extends Controller
     		$JT->nature_of_defect = (array_key_exists('nature_of_defect', $jobticket))?$jobticket['nature_of_defect']: '';
     		$JT->comment = (array_key_exists('comment', $jobticket))?$jobticket['comment']:'';
     		$JT->power_on_test = (array_key_exists('power_on_test', $jobticket))?$jobticket['power_on_test']:'';
+            $JT->download_customer_setting = (array_key_exists('download_customer_setting', $jobticket))?$jobticket['download_customer_setting']:2;
     		$JT->created_by = Auth::id();
     		$JT->updated_by = Auth::id();
     		$JT->created_at = Carbon::now();
@@ -90,6 +91,7 @@ class JobTicketController extends Controller
     		$JT->nature_of_defect = (array_key_exists('nature_of_defect', $jobticket))?$jobticket['nature_of_defect']: '';
     		$JT->comment = (array_key_exists('comment', $jobticket))?$jobticket['comment']:'';
     		$JT->power_on_test = (array_key_exists('power_on_test', $jobticket))?$jobticket['power_on_test']:'';
+            $JT->download_customer_setting = (array_key_exists('download_customer_setting', $jobticket))?$jobticket['download_customer_setting']:2;
     		$JT->updated_by = Auth::id();
     		$JT->updated_at = Carbon::now();
     		$JT->update();
@@ -142,6 +144,7 @@ class JobTicketController extends Controller
     		$JT->nature_of_defect = (array_key_exists('nature_of_defect', $jobticket))?$jobticket['nature_of_defect']: '';
     		$JT->comment = (array_key_exists('comment', $jobticket))?$jobticket['comment']:'';
     		$JT->power_on_test = (array_key_exists('power_on_test', $jobticket))?$jobticket['power_on_test']:'';
+            $JT->download_customer_setting = (array_key_exists('download_customer_setting', $jobticket))?$jobticket['download_customer_setting']:2;
     		$JT->created_by = Auth::id();
     		$JT->updated_by = Auth::id();
     		$JT->created_at = Carbon::now();
@@ -180,6 +183,7 @@ class JobTicketController extends Controller
     		$JT->nature_of_defect = (array_key_exists('nature_of_defect', $jobticket))?$jobticket['nature_of_defect']: '';
     		$JT->comment = (array_key_exists('comment', $jobticket))?$jobticket['comment']:'';
     		$JT->power_on_test = (array_key_exists('power_on_test', $jobticket))?$jobticket['power_on_test']:'';
+            $JT->download_customer_setting = (array_key_exists('download_customer_setting', $jobticket))?$jobticket['download_customer_setting']:2;
     		$JT->updated_by = Auth::id();
     		$JT->updated_at = Carbon::now();
     		$JT->update();

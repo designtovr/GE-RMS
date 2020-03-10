@@ -142,7 +142,7 @@ else{
 
     public function JobTicketForm($pv_id)
     {
-        $data = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.*, jt.id as jt_id, jt.created_at as podate, wt.pcp, wt.smp, rda.name as customer_name, rma.end_customer, pro.part_no as model_no, rui.desc_of_fault as nature_of_defect, jt.power_on_test, wt.type, jt.comment as remarks, rui.sw_version')
+        $data = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.*, jt.id as jt_id, jt.created_at as podate, wt.pcp, wt.smp, rda.name as customer_name, rma.end_customer, pro.part_no as model_no, rui.desc_of_fault as nature_of_defect, jt.power_on_test, wt.type, jt.comment as remarks, rui.sw_version, IF(jt.download_customer_setting=1,"Yes", "No") as download_customer_setting')
                 ->leftJoin('job_tickets as jt', 'jt.pv_id', 'pv.id')
                 ->leftJoin('rma_unit_information as rui', 'rui.pv_id', 'pv.id')
                 ->leftJoin('rma', 'rma.id', 'rui.rma_id')
@@ -165,13 +165,14 @@ else{
         $data = PhysicalVerificationMaster::from('physical_verification as pv')
                 ->selectRaw('pv.*, rda.name as customer_name, pro.part_no as model_no, rui.sw_version, vc.updated_no_of_terminal_blocks, vc.updated_sw_version, vc.updated_no_of_short_links,
                     vc.clio_test, vc.rtd_test, vc.nic_test, vc.received_with_screws,
-                    vc.received_with_terminal, vc.case as vc_case, vc.battery as vc_battery, vc.flops as vc_flops, vc.updated_at as vc_updated_at')
+                    vc.received_with_terminal, vc.case as vc_case, vc.battery as vc_battery, vc.flops as vc_flops, vc.updated_at as vc_updated_at, jt.download_customer_setting, vc.restored_customer_setting')
                 ->leftJoin('verification_completion as vc', 'vc.pv_id', 'pv.id')
                 ->leftJoin('rma_unit_information as rui', 'rui.pv_id', 'pv.id')
                 ->leftJoin('rma', 'rma.id', 'rui.rma_id')
                 ->leftJoin('ma_customer as cus', 'cus.id', 'rma.customer_address_id')
                 ->leftJoin('ma_product as pro', 'pro.id', 'pv.product_id')
                 ->leftJoin('rma_delivery_address as rda', 'rda.rma_id', 'rma.id')
+                ->leftJoin('job_tickets as jt', 'jt.pv_id', 'pv.id')
                 ->where('pv.id', $pv_id)
                 ->first();
 
