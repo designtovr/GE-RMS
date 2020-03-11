@@ -382,7 +382,7 @@
 				<table class="table tableStyle table-bordered text-center no-padding" >
 					<thead>
 					<tr>
-						@if($download_customer_setting == 1)
+						@if($restored_customer_setting == 1)
 							<th class ="bgOn" style="background-color: #d3d3d3">Yes</th>
 							<th>No</th>
 						@else
