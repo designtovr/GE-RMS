@@ -309,6 +309,60 @@
 									<td></td>
 								@endif
 							</tr>
+
+								<tr>
+								<td>9</td>
+								@if(isset($job_materials[8]))
+									<td>{{$job_materials[8]['part_no']}}</td>
+									<td>{{$job_materials[8]['comment']}}</td>
+									<td>{{$job_materials[8]['quantity']}}</td>
+									<td>{{$job_materials[8]['value']}}</td>
+								@else
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								@endif
+							</tr>	<tr>
+								<td>10</td>
+								@if(isset($job_materials[9]))
+									<td>{{$job_materials[9]['part_no']}}</td>
+									<td>{{$job_materials[9]['comment']}}</td>
+									<td>{{$job_materials[9]['quantity']}}</td>
+									<td>{{$job_materials[9]['value']}}</td>
+								@else
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								@endif
+							</tr>	<tr>
+								<td>11</td>
+								@if(isset($job_materials[10]))
+									<td>{{$job_materials[10]['part_no']}}</td>
+									<td>{{$job_materials[10]['comment']}}</td>
+									<td>{{$job_materials[10]['quantity']}}</td>
+									<td>{{$job_materials[10]['value']}}</td>
+								@else
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								@endif
+							</tr>	<tr>
+								<td>12</td>
+								@if(isset($job_materials[11]))
+									<td>{{$job_materials[11]['part_no']}}</td>
+									<td>{{$job_materials[11]['comment']}}</td>
+									<td>{{$job_materials[11]['quantity']}}</td>
+									<td>{{$job_materials[11]['value']}}</td>
+								@else
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								@endif
+							</tr>
 						</tbody>
 					</table>
 				</div>
@@ -319,7 +373,7 @@
 						<h1 class="text-left" style="font-size: 18px;color:#000000;margin-top: 25px;">Sign:</h1>
 						<h1 class="text-left" style="font-size: 18px;color:#000000;margin-top: 25px;">Category:</h1>
 					</div>
-					<div class="col-7 float-right border border-dark" style="height:250px;padding :10px">
+					<div class="col-7 float-right border border-dark" style="height:220px;padding :10px">
 						<h1 class="text-left" style="font-size: 18px;color:#000000">Remarks: <span class="" style="font-weight: normal">{{$remarks}}</span></h1>
 					</div>
 				</div>

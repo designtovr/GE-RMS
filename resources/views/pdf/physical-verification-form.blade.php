@@ -15,11 +15,11 @@
 	<link href="{{url('public/css/theme.css')}}" rel="stylesheet" media="all">
 	<style type="text/css">
 		.printform table tr th {
-			font-size: 13px !important;
+			font-size: 18px !important;
 			border: 1px solid !important;
 		}
 		.printform table tr td {
-			font-size: 13px !important;
+			font-size: 18px !important;
 			border: 1px solid !important;
 		}
 	</style>
@@ -66,17 +66,17 @@
 					<table class="table tableStyle table-bordered text-center">
 						<thead>
 						<tr>
-							<th style="font-size: 14px;">R Id</th>
-							<th style="font-size: 14px;">Model No.</th>
-							<th style="font-size: 14px;">S No.</th>
+							<th style="font-size: 20px;">R Id</th>
+							<th style="font-size: 20px;">Model No.</th>
+							<th style="font-size: 20px;">S No.</th>
 
 						</tr>
 						</thead>
 						<tbody>
 						<tr>
-							<td style="font-size: 13px;">{{$unit['formatted_pv_id']}}</td>
-							<td style="font-size: 13px">{{$unit['part_no']}}</td>
-							<td style="font-size: 13px;">{{$unit['serial_no']}}</td>
+							<td style="font-size: 18px;">{{$unit['formatted_pv_id']}}</td>
+							<td style="font-size: 18px">{{$unit['part_no']}}</td>
+							<td style="font-size: 18px;">{{$unit['serial_no']}}</td>
 						</tr>
 						</tbody>
 					</table>
