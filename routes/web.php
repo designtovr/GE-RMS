@@ -229,6 +229,9 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::get('masters-page/product-type', function(){
 		return view('masters.product-type');
 	});
+	Route::get('masters-page/product-overdue-age', function(){
+		return view('masters.product-overdue-age');
+	});
 	Route::get('masters-page/material-type', function(){
 		return view('masters.material-type');
 	});
@@ -243,6 +246,7 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::get('/endcustomers','CustomerController@EndCustomers');
 	Route::get('/products','ProductController@Products');
 	Route::get('/productsoftype/{producttype_id}', 'ProductController@ProductsOfType');
+	Route::get('/productoverdueage', 'ProductTypeController@ProductOverdueAge');
 	Route::get('/locations','LocationController@Locations');
 	Route::delete('/location/{id}', 'LocationController@DeleteLocation');
 	Route::get('/sites','SiteController@Sites');
@@ -310,6 +314,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/checkserialnumberexistence/{serial_no}/{exclude_id}', 'PhysicalVerificationController@CheckSerialNumberExistence');
     Route::get('/pvforrmaid/{id}', 'PhysicalVerificationController@PVForRmaId');
 	Route::post('/addproducttype', 'ProductTypeController@AddProductType');
+	Route::post('/updateproductoverdueage', 'ProductTypeController@UpdateProductOverdueAge');
 	Route::delete('/producttype/{id}', 'ProductTypeController@DeleteProductType');
     Route::get('/jobticket/{pvid}','JobTicketController@JobTicket');
 	Route::post('/savejobticketmaterial', 'JobTicketController@SaveJobTicketMaterial');

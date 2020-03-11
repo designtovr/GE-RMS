@@ -201,6 +201,9 @@
                             <li>
                                 <a href="{{url('/masters-page/printerips')}}">Printer IPs</a>
                             </li>
+                            <li>
+                                <a href="{{url('/masters-page/product-overdue-age')}}">Product Overdue Age</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="has-sub">

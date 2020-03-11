@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\ProductTypeMaster;
+use App\Models\ProductOverdueAgeMaster;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\AddProductTypeRequest;
 use Carbon\Carbon;
@@ -57,5 +58,34 @@ class ProductTypeController extends Controller
     {
         ProductTypeMaster::destroy($id);
         return response()->json(['status' => 'success', 'message' => 'Product Type Deleted Successfully'], 200);
+    }
+
+    public function ProductOverdueAge(Request $request)
+    {
+        $product_overdue_age = ProductOverdueAgeMaster::all();
+
+        return response()->json(['data' => $product_overdue_age, 'status' => 'success', 'message' => 'Product Overdue Age Fetched Successfully'], 200);
+    }
+
+    public function UpdateProductOverdueAge(Request $request)
+    {
+        $product = $request->get('product');
+
+        $POA = ProductOverdueAgeMaster::where('category', $product['category'])->first();
+        if($POA)
+        {
+            $POA->category = $product['category'];
+            $POA->overdue_age = $product['overdue_age'];
+            $POA->updated_at = Carbon::now();
+            $POA->updated_by = Auth::id();
+            $POA->update();
+
+            return response()->json(['status' => 'success', 'message' => 'Product Updated Successfully'], 200);
+        }
+        else
+        {
+            return response()->json(['status' => 'failure', 'message' => 'Product Not Found'], 200);
+        }
+        
     }
 }

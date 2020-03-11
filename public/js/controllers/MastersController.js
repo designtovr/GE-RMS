@@ -8,6 +8,7 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 	$scope.materials = [];
 	$scope.packingstyles = [];
 	$scope.producttypes = [];
+	$scope.productoverdueage = [];
 	$scope.materialtypes = [];
 	$scope.manufactures = [];
 	$scope.users = [];
@@ -36,6 +37,7 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 	$scope.user = {};
 	$scope.usermodal = [];
 	$scope.printeripsmodal = {};
+	$scope.productoverdueage = {};
 
 	//need to declare seperate gridoptions, because i have common controller for all Master Pages
 	//so it will affects each master pages
@@ -99,7 +101,6 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 	   	},
 	   	urlSync: true
 	};
-
 	$scope.printersipsgridOptions = {
 		pagination: {
 			itemsPerPage: '10'
@@ -110,6 +111,16 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 	   	},
 	   	urlSync: true
 	}
+	$scope.productoverdueagegridOptions = {
+		pagination: {
+			itemsPerPage: '10'
+		},
+		data:[],
+	   	sort: {
+
+	   	},
+	   	urlSync: true
+	};
 
 	$scope.getcustomers = function()
 	{
@@ -234,6 +245,18 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		}).then(function success(response) {
 		    $scope.producttypes = response.data.data;
 		    $scope.producttypegridOptions.data = response.data.data;
+		}, function error(response) {
+		});
+	}
+
+	$scope.getproductoverdueage = function()
+	{
+		$http({
+		  method: 'GET',
+		  url: '/ge/productoverdueage'
+		}).then(function success(response) {
+		    $scope.productoverdueage = response.data.data;
+		    $scope.productoverdueagegridOptions.data = response.data.data;
 		}, function error(response) {
 		});
 	}
@@ -407,6 +430,16 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 			$scope.producttype.edit = true;
 		}
 		$('#producttypemodal').modal({
+			show: true,
+			backdrop: 'static',
+		});
+	}
+
+	$scope.OpenProductOverdueAgeModal = function(item)
+	{
+		$scope.productoverdueage.title = "Product Overdue Age Modal";
+		$scope.productoverdueage = item;
+		$('#productoverdueagemodal').modal({
 			show: true,
 			backdrop: 'static',
 		});
@@ -655,6 +688,11 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		$('#producttypemodal').modal('hide');
 	}
 
+	$scope.CloseProductOverdueAgeModal = function()
+	{
+		$('#productoverdueagemodal').modal('hide');
+	}
+
 	$scope.CloseLocationModal = function()
 	{
 		$('#locationmodal').modal('hide');
@@ -756,16 +794,53 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 	{
 		$http({
 			method: 'post',
-			url: '../addproduct',
+			url: '../addproducttype',
 			data: {
-				'product': $scope.product
+				'producttype': $scope.producttype
+			},
+		}).then(function success(response){
+			if (response.data.status == 'success')
+			{
+				Notification.success(response.data.message)
+				$('#producttypemodal').modal('hide');
+				$scope.getproducttypes();
+			}
+			else if (response.data.status == 'failure')
+			{
+				Notification.error(response.data.message)
+			}
+		}, function failure(response){
+			if (response.status == 422)
+			{
+				var errors = response.data.errors;
+				for(var error in errors)
+				{
+					Notification.error(errors[error][0]);
+					break;
+				}
+			}
+		});
+	}
+
+	$scope.UpdateProductOverDueAge = function()
+	{
+		if($scope.productoverdueage.overdue_age < 0)
+		{
+			Notification.error("Overdue Age Should Negative");
+			return;
+		}
+		$http({
+			method: 'post',
+			url: '../updateproductoverdueage',
+			data: {
+				'product': $scope.productoverdueage
 			},
 		}).then(function success(response){
 			if (response.data.status == 'success')
 			{
 				Notification.success(response.data.message);
-				$('#productmodal').modal('hide');
-				$scope.getproducts();
+				$('#productoverdueagemodal').modal('hide');
+				$scope.getproductoverdueage();
 			}
 			else if (response.data.status == 'failure')
 			{

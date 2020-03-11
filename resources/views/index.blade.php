@@ -483,7 +483,7 @@
             <!-- end modal small -->
             <!-- modal medium -->
             <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-md" role="document">
+                <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="mediumModalLabel" ng-bind="overdueModal.title"></h5>
@@ -492,20 +492,28 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <!-- TOP CAMPAIGN-->
-                                <div class="top-campaign">
-                                    <h3 class="title-3 m-b-30">Relay Serial Nos.</h3>
-                                    <div class="table-responsive">
-                                        <table class="table table-top-campaign">
-                                            <tbody>
-                                                <tr ng-repeat="list in overdueModal.serial_no_list track by $index">
-                                                    <td style="text-align: left;"><span ng-bind="$index+1"></span><span>.</span> <span ng-bind="list"></span></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <!--  END TOP CAMPAIGN-->
+                            <table class="table table-borderless table-data3">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>R Id</th>
+                                        <th>Family</th>
+                                        <th>S.No</th>
+                                        <th>Overdue Age</th>
+                                        <th>Overdue Days</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="list in overdueModal.serial_no_list track by $index">
+                                        <td ng-bind="$index+1"></td>
+                                        <td ng-bind="list.formatted_pv_id"></td>
+                                        <td ng-bind="list.product_family"></td>
+                                        <td ng-bind="list.serial_no"></td>
+                                        <td ng-bind="list.overdue_age"></td>
+                                        <td ng-bind="list.overall_due"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

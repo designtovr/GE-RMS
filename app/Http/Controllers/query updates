@@ -63,3 +63,15 @@ ALTER TABLE `job_ticket_materials` CHANGE `old_pcp` `old_pcp` VARCHAR(500) CHARA
 
 ALTER TABLE `job_tickets` ADD `download_customer_setting` TINYINT NOT NULL DEFAULT '2' AFTER `power_on_test`;
 ALTER TABLE `verification_completion` ADD `restored_customer_setting` TINYINT NOT NULL DEFAULT '2' AFTER `flops`;
+
+11/03/2020
+
+CREATE TABLE `ge_rms`.`ma_product_overdue_age` ( `id` TINYINT NOT NULL AUTO_INCREMENT , `category` VARCHAR(50) NOT NULL , `overdue_age` INT NOT NULL , `created_by` INT NOT NULL , `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `updated_by` INT NULL DEFAULT NULL , `updated_at` DATETIME NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+
+INSERT INTO `ma_product_overdue_age` (`id`, `category`, `overdue_age`, `created_by`, `created_at`, `updated_by`, `updated_at`) VALUES (NULL, 'GE', '1', '1', current_timestamp(), NULL, NULL), (NULL, 'SMP', '1', '1', current_timestamp(), NULL, NULL), (NULL, 'OMU', '1', '1', current_timestamp(), NULL, NULL), (NULL, 'BOJ', '1', '1', current_timestamp(), NULL, NULL), (NULL, 'Others', '1', '1', current_timestamp(), NULL, NULL);
+
+ALTER TABLE `ma_product_overdue_age` ADD UNIQUE(`category`);
+
+ALTER TABLE `ma_product_type` CHANGE `category` `category` VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;
+
+ALTER TABLE `ma_product_overdue_age` CHANGE `category` `category` VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;

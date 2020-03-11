@@ -3,7 +3,7 @@
 @section('content')
 <div class="main-content" ng-controller="MastersController">
     <div class="section__content section__content--p30">
-        <div class="container-fluid" ng-init="getproducttypes();">
+        <div class="container-fluid" ng-init="getproducttypes();getproductoverdueage();">
         	<div class="row">
     			<div class="col-md-12">
     		        <div class="overview-wrap">
@@ -131,11 +131,7 @@
                                             class="form-control"
                                             required>
                                             <option value="" style="display: none;"></option>
-                                            <option value="ge">GE</option>
-                                            <option value="smp">SMP</option>
-                                            <option value="omu">OMU</option>
-                                            <option value="boj">BOJ</option>
-                                            <option value="others">Others</option>
+                                            <option ng-repeat="product in productoverdueage" ng-value="product.category" ng-bind="product.category | uppercase"></option>
                                         </select>
                                         <div ng-show="ProductTypeForm.productcategory.$touched && ProductTypeForm.productcategory.$error">
                                             <span class="help-block" ng-show="ProductTypeForm.productcategory.$error.required">
