@@ -1,5 +1,5 @@
 
-app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter','$ngConfirm', 'Excel', '$timeout', 'Upload', function($scope, $http,Notification, $filter , $ngConfirm, Excel, $timeout, Upload){
+app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter','$ngConfirm', 'Excel', '$timeout', 'Upload' , 'FileSaver', 'Blob', function($scope, $http,Notification, $filter , $ngConfirm, Excel, $timeout, Upload , FileSaver , Blob){
 	$scope.receiptform = false;
 	$scope.receipts = [];
 	$scope.receipt = {};
@@ -68,28 +68,33 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 		});
 	}
 
+	download = function(text) {
+    var data = new Blob([text], { type: 'text/plain;charset=utf-8' });
+    FileSaver.saveAs(data, 'text.txt');
+  };
+
 	$scope.exportToExcel=function(tableId){ // ex: '#my-table'
-		$scope.exportHref=Excel.tableToExcel(tableId,'Sheet1');
+		var uri='data:application/vnd.ms-excel;base64,',
+		template='<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>',
+
+		format=function(s,c){return s.replace(/{(\w+)}/g,function(m,p){return c[p];})};
+			var table=$(tableId);
+
+			var	ctx={worksheet: 'Sheet1' , table:table.html()};
+		
+		    var blob = new Blob([format(template,ctx)], { type: "application/vnd.ms-excel" });
 /*
 		var uri='data:application/vnd.ms-excel;base64,',
 		template='<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>',
 		format=function(s,c){return s.replace(/{(\w+)}/g,function(m,p){return c[p];})};
 			var	ctx={worksheet:'Sheet1' , table:table.html()}, href=uri+base64(format(template,ctx));
-
+$scope.exportHref=Excel.tableToExcel(tableId,'Sheet1');
 var blob = new Blob([e.format(template, ctx)], { type: "application/vnd.ms-excel" });
                 blob.name = "gf.xls";
                 window.URL = window.URL || window.webkitURL;
                 link = window.URL.createObjectURL(blob);*/
-                var al = document.createElement("a");
-                al.download = "gf.xls";
-                console.log("12323");
-                al.href = link;
-
-                document.body.appendChild(al);
-
-                al.click();
-
-                document.body.removeChild(al);
+                FileSaver.saveAs(blob, 'Receipt.xls');
+         
 		$timeout(function(){
 
 

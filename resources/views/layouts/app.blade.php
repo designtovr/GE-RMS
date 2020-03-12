@@ -544,6 +544,7 @@
 <script type="text/javascript" src="{{url('public/bower_components/angular-ui-mask/dist/mask.min.js')}}"></script>
 <script type="text/javascript" src="{{url('public/bower_components/ng-file-upload/ng-file-upload.js')}}"></script>
 
+<script type="text/javascript" src="{{url('public/bower_components/angular-file-saver/dist/angular-file-saver.bundle.min.js')}}"></script>
 <!-- Main JS-->
 <script src="{{url('public/js/main.js')}}"></script>
 <script type="text/javascript" src="{{url('public/js/app.js')}}"></script>

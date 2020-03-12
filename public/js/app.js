@@ -1,4 +1,4 @@
-var app = angular.module("ge", ['dataGrid', 'pagination', 'ui-notification', 'cp.ngConfirm', 'ui.select', 'ngSanitize', 'ui.bootstrap', 'ui.mask', 'ngFileUpload'], function($interpolateProvider){
+var app = angular.module("ge", ['dataGrid', 'pagination', 'ui-notification', 'cp.ngConfirm', 'ui.select', 'ngSanitize', 'ui.bootstrap', 'ui.mask', 'ngFileUpload' , 'ngFileSaver'], function($interpolateProvider){
 	/*$interpolateProvider.startSymbol('<%');
     $interpolateProvider.endSymbol('%>');*/
 });
@@ -25,7 +25,7 @@ app.factory('HttpInterceptor', function($q){
 });
 
 app.factory('Excel',function($window){
-	var e = this;
+	
 	var uri='data:application/vnd.ms-excel;base64,',
 		template='<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>',
 		base64=function(s){return $window.btoa(unescape(encodeURIComponent(s)));},
