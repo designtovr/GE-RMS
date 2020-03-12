@@ -1,3 +1,4 @@
+
 app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter','$ngConfirm', 'Excel', '$timeout', 'Upload', function($scope, $http,Notification, $filter , $ngConfirm, Excel, $timeout, Upload){
 	$scope.receiptform = false;
 	$scope.receipts = [];
@@ -69,10 +70,48 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 
 	$scope.exportToExcel=function(tableId){ // ex: '#my-table'
 		$scope.exportHref=Excel.tableToExcel(tableId,'Sheet1');
+/*
+		var uri='data:application/vnd.ms-excel;base64,',
+		template='<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>',
+		format=function(s,c){return s.replace(/{(\w+)}/g,function(m,p){return c[p];})};
+			var	ctx={worksheet:'Sheet1' , table:table.html()}, href=uri+base64(format(template,ctx));
+
+var blob = new Blob([e.format(template, ctx)], { type: "application/vnd.ms-excel" });
+                blob.name = "gf.xls";
+                window.URL = window.URL || window.webkitURL;
+                link = window.URL.createObjectURL(blob);*/
+                var al = document.createElement("a");
+                al.download = "gf.xls";
+                console.log("12323");
+                al.href = link;
+
+                document.body.appendChild(al);
+
+                al.click();
+
+                document.body.removeChild(al);
 		$timeout(function(){
-			//location.href=$scope.exportHref;
-			var file = dataURLtoFile($scope.exportHref, 'receipt.xls')
-			Upload.upload({
+
+
+
+/*			  var element = document.createElement('a');
+  element.setAttribute('href', $scope.exportHref);
+  element.setAttribute('download', "Receipt.xls");
+
+  element.style.display = 'none';
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+*/
+
+			
+
+		/*	location.href = element.href;*/
+console.log("123123");
+			//var file = dataURLtoFile($scope.exportHref, 'receipt.xls');
+	/*		Upload.upload({
 	            url: '/ge/exportfile',
 	            data: {file: file, 'filename': 'Receipt.xls'}
 	        }).then(function (resp) {
@@ -82,7 +121,7 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 	        }, function (evt) {
 	            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
 	            console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
-	        });
+	        });*/
 		},100); // trigger download
 	}
 

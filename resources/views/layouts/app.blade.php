@@ -509,6 +509,7 @@
 
 <script src="{{url('public/bower_components/jquery/dist/jquery.min.js')}}"></script>
 <script type="text/javascript" src="{{url('public/bower_components/angular/angular.min.js')}}"></script>
+<script type="text/javascript" src="{{url('public/js/table2excel.js')}}"></script>
 <!-- Jquery JS-->
 <!-- Bootstrap JS-->
 <script src="{{url('public/vendor/bootstrap-4.1/popper.min.js')}}"></script>
