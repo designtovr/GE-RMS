@@ -178,4 +178,10 @@ class MailController extends Controller
       return $result;
    }
 
+   public function DailyReportMail(Request $request)
+   {
+      $result = $this->mailRepository->DailyReportMail();
+      return response()->json($result);
+   }
+
 }

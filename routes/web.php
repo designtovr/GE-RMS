@@ -196,9 +196,10 @@ Route::group(['middleware' => 'auth'], function(){
     	return view('dispatch-report');
     });
 
-      Route::get('/daily-report', function(){
-    	return view('daily-report');
+	 Route::get('/daily-report', function(){
+		return view('mails.daily-report');
     });
+	 Route::get('/daily-report-mail', 'MailController@DailyReportMail');
 });
 
 Route::group(['middleware' => ['auth']], function(){

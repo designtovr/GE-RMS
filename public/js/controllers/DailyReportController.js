@@ -1,4 +1,4 @@
-app.controller('DashBoardController', ['$scope', '$http', 'Notification' , '$location' , '$window' , '$interval', function($scope, $http ,  Notification , $location , $window, $interval)
+app.controller('DailyReportController', ['$scope', '$http', 'Notification' , '$location' , '$window' , '$interval', function($scope, $http ,  Notification , $location , $window, $interval)
 {
     $scope.dashboardvalues = {};
     $scope.modal = {};

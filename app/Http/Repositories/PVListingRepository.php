@@ -663,4 +663,115 @@ class PVListingRepository
     	return $pvs;
     }
 
+    public static function DataForDailyReport()
+    {
+    	$data = array();
+
+    	//Received Relays
+    	$data['received_relays'] = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pt.code as type_name, COUNT(*) as total')
+    					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+    					->whereDate('pv.created_at', Carbon::today())
+    					->groupBy('pt.code')
+    					->get();
+		//Cumulative Received Relays
+		foreach ($data['received_relays'] as $key => $relay) {
+			$month = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pt.code as type_name, COUNT(*) as total')
+    					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+    					->whereMonth('pv.created_at', date('m'))
+    					->where('pt.code', $relay->type_name)
+    					->first();
+			$relay->cumulative = $month->total;
+		}
+
+		//Total Relays Completed
+		$data['total_relays_completed_all']['repair'] = PhysicalVerificationMaster::from('physical_verification as pv')
+					->selectRaw('pv.id, pt.code as type_name, COUNT(*) as total')
+					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+					->join('pv_status_tracking as pst', 'pv.id', 'pst.pv_id')
+					->where('pst.status_id', 6)
+					->whereDate('pst.created_at', Carbon::today())
+					->groupBy('pt.code')
+    				->get();
+
+		$data['total_relays_completed_all']['test'] = PhysicalVerificationMaster::from('physical_verification as pv')
+					->selectRaw('pv.id, pt.code as type_name, COUNT(*) as total')
+					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+					->join('pv_status_tracking as pst', 'pv.id', 'pst.pv_id')
+					->where('pst.status_id', 8)
+					->whereDate('pst.created_at', Carbon::today())
+					->groupBy('pt.code')
+    				->get();
+
+		$data['total_relays_completed_all']['dispatch'] = PhysicalVerificationMaster::from('physical_verification as pv')
+					->selectRaw('pv.id, pt.code as type_name, COUNT(*) as total')
+					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+					->join('pv_status_tracking as pst', 'pv.id', 'pst.pv_id')
+					->where('pst.status_id', 12)
+					->whereDate('pst.created_at', Carbon::today())
+					->groupBy('pt.code')
+    				->get();
+
+		//arranging Completed Relays
+		$data['total_relays_completed'] = array();
+		foreach ($data['total_relays_completed_all']['repair'] as $key => $relay) {
+			$relay['item'] = (object)[];
+			$relay['item']->type_name = $relay->type_name;
+			$relay['item']->repair = $relay->total;
+			$relay['item']->test = 0;
+			$relay['item']->dispatch = 0;
+			array_push($data['total_relays_completed'], $relay['item']);
+			unset($relay['item']);
+		}
+
+		foreach ($data['total_relays_completed_all']['test'] as $key => $relay) {
+			$exists = false;
+			foreach ($data['total_relays_completed'] as $key => $newrelay) {
+				if(strcasecmp($newrelay->type_name, $relay->type_name) == 0)
+				{
+					$exists = true;
+					$newrelay->test = $relay->total;
+					break;
+				}
+			}
+			if(!$exists)
+			{
+				$relay['item'] = (object)[];
+				$relay['item']->type_name = $relay->type_name;
+				$relay['item']->repair = 0;
+				$relay['item']->test = $relay->total;
+				$relay['item']->dispatch = 0;
+				array_push($data['total_relays_completed'], $relay['item']);
+				unset($relay['item']);
+			}
+		}
+
+		foreach ($data['total_relays_completed_all']['dispatch'] as $key => $relay) {
+			$exists = false;
+			foreach ($data['total_relays_completed'] as $key => $newrelay) {
+				if(strcasecmp($newrelay->type_name, $relay->type_name) == 0)
+				{
+					$exists = true;
+					$newrelay->dispatch = $relay->total;
+					break;
+				}
+			}
+			if(!$exists)
+			{
+				$relay['item'] = (object)[];
+				$relay['item']->type_name = $relay->type_name;
+				$relay['item']->repair = 0;
+				$relay['item']->test = 0;
+				$relay['item']->dispatch = $relay->total;
+				array_push($data['total_relays_completed'], $relay['item']);
+				unset($relay['item']);
+			}
+		}
+
+		foreach ($data['total_relays_completed'] as $key => $relay) {
+			$relay->total = $relay->repair + $relay->test + $relay->dispatch;
+		}
+
+		return $data;
+    }
+
 }

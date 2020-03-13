@@ -525,7 +525,7 @@
 </div>
 @endsection
 @section('scripts')
-    <script type="text/javascript" src="{{url('public/js/controllers/DashBoardController.js')}}"></script>
+    <script type="text/javascript" src="{{url('public/js/controllers/DailyReportController.js')}}"></script>
     <script>
         $(document).ready(function () {
             document.getElementById("mySidebar").style.width = "0";

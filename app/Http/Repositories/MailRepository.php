@@ -213,4 +213,26 @@ class MailRepository
 		}
 	}
 
+	public function DataForDailyReport()
+	{
+		$data = PVListingRepository::DataForDailyReport();
+
+		return $data;
+	}
+
+	public function DailyReportMail()
+	{
+		try {
+			$data = $this->DataForDailyReport();
+			return $data;
+			Mail::send('mails.daily-report', $data, function ($message) {
+				$message->subject('Daily Report: '.Carbon::now()->format('d/m/Y'));
+			    $message->to('srinivasktss@gmail.com');
+			});
+			return 'success';
+		} catch (\Exception $e) {
+			return $e->getMessage();
+		}
+	}
+
 }
