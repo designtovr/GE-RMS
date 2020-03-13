@@ -222,6 +222,11 @@
                                 <a href="{{url('/dispatch-report')}}">
                                     <i class="far fa-check-square"></i>Dispatch Report</a>
                             </li>
+                                     <li>
+                                <a href="{{url('/repair-report')}}">
+                                    <i class="far fa-check-square"></i>Repair Report</a>
+                            </li>
+
 
                               <li>
                                 <a href="{{url('/daily-report')}}">

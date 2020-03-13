@@ -84,7 +84,7 @@
                                     </button>
                                 </li>
                                 <li>
-                                    <button type="button" class="btn btn-primary btn-md float-right box"  ng-click="exportToExcel('#receipttable')"
+                                    <button type="button" class="btn btn-primary btn-md float-right box"  ng-click="exportToExcelSave('#receipttable' , 'Receipt.xls')"
                                         style="margin-right: 10px;">
                                         <i class="fa fa-file-excel-o"></i>&nbsp;Export
                                     </button>
