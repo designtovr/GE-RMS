@@ -137,4 +137,30 @@ use Illuminate\Support\Facades\DB;
 
  		return $dispatch;
  	}
+
+ 	public function RepairReportData()
+ 	{
+ 		$pvs = PhysicalVerificationMaster::from('physical_verification as pv')
+ 				->selectRaw('rc.receipt_date, rc_customer.name as customer , rc.site as location, pt.code, wt.smp, wt.pcp, pro.part_no, pv.serial_no
+ 					, repair_start_pst.created_at as repair_initiated_date, repair_end_pst.created_at as repair_completed_at, rui.desc_of_fault as defect_by_customer, jt.download_customer_setting, rui.sw_version as existing_sw_version, vc.updated_sw_version, pv.comment as remark_by_verification, repaired_us.username as repaired_by, mps.status as current_status, dis.dc_no, dis.docket_details, dis.created_by as dispatched_at')
+ 				->leftJoin('receipt as rc', 'rc.id', 'pv.receipt_id')
+ 				->leftJoin('ma_customer as rc_customer', 'rc_customer.id', 'rc.customer_id')
+ 				->leftJoin('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+ 				->leftJoin('warranty as wt', 'wt.pv_id', 'pv.id')
+ 				->leftJoin('ma_product as pro', 'pro.id', 'pv.product_id')
+ 				->leftJoin('pv_status_tracking as repair_start_pst', function($join){
+ 					$join->on('repair_start_pst.pv_id', 'pv.id')->where('repair_start_pst.status_id', 5);
+ 				})->leftJoin('pv_status_tracking as repair_end_pst', function($join){
+ 					$join->on('repair_end_pst.pv_id', 'pv.id')->where('repair_end_pst.status_id', 6);
+ 				})->leftJoin('rma_unit_information as rui', 'rui.pv_id', 'pv.id')
+ 				->leftJoin('job_tickets as jt', 'jt.pv_id', 'pv.id')
+ 				->leftJoin('verification_completion as vc', 'vc.pv_id', 'pv.id')
+ 				->leftJoin('users as repaired_us', 'repaired_us.id', 'repair_end_pst.created_by')
+ 				->leftJoin('pv_status as sta', 'sta.pv_id', 'pv.id')
+ 				->leftJoin('ma_pv_status as mps', 'mps.id', 'sta.current_status_id')
+ 				->leftJoin('dispatch as dis', 'dis.pv_id', 'pv.id')->get();
+
+		return $pvs;
+
+ 	}
  } 

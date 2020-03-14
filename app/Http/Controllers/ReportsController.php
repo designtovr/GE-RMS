@@ -68,4 +68,15 @@ class ReportsController extends Controller
         $data = $this->reportsRepository->DispatchReport($id);
         return view('reports.dispatchreport', $data);
     }
+
+    public function RepairReportData(Request $request)
+    {
+        $data = $this->reportsRepository->RepairReportData();
+        return response()->json(
+        [
+            'status' => 'success',
+            'data' => $data,
+            'message' => 'Reports Fetched Successfully'
+        ]);
+    }
 }
