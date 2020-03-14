@@ -42,7 +42,7 @@
 	@endforeach
 	<br>
 	<br>
-	If you need further assistance, please contact <b>CRC Hotline</b>
+	If you need further assistance, please reply
 	<br>
 	<br>
 	Thank you,

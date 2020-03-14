@@ -32,7 +32,7 @@ class MailRepository
 		try {
 			Mail::send('mails.receiptcompletion',$receipt, function ($message) use ($receipt) {
 				$message->to($receipt['email']);
-				$message->subject('Receipt Completion');
+				$message->subject('Receipt Completion - '.$receipt['formatted_receipt_id']);
 	 		});
 		} catch (\Exception $e) {
 			return $e->getMessage();
@@ -63,7 +63,7 @@ class MailRepository
 		try {
 			Mail::send('mails.pvcompletion',$data, function ($message) use ($data, $receipt) {
 				$message->to($data['email']);
-				$message->subject('Physical Verification Completion');
+				$message->subject('Physical Verification Completion – RMA:'. $data['formatted_rma_id']);
 	 		});
 		} catch (\Exception $e) {
 			return $e->getMessage();
@@ -89,7 +89,7 @@ class MailRepository
 		try {
 			Mail::send('mails.scpvcompletion',$data, function ($message) use ($data, $receipt) {
 				$message->to($data['email']);
-				$message->subject('Physical Verification Completion');
+				$message->subject('Physical Verification Completion – RMA:'. $data['formatted_rma_id']);
 	 		});
 		} catch (\Exception $e) {
 			return $e->getMessage();
@@ -126,7 +126,7 @@ class MailRepository
 		try {
 			Mail::send('mails.wccompletion',$data, function ($message) use ($data, $receipt) {
 				$message->to($data['email']);
-				$message->subject('W/C Declaration');
+				$message->subject('W/C Declaration – RID:'.$data['formatted_pv_id']);
 	 		});
 		} catch (\Exception $e) {
 			return $e->getMessage();
@@ -161,9 +161,9 @@ class MailRepository
 		$data['email'] = $this->GetToAddress($rma_delivery->email);
 
 		try {
-			Mail::send('mails.dispatchcompletion',$data, function ($message) use ($data) {
+			Mail::send('mails.dispatchcompletion',$data, function ($message) use ($data, $rma) {
 				$message->to($data['email']);
-				$message->subject('Dispatch Completion');
+				$message->subject('Dispatch Completion – RMA:'.$rma['formatted_rma_id']);
 	 		});
 		} catch (\Exception $e) {
 			return $e->getMessage();

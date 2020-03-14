@@ -120,7 +120,7 @@
 	<br>
 	@endforeach
 	We shall provide the next update upon on (Warrantry / Chargable)  declaration
-	If you need further assistance, please contact <b>CRC Hotline</b>
+	If you need further assistance, please reply
 	<br>
 	<br>
 

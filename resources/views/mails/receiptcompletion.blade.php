@@ -22,7 +22,7 @@
 	<br>
 	We shall provide the next update upon unpacking, Physical verification of the materials. 
 	<br>
-	If you need further assistance, please contact <b>CRC Hotline</b>
+	If you need further assistance, please reply
 	<br>
 	<br>
 	Thank you,
