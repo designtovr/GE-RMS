@@ -771,6 +771,148 @@ class PVListingRepository
 			$relay->total = $relay->repair + $relay->test + $relay->dispatch;
 		}
 
+		unset($data['total_relays_completed_all']);
+
+		$overdues = PVListingRepository::DashBoardValues();
+		$data['total_relays_overdues'] = array();
+		foreach ($overdues['for_repair'] as $key => $relay) {
+			$relay->item = (object)[];
+			$relay->item->type_name = $relay->type_name;
+			$relay->item->repair = $relay->total;
+			$relay->item->test = 0;
+			$relay->item->dispatch = 0;
+
+			array_push($data['total_relays_overdues'], $relay->item);
+			unset($relay->item);
+		}
+
+		foreach ($overdues['for_test'] as $key => $relay) {
+			$exists = false;
+			foreach ($data['total_relays_overdues'] as $key => $newrelay) {
+				if(strcasecmp($newrelay->type_name, $relay->type_name) == 0)
+				{
+					$exists = true;
+					$newrelay->test = $relay->total;
+					break;
+				}
+			}
+			if(!$exists)
+			{
+				$relay->item = (object)[];
+				$relay->item->type_name = $relay->type_name;
+				$relay->item->repair = 0;
+				$relay->item->test = $relay->total;
+				$relay->item->dispatch = 0;
+				array_push($data['total_relays_overdues'], $relay->item);
+				unset($relay->item);
+			}
+		}
+
+		foreach ($overdues['for_pack'] as $key => $relay) {
+			$exists = false;
+			foreach ($data['total_relays_overdues'] as $key => $newrelay) {
+				if(strcasecmp($newrelay->type_name, $relay->type_name) == 0)
+				{
+					$exists = true;
+					$newrelay->dispatch = $relay->total;
+					break;
+				}
+			}
+			if(!$exists)
+			{
+				$relay->item = (object)[];
+				$relay->item->type_name = $relay->type_name;
+				$relay->item->repair = 0;
+				$relay->item->test = 0;
+				$relay->item->dispatch = $relay->total;
+				array_push($data['total_relays_overdues'], $relay->item);
+				unset($relay->item);
+			}
+		}
+
+		foreach ($data['total_relays_overdues'] as $key => $relay) {
+			$relay->total = $relay->repair + $relay->test + $relay->dispatch;
+		}
+
+		$data['total_completed_all'] = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pt.name as type_name, COUNT(*) as total')
+    					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+    					->join('pv_status_tracking as pst', 'pst.pv_id', 'pv.id')
+    					->where('pst.status_id', 12)
+    					->whereDate('pst.created_at', Carbon::today())
+    					->groupBy('pt.name')
+    					->get();
+
+		$data['total_completed'] = [];
+		$data['total_completed']['total'] = 0;
+		foreach ($data['total_completed_all'] as $key => $item) {
+			$data['total_completed'][$item['type_name']] = $item['total'];
+			$data['total_completed']['total'] += $item->total;
+		}
+
+		if(!isset($data['total_completed']['CONVENTIONAL']))
+		{
+			$data['total_completed']['CONVENTIONAL'] = 0;
+		}
+
+		if(!isset($data['total_completed']['NUMERICAL']))
+		{
+			$data['total_completed']['NUMERICAL'] = 0;
+		}
+
+		if(!isset($data['total_completed']['MULTILIN']))
+		{
+			$data['total_completed']['MULTILIN'] = 0;
+		}
+
+		if(!isset($data['total_completed']['REASON']))
+		{
+			$data['total_completed']['REASON'] = 0;
+		}
+
+		$data['total_completed']['BOJ'] = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pt.name as type_name')
+    					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+    					->join('pv_status_tracking as pst', 'pst.pv_id', 'pv.id')
+    					->where('pst.status_id', 12)
+    					->whereDate('pst.created_at', Carbon::today())
+    					->where('pt.category', 'boj')
+    					->get()->count();
+
+		unset($data['total_completed_all']);
+
+		$data['total_chargeable'] = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pt.code as type_name, COUNT(*) as total')
+    					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+    					->join('pv_status_tracking as pst', 'pst.pv_id', 'pv.id')
+    					->join('warranty as wt', 'wt.pv_id', 'pv.id')
+    					->join('pv_status as ps', 'ps.pv_id', 'pv.id')
+    					->where('ps.current_status_id', 4)
+    					->where('wt.smp', 1)
+    					->where('wt.pcp', 1)
+    					->groupBy('pt.code')
+    					->get();
+
+		$data['warranty_overdue'] = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pt.code as type_name, COUNT(*) as total')
+    					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+    					->join('pv_status_tracking as pst', 'pst.pv_id', 'pv.id')
+    					->join('warranty as wt', 'wt.pv_id', 'pv.id')
+    					->join('pv_status as ps', 'ps.pv_id', 'pv.id')
+    					->join('ma_product_overdue_age as poa', 'poa.category', 'pt.category')
+    					->where('ps.current_status_id', 4)
+    					->whereRaw('DATEDIFF("'. Carbon::now() .'", ps.created_at) > (poa.overdue_age-1)')
+    					->where(function($query){
+    						$query->where('wt.smp', 2)->orWhere('wt.pcp', 2);
+    					})
+    					->groupBy('pt.code')
+    					->get();
+
+		$data['repair_lead_time'] = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pt.category as type_name, AVG( datediff( next_created, resolve )) AS avg_time')
+    					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+    					->join('pv_status_tracking as pst', 'pst.pv_id', 'pv.id')
+    					->join('warranty as wt', 'wt.pv_id', 'pv.id')
+    					->join('pv_status as ps', 'ps.pv_id', 'pv.id')
+    					->where('ps.current_status_id', 12)
+    					->groupBy('pt.category')
+    					->get();
+
 		return $data;
     }
 
