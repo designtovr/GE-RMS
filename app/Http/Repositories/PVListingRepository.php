@@ -904,10 +904,14 @@ class PVListingRepository
     					->groupBy('pt.code')
     					->get();
 
-		$data['repair_lead_time'] = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pt.category as type_name, AVG( datediff( next_created, resolve )) AS avg_time')
+		$data['repair_lead_time'] = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pt.category as type_name, AVG( datediff( end_pst.created_at, start_pst.created_at )) AS average')
     					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
-    					->join('pv_status_tracking as pst', 'pst.pv_id', 'pv.id')
-    					->join('warranty as wt', 'wt.pv_id', 'pv.id')
+    					->join('pv_status_tracking as start_pst', function($join){
+    						$join->on('start_pst.pv_id', 'pv.id')->where('start_pst.status_id', 5);
+    					})
+    					->join('pv_status_tracking as end_pst', function($join){
+    						$join->on('end_pst.pv_id', 'pv.id')->where('end_pst.status_id', 12);
+    					})
     					->join('pv_status as ps', 'ps.pv_id', 'pv.id')
     					->where('ps.current_status_id', 12)
     					->groupBy('pt.category')
