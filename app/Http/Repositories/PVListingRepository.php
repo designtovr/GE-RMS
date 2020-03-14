@@ -912,8 +912,6 @@ class PVListingRepository
     					->join('pv_status_tracking as end_pst', function($join){
     						$join->on('end_pst.pv_id', 'pv.id')->where('end_pst.status_id', 12);
     					})
-    					->join('pv_status as ps', 'ps.pv_id', 'pv.id')
-    					->where('ps.current_status_id', 12)
     					->groupBy('pt.category')
     					->get();
 

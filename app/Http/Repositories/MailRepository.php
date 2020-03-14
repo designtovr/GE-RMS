@@ -224,12 +224,11 @@ class MailRepository
 	{
 		try {
 			$data = $this->DataForDailyReport();
-			return $data;
 			Mail::send('mails.daily-report', $data, function ($message) {
 				$message->subject('Daily Report: '.Carbon::now()->format('d/m/Y'));
 			    $message->to('srinivasktss@gmail.com');
 			});
-			return 'success';
+			return 'Mail Sent Successfully';
 		} catch (\Exception $e) {
 			return $e->getMessage();
 		}

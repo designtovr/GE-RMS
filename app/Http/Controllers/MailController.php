@@ -181,7 +181,13 @@ class MailController extends Controller
    public function DailyReportMail(Request $request)
    {
       $result = $this->mailRepository->DailyReportMail();
-      return response()->json($result);
+      return response()->json(['message' => $result]);
+   }
+
+   public function DailyReportData(Request $request)
+   {
+      $data = $this->mailRepository->DataForDailyReport();
+      return response()->json(['data' => $data, 'status' => 'success', 'message' => 'Data Fetched Successfully'], 200);
    }
 
 }
