@@ -33,7 +33,7 @@ app.filter('propsFilter', function() {
 });
 
 
-app.controller('WarrantyController' ,['$scope', '$http','Notification' , 'DataShareService', function($scope, $http , Notification , DataShareService) {
+app.controller('WarrantyController' ,['$scope', '$http','Notification' , 'DataShareService', 'ExcelSave', function($scope, $http , Notification , DataShareService, ExcelSave) {
 
 	wc = this;
 	$scope.warrantymodal = {};
@@ -73,6 +73,15 @@ app.controller('WarrantyController' ,['$scope', '$http','Notification' , 'DataSh
 	   },
 	   urlSync: true
 	};
+
+	$scope.exportToExcelSave=function(tableId , filename){ 
+
+	   	ExcelSave.tableToExcel(tableId,filename);
+
+	   	$timeout(function(){
+
+		},100); // trigger download
+	}
 
 	$scope.OpenWarrantyModal = function()
 	{

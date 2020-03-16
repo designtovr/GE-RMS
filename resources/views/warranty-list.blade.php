@@ -103,17 +103,26 @@
                                 <div class="tab-pane fade show active" id="manager" role="tabpanel" aria-labelledby="manager-tab">
                                     <div class="row">
                                         <div class="col-md-12 m-b-10">
-                                            <button type="button" class="btn btn-primary btn-md float-right"
-                                            ng-click="OpenWarrantyModal();">
-                                            <i class="fa fa-check-circle"></i>&nbsp;W/C
-                                            </button>
+                                            <ul class="list-inline">
+                                                <li>
+                                                    <button type="button" class="btn btn-primary btn-md float-right"
+                                                    ng-click="OpenWarrantyModal();">
+                                                        <i class="fa fa-check-circle"></i>&nbsp;W/C
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button type="button" class="btn btn-primary btn-md float-right m-r-10"  ng-click="exportToExcelSave('#managerapprovaltable' , 'WaitingForManagerApproval.xls')">
+                                                        <i class="fa fa-file-excel-o"></i>&nbsp;Export
+                                                    </button>
+                                                </li>
+                                            </ul>
                                         </div>
                                         <div class="col-md-12">
                                         <!-- DATA TABLE-->
                                             <div grid-data grid-options="gridOptions" grid-actions="gridActions"  >
                                                 <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
                                                 <div class = "overflow-auto">
-                                                    <table class="table table-borderless table-data3  ">
+                                                    <table class="table table-borderless table-data3  " id="managerapprovaltable" name="managerapprovaltable">
                                                         <thead>
                                                             <tr>
                                                                 @if(Auth::user()->isManager() || Auth::user()->isAdmin())
@@ -192,6 +201,7 @@
                                                         <option>25</option>
                                                         <option>50</option>
                                                         <option>75</option>
+                                                        <option>10000000</option>
                                                     </select>
                                                     </div>
                                                 </form>
@@ -203,17 +213,26 @@
                                 <div class="tab-pane fade" id="customer" role="tabpanel" aria-labelledby="customer-tab">
                                     <div class="row">
                                         <div class="col-md-12 m-b-10">
-                                            <button type="button" class="btn btn-primary btn-md float-right"
-                                            ng-click="OpenWarrantyModal();">
-                                            <i class="fa fa-check-circle"></i>&nbsp;W/C
-                                            </button>
+                                            <ul class="list-inline">
+                                                <li>
+                                                    <button type="button" class="btn btn-primary btn-md float-right"
+                                                    ng-click="OpenWarrantyModal();">
+                                                    <i class="fa fa-check-circle"></i>&nbsp;W/C
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button type="button" class="btn btn-primary btn-md float-right m-r-10"  ng-click="exportToExcelSave('#customerapprovaltable' , 'WaitingForCustomerApproval.xls')">
+                                                        <i class="fa fa-file-excel-o"></i>&nbsp;Export
+                                                    </button>
+                                                </li>
+                                            </ul>
                                         </div>
                                         <div class="col-md-12">
                                         <!-- DATA TABLE-->
                                             <div grid-data grid-options="gridOptions" grid-actions="gridActions"  >
                                                 <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
                                                 <div class = "overflow-auto">
-                                                    <table class="table table-borderless table-data3  ">
+                                                    <table class="table table-borderless table-data3  " id="customerapprovaltable" name="customerapprovaltable">
                                                         <thead>
                                                             <tr>
                                                                 @if(Auth::user()->isManager() || Auth::user()->isAdmin())
@@ -297,6 +316,7 @@
                                                         <option>25</option>
                                                         <option>50</option>
                                                         <option>75</option>
+                                                        <option>10000000</option>
                                                     </select>
                                                     </div>
                                                 </form>
@@ -308,17 +328,26 @@
                                 <div class="tab-pane fade" id="jobticket" role="tabpanel" aria-labelledby="jobticket-tab">
                                     <div class="row">
                                         <div class="col-md-12 m-b-10">
-                                            <button type="button" class="btn btn-primary btn-md float-right"
-                                            ng-click="OpenWarrantyModal();">
-                                            <i class="fa fa-check-circle"></i>&nbsp;W/C
-                                            </button>
+                                            <ul class="list-inline">
+                                                <li>
+                                                    <button type="button" class="btn btn-primary btn-md float-right"
+                                                    ng-click="OpenWarrantyModal();">
+                                                    <i class="fa fa-check-circle"></i>&nbsp;W/C
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button type="button" class="btn btn-primary btn-md float-right m-r-10"  ng-click="exportToExcelSave('#jobtickettable' , 'JobTicket.xls')">
+                                                        <i class="fa fa-file-excel-o"></i>&nbsp;Export
+                                                    </button>
+                                                </li>
+                                            </ul>
                                         </div>
                                         <div class="col-md-12">
                                         <!-- DATA TABLE-->
                                             <div grid-data grid-options="gridOptions" grid-actions="gridActions"  >
                                                 <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
                                                 <div class = "overflow-auto">
-                                                    <table class="table table-borderless table-data3  ">
+                                                    <table class="table table-borderless table-data3  " id="jobtickettable" name="jobtickettable">
                                                         <thead>
                                                             <tr>
                                                                 @if(Auth::user()->isManager() || Auth::user()->isAdmin())
@@ -402,6 +431,7 @@
                                                         <option>25</option>
                                                         <option>50</option>
                                                         <option>75</option>
+                                                        <option>10000000</option>
                                                     </select>
                                                     </div>
                                                 </form>

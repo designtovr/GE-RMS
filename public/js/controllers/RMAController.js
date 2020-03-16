@@ -1,4 +1,4 @@
-app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '$timeout' , 'DataShareService', '$ngConfirm', '$window', function($scope, $http, $filter, Notification, $timeout, DataShareService, $ngConfirm, $window){
+app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '$timeout' , 'DataShareService', '$ngConfirm', '$window', 'ExcelSave', function($scope, $http, $filter, Notification, $timeout, DataShareService, $ngConfirm, $window, ExcelSave){
 	$scope.showrmaform = false;
 	$scope.showsitecardform = false;
 	$scope.addpvform = false;
@@ -49,6 +49,15 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 		{id: 1, 'name': 'Physical Relay'},
 		{id: 2, 'name': 'Site Card'}
 	];
+
+	$scope.exportToExcelSave=function(tableId , filename){ 
+
+	   	ExcelSave.tableToExcel(tableId,filename);
+
+	   	$timeout(function(){
+
+		},100); // trigger download
+	}
 
 	$scope.ShowRMAForm = function()
 	{

@@ -1,4 +1,4 @@
-app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notification' ,'$filter' , '$ngConfirm' , 'DataShareService' , function($scope, $http, Notification , $filter , $ngConfirm, DataShareService) {
+app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notification' ,'$filter' , '$ngConfirm' , 'DataShareService', 'ExcelSave' , function($scope, $http, Notification , $filter , $ngConfirm, DataShareService, ExcelSave) {
 
 	$scope.pvform = false;
 	$scope.ShowAll = true;
@@ -105,6 +105,15 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 				}
 			});
 		}
+
+	$scope.exportToExcelSave=function(tableId , filename){ 
+
+	   	ExcelSave.tableToExcel(tableId,filename);
+
+	   	$timeout(function(){
+
+		},100); // trigger download
+	}
 
 	$scope.PrintLabels = function($data)
 	{

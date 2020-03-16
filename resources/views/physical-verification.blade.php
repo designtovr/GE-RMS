@@ -100,10 +100,19 @@
                     </ul>
                     <div class="tab-content pl-3 p-1" id="myTabContent">
                         <div class="tab-pane fade show active" id="open" role="tabpanel" aria-labelledby="open-tab">
+                            <div class="col-md-12 m-b-10">
+                                <ul class="list-inline">
+                                    <li>
+                                        <button type="button" class="btn btn-primary btn-md float-right m-r-10 m-b-10"  ng-click="exportToExcelSave('#openreceipt' , 'OpenReceipt.xls')">
+                                            <i class="fa fa-file-excel-o"></i>&nbsp;Export
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
                             <!-- DATA TABLE-->
                             <div grid-data grid-options="gridOptions" grid-actions="gridActions">
                                 <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
-                                    <table class="table table-borderless table-data3 table-responsive">
+                                    <table class="table table-borderless table-data3 table-responsive" id="openreceipt" name="openreceipt">
                                         <thead>
                                             <tr>
                                                 @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
@@ -121,9 +130,6 @@
                                                 <th sortable="customer_name" class="sortable">
                                                     Customer Name
                                                 </th>
-                                                <!-- <th sortable="end_customer" class="sortable">
-                                                    End Customer
-                                                </th> -->
                                                 <th sortable="courier_name" class="sortable">
                                                     Courier Name
                                                 </th>
@@ -152,7 +158,6 @@
                                                 <td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
 
                                                 <td ng-bind="item.customer_name"></td>
-                                                <!-- <td ng-bind="item.end_customer"></td> -->
                                                 <td ng-bind="item.courier_name"></td>
                                                 <td ng-bind="item.docket_details"></td>
                                                 <td ng-bind="item.total_boxes"></td>
@@ -178,6 +183,7 @@
                                             <option>25</option>
                                             <option>50</option>
                                             <option>75</option>
+                                            <option>10000000</option>
                                         </select>
                                     </div>
                                 </form>
@@ -186,14 +192,23 @@
                         </div>
                         <div class="tab-pane fade show" id="started" role="tabpanel" aria-labelledby="started-tab">
                             <div class="col-md-12">
-                                <button type="button" class="btn btn-primary btn-md pull-right m-b-10" ng-click="CloseReceipts();">
-                                    <i class="fa fa-check-circle"></i>&nbsp;Close Receipt
-                                </button>
+                                <ul class="list-inline">
+                                    <li>
+                                        <button type="button" class="btn btn-primary btn-md pull-right m-b-10" ng-click="CloseReceipts();">
+                                            <i class="fa fa-check-circle"></i>&nbsp;Close Receipt
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="button" class="btn btn-primary btn-md float-right m-r-10"  ng-click="exportToExcelSave('#startedreceipt' , 'StartedReceipt.xls')">
+                                            <i class="fa fa-file-excel-o"></i>&nbsp;Export
+                                        </button>
+                                    </li>
+                                </ul>
                             </div>
                             <!-- DATA TABLE-->
                             <div grid-data grid-options="gridOptions" grid-actions="gridActions">
                                     <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
-                                        <table class="table table-borderless table-data3 table-responsive">
+                                        <table class="table table-borderless table-data3 table-responsive" id="startedreceipt" name="startedreceipt">
                                             <thead>
                                                 <tr>
                                                     <th>
@@ -277,6 +292,7 @@
                                                 <option>25</option>
                                                 <option>50</option>
                                                 <option>75</option>
+                                                <option>10000000</option>
                                             </select>
                                         </div>
                                     </form>
@@ -284,10 +300,19 @@
                             <!-- END DATA TABLE-->
                         </div>
                         <div class="tab-pane fade" id="closed" role="tabpanel" aria-labelledby="closed-tab">
+                            <div class="col-md-12 m-b-10">
+                                <ul class="list-inline">
+                                    <li>
+                                        <button type="button" class="btn btn-primary btn-md float-right m-r-10 m-b-10"  ng-click="exportToExcelSave('#closedtable' , 'ClosedReceipts.xls')">
+                                            <i class="fa fa-file-excel-o"></i>&nbsp;Export
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
                             <!-- DATA TABLE-->
                             <div grid-data grid-options="gridOptions" grid-actions="gridOptions">
                                 <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
-                                    <table class="table table-borderless table-data3">
+                                    <table class="table table-borderless table-data3" id="closedtable" name="closedtable">
                                         <thead>
                                             <tr>
                                                 <th sortable="item.formatted_receipt_id" class="sortable">
@@ -340,6 +365,7 @@
                                                 <option>25</option>
                                                 <option>50</option>
                                                 <option>75</option>
+                                                <option>10000000</option>
                                             </select>
                                         </div>
                                     </form>
@@ -347,10 +373,19 @@
                             <!-- END DATA TABLE-->
                         </div>
                         <div class="tab-pane fade show" id="allpv" role="tabpanel" aria-labelledby="allpv-tab">
+                            <div class="col-md-12 m-b-10">
+                                <ul class="list-inline">
+                                    <li>
+                                        <button type="button" class="btn btn-primary btn-md float-right m-r-10 m-b-10"  ng-click="exportToExcelSave('#allpvtable' , 'AllPV.xls')">
+                                            <i class="fa fa-file-excel-o"></i>&nbsp;Export
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
                             <!-- DATA TABLE-->
                             <div grid-data grid-options="gridOptions" grid-actions="gridActions">
                                     <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
-                                        <table class="table table-borderless table-data3 table-responsive">
+                                        <table class="table table-borderless table-data3 table-responsive" id="allpvtable" name="allpvtable">
                                             <thead>
                                                 <tr>
                                                     @if(Auth::user()->isAdmin())
@@ -421,6 +456,7 @@
                                                 <option>25</option>
                                                 <option>50</option>
                                                 <option>75</option>
+                                                <option>10000000</option>
                                             </select>
                                         </div>
                                     </form>

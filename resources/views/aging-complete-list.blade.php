@@ -124,10 +124,12 @@
                                 @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
                  				<div class="col-md-3 col-md-offset-3  p-0 m-r-0" >
                  					<div class = "pull-right">
+                                        <button type="button" class="btn btn-primary btn-sm" ng-click="exportToExcelSave('#agingtable' , 'Aging.xls')">
+                                            <i class="fa fa-file-excel-o"></i>&nbsp; Export
+                                        </button>
                  						<button type="button" class="btn btn-primary btn-sm" ng-show="openTab" ng-click="ChangeStatus('agingstarted')">
                  							<i class="fa fa-check"></i>&nbsp; Started
                  						</button>
-
                  						<button type="button" class="btn btn-primary btn-sm" ng-show="startTab" ng-click="OpenAgingModal()">
                  							<i class="fa fa-check"></i>&nbsp; Result
                  						</button>
@@ -140,7 +142,7 @@
                  			<div grid-data grid-options="gridOptions" grid-actions="gridActions">
                  				<!-- sample table layout goes below, but remember that you can you any mark-up here. -->
                  				<div class="overflow-auto">
-                 					<table class="table table-borderless table-data3  ">
+                 					<table class="table table-borderless table-data3  " id="agingtable" name="agingtable">
                  						<thead>
                  							<tr>
                                                 @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
@@ -243,6 +245,7 @@
                      						<option>25</option>
                      						<option>50</option>
                      						<option>75</option>
+                                            <option>10000000</option>
                      					</select>
                      				</div>
                  			    </form>

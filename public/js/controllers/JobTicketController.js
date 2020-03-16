@@ -1,4 +1,4 @@
-app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'ChangePVStatusService', '$ngConfirm', 'PVPriorityService', '$window', '$timeout', function($scope, $http, Notification, ChangePVStatusService, $ngConfirm, PVPriorityService, $window, $timeout){
+app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'ChangePVStatusService', '$ngConfirm', 'PVPriorityService', '$window', '$timeout', 'ExcelSave', function($scope, $http, Notification, ChangePVStatusService, $ngConfirm, PVPriorityService, $window, $timeout, ExcelSave){
 	$scope.showjtform = false;
 	$scope.startTab = false;
 	$scope.openTab = false;
@@ -71,6 +71,26 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 		});
 		
 		$scope.GetPVPriorityList();
+	}
+
+	$scope.exportToExcelSave=function(tableId , filename){ 
+
+		if($scope.page == 'jobticketopen')
+			filename = 'OpenJobTicket.xls';
+		else if($scope.page == 'jobticketstarted')
+			filename = 'StartedJobTicket.xls';
+		else if($scope.page == 'jobticketcompleted')
+			filename = 'CompletedJobTicket.xls';
+		else if($scope.page == 'sitecardafterjobticketcompleted')
+			filename = 'CompletedSiteCardJobTicket.xls';
+		else
+			filename = 'JobTicket.xls';
+
+	   	ExcelSave.tableToExcel(tableId,filename);
+
+	   	$timeout(function(){
+
+		},100); // trigger download
 	}
 
 	$scope.GetPVPriorityList = function()

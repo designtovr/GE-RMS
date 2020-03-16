@@ -128,107 +128,128 @@
                             </ul>
                             <div class="tab-content pl-3 p-1" id="myTabContent">
                                 <div class="tab-pane fade" id="completed" role="tabpanel" aria-labelledby="completed-tab">
-                                    <div class="col-md-12">
-                                        <!-- DATA TABLE-->
-                                        <div grid-data grid-options="gridOptions" grid-actions="gridActions" class="">
-                                            <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
-                                            <table class="table table-borderless table-data3 table-responsive">
-                                                <thead>
-                                                <tr>
-                                                    @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
-                                                    <th>
-                                                        Actions
-                                                    </th>
-                                                    @endif
-                                                    <th sortable="formatted_rma_id" class="sortable">
-                                                        RMA No
-                                                    </th>
-                                                    <th sortable="date_unix" class="sortable">
-                                                        Date
-                                                    </th>
-
-                                                    <th sortable="gs_no" class="sortable">
-                                                        GS No
-                                                    </th>
-                                                    <th sortable="act_reference" class="sortable">
-                                                        ACT Reference
-                                                    </th>
-                                                    <th sortable="customer_name" class="sortable">
-                                                        Customer Name
-                                                    </th>
-                                                    <th sortable="end_customer" class="sortable">
-                                                        End Customer
-                                                    </th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr grid-item>
-                                                    @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
-                                                    <td>
-                                                        <div class="table-data-feature float-left">
-                                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="EditRMAForm(item.id);">
-                                                                <i class="zmdi zmdi-edit"></i>
-                                                            </button>
-                                                            <button class="item" data-toggle="tooltip" data-placement="top"
-                                                                    title="Add"
-                                                                    ng-click="AddPVForm(item.id);">
-                                                                <i class="zmdi zmdi-plus-box"></i>
-                                                            </button>
-                                                            <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle item"><span><i class="zmdi zmdi-print"></i></span></button>
-                                                            <div tabindex="-1" aria-hidden="true" role="menu" class="dropdown-menu">
-                                                                <button ng-click="PrintRMAForm(item.id)" type="button" tabindex="0" class="dropdown-item">RMA Form</button>
-                                                                <button ng-click="PrintPVForm(item.id);" type="button" tabindex="0" class="dropdown-item">PV Form</button>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    @endif
-                                                    <td ng-bind="item.formatted_rma_id"></td>
-                                                    <td ng-bind="item.date | date:'dd/MM/yyyy'"></td>
-                                                    <td ng-bind="item.gs_no"></td>
-                                                    <td ng-bind="item.act_reference"></td>
-                                                    <td ng-bind="item.customer_name"></td>
-                                                    <td ng-bind="item.end_customer"></td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                              <form class="form-inline pull-right margin-bottom-basic">
-                                                <div class="form-group">
-                                                    <grid-pagination max-size="5"
-                                                    boundary-links="true"
-                                                    class="pagination-sm"
-                                                    total-items="paginationOptions.totalItems"
-                                                    ng-model="paginationOptions.currentPage"
-                                                    ng-change="reloadGrid()"
-                                                    items-per-page="paginationOptions.itemsPerPage"></grid-pagination>
-                                                </div>
-                                                <div class="form-group items-per-page">
-                                                    <label for="itemsOnPageSelect2">Items per page:</label>
-                                                    <select id="itemsOnPageSelect2" class="form-control input-sm"
-                                                        ng-init="paginationOptions.itemsPerPage = '10'"
-                                                        ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
-                                                        <option>10</option>
-                                                        <option>25</option>
-                                                        <option>50</option>
-                                                        <option>75</option>
-                                                    </select>
-                                                </div>
-                                            </form>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <ul class="list-inline">
+                                                <li>
+                                                    <button type="button" class="btn btn-primary btn-md float-right m-r-10"  ng-click="exportToExcelSave('#completedrmatable' , 'CompletedRMA.xls')">
+                                                        <i class="fa fa-file-excel-o"></i>&nbsp;Export
+                                                    </button>
+                                                </li>
+                                            </ul>
                                         </div>
-                                        <!-- END DATA TABLE-->
+                                        <div class="col-md-12">
+                                            <!-- DATA TABLE-->
+                                            <div grid-data grid-options="gridOptions" grid-actions="gridActions" class="">
+                                                <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
+                                                <table class="table table-borderless table-data3 table-responsive" id="completedrmatable" name="completedrmatable">
+                                                    <thead>
+                                                    <tr>
+                                                        @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
+                                                        <th>
+                                                            Actions
+                                                        </th>
+                                                        @endif
+                                                        <th sortable="formatted_rma_id" class="sortable">
+                                                            RMA No
+                                                        </th>
+                                                        <th sortable="date_unix" class="sortable">
+                                                            Date
+                                                        </th>
+
+                                                        <th sortable="gs_no" class="sortable">
+                                                            GS No
+                                                        </th>
+                                                        <th sortable="act_reference" class="sortable">
+                                                            ACT Reference
+                                                        </th>
+                                                        <th sortable="customer_name" class="sortable">
+                                                            Customer Name
+                                                        </th>
+                                                        <th sortable="end_customer" class="sortable">
+                                                            End Customer
+                                                        </th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr grid-item>
+                                                        @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
+                                                        <td>
+                                                            <div class="table-data-feature float-left">
+                                                                <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="EditRMAForm(item.id);">
+                                                                    <i class="zmdi zmdi-edit"></i>
+                                                                </button>
+                                                                <button class="item" data-toggle="tooltip" data-placement="top"
+                                                                        title="Add"
+                                                                        ng-click="AddPVForm(item.id);">
+                                                                    <i class="zmdi zmdi-plus-box"></i>
+                                                                </button>
+                                                                <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle item"><span><i class="zmdi zmdi-print"></i></span></button>
+                                                                <div tabindex="-1" aria-hidden="true" role="menu" class="dropdown-menu">
+                                                                    <button ng-click="PrintRMAForm(item.id)" type="button" tabindex="0" class="dropdown-item">RMA Form</button>
+                                                                    <button ng-click="PrintPVForm(item.id);" type="button" tabindex="0" class="dropdown-item">PV Form</button>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        @endif
+                                                        <td ng-bind="item.formatted_rma_id"></td>
+                                                        <td ng-bind="item.date | date:'dd/MM/yyyy'"></td>
+                                                        <td ng-bind="item.gs_no"></td>
+                                                        <td ng-bind="item.act_reference"></td>
+                                                        <td ng-bind="item.customer_name"></td>
+                                                        <td ng-bind="item.end_customer"></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                                  <form class="form-inline pull-right margin-bottom-basic">
+                                                    <div class="form-group">
+                                                        <grid-pagination max-size="5"
+                                                        boundary-links="true"
+                                                        class="pagination-sm"
+                                                        total-items="paginationOptions.totalItems"
+                                                        ng-model="paginationOptions.currentPage"
+                                                        ng-change="reloadGrid()"
+                                                        items-per-page="paginationOptions.itemsPerPage"></grid-pagination>
+                                                    </div>
+                                                    <div class="form-group items-per-page">
+                                                        <label for="itemsOnPageSelect2">Items per page:</label>
+                                                        <select id="itemsOnPageSelect2" class="form-control input-sm"
+                                                            ng-init="paginationOptions.itemsPerPage = '10'"
+                                                            ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+                                                            <option>10</option>
+                                                            <option>25</option>
+                                                            <option>50</option>
+                                                            <option>75</option>
+                                                            <option>10000000</option>
+                                                        </select>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <!-- END DATA TABLE-->
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade show active" id="withrma" role="tabpanel" aria-labelledby="withrma-tab">
-                                    @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
                                     <div class="col-md-12">
-                                        <button type="button" class="btn btn-primary btn-md pull-right m-b-10" ng-click="CreateRMA();">
-                                            <i class="fa fa-check-circle"></i>&nbsp;Create RMA
-                                        </button>
+                                        <ul class="list-inline">
+                                            @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
+                                            <li>
+                                                <button type="button" class="btn btn-primary btn-md pull-right m-b-10" ng-click="CreateRMA();">
+                                                    <i class="fa fa-check-circle"></i>&nbsp;Create RMA
+                                                </button>
+                                            </li>
+                                            @endif
+                                            <li>
+                                                <button type="button" class="btn btn-primary btn-md float-right m-r-10"  ng-click="exportToExcelSave('#withrmatable' , 'WithRMA.xls')">
+                                                    <i class="fa fa-file-excel-o"></i>&nbsp;Export
+                                                </button>
+                                            </li>
+                                        </ul>
                                     </div>
-                                    @endif
                                     <!-- DATA TABLE-->
                                     <div grid-data grid-options="pvgridOptions" grid-actions="pvgridActions">
                                         <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
-                                        <table class="table table-borderless table-data3 table-responsive">
+                                        <table class="table table-borderless table-data3 table-responsive" id="withrmatable" name="withrmatable">
                                             <thead>
                                                 <tr>
                                                     @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
@@ -294,158 +315,81 @@
                                                 <option>25</option>
                                                 <option>50</option>
                                                 <option>75</option>
+                                                <option>10000000</option>
                                             </select>
                                         </div>
                                         </form>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="withoutrma" role="tabpanel" aria-labelledby="withoutrma-tab">
-                                    @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
-                                    <div class="col-md-12">
-                                        <button type="button" class="btn btn-primary btn-md pull-right m-b-10" ng-click="CreateRMA();">
-                                            <i class="fa fa-check-circle"></i>&nbsp;Create RMA
-                                        </button>
-                                    </div>
-                                    @endif
-                                    <!-- DATA TABLE-->
-                                    <div grid-data grid-options="pvgridOptions" grid-actions="pvgridActions">
-                                        <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
-                                        <table class="table table-borderless table-data3 table-responsive">
-                                            <thead>
-                                                <tr>
-                                                    @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
-                                                    <th>
-                                                        Select
-                                                    </th>
-                                                    @endif
-                                                    <th>
-                                                        R Id
-                                                    </th>
-                                                    <th>
-                                                        Receipt Id
-                                                    </th>
-                                                    <th>
-                                                        Date
-                                                    </th>
-                                                    <th>
-                                                        Customer Name
-                                                    </th>
-                                                    <th>
-                                                        Courier Name
-                                                    </th>
-                                                    <th>
-                                                        Docket Details
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr grid-item>
-                                                    @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
-                                                    <td>
-                                                        <label class="au-checkbox">
-                                                            <input type="checkbox" ng-model="item.create_rma">
-                                                            <span class="au-checkmark"></span>
-                                                        </label>
-                                                    </td>
-                                                    @endif
-                                                    <td ng-bind="item.formatted_pv_id"></td>
-                                                    <td ng-bind="item.formatted_receipt_id"></td>
-                                                    <td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
-                                                    <td ng-bind="item.customer_name"></td>
-                                                    <td ng-bind="item.courier_name"></td>
-                                                    <td ng-bind="item.docket_details"></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <form class="form-inline pull-right margin-bottom-basic">
-                                            <div class="form-group">
-                                                <grid-pagination max-size="5"
-                                                boundary-links="true"
-                                                class="pagination-sm"
-                                                total-items="paginationOptions.totalItems"
-                                                ng-model="paginationOptions.currentPage"
-                                                ng-change="reloadGrid()"
-                                                items-per-page="paginationOptions.itemsPerPage"></grid-pagination>
-                                            </div>
-                                            <div class="form-group items-per-page">
-                                                <label for="itemsOnPageSelect2">Items per page:</label>
-                                                <select id="itemsOnPageSelect2" class="form-control input-sm"
-                                                ng-init="paginationOptions.itemsPerPage = '10'"
-                                                ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
-                                                <option>10</option>
-                                                <option>25</option>
-                                                <option>50</option>
-                                                <option>75</option>
-                                            </select>
-                                            </div>
-                                        </form>
-                                    </div>
-                                <!-- END DATA TABLE-->
-                                </div>
-                                <div class="tab-pane fade" id="saved" role="tabpanel" aria-labelledby="saved-tab">
-                                    <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <ul class="list-inline">
+                                                @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
+                                                <li>
+                                                    <button type="button" class="btn btn-primary btn-md pull-right m-b-10" ng-click="CreateRMA();">
+                                                        <i class="fa fa-check-circle"></i>&nbsp;Create RMA
+                                                    </button>
+                                                </li>
+                                                @endif
+                                                <li>
+                                                    <button type="button" class="btn btn-primary btn-md float-right m-r-10"  ng-click="exportToExcelSave('#withoutrmatable' , 'WithOutPhysicalRMA.xls')">
+                                                        <i class="fa fa-file-excel-o"></i>&nbsp;Export
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
                                         <!-- DATA TABLE-->
-                                        <div grid-data grid-options="gridOptions" grid-actions="gridActions" class="">
+                                        <div grid-data grid-options="pvgridOptions" grid-actions="pvgridActions" id="withoutrmatable" name="withoutrmatable">
                                             <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
                                             <table class="table table-borderless table-data3 table-responsive">
                                                 <thead>
-                                                <tr>
-                                                    @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
-                                                    <th>
-                                                        Actions
-                                                    </th>
-                                                    @endif
-                                                    <th sortable="formatted_rma_id" class="sortable">
-                                                        RMA No
-                                                    </th>
-                                                    <th sortable="date" class="sortable">
-                                                        Date
-                                                    </th>
-
-                                                    <th sortable="gs_no" class="sortable">
-                                                        GS No
-                                                    </th>
-                                                    <th sortable="act_reference" class="sortable">
-                                                        ACT Reference
-                                                    </th>
-                                                    <th sortable="customer_name" class="sortable">
-                                                        Customer Name
-                                                    </th>
-                                                    <th sortable="end_customer" class="sortable">
-                                                        End Customer
-                                                    </th>
-                                                </tr>
+                                                    <tr>
+                                                        @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
+                                                        <th>
+                                                            Select
+                                                        </th>
+                                                        @endif
+                                                        <th>
+                                                            R Id
+                                                        </th>
+                                                        <th>
+                                                            Receipt Id
+                                                        </th>
+                                                        <th>
+                                                            Date
+                                                        </th>
+                                                        <th>
+                                                            Customer Name
+                                                        </th>
+                                                        <th>
+                                                            Courier Name
+                                                        </th>
+                                                        <th>
+                                                            Docket Details
+                                                        </th>
+                                                    </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr grid-item>
-                                                    @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
-                                                    <td>
-                                                        <div class="table-data-feature float-left">
-                                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="EditRMAForm(item.id);">
-                                                                <i class="zmdi zmdi-edit"></i>
-                                                            </button>
-                                                            <button class="item" data-toggle="tooltip" data-placement="top"
-                                                                    title="Add"
-                                                                    ng-click="AddPVForm(item.id);">
-                                                                <i class="zmdi zmdi-plus-box"></i>
-                                                            </button>
-                                                            <!-- <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                                <i class="zmdi zmdi-delete"></i>
-                                                            </button> -->
-                                                        </div>
-                                                    </td>
-                                                    @endif
-                                                    <td ng-bind="item.formatted_rma_id"></td>
-                                                    <td ng-bind="item.date | date:'dd/MM/yyyy'"></td>
-
-                                                    <td ng-bind="item.gs_no"></td>
-                                                    <td ng-bind="item.act_reference"></td>
-                                                    <td ng-bind="item.customer_name"></td>
-                                                    <td ng-bind="item.end_customer"></td>
-                                                </tr>
+                                                    <tr grid-item>
+                                                        @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
+                                                        <td>
+                                                            <label class="au-checkbox">
+                                                                <input type="checkbox" ng-model="item.create_rma">
+                                                                <span class="au-checkmark"></span>
+                                                            </label>
+                                                        </td>
+                                                        @endif
+                                                        <td ng-bind="item.formatted_pv_id"></td>
+                                                        <td ng-bind="item.formatted_receipt_id"></td>
+                                                        <td ng-bind="item.pvdate | date:'dd/MM/yyyy'"></td>
+                                                        <td ng-bind="item.customer_name"></td>
+                                                        <td ng-bind="item.courier_name"></td>
+                                                        <td ng-bind="item.docket_details"></td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
-                                              <form class="form-inline pull-right margin-bottom-basic">
+                                            <form class="form-inline pull-right margin-bottom-basic">
                                                 <div class="form-group">
                                                     <grid-pagination max-size="5"
                                                     boundary-links="true"
@@ -458,192 +402,320 @@
                                                 <div class="form-group items-per-page">
                                                     <label for="itemsOnPageSelect2">Items per page:</label>
                                                     <select id="itemsOnPageSelect2" class="form-control input-sm"
-                                                        ng-init="paginationOptions.itemsPerPage = '10'"
-                                                        ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
-                                                        <option>10</option>
-                                                        <option>25</option>
-                                                        <option>50</option>
-                                                        <option>75</option>
-                                                    </select>
+                                                    ng-init="paginationOptions.itemsPerPage = '10'"
+                                                    ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+                                                    <option>10</option>
+                                                    <option>25</option>
+                                                    <option>50</option>
+                                                    <option>75</option>
+                                                    <option>10000000</option>
+                                                </select>
                                                 </div>
                                             </form>
                                         </div>
-                                        <!-- END DATA TABLE-->
+                                    <!-- END DATA TABLE-->
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="saved" role="tabpanel" aria-labelledby="saved-tab">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <ul class="list-inline">
+                                                <li>
+                                                    <button type="button" class="btn btn-primary btn-md float-right m-r-10"  ng-click="exportToExcelSave('#savedrmatable' , 'SavedRMA.xls')">
+                                                        <i class="fa fa-file-excel-o"></i>&nbsp;Export
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <!-- DATA TABLE-->
+                                            <div grid-data grid-options="gridOptions" grid-actions="gridActions" class="">
+                                                <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
+                                                <table class="table table-borderless table-data3 table-responsive" id="savedrmatable" name="savedrmatable">
+                                                    <thead>
+                                                    <tr>
+                                                        @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
+                                                        <th>
+                                                            Actions
+                                                        </th>
+                                                        @endif
+                                                        <th sortable="formatted_rma_id" class="sortable">
+                                                            RMA No
+                                                        </th>
+                                                        <th sortable="date" class="sortable">
+                                                            Date
+                                                        </th>
+
+                                                        <th sortable="gs_no" class="sortable">
+                                                            GS No
+                                                        </th>
+                                                        <th sortable="act_reference" class="sortable">
+                                                            ACT Reference
+                                                        </th>
+                                                        <th sortable="customer_name" class="sortable">
+                                                            Customer Name
+                                                        </th>
+                                                        <th sortable="end_customer" class="sortable">
+                                                            End Customer
+                                                        </th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr grid-item>
+                                                        @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
+                                                        <td>
+                                                            <div class="table-data-feature float-left">
+                                                                <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="EditRMAForm(item.id);">
+                                                                    <i class="zmdi zmdi-edit"></i>
+                                                                </button>
+                                                                <button class="item" data-toggle="tooltip" data-placement="top"
+                                                                        title="Add"
+                                                                        ng-click="AddPVForm(item.id);">
+                                                                    <i class="zmdi zmdi-plus-box"></i>
+                                                                </button>
+                                                                <!-- <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                                    <i class="zmdi zmdi-delete"></i>
+                                                                </button> -->
+                                                            </div>
+                                                        </td>
+                                                        @endif
+                                                        <td ng-bind="item.formatted_rma_id"></td>
+                                                        <td ng-bind="item.date | date:'dd/MM/yyyy'"></td>
+
+                                                        <td ng-bind="item.gs_no"></td>
+                                                        <td ng-bind="item.act_reference"></td>
+                                                        <td ng-bind="item.customer_name"></td>
+                                                        <td ng-bind="item.end_customer"></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                                  <form class="form-inline pull-right margin-bottom-basic">
+                                                    <div class="form-group">
+                                                        <grid-pagination max-size="5"
+                                                        boundary-links="true"
+                                                        class="pagination-sm"
+                                                        total-items="paginationOptions.totalItems"
+                                                        ng-model="paginationOptions.currentPage"
+                                                        ng-change="reloadGrid()"
+                                                        items-per-page="paginationOptions.itemsPerPage"></grid-pagination>
+                                                    </div>
+                                                    <div class="form-group items-per-page">
+                                                        <label for="itemsOnPageSelect2">Items per page:</label>
+                                                        <select id="itemsOnPageSelect2" class="form-control input-sm"
+                                                            ng-init="paginationOptions.itemsPerPage = '10'"
+                                                            ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+                                                            <option>10</option>
+                                                            <option>25</option>
+                                                            <option>50</option>
+                                                            <option>75</option>
+                                                            <option>10000000</option>
+                                                        </select>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <!-- END DATA TABLE-->
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="opensitecard" role="tabpanel" aria-labelledby="opensitecard-tab">
-                                    <div class="col-md-12">
-                                        @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
-                                        <button type="button" class="btn btn-primary btn-md pull-right m-b-10" ng-click="CreateSiteCard();">
-                                            <i class="fa fa-check-circle"></i>&nbsp;Create SiteCard
-                                        </button>
-                                        @endif
-                                        <!-- DATA TABLE-->
-                                        <div grid-data grid-options="gridOptions" grid-actions="gridActions" class="">
-                                            <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
-                                            <table class="table table-borderless table-data3 table-responsive">
-                                                <thead>
-                                                <tr>
-                                                    @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
-                                                    <th>
-                                                        Actions
-                                                    </th>
-                                                    @endif
-                                                    <th sortable="formatted_rma_id" class="sortable">
-                                                        RMA No
-                                                    </th>
-                                                    <th sortable="date" class="sortable">
-                                                        Date
-                                                    </th>
-                                                    <th sortable="gs_no" class="sortable">
-                                                        GS No
-                                                    </th>
-                                                    <th sortable="act_reference" class="sortable">
-                                                        ACT Reference
-                                                    </th>
-                                                    <th sortable="customer_name" class="sortable">
-                                                        Customer Name
-                                                    </th>
-                                                    <th sortable="end_customer" class="sortable">
-                                                        End Customer
-                                                    </th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr grid-item>
-                                                    @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
-                                                    <td>
-                                                        <div class="table-data-feature float-left">
-                                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="EditRMAForm(item.id);">
-                                                                <i class="zmdi zmdi-edit"></i>
-                                                            </button>
-                                                            <!-- <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                                <i class="zmdi zmdi-delete"></i>
-                                                            </button> -->
-                                                        </div>
-                                                    </td>
-                                                    @endif
-                                                    <td ng-bind="item.formatted_rma_id"></td>
-                                                    <td ng-bind="item.date | date:'dd/MM/yyyy'"></td>
-
-                                                    <td ng-bind="item.gs_no"></td>
-                                                    <td ng-bind="item.act_reference"></td>
-                                                    <td ng-bind="item.customer_name"></td>
-                                                    <td ng-bind="item.end_customer"></td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                              <form class="form-inline pull-right margin-bottom-basic">
-                                                <div class="form-group">
-                                                    <grid-pagination max-size="5"
-                                                    boundary-links="true"
-                                                    class="pagination-sm"
-                                                    total-items="paginationOptions.totalItems"
-                                                    ng-model="paginationOptions.currentPage"
-                                                    ng-change="reloadGrid()"
-                                                    items-per-page="paginationOptions.itemsPerPage"></grid-pagination>
-                                                </div>
-                                                <div class="form-group items-per-page">
-                                                    <label for="itemsOnPageSelect2">Items per page:</label>
-                                                    <select id="itemsOnPageSelect2" class="form-control input-sm"
-                                                        ng-init="paginationOptions.itemsPerPage = '10'"
-                                                        ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
-                                                        <option>10</option>
-                                                        <option>25</option>
-                                                        <option>50</option>
-                                                        <option>75</option>
-                                                    </select>
-                                                </div>
-                                            </form>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <ul class="list-inline">
+                                                @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
+                                                <li>
+                                                    <button type="button" class="btn btn-primary btn-md pull-right m-b-10 " ng-click="CreateSiteCard();">
+                                                        <i class="fa fa-check-circle"></i>&nbsp;Create SiteCard
+                                                    </button>
+                                                </li>
+                                                @endif
+                                                <li>
+                                                    <button type="button" class="btn btn-primary btn-md float-right m-r-10"  ng-click="exportToExcelSave('#opensitecardtable' , 'SiteCardRMA.xls')">
+                                                        <i class="fa fa-file-excel-o"></i>&nbsp;Export
+                                                    </button>
+                                                </li>
+                                            </ul>
                                         </div>
-                                        <!-- END DATA TABLE-->
+                                        <div class="col-md-12">
+                                            <!-- DATA TABLE-->
+                                            <div grid-data grid-options="gridOptions" grid-actions="gridActions" class="">
+                                                <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
+                                                <table class="table table-borderless table-data3 table-responsive" id="opensitecardtable" name="opensitecardtable">
+                                                    <thead>
+                                                    <tr>
+                                                        @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
+                                                        <th>
+                                                            Actions
+                                                        </th>
+                                                        @endif
+                                                        <th sortable="formatted_rma_id" class="sortable">
+                                                            RMA No
+                                                        </th>
+                                                        <th sortable="date" class="sortable">
+                                                            Date
+                                                        </th>
+                                                        <th sortable="gs_no" class="sortable">
+                                                            GS No
+                                                        </th>
+                                                        <th sortable="act_reference" class="sortable">
+                                                            ACT Reference
+                                                        </th>
+                                                        <th sortable="customer_name" class="sortable">
+                                                            Customer Name
+                                                        </th>
+                                                        <th sortable="end_customer" class="sortable">
+                                                            End Customer
+                                                        </th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr grid-item>
+                                                        @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
+                                                        <td>
+                                                            <div class="table-data-feature float-left">
+                                                                <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="EditRMAForm(item.id);">
+                                                                    <i class="zmdi zmdi-edit"></i>
+                                                                </button>
+                                                                <!-- <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                                    <i class="zmdi zmdi-delete"></i>
+                                                                </button> -->
+                                                            </div>
+                                                        </td>
+                                                        @endif
+                                                        <td ng-bind="item.formatted_rma_id"></td>
+                                                        <td ng-bind="item.date | date:'dd/MM/yyyy'"></td>
+
+                                                        <td ng-bind="item.gs_no"></td>
+                                                        <td ng-bind="item.act_reference"></td>
+                                                        <td ng-bind="item.customer_name"></td>
+                                                        <td ng-bind="item.end_customer"></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                                  <form class="form-inline pull-right margin-bottom-basic">
+                                                    <div class="form-group">
+                                                        <grid-pagination max-size="5"
+                                                        boundary-links="true"
+                                                        class="pagination-sm"
+                                                        total-items="paginationOptions.totalItems"
+                                                        ng-model="paginationOptions.currentPage"
+                                                        ng-change="reloadGrid()"
+                                                        items-per-page="paginationOptions.itemsPerPage"></grid-pagination>
+                                                    </div>
+                                                    <div class="form-group items-per-page">
+                                                        <label for="itemsOnPageSelect2">Items per page:</label>
+                                                        <select id="itemsOnPageSelect2" class="form-control input-sm"
+                                                            ng-init="paginationOptions.itemsPerPage = '10'"
+                                                            ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+                                                            <option>10</option>
+                                                            <option>25</option>
+                                                            <option>50</option>
+                                                            <option>75</option>
+                                                            <option>10000000</option>
+                                                        </select>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <!-- END DATA TABLE-->
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="all" role="tabpanel" aria-labelledby="all-tab">
-                                    <div class="col-md-12">
-                                        <!-- DATA TABLE-->
-                                        <div grid-data grid-options="gridOptions" grid-actions="gridActions" class="">
-                                            <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
-                                            <table class="table table-borderless table-data3 table-responsive">
-                                                <thead>
-                                                <tr>
-                                                    @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
-                                                    <th>
-                                                        Actions
-                                                    </th>
-                                                    @endif
-                                                    <th sortable="formatted_rma_id" class="sortable">
-                                                        RMA No
-                                                    </th>
-                                                    <th sortable="date_unix" class="sortable">
-                                                        Date
-                                                    </th>
-                                                    <th sortable="status" class="sortable">
-                                                        Status
-                                                    </th>
-                                                    <th sortable="gs_no" class="sortable">
-                                                        GS No
-                                                    </th>
-                                                    <th sortable="act_reference" class="sortable">
-                                                        ACT Reference
-                                                    </th>
-                                                    <th sortable="customer_name" class="sortable">
-                                                        Customer Name
-                                                    </th>
-                                                    <th sortable="end_customer" class="sortable">
-                                                        End Customer
-                                                    </th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr grid-item>
-                                                    @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
-                                                    <td>
-                                                        <div class="table-data-feature float-left">
-                                                            <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle item"><span><i class="zmdi zmdi-print"></i></span></button>
-                                                            <div tabindex="-1" aria-hidden="true" role="menu" class="dropdown-menu">
-                                                                <!-- <button ng-click="PrintRMAForm(item.id)" type="button" tabindex="0" class="dropdown-item">RMA Form</button> -->
-                                                                <button ng-click="PrintPVForm(item.id);" type="button" tabindex="0" class="dropdown-item">PV Form</button>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    @endif
-                                                    <td ng-bind="item.formatted_rma_id"></td>
-                                                    <td ng-bind="item.date | date:'dd/MM/yyyy'"></td>
-                                                    <td ng-if="item.status == 1">Open</td>
-                                                    <td ng-if="item.status == 2">Saved</td>
-                                                    <td ng-if="item.status == 3">Completed</td>
-                                                    <td ng-bind="item.gs_no"></td>
-                                                    <td ng-bind="item.act_reference"></td>
-                                                    <td ng-bind="item.customer_name"></td>
-                                                    <td ng-bind="item.end_customer"></td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                              <form class="form-inline pull-right margin-bottom-basic">
-                                                <div class="form-group">
-                                                    <grid-pagination max-size="5"
-                                                    boundary-links="true"
-                                                    class="pagination-sm"
-                                                    total-items="paginationOptions.totalItems"
-                                                    ng-model="paginationOptions.currentPage"
-                                                    ng-change="reloadGrid()"
-                                                    items-per-page="paginationOptions.itemsPerPage"></grid-pagination>
-                                                </div>
-                                                <div class="form-group items-per-page">
-                                                    <label for="itemsOnPageSelect2">Items per page:</label>
-                                                    <select id="itemsOnPageSelect2" class="form-control input-sm"
-                                                        ng-init="paginationOptions.itemsPerPage = '10'"
-                                                        ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
-                                                        <option>10</option>
-                                                        <option>25</option>
-                                                        <option>50</option>
-                                                        <option>75</option>
-                                                    </select>
-                                                </div>
-                                            </form>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <ul class="list-inline">
+                                                <li>
+                                                    <button type="button" class="btn btn-primary btn-md float-right m-b-10 m-r-10"  ng-click="exportToExcelSave('#allrmatable' , 'AllRMA.xls')">
+                                                        <i class="fa fa-file-excel-o"></i>&nbsp;Export
+                                                    </button>
+                                                </li>
+                                            </ul>
                                         </div>
-                                        <!-- END DATA TABLE-->
+                                        <div class="col-md-12">
+                                            <!-- DATA TABLE-->
+                                            <div grid-data grid-options="gridOptions" grid-actions="gridActions" class="">
+                                                <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
+                                                <table class="table table-borderless table-data3 table-responsive" id="allrmatable" name="allrmatable">
+                                                    <thead>
+                                                    <tr>
+                                                        @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
+                                                        <th>
+                                                            Actions
+                                                        </th>
+                                                        @endif
+                                                        <th sortable="formatted_rma_id" class="sortable">
+                                                            RMA No
+                                                        </th>
+                                                        <th sortable="date_unix" class="sortable">
+                                                            Date
+                                                        </th>
+                                                        <th sortable="status" class="sortable">
+                                                            Status
+                                                        </th>
+                                                        <th sortable="gs_no" class="sortable">
+                                                            GS No
+                                                        </th>
+                                                        <th sortable="act_reference" class="sortable">
+                                                            ACT Reference
+                                                        </th>
+                                                        <th sortable="customer_name" class="sortable">
+                                                            Customer Name
+                                                        </th>
+                                                        <th sortable="end_customer" class="sortable">
+                                                            End Customer
+                                                        </th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr grid-item>
+                                                        @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
+                                                        <td>
+                                                            <div class="table-data-feature float-left">
+                                                                <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle item"><span><i class="zmdi zmdi-print"></i></span></button>
+                                                                <div tabindex="-1" aria-hidden="true" role="menu" class="dropdown-menu">
+                                                                    <!-- <button ng-click="PrintRMAForm(item.id)" type="button" tabindex="0" class="dropdown-item">RMA Form</button> -->
+                                                                    <button ng-click="PrintPVForm(item.id);" type="button" tabindex="0" class="dropdown-item">PV Form</button>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        @endif
+                                                        <td ng-bind="item.formatted_rma_id"></td>
+                                                        <td ng-bind="item.date | date:'dd/MM/yyyy'"></td>
+                                                        <td ng-if="item.status == 1">Open</td>
+                                                        <td ng-if="item.status == 2">Saved</td>
+                                                        <td ng-if="item.status == 3">Completed</td>
+                                                        <td ng-bind="item.gs_no"></td>
+                                                        <td ng-bind="item.act_reference"></td>
+                                                        <td ng-bind="item.customer_name"></td>
+                                                        <td ng-bind="item.end_customer"></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                                  <form class="form-inline pull-right margin-bottom-basic">
+                                                    <div class="form-group">
+                                                        <grid-pagination max-size="5"
+                                                        boundary-links="true"
+                                                        class="pagination-sm"
+                                                        total-items="paginationOptions.totalItems"
+                                                        ng-model="paginationOptions.currentPage"
+                                                        ng-change="reloadGrid()"
+                                                        items-per-page="paginationOptions.itemsPerPage"></grid-pagination>
+                                                    </div>
+                                                    <div class="form-group items-per-page">
+                                                        <label for="itemsOnPageSelect2">Items per page:</label>
+                                                        <select id="itemsOnPageSelect2" class="form-control input-sm"
+                                                            ng-init="paginationOptions.itemsPerPage = '10'"
+                                                            ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+                                                            <option>10</option>
+                                                            <option>25</option>
+                                                            <option>50</option>
+                                                            <option>75</option>
+                                                            <option>10000000</option>
+                                                        </select>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <!-- END DATA TABLE-->
+                                        </div>
                                     </div>
                                 </div>
                             </div>

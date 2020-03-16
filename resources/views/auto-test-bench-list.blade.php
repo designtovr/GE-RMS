@@ -132,29 +132,28 @@
 
 									</ul>
 								</div>
-								@if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
 								<div class="col-md-3 col-md-offset-3  p-0 m-r-0" >
 									<div class = "pull-right">
-									<button type="button" class="btn btn-primary btn-sm" ng-show="openTab" ng-click="ChangeStatus('atbstarted')">
-										<i class="fa fa-check"></i>&nbsp; Started
-									</button>
-
-									<!-- <button type="button" class="btn btn-primary btn-sm" ng-show="startTab" ng-click="ChangeStatus('atbcompleted')">
-										<i class="fa fa-check"></i>&nbsp; Completed
-									</button> -->
-									<button type="button" class="btn btn-primary btn-sm" ng-click="OpenTestBenchModal();" ng-show="startTab">
-										<i class="fa fa-plus"></i>&nbsp;Test
-									</button>
+										<button type="button" class="btn btn-primary btn-sm" ng-click="exportToExcelSave('#testingtable' , 'Testing.xls')">
+											<i class="fa fa-file-excel-o"></i>&nbsp; Export
+										</button>
+										@if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
+										<button type="button" class="btn btn-primary btn-sm" ng-show="openTab" ng-click="ChangeStatus('atbstarted')">
+											<i class="fa fa-check"></i>&nbsp; Started
+										</button>
+										<button type="button" class="btn btn-primary btn-sm" ng-click="OpenTestBenchModal();" ng-show="startTab">
+											<i class="fa fa-plus"></i>&nbsp;Test
+										</button>
+										@endif
 									</div>
 								</div>
-								@endif
 							</div>
 							{{--Tab Ends--}}
 					<!-- DATA TABLE-->
 					<div grid-data grid-options="gridOptions" grid-actions="gridActions">
 						<!-- sample table layout goes below, but remember that you can you any mark-up here. -->
 						<div class="overflow-auto">
-							<table class="table table-borderless table-data3  ">
+							<table class="table table-borderless table-data3  " id="testingtable" name="testingtable">
 								<thead>
 								<tr>
 									@if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
@@ -252,6 +251,7 @@
 									<option>25</option>
 									<option>50</option>
 									<option>75</option>
+									<option>10000000</option>
 								</select>
 							</div>
 						</form>

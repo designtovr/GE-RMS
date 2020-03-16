@@ -1,4 +1,4 @@
-app.controller('AgingCompleteController', ['$scope', '$http','Notification','ChangePVStatusService', 'PVPriorityService', function($scope, $http , Notification,ChangePVStatusService, PVPriorityService)
+app.controller('AgingCompleteController', ['$scope', '$http','Notification','ChangePVStatusService', 'PVPriorityService', 'ExcelSave', function($scope, $http , Notification,ChangePVStatusService, PVPriorityService, ExcelSave)
 {
 	$scope.agingmodal = {};
 	$scope.agingmodal.title = 'Aging Results';
@@ -32,6 +32,23 @@ app.controller('AgingCompleteController', ['$scope', '$http','Notification','Cha
 		}, function error(response) {
 		});
 		$scope.GetPVPriorityList();
+	}
+
+	$scope.exportToExcelSave=function(tableId , filename){
+
+		if($scope.page == 1)
+			filename = 'OpenAging.xls';
+		else if($scope.page == 2)
+			filename = 'StartedAging.xls';
+		else if($scope.page == 3)
+			filename = 'CompletedAging.xls';
+		else 
+			filename = 'Aging.xls';
+	   	ExcelSave.tableToExcel(tableId,filename);
+
+	   	$timeout(function(){
+
+		},100); // trigger download
 	}
 
 

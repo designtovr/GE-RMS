@@ -1,4 +1,4 @@
-app.controller('AutoTestBenchController', ['$scope', '$http','Notification','ChangePVStatusService', 'PVPriorityService', function($scope, $http , Notification, ChangePVStatusService, PVPriorityService)
+app.controller('AutoTestBenchController', ['$scope', '$http','Notification','ChangePVStatusService', 'PVPriorityService', 'ExcelSave', function($scope, $http , Notification, ChangePVStatusService, PVPriorityService, ExcelSave)
 {
 
 	$scope.testbenchmodal = {};
@@ -28,6 +28,23 @@ app.controller('AutoTestBenchController', ['$scope', '$http','Notification','Cha
 			show: true,
 			backdrop: 'static',
 		});
+	}
+
+	$scope.exportToExcelSave=function(tableId , filename){ 
+
+		if($scope.page == 1)
+			filename = 'OpenTesting.xls';
+		else if($scope.page == 2)
+			filename = 'StartedTesting.xls';
+		else if($scope.page == 3)
+			filename = 'CompletedTesting.xls';
+		else 
+			filename = 'Testing.xls';
+	   	ExcelSave.tableToExcel(tableId,filename);
+
+	   	$timeout(function(){
+
+		},100); // trigger download
 	}
 
 	$scope.SaveTestResult = function()

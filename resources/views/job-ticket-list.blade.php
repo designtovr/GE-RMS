@@ -146,9 +146,8 @@
 											<!-- <button type="button" class="btn btn-primary btn-sm" ng-click="ChangeStatus('Completed')">
 												<i class="fa fa-check"></i>&nbsp; Completed
 											</button> -->
-										<!-- 	<button type="button" class="btn btn-primary btn-sm" ng-click="OpenTestBenchModal();">
-												<i class="fa fa-plus"></i>&nbsp;Test
-											</button> -->
+											<button type="button" class="btn btn-primary btn-sm" ng-click="exportToExcelSave('#jobtickettable' , 'JobTicket.xls')"> <i class="fa fa-file-excel-o"></i>&nbsp;Export
+											</button>
 										</div>
 									</div>
 								</div>
@@ -157,7 +156,7 @@
 					<div grid-data grid-options="gridOptions" grid-actions="gridActions">
 						<!-- sample table layout goes below, but remember that you can you any mark-up here. -->
 						<div class="overflow-auto">
-							<table class="table table-borderless table-data3  ">
+							<table class="table table-borderless table-data3  " id="jobtickettable">
 								<thead>
 								<tr>
 
@@ -255,6 +254,7 @@
 									<option>25</option>
 									<option>50</option>
 									<option>75</option>
+									<option>10000000</option>
 								</select>
 							</div>
 						</form>
