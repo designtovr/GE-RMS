@@ -71,7 +71,7 @@
                                                      </tr>
                                                      </thead>
                                                      <tbody>
-                                                     <tr ng-repeat="pr in dashboardvalues.repair_priority">
+                                                     <tr ng-repeat="pr in dashboardvalues.received_relays">
                                                         <td ng-bind="pr.type_name"></td>
                                                         <td ng-bind="pr.serial_no" style="cursor: pointer;" ng-click="OnHoverShowStage(pr);"></td>
                                                         <td ng-bind="pr.rack_id"></td>
@@ -106,10 +106,13 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr ng-repeat="test in dashboardvalues.for_test">
+                                                    <tr ng-repeat="test in dashboardvalues.total_relays_completed">
                                                         <td ng-bind="test.type_name"></td>
+                                                        <td ng-bind="test.repair"></td>
+                                                        <td ng-bind="test.test"></td>
+                                                        <td ng-bind="test.dispatch"></td>
                                                         <td ng-bind="test.total"></td>
-                                                        <td style="cursor: pointer;" ng-click="ShowOverDueList('Test',test);"> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-10s" ng-bind="test.overdue"></span></td>
+                                       
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -142,10 +145,12 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr ng-repeat="pack in dashboardvalues.for_pack">
-                                                        <td ng-bind="pack.type_name"></td>
-                                                        <td ng-bind="pack.total"></td>
-                                                        <td  style="cursor: pointer;" ng-click="ShowOverDueList('Dispatch',pack);"> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-10s" ng-bind="pack.overdue"></span></td>
+                                                    <tr ng-repeat="test in dashboardvalues.total_relays_overdues">
+                                                        <td ng-bind="test.type_name"></td>
+                                                        <td ng-bind="test.repair"></td>
+                                                        <td ng-bind="test.test"></td>
+                                                        <td ng-bind="test.dispatch"></td>
+                                                        <td ng-bind="test.total"></td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -206,10 +211,9 @@
                                                               </tr>
                                                               </thead>
                                                               <tbody>
-                                                              <tr ng-repeat="forpv in dashboardvalues.for_physical_verification">
-                                                                  <td ng-bind="forpv.customer_name | uppercase"></td>
-                                                                  <td ng-bind="forpv.total"></td>
-                                                                  <td style="cursor: pointer;" ng-click="ShowOverDueList('Physical Verification',forpv);"><span class="badge badge-danger badge-fs-15 animated infinite flash slower-10s" ng-bind="forpv.overdue"></span></td>
+                                                              <tr ng-repeat="test in dashboardvalues.total_chargeable">
+                                                                    <td ng-bind="test.type_name"></td>
+                                                                    <td ng-bind="test.total"></td>
                                                               </tr>
                                                               </tbody>
                                                           </table>
@@ -234,7 +238,7 @@
                                                  <table class="table table-borderless table-data3 table-data3-blue">
                                                      <thead>
                                                      <tr>
-                                                         <th>Completed</th>
+                                                         <th>Conventional</th>
                                                          <th>Numerical</th>
                                                          <th>Multilin</th>
                                                          <th>Recent</th>
@@ -243,10 +247,13 @@
                                                      </tr>
                                                      </thead>
                                                      <tbody>
-                                                     <tr ng-repeat="forwc in dashboardvalues.wch">
-                                                         <td ng-bind="forwc.type_name"></td>
-                                                         <td ng-bind="forwc.total"></td>
-                                                         <td style="cursor: pointer;" ng-click="ShowOverDueList('W/Ch Declaration',forwc);"> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-10s" ng-bind="forwc.overdue"></span></td>
+                                                     <tr ">
+                                                         <td ng-bind="dashboardvalues.total_completed.CONVENTIONAL"></td>
+                                                         <td ng-bind="dashboardvalues.total_completed.NUMERICAL"></td>
+                                                         <td ng-bind="dashboardvalues.total_completed.MULTILIN"></td>
+                                                         <td ng-bind="dashboardvalues.total_completed.REASON"></td>
+                                                         <td ng-bind="dashboardvalues.total_completed.BOJ"></td>
+                                                         <td ng-bind="dashboardvalues.total_completed.total"></td>
                                                      </tr>
                                                      </tbody>
                                                  </table>
@@ -276,11 +283,10 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr ng-repeat="pr in dashboardvalues.priority">
-                                                        <td ng-bind="pr.type_name"></td>
-                                                        <td style="cursor: pointer;" ng-bind="pr.serial_no" ng-click="OnHoverShowStage(pr);"></td>
-                                                        <td ng-bind="pr.rack_id"></td>
-                                                    </tr>
+                                               <tr ng-repeat="test in dashboardvalues.warranty_overdue">
+                                                                    <td ng-bind="test.type_name"></td>
+                                                                    <td ng-bind="test.total"></td>
+                                                              </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -312,11 +318,9 @@
                                                   </tr>
                                                   </thead>
                                                   <tbody>
-                                                  <tr ng-repeat="rc in dashboardvalues.receipt">
-                                                      <td ng-bind="rc.customer_name | uppercase"></td>
-                                                      <td ng-bind="rc.total_boxes"></td>
-                                                      <td ng-bind="rc.status"></td>
-                                                      <td><span class="badge badge-danger badge-fs-15 animated infinite flash slower-10s" ng-bind="rc.DateDiff"></span></td>
+                                                  <tr ng-repeat="rc in dashboardvalues.repair_lead_time">
+                                                   <td ng-bind="rc.type_name"></td>
+                                                                    <td ng-bind="rc.average"></td>
                                                   </tr>
                                                   </tbody>
                                               </table>
