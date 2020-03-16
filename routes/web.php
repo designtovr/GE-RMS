@@ -299,6 +299,7 @@ Route::group(['middleware' => ['auth']], function(){
 
     Route::post('/adddispatch', 'DispatchController@AddDispatch');
     Route::get('/getdispatch/{id}', 'DispatchController@GetDispatch');
+    Route::post('/completedispatch', 'DispatchController@CompleteDispatch');
 
     /*End Dispatch*/
 

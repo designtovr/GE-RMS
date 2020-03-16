@@ -42,13 +42,13 @@ class DispatchController extends Controller
     {
         $dispatch = $request->get('dispatch');
         $pvs = $request->get('selectedpvs');
-        $dispatch_list = array();
         foreach ($pvs as $key => $pv) {
             $DM = new DispatchMaster();
             $date = Carbon::createFromFormat('d/m/Y',$dispatch['date']);
             $DM->date = $date->format('Y-m-d');
             $DM->pv_id = $pv;
             $DM->dc_no = $dispatch['dc_no'];
+            $DM->method = $dispatch['method'];
             if ($dispatch['method'] == 1)
             {
                 $DM->docket_details = array_key_exists('docket_details', $dispatch)?$dispatch['docket_details']:'';
@@ -64,13 +64,35 @@ class DispatchController extends Controller
             $DM->save();
 
             //change pv status
-            PVStatusRepositories::ChangeStatusToDispatchced($DM->pv_id);
-            //re-order the priority
-            PVPriorityRepositories::ChangingPriorityAfterDispatching($DM->pv_id);
-            //delete from RMS
-            RMSRepositories::DeleteRMS($DM->pv_id);
+            PVStatusRepositories::ChangeStatusToDispatchApproved($DM->pv_id);
+        }
 
-            array_push($dispatch_list, $DM);
+
+        return response()->json(['data' => $pvs, 'status' => 'success', 'message' => 'Dispatch Approved Successfully'], 200);
+    }
+
+    public function CompleteDispatch(Request $request)
+    {
+        $pvs = $request->get('selectedpvs');
+        $dispatch_list = array();
+
+        foreach ($pvs as $key => $pv) {
+            $DM = DispatchMaster::where('pv_id', $pv)->first();
+            if($DM)
+            {
+                //update completion date
+                $DM->dispatch_completed_at = Carbon::now();
+                $DM->update();
+
+                //update pv status
+                PVStatusRepositories::ChangeStatusToDispatchced($DM->pv_id);
+                //re-order the priority
+                PVPriorityRepositories::ChangingPriorityAfterDispatching($DM->pv_id);
+                //delete from RMS
+                RMSRepositories::DeleteRMS($DM->pv_id);
+
+                array_push($dispatch_list, $DM);
+            }
         }
 
         $mail_result = $this->mailRepository->DispatchCompletionMail($dispatch_list); 
