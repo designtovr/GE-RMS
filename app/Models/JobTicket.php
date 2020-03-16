@@ -14,4 +14,9 @@ class JobTicket extends Model
     	'created_by',
     	'updated_by'
     ];
+
+    public function materials()
+    {
+    	return $this->hasMany(JobTicketMaterials::class, 'jt_id');
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Repositories\ReportsRepository;
+use App\Models\PhysicalVerificationMaster;
 
 class ReportsController extends Controller
 {
@@ -78,5 +79,11 @@ class ReportsController extends Controller
             'data' => $data,
             'message' => 'Reports Fetched Successfully'
         ]);
+    }
+
+    public function RepairReportExport(Request $request)
+    {
+        $data = $this->reportsRepository->RepairReportData();
+        return $data;
     }
 }

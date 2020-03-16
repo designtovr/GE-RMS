@@ -206,6 +206,7 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::get('/daily-report-mail', 'MailController@DailyReportMail');
 	Route::get('/daily-report-data', 'MailController@DailyReportData');
 	Route::get('/repair-report-data', 'ReportsController@RepairReportData');
+	Route::get('/repair-report-export', 'ReportsController@RepairReportExport');
 });
 
 Route::group(['middleware' => ['auth']], function(){

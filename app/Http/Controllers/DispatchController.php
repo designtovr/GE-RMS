@@ -82,6 +82,8 @@ class DispatchController extends Controller
             {
                 //update completion date
                 $DM->dispatch_completed_at = Carbon::now();
+                $DM->updated_at = Carbon::now();
+                $DM->created_by = Auth::id();
                 $DM->update();
 
                 //update pv status

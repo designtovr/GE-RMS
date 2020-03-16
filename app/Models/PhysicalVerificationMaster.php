@@ -52,4 +52,9 @@ class PhysicalVerificationMaster extends Model
     	'formatted_rma_id',
     	'formatted_pv_id'
     ];
+
+    public function jobticket()
+    {
+        return $this->hasOne(JobTicket::class, 'pv_id');
+    }
 }
