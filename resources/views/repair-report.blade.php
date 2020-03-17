@@ -116,27 +116,21 @@
                                         <th sortable="" class="sortable">Defect Mentioned by Customer</th>
                                         <th sortable="" class="sortable">Power ON  / Initial Observation at CRC </th>
                                         <th sortable="" class="sortable">Customer Setting Extraction</th>
-                                        <th sortable="" class="sortable">PCB1 Name</th>
                                         <th sortable="" class="sortable">PCB1 Part No.</th>
                                         <th sortable="" class="sortable">PCB1 Defective Ser no</th>
                                         <th sortable="" class="sortable">PCB1 Healthy Ser no</th>
-                                        <th sortable="" class="sortable">PCB2 Name</th>
                                         <th sortable="" class="sortable">PCB2 Part No.</th>
                                         <th sortable="" class="sortable">PCB2 Defective Ser no</th>
                                         <th sortable="" class="sortable">PCB2 Healthy Ser no</th>
-                                        <th sortable="" class="sortable">PCB3 Name</th>
                                         <th sortable="" class="sortable">PCB3 Part No.</th>
                                         <th sortable="" class="sortable">PCB3 Defective Ser no</th>
                                         <th sortable="" class="sortable">PCB3 Healthy Ser no</th>
-                                        <th sortable="" class="sortable">PCB4 Name</th>
                                         <th sortable="" class="sortable">PCB4 Part No.</th>
                                         <th sortable="" class="sortable">PCB4 Defective Ser no</th>
                                         <th sortable="" class="sortable">PCB4 Healthy Ser no</th>
-                                        <th sortable="" class="sortable">PCB5 Name</th>
                                         <th sortable="" class="sortable">PCB5 Part No.</th>
                                         <th sortable="" class="sortable">PCB5 Defective Ser no</th>
                                         <th sortable="" class="sortable">PCB5 Healthy Ser no</th>
-                                        <th sortable="" class="sortable">PCB6 Name</th>
                                         <th sortable="" class="sortable">PCB6 Part No.</th>
                                         <th sortable="" class="sortable">PCB6 Defective Ser no</th>
                                         <th sortable="" class="sortable">PCB6 Healthy Ser no</th>
@@ -176,9 +170,9 @@
                                         <td ng-bind="item.defect_by_customer"></td>
                                         <td ng-bind="item.power_on_test"></td>
                                         <td ng-bind="item.download_customer_setting"></td>
-                                        <td ng-bind=""></td>
-                                        <td ng-bind=""></td>
-                                        <td ng-bind=""></td>
+                                        <td ng-bind="item.pcb_part_no_1"></td>
+                                        <td ng-bind="item.pcb_defective_pcb_1"></td>
+                                        <td ng-bind="item.pcb_new_pcb_1"></td>
                                         <td ng-bind=""></td>
                                         <td ng-bind=""></td>
                                         <td ng-bind=""></td>
