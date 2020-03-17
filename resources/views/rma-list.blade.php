@@ -8,8 +8,6 @@
 				<div class="col-md-12">
 			        <div class="overview-wrap">
 			            <h6 class="pb-4 display-5">RMA List</h6>
-			            <!-- <button type="button" class="btn btn-primary btn-sm" ng-click="ShowRMAForm();">
-	                        <i class="fa fa-plus"></i>&nbsp; Create</button> -->
 			        </div>
 			    </div>
                <div class="col-md-12 ">

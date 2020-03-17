@@ -1,4 +1,4 @@
-app.controller('RelayStagesReportController', ['$scope', '$http', '$window', function($scope, $http, $windows){
+app.controller('RelayStagesReportController', ['$scope', '$http', '$window', 'ExcelSave', function($scope, $http, $windows, ExcelSave){
 
 	$scope.gridOptions = {
 
@@ -35,6 +35,14 @@ app.controller('RelayStagesReportController', ['$scope', '$http', '$window', fun
 
 		});
 	}
+
+	$scope.exportToExcelSave=function(tableId , filename){
+        ExcelSave.tableToExcel(tableId,filename);
+
+        $timeout(function(){
+
+        },100); // trigger download
+    }
 
 	$scope.GenerateReport = function(id)
 	{

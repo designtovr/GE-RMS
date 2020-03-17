@@ -81,12 +81,7 @@
                         <div class="col-md-12 p-b-20">
                             <ul class="list-inline">
                                 <li>
-                                    <button type="button" class="btn btn-primary btn-md float-right" ng-click="ShowReceiptForm();">
-                                        <i class="fa fa-plus"></i>&nbsp;Create
-                                    </button>
-                                </li>
-                                <li>
-                                    <button type="button" class="btn btn-primary btn-md float-right box m-r-10"  ng-click="exportToExcelSave('#receipttable' , 'Receipt.xls')">
+                                    <button type="button" class="btn btn-primary btn-md float-right box m-r-10"  ng-click="exportToExcelSave('#repairreporttable' , 'RepairReport.xls')">
                                         <i class="fa fa-file-excel-o"></i>&nbsp;Export
                                     </button>
                                 </li>
@@ -97,7 +92,7 @@
                     <div class="col-md-12">
                         <!-- DATA TABLE-->
                         <div grid-data grid-options="gridOptions" grid-actions="gridActions">
-                            <table class="table table-borderless table-data3 table-responsive">
+                            <table class="table table-borderless table-data3 table-responsive" id="repairreporttable" name="repairreporttable">
                                 <thead>
                                     <tr>
                                         <th>Actions</th>
