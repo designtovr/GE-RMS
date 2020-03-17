@@ -134,6 +134,27 @@
                                         <th sortable="" class="sortable">PCB6 Part No.</th>
                                         <th sortable="" class="sortable">PCB6 Defective Ser no</th>
                                         <th sortable="" class="sortable">PCB6 Healthy Ser no</th>
+                                        <th sortable="" class="sortable">PCB7 Part No.</th>
+                                        <th sortable="" class="sortable">PCB7 Defective Ser no</th>
+                                        <th sortable="" class="sortable">PCB7 Healthy Ser no</th>
+                                        <th sortable="" class="sortable">PCB8 Part No.</th>
+                                        <th sortable="" class="sortable">PCB8 Defective Ser no</th>
+                                        <th sortable="" class="sortable">PCB8 Healthy Ser no</th>
+                                        <th sortable="" class="sortable">PCB9 Part No.</th>
+                                        <th sortable="" class="sortable">PCB9 Defective Ser no</th>
+                                        <th sortable="" class="sortable">PCB9 Healthy Ser no</th>
+                                             <th sortable="" class="sortable">PCB9 Part No.</th>
+                                        <th sortable="" class="sortable">PCB9 Defective Ser no</th>
+                                        <th sortable="" class="sortable">PCB9 Healthy Ser no</th>    
+                                         <th sortable="" class="sortable">PCB10 Part No.</th>
+                                        <th sortable="" class="sortable">PCB10 Defective Ser no</th>
+                                        <th sortable="" class="sortable">PCB11 Healthy Ser no</th>
+                                             <th sortable="" class="sortable">PCB11 Part No.</th>
+                                        <th sortable="" class="sortable">PCB11 Defective Ser no</th>
+                                        <th sortable="" class="sortable">PCB11 Healthy Ser no</th>
+                                             <th sortable="" class="sortable">PCB12 Part No.</th>
+                                        <th sortable="" class="sortable">PCB12 Defective Ser no</th>
+                                        <th sortable="" class="sortable">PCB12 Healthy Ser no</th>
                                         <th sortable="" class="sortable">TRANSFORMER & OTHER COMPONENTS</th>
                                         <th sortable="" class="sortable">EXISTING SOFTWARE</th>
                                         <th sortable="" class="sortable">UPGRADED SOFTWARE</th>
@@ -173,18 +194,36 @@
                                         <td ng-bind="item.pcb_part_no_1"></td>
                                         <td ng-bind="item.pcb_defective_pcb_1"></td>
                                         <td ng-bind="item.pcb_new_pcb_1"></td>
-                                        <td ng-bind=""></td>
-                                        <td ng-bind=""></td>
-                                        <td ng-bind=""></td>
-                                        <td ng-bind=""></td>
-                                        <td ng-bind=""></td>
-                                        <td ng-bind=""></td>
-                                        <td ng-bind=""></td>
-                                        <td ng-bind=""></td>
-                                        <td ng-bind=""></td>
-                                        <td ng-bind=""></td>
-                                        <td ng-bind=""></td>
-                                        <td ng-bind=""></td>
+                                        <td ng-bind="item.pcb_part_no_2"></td>
+                                        <td ng-bind="item.pcb_defective_pcb_2"></td>
+                                        <td ng-bind="item.pcb_new_pcb_2"></td>
+                                             <td ng-bind="item.pcb_part_no_3"></td>
+                                        <td ng-bind="item.pcb_defective_pcb_3"></td>
+                                        <td ng-bind="item.pcb_new_pcb_3"></td>
+                                             <td ng-bind="item.pcb_part_no_4"></td>
+                                        <td ng-bind="item.pcb_defective_pcb_5"></td>
+                                        <td ng-bind="item.pcb_new_pcb_5"></td>
+                                                 <td ng-bind="item.pcb_part_no_6"></td>
+                                        <td ng-bind="item.pcb_defective_pcb_6"></td>
+                                        <td ng-bind="item.pcb_new_pcb_6"></td>
+                                             <td ng-bind="item.pcb_part_no_7"></td>
+                                        <td ng-bind="item.pcb_defective_pcb_7"></td>
+                                        <td ng-bind="item.pcb_new_pcb_7"></td>
+                                              <td ng-bind="item.pcb_part_no_8"></td>
+                                        <td ng-bind="item.pcb_defective_pcb_8"></td>
+                                        <td ng-bind="item.pcb_new_pcb_8"></td>
+                                              <td ng-bind="item.pcb_part_no_9"></td>
+                                        <td ng-bind="item.pcb_defective_pcb_9"></td>
+                                        <td ng-bind="item.pcb_new_pcb_9"></td>
+                                              <td ng-bind="item.pcb_part_no_10"></td>
+                                        <td ng-bind="item.pcb_defective_pcb_10"></td>
+                                        <td ng-bind="item.pcb_new_pcb_10"></td>
+                                              <td ng-bind="item.pcb_part_no_11"></td>
+                                        <td ng-bind="item.pcb_defective_pcb_11"></td>
+                                        <td ng-bind="item.pcb_new_pcb_11"></td>
+                                              <td ng-bind="item.pcb_part_no_12"></td>
+                                        <td ng-bind="item.pcb_defective_pcb_12"></td>
+                                        <td ng-bind="item.pcb_new_pcb_12"></td>
                                         <td ng-bind=""></td>
                                         <td ng-bind=""></td>
                                         <td ng-bind=""></td>
