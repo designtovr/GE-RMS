@@ -5,6 +5,8 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Console\Commands\DailyDBBackup;
+use App\Console\Commands\DailyReportMail;
+use App\Http\Repositories\MailRepository;
 
 class Kernel extends ConsoleKernel
 {

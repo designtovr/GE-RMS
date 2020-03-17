@@ -24,7 +24,7 @@ class DailyDBBackup extends Command
      *
      * @var string
      */
-    protected $description = 'Backup DB Daily at 9:00 PM';
+    protected $description = 'Backup DB Daily at 12:00 AM';
 
     /**
      * Create a new command instance.
