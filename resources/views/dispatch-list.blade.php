@@ -103,15 +103,16 @@
                             </div>
                         </div>
                     </div>
-                    @if(Auth::user()->isManager() || Auth::user()->isAdmin())
                     <div class="col-md-12 p-b-20">
                         <ul class="list-inline">
+                            @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
                             <li>
                                 <button type="button" class="btn btn-primary btn-md float-right"
                                         ng-click="CompleteDispatch();">
                                     <i class="fa fa-plus"></i>&nbsp;Dispatch
                                 </button>
                             </li>
+                            @endif
                             <li>
                                 <button type="button" class="btn btn-primary btn-md float-right box m-r-10"  ng-click="exportToExcelSave('#dispatchtable' , 'Dispatch.xls')">
                                     <i class="fa fa-file-excel-o"></i>&nbsp;Export
@@ -119,7 +120,6 @@
                             </li>
                         </ul>
                     </div>
-                    @endif
                     <div class="col-md-12">
                         <!-- DATA TABLE-->
                         <div grid-data grid-options="gridOptions" grid-actions="gridActions">
@@ -128,7 +128,7 @@
                                 <table class="table table-borderless table-data3  " id="dispatchtable" name="dispatchtable">
                                     <thead>
                                     <tr>
-                                        @if(Auth::user()->isManager() || Auth::user()->isAdmin())
+                                        @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
                                         <th>
                                             Select
                                         </th>

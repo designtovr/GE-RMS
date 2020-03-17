@@ -99,15 +99,16 @@
 
                 <div class="card-body">
                     <div class="row">
-                        @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
                         <div class="col-md-12 p-b-20">
                             <ul class="list-inline">
+                                @if(Auth::user()->isManager() || Auth::user()->isAdmin())
                                 <li>
                                     <button type="button" class="btn btn-primary btn-md float-right"
                                             ng-click="ShowDPForm();">
                                         <i class="fa fa-plus"></i>&nbsp;Approve Dispatch
                                     </button>
                                 </li>
+                                @endif
                                 <li>
                                     <button type="button" class="btn btn-primary btn-md float-right box m-r-10"  ng-click="exportToExcelSave('#dispatchapprovaltable' , 'DispatchApproval.xls')">
                                         <i class="fa fa-file-excel-o"></i>&nbsp;Export
@@ -115,7 +116,6 @@
                                 </li>
                             </ul>
                         </div>
-                        @endif
                     </div>
                     {{--Tab Ends--}}
              

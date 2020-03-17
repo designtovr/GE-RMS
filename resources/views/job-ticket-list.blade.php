@@ -25,26 +25,26 @@
 									<th>
 										<input id="ridFilter" type="text"
 											   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
-											   placeholder="Enter RID #" ng-change="gridActions.filter();ShowGridData()"
+											   placeholder="Enter RID #" ng-change="gridActions.filter();"
 											   ng-model="filterID" filter-by="formatted_pv_id" filter-type="text">
 									</th>
 									<th>
 										<input id="rmaidFilter" type="text"
 											   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
-											   placeholder="RMA Id#" ng-change="gridActions.filter();ShowGridData()"
+											   placeholder="RMA Id#" ng-change="gridActions.filter()"
 											   ng-model="filterrmaID" filter-by="formatted_rma_id" filter-type="text">
 									</th>
 									<th>
 										<input id="productFilter" type="text"
 											   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
-											   placeholder="Model No" ng-change="gridActions.filter();ShowGridData()"
+											   placeholder="Model No" ng-change="gridActions.filter()"
 											   ng-model="filterpartno" filter-by="part_no"
 											   filter-type="text">
 									</th>
 									<th>
 										<input id="serialFilter" type="text"
 											   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
-											   placeholder="Serial No" ng-change="gridActions.filter();ShowGridData()"
+											   placeholder="Serial No" ng-change="gridActions.filter()"
 											   ng-model="filterserialno" filter-by="serial_no"
 											   filter-type="text">
 									</th>
@@ -57,7 +57,7 @@
 											   ng-model = "dateFrom"
 											   filter-by="date_unix"
 
-											   ng-change="gridActions.filter();ShowGridData()"
+											   ng-change="gridActions.filter()"
 											   id="dateFromFilter"
 											   filter-type="dateFrom"
 										/>
@@ -66,7 +66,7 @@
 										<input type="text"
 											   placeholder="To Date"
 											   filter-by="date_unix"
-											   ng-change="gridActions.filter();ShowGridData()"
+											   ng-change="gridActions.filter();"
 											   id="dateToFilter"
 											   class="form-control"
 											   min-date="dateFrom"
@@ -78,20 +78,20 @@
 									<th>
 										<input id="customerFilter" type="text"
 											   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
-											   placeholder="Customer" ng-change="gridActions.filter();ShowGridData()"
+											   placeholder="Customer" ng-change="gridActions.filter();"
 											   ng-model="filterCustomer" filter-by="customer_name"
 											   filter-type="text">
 									</th>
 									<th>
 										<input id="endcustomerFilter" type="text"
 											   class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
-											   placeholder="End Customer" ng-change="gridActions.filter();ShowGridData()"
+											   placeholder="End Customer" ng-change="gridActions.filter();"
 											   ng-model="filterendCustomer" filter-by="end_customer"
 											   filter-type="text">
 									</th>
 									<th>
 										<button type="button" class="btn btn-outline-secondary btn-sm"
-												ng-click="Reset();gridActions.filter();ShowGridData();">Reset
+												ng-click="Reset();gridActions.filter();">Reset
 										</button>
 									</th>
 									<th>

@@ -75,14 +75,15 @@
                         </table>
                     </div>
                     <div class = "row">
-                        @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
                         <div class="col-md-12 p-b-20">
                             <ul class="list-inline">
+                                @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
                                 <li>
                                     <button type="button" class="btn btn-primary btn-md float-right" ng-click="ShowReceiptForm();">
                                         <i class="fa fa-plus"></i>&nbsp;Create
                                     </button>
                                 </li>
+                                @endif
                                 <li>
                                     <button type="button" class="btn btn-primary btn-md float-right box m-r-10"  ng-click="exportToExcelSave('#receipttable' , 'Receipt.xls')">
                                         <i class="fa fa-file-excel-o"></i>&nbsp;Export
@@ -90,7 +91,6 @@
                                 </li>
                             </ul>
                         </div>
-                        @endif
                     </div>
                     <div class="col-md-12">
                         <!-- DATA TABLE-->

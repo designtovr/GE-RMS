@@ -58,15 +58,7 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 			method: 'GET',
 			url: '/ge/physicalverification?cat=jobticketopen'
 		}).then(function success(response) {
-			if($scope.userrole != 3 && $scope.page == 'jobticketopen')
-			{
-				$scope.gridOptions.data =  response.data.physicalverification;
-			}
-			else
-			{
-				$scope.gridHideData = response.data.physicalverification;
-				$scope.gridOptions.data = [];
-			}
+			$scope.gridOptions.data =  response.data.physicalverification;
 		}, function error(response) {
 		});
 		
@@ -233,22 +225,7 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 			method: 'GET',
 			url: '/ge/physicalverification?cat='+page
 		}).then(function success(response) {
-			if($scope.userrole != 3)
-			{
-				$scope.gridOptions.data =  response.data.physicalverification;
-			}
-			else
-			{
-				if($scope.page == 'jobticketopen')
-				{
-					$scope.gridHideData = response.data.physicalverification;
-					$scope.gridOptions.data = [];
-				}
-				else
-				{
-					$scope.gridOptions.data =  response.data.physicalverification;
-				}
-			}
+			$scope.gridOptions.data =  response.data.physicalverification;
 			$scope.GetPVPriorityList();
 		}, function error(response) {
 
