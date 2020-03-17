@@ -73,8 +73,8 @@
                                                      <tbody>
                                                      <tr ng-repeat="pr in dashboardvalues.received_relays">
                                                         <td ng-bind="pr.type_name"></td>
-                                                        <td ng-bind="pr.serial_no" style="cursor: pointer;" ng-click="OnHoverShowStage(pr);"></td>
-                                                        <td ng-bind="pr.rack_id"></td>
+                                                        <td ng-bind="pr.total" style="cursor: pointer;" ng-click="OnHoverShowStage(pr);"></td>
+                                                        <td ng-bind="pr.cumulative"></td>
                                                     </tr>
                                                      </tbody>
                                                  </table>

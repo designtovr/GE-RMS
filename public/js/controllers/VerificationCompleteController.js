@@ -1,4 +1,4 @@
-app.controller('VerificationCompleteController', ['$scope', '$http', 'Notification','ChangePVStatusService', '$filter', '$ngConfirm', 'PVPriorityService', '$window', '$timeout', function($scope, $http ,Notification,ChangePVStatusService, $filter , $ngConfirm, PVPriorityService, $window, $timeout){
+app.controller('VerificationCompleteController', ['$scope', '$http', 'Notification','ChangePVStatusService', '$filter', '$ngConfirm', 'PVPriorityService', '$window', '$timeout', 'ExcelSave', function($scope, $http ,Notification,ChangePVStatusService, $filter , $ngConfirm, PVPriorityService, $window, $timeout, ExcelSave){
 	$scope.vcform = false;
 	$scope.vcformdata = {};
 	$scope.status='agingcompleted';
@@ -71,6 +71,21 @@ app.controller('VerificationCompleteController', ['$scope', '$http', 'Notificati
 						}
 					}
 				});
+			}
+
+			$scope.exportToExcelSave=function(tableId , filename){
+
+				if($scope.page == 1)
+					filename = 'OpenVerificationCompletion.xls';
+				else if($scope.page == 2)
+					filename = 'CompletedVerificationCompletion.xls';
+				else 
+					filename = 'VerificationCompletion.xls';
+			   	ExcelSave.tableToExcel(tableId,filename);
+
+			   	$timeout(function(){
+
+				},100); // trigger download
 			}
 
 

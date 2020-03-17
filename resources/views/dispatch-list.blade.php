@@ -105,10 +105,19 @@
                     </div>
                     @if(Auth::user()->isManager() || Auth::user()->isAdmin())
                     <div class="col-md-12 p-b-20">
-                        <button type="button" class="btn btn-primary btn-md float-right"
-                                ng-click="CompleteDispatch();">
-                            <i class="fa fa-plus"></i>&nbsp;Dispatch
-                        </button>
+                        <ul class="list-inline">
+                            <li>
+                                <button type="button" class="btn btn-primary btn-md float-right"
+                                        ng-click="CompleteDispatch();">
+                                    <i class="fa fa-plus"></i>&nbsp;Dispatch
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" class="btn btn-primary btn-md float-right box m-r-10"  ng-click="exportToExcelSave('#dispatchtable' , 'Dispatch.xls')">
+                                    <i class="fa fa-file-excel-o"></i>&nbsp;Export
+                                </button>
+                            </li>
+                        </ul>
                     </div>
                     @endif
                     <div class="col-md-12">
@@ -116,7 +125,7 @@
                         <div grid-data grid-options="gridOptions" grid-actions="gridActions">
                             <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
                             <div class="overflow-auto">
-                                <table class="table table-borderless table-data3  ">
+                                <table class="table table-borderless table-data3  " id="dispatchtable" name="dispatchtable">
                                     <thead>
                                     <tr>
                                         @if(Auth::user()->isManager() || Auth::user()->isAdmin())
@@ -211,6 +220,7 @@
                                         <option>25</option>
                                         <option>50</option>
                                         <option>75</option>
+                                        <option>10000000</option>
                                     </select>
                                 </div>
                             </form>

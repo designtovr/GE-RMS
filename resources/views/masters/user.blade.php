@@ -8,10 +8,6 @@
     			<div class="col-md-12">
     		        <div class="overview-wrap">
     		            <h6 class="pb-4 display-5">Users</h6>
-                        @if(Auth::user()->isManager() || Auth::user()->isAdmin())
-    		            <button type="button" class="btn btn-primary btn-sm" ng-click="OpenUserModal(0);">
-                            <i class="fa fa-plus"></i>&nbsp; Add User</button>
-                        @endif
     		        </div>
     		    </div>
                 <div class="col-md-12 ">
@@ -44,11 +40,27 @@
                         </table>
                     </div>
                 </div>
+                <div class="col-md-12 p-b-20">
+                    <ul class="list-inline">
+                        @if(Auth::user()->isManager() || Auth::user()->isAdmin())
+                        <li>
+                            <button type="button" class="btn btn-primary btn-md float-right" ng-click="OpenUserModal(0);">
+                                <i class="fa fa-plus"></i>&nbsp; Add User
+                            </button>
+                        </li>
+                        @endif
+                        <li>
+                            <button type="button" class="btn btn-primary btn-md float-right box m-r-10"  ng-click="exportToExcelSave('#usertable' , 'UserMaster.xls')">
+                                <i class="fa fa-file-excel-o"></i>&nbsp;Export
+                            </button>
+                        </li>
+                    </ul>
+                </div>
                 <div class="col-md-12">
                     <!-- DATA TABLE-->
                     <div grid-data grid-options="usergridOptions" grid-actions="gridActions">
                         <div class="overflow-auto">
-                            <table class="table table-borderless table-data3">
+                            <table class="table table-borderless table-data3" id="usertable" name="usertable">
                                 <thead>
                                     <tr>
                                         @if(Auth::user()->isManager() || Auth::user()->isAdmin())
@@ -102,6 +114,7 @@
                                     <option>25</option>
                                     <option>50</option>
                                     <option>75</option>
+                                    <option>10000000</option>
                                 </select>
                             </div>
                         </form>

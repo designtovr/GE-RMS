@@ -1,4 +1,4 @@
-app.controller('DispatchApprovalController', ['$scope', '$http','$filter','Notification', 'ChangePVStatusService', '$ngConfirm', 'PVPriorityService', function($scope, $http,$filter ,Notification , ChangePVStatusService, $ngConfirm, PVPriorityService){
+app.controller('DispatchApprovalController', ['$scope', '$http','$filter','Notification', 'ChangePVStatusService', '$ngConfirm', 'PVPriorityService', 'ExcelSave', function($scope, $http,$filter ,Notification , ChangePVStatusService, $ngConfirm, PVPriorityService, ExcelSave){
 	
 	$scope.showdpform = false;
 	$scope.dispatch = {};
@@ -77,6 +77,14 @@ app.controller('DispatchApprovalController', ['$scope', '$http','$filter','Notif
 				if ($scope.no_same_rma)
 					Notification.error("You Selected Different RMA");
 			}
+
+		$scope.exportToExcelSave=function(tableId , filename){
+		   	ExcelSave.tableToExcel(tableId,filename);
+
+		   	$timeout(function(){
+
+			},100); // trigger download
+		}
 
 		$scope.GetPVPriorityList = function()
 		{

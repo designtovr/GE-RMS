@@ -8,8 +8,6 @@
     			<div class="col-md-12">
     		        <div class="overview-wrap">
     		            <h6 class="pb-4 display-5">Locations</h6>
-    		            <button type="button" class="btn btn-primary btn-sm" ng-click="OpenLocationModal(0);">
-                            <i class="fa fa-plus"></i>&nbsp; Add Location</button>
     		        </div>
     		    </div>
                 <div class="col-md-12 ">
@@ -39,11 +37,25 @@
                         </table>
                     </div>
                 </div>
+                <div class="col-md-12 p-b-20">
+                    <ul class="list-inline">
+                        <li>
+                            <button type="button" class="btn btn-primary btn-md float-right" ng-click="OpenLocationModal(0);">
+                                <i class="fa fa-plus"></i>&nbsp; Add Location
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="btn btn-primary btn-md float-right box m-r-10"  ng-click="exportToExcelSave('#locationtable' , 'LocationMaster.xls')">
+                                <i class="fa fa-file-excel-o"></i>&nbsp;Export
+                            </button>
+                        </li>
+                    </ul>
+                </div>
                 <div class="col-md-12">
                     <!-- DATA TABLE-->
                     <div grid-data grid-options="locationgridOptions" grid-actions="gridActions">
                         <div class="overflow-auto">
-                            <table class="table table-borderless table-data3">
+                            <table class="table table-borderless table-data3" id="locationtable" name="locationtable">
                                 <thead>
                                     <tr>
                                         <th>Actions</th>
@@ -91,6 +103,7 @@
                                     <option>25</option>
                                     <option>50</option>
                                     <option>75</option>
+                                    <option>10000000</option>
                                 </select>
                             </div>
                         </form>

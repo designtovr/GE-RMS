@@ -8,8 +8,6 @@
     			<div class="col-md-12">
     		        <div class="overview-wrap">
     		            <h6 class="pb-4 display-5">Customers</h6>
-    		            <button type="button" class="btn btn-primary btn-sm" ng-click="OpenCustomerModal(0);">
-                            <i class="fa fa-plus"></i>&nbsp; Add Customer</button>
     		        </div>
     		    </div>
                 <div class="col-md-12 ">
@@ -57,11 +55,25 @@
                         </table>
                     </div>
                 </div>
+                <div class="col-md-12 p-b-20">
+                    <ul class="list-inline">
+                        <li>
+                            <button type="button" class="btn btn-primary btn-md float-right" ng-click="OpenCustomerModal(0);">
+                                <i class="fa fa-plus"></i>&nbsp; Add Customer
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="btn btn-primary btn-md float-right box m-r-10"  ng-click="exportToExcelSave('#customertable' , 'CustomerMaster.xls')">
+                                <i class="fa fa-file-excel-o"></i>&nbsp;Export
+                            </button>
+                        </li>
+                    </ul>
+                </div>
                 <div class="col-md-12">
                     <!-- DATA TABLE-->
                     <div grid-data grid-options="customergridOptions" grid-actions="gridActions">
                         <div class="overflow-auto">
-                            <table class="table table-borderless table-data3">
+                            <table class="table table-borderless table-data3" id="customertable" name="customertable">
                                 <thead>
                                     <tr>
                                         <th>Actions</th>
@@ -121,6 +133,7 @@
                                     <option>25</option>
                                     <option>50</option>
                                     <option>75</option>
+                                    <option>10000000</option>
                                 </select>
                             </div>
                         </form>

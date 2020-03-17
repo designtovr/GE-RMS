@@ -1,4 +1,4 @@
-app.controller('DispatchController', ['$scope', '$http','Notification','ChangePVStatusService', 'PVPriorityService', function($scope, $http , Notification, ChangePVStatusService, PVPriorityService){
+app.controller('DispatchController', ['$scope', '$http','Notification','ChangePVStatusService', 'PVPriorityService', 'ExcelSave', function($scope, $http , Notification, ChangePVStatusService, PVPriorityService, ExcelSave){
     $scope.gridOptions = {
         pagination: {
             itemsPerPage: '10'
@@ -39,6 +39,14 @@ app.controller('DispatchController', ['$scope', '$http','Notification','ChangePV
             $scope.pvprioritylistmax = max;
             console.log($scope.pvprioritylist);
         });
+    }
+
+    $scope.exportToExcelSave=function(tableId , filename){
+        ExcelSave.tableToExcel(tableId,filename);
+
+        $timeout(function(){
+
+        },100); // trigger download
     }
 
     $scope.SetPVPriority = function(pv_id, priority)

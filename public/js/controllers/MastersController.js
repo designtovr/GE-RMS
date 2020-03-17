@@ -1,4 +1,4 @@
-app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConfirm', function($scope, $http, Notification, $ngConfirm){
+app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConfirm', 'ExcelSave', function($scope, $http, Notification, $ngConfirm, ExcelSave){
 	$scope.customers = [];
 	$scope.products = [];
 	$scope.locations = [];
@@ -134,6 +134,14 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 
 		  });
 	}
+
+	$scope.exportToExcelSave=function(tableId , filename){
+        ExcelSave.tableToExcel(tableId,filename);
+
+        $timeout(function(){
+
+        },100); // trigger download
+    }
 
 	$scope.ResetCustomerSearch = function()
 	{
