@@ -1,4 +1,4 @@
-app.controller('RelayStagesReportController', ['$scope', '$http', '$window', function($scope, $http, $windows){
+app.controller('RepairReportController', ['$scope', '$http', '$window', function($scope, $http, $windows){
 
 	$scope.gridOptions = {
 
@@ -17,11 +17,11 @@ app.controller('RelayStagesReportController', ['$scope', '$http', '$window', fun
 
 	$scope.rid = '';
 
-	$scope.GetRelayForStageReport = function()
+	$scope.GetRepairReport = function()
 	{
 		$http({
 			method: 'get',
-			url: '/ge/dataforrelaysstagereport',
+			url: '/ge/repair-report-data',
 			data: {
 
 			}
@@ -36,22 +36,6 @@ app.controller('RelayStagesReportController', ['$scope', '$http', '$window', fun
 		});
 	}
 
-	$scope.GenerateReport = function(id)
-	{
-		$scope.rid = id;
-		window.location.href = '/ge/relaystagereport/' + id;
-	}
-
-	$scope.PrintJobTicketForm = function(id)
-	{
-		window.location.href = '/ge/job-ticket-form/' + id;
-	}
-
-	$scope.TestReportForm = function(id)
-	{
-		window.location.href = '/ge/test-report-form/' + id;
-	}
-
 	$scope.ResetSearch = function()
 	{
 		$scope.filterRId = '';
@@ -60,11 +44,6 @@ app.controller('RelayStagesReportController', ['$scope', '$http', '$window', fun
 		$scope.filterSerialNo = '';
 		$scope.dateTo = '';
 		$scope.dateFrom = '';
-	}
-
-	$scope.Back = function()
-	{
-		window.location.href = '/ge/relay-stages-report/';
 	}
 
 }]);

@@ -3,6 +3,21 @@ app.controller('DailyReportController', ['$scope', '$http', 'Notification' , '$l
     $scope.dashboardvalues = {};
     $scope.modal = {};
     $scope.overdueModal = {};
+        $scope.GetDashboardValues = function()
+    {
+        $http({
+            'url': '/ge/daily-report-data',
+            'method': 'GET',
+        }).then(function(response){
+            if (response.data.status == 'success')
+            {
+                $scope.dashboardvalues = response.data.data;
+
+            }
+        }, function(response){
+
+        });
+    }
     var warrantydata  = {
         labels: ["PX40", "C264" , "Agile" ,"Conventional" ],
         datasets: [
@@ -548,87 +563,6 @@ app.controller('DailyReportController', ['$scope', '$http', 'Notification' , '$l
         $('#mediumModal').modal('show');
     }
 
-    $scope.GetDashboardValues = function()
-    {
-        $http({
-            'url': '/ge/getdashboardvalues',
-            'method': 'GET',
-        }).then(function(response){
-            if (response.data.status == 'success')
-            {
-                $scope.dashboardvalues = response.data.data;
 
-
-
-
-                try {
-                        console.log(warrantydata);
-                        console.log("warrantydata");
-
-                        //outofwarranty
-                        //TodayChart
-                        TodayChart.data.datasets[0].data =     [
-                        $scope.dashboardvalues.today_status.numerical.completed,
-                        $scope.dashboardvalues.today_status.conventional.completed,
-                        $scope.dashboardvalues.monthly_status.numerical.completed,
-                        $scope.dashboardvalues.monthly_status.conventional.completed,
-                    ];
-
-                    TodayChart.data.datasets[1].data =      [
-                        $scope.dashboardvalues.today_status.numerical.pending,
-                        $scope.dashboardvalues.today_status.conventional.pending,
-                        $scope.dashboardvalues.monthly_status.numerical.pending,
-                        $scope.dashboardvalues.monthly_status.conventional.pending,
-                    ]
-
-                    TodayChart.update();
-                        //Monthly Chart
-                        //WWarrantyarranty chart
-                            Warranty.data.datasets[0].data = [
-                                $scope.dashboardvalues.repair_warranty.px40.time_exceeded,
-                                $scope.dashboardvalues.repair_warranty.c264.time_exceeded ,
-                                $scope.dashboardvalues.repair_warranty.agile.time_exceeded ,
-                                $scope.dashboardvalues.repair_warranty.conventional.time_exceeded]
-
-                    Warranty.data.datasets[1].data = [
-                        $scope.dashboardvalues.repair_warranty.px40.total - $scope.dashboardvalues.repair_warranty.px40.time_exceeded  ,
-                        $scope.dashboardvalues.repair_warranty.c264.total - $scope.dashboardvalues.repair_warranty.c264.time_exceeded  ,
-
-                        $scope.dashboardvalues.repair_warranty.agile.total -  $scope.dashboardvalues.repair_warranty.agile.time_exceeded ,
-                        $scope.dashboardvalues.repair_warranty.conventional.total - $scope.dashboardvalues.repair_warranty.conventional.time_exceeded ]
-
-
-                        Warranty.update();
-
-                    OutOfWarranty.data.datasets[0].data = [
-                        $scope.dashboardvalues.repair_chargable.px40.time_exceeded,
-                        $scope.dashboardvalues.repair_chargable.c264.time_exceeded ,
-                        $scope.dashboardvalues.repair_chargable.agile.time_exceeded ,
-                        $scope.dashboardvalues.repair_chargable.conventional.time_exceeded]
-
-                    OutOfWarranty.data.datasets[1].data = [
-                        $scope.dashboardvalues.repair_chargable.px40.total - $scope.dashboardvalues.repair_chargable.px40.time_exceeded  ,
-                        $scope.dashboardvalues.repair_chargable.c264.total - $scope.dashboardvalues.repair_chargable.c264.time_exceeded  ,
-
-                        $scope.dashboardvalues.repair_chargable.agile.total -  $scope.dashboardvalues.repair_chargable.agile.time_exceeded ,
-                        $scope.dashboardvalues.repair_chargable.conventional.total - $scope.dashboardvalues.repair_chargable.conventional.time_exceeded ]
-
-
-
-
-                    OutOfWarranty
-
-                }
-                catch (error)
-                {
-                    console.log(error);
-                }
-
-
-            }
-        }, function(response){
-
-        });
-    }
 
 }]);
