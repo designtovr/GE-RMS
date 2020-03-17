@@ -120,16 +120,14 @@
                             <th>Total</th>
                         </thead>
                         <tbody>
-                         @foreach ($total_completed as $relays)
                          <tr>
-                             <td >{{$relays->CONVENTIONAL}}</td>
-                             <td >{{$relays->NUMERICAL}}</td>
-                             <td >{{$relays->MULTILIN}}</td>
-                             <td >{{$relays->REASON}}</td>
-                             <td >{{$relays->BOJ}}</td>
-                             <td >{{$relays->total}}</td>
+                             <td >{{$total_completed['CONVENTIONAL']}}</td>
+                             <td >{{$total_completed['NUMERICAL']}}</td>
+                             <td >{{$total_completed['MULTILIN']}}</td>
+                             <td >{{$total_completed['REASON']}}</td>
+                             <td >{{$total_completed['BOJ']}}</td>
+                             <td >{{$total_completed['total']}}</td>
                          </tr>
-                         @endforeach
                      </tbody>
                  </table>
              </li>
