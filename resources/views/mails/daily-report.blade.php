@@ -35,6 +35,8 @@
                         </tbody>
                     </table>
                 </li>
+            </ul>
+            <ul class="tablerowlist" id="tablerowlist">
                 <li>
                     <h2>Total Relays Completed</h2>
 
@@ -46,8 +48,6 @@
                             <th>Dispatch</th>
                             <th>Total</th>
                         </thead>
-                        <tbody>
-                            <tbody>
                               <tbody>
                                   @foreach ($total_relays_completed as $relays)
                                   <tr>
@@ -62,6 +62,10 @@
                             </tbody>
                         </table>
                     </li>
+                </ul>
+            <ul class="tablerowlist" id="tablerowlist">
+            
+
                     <li>
                         <h2>Total Relays Overdue</h2>
                         <table>
