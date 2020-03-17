@@ -10,11 +10,20 @@
     		            <h6 class="pb-4 display-5">Product Overdue Age</h6>
     		        </div>
     		    </div>
+                <div class="col-md-12 p-b-20">
+                    <ul class="list-inline">
+                        <li>
+                            <button type="button" class="btn btn-primary btn-md float-right box m-r-10"  ng-click="exportToExcelSave('#productoverdueagetable' , 'ProductOverdueMaster.xls')">
+                                <i class="fa fa-file-excel-o"></i>&nbsp;Export
+                            </button>
+                        </li>
+                    </ul>
+                </div>
                 <div class="col-md-12">
                     <!-- DATA TABLE-->
-                    <div grid-data grid-options="productoverdueagegridOptions" grid-actions="gridActions">
+                    <div grid-data grid-options="productoverdueagegridOptions" grid-actions="gridActions" >
                         <div class="overflow-auto">
-                            <table class="table table-borderless table-data3">
+                            <table class="table table-borderless table-data3" id="productoverdueagetable" name="productoverdueagetable">
                                 <thead>
                                     <tr>
                                         <th>Actions</th>
@@ -59,6 +68,7 @@
                                     <option>25</option>
                                     <option>50</option>
                                     <option>75</option>
+                                    <option>10000000</option>
                                 </select>
                             </div>
                         </form>
