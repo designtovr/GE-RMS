@@ -24,9 +24,12 @@
                             <th>Cumulative Relays</th>
                         </thead>
                         <tbody>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            @foreach ($received_relays as $relays)
+                                                        <td >{{$relays->type_name}}</td>
+                                                        <td >{{$relays->serial_no}}</td>
+                                                        <td >{{$relays->type_name}}</td>
+
+                            @endforeach
                         </tbody>
                     </table>
                 </li>
@@ -40,9 +43,16 @@
                             <th>Total</th>
                         </thead>
                         <tbody>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                        <tbody>
+                              <tbody>
+                      @foreach ($total_relays_completed as $relays)
+                                                        <td >{{$relays->type_name}}</td>
+                                                        <td >{{$relays->repair}}</td>
+                                                        <td >{{$relays->test}}</td>
+                                                        <td >{{$relays->dispatch}}</td>
+                                                        <td >{{$relays->total}}</td>
+
+                            @endforeach
                         </tbody>
                     </table>
                 </li>
@@ -56,9 +66,14 @@
                             <th>Total</th>
                         </thead>
                         <tbody>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                      @foreach ($total_relays_overdues as $relays)
+                                                        <td >{{$relays->type_name}}</td>
+                                                        <td >{{$relays->repair}}</td>
+                                                        <td >{{$relays->test}}</td>
+                                                        <td >{{$relays->dispatch}}</td>
+                                                        <td >{{$relays->total}}</td>
+
+                            @endforeach
                         </tbody>
                     </table>
                 </li>
