@@ -3,19 +3,63 @@
 <head>
     <title>Daily Report</title>
     <style type="text/css">
-        table, th, tr {
+
+      table {
+  border-collapse: collapse;
+  font-family: 'Poppins', sans-serif !important;
+  font-weight: 600;
+}
+
+table,  td {
+  border: 1px solid black;
+  color: black;
+  font-family: 'Poppins', sans-serif !important;
+  font-weight: 600;
+}
+.main-content
+{
+
+}
+h2
+{
+  font-size: 1em;
+color:black;
+font-family: 'Poppins', sans-serif !important;
+font-weight: 600;
+}
+
+thead
+{color: white;
+background: black;
+  border: 1px solid black;
+font-family: 'Poppins', sans-serif !important;
+font-weight: 600;}
+
+th
+{
+    border: 1px solid white;
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 600;
+}
+
+ul li
+{
+  list-style: none;
+}
+
+/*        table, th, tr {
           border: 1px solid black;
       }
       ul#tablerowlist li {
           display:inline;
           width: 33%;
-      }
+      }*/
   </style>
 </head>
-<body>
+<body style ="font-family: 'Poppins', sans-serif !important;">
     <div class="main-content">
         <div class="section__content section__content--p30">
-            <ul class="tablerowlist" id="tablerowlist">
+            <ul class="tablerowlist" id="tablerowlist" style ="width : 40%;float:left">
                 <li>
                     <h2>Received Relays</h2>
                     <table>
@@ -36,7 +80,7 @@
                     </table>
                 </li>
             </ul>
-            <ul class="tablerowlist" id="tablerowlist">
+            <ul class="tablerowlist" id="tablerowlist"style ="width : 40%;float:left">
                 <li>
                     <h2>Total Relays Completed</h2>
 
@@ -63,7 +107,7 @@
                         </table>
                     </li>
                 </ul>
-            <ul class="tablerowlist" id="tablerowlist">
+            <ul class="tablerowlist" id="tablerowlist" style ="width : 40%;float:left">
             
 
                     <li>
@@ -91,7 +135,7 @@
                     </table>
                 </li>
             </ul>
-            <ul class="tablerowlist" id="tablerowlist">
+            <ul class="tablerowlist" id="tablerowlist" style ="width : 40%;float:left">
                 <li>
                     <h2>Total Chargeable</h2>
 
@@ -111,6 +155,8 @@
                         </tbody>
                     </table>
                 </li>
+                     </ul>
+     <ul class="tablerowlist" id="tablerowlist" style ="width : 40%;float:left">
                 <li>
                     <h2>Total Completed</h2>
 
@@ -135,6 +181,9 @@
                      </tbody>
                  </table>
              </li>
+                  </ul>
+                  <br>
+     <ul class="tablerowlist" id="tablerowlist" style ="width : 40%;float:right">
              <li>
                 <h2>Warranty Overdue</h2>
 
@@ -154,7 +203,7 @@
              </table>
          </li>
      </ul>
-     <ul class="tablerowlist" id="tablerowlist">
+     <ul class="tablerowlist" id="tablerowlist" style ="width : 40%;float:left">
         <li>
             <h2>Repair Lead Time</h2>
 
@@ -166,7 +215,7 @@
                 <tbody>
                  @foreach ($repair_lead_time as $relays)
                  <tr>
-                     <td >{{$relays->type_name}}</td>
+                     <td >{{strtoupper($relays->type_name)}}</td>
                      <td >{{$relays->average}}</td>
                  </tr>
                  @endforeach
