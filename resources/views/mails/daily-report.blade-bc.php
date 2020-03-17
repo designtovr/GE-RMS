@@ -30,7 +30,7 @@ font-weight: 600;
 
 thead
 {color: white;
-background: -webkit-linear-gradient(90deg, #001235 0%, #0259b5 100%) !important;
+background: black;
   border: 1px solid black;
 font-family: 'Poppins', sans-serif !important;
 font-weight: 600;}
@@ -40,7 +40,6 @@ th
     border: 1px solid white;
     font-family: 'Poppins', sans-serif !important;
     font-weight: 600;
-        padding: 10px;
 }
 
 ul li

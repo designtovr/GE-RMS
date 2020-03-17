@@ -22,7 +22,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="float-right">
-                        <button type="button"  class="btn btn-lg btn-light m-l-10 m-b-10 " ng-click="GoToReceipt();"><a class="zmdi animated zoomIn  slower zmdi-home "  href="#"></a>
+                        <button type="button"  class="btn btn-lg btn-light m-l-10 m-b-10" ng-click="GoToReceipt();"><a class="zmdi animated zoomIn  slower zmdi-home "  href="#"></a>
                             <span class="badge badge-light"></span>
                         </button>
       <!--                     <button type="button" class="btn btn-lg btn-danger m-l-10 m-b-10 animated infinite flash slower-10s">Live
@@ -95,9 +95,10 @@
                                     <div class="au-task js-list-load">
                                         <div class="au-task-list js-scrollbar3">
                                             <div class="table-responsive m-b-40">
-                                                <table class="table table-borderless table-data3 table-data4 table-data3-blue">
+                                                <table class="table table-borderless table-data4 table-data4 table-data3-blue">
                                                     <thead>
-                                                    <tr>
+                                                     <tr style="background-color: #333333;color: white;">
+                                                
                                                         <th>Family</th>
                                                         <th>Repair</th>
                                                         <th>Test</th>
@@ -134,9 +135,9 @@
                                     <div class="au-task js-list-load">
                                         <div class="au-task-list js-scrollbar3">
                                             <div class="table-responsive m-b-40">
-                                                <table class="table table-borderless table-data3 table-data3-blue table-data4">
+                                                <table class="table table-borderless table-data4 table-data3-blue table-data4">
                                                     <thead>
-                                                    <tr>
+                                                     <tr style="background-color: #333333;color: white;">
                                                         <th>Family</th>
                                                         <th>Repair</th>
                                                         <th>Test</th>
@@ -203,9 +204,9 @@
                                               <div class="au-task js-list-load">
                                                   <div class="au-task-list js-scrollbar3 ">
                                                       <div class="table-responsive m-b-40">
-                                                          <table class="table table-borderless table-data3 table-data3-blue">
+                                                          <table class="table table-borderless table-data4 table-data3-blue">
                                                               <thead>
-                                                              <tr>
+                                                              <tr style="background-color: #333333;color: white;">
                                                                   <th>Family</th>
                                                                   <th>Total</th>
                                                               </tr>
@@ -224,47 +225,8 @@
                                               </div>
                                           </div>
                                       </div>
-                              <div class="col-lg-4 h-25">
-                                 <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
-                                     <div class="au-card-title"  >
-                                         <div class="bg-overlay bg-overlay--androidblue"></div>
-                                         <h3>
-                                             <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>Total Completed</h3>
-
-                                     </div>
-                                     <div class="au-task js-list-load">
-                                         <div class="au-task-list js-scrollbar3">
-                                             <div class="table-responsive m-b-40">
-                                                 <table class="table table-borderless table-data3 table-data3-blue">
-                                                     <thead>
-                                                     <tr>
-                                                         <th>Conventional</th>
-                                                         <th>Numerical</th>
-                                                         <th>Multilin</th>
-                                                         <th>Recent</th>
-                                                         <th>BOJ</th>
-                                                         <th>Total</th>
-                                                     </tr>
-                                                     </thead>
-                                                     <tbody>
-                                                     <tr ">
-                                                         <td ng-bind="dashboardvalues.total_completed.CONVENTIONAL"></td>
-                                                         <td ng-bind="dashboardvalues.total_completed.NUMERICAL"></td>
-                                                         <td ng-bind="dashboardvalues.total_completed.MULTILIN"></td>
-                                                         <td ng-bind="dashboardvalues.total_completed.REASON"></td>
-                                                         <td ng-bind="dashboardvalues.total_completed.BOJ"></td>
-                                                         <td ng-bind="dashboardvalues.total_completed.total"></td>
-                                                     </tr>
-                                                     </tbody>
-                                                 </table>
-                                             </div>
-
-                                         </div>
-
-                                     </div>
-                                 </div>
-                             </div>
-                            <div class="col-lg-4">
+                           
+                            <div class="col-lg-4 h-25">
                                 <div class="au-card au-card--no-shadow au-card--no-pad ">
                                     <div class="au-card-title"  >
                                         <div class="bg-overlay bg-overlay--androidblue"></div>
@@ -309,18 +271,18 @@
                                   </div>
                                   <div class="au-task js-list-load">
                                       <div class="au-task-list js-scrollbar3 ">
-                                          <div class="table-responsive m-b-40">
-                                              <table class="table table-borderless table-data3 table-data3-blue">
+                                          <div class="table-responsive">
+                                              <table class="table table-borderless table-data4 table-data3-blue">
                                                   <thead>
-                                                  <tr>
+                                                    <tr style="background-color: #333333;color: white;">
                                                       <th>Type / Category</th>
                                                       <th>Days</th>
                                                   </tr>
                                                   </thead>
                                                   <tbody>
                                                   <tr ng-repeat="rc in dashboardvalues.repair_lead_time">
-                                                   <td ng-bind="rc.type_name"></td>
-                                                                    <td ng-bind="rc.average"></td>
+                                                   <td ng-bind="rc.type_name | uppercase"></td>
+                                                                    <td ng-bind="rc.average  | number : 1"></td>
                                                   </tr>
                                                   </tbody>
                                               </table>
@@ -329,6 +291,47 @@
                                   </div>
                               </div>
                           </div>
+
+                             <div class="col-lg-6 h-25">
+                                 <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
+                                     <div class="au-card-title"  >
+                                         <div class="bg-overlay bg-overlay--androidblue"></div>
+                                         <h3>
+                                             <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>Total Completed</h3>
+
+                                     </div>
+                                     <div class="au-task js-list-load">
+                                         <div class="au-task-list js-scrollbar3">
+                                             <div class="table-responsive m-b-40">
+                                                 <table class="table table-borderless table-data4 table-data3-blue">
+                                                     <thead>
+                                                    <tr style="background-color: #333333;color: white;">
+                                                         <th>Conventional</th>
+                                                         <th>Numerical</th>
+                                                         <th>Multilin</th>
+                                                         <th>Recent</th>
+                                                         <th>BOJ</th>
+                                                         <th>Total</th>
+                                                     </tr>
+                                                     </thead>
+                                                     <tbody>
+                                                     <tr ">
+                                                         <td ng-bind="dashboardvalues.total_completed.CONVENTIONAL"></td>
+                                                         <td ng-bind="dashboardvalues.total_completed.NUMERICAL"></td>
+                                                         <td ng-bind="dashboardvalues.total_completed.MULTILIN"></td>
+                                                         <td ng-bind="dashboardvalues.total_completed.REASON"></td>
+                                                         <td ng-bind="dashboardvalues.total_completed.BOJ"></td>
+                                                         <td ng-bind="dashboardvalues.total_completed.total"></td>
+                                                     </tr>
+                                                     </tbody>
+                                                 </table>
+                                             </div>
+
+                                         </div>
+
+                                     </div>
+                                 </div>
+                             </div>
                       </div>
 <!--                           <div class="col-lg-4">
                                 <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">

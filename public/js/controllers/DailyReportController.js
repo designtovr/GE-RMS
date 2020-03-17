@@ -12,7 +12,6 @@ app.controller('DailyReportController', ['$scope', '$http', 'Notification' , '$l
             if (response.data.status == 'success')
             {
                 $scope.dashboardvalues = response.data.data;
-
             }
         }, function(response){
 
