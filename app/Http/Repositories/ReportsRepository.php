@@ -162,6 +162,19 @@ use Illuminate\Support\Facades\DB;
  				->leftJoin('ma_pv_status as mps', 'mps.id', 'sta.current_status_id')
  				->leftJoin('dispatch as dis', 'dis.pv_id', 'physical_verification.id')->get();
 
+		foreach ($pvs as $key => $pv) {
+			for ($i=0; $i < 12; $i++) {
+				if(isset($pv['jobticket']['materials'][$i]))
+				{
+					$var_name = 'pcb';
+					$pv[$var_name.'_part_no_'.($i+1)] = $pv['jobticket']['materials'][$i]['part_no'];
+					$pv[$var_name.'_defective_pcb_'.($i+1)] = $pv['jobticket']['materials'][$i]['old_pcp'];
+					$pv[$var_name.'_new_pcb_'.($i+1)] = $pv['jobticket']['materials'][$i]['new_pcp'];
+				}
+			}
+			unset($pv['jobticket']);
+		}
+
 		return $pvs;
 
  	}
