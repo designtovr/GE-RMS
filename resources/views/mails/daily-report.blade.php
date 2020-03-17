@@ -36,7 +36,7 @@
                     </table>
                 </li>
                 <li>
-                    <h2>Received Relays</h2>
+                    <h2>Total Relays Completed</h2>
 
                     <table>
                         <thead>
@@ -63,7 +63,7 @@
                         </table>
                     </li>
                     <li>
-                        <h2>Received Relays</h2>
+                        <h2>Total Relays Overdue</h2>
                         <table>
                             <thead>
                                 <th>Family</th>
@@ -89,7 +89,7 @@
             </ul>
             <ul class="tablerowlist" id="tablerowlist">
                 <li>
-                    <h2>Received Relays</h2>
+                    <h2>Total Chargeable</h2>
 
                     <table>
                         <thead>
@@ -108,7 +108,7 @@
                     </table>
                 </li>
                 <li>
-                    <h2>Received Relays</h2>
+                    <h2>Total Completed</h2>
 
                     <table>
                         <thead>
@@ -130,12 +130,11 @@
                              <td >{{$relays->total}}</td>
                          </tr>
                          @endforeach
-
                      </tbody>
                  </table>
              </li>
              <li>
-                <h2>Received Relays</h2>
+                <h2>Warranty Overdue</h2>
 
                 <table>
                     <thead>
@@ -143,13 +142,9 @@
                         <th>Overdues</th>
                     </thead>
                     <tbody>
-                      @foreach ($total_completed as $relays)
+                      @foreach ($warranty_overdue as $relays)
                       <tr>
-                         <td >{{$relays->CONVENTIONAL}}</td>
-                         <td >{{$relays->NUMERICAL}}</td>
-                         <td >{{$relays->MULTILIN}}</td>
-                         <td >{{$relays->REASON}}</td>
-                         <td >{{$relays->BOJ}}</td>
+                         <td >{{$relays->type_name}}</td>
                          <td >{{$relays->total}}</td>
                      </tr>
                      @endforeach
@@ -159,7 +154,7 @@
      </ul>
      <ul class="tablerowlist" id="tablerowlist">
         <li>
-            <h2>Received Relays</h2>
+            <h2>Repair Lead Time</h2>
 
             <table>
                 <thead>
