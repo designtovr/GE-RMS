@@ -226,7 +226,7 @@ class MailRepository
 			$data = $this->DataForDailyReport();
 			Mail::send('mails.daily-report', $data, function ($message) {
 				$message->subject('Daily Report: '.Carbon::now()->format('d/m/Y'));
-			    $message->to(['Service.CRC@ge.com', 'kannan.balaji1@ge.com', 'krishnan.sudhakar@ge.com', 'pazhanivelu.dhandapani@ge.com','krishnan.loganathan@ge.com']);
+			    $message->to(['erupanc@gmail.com']);
 			});
 			return 'Mail Sent Successfully';
 		} catch (\Exception $e) {
