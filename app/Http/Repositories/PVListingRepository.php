@@ -767,9 +767,21 @@ class PVListingRepository
 			}
 		}
 
+		$newobj = (object)[];
+		$newobj->type_name = 'Total';
+		$newobj->repair = 0;
+		$newobj->test = 0;
+		$newobj->dispatch = 0;
+		$newobj->total = 0;
+		
 		foreach ($data['total_relays_completed'] as $key => $relay) {
 			$relay->total = $relay->repair + $relay->test + $relay->dispatch;
+			$newobj->repair += $relay->repair;
+			$newobj->test += $relay->test;
+			$newobj->dispatch += $relay->dispatch;
+			$newobj->total += $relay->total;
 		}
+		array_push($data['total_relays_completed'], $newobj);
 
 		unset($data['total_relays_completed_all']);
 
@@ -830,9 +842,21 @@ class PVListingRepository
 			}
 		}
 
+		$newobj = (object)[];
+		$newobj->type_name = 'Total';
+		$newobj->repair = 0;
+		$newobj->test = 0;
+		$newobj->dispatch = 0;
+		$newobj->total = 0;
+		
 		foreach ($data['total_relays_overdues'] as $key => $relay) {
 			$relay->total = $relay->repair + $relay->test + $relay->dispatch;
+			$newobj->repair += $relay->repair;
+			$newobj->test += $relay->test;
+			$newobj->dispatch += $relay->dispatch;
+			$newobj->total += $relay->total;
 		}
+		array_push($data['total_relays_overdues'], $newobj);
 
 		$data['total_completed_all'] = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pt.name as type_name, COUNT(*) as total')
     					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
