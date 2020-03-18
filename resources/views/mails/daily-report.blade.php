@@ -12,9 +12,12 @@
 
 table,  td {
   border: 1px solid black;
-  color: black;
+
   font-family: 'Poppins', sans-serif !important;
-  font-weight: 600;
+
+  font-size: 22px !important;
+    color: #0a0a0a !important;
+    font-weight: bolder !important;
 }
 .main-content
 {
