@@ -25,10 +25,10 @@ table,  td {
 }
 h2
 {
-  font-size: 1em;
-color:black;
 font-family: 'Poppins', sans-serif !important;
-font-weight: 600;
+  font-size: 24px !important;
+    color: #0a0a0a !important;
+    font-weight: bolder !important;
 }
 
 thead
