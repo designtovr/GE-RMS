@@ -21,10 +21,16 @@ class MailRepository
 		return (!is_null(config('mail.mail_override')))?config('mail.mail_override'):$mail;
 	}
 
+	private function GetCCAddress()
+	{
+		return config('mail.cc_mail');
+	}
+
 	public function ReceiptMail(ReceiptMaster $receipt)
 	{
 		$receipt = $receipt->toArray();
 		$receipt['email'] = $this->GetToAddress($receipt['email']);
+		$receipt['cc'] = $this->GetCCAddress();
 
 		if (is_null($receipt['email']))
 			return "No Mail Address";
@@ -32,6 +38,7 @@ class MailRepository
 		try {
 			Mail::send('mails.receiptcompletion',$receipt, function ($message) use ($receipt) {
 				$message->to($receipt['email']);
+				$message->cc($receipt['cc']);
 				$message->subject('Receipt Completion - '.$receipt['formatted_receipt_id']);
 	 		});
 		} catch (\Exception $e) {
@@ -58,11 +65,13 @@ class MailRepository
 
 		$rma_delivery = RMADeliveryAddress::where('rma_id', $rma->id)->first();
 		$data['email'] = $this->GetToAddress($rma_delivery->email);
+		$data['cc'] = $this->GetCCAddress();
 		$data = $data->toArray();
 
 		try {
 			Mail::send('mails.pvcompletion',$data, function ($message) use ($data, $receipt) {
 				$message->to($data['email']);
+				$message->cc($data['cc']);
 				$message->subject('Physical Verification Completion – RMA:'. $data['formatted_rma_id']);
 	 		});
 		} catch (\Exception $e) {
@@ -84,11 +93,13 @@ class MailRepository
 
 		$rma_delivery = RMADeliveryAddress::where('rma_id', $rma->id)->first();
 		$data['email'] = $this->GetToAddress($rma_delivery->email);
+		$data['cc'] = $this->GetCCAddress();
 		$data = $data->toArray();
 
 		try {
 			Mail::send('mails.scpvcompletion',$data, function ($message) use ($data, $receipt) {
 				$message->to($data['email']);
+				$message->cc($data['cc']);
 				$message->subject('Physical Verification Completion – RMA:'. $data['formatted_rma_id']);
 	 		});
 		} catch (\Exception $e) {
@@ -119,6 +130,7 @@ class MailRepository
 			return "No Mail Id";*/
 
 		$data['email'] = $this->GetToAddress($rma_delivery->email);
+		$data['cc'] = $this->GetCCAddress();
 		$time = strtotime($data['created_date']. ' + 3 days');
 		$data['created_date'] = date('d/m/Y',$time);
 		$data = $data->toArray();
@@ -126,6 +138,7 @@ class MailRepository
 		try {
 			Mail::send('mails.wccompletion',$data, function ($message) use ($data, $receipt) {
 				$message->to($data['email']);
+				$message->cc($data['cc']);
 				$message->subject('W/C Declaration – RID:'.$data['formatted_pv_id']);
 	 		});
 		} catch (\Exception $e) {
@@ -159,10 +172,12 @@ class MailRepository
 			return "RMA Not Found";
 		$rma_delivery = RMADeliveryAddress::where('rma_id', $rma->id)->first();
 		$data['email'] = $this->GetToAddress($rma_delivery->email);
+		$data['cc'] = $this->GetCCAddress();
 
 		try {
 			Mail::send('mails.dispatchcompletion',$data, function ($message) use ($data, $rma) {
 				$message->to($data['email']);
+				$message->cc($data['cc']);
 				$message->subject('Dispatch Completion – RMA:'.$rma['formatted_rma_id']);
 	 		});
 		} catch (\Exception $e) {
