@@ -168,7 +168,7 @@
                                     </thead>
                                     <tbody>
                                     <tr grid-item>
-                                        @if(Auth::user()->isManager() || Auth::user()->isAdmin())
+                                        @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
                                         <td>
                                             <label class="au-checkbox">
                                                 <input type="checkbox" ng-model="item.create_wc">
