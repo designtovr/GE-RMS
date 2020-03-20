@@ -133,7 +133,7 @@ return [
 
     'log_channel' => env('MAIL_LOG_CHANNEL'),
 
-    'mail_override' => null,
+    'mail_override' => 'Service.CRC@ge.com',
 
     'cc_mail' => 'Service.CRC@ge.com'
 
