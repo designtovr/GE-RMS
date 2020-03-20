@@ -220,7 +220,7 @@ ul li
                  @foreach ($repair_lead_time as $relays)
                  <tr>
                      <td >{{strtoupper($relays->type_name)}}</td>
-                     <td >{{$relays->average}}</td>
+                     <td >{{number_format($relays->average, 1, '.', ',')}}</td>
                  </tr>
                  @endforeach
              </tbody>
