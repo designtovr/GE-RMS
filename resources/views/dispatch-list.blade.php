@@ -105,14 +105,12 @@
                     </div>
                     <div class="col-md-12 p-b-20">
                         <ul class="list-inline">
-                            @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
                             <li>
                                 <button type="button" class="btn btn-primary btn-md float-right"
                                         ng-click="CompleteDispatch();">
                                     <i class="fa fa-plus"></i>&nbsp;Dispatch
                                 </button>
                             </li>
-                            @endif
                             <li>
                                 <button type="button" class="btn btn-primary btn-md float-right box m-r-10"  ng-click="exportToExcelSave('#dispatchtable' , 'Dispatch.xls')">
                                     <i class="fa fa-file-excel-o"></i>&nbsp;Export
@@ -128,11 +126,9 @@
                                 <table class="table table-borderless table-data3  " id="dispatchtable" name="dispatchtable">
                                     <thead>
                                     <tr>
-                                        @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
                                         <th>
                                             Select
                                         </th>
-                                        @endif
                                         <th>
                                             Actions
                                         </th>
@@ -168,16 +164,13 @@
                                     </thead>
                                     <tbody>
                                     <tr grid-item>
-                                        @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
                                         <td>
                                             <label class="au-checkbox">
                                                 <input type="checkbox" ng-model="item.create_wc">
                                                 <span class="au-checkmark"></span>
                                             </label>
                                         </td>
-                                        @endif
                                         <td>
-                                            @if(Auth::user()->isManager() || Auth::user()->isAdmin())
                                             <div class="btn-group float-left">
                                                 <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-success" >Priority</button>
                                                 <div tabindex="-1" aria-hidden="true" role="menu" class="dropdown-menu scrollable-menu">
@@ -186,7 +179,6 @@
                                                     <button ng-if="item.pvl_priority != pr.priority" type="button" tabindex="0" class="dropdown-item" ng-repeat="pr in pvprioritylist" ng-click="SetPVPriority(item.id, pr.priority)">@{{pr.priority}}</button>
                                                 </div>
                                             </div>
-                                            @endif
                                          </td>
                                         <td ng-bind="item.formatted_pv_id"></td>
                                         <td ng-bind="item.formatted_rma_id"></td>

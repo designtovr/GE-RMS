@@ -2,7 +2,7 @@ app.controller('DispatchApprovalController', ['$scope', '$http','$filter','Notif
 	
 	$scope.showdpform = false;
 	$scope.dispatch = {};
-	$scope.status = 'dispatchapproved';
+	$scope.status = 'verificationcompleted';
 	$scope.page = 1;
 
 	$scope.gridOptions = {
@@ -79,6 +79,18 @@ app.controller('DispatchApprovalController', ['$scope', '$http','$filter','Notif
 			}
 
 		$scope.exportToExcelSave=function(tableId , filename){
+			if($scope.status == 'verificationcompleted')
+			{
+				filename = 'Waiting For Dispatch Approval';
+			}
+			else if($scope.status == 'dispatchapproved')
+			{
+				filename = 'Dispatch Approved';
+			}
+			else
+			{
+				filename = 'Dispatch';
+			}
 		   	ExcelSave.tableToExcel(tableId,filename);
 
 		   	$timeout(function(){

@@ -101,14 +101,12 @@
                     <div class="row">
                         <div class="col-md-12 p-b-20">
                             <ul class="list-inline">
-                                @if(Auth::user()->isManager() || Auth::user()->isAdmin())
                                 <li>
                                     <button type="button" class="btn btn-primary btn-md float-right"
                                             ng-click="ShowDPForm();">
                                         <i class="fa fa-plus"></i>&nbsp;Approve Dispatch
                                     </button>
                                 </li>
-                                @endif
                                 <li>
                                     <button type="button" class="btn btn-primary btn-md float-right box m-r-10"  ng-click="exportToExcelSave('#dispatchapprovaltable' , 'DispatchApproval.xls')">
                                         <i class="fa fa-file-excel-o"></i>&nbsp;Export
@@ -120,6 +118,14 @@
                     {{--Tab Ends--}}
              
                     <div class="col-md-12">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item" ng-click="GetPV('verificationcompleted')">
+                                <a class="nav-link active" id="approval-tab" data-toggle="tab" href="#approval" role="tab" aria-controls="approval" aria-selected="true">Waiting For Approval</a>
+                            </li>
+                            <li class="nav-item" ng-click="GetPV('dispatchapproved')">
+                                <a class="nav-link" id="approved-tab" data-toggle="tab" href="#approved" role="tab" aria-controls="approved" aria-selected="false">Approved</a>
+                            </li>
+                        </ul>
                         <!-- DATA TABLE-->
                         <div grid-data grid-options="gridOptions" grid-actions="gridActions">
                             <!-- sample table layout goes below, but remember that you can you any mark-up here. -->
@@ -171,7 +177,6 @@
                                             </label>
                                         </td>
                                         <td ng-if="status == 'dispatchapproved'">
-                                            @if(Auth::user()->isManager() || Auth::user()->isAdmin())
                                             <div class="btn-group float-left">
                                                 <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-success" >Priority</button>
                                                 <div tabindex="-1" aria-hidden="true" role="menu" class="dropdown-menu scrollable-menu">
@@ -180,7 +185,6 @@
                                                     <button ng-if="item.pvl_priority != pr.priority" type="button" tabindex="0" class="dropdown-item" ng-repeat="pr in pvprioritylist" ng-click="SetPVPriority(item.id, pr.priority)">@{{pr.priority}}</button>
                                                 </div>
                                             </div>
-                                            @endif
                                         </td>
                                         <td ng-bind="item.formatted_pv_id"></td>
                                         <td ng-bind="item.formatted_rma_id"></td>
@@ -219,9 +223,7 @@
                                     </select>
                                 </div>
                             </form>
-
                         </div>
-
                         <!-- END DATA TABLE-->
                     </div>
                 </div>
