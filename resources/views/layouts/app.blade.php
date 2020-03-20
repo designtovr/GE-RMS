@@ -203,6 +203,9 @@
                             </li>
                             <li>
                                 <a href="{{url('/masters-page/product-overdue-age')}}">Product Overdue Age</a>
+                            </li>    
+                            <li>
+                                <a href="{{url('/masters-page/email-to-cc')}}">Email</a>
                             </li>
                         </ul>
                     </li>

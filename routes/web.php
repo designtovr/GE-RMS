@@ -168,6 +168,10 @@ Route::group(['middleware' => 'auth'], function(){
 		return view('masters.printerips');
 	});
 
+	Route::get('masters-page/email-to-cc', function(){
+		return view('masters.email');
+	});
+
     Route::get('/rma-form/{rma_id}', 'PrintController@RMAForm');
 
     Route::get('/job-ticket-form/{pv_id}','PrintController@JobTicketForm');
