@@ -138,9 +138,6 @@
                                         <th sortable="" class="sortable">PCB9 Part No.</th>
                                         <th sortable="" class="sortable">PCB9 Defective Ser no</th>
                                         <th sortable="" class="sortable">PCB9 Healthy Ser no</th>
-                                             <th sortable="" class="sortable">PCB9 Part No.</th>
-                                        <th sortable="" class="sortable">PCB9 Defective Ser no</th>
-                                        <th sortable="" class="sortable">PCB9 Healthy Ser no</th>    
                                          <th sortable="" class="sortable">PCB10 Part No.</th>
                                         <th sortable="" class="sortable">PCB10 Defective Ser no</th>
                                         <th sortable="" class="sortable">PCB11 Healthy Ser no</th>
@@ -150,7 +147,6 @@
                                              <th sortable="" class="sortable">PCB12 Part No.</th>
                                         <th sortable="" class="sortable">PCB12 Defective Ser no</th>
                                         <th sortable="" class="sortable">PCB12 Healthy Ser no</th>
-                                        <th sortable="" class="sortable">TRANSFORMER & OTHER COMPONENTS</th>
                                         <th sortable="" class="sortable">EXISTING SOFTWARE</th>
                                         <th sortable="" class="sortable">UPGRADED SOFTWARE</th>
                                         <th sortable="" class="sortable">Customer Setting Loaded</th>
@@ -185,7 +181,7 @@
                                         <td ng-bind="item.repair_completed_at"></td>
                                         <td ng-bind="item.defect_by_customer"></td>
                                         <td ng-bind="item.power_on_test"></td>
-                                        <td ng-bind="item.download_customer_setting"></td>
+                                        <td ng-bind="item.download_customer_setting">12</td>
                                         <td ng-bind="item.pcb_part_no_1"></td>
                                         <td ng-bind="item.pcb_defective_pcb_1"></td>
                                         <td ng-bind="item.pcb_new_pcb_1"></td>
@@ -196,6 +192,9 @@
                                         <td ng-bind="item.pcb_defective_pcb_3"></td>
                                         <td ng-bind="item.pcb_new_pcb_3"></td>
                                              <td ng-bind="item.pcb_part_no_4"></td>
+                                              <td ng-bind="item.pcb_defective_pcb_4"></td>
+                                        <td ng-bind="item.pcb_new_pcb_4"></td>
+                                             <td ng-bind="item.pcb_part_no_5"></td>
                                         <td ng-bind="item.pcb_defective_pcb_5"></td>
                                         <td ng-bind="item.pcb_new_pcb_5"></td>
                                                  <td ng-bind="item.pcb_part_no_6"></td>
@@ -216,19 +215,9 @@
                                               <td ng-bind="item.pcb_part_no_11"></td>
                                         <td ng-bind="item.pcb_defective_pcb_11"></td>
                                         <td ng-bind="item.pcb_new_pcb_11"></td>
-                                              <td ng-bind="item.pcb_part_no_12"></td>
+                                        <td ng-bind="item.pcb_part_no_12"></td>
                                         <td ng-bind="item.pcb_defective_pcb_12"></td>
                                         <td ng-bind="item.pcb_new_pcb_12"></td>
-                                        <td ng-bind=""></td>
-                                        <td ng-bind=""></td>
-                                        <td ng-bind=""></td>
-                                        <td ng-bind=""></td>
-                                        <td ng-bind=""></td>
-                                        <td ng-bind=""></td>         
-                                        <td ng-bind=""></td>
-                                        <td ng-bind=""></td>
-                                        <td ng-bind=""></td>
-                                        <td ng-bind=""></td>   
                                         <td ng-bind="item.existing_sw_version"></td>
                                         <td ng-bind="item.updated_sw_version"></td>
                                         <td ng-bind="item.download_customer_setting"></td>

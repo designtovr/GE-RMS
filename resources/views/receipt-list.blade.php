@@ -273,6 +273,28 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                               <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="cc" class=" form-control-label">CC</label>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <input 
+                                        type="email" 
+                                        id="cc" 
+                                        name="cc" 
+                                        ng-model="receipt.cc" 
+                                        placeholder="Email" 
+                                        class="form-control" 
+                                        
+                                        ng-change="ValidateCC(receipt.cc)" 
+
+                                        >
+                                        <div ng-show="$scope.validcc">
+                                            <span class="help-block" ng-show="AddReceiptForm.cc.$error.pattern">Invalid CC Email</span>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="row form-group">
                                     <div class="col col-md-3">
                                         <label for="courier_name" class=" form-control-label">Courier Name</label>

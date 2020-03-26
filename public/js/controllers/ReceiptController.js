@@ -162,6 +162,29 @@ var blob = new Blob([e.format(template, ctx)], { type: "application/vnd.ms-excel
             	$scope.editReceipt = false;
             }
 
+            $scope.validcc = true;
+
+
+            $scope.ValidateCC = function()
+            {
+                  viewValue = AddReceipt.cc;
+                  console.log(viewValue);
+                        var emails = viewValue.split(',');
+                        // loop that checks every email, returns undefined if one of them fails.
+                        var re = /\S+@\S+\.\S+/;
+
+                        // angular.foreach(emails, function() {
+                          var validityArr = emails.map(function(str){
+                            return re.test(str.trim());
+                        }); // sample return is [true, true, true, false, false, false]
+                          console.log(emails, validityArr); 
+                          var validcc = true;
+                          angular.forEach(validityArr, function(value) {
+                              if(value === false)
+                                  validcc = false; 
+                        }); 
+            }   
+
 
             $scope.PrintReceipts = function($data)
             {
