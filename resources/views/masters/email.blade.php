@@ -5,11 +5,24 @@
     <div class="section__content section__content--p30">
         <div class="container-fluid" ng-init="getsites();">
         	<div class="row">
-    			<div class="col-md-12">
+    			<div class="col-md-9">
     		        <div class="overview-wrap">
     		            <h6 class="pb-4 display-5">Email</h6>
     		        </div>
     		    </div>
+
+                                    <div>
+                                                <h6 class="pb-4 display-5" >Send Customer Email</h6>
+</div>
+
+                <div class="col-md-1">
+
+                                                    <label class="au-checkbox">
+                                                        <input type="checkbox" id="cus_email" name="cus_email" name="cus_email" ng-model = "cus_email" ng-change ="OnEmailChanged()"
+                                                    value="1" class="">
+                                                        <span class="au-checkmark"></span>
+                                                    </label>
+                </div>
                 <div class="col-md-12 ">
                     <div class="card-header card-title">
                         Search 
@@ -59,7 +72,6 @@
                                 <tr>
                                     <th>Actions</th>
                                     <th sortable="code" class="sortable">Email</th>
-                                    <th sortable="name" class="sortable">To/Cc</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -76,8 +88,7 @@
                                             @endif
                                         </div>
                                     </td>
-    	                            <td ng-bind="item.code"></td>
-                                    <td ng-bind="item.name"></td>
+    	                            <td ng-bind="item.email"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -155,37 +166,7 @@
                                             </div>
                                     </div>
                                 </div>
-                                <div class="row form-group">
-                                    <div class="col col-md-3">
-                                        <label for="sitename" class=" form-control-label" >To /Cc<span class="mandatory">*</span></label>
-                                    </div>
-                                    <div class="col-12 col-md-6">
-                                        <input 
-                                            type="text" 
-                                            id="sitename" 
-                                            name="sitename" 
-                                            ng-model="site.name" 
-                                            placeholder="To / Cc" 
-                                            class="form-control"
-                                            ng-minlength="3" 
-                                            ng-maxlength="50"
-                                            required>
-                                            <div ng-show="AddSiteForm.sitename.$touched && AddSiteForm.sitename.$error">
-                                                <span class="help-block"
-                                                 ng-show="AddSiteForm.sitename.$error.required">
-                                                    Please Enter Location Name
-                                                </span>
-                                                <span class="help-block"
-                                                 ng-show="AddSiteForm.sitename.$error.minlength">
-                                                    Minimum 3 Characters Required
-                                                </span>
-                                                <span class="help-block"
-                                                 ng-show="AddSiteForm.sitename.$error.maxlength">
-                                                    Maximum 50 Characters Allowed
-                                                </span>
-                                            </div>
-                                    </div>
-                                </div>
+                        
                             </form>
                         </div>
                     </div>
