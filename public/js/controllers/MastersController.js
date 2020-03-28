@@ -53,6 +53,17 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 	   	},
 	   	urlSync: true
 	};
+
+		$scope.emailgridOptions = {
+		pagination: {
+			itemsPerPage: '10'
+		},
+		data:[],
+	   	sort: {
+
+	   	},
+	   	urlSync: true
+	};
 	$scope.productgridOptions = {
 		pagination: {
 			itemsPerPage: '10'
