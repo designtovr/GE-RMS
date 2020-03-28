@@ -24,12 +24,7 @@ class MailRepository
 		{
 			return $mail;
 		}
-		$Email = Email::all();
-		$emails = array();
-		foreach ($Email as $key => $em) {
-			array_push($emails, $em->email);
-		}
-		return $emails;
+		return config('mail.mail_override');
 	}
 
 	private function GetCCAddress()
@@ -250,9 +245,16 @@ class MailRepository
 	{
 		try {
 			$data = $this->DataForDailyReport();
-			Mail::send('mails.daily-report', $data, function ($message) {
+			$email_to = $this->GetEmailReceiptors();
+			$Email = Email::all();
+			$emails = array();
+			foreach ($Email as $key => $em) {
+				array_push($emails, $em->email);
+			}
+			$data['emails'] = $emails;
+			Mail::send('mails.daily-report', $data, function ($message) use ($data) {
 				$message->subject('Daily Report: '.Carbon::now()->format('d/m/Y'));
-			    $message->to(['Service.CRC@ge.com', 'kannan.balaji1@ge.com', 'krishnan.sudhakar@ge.com', 'pazhanivelu.dhandapani@ge.com','krishnan.loganathan@ge.com']);
+			    $message->to($data['emails']);
 			});
 			return 'Mail Sent Successfully';
 		} catch (\Exception $e) {
