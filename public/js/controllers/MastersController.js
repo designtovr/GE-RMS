@@ -24,6 +24,7 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 	$scope.locationmodal = [];
 	$scope.site = {};
 	$scope.sitemodal = [];
+	$scope.emailmodal = {};
 	$scope.racktype = {};
 	$scope.racktypemodal = [];
 	$scope.rack = {};
@@ -38,6 +39,7 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 	$scope.usermodal = [];
 	$scope.printeripsmodal = {};
 	$scope.productoverdueage = {};
+	$scope.productoverdueagetemp = {};
 
 	//need to declare seperate gridoptions, because i have common controller for all Master Pages
 	//so it will affects each master pages
@@ -82,6 +84,16 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 	   	urlSync: true
 	};
 	$scope.sitegridOptions = {
+		pagination: {
+			itemsPerPage: '10'
+		},
+		data:[],
+	   	sort: {
+
+	   	},
+	   	urlSync: true
+	};
+	$scope.emailgridOptions = {
 		pagination: {
 			itemsPerPage: '10'
 		},
@@ -195,6 +207,18 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		}).then(function success(response) {
 			$scope.sites = response.data.data;
 		    $scope.sitegridOptions.data = response.data.data;
+		}, function error(response) {
+		});
+	}
+
+	$scope.getemails = function()
+	{
+		$http({
+		  method: 'GET',
+		  url: '/ge/emails'
+		}).then(function success(response) {
+			$scope.emails = response.data.data;
+		    $scope.emailgridOptions.data = response.data.data;
 		}, function error(response) {
 		});
 	}
@@ -525,6 +549,27 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		});
 	}
 
+	$scope.OpenEmailModal = function(item='')
+	{
+		$scope.emailmodal ={};
+		if(item == '')
+		{
+			$scope.emailmodal.title = 'Add Email';
+			$scope.emailmodal.edit = false;
+		}
+		else
+		{
+			$scope.emailmodal.title = 'Edit Email';
+			$scope.emailmodal.edit = true;
+			$scope.emailmodal.email = item.email;
+			$scope.emailmodal.id = item.id;
+		}
+		$('#emailmodal').modal({
+			show: true,
+			backdrop: 'static',
+		});
+	}
+
 	$scope.OpenRackModal = function(id=0)
 	{
 		if (!id)
@@ -686,6 +731,11 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		$('#sitemodal').modal('hide');
 	}
 
+	$scope.CloseEmailModal = function()
+	{
+		$('#emailmodal').modal('hide');
+	}
+
 	$scope.CloseProductModal = function()
 	{
 		$('#productmodal').modal('hide');
@@ -699,6 +749,7 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 	$scope.CloseProductOverdueAgeModal = function()
 	{
 		$('#productoverdueagemodal').modal('hide');
+		$scope.getproductoverdueage();
 	}
 
 	$scope.CloseLocationModal = function()
@@ -832,11 +883,14 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 
 	$scope.UpdateProductOverDueAge = function()
 	{
-		if($scope.productoverdueage.overdue_age < 0)
+		$scope.productoverdueagetemp = $scope.productoverdueage;
+		if($scope.productoverdueage.pv < 0 || $scope.productoverdueage.wch < 0 || $scope.productoverdueage.jt < 0 || $scope.productoverdueage.testing < 0
+			|| $scope.productoverdueage.dispatch < 0)
 		{
-			Notification.error("Overdue Age Should Negative");
+			Notification.error("Overdue Age Should Not be Negative");
 			return;
 		}
+
 		$http({
 			method: 'post',
 			url: '../updateproductoverdueage',
@@ -944,6 +998,39 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 				Notification.success(response.data.message);
 				$('#sitemodal').modal('hide');
 				$scope.getsites();
+			}
+			else if (response.data.status == 'failure')
+			{
+				Notification.error(response.data.message);
+			}
+		}, function failure(response){
+			if (response.status == 422)
+			{
+				var errors = response.data.errors;
+				for(var error in errors)
+				{
+					Notification.error(errors[error][0]);
+					break;
+				}
+			}
+		});
+	}
+
+	$scope.AddEmail = function()
+	{
+		console.log($scope.emailmodal);
+		$http({
+			method: 'post',
+			url: '../addemail',
+			data: {
+				'email': $scope.emailmodal
+			},
+		}).then(function success(response){
+			if (response.data.status == 'success')
+			{
+				Notification.success(response.data.message);
+				$('#emailmodal').modal('hide');
+				$scope.getemails();
 			}
 			else if (response.data.status == 'failure')
 			{
@@ -1219,6 +1306,38 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 							{
 								Notification.success(response.data.message);
 								$scope.getsites();
+							}
+						  }, function error(response) {
+
+						  });
+		            }
+		        },
+		        close: function () {
+		        }
+		    }
+		});
+	}
+
+	$scope.DeleteEmail = function(item)
+	{
+		$ngConfirm({
+		    title: 'Warning!',
+		    content: 'Are you sure want to delete Email:<b>'+ item.email + '</b>?',
+		    type: 'red',
+		    typeAnimated: true,
+		    buttons: {
+		        tryAgain: {
+		            text: 'Delete',
+		            btnClass: 'btn-red',
+		            action: function(){
+		            	$http({
+						  method: 'DELETE',
+						  url: '../email/'+item.id,
+						}).then(function success(response) {
+						    if (response.data.status == 'success')
+							{
+								Notification.success(response.data.message);
+								$scope.getemails();
 							}
 						  }, function error(response) {
 

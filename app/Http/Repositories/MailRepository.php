@@ -13,12 +13,23 @@ use App\Models\RMAUnitInformation;
 use App\Models\WarrantyMaster;
 use App\Models\DispatchMaster;
 use App\Models\RMADeliveryAddress;
+use App\Models\Email;
 
 class MailRepository
 {
 	private function GetToAddress($mail)
 	{
-		return (!is_null(config('mail.mail_override')))?config('mail.mail_override'):$mail;
+		$result = $this->GetEmailReceiptors();
+		if($result['status'] == 'success' && $result['data']['send_mail_to_customer'])
+		{
+			return $mail;
+		}
+		$Email = Email::all();
+		$emails = array();
+		foreach ($Email as $key => $em) {
+			array_push($emails, $em->email);
+		}
+		return $emails;
 	}
 
 	private function GetCCAddress()
@@ -247,6 +258,36 @@ class MailRepository
 		} catch (\Exception $e) {
 			return $e->getMessage();
 		}
+	}
+
+	public function SetEmailReceptors($value)
+	{
+		try {
+            $path = 'public\mailconf.json';
+            $content = file_get_contents($path);
+            $data = json_decode($content, true);
+            $data['send_mail_to_customer'] = $value;
+            $new_content = json_encode($data);
+            file_put_contents($path, $new_content);
+
+            return 'Mail Receiptor Changed Successfully';
+
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+	}
+
+	public function GetEmailReceiptors()
+	{
+		try {
+            $path = 'public\mailconf.json';
+            $content = file_get_contents($path);
+            $data = json_decode($content, true);
+            return ['data' => $data, 'status' => 'success', 'message' => 'Data Fetched Successfully'];
+
+        } catch (\Exception $e) {
+        	return ['status' => 'failure', 'message' => $e->getMessage()];
+        }
 	}
 
 }

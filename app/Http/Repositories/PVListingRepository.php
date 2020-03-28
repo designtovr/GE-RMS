@@ -210,7 +210,7 @@ class PVListingRepository
 		$pvs['total_overdue']['for_pv'] = 0;
 		$pvs['total_overdue']['for_pv_due_list'] = array();
     	foreach ($pvs['for_physical_verification'] as $key => $for_pv) {
-    		$for_pv->overdue_list = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.id, pv.serial_no, poa.overdue_age, DATEDIFF( "'.Carbon::now().'", pv.created_at) as overall_due, pt.code as product_family')
+    		$for_pv->overdue_list = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.id, pv.serial_no, poa.pv, DATEDIFF( "'.Carbon::now().'", pv.created_at) as overall_due, pt.code as product_family')
     			->join('receipt as rc', 'rc.id', 'pv.receipt_id')
     			->join('ma_customer as cus', 'cus.id', 'rc.customer_id')
     			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
@@ -220,7 +220,7 @@ class PVListingRepository
     			->where(function($query) use ($for_pv) {
     				$query->where('sta.current_status_id', 1);
     				$query->orWhere('sta.current_status_id', 2);
-    			})->whereRaw('DATEDIFF("'. Carbon::now() .'", pv.created_at) > (poa.overdue_age-1)')
+    			})->whereRaw('DATEDIFF("'. Carbon::now() .'", pv.created_at) > (poa.pv-1)')
     			->get();
 
 			$for_pv->due_list = array();
@@ -244,13 +244,13 @@ class PVListingRepository
 		$pvs['total_overdue']['wch'] = 0;
 		$pvs['total_overdue']['wch_due_list'] = array();
     	foreach ($pvs['wch'] as $key => $wc) {
-    		$wc->overdue_list = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.id, pv.serial_no, poa.overdue_age, DATEDIFF( "'.Carbon::now().'", pv.created_at) as overall_due, pt.code as product_family')
+    		$wc->overdue_list = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.id, pv.serial_no, poa.wch, DATEDIFF( "'.Carbon::now().'", pv.created_at) as overall_due, pt.code as product_family')
     			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
     			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
     			->join('ma_product_overdue_age as poa', 'poa.category', 'pt.category')
     			->where('pt.id', $wc->pt_id)
     			->where('sta.current_status_id', 13)
-    			->whereRaw('DATEDIFF("'. Carbon::now() .'", sta.created_at) > (poa.overdue_age-1)')
+    			->whereRaw('DATEDIFF("'. Carbon::now() .'", sta.created_at) > (poa.wch-1)')
     			->get();
 
 			$wc->due_list = array();
@@ -273,13 +273,13 @@ class PVListingRepository
 		$pvs['total_overdue']['for_test'] = 0;
 		$pvs['total_overdue']['for_test_due_list'] = array();
     	foreach ($pvs['for_test'] as $key => $test) {
-    		$test->overdue_list = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.id, pv.serial_no, poa.overdue_age, DATEDIFF( "'.Carbon::now().'", pv.created_at) as overall_due, pt.code as product_family')
+    		$test->overdue_list = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.id, pv.serial_no, poa.testing, DATEDIFF( "'.Carbon::now().'", pv.created_at) as overall_due, pt.code as product_family')
     			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
     			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
     			->join('ma_product_overdue_age as poa', 'poa.category', 'pt.category')
     			->where('pt.id', $test->pt_id)
     			->whereIn('sta.current_status_id', [6, 7])
-    			->whereRaw('DATEDIFF("'. Carbon::now() .'", sta.created_at) > (poa.overdue_age-1)')
+    			->whereRaw('DATEDIFF("'. Carbon::now() .'", sta.created_at) > (poa.testing-1)')
     			->get();
 
     		$test->due_list = array();
@@ -303,13 +303,13 @@ class PVListingRepository
 		$pvs['total_overdue']['for_pack'] = 0;
 		$pvs['total_overdue']['for_pack_due_list'] = array();
     	foreach ($pvs['for_pack'] as $key => $pack) {
-    		$pack->overdue_list = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.id, pv.serial_no, poa.overdue_age, DATEDIFF( "'.Carbon::now().'", pv.created_at) as overall_due, pt.code as product_family')
+    		$pack->overdue_list = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.id, pv.serial_no, poa.dispatch, DATEDIFF( "'.Carbon::now().'", pv.created_at) as overall_due, pt.code as product_family')
     			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
     			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
     			->join('ma_product_overdue_age as poa', 'poa.category', 'pt.category')
     			->where('pt.id', $pack->pt_id)
     			->whereIn('sta.current_status_id', [14])
-    			->whereRaw('DATEDIFF("'. Carbon::now() .'", sta.created_at) > (poa.overdue_age-1)')
+    			->whereRaw('DATEDIFF("'. Carbon::now() .'", sta.created_at) > (poa.dispatch-1)')
     			->get();
 
 			$pack->due_list = array();
@@ -334,13 +334,13 @@ class PVListingRepository
 		//loop and add due count
 		$pvs['total_overdue']['for_repair'] = 0;
 		foreach ($pvs['for_repair'] as $key => $repair) {
-			$repair->overdue_list = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.id, pv.serial_no, poa.overdue_age, DATEDIFF( "'.Carbon::now().'", pv.created_at) as overall_due, pt.code as product_family')
+			$repair->overdue_list = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.id, pv.serial_no, poa.jt, DATEDIFF( "'.Carbon::now().'", pv.created_at) as overall_due, pt.code as product_family')
     			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
     			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
     			->join('ma_product_overdue_age as poa', 'poa.category', 'pt.category')
     			->where('pt.id', $repair->pt_id)
     			->whereIn('sta.current_status_id', array(4,5,6,7,8,9,10))
-    			->whereRaw('DATEDIFF("'. Carbon::now() .'", sta.created_at) > (poa.overdue_age-1)')
+    			->whereRaw('DATEDIFF("'. Carbon::now() .'", sta.created_at) > (poa.jt-1)')
     			->get();
 
 			$repair->due_list = array();
@@ -921,7 +921,7 @@ class PVListingRepository
     					->join('pv_status as ps', 'ps.pv_id', 'pv.id')
     					->join('ma_product_overdue_age as poa', 'poa.category', 'pt.category')
     					->where('ps.current_status_id', 4)
-    					->whereRaw('DATEDIFF("'. Carbon::now() .'", ps.created_at) > (poa.overdue_age-1)')
+    					->whereRaw('DATEDIFF("'. Carbon::now() .'", ps.created_at) > (poa.wch-1)')
     					->where(function($query){
     						$query->where('wt.smp', 2)->orWhere('wt.pcp', 2);
     					})

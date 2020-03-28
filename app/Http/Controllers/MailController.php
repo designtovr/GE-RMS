@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Mail;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Artisan;
+use Config;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -20,6 +23,7 @@ use Carbon\Carbon;
 use App\Http\Repositories\MailRepository;
 use App\Models\WarrantyMaster;
 use App\Models\DispatchMaster;
+use App\Models\Email;
 
 class MailController extends Controller 
 {
@@ -189,5 +193,54 @@ class MailController extends Controller
       $data = $this->mailRepository->DataForDailyReport();
       return response()->json(['data' => $data, 'status' => 'success', 'message' => 'Data Fetched Successfully'], 200);
    }
+
+   public function Emails(Request $request)
+   {
+      $data = Email::all();
+      return response()->json(['data' => $data, 'status' => 'success', 'message' => 'Data Fetched Successfully'], 200);
+   }
+
+   public function AddEmail(Request $request)
+   {
+      $email = $request->get('email');
+      if(array_key_exists('id', $email))
+      {
+        $Mail = Email::where('id', $email['id'])->first();
+        $Mail->email = $email['email'];
+        $Mail->updated_by = Auth::id();
+        $Mail->updated_at = Carbon::now();
+        $Mail->update();
+
+        return response()->json(['data' => $Mail, 'status' => 'success', 'message' => 'Mail Updated Successfully'], 200);
+      }
+      else
+      {
+        $Mail = new Email();
+        $Mail->email = $email['email'];
+        $Mail->created_by = Auth::id();
+        $Mail->created_at = Carbon::now();
+        $Mail->save();
+
+        return response()->json(['data' => $Mail, 'status' => 'success', 'message' => 'Mail Added Successfully'], 200);
+      }
+   }
+
+   public function DeleteEmail($id)
+   {
+      Email::destroy($id);
+      return response()->json(['status' => 'success', 'message' => 'Mail Deleted Successfully'], 200);
+   }
+
+   public function SetEmailReceptors($value)
+    {
+      $result = $this->mailRepository->SetEmailReceptors($value);
+      return response()->json(['status' => 'success', 'message' => $result], 200);
+    }
+
+    public function GetEmailReceptors(Request $request)
+    {
+      $result = $this->mailRepository->GetEmailReceiptors();
+      return response()->json($result, 200);
+    }
 
 }

@@ -75,7 +75,11 @@ class ProductTypeController extends Controller
         if($POA)
         {
             $POA->category = $product['category'];
-            $POA->overdue_age = $product['overdue_age'];
+            $POA->pv = $product['pv'];
+            $POA->wch = $product['wch'];
+            $POA->jt = $product['jt'];
+            $POA->testing = $product['testing'];
+            $POA->dispatch = $product['dispatch'];
             $POA->updated_at = Carbon::now();
             $POA->updated_by = Auth::id();
             $POA->update();

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Product Type')
+@section('title', 'Product Overdue Age')
 @section('content')
 <div class="main-content" ng-controller="MastersController">
     <div class="section__content section__content--p30">
@@ -28,7 +28,11 @@
                                     <tr>
                                         <th>Actions</th>
                                         <th sortable="category" class="sortable">Category</th>
-                                        <th sortable="overdue_age" class="sortable">Overdue Age</th>
+                                        <th sortable="pv" class="sortable">Phy. Verification</th>
+                                        <th sortable="wch" class="sortable">W/Ch</th>
+                                        <th sortable="jt" class="sortable">Job Ticket</th>
+                                        <th sortable="testing" class="sortable">Testing</th>
+                                        <th sortable="dispatch" class="sortable">Dispatch</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -43,7 +47,11 @@
                                             </div>
                                         </td>
                                         <td ng-bind="item.category | uppercase"></td>
-                                        <td ng-bind="item.overdue_age"></td>
+                                        <td ng-bind="item.pv"></td>
+                                        <td ng-bind="item.wch"></td>
+                                        <td ng-bind="item.jt"></td>
+                                        <td ng-bind="item.testing"></td>
+                                        <td ng-bind="item.dispatch"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -109,31 +117,130 @@
                                 </div>
                                 <div class="row form-group">
                                     <div class="col col-md-4">
-                                        <label for="producttypecode" class=" form-control-label" >Overdue Age<span class="mandatory">*</span></label>
+                                        <label for="pv" class=" form-control-label" >Physical Verification<span class="mandatory">*</span></label>
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <input
                                             type="text"
-                                            id="producttypecode"
-                                            name="producttypecode"
-                                            ng-model="productoverdueage.overdue_age"
-                                            placeholder="Product Type Family"
+                                            id="pv"
+                                            name="pv"
+                                            ng-model="productoverdueage.pv"
+                                            placeholder="Physical Verification"
                                             class="form-control"
-                                            ng-minlength="1"
-                                            ng-maxlength="20"
+                                            ng-pattern="/^[0-9]*$/"
                                             required>
-                                            <div ng-show="ProductTypeForm.producttypecode.$touched && ProductTypeForm.producttypecode.$error">
+                                            <div ng-show="ProductTypeForm.pv.$touched && ProductTypeForm.pv.$error">
                                                 <span class="help-block"
-                                                      ng-show="ProductTypeForm.producttypecode.$error.required">
-                                                    Please Enter Product Type Family
+                                                      ng-show="ProductTypeForm.pv.$error.required">
+                                                    Please Enter Value
                                                 </span>
                                                 <span class="help-block"
-                                                  ng-show="ProductTypeForm.producttypecode.$error.minlength">
-                                                    Minimum 1 Characters Required
+                                                  ng-show="ProductTypeForm.pv.$error.pattern">
+                                                    Only Numbers Allowed
+                                                </span>
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-4">
+                                        <label for="wch" class=" form-control-label" >W/Ch<span class="mandatory">*</span></label>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <input
+                                            type="text"
+                                            id="wch"
+                                            name="wch"
+                                            ng-model="productoverdueage.wch"
+                                            placeholder="W/Ch"
+                                            class="form-control"
+                                            ng-pattern="/^[0-9]*$/"
+                                            required>
+                                            <div ng-show="ProductTypeForm.wch.$touched && ProductTypeForm.wch.$error">
+                                                <span class="help-block"
+                                                      ng-show="ProductTypeForm.wch.$error.required">
+                                                    Please Enter Value
                                                 </span>
                                                 <span class="help-block"
-                                                  ng-show="ProductTypeForm.producttypecode.$error.maxlength">
-                                                    Maximum 20 Characters Allowed
+                                                  ng-show="ProductTypeForm.wch.$error.pattern">
+                                                    Only Numbers Allowed
+                                                </span>
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-4">
+                                        <label for="jt" class=" form-control-label" >Job Ticket<span class="mandatory">*</span></label>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <input
+                                            type="text"
+                                            id="jt"
+                                            name="jt"
+                                            ng-model="productoverdueage.jt"
+                                            placeholder="Job Ticket"
+                                            class="form-control"
+                                            ng-pattern="/^[0-9]*$/"
+                                            required>
+                                            <div ng-show="ProductTypeForm.jt.$touched && ProductTypeForm.jt.$error">
+                                                <span class="help-block"
+                                                      ng-show="ProductTypeForm.jt.$error.required">
+                                                    Please Enter Value
+                                                </span>
+                                                <span class="help-block"
+                                                  ng-show="ProductTypeForm.jt.$error.pattern">
+                                                    Only Numbers Allowed
+                                                </span>
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-4">
+                                        <label for="testing" class=" form-control-label" >Testing<span class="mandatory">*</span></label>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <input
+                                            type="text"
+                                            id="testing"
+                                            name="testing"
+                                            ng-model="productoverdueage.testing"
+                                            placeholder="Testing"
+                                            class="form-control"
+                                            ng-pattern="/^[0-9]*$/"
+                                            required>
+                                            <div ng-show="ProductTypeForm.testing.$touched && ProductTypeForm.testing.$error">
+                                                <span class="help-block"
+                                                      ng-show="ProductTypeForm.testing.$error.required">
+                                                    Please Enter Value
+                                                </span>
+                                                <span class="help-block"
+                                                  ng-show="ProductTypeForm.testing.$error.pattern">
+                                                    Only Numbers Allowed
+                                                </span>
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-4">
+                                        <label for="dispatch" class=" form-control-label" >Dispatch<span class="mandatory">*</span></label>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <input
+                                            type="text"
+                                            id="dispatch"
+                                            name="dispatch"
+                                            ng-model="productoverdueage.dispatch"
+                                            placeholder="Dispatch"
+                                            class="form-control"
+                                            ng-pattern="/^[0-9]*$/"
+                                            required>
+                                            <div ng-show="ProductTypeForm.dispatch.$touched && ProductTypeForm.dispatch.$error">
+                                                <span class="help-block"
+                                                      ng-show="ProductTypeForm.dispatch.$error.required">
+                                                    Please Enter Value
+                                                </span>
+                                                <span class="help-block"
+                                                  ng-show="ProductTypeForm.dispatch.$error.pattern">
+                                                    Only Numbers Allowed
                                                 </span>
                                             </div>
                                     </div>

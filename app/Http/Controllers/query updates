@@ -80,3 +80,21 @@ ALTER TABLE `ma_product_overdue_age` CHANGE `category` `category` VARCHAR(50) CH
 
 ALTER TABLE `dispatch` ADD `dispatch_completed_at` DATETIME NULL DEFAULT NULL AFTER `contact`;
 ALTER TABLE `dispatch` ADD `method` TINYINT NULL DEFAULT NULL AFTER `dc_no`;
+
+28/03/2020
+
+ALTER TABLE `ma_product_overdue_age` ADD `pv` TINYINT NOT NULL AFTER `overdue_age`, ADD `wch` TINYINT NOT NULL AFTER `pv`, ADD `jt` TINYINT NOT NULL AFTER `wch`, ADD `testing` TINYINT NOT NULL AFTER `jt`, ADD `dispatch` TINYINT NOT NULL AFTER `testing`;
+
+ALTER TABLE `ma_product_overdue_age` CHANGE `overdue_age` `overdue_age` TINYINT NOT NULL;
+
+ALTER TABLE `ma_product_overdue_age` CHANGE `pv` `pv` INT NOT NULL, CHANGE `wch` `wch` INT NOT NULL, CHANGE `jt` `jt` INT NOT NULL, CHANGE `testing` `testing` INT NOT NULL, CHANGE `dispatch` `dispatch` INT NOT NULL;
+
+CREATE TABLE `emails` ( `email` VARCHAR(100) NOT NULL , `created_by` TINYINT NOT NULL , `created_at` TIMESTAMP NOT NULL , `updated_by` TINYINT NULL DEFAULT NULL , `updated_at` DATETIME NULL DEFAULT NULL , UNIQUE (`email`)) ENGINE = InnoDB;
+
+ALTER TABLE `emails` ADD `send_mail_customers` TINYINT NOT NULL AFTER `email`;
+
+ALTER TABLE `emails` DROP INDEX `email`;
+
+ALTER TABLE `emails` ADD `id` INT NOT NULL AUTO_INCREMENT FIRST, ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `emails` CHANGE `send_mail_customers` `send_mail_to_customers` TINYINT(4) NOT NULL;

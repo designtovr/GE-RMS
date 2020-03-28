@@ -273,6 +273,7 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::get('/users','UserController@Users');
 	Route::get('/roles','RoleController@Roles');
 	Route::get('/rmarefno', 'RMAController@GetRMARefNo');
+	Route::get('/emails','MailController@Emails');
 
 	Route::post('/addcustomers', 'CustomerController@AddCustomer');
 	Route::get('/getcustomer/{id}', 'CustomerController@GetCustomer');
@@ -362,6 +363,8 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::post('/addmaterial', 'MaterialController@AddMaterial');
 
     Route::post('/addsite', 'SiteController@AddSite');
+    Route::post('/addemail', 'MailController@AddEmail');
+    Route::delete('/email/{id}', 'MailController@DeleteEmail');
     Route::post('/printlabel', 'PrintController@PrintLabel');
     Route::post('/printreceipt', 'PrintController@PrintReceipt');
 
@@ -396,4 +399,8 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::post('/exportfile', 'FileExportController@ExportExcelFile');
 
 	Route::get('/exportreceiptfile', 'FileExportController@ExportReceiptFile');
+
+	Route::get('/setemailreceiptor/{value}', 'MailController@SetEmailReceptors');
+
+	Route::get('/getemailreceiptor', 'MailController@GetEmailReceptors');
 });
