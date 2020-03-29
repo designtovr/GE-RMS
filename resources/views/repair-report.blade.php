@@ -26,13 +26,28 @@
                                     <th>
                                         <input id="rmaidFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="RMA No #" ng-change="gridActions.filter()" ng-model="filterrmaid" filter-by="formatted_rma_id" filter-type="text">
                                     </th>
+                                       <th>
+                                        <input id="rmaidFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Family" ng-change="gridActions.filter()" ng-model="filterrmaid" filter-by="code" filter-type="text">
+                                    </th>
+                                       <th>
+                                        <input id="rmaidFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="RMA No #" ng-change="gridActions.filter()" ng-model="filterrmaid" filter-by="formatted_rma_id" filter-type="text">
+                                    </th>
+                                       <th>
+                                        <input id="rmaidFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="RMA No #" ng-change="gridActions.filter()" ng-model="filterrmaid" filter-by="formatted_rma_id" filter-type="text">
+                                    </th>
+                                       <th>
+                                        <input id="rmaidFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="RMA No #" ng-change="gridActions.filter()" ng-model="filterrmaid" filter-by="formatted_rma_id" filter-type="text">
+                                    </th>
+                                       <th>
+                                        <input id="rmaidFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="RMA No #" ng-change="gridActions.filter()" ng-model="filterrmaid" filter-by="formatted_rma_id" filter-type="text">
+                                    </th>
                                     <th>
                                         <input type="text"
                                         class="form-control"
                                         placeholder="From Date"
                                         max-date="dateTo"
                                         ng-model = "dateFrom"
-                                        filter-by="date_unix"
+                                        filter-by="receipt_date"
                                         ng-change="gridActions.filter();"
                                         id="dateFromFilter"
                                         filter-type="dateFrom"
@@ -68,9 +83,9 @@
                                     <button type="button" class="btn btn-outline-secondary btn-sm" ng-click="Reset();gridActions.filter()">Reset</button>
                                 </th>
                                 <th>
-                                        <!-- <button type="button" class="btn btn-outline-primary btn-sm">
+                                        <button type="button" class="btn btn-outline-primary btn-sm">
                                             <i class="fa fa-search"></i>&nbsp; Search
-                                        </button> -->
+                                        </button> 
                                     </th>
                                 </tr>
                             </thead>
@@ -100,62 +115,66 @@
                                         <th sortable="receipt_date" class="sortable">Receipt Date</th>
                                         <th sortable="customer_name" class="sortable">Customer</th>
                                         <th sortable="location" class="sortable">Location</th>
-                                        <th sortable="serial_no" class="sortable">End   Customer</th>
-                                        <th sortable="created_date_unix" class="sortable">Repair Status</th>
-                                        <th sortable="" class="sortable">Family</th>
-                                        <th sortable="" class="sortable">Warranty/Chargeable</th>
-                                        <th sortable="" class="sortable">Model No.</th>
-                                        <th sortable="" class="sortable">Serial No.</th>
-                                        <th sortable="" class="sortable">Repair Initiation</th>
-                                        <th sortable="" class="sortable">Repair Completion</th>
-                                        <th sortable="" class="sortable">Defect Mentioned by Customer</th>
-                                        <th sortable="" class="sortable">Power ON  / Initial Observation at CRC </th>
-                                        <th sortable="" class="sortable">Customer Setting Extraction</th>
-                                        <th sortable="" class="sortable">PCB1 Part No.</th>
-                                        <th sortable="" class="sortable">PCB1 Defective Ser no</th>
-                                        <th sortable="" class="sortable">PCB1 Healthy Ser no</th>
-                                        <th sortable="" class="sortable">PCB2 Part No.</th>
-                                        <th sortable="" class="sortable">PCB2 Defective Ser no</th>
-                                        <th sortable="" class="sortable">PCB2 Healthy Ser no</th>
-                                        <th sortable="" class="sortable">PCB3 Part No.</th>
-                                        <th sortable="" class="sortable">PCB3 Defective Ser no</th>
-                                        <th sortable="" class="sortable">PCB3 Healthy Ser no</th>
-                                        <th sortable="" class="sortable">PCB4 Part No.</th>
-                                        <th sortable="" class="sortable">PCB4 Defective Ser no</th>
-                                        <th sortable="" class="sortable">PCB4 Healthy Ser no</th>
-                                        <th sortable="" class="sortable">PCB5 Part No.</th>
-                                        <th sortable="" class="sortable">PCB5 Defective Ser no</th>
-                                        <th sortable="" class="sortable">PCB5 Healthy Ser no</th>
-                                        <th sortable="" class="sortable">PCB6 Part No.</th>
-                                        <th sortable="" class="sortable">PCB6 Defective Ser no</th>
-                                        <th sortable="" class="sortable">PCB6 Healthy Ser no</th>
-                                        <th sortable="" class="sortable">PCB7 Part No.</th>
-                                        <th sortable="" class="sortable">PCB7 Defective Ser no</th>
-                                        <th sortable="" class="sortable">PCB7 Healthy Ser no</th>
-                                        <th sortable="" class="sortable">PCB8 Part No.</th>
-                                        <th sortable="" class="sortable">PCB8 Defective Ser no</th>
-                                        <th sortable="" class="sortable">PCB8 Healthy Ser no</th>
-                                        <th sortable="" class="sortable">PCB9 Part No.</th>
-                                        <th sortable="" class="sortable">PCB9 Defective Ser no</th>
-                                        <th sortable="" class="sortable">PCB9 Healthy Ser no</th>
-                                         <th sortable="" class="sortable">PCB10 Part No.</th>
-                                        <th sortable="" class="sortable">PCB10 Defective Ser no</th>
-                                        <th sortable="" class="sortable">PCB11 Healthy Ser no</th>
-                                             <th sortable="" class="sortable">PCB11 Part No.</th>
-                                        <th sortable="" class="sortable">PCB11 Defective Ser no</th>
-                                        <th sortable="" class="sortable">PCB11 Healthy Ser no</th>
-                                             <th sortable="" class="sortable">PCB12 Part No.</th>
-                                        <th sortable="" class="sortable">PCB12 Defective Ser no</th>
-                                        <th sortable="" class="sortable">PCB12 Healthy Ser no</th>
-                                        <th sortable="" class="sortable">EXISTING SOFTWARE</th>
-                                        <th sortable="" class="sortable">UPGRADED SOFTWARE</th>
-                                        <th sortable="" class="sortable">Customer Setting Loaded</th>
-                                        <th sortable="" class="sortable">REMARKS by Verification</th>
-                                        <th sortable="" class="sortable">REPAIRED BY</th>
-                                        <th sortable="" class="sortable">Repair Status</th>
-                                        <th sortable="" class="sortable">DOCKET No</th>
-                                        <th sortable="" class="sortable">Delivery Challan Detail</th>
-                                        <th sortable="" class="sortable">Dispatch date</th>
+                                        <th sortable="end_customer" class="sortable">End   Customer</th>
+                                        <th sortable="current_status" class="sortable">Repair Status</th>
+                                        <th sortable="code" class="sortable">Family</th>
+                                        <th sortable="wch_type" class="sortable">Warranty/Chargeable</th>
+                                        <th sortable="part_no" class="sortable">Model No.</th>
+                                        <th sortable="serial_no" class="sortable">Serial No.</th>
+                                        <th sortable="repair_initiated_date" class="sortable">Repair Initiation</th>
+                                        <th sortable="repair_completed_at" class="sortable">Repair Completion</th>
+                                        <th sortable="defect_by_customer" class="sortable">Defect Mentioned by Customer</th>
+                                        <th sortable="power_on_test" class="sortable">Power ON  / Initial Observation at CRC </th>
+                                        <th sortable="download_customer_setting" class="sortable">Customer Setting Extraction</th>
+                                        <th sortable="pcb_part_no_1" class="sortable">PCB1 Part No.</th>
+                                        <th sortable="pcb_defective_pcb_1" class="sortable">PCB1 Defective Ser no</th>
+                                        <th sortable="pcb_new_pcb_1" class="sortable">PCB1 Healthy Ser no</th>
+                                        <th sortable="pcb_part_no_2" class="sortable">PCB2 Part No.</th>
+                                        <th sortable="pcb_defective_pcb_" class="sortable">PCB2 Defective Ser no</th>
+                                        <th sortable="pcb_new_pcb_" class="sortable">PCB2 Healthy Ser no</th>
+                                        <th sortable="pcb_part_no_3" class="sortable">PCB3 Part No.</th>
+                                        <th sortable="pcb_defective_pcb_" class="sortable">PCB3 Defective Ser no</th>
+                                        <th sortable="pcb_new_pcb_" class="sortable">PCB3 Healthy Ser no</th>
+                                        <th sortable="pcb_part_no_4" class="sortable">PCB4 Part No.</th>
+                                        <th sortable="pcb_defective_pcb_" class="sortable">PCB4 Defective Ser no</th>
+                                        <th sortable="pcb_new_pcb_" class="sortable">PCB4 Healthy Ser no</th>
+                                        <th sortable="pcb_part_no_5" class="sortable">PCB5 Part No.</th>
+                                        <th sortable="pcb_defective_pcb_" class="sortable">PCB5 Defective Ser no</th>
+                                        <th sortable="pcb_new_pcb_" class="sortable">PCB5 Healthy Ser no</th>
+                                        <th sortable="pcb_part_no_" class="sortable">PCB6 Part No.</th>
+                                        <th sortable="pcb_defective_pcb_" class="sortable">PCB6 Defective Ser no</th>
+                                        <th sortable="pcb_new_pcb_" class="sortable">PCB6 Healthy Ser no</th>
+                                        <th sortable="pcb_part_no_" class="sortable">PCB7 Part No.</th>
+                                        <th sortable="pcb_defective_pcb_" class="sortable">PCB7 Defective Ser no</th>
+                                        <th sortable="pcb_new_pcb_" class="sortable">PCB7 Healthy Ser no</th>
+                                        <th sortable="pcb_part_no_" class="sortable">PCB8 Part No.</th>
+                                        <th sortable="pcb_defective_pcb_" class="sortable">PCB8 Defective Ser no</th>
+                                        <th sortable="pcb_new_pcb_" class="sortable">PCB8 Healthy Ser no</th>
+                                        <th sortable="pcb_part_no_" class="sortable">PCB9 Part No.</th>
+                                        <th sortable="pcb_defective_pcb_" class="sortable">PCB9 Defective Ser no</th>
+                                        <th sortable="pcb_new_pcb_" class="sortable">PCB9 Healthy Ser no</th>
+                                        <th sortable="pcb_part_no_" class="sortable">PCB9 Part No.</th>
+                                        <th sortable="pcb_defective_pcb_" class="sortable">PCB9 Defective Ser no</th>
+                                        <th sortable="pcb_new_pcb_" class="sortable">PCB9 Healthy Ser no</th>    
+                                         <th sortable="pcb_part_no_" class="sortable">PCB10 Part No.</th>
+                                        <th sortable="pcb_defective_pcb_" class="sortable">PCB10 Defective Ser no</th>
+                                        <th sortable="pcb_new_pcb_" class="sortable">PCB11 Healthy Ser no</th>
+                                             <th sortable="pcb_part_no_" class="sortable">PCB11 Part No.</th>
+                                        <th sortable="pcb_defective_pcb_" class="sortable">PCB11 Defective Ser no</th>
+                                        <th sortable="pcb_new_pcb_" class="sortable">PCB11 Healthy Ser no</th>
+                                             <th sortable="pcb_part_no_" class="sortable">PCB12 Part No.</th>
+                                        <th sortable="pcb_defective_pcb_" class="sortable">PCB12 Defective Ser no</th>
+                                        <th sortable="pcb_new_pcb_" class="sortable">PCB12 Healthy Ser no</th>
+                                        <th sortable="" class="sortable">TRANSFORMER & OTHER COMPONENTS</th>
+                                        <th sortable="existing_sw_version" class="sortable">EXISTING SOFTWARE</th>
+                                        <th sortable="updated_sw_version" class="sortable">UPGRADED SOFTWARE</th>
+                                        <th sortable="download_customer_setting" class="sortable">Customer Setting Loaded</th>
+                                        <th sortable="remark_by_verification" class="sortable">REMARKS by Verification</th>
+                                        <th sortable="repaired_by" class="sortable">REPAIRED BY</th>
+                                        <th sortable="current_status" class="sortable">Repair Status</th>
+                                        <th sortable="dc_no" class="sortable">DOCKET No</th>
+                                        <th sortable="docket_details" class="sortable">Delivery Challan Detail</th>
+                                        <th sortable="dispatched_at" class="sortable">Dispatch date</th>
                                     </tr>
                                 </thead>
                                 <tbody>
