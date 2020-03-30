@@ -32,7 +32,7 @@
                                     <thead>
                                         <tr>
                                             <th>
-                                                <input id="codeFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Email" ng-change="gridActions.filter()" ng-model="filterEmail" filter-by="code" filter-type="text">
+                                                <input id="codeFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Email" ng-change="gridActions.filter()" ng-model="filterEmail" filter-by="email" filter-type="text">
                                             </th>
                                   
                                            <th>
@@ -57,7 +57,7 @@
                                 </button>
                             </li>
                             <li>
-                                <button type="button" class="btn btn-primary btn-md float-right box m-r-10"  ng-click="exportToExcelSave('#sitetable' , 'SiteMaster.xls')">
+                                <button type="button" class="btn btn-primary btn-md float-right box m-r-10"  ng-click="exportToExcelSave('#emailtable' , 'EmailMaster.xls')">
                                     <i class="fa fa-file-excel-o"></i>&nbsp;Export
                                 </button>
                             </li>
@@ -66,11 +66,11 @@
                     <div class="col-md-12">
                         <!-- DATA TABLE-->
                         <div grid-data grid-options="emailgridOptions" grid-actions="gridActions">
-                            <table class="table table-borderless table-data3" id="sitetable" name="sitetable">
+                            <table class="table table-borderless table-data3" id="emailtable" name="emailtable">
                                <thead>
                                     <tr>
                                         <th>Actions</th>
-                                        <th sortable="code" class="sortable">Email</th>
+                                        <th sortable="email" class="sortable">Email</th>
                                     </tr>
                                 </thead>
                                 <tbody>
