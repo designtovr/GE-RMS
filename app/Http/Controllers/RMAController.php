@@ -62,7 +62,7 @@ class RMAController extends Controller
 	public function GetRma($id)
 	{
 		$rma = RMA::selectRaw('rma.*, rma.status as rma_status')->where('rma.id', $id)->first();
-		$rma['unit_information'] = RMAUnitInformation::selectRaw('rma_unit_information.*,pv.id as id,pv.serial_no, pr.part_no,pt.category')->where('rma_id',$id)->leftJoin('physical_verification as pv', 'pv.id', 'rma_unit_information.pv_id')->leftJoin('ma_product as pr', 'pr.id', 'pv.product_id')->leftJoin('ma_product_type as pt', 'pt.id', 'pr.type')->get();
+		$rma['unit_information'] = RMAUnitInformation::selectRaw('rma_unit_information.*,rma_unit_information.pv_id as id,pv.serial_no, pr.part_no,pt.category')->where('rma_id',$id)->leftJoin('physical_verification as pv', 'pv.id', 'rma_unit_information.pv_id')->leftJoin('ma_product as pr', 'pr.id', 'pv.product_id')->leftJoin('ma_product_type as pt', 'pt.id', 'pr.type')->get();
 		$rma['invoice_info'] = RMAInvoiceAddress::where('rma_id', $id)->first();
 		$rma['delivery_info'] = RMADeliveryAddress::where('rma_id', $id)->first();
 		return response()->json(['data' => $rma, 'status' => 'success']);
@@ -227,9 +227,9 @@ class RMAController extends Controller
             //Sending mail
             $mail_result = '';
             if($RMA->service_type == 1)
-                $mail_result = $this->mailRepository->PhysicalVerificationCompletion($RMA);
+                $mail_result = $this->mailRepository->PhysicalVerificationCompletion($RMA, $delivery_info['cc']);
             else if($RMA->service_type == 2)
-                $mail_result = $this->mailRepository->SCPhysicalVerificationCompletion($RMA);
+                $mail_result = $this->mailRepository->SCPhysicalVerificationCompletion($RMA, $delivery_info['cc']);
 
             return response()->json(['data' => $RMA, 'status' => 'success', 'message' => 'RMA Updated Successfully', 'mail_result' => $mail_result], 200);
         }
@@ -383,9 +383,9 @@ class RMAController extends Controller
             //Sending mail
             $mail_result = '';
             if($RMA->service_type == 1)
-                $mail_result = $this->mailRepository->PhysicalVerificationCompletion($RMA);
+                $mail_result = $this->mailRepository->PhysicalVerificationCompletion($RMA, $delivery_info['cc']);
             else if($RMA->service_type == 2)
-                $mail_result = $this->mailRepository->SCPhysicalVerificationCompletion($RMA);
+                $mail_result = $this->mailRepository->SCPhysicalVerificationCompletion($RMA, $delivery_info['cc']);
 
             return response()->json(['data' => $RMA, 'status' => 'success', 'message' => 'RMA Updated Successfully', 'mail_result' => $mail_result], 200);
         }
@@ -761,7 +761,7 @@ class RMAController extends Controller
             }
         }
 
-        $mail_result = $this->mailRepository->SCPhysicalVerificationCompletion($RMAT);
+        $mail_result = $this->mailRepository->SCPhysicalVerificationCompletion($RMAT, $delivery_info['cc']);
 
         return response()->json(['data' => $RMAT, 'status' => 'success', 'message' => 'RMA Created Successfully', 'mail_result' => $mail_result], 200);
     }

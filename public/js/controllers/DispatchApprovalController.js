@@ -68,14 +68,14 @@ app.controller('DispatchApprovalController', ['$scope', '$http','$filter','Notif
 					return;
 				}
 
-				$scope.rma_check1 = $scope.selectedpvs[0].rma_id;
+				/*$scope.rma_check1 = $scope.selectedpvs[0].rma_id;
 				$scope.no_same_rma = false;
 				for (var i = 1; i < $scope.selectedpvs.length; i++) {
-					if ($scope.selectedpvs[i] != $scope.rma_check1)
+					if ($scope.selectedpvs[i].rma_id != $scope.rma_check1)
 						$scope.no_same_rma = true;
 				}
 				if ($scope.no_same_rma)
-					Notification.error("You Selected Different RMA");
+					Notification.error("You Selected Different RMA");*/
 			}
 
 		$scope.exportToExcelSave=function(tableId , filename){
@@ -187,6 +187,18 @@ app.controller('DispatchApprovalController', ['$scope', '$http','$filter','Notif
 			
 		$scope.AddDispatch= function()
 		{
+			if(!$scope.ccValid)
+		   	{
+	      		Notification.error("Enter Valid CC");
+	      		return;
+		   	}
+            
+            if($scope.dispatch.cc == undefined)
+            {
+                  $scope.dispatch.cc = '';
+            }
+
+
 			$http({
 				method: 'post',
 				url: '/ge/adddispatch',
@@ -252,5 +264,33 @@ app.controller('DispatchApprovalController', ['$scope', '$http','$filter','Notif
 		$scope.showdpform = false;
 		$scope.GetPVPriorityList();
 	}
+
+	$scope.ValidateCC = function(form)
+    {
+    	viewValue = $scope.dispatch.cc;
+    	var emails = viewValue.split(',');
+          console.log(emails)
+        // loop that checks every email, returns undefined if one of them fails.
+        var re = /^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/;
+
+        // angular.foreach(emails, function() {
+    	var validityArr = emails.map(function(str)
+    	{
+    		return re.test(str.trim());
+    	}); // sample return is [true, true, true, false, false, false]
+    	var validcc = true;
+    	if(viewValue)
+    	{
+    		angular.forEach(validityArr, function(value) 
+    		{
+    			if(value === false)
+    				validcc = false; 
+    		});
+
+    	} 
+    
+    	form.cc.$error.invalidVal = !validcc;
+    	$scope.ccValid = validcc;
+     } 
 
 	}]);

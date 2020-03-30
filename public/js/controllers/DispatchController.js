@@ -136,10 +136,22 @@ app.controller('DispatchController', ['$scope', '$http','Notification','ChangePV
             {
                 console.log($scope.gridOptions.data);
                 $scope.selectedpvs = [];
+                $scope.first_rma = '';
                 for (var i = 0; i < $scope.gridOptions.data.length; i++) {
                     if ($scope.gridOptions.data[i].create_wc != undefined && $scope.gridOptions.data[i].create_wc)
                     {
                         $scope.selectedpvs.push($scope.gridOptions.data[i].id);
+                        console.log($scope.gridOptions.data[i].rma_id);
+                        if($scope.first_rma == '')
+                            $scope.first_rma = $scope.gridOptions.data[i].rma_id;
+                        else if($scope.first_rma != '')
+                        {
+                            if($scope.first_rma != $scope.gridOptions.data[i].rma_id)
+                            {
+                                Notification.error("Different RMA Selected");
+                                return;
+                            }
+                        }
                     }
                 }
                 if ($scope.selectedpvs.length == 0)

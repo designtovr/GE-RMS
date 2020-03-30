@@ -553,9 +553,12 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 		console.log($scope.selectedpvs)
 		if(!$scope.ccValidDelivery)
 	   	{
-	   			Notification.error("Enter Valid CC");
-	   			return;
+   			Notification.error("Enter Valid CC");
+   			return;
 	   	}
+	   	if($scope.rmaformdata.delivery_info.cc == undefined)
+	   		$scope.rmaformdata.delivery_info.cc = '';
+
 		var dateformatregex = new RegExp(/^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/i);
 		var datestr = $scope.rmaformdata.date;
 		var result = dateformatregex.test(datestr);
@@ -665,6 +668,14 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 			Notification.error("Invalid Date Format");
 			return;
 		}
+		if(!$scope.ccValidDelivery)
+	   	{
+   			Notification.error("Enter Valid CC");
+   			return;
+	   	}
+	   	if($scope.sitecardform.delivery_info.cc == undefined)
+	   		$scope.sitecardform.delivery_info.cc = '';
+	   	
 		$scope.sitecardform.end_customer = $scope.sitecardform.invoice_info.end_customer;
 		$http({
 			url: '/ge/addscrma',
@@ -795,12 +806,17 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 
 	$scope.ccValidDelivery = true;
 
-    $scope.ValidateCC = function(form)
+    $scope.ValidateCC = function(form, page)
     {
-    	viewValue = $scope.rmaformdata.delivery_info.cc;
+    	viewValue = '';
+    	if(page == 'pv')
+    		viewValue = $scope.rmaformdata.delivery_info.cc;
+    	if(page == 'sc')
+    		viewValue = $scope.sitecardform.delivery_info.cc;
+
     	var emails = viewValue.split(',');
         // loop that checks every email, returns undefined if one of them fails.
-        var re = /\S+@\S+\.\S+/;
+        var re = /^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/;
 
         // angular.foreach(emails, function() {
     	var validityArr = emails.map(function(str)

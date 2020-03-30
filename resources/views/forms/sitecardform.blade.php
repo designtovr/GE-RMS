@@ -774,6 +774,26 @@
                         </div>
                         <div class="row form-group">
                             <div class="col col-md-4">
+                                <label for="delivery_cc" class=" form-control-label">CC </label>
+                            </div>
+                            <div class="col-12 col-md-8">
+                                <input 
+                                type="text" 
+                                id="delivery_cc" 
+                                name="delivery_cc"
+                                ng-model="sitecardform.delivery_info.cc" 
+                                placeholder="CC" 
+                                class="form-control"
+                                ng-change="ValidateCC(SiteCardForm6, 'sc')"  
+                                >
+                                <div ng-show="SiteCardForm6.delivery_cc.$touched && SiteCardForm6.delivery_cc.$error.invalidVal">
+                                    <span class="help-block" ><span class="help-block" >Invalid CC Email, Seperate Each Valid Mail ID With ","</span></span>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-4">
                                 <label for="gst_number" class=" form-control-label">GST <span class="mandatory">*</span></label>
                             </div>
                             <div class="col-12 col-md-8">

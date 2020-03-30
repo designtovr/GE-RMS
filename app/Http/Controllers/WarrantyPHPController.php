@@ -88,7 +88,7 @@ class WarrantyPHPController extends Controller
             else if ($WM->move == 2) {
                 PVStatusRepositories::ChangeStatusToCustomerApproval($pv);
             }
-            $mail_result = $this->mailRepository->WCCompletionMail($WM);
+            $mail_result = $this->mailRepository->WCCompletionMail($WM, $warranty['addcc']);
 
             $rms_response = RMSRepositories::MoveRelayToId($pv, '', $WM->move);
 
@@ -143,7 +143,7 @@ class WarrantyPHPController extends Controller
             PVStatusRepositories::ChangeStatusToCustomerApproval($WM->pv_id);
         }
 
-        $mail_result = $this->mailRepository->WCCompletionMail($WM);
+        $mail_result = $this->mailRepository->WCCompletionMail($WM, $warranty['addcc']);
 
         $rca_mail_result = 'Not Required';
         if(array_key_exists('rca', $warranty) && $warranty['rca'])

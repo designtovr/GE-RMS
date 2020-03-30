@@ -290,7 +290,7 @@
                         class="form-control" 
                         >
                         <div ng-show="AddReceiptForm.cc.$touched && AddReceiptForm.cc.$error.invalidVal">
-                            <span class="help-block" >Invalid CC Email</span>
+                            <span class="help-block" >Invalid CC Email, Seperate Each Valid Mail ID With ","</span>
                         </div>
                     </div>
                 </div>

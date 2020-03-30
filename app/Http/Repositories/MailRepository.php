@@ -27,16 +27,23 @@ class MailRepository
 		return config('mail.mail_override');
 	}
 
-	private function GetCCAddress()
+	private function GetCCAddress($cc)
 	{
-		return config('mail.cc_mail');
+		$all_cc = array();
+		if(!is_null($cc))
+		$all_cc = explode(',', $cc);
+		array_push($all_cc, config('mail.cc_mail'));
+		foreach ($all_cc as $key => $cc) {
+			$all_cc[$key] = trim($cc, " ");
+		}
+		return array_unique($all_cc);
 	}
 
-	public function ReceiptMail(ReceiptMaster $receipt)
+	public function ReceiptMail(ReceiptMaster $receipt, $cc)
 	{
 		$receipt = $receipt->toArray();
 		$receipt['email'] = $this->GetToAddress($receipt['email']);
-		$receipt['cc'] = $this->GetCCAddress();
+		$receipt['cc'] = $this->GetCCAddress($cc);
 
 		if (is_null($receipt['email']))
 			return "No Mail Address";
@@ -54,7 +61,7 @@ class MailRepository
  		return "Sent";
 	}
 
-	public function PhysicalVerificationCompletion(RMA $rma)
+	public function PhysicalVerificationCompletion(RMA $rma, $cc)
 	{
 		$receipt = ReceiptMaster::find($rma->receipt_id);
 		if(!$receipt)
@@ -71,7 +78,7 @@ class MailRepository
 
 		$rma_delivery = RMADeliveryAddress::where('rma_id', $rma->id)->first();
 		$data['email'] = $this->GetToAddress($rma_delivery->email);
-		$data['cc'] = $this->GetCCAddress();
+		$data['cc'] = $this->GetCCAddress($cc);
 		$data = $data->toArray();
 
 		try {
@@ -87,7 +94,7 @@ class MailRepository
  		return "Sent";
 	}
 
-	public function SCPhysicalVerificationCompletion(RMA $rma)
+	public function SCPhysicalVerificationCompletion(RMA $rma, $cc)
 	{
 		$receipt = ReceiptMaster::find($rma->receipt_id);
 
@@ -99,7 +106,7 @@ class MailRepository
 
 		$rma_delivery = RMADeliveryAddress::where('rma_id', $rma->id)->first();
 		$data['email'] = $this->GetToAddress($rma_delivery->email);
-		$data['cc'] = $this->GetCCAddress();
+		$data['cc'] = $this->GetCCAddress($cc);
 		$data = $data->toArray();
 
 		try {
@@ -115,7 +122,7 @@ class MailRepository
  		return "Sent";
 	}
 
-	public function WCCompletionMail(WarrantyMaster $warranty)
+	public function WCCompletionMail(WarrantyMaster $warranty, $cc)
 	{
 		$data = PhysicalVerificationMaster::selectRaw('physical_verification.id, physical_verification.receipt_id,physical_verification.serial_no, rui.desc_of_fault as comment, pro.part_no, wc.smp,
 			wc.pcp, wc.type, wc.created_at as created_date, rui.rma_id')
@@ -136,7 +143,7 @@ class MailRepository
 			return "No Mail Id";*/
 
 		$data['email'] = $this->GetToAddress($rma_delivery->email);
-		$data['cc'] = $this->GetCCAddress();
+		$data['cc'] = $this->GetCCAddress($cc);
 		$time = strtotime($data['created_date']. ' + 3 days');
 		$data['created_date'] = date('d/m/Y',$time);
 		$data = $data->toArray();
@@ -153,7 +160,7 @@ class MailRepository
  		return "Sent";
 	}
 
-	public function DispatchCompletionMail($dispatches)
+	public function DispatchCompletionMail($dispatches, $cc)
 	{
 		$dispatch_list = array();
 
@@ -178,7 +185,7 @@ class MailRepository
 			return "RMA Not Found";
 		$rma_delivery = RMADeliveryAddress::where('rma_id', $rma->id)->first();
 		$data['email'] = $this->GetToAddress($rma_delivery->email);
-		$data['cc'] = $this->GetCCAddress();
+		$data['cc'] = $this->GetCCAddress($cc);
 
 		try {
 			Mail::send('mails.dispatchcompletion',$data, function ($message) use ($data, $rma) {

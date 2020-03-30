@@ -156,7 +156,7 @@ class ReceiptController extends Controller
         }
         $mail_result = 'No Mail Id';
         if(isset($receipt['email']) && !is_null($receipt['email']))
-            $mail_result = $this->mailRepository->ReceiptMail($RM); 
+            $mail_result = $this->mailRepository->ReceiptMail($RM, $receipt['cc']); 
         $RM['customer'] = $name->name;
 
         return response()->json(['data' => $RM, 'status' => 'success', 'message' => $message, 'mail_result' => $mail_result], 200);

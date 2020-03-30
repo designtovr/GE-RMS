@@ -24,9 +24,15 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 	   	console.log($scope.ccValid);
 	   	if(!$scope.ccValid)
 	   	{
-	   			Notification.error("Enter Valid CC");
-	   			return;
+      		Notification.error("Enter Valid CC");
+      		return;
 	   	}
+            
+            if($scope.receipt.cc == undefined)
+            {
+                  $scope.receipt.cc = '';
+            }
+
 	   	$http({
 	   		method: 'post',
 	   		url: '/ge/addreceipt',
@@ -175,8 +181,9 @@ var blob = new Blob([e.format(template, ctx)], { type: "application/vnd.ms-excel
             {
             	viewValue = $scope.receipt.cc;
             	var emails = viewValue.split(',');
+                  console.log(emails)
                 // loop that checks every email, returns undefined if one of them fails.
-                var re = /\S+@\S+\.\S+/;
+                var re = /^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/;
 
                 // angular.foreach(emails, function() {
             	var validityArr = emails.map(function(str)
@@ -196,7 +203,7 @@ var blob = new Blob([e.format(template, ctx)], { type: "application/vnd.ms-excel
             
             	form.cc.$error.invalidVal = !validcc;
             	$scope.ccValid = validcc;
-
+                  console.log($scope.receipt.cc)
              }   
 
 

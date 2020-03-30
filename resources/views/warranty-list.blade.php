@@ -680,6 +680,30 @@
                                                 <div class="col-md-12">
                                                     <div class="row form-group">
                                                         <div class="col col-md-3">
+                                                          <label for="addcc" class=" form-control-label"><b>Add Cc: </b>
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-12 col-md-9">
+                                                            <input 
+                                                            type="text" 
+                                                            id="addcc"  
+                                                            placeholder="Cc" 
+                                                            name="addcc" 
+                                                            ng-change="ValidateCC(AddWarrantyForm)"
+                                                            ng-model="warrantymodal.addcc"
+                                                            class="form-control"
+                                                            >
+                                                            <div ng-show="AddWarrantyForm.addcc.$touched && AddWarrantyForm.addcc.$error.invalidVal">
+                                                                <span class="help-block" >Invalid CC Email, Seperate Each Valid Mail ID With ","</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row p-t-20">
+                                                <div class="col-md-12">
+                                                    <div class="row form-group">
+                                                        <div class="col col-md-3">
                                                             <label for="comment" class=" form-control-label"><b>Comment</b>
                                                             </label>
                                                             </div>
@@ -773,35 +797,6 @@
                                                                         </ui-select-choices>
                                                                     </ui-select>
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                                <div class="row form-group">
-                                                                    <div class="col col-md-3">
-                                                                      <label for="addcc" class=" form-control-label"><b>Add Cc: </b>
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="col-12 col-md-9">
-                                                                        <input 
-                                                                        type="text" 
-                                                                        id="addcc"  
-                                                                        placeholder="Mails..." 
-                                                                        name="addcc" 
-                                                                        ng-change="ValidateCC(AddWarrantyForm)"  
-
-                                                                        ng-model="warrantymodal.addcc"
-                                                                        class="form-control"
-                                                                        >
-
-                        <div ng-show="AddWarrantyForm.addcc.$touched && AddWarrantyForm.addcc.$error.invalidVal">
-                            <span class="help-block" >Invalid CC Email</span>
-                        </div>
-                                                                </div>
-
-
-                                                                              <div class="col-12 col-md-6">
-                  
-                    </div>
                                                             </div>
                                                         </div>
                                                     </div>

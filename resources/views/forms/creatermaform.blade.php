@@ -836,7 +836,7 @@
 
                         <div class="row form-group">
                             <div class="col col-md-4">
-                                <label for="delivery_email" class=" form-control-label">CC </label>
+                                <label for="delivery_cc" class=" form-control-label">CC </label>
                             </div>
                             <div class="col-12 col-md-8">
                                 <input 
@@ -846,10 +846,10 @@
                                 ng-model="rmaformdata.delivery_info.cc" 
                                 placeholder="CC" 
                                 class="form-control"
-                                ng-change="ValidateCC(RMAForm6)"  
+                                ng-change="ValidateCC(RMAForm6, 'pv')"  
                                 >
                                 <div ng-show="RMAForm6.delivery_cc.$touched && RMAForm6.delivery_cc.$error.invalidVal">
-                                    <span class="help-block" >Invalid CC Email</span>
+                                    <span class="help-block" ><span class="help-block" >Invalid CC Email, Seperate Each Valid Mail ID With ","</span></span>
                                 </div>
 
                             </div>

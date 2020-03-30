@@ -60,6 +60,7 @@ class DispatchController extends Controller
                 $DM->concern_name = array_key_exists('concern_name', $dispatch)?$dispatch['concern_name']:'';
                 $DM->contact = array_key_exists('contact', $dispatch)?$dispatch['contact']:'';
             }
+            $DM->cc = $dispatch['cc'];
             $DM->created_by = Auth::id();
             $DM->save();
 
@@ -76,6 +77,7 @@ class DispatchController extends Controller
         $pvs = $request->get('selectedpvs');
         $dispatch_list = array();
 
+        $all_cc = array();
         foreach ($pvs as $key => $pv) {
             $DM = DispatchMaster::where('pv_id', $pv)->first();
             if($DM)
@@ -94,10 +96,12 @@ class DispatchController extends Controller
                 RMSRepositories::DeleteRMS($DM->pv_id);
 
                 array_push($dispatch_list, $DM);
+
+                array_push($all_cc, $DM->cc);
             }
         }
 
-        $mail_result = $this->mailRepository->DispatchCompletionMail($dispatch_list); 
+        $mail_result = $this->mailRepository->DispatchCompletionMail($dispatch_list, implode(',', $all_cc)); 
 
         return response()->json(['data' => $pvs, 'status' => 'success', 'message' => 'Dispatched Successfully', 'mail_result' => $mail_result], 200);
     }

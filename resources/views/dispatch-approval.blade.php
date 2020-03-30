@@ -338,6 +338,25 @@
                                         required>
                                     </div>
                                 </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="cc" class=" form-control-label">CC</label>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <input 
+                                        type="text"
+                                        ng-change="ValidateCC(DispatchForm)"  
+                                        id="cc" 
+                                        name="cc" 
+                                        ng-model="dispatch.cc" 
+                                        placeholder="CC" 
+                                        class="form-control" 
+                                        >
+                                        <div ng-show="DispatchForm.cc.$touched && DispatchForm.cc.$error.invalidVal">
+                                            <span class="help-block" >Invalid CC Email, Seperate Each Valid Mail ID With ","</span>
+                                        </div>
+                                    </div>
+                                </div>
     	                	</form>
     	                </div>
     	                <div class="card-footer">

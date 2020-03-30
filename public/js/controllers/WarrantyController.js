@@ -219,6 +219,10 @@ app.controller('WarrantyController' ,['$scope', '$http','Notification' , 'DataSh
 	   			Notification.error("Enter Valid CC");
 	   			return;
 	   	}
+	   	if($scope.warrantymodal.addcc == undefined)
+        {
+              $scope.warrantymodal.addcc = '';
+        }
 		console.log($scope.warrantymodal);
 		if (!$scope.warrantymodal.smp)
 		{
@@ -346,9 +350,13 @@ app.controller('WarrantyController' ,['$scope', '$http','Notification' , 'DataSh
 	{
 		if(!$scope.ccValid)
 	   	{
-	   			Notification.error("Enter Valid CC");
-	   			return;
+   			Notification.error("Enter Valid CC");
+   			return;
 	   	}
+	   	if($scope.warrantymodal.addcc == undefined)
+        {
+              $scope.warrantymodal.addcc = '';
+        }
 		$http({
 			method: 'post',
 			url: '/ge/updatewc',
@@ -384,7 +392,7 @@ app.controller('WarrantyController' ,['$scope', '$http','Notification' , 'DataSh
     	viewValue = $scope.warrantymodal.addcc;
     	var emails = viewValue.split(',');
         // loop that checks every email, returns undefined if one of them fails.
-        var re = /\S+@\S+\.\S+/;
+        var re = /^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/;
 
         // angular.foreach(emails, function() {
     	var validityArr = emails.map(function(str)
