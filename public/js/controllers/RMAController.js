@@ -551,6 +551,11 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 	{
 		console.log($scope.rmaformdata)
 		console.log($scope.selectedpvs)
+		if(!$scope.ccValidDelivery)
+	   	{
+	   			Notification.error("Enter Valid CC");
+	   			return;
+	   	}
 		var dateformatregex = new RegExp(/^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/i);
 		var datestr = $scope.rmaformdata.date;
 		var result = dateformatregex.test(datestr);
@@ -787,5 +792,36 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 			}
 		});
 	}
+
+	$scope.ccValidDelivery = true;
+
+    $scope.ValidateCC = function(form)
+    {
+    	viewValue = $scope.rmaformdata.delivery_info.cc;
+    	var emails = viewValue.split(',');
+        // loop that checks every email, returns undefined if one of them fails.
+        var re = /\S+@\S+\.\S+/;
+
+        // angular.foreach(emails, function() {
+    	var validityArr = emails.map(function(str)
+    	{
+    		return re.test(str.trim());
+    	}); // sample return is [true, true, true, false, false, false]
+    	var validcc = true;
+    	if(viewValue)
+    	{
+    		angular.forEach(validityArr, function(value) 
+    		{
+    			if(value === false)
+    				validcc = false; 
+    		});
+
+    	} 
+    
+    	form.delivery_cc.$error.invalidVal = !validcc;
+    	$scope.ccValidDelivery = validcc;
+
+     }   
+
 
 }]);

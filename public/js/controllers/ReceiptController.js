@@ -21,6 +21,12 @@ app.controller('ReceiptController', ['$scope', '$http', 'Notification' ,'$filter
 	   $scope.AddReceipt= function()
 	   {
 	   	console.log($scope.receipt);
+	   	console.log($scope.ccValid);
+	   	if(!$scope.ccValid)
+	   	{
+	   			Notification.error("Enter Valid CC");
+	   			return;
+	   	}
 	   	$http({
 	   		method: 'post',
 	   		url: '/ge/addreceipt',
@@ -162,28 +168,36 @@ var blob = new Blob([e.format(template, ctx)], { type: "application/vnd.ms-excel
             	$scope.editReceipt = false;
             }
 
-            $scope.validcc = true;
 
+            $scope.ccValid = true;
 
-            $scope.ValidateCC = function()
+            $scope.ValidateCC = function(form)
             {
-                  viewValue = AddReceipt.cc;
-                  console.log(viewValue);
-                        var emails = viewValue.split(',');
-                        // loop that checks every email, returns undefined if one of them fails.
-                        var re = /\S+@\S+\.\S+/;
+            	viewValue = $scope.receipt.cc;
+            	var emails = viewValue.split(',');
+                // loop that checks every email, returns undefined if one of them fails.
+                var re = /\S+@\S+\.\S+/;
 
-                        // angular.foreach(emails, function() {
-                          var validityArr = emails.map(function(str){
-                            return re.test(str.trim());
-                        }); // sample return is [true, true, true, false, false, false]
-                          console.log(emails, validityArr); 
-                          var validcc = true;
-                          angular.forEach(validityArr, function(value) {
-                              if(value === false)
-                                  validcc = false; 
-                        }); 
-            }   
+                // angular.foreach(emails, function() {
+            	var validityArr = emails.map(function(str)
+            	{
+            		return re.test(str.trim());
+            	}); // sample return is [true, true, true, false, false, false]
+            	var validcc = true;
+            	if(viewValue)
+            	{
+            		angular.forEach(validityArr, function(value) 
+            		{
+            			if(value === false)
+            				validcc = false; 
+            		});
+
+            	} 
+            
+            	form.cc.$error.invalidVal = !validcc;
+            	$scope.ccValid = validcc;
+
+             }   
 
 
             $scope.PrintReceipts = function($data)

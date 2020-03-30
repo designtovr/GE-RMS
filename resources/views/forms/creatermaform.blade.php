@@ -833,6 +833,29 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row form-group">
+                            <div class="col col-md-4">
+                                <label for="delivery_email" class=" form-control-label">CC </label>
+                            </div>
+                            <div class="col-12 col-md-8">
+                                <input 
+                                type="text" 
+                                id="delivery_cc" 
+                                name="delivery_cc"
+                                ng-model="rmaformdata.delivery_info.cc" 
+                                placeholder="CC" 
+                                class="form-control"
+                                ng-change="ValidateCC(RMAForm6)"  
+                                >
+                                <div ng-show="RMAForm6.delivery_cc.$touched && RMAForm6.delivery_cc.$error.invalidVal">
+                                    <span class="help-block" >Invalid CC Email</span>
+                                </div>
+
+                            </div>
+                        </div>
+
+
                         <div class="row form-group">
                             <div class="col col-md-4">
                                 <label for="gst_number" class=" form-control-label">GST <span class="mandatory">*</span></label>

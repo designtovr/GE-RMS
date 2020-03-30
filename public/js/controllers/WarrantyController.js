@@ -214,6 +214,11 @@ app.controller('WarrantyController' ,['$scope', '$http','Notification' , 'DataSh
 
 	$scope.AddWC= function()
 	{
+		if(!$scope.ccValid)
+	   	{
+	   			Notification.error("Enter Valid CC");
+	   			return;
+	   	}
 		console.log($scope.warrantymodal);
 		if (!$scope.warrantymodal.smp)
 		{
@@ -339,6 +344,11 @@ app.controller('WarrantyController' ,['$scope', '$http','Notification' , 'DataSh
 
 	$scope.UpdateWC = function()
 	{
+		if(!$scope.ccValid)
+	   	{
+	   			Notification.error("Enter Valid CC");
+	   			return;
+	   	}
 		$http({
 			method: 'post',
 			url: '/ge/updatewc',
@@ -365,5 +375,35 @@ app.controller('WarrantyController' ,['$scope', '$http','Notification' , 'DataSh
 			}
 		});
 	}
+
+
+    $scope.ccValid = true;
+
+    $scope.ValidateCC = function(form)
+    {
+    	viewValue = $scope.warrantymodal.addcc;
+    	var emails = viewValue.split(',');
+        // loop that checks every email, returns undefined if one of them fails.
+        var re = /\S+@\S+\.\S+/;
+
+        // angular.foreach(emails, function() {
+    	var validityArr = emails.map(function(str)
+    	{
+    		return re.test(str.trim());
+    	}); // sample return is [true, true, true, false, false, false]
+    	var validcc = true;
+    	if(viewValue)
+    	{
+    		angular.forEach(validityArr, function(value) 
+    		{
+    			if(value === false)
+    				validcc = false; 
+    		});
+
+    	} 
+    
+    	form.addcc.$error.invalidVal = !validcc;
+    	$scope.ccValid = validcc;
+     } 
 
 }]);

@@ -787,10 +787,21 @@
                                                                         id="addcc"  
                                                                         placeholder="Mails..." 
                                                                         name="addcc" 
+                                                                        ng-change="ValidateCC(AddWarrantyForm)"  
+
                                                                         ng-model="warrantymodal.addcc"
                                                                         class="form-control"
                                                                         >
+
+                        <div ng-show="AddWarrantyForm.addcc.$touched && AddWarrantyForm.addcc.$error.invalidVal">
+                            <span class="help-block" >Invalid CC Email</span>
+                        </div>
                                                                 </div>
+
+
+                                                                              <div class="col-12 col-md-6">
+                  
+                    </div>
                                                             </div>
                                                         </div>
                                                     </div>

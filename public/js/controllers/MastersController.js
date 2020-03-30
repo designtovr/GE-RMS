@@ -222,9 +222,21 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		});
 	}
 
+	$scope.sendMailToggle  = false;
 	$scope.getemails = function()
 	{
-		$http({
+
+
+			$http({
+		  method: 'GET',
+		  url: '/ge/getemailreceiptor'
+		}).then(function success(response) {
+			var c = Number(response.data.data.send_mail_to_customer);
+			$scope.sendMailToggle = Boolean(c);
+		}, function error(response) {
+		});
+
+				$http({
 		  method: 'GET',
 		  url: '/ge/emails'
 		}).then(function success(response) {
@@ -232,6 +244,18 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		    $scope.emailgridOptions.data = response.data.data;
 		}, function error(response) {
 		});
+	}
+
+	$scope.MailToggle = function()
+	{
+		console.log($scope.sendMailToggle);
+			$http({
+					method: 'GET',
+					url: '/ge/setemailreceiptor/' + Number($scope.sendMailToggle),
+				}).then(function success(response) {
+				}, function error(response) {
+		});
+
 	}
 
 	$scope.getracktypes = function()
