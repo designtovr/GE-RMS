@@ -46,12 +46,16 @@ app.controller('RepairReportController', ['$scope', '$http', '$window', 'ExcelSa
 
 	$scope.ResetSearch = function()
 	{
-		$scope.filterRId = '';
-		$scope.rmaFilter = '';
-		$scope.rcidFilter = '';
+		$scope.filterrid = '';
+		$scope.filterrmaid = '';
+		$scope.filtermodelno = '';
+		$scope.filterserialno = '';
+		$scope.filtercode = '';
 		$scope.filterSerialNo = '';
-		$scope.dateTo = '';
+		$scope.customerFilter = '';
 		$scope.dateFrom = '';
+		$scope.dateTo = '';
+
 	}
 
 }]);

@@ -20,27 +20,24 @@
                         <table class="table table-borderless table-data3 table-custom">
                             <thead>
                                 <tr>
+                               
                                     <th>
-                                        <input id="ridFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Receipt ID #" ng-change="gridActions.filter()" ng-model="filterid" filter-by="formatted_receipt_id" filter-type="text">
-                                    </th>
-                                    <th>
-                                        <input id="rmaidFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="RMA No #" ng-change="gridActions.filter()" ng-model="filterrmaid" filter-by="formatted_rma_id" filter-type="text">
+                                        <input id="rmaidFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="RMA No #" ng-change="gridActions.filter()" ng-model="filterrmaid" filter-by="formatted_receipt_id" filter-type="text">
                                     </th>
                                        <th>
-                                        <input id="rmaidFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Family" ng-change="gridActions.filter()" ng-model="filterrmaid" filter-by="code" filter-type="text">
+                                        <input id="family" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Family" ng-change="gridActions.filter()" ng-model="filtercode" filter-by="code" filter-type="text">
                                     </th>
                                        <th>
-                                        <input id="rmaidFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="RMA No #" ng-change="gridActions.filter()" ng-model="filterrmaid" filter-by="formatted_rma_id" filter-type="text">
+                                        <input id="modelFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Model #" ng-change="gridActions.filter()" ng-model="filtermodelno" filter-by="part_no" filter-type="text">
                                     </th>
                                        <th>
-                                        <input id="rmaidFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="RMA No #" ng-change="gridActions.filter()" ng-model="filterrmaid" filter-by="formatted_rma_id" filter-type="text">
+                                        <input id="serial_noFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Serial #" ng-change="gridActions.filter()" ng-model="filterserialno" filter-by="serial_no" filter-type="text">
                                     </th>
-                                       <th>
-                                        <input id="rmaidFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="RMA No #" ng-change="gridActions.filter()" ng-model="filterrmaid" filter-by="formatted_rma_id" filter-type="text">
+
+                                         <th>
+                                        <input id="cusFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Customer" ng-change="gridActions.filter()" ng-model="customerFilter" filter-by="customer" filter-type="text">
                                     </th>
-                                       <th>
-                                        <input id="rmaidFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="RMA No #" ng-change="gridActions.filter()" ng-model="filterrmaid" filter-by="formatted_rma_id" filter-type="text">
-                                    </th>
+                                
                                     <th>
                                         <input type="text"
                                         class="form-control"
@@ -67,26 +64,12 @@
                                         close-text="Close">
                                     </th>
                                     <th>
-                                     <input id="customerFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Customer Name" ng-change="gridActions.filter()" ng-model="filterCustomer" filter-by="customer_name" filter-type="text">
-                                 </th>
-                                 <th>
-                                    <input id="docketdetailsFilter"
-                                    type="text"
-                                    class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched"
-                                    placeholder="Docket Details"
-                                    ng-change="gridActions.filter();"
-                                    ng-model="filterdocketdetails"
-                                    filter-by="docket_details"
-                                    filter-type="text">
-                                </th>
+                               
+                          
                                 <th>
-                                    <button type="button" class="btn btn-outline-secondary btn-sm" ng-click="Reset();gridActions.filter()">Reset</button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" ng-click="ResetSearch();gridActions.filter()">Reset</button>
                                 </th>
-                                <th>
-                                        <button type="button" class="btn btn-outline-primary btn-sm">
-                                            <i class="fa fa-search"></i>&nbsp; Search
-                                        </button> 
-                                    </th>
+                     
                                 </tr>
                             </thead>
                         </table>
@@ -111,9 +94,9 @@
                                 <thead>
                                     <tr>
                                         <th>Actions</th>
-                                        <th sortable="formatted_rma_id" class="sortable">RMA No</th>
+                                        <th sortable="formatted_receipt_id" class="sortable">RMA No</th>
                                         <th sortable="receipt_date" class="sortable">Receipt Date</th>
-                                        <th sortable="customer_name" class="sortable">Customer</th>
+                                        <th sortable="customer" class="sortable">Customer</th>
                                         <th sortable="location" class="sortable">Location</th>
                                         <th sortable="end_customer" class="sortable">End   Customer</th>
                                         <th sortable="current_status" class="sortable">Repair Status</th>
@@ -186,7 +169,7 @@
                                                 </button>
                                             </div>
                                         </td>
-                                        <td ng-bind="item.formatted_receipt_id"></td>
+                                        <td ng-bind="item.formatted_rma_id"></td>
                                         <td ng-bind="item.receipt_date  | date:'dd/MM/yyyy'"></td>
                                         <td ng-bind="item.customer"></td>
                                         <td ng-bind="item.location"></td>
