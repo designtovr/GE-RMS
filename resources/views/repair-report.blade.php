@@ -113,42 +113,39 @@
                                         <th sortable="pcb_defective_pcb_1" class="sortable">PCB1 Defective Ser no</th>
                                         <th sortable="pcb_new_pcb_1" class="sortable">PCB1 Healthy Ser no</th>
                                         <th sortable="pcb_part_no_2" class="sortable">PCB2 Part No.</th>
-                                        <th sortable="pcb_defective_pcb_" class="sortable">PCB2 Defective Ser no</th>
-                                        <th sortable="pcb_new_pcb_" class="sortable">PCB2 Healthy Ser no</th>
+                                        <th sortable="pcb_defective_pcb_2" class="sortable">PCB2 Defective Ser no</th>
+                                        <th sortable="pcb_new_pcb_2" class="sortable">PCB2 Healthy Ser no</th>
                                         <th sortable="pcb_part_no_3" class="sortable">PCB3 Part No.</th>
-                                        <th sortable="pcb_defective_pcb_" class="sortable">PCB3 Defective Ser no</th>
-                                        <th sortable="pcb_new_pcb_" class="sortable">PCB3 Healthy Ser no</th>
+                                        <th sortable="pcb_defective_pcb_3" class="sortable">PCB3 Defective Ser no</th>
+                                        <th sortable="pcb_new_pcb_3" class="sortable">PCB3 Healthy Ser no</th>
                                         <th sortable="pcb_part_no_4" class="sortable">PCB4 Part No.</th>
-                                        <th sortable="pcb_defective_pcb_" class="sortable">PCB4 Defective Ser no</th>
-                                        <th sortable="pcb_new_pcb_" class="sortable">PCB4 Healthy Ser no</th>
+                                        <th sortable="pcb_defective_pcb_4" class="sortable">PCB4 Defective Ser no</th>
+                                        <th sortable="pcb_new_pcb_4" class="sortable">PCB4 Healthy Ser no</th>
                                         <th sortable="pcb_part_no_5" class="sortable">PCB5 Part No.</th>
-                                        <th sortable="pcb_defective_pcb_" class="sortable">PCB5 Defective Ser no</th>
-                                        <th sortable="pcb_new_pcb_" class="sortable">PCB5 Healthy Ser no</th>
-                                        <th sortable="pcb_part_no_" class="sortable">PCB6 Part No.</th>
-                                        <th sortable="pcb_defective_pcb_" class="sortable">PCB6 Defective Ser no</th>
-                                        <th sortable="pcb_new_pcb_" class="sortable">PCB6 Healthy Ser no</th>
-                                        <th sortable="pcb_part_no_" class="sortable">PCB7 Part No.</th>
-                                        <th sortable="pcb_defective_pcb_" class="sortable">PCB7 Defective Ser no</th>
-                                        <th sortable="pcb_new_pcb_" class="sortable">PCB7 Healthy Ser no</th>
-                                        <th sortable="pcb_part_no_" class="sortable">PCB8 Part No.</th>
-                                        <th sortable="pcb_defective_pcb_" class="sortable">PCB8 Defective Ser no</th>
-                                        <th sortable="pcb_new_pcb_" class="sortable">PCB8 Healthy Ser no</th>
-                                        <th sortable="pcb_part_no_" class="sortable">PCB9 Part No.</th>
-                                        <th sortable="pcb_defective_pcb_" class="sortable">PCB9 Defective Ser no</th>
-                                        <th sortable="pcb_new_pcb_" class="sortable">PCB9 Healthy Ser no</th>
-                                        <th sortable="pcb_part_no_" class="sortable">PCB9 Part No.</th>
-                                        <th sortable="pcb_defective_pcb_" class="sortable">PCB9 Defective Ser no</th>
-                                        <th sortable="pcb_new_pcb_" class="sortable">PCB9 Healthy Ser no</th>    
-                                         <th sortable="pcb_part_no_" class="sortable">PCB10 Part No.</th>
-                                        <th sortable="pcb_defective_pcb_" class="sortable">PCB10 Defective Ser no</th>
-                                        <th sortable="pcb_new_pcb_" class="sortable">PCB11 Healthy Ser no</th>
-                                             <th sortable="pcb_part_no_" class="sortable">PCB11 Part No.</th>
-                                        <th sortable="pcb_defective_pcb_" class="sortable">PCB11 Defective Ser no</th>
-                                        <th sortable="pcb_new_pcb_" class="sortable">PCB11 Healthy Ser no</th>
-                                             <th sortable="pcb_part_no_" class="sortable">PCB12 Part No.</th>
-                                        <th sortable="pcb_defective_pcb_" class="sortable">PCB12 Defective Ser no</th>
-                                        <th sortable="pcb_new_pcb_" class="sortable">PCB12 Healthy Ser no</th>
-                                        <th sortable="" class="sortable">TRANSFORMER & OTHER COMPONENTS</th>
+                                        <th sortable="pcb_defective_pcb_5" class="sortable">PCB5 Defective Ser no</th>
+                                        <th sortable="pcb_new_pcb_5" class="sortable">PCB5 Healthy Ser no</th>
+                                        <th sortable="pcb_part_no_6" class="sortable">PCB6 Part No.</th>
+                                        <th sortable="pcb_defective_pcb_6" class="sortable">PCB6 Defective Ser no</th>
+                                        <th sortable="pcb_new_pcb_6" class="sortable">PCB6 Healthy Ser no</th>
+                                        <th sortable="pcb_part_no_7" class="sortable">PCB7 Part No.</th>
+                                        <th sortable="pcb_defective_pcb_7" class="sortable">PCB7 Defective Ser no</th>
+                                        <th sortable="pcb_new_pcb_7" class="sortable">PCB7 Healthy Ser no</th>
+                                        <th sortable="pcb_part_no_8" class="sortable">PCB8 Part No.</th>
+                                        <th sortable="pcb_defective_pcb_8" class="sortable">PCB8 Defective Ser no</th>
+                                        <th sortable="pcb_new_pcb_8" class="sortable">PCB8 Healthy Ser no</th>
+                                        <th sortable="pcb_part_no_9" class="sortable">PCB9 Part No.</th>
+                                        <th sortable="pcb_defective_pcb_9" class="sortable">PCB9 Defective Ser no</th>
+                                        <th sortable="pcb_new_pcb_9" class="sortable">PCB9 Healthy Ser no</th>
+                     
+                                         <th sortable="pcb_part_no_10" class="sortable">PCB10 Part No.</th>
+                                        <th sortable="pcb_new_pcb_10" class="sortable">PCB9 Healthy Ser no</th>
+                                        <th sortable="pcb_defective_pcb_10" class="sortable">PCB10 Defective Ser no</th>
+                                        <th sortable="pcb_new_pcb_11" class="sortable">PCB11 Healthy Ser no</th>
+                                             <th sortable="pcb_part_no_11" class="sortable">PCB11 Part No.</th>
+                                        <th sortable="pcb_defective_pcb_11" class="sortable">PCB11 Defective Ser no</th>
+                                             <th sortable="pcb_part_no_12" class="sortable">PCB12 Part No.</th>
+                                        <th sortable="pcb_defective_pcb_12" class="sortable">PCB12 Defective Ser no</th>
+                                        <th sortable="pcb_new_pcb_12" class="sortable">PCB12 Healthy Ser no</th>
                                         <th sortable="existing_sw_version" class="sortable">EXISTING SOFTWARE</th>
                                         <th sortable="updated_sw_version" class="sortable">UPGRADED SOFTWARE</th>
                                         <th sortable="download_customer_setting" class="sortable">Customer Setting Loaded</th>
@@ -229,7 +226,6 @@
                                         <td ng-bind="item.dc_no"></td>
                                         <td ng-bind="item.docket_details"></td>
                                         <td ng-bind="item.dispatched_at"></td>
-
                                     </tr>
                                 </tbody>
                             </table>
