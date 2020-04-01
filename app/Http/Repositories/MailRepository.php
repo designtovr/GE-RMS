@@ -30,8 +30,8 @@ class MailRepository
 	private function GetCCAddress($cc)
 	{
 		$all_cc = array();
-		if(!is_null($cc))
-		$all_cc = explode(',', $cc);
+		if(!is_null($cc) && $cc != '')
+			$all_cc = explode(',', $cc);
 		array_push($all_cc, config('mail.cc_mail'));
 		foreach ($all_cc as $key => $cc) {
 			$all_cc[$key] = trim($cc, " ");
@@ -259,9 +259,11 @@ class MailRepository
 				array_push($emails, $em->email);
 			}
 			$data['emails'] = $emails;
+			$data['cc'] = $this->GetCCAddress(null);
 			Mail::send('mails.daily-report', $data, function ($message) use ($data) {
 				$message->subject('Daily Report: '.Carbon::now()->format('d/m/Y'));
 			    $message->to($data['emails']);
+			    $message->cc($data['cc']);
 			});
 			return 'Mail Sent Successfully';
 		} catch (\Exception $e) {
