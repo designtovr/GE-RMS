@@ -48,9 +48,9 @@
 		font-weight: 600;
 		}
 		table,  td {
-		border: 1px solid black;
+		border: 3px solid black;
 		font-family: 'Poppins', sans-serif;
-		font-size: 18px ;
+		font-size: 15px ;
 		color: #0a0a0a ;
 		font-weight: bolder ;
 		}
@@ -75,13 +75,13 @@
 		{
 		color: white;
 		background: -webkit-linear-gradient(90deg, #001235 0%, #0259b5 100%) ;
-		border: 1px solid black;
+		border: 3px solid black;
 		font-family: 'Poppins', sans-serif ;
-		font-weight: 600;
+		font-weight: 900;
 		}
 		th
 		{
-		border: 1px solid black;
+		border: 3px solid black;
 		font-family: 'Poppins', sans-serif ;
 		font-weight: 600;
 		padding: 10px;
@@ -105,9 +105,13 @@
 							<th>Cumulative Relays</th>
 						</thead>
 						<tbody class="bluebody">
-							@foreach ($received_relays as $relays)
-							<tr>
-								<td >{{$relays->type_name}}</td>
+							@foreach ($received_relays as $key => $relays)
+							@if($key % 2 == 0)
+							<tr style="background-color: #BDD7EE">
+							@else
+							<tr style="background-color: #DDEBF7;">
+							@endif
+								<td style="background-color: #5B9BD5">{{$relays->type_name}}</td>
 								<td >{{$relays->total}}</td>
 								<td >{{$relays->cumulative}}</td>
 							</tr>
@@ -128,8 +132,12 @@
 					<th>Total</th>
 				</thead>
 				<tbody class="greenbody">
-					@foreach ($total_relays_completed as $relays)
-					<tr>
+					@foreach ($total_relays_completed as $key => $relays)
+					@if($key % 2 == 0)
+					<tr style="background-color: #C6E0B4">
+					@else
+					<tr style="background-color: #E2EFDA;">
+					@endif
 						<td >{{$relays->type_name}}</td>
 						<td >{{$relays->repair}}</td>
 						<td >{{$relays->test}}</td>
@@ -153,9 +161,13 @@
 							<th>Total</th>
 						</thead>
 						<tbody class = "yellowbody">
-							@foreach ($total_relays_overdues as $relays)
-							<tr>
-								<td >{{$relays->type_name}}</td>
+							@foreach ($total_relays_overdues as $key => $relays)
+							@if($key % 2 == 0)
+							<tr style="background-color: #D9D9D9">
+							@else
+							<tr style="background-color: #f2f2f2;">
+							@endif
+								<td style="background-color: #FFC000">{{$relays->type_name}}</td>
 								<td >{{$relays->repair}}</td>
 								<td >{{$relays->test}}</td>
 								<td >{{$relays->dispatch}}</td>
@@ -175,9 +187,13 @@
 							<th>Total</th>
 						</thead>
 						<tbody class="greenbody">
-							@foreach ($total_chargeable as $relays)
-							<tr>
-								<td >{{$relays->type_name}}</td>
+							@foreach ($total_chargeable as $key => $relays)
+							@if($key % 2 == 0)
+							<tr style="background-color: #C6E0B4">
+							@else
+							<tr style="background-color: #E2EFDA;">
+							@endif
+								<td style="background-color: #96cb69">{{$relays->type_name}}</td>
 								<td >{{$relays->total}}</td>
 							</tr>
 							@endforeach
@@ -198,13 +214,13 @@
 						<th>Total</th>
 					</thead>
 					<tbody class="greenbody">
-					<tr>
-						<td >{{$total_completed['CONVENTIONAL']}}</td>
+					<tr style="background-color: #C6E0B4">
+						<td style="background-color: #96cb69">{{$total_completed['CONVENTIONAL']}}</td>
 						<td >{{$total_completed['NUMERICAL']}}</td>
 						<td >{{$total_completed['MULTILIN']}}</td>
 						<td >{{$total_completed['REASON']}}</td>
 						<td >{{$total_completed['BOJ']}}</td>
-						<td >{{$total_completed['total']}}</td>
+						<td style="background-color: #96cb69">{{$total_completed['total']}}</td>
 					</tr>
 					</tbody>
 				</table>
@@ -220,9 +236,13 @@
 							<th>Overdues</th>
 						</thead>
 						<tbody class="bluebody">
-						@foreach ($warranty_overdue as $relays)
-						<tr>
-							<td >{{$relays->type_name}}</td>
+						@foreach ($warranty_overdue as $key => $relays)
+						@if($key % 2 == 0)
+							<tr style="background-color: #BDD7EE">
+							@else
+							<tr style="background-color: #DDEBF7;">
+							@endif
+							<td style="background-color: #5B9BD5">{{$relays->type_name}}</td>
 							<td >{{$relays->total}}</td>
 						</tr>
 						@endforeach
@@ -239,8 +259,8 @@
 							<th>Days</th>
 						</thead>
 						<tbody class="orangebody">
-							@foreach ($repair_lead_time as $relays)
-							<tr>
+							@foreach ($repair_lead_time as $key => $relays)
+							<tr style="background-color: #FCE4D6">
 								<td >{{strtoupper($relays->type_name)}}</td>
 								<td >{{number_format($relays->average, 1, '.', ',')}}</td>
 							</tr>
