@@ -888,15 +888,15 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 	{
 		$http({
 			method: 'post',
-			url: '../addproducttype',
+			url: '../addproduct',
 			data: {
-				'producttype': $scope.producttype
+				'product': $scope.product
 			},
 		}).then(function success(response){
 			if (response.data.status == 'success')
 			{
 				Notification.success(response.data.message)
-				$('#producttypemodal').modal('hide');
+				$('#productmodal').modal('hide');
 				$scope.getproducttypes();
 			}
 			else if (response.data.status == 'failure')
