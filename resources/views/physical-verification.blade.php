@@ -594,14 +594,6 @@
                                             <label for="producttype" class=" form-control-label">Product Family <span class="mandatory">*</span></label>
                                         </div>
                                         <div class="col-12 col-md-8">
-                                            <!-- <select id="producttype" name="producttype"
-                                            ng-model="physicalVerification.producttype"
-                                            class="form-control"
-                                            ng-change="ChangeProductType();"
-                                            ng-options="pt as pt.name for pt in producttypes" 
-                                            required>
-                                                <option value="" style="display:none"></option>>
-                                            </select> -->
                                             <ui-select id="producttype" name="producttype" ng-model="physicalVerification.producttype" theme="selectize" title="Select Product Family" ng-change="ChangeProductType();" required>
                                                 <ui-select-match placeholder="Select Product Family">@{{$select.selected.code}}</ui-select-match>
                                                 <ui-select-choices repeat="pt in producttypes | filter: $select.search">
@@ -1093,10 +1085,12 @@
                                                         <label for="is_rma_available" class=" form-control-label">IS RMA Available? <span class="mandatory">*</span></label>
                                                     </div>
                                                     <div class="col-12 col-md-6">
-                                                        <label class="au-checkbox">
-                                                            <input type="checkbox" name="is_rma_available" id="is_rma_available" ng-model="physicalVerification.is_rma_available">
-                                                            <span class="au-checkmark"></span>
-                                                        </label>
+                                                            <select name="is_rma_available"
+                                                            ng-options="option.value as option.name for option in yesornooptions"
+                                                            ng-model="physicalVerification.is_rma_available"
+                                                            id="is_rma_available" class="form-control" >
+                                                            <option style="display: none;" value=""></option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>

@@ -23,9 +23,13 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 		$scope.producttypes = [];
 		$scope.selected = {};
 		$scope.conditions = [
-		{ name: 'Damaged', value: 1 },
-		{ name: 'Undamaged', value: 2},
-		{ name: 'Not Applicable', value: 3}
+			{ name: 'Damaged', value: 1 },
+			{ name: 'Undamaged', value: 2},
+			{ name: 'Not Applicable', value: 3}
+		];
+		$scope.yesornooptions = [
+			{ name: 'Yes', value: 1 },
+			{ name: 'No', value: 0 },
 		];
 		$scope.ridoptions = [];
 		$scope.tab = 'open';
@@ -35,10 +39,61 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 
 		$scope.AddPV= function()
 		{
+			if($scope.physicalVerification.product == undefined || $scope.physicalVerification.product == null || angular.equals({}, $scope.physicalVerification.product))
+			{
+				Notification.error("Please Select Model No");return;
+			}
 			if ($scope.physicalVerification.serial_no_exists)
 			{
-				Notification.error("Serial No Already Exists");
-				return;
+				Notification.error("Serial No Already Exists");return;
+			}
+			if($scope.physicalVerification.case == -1)
+			{
+				Notification.error("Please Select Case");return;
+			}
+			if($scope.physicalVerification.case_condition == -1)
+			{
+				Notification.error("Please Select Case Condition");return;
+			}
+			if($scope.physicalVerification.battery == -1)
+			{
+				Notification.error("Please Select Battery");return;
+			}
+			if($scope.physicalVerification.battery_condition == -1)
+			{
+				Notification.error("Please Select Battery Condition");return;
+			}
+			if($scope.physicalVerification.terminal_blocks == -1)
+			{
+				Notification.error("Please Select Terminal Blocks");return;
+			}
+			if($scope.physicalVerification.terminal_blocks_condition == -1)
+			{
+				Notification.error("Please Select Terminal Blocks Condition");return;
+			}
+			if($scope.physicalVerification.top_bottom_cover == -1)
+			{
+				Notification.error("Please Select Top/Botton Access Cover");return;
+			}
+			if($scope.physicalVerification.top_bottom_cover_condition == -1)
+			{
+				Notification.error("Please Select Top/Botton Access Cover Condition");return;
+			}
+			if($scope.physicalVerification.short_links == -1)
+			{
+				Notification.error("Please Select Short Links");return;
+			}
+			if($scope.physicalVerification.short_links_condition == -1)
+			{
+				Notification.error("Please Select Short Links Condition");return;
+			}
+			if($scope.physicalVerification.screws == -1)
+			{
+				Notification.error("Please Select Screw");return;
+			}
+			if($scope.physicalVerification.is_rma_available == -1)
+			{
+				Notification.error("Please Select RMA Availability");return;
 			}
 			$http({
 				method: 'post',
@@ -157,6 +212,7 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 
 	$scope.CheckSerialNoExistence = function()
 		{
+			console.log($scope.physicalVerification);
 			if ($scope.physicalVerification.serial_no)
 			{
 				var id = $scope.physicalVerification.id;
@@ -164,8 +220,13 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 					id = 0;
 				var serial_no = $scope.physicalVerification.serial_no;
 				$http({
-					method: 'GET',
-					url: '/ge/checkserialnumberexistence/'+serial_no+'/'+id,
+					method: 'POST',
+					url: '/ge/checkserialnumberexistence',
+					data: {
+						'serial_no': serial_no,
+						'exclude_id': id,
+						'receipt_id': $scope.physicalVerification.receipt_id
+					}
 				}).then(function success(response) {
 					if (response.data.status == 'success')
 					{
@@ -232,9 +293,9 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 						$scope.physicalVerification.edit = true;
 						$scope.physicalVerification.pvdate = $filter('date')(new Date(),'dd/MM/yyyy');
 						if ($scope.physicalVerification.is_rma_available)
-							$scope.physicalVerification.is_rma_available = true;
+							$scope.physicalVerification.is_rma_available = 1;
 						else
-							$scope.physicalVerification.is_rma_available = false;
+							$scope.physicalVerification.is_rma_available = 0;
 						for (var i = 0; i < $scope.producttypes.length; i++) {
 							if ($scope.producttypes[i].id == $scope.physicalVerification.producttype_id)
 							{
@@ -261,19 +322,19 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 			else
 			{
 				$scope.physicalVerification.edit = false;
-				$scope.physicalVerification.case_condition = $scope.conditions[1].value;
-				$scope.physicalVerification.battery_condition = $scope.conditions[1].value;
-				$scope.physicalVerification.terminal_blocks_condition = $scope.conditions[1].value;
-				$scope.physicalVerification.top_bottom_cover_condition = $scope.conditions[1].value;
-				$scope.physicalVerification.short_links_condition = $scope.conditions[1].value;
-				$scope.physicalVerification.short_links = 1;
-				$scope.physicalVerification.screws = 1;
-				$scope.physicalVerification.top_bottom_cover = 1;
-				$scope.physicalVerification.terminal_blocks = 1;
-				$scope.physicalVerification.battery = 1;
-				$scope.physicalVerification.case = 1;
+				$scope.physicalVerification.case_condition = -1;
+				$scope.physicalVerification.battery_condition = -1;
+				$scope.physicalVerification.terminal_blocks_condition = -1;
+				$scope.physicalVerification.top_bottom_cover_condition = -1;
+				$scope.physicalVerification.short_links_condition = -1;
+				$scope.physicalVerification.short_links = -1;
+				$scope.physicalVerification.screws = -1;
+				$scope.physicalVerification.top_bottom_cover = -1;
+				$scope.physicalVerification.terminal_blocks = -1;
+				$scope.physicalVerification.battery = -1;
+				$scope.physicalVerification.case = -1;
 				$scope.physicalVerification.pvdate = $filter('date')(new Date(),'dd/MM/yyyy');
-				$scope.physicalVerification.is_rma_available = false;
+				$scope.physicalVerification.is_rma_available = -1;
 				$scope.physicalVerification.receipt_id = receipt.receipt_id;
 				$scope.physicalVerification.docket_details = receipt.docket_details;
 				$scope.physicalVerification.courier_name = receipt.courier_name;
@@ -328,9 +389,9 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 			$scope.physicalVerification.battery = $scope.selected.battery;
 			$scope.physicalVerification.case = $scope.selected.case;
 			if ($scope.selected.is_rma_available)
-				$scope.physicalVerification.is_rma_available = true;
+				$scope.physicalVerification.is_rma_available = 1;
 			else
-				$scope.physicalVerification.is_rma_available = false;
+				$scope.physicalVerification.is_rma_available = 0;
 		}
 
 		$scope.GetProductTypeList = function()

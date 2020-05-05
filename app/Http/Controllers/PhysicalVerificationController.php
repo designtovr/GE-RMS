@@ -32,13 +32,23 @@ class PhysicalVerificationController extends Controller
 		{
             $pv = PVListingRepository::WithRma();
 		}
+        elseif ($cat == 'withrmaclosedreceipt') {
+            $pv = PVListingRepository::WithRmaClosedReceipt();
+        }
 		else if ($cat == 'withoutrma')
 		{
             $pv = PVListingRepository::WithoutRma();
 		}
+        elseif ($cat == 'withoutrmaclosedreceipt') {
+            $pv = PVListingRepository::WithoutRmaClosedReceipt();
+        }
         else if ($cat == 'withwithoutrma')
         {
             $pv = PVListingRepository::WithAndWithOutRma();
+        }
+        else if($cat == 'withwithoutrmaclosedrma')
+        {
+            $pv = PVListingRepository::WithAndWithOutRmaClosedReceipt();
         }
         else if($cat == 'managerapproval')
         {
@@ -349,16 +359,20 @@ class PhysicalVerificationController extends Controller
         return response()->json(['physicalverification' => $pvs, 'status' => 'success'], 200);
     }
 
-    public function CheckSerialNumberExistence($serial_no, $exclude_id)
+    public function CheckSerialNumberExistence(Request $request)
     {
-        $pv = PhysicalVerificationMaster::where('serial_no', $serial_no)->where('id', '!=', $exclude_id)->first();
+        $data = $request->all();
+        $serial_no = $data['serial_no'];
+        $exclude_id = $data['exclude_id'];
+        $receipt_id = $data['receipt_id'];
+        $pv = PhysicalVerificationMaster::where('serial_no', $data['serial_no'])->where('receipt_id', $data['receipt_id'])->where('id', '!=', $data['exclude_id'])->first();
         if ($pv)
         {
-            return response()->json(['status' => 'success', 'message' => 'Serial No Already Exists', 'exists' => true], 200);
+            return response()->json(['status' => 'success', 'message' => 'Serial Number Already Exists', 'exists' => true], 200);
         }
         else
         {
-            return response()->json(['status' => 'success', 'message' => 'Serial Not Exists', 'exists' => false], 200);
+            return response()->json(['status' => 'success', 'message' => 'Accept Serial Number', 'exists' => false], 200);
         }
     }
 }

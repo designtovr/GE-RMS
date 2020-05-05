@@ -529,7 +529,7 @@ app.controller('RMAController', ['$scope', '$http', '$filter', 'Notification', '
 		{
 			$scope.GetRMAList($scope.tab, 'physical');
 		}
-		else if($scope.tab == 'withrma' || $scope.tab == 'withoutrma')
+		else if($scope.tab == 'withrmaclosedreceipt' || $scope.tab == 'withoutrmaclosedreceipt')
 		{
 			$scope.PVList($scope.tab);
 		}

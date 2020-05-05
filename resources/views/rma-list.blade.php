@@ -2,7 +2,7 @@
 @section('title', 'RMA List')
 @section('content')
 <div class="main-content" ng-controller="RMAController">
-	<div class="section__content section__content--p30" ng-init="ChangeTab('withrma');InitiateForm();">
+	<div class="section__content section__content--p30" ng-init="ChangeTab('withrmaclosedreceipt');InitiateForm();">
 	    <div class="container-fluid">
 	    	<div class="row" ng-show="!showrmaform && !showsitecardform && !addpvform">
 				<div class="col-md-12">
@@ -18,7 +18,7 @@
                         <table class="table table-borderless table-data3 table-custom">
                             <thead>
                                 <tr>
-                                    <th ng-show="tab =='withrma' || tab == 'withoutrma'">
+                                    <th ng-show="tab =='withrmaclosedreceipt' || tab == 'withoutrmaclosedreceipt'">
                                         <input type="text" 
                                         id="receiptidFilter" 
                                         class="form-control" 
@@ -30,7 +30,7 @@
                                         ng-change="gridActions.filter();" 
                                         />
                                     </th>
-                                    <th ng-show="tab =='withrma' || tab == 'withoutrma'">
+                                    <th ng-show="tab =='withrmaclosedreceipt' || tab == 'withoutrmaclosedreceipt'">
                                         <input type="text" 
                                         id="ridFilter" 
                                         class="form-control" 
@@ -81,13 +81,13 @@
                                                filter-type="dateTo"
                                                close-text="Close">
                                     </th>
-                                    <th ng-show="tab !='withrma' && tab != 'withoutrma'">
+                                    <th ng-show="tab !='withrmaclosedreceipt' && tab != 'withoutrmaclosedreceipt'">
                                         <input id="gsFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="GS No" ng-change="gridActions.filter();" ng-model="filtergs_no" filter-by="gs_no" filter-type="text">
                                     </th>
                                     <th>
                                        <input id="customerFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Customer Name" ng-change="gridActions.filter()" ng-model="filterCustomer" filter-by="customer_name" filter-type="text">
                                    </th>
-                                   <th ng-show="tab !='withrma' && tab != 'withoutrma'">
+                                   <th ng-show="tab !='withrmaclosedreceipt' && tab != 'withoutrmaclosedreceipt'">
                                        <input id="endcustomerFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="End Customer" ng-change="gridActions.filter()" ng-model="filterendCustomer" filter-by="end_customer" filter-type="text">
                                    </th>
                                    <th>
@@ -105,10 +105,10 @@
                     <div class=" card w-100">
                         <div class="card-body">
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                <li class="nav-item" ng-click="ChangeTab('withrma')">
+                                <li class="nav-item" ng-click="ChangeTab('withrmaclosedreceipt')">
                                     <a class="nav-link active" id="withrma-tab" data-toggle="tab" href="#withrma" role="tab" aria-controls="withrma" aria-selected="false">With Physical RMA</a>
                                 </li>
-                                <li class="nav-item" ng-click="ChangeTab('withoutrma')">
+                                <li class="nav-item" ng-click="ChangeTab('withoutrmaclosedreceipt')">
                                     <a class="nav-link" id="withoutrma-tab" data-toggle="tab" href="#withoutrma" role="tab" aria-controls="withoutrma" aria-selected="false">Without Physical RMA</a>
                                 </li>
                                 <li class="nav-item" ng-click="ChangeTab('saved')">

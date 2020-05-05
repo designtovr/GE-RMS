@@ -325,7 +325,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/physicalverification/{cat?}', 'PhysicalVerificationController@PhysicalVerificationList');
     Route::get('/pvwithreceipts/{cat?}','PhysicalVerificationController@PVWithReceipts');
     Route::post('/changepvstatus','PhysicalVerificationController@ChangePVStatus');
-    Route::get('/checkserialnumberexistence/{serial_no}/{exclude_id}', 'PhysicalVerificationController@CheckSerialNumberExistence');
+    Route::post('/checkserialnumberexistence', 'PhysicalVerificationController@CheckSerialNumberExistence');
     Route::get('/pvforrmaid/{id}', 'PhysicalVerificationController@PVForRmaId');
 	Route::post('/addproducttype', 'ProductTypeController@AddProductType');
 	Route::post('/updateproductoverdueage', 'ProductTypeController@UpdateProductOverdueAge');
