@@ -165,6 +165,12 @@ Notes:	decreasing heading by 0.4em with every subsequent heading level
     100% { transform: rotate(360deg); }
 }
 
+.btn-primary:disabled
+{
+    cursor :no-drop !important;
+    cursor : {{url('./images/Nosign.svg')}} 10 12 !important;
+}
+
 .menu-sidebar {
     height: 100%;
     width: 0;
