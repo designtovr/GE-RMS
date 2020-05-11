@@ -88,19 +88,31 @@
                                 <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
                                     <div class="au-card-title"  >
                                         <div class="bg-overlay bg-overlay--androidblue"></div>
-                                        <h3>
-                                            <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>Test</h3>
+                                         <div class="row">
+                                             <div class="col-sm-7">
+                                                 <h3>
+                                                     <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>Test and Aging
+                                                 </h3>
+                                             </div>
+                                             <div class="col-sm-5">
+                                                 <h3 style="color: white; font-size: 22px;font-weight: 500;">
+                                                     Total Relays: <span style="font-weight: bolder;" ng-bind="dashboardvalues.repair_priority.length"></span>
+                                                 </h3>
+                                             </div>
+                                         </div>
+                                  <!--       <h3>
+                                            <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i></h3> -->
 
                                     </div>
                                     <div class="au-task js-list-load">
                                         <div class="au-task-list js-scrollbar3">
                                             <div class="table-responsive m-b-40">
-                                                <table class="table table-borderless table-data3 table-data4 table-data3-blue">
+                                                <table class="table table-borderless table-data3-blue table-data4">
                                                     <thead>
-                                                    <tr>
+                                                    <tr style="background-color: #333333;color: white;"> 
                                                         <th>Family</th>
                                                         <th>Total Relays</th>
-                                                        <th>Over Due</th>
+                                                        <th>Overdue Relays</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -198,8 +210,8 @@
                                                               <thead>
                                                               <tr>
                                                                   <th>Customer</th>
-                                                                  <th>Total</th>
-                                                                  <th>Over Due</th>
+                                                                  <th>Boxes Qty</th>
+                                                                  <th>Overdue Days</th>
                                                               </tr>
                                                               </thead>
                                                               <tbody>
@@ -233,7 +245,7 @@
                                                      <tr>
                                                          <th>Family</th>
                                                          <th>Total Relays</th>
-                                                         <th>Over Due</th>
+                                                         <th>Overdue Relays</th>
                                                      </tr>
                                                      </thead>
                                                      <tbody>
@@ -266,8 +278,9 @@
                                                     <thead>
                                                     <tr style="background-color: #333333;color: white;">
                                                         <th>Family</th>
-                                                        <th>Serial Number</th>
-                                                        <th>Location</th>
+                                                        <th>S.No</th>
+                                                        <th>Stage Overdue Days</th>
+                                                        <th>Overall Overdue Days</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -304,7 +317,6 @@
                                                   <tr>
                                                       <th>Customer</th>
                                                       <th>Total Boxes</th>
-                                                      <th>Status</th>
                                                       <th>Overdue Days</th>
                                                   </tr>
                                                   </thead>
@@ -347,7 +359,7 @@
                                                     <tr>
                                                         <th>Family</th>
                                                         <th>Total Relays</th>
-                                                        <th>Over Due</th>
+                                                        <th>Overdue Relays</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -499,8 +511,8 @@
                                         <th>R Id</th>
                                         <th>Family</th>
                                         <th>S.No</th>
-                                        <th>Overdue Age</th>
-                                        <th>Overdue Days</th>
+                                        <th>Stage Overdue Days</th>
+                                        <th>Overall Overdue Days</th>
                                     </tr>
                                 </thead>
                                 <tbody>

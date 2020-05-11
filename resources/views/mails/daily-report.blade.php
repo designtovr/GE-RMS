@@ -180,7 +180,7 @@
 			</ul>
 			<ul class="tablerowlist" id="tablerowlist" style ="width : 40%;float:left">
 				<li>
-					<h2 class="h2-heading">Total Chargeable</h2>
+					<h2 class="h2-heading">Total Chargeable Relays</h2>
 					<table>
 						<thead class="green">
 							<th>Family</th>
@@ -209,7 +209,7 @@
 						<th>Conventional</th>
 						<th>Numerical</th>
 						<th>Multilin</th>
-						<th>Recent</th>
+						<th>Reason</th>
 						<th>BOJ</th>
 						<th>Total</th>
 					</thead>

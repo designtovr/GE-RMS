@@ -198,7 +198,7 @@
                                               <div class="au-card-title" style="background-image:url('images/bg-title-01.jpg');" >
                                                   <div class="bg-overlay bg-overlay--androidblue"></div>
                                                   <h3>
-                                                      <i class="zmdi animated slideInLeft infinite slower-10s zmdi-seat"></i>Total Chargeable</h3>
+                                                      <i class="zmdi animated slideInLeft infinite slower-10s zmdi-seat"></i>Total Chargeable Relays</h3>
 
                                               </div>
                                               <div class="au-task js-list-load">
@@ -309,7 +309,7 @@
                                                          <th>Conventional</th>
                                                          <th>Numerical</th>
                                                          <th>Multilin</th>
-                                                         <th>Recent</th>
+                                                         <th>Reason</th>
                                                          <th>BOJ</th>
                                                          <th>Total</th>
                                                      </tr>
