@@ -22,6 +22,19 @@
 	                                    <th>
 	                                        <input id="rIdFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="R Id#" ng-change="gridActions.filter()" ng-model="filterRId" filter-by="formatted_pv_id" filter-type="text">
 	                                    </th>
+
+                                                 <th>
+                                        <input id="serial_noFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Serial #" ng-change="gridActions.filter()" ng-model="filterserialno" filter-by="serial_no" filter-type="text">
+                                    </th>
+
+
+                                         <th>
+                                        <input id="cusFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Category" ng-change="gridActions.filter()" ng-model="customerFilter" filter-by="customer" filter-type="text">
+                                    </th>
+
+                                         <th>
+                                        <input id="cusFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Customer" ng-change="gridActions.filter()" ng-model="customerFilter" filter-by="customer" filter-type="text">
+                                    </th>
                                         <th>
                                             <input type="text"
                                                 class="form-control"
@@ -75,6 +88,9 @@
                                 <tr>
                                 	<th>Actions</th>
                                     <th sortable="formatted_pv_id" class="sortable">R Id</th>
+                                        <th sortable="serial_no" class="sortable">Serial No.</th>
+                                        <th sortable="part_no" class="sortable">Model No.</th>
+                                        <th sortable="customer" class="sortable">Customer</th>
                                     <th sortable="created_date_unix" class="sortable">Dispatched at</th>
                                 </tr>
                             </thead>
@@ -88,6 +104,9 @@
     	                                </div>
     	                            </td>
     	                            <td ng-bind="item.formatted_pv_id"></td>
+                                               <td ng-bind="item.customer"></td>
+                                        <td ng-bind="item.part_no"></td>
+                                        <td ng-bind="item.serial_no"></td>
     	                            <td ng-bind="item.created_date_unix | date:'dd/MM/yyyy'"></td>
                                 </tr>
                             </tbody>
