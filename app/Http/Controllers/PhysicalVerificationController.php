@@ -116,6 +116,11 @@ class PhysicalVerificationController extends Controller
             $pv = PVListingRepository::All();
         }
 
+        else if($cat == 'others')
+        {
+            $pv = PVListingRepository::OtherRelay();
+        }
+
 		return response()->json(['physicalverification' => $pv , 'status' => 'success'], 200);
 	}
 

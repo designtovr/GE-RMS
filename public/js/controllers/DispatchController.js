@@ -174,6 +174,10 @@ app.controller('DispatchController', ['$scope', '$http','Notification','ChangePV
                         Notification.success(content);
                         $scope.Start();
                     }
+                    else if(response.data.status == 'failure')
+                    {
+                        Notification.error(response.data.message);
+                    }
                 }, function failure(response){
                     if (response.status == 422)
                     {

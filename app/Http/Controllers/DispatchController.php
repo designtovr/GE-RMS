@@ -15,6 +15,7 @@ use App\Http\Repositories\PVStatusRepositories;
 use Carbon\Carbon;
 use App\Http\Repositories\RMSRepositories;
 use App\Http\Repositories\MailRepository;
+use App\Models\PhysicalVerificationMaster;
 
 class DispatchController extends Controller
 {
@@ -76,6 +77,15 @@ class DispatchController extends Controller
     {
         $pvs = $request->get('selectedpvs');
         $dispatch_list = array();
+
+        foreach ($pvs as $key => $pv) {
+            $DM = DispatchMaster::where('pv_id', $pv)->first();
+            if(!$DM)
+            {
+                $PHY = PhysicalVerificationMaster::find($pv);
+                return response()->json(['status' => 'failure', 'message' => 'Dispatch Details Missing for '.$PHY->formatted_pv_id], 200);
+            }
+        }
 
         $all_cc = array();
         foreach ($pvs as $key => $pv) {

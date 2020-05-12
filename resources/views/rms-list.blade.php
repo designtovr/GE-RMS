@@ -67,9 +67,9 @@
                                             </button>
                                         </th>
                                         <th>
-                                            <button type="button" class="btn btn-outline-primary btn-sm">
+                                            <!-- <button type="button" class="btn btn-outline-primary btn-sm">
                                                 <i class="fa fa-search"></i>&nbsp; Search
-                                            </button>
+                                            </button> -->
                                         </th>
                                     </tr>
                                     </thead>
@@ -99,12 +99,12 @@
 		                         <th sortable="formatted_pv_id" class="sortable">
 		                             RID No
 		                         </th>
-								 <th sortable="rack_type" class="sortable">
-									 Location
-								 </th>
-								 <th sortable="rack_id" class="sortable">
-									 Rack
-								 </th>
+            								 <th sortable="rack_type" class="sortable">
+            									 Location
+            								 </th>
+            								 <th sortable="rack_id" class="sortable">
+            									 Rack
+            								 </th>
 		                     </tr>
 		                     </thead>
 		                     <tbody>
@@ -117,18 +117,41 @@
                                 </td>
                                 <td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
                                 <td ng-bind="item.formatted_pv_id"></td>
-		                         <td ng-if="item.rack_type == 0">Dummy Rack</td>
+		                            <td ng-if="item.rack_type == 0">Dummy Rack</td>
                                  <td ng-if="item.rack_type == 1">Repair Rack</td>
                                  <td ng-if="item.rack_type == 2">Customer Rack</td>
                                  <td ng-if="item.rack_type == 3">Post Lab</td>
                                  <td ng-if="item.rack_type == 4">Application Lab</td>
                                  <td ng-if="item.rack_type == 5">Physical Verification Rack</td>
-								 <!-- <td ng-bind="item.location"></td> -->
-								 <td ng-bind="item.rack_id"></td>
+							                  <td ng-bind="item.rack_id"></td>
 		                     </tr>
 		                     </tbody>
 		                 </table>
-					 </div>
+                     <form class="form-inline pull-right margin-bottom-basic">
+                            <div class="form-group">
+                                <grid-pagination max-size="5"
+                                boundary-links="true"
+                                class="pagination-sm"
+                                total-items="paginationOptions.totalItems"
+                                ng-model="paginationOptions.currentPage"
+                                ng-change="reloadGrid()"
+                                items-per-page="paginationOptions.itemsPerPage">
+                                </grid-pagination>
+                            </div>
+                            <div class="form-group items-per-page">
+                                <label for="itemsOnPageSelect2">Items per page:</label>
+                                <select id="itemsOnPageSelect2" class="form-control input-sm"
+                                ng-init="paginationOptions.itemsPerPage = '10'"
+                                ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+                                    <option>10</option>
+                                    <option>25</option>
+                                    <option>50</option>
+                                    <option>75</option>
+                                    <option>10000000</option>
+                                </select>
+                            </div>
+                        </form>
+					       </div>
 	                <!-- END DATA TABLE-->
 	            </div>
 	        </div>

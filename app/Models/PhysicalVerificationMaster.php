@@ -57,4 +57,9 @@ class PhysicalVerificationMaster extends Model
     {
         return $this->hasOne(JobTicket::class, 'pv_id');
     }
+
+    public function rms()
+    {
+        return $this->hasOne(RMSMaster::class, 'pv_id');
+    }
 }

@@ -103,7 +103,16 @@ class RMAController extends Controller
             $PhysicalVerification->updated_at = Carbon::now();
             $PhysicalVerification->update();
 
-            PVStatusRepositories::ChangeStatusToManagerApproval($pv['id']);
+            $PV = PhysicalVerificationMaster::selectRaw('physical_verification.*, pt.category')->join('ma_product_type as pt', 'pt.id', 'physical_verification.producttype_id')->where('physical_verification.id', $RMAUT->pv_id)->first();
+            if(strcasecmp($PV->category, 'SMP') == 0 || strcasecmp($PV->category, 'OMU') == 0)
+            {
+                PVStatusRepositories::ChangeStatusToManagerApproval($pv['id']);
+            }
+            else
+            {
+                PVStatusRepositories::ChangeStatusToOtherRelay($pv['id']);
+                PVStatusRepositories::SetOtherRelayStageValues($pv['id'], 0);
+            }
         }
 
         return response()->json(['status' => 'success', 'message' => 'Relay Added Successfully'], 200);
@@ -214,13 +223,14 @@ class RMAController extends Controller
                 $PV->is_rma_available = 1;
                 $PV->update();
 
-                if(strcasecmp($PV->category, 'BOJ') == 0)
+                if(strcasecmp($PV->category, 'SMP') == 0 || strcasecmp($PV->category, 'OMU') == 0)
                 {
-                    PVStatusRepositories::ChangeStatusToManagerApproved($RMAUnitInformation->pv_id);
+                    PVStatusRepositories::ChangeStatusToManagerApproval($RMAUnitInformation->pv_id);
                 }
                 else
                 {
-                    PVStatusRepositories::ChangeStatusToManagerApproval($RMAUnitInformation->pv_id);
+                    PVStatusRepositories::ChangeStatusToOtherRelay($RMAUnitInformation->pv_id);
+                    PVStatusRepositories::SetOtherRelayStageValues($RMAUnitInformation->pv_id, 0);
                 }
             }
 
@@ -239,8 +249,6 @@ class RMAController extends Controller
             $RMA->gs_no = (array_key_exists('gs_no', $requestdata))?$requestdata['gs_no']:'';
             if (array_key_exists('act_reference', $requestdata))
                 $RMA->act_reference = $requestdata['act_reference'];
-            /*$date = Carbon::createFromFormat('d/m/Y',$requestdata['date']);
-            $RMA->date = $date->format('Y-m-d');*/
             $RMA->customer_address_id = $requestdata['customer_address_id'];
             $RMA->end_customer = $requestdata['invoice_info']['end_customer'];
             $RMA->status = 3;
@@ -368,13 +376,14 @@ class RMAController extends Controller
                 {
                     $pv = PhysicalVerificationMaster::selectRaw('physical_verification.*, pt.category')->join('ma_product_type as pt', 'pt.id', 'physical_verification.producttype_id')->where('physical_verification.id', $RMAUnitInformation->pv_id)->first();
 
-                    if(strcasecmp($pv->category, 'BOJ') == 0)
-                    {
-                        PVStatusRepositories::ChangeStatusToManagerApproved($RMAUnitInformation->pv_id);
-                    }
-                    else
+                    if(strcasecmp($pv->category, 'SMP') == 0 || strcasecmp($pv->category, 'OMU') == 0)
                     {
                         PVStatusRepositories::ChangeStatusToManagerApproval($RMAUnitInformation->pv_id);
+                    }  
+                    else
+                    {
+                        PVStatusRepositories::ChangeStatusToOtherRelay($RMAUnitInformation->pv_id);
+                        PVStatusRepositories::SetOtherRelayStageValues($RMAUnitInformation->pv_id, 0);
                     }
 
                 }
@@ -751,13 +760,14 @@ class RMAController extends Controller
 
             $PV = PhysicalVerificationMaster::selectRaw('physical_verification.*, pt.category')->join('ma_product_type as pt', 'pt.id', 'physical_verification.producttype_id')->where('physical_verification.id', $RMAUT->pv_id)->first();
 
-            if(strcasecmp($PV->category, 'BOJ') == 0)
+            if(strcasecmp($PV->category, 'SMP') == 0 || strcasecmp($PV->category, 'OMU') == 0)
             {
-                PVStatusRepositories::ChangeStatusToManagerApproved($RMAUT->pv_id);
+                PVStatusRepositories::ChangeStatusToManagerApproval($RMAUT->pv_id);
             }
             else
             {
-                PVStatusRepositories::ChangeStatusToManagerApproval($RMAUT->pv_id);
+                PVStatusRepositories::ChangeStatusToOtherRelay($RMAUT->pv_id);
+                PVStatusRepositories::SetOtherRelayStageValues($RMAUT->pv_id, 0);
             }
         }
 

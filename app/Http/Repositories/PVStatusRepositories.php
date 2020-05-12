@@ -5,6 +5,8 @@ namespace App\Http\Repositories;
 use App\Models\PVStatusMaster;
 use App\Models\PVStatus;
 use App\Models\PVStatusTracking;
+use App\Models\OtherRelayStage;
+use App\Models\OtherRelayStageTracking;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -138,6 +140,41 @@ class PVStatusRepositories
 	{
 		$status_id = 12;
 		(new self)->SavePVStatus($pv_id, $status_id);
+	}
+
+	public static function ChangeStatusToOtherRelay($pv_id)
+	{
+		$status_id = 16;
+		(new self)->SavePVStatus($pv_id, $status_id);
+	}
+
+	public static function SetOtherRelayStageValues($pv_id, $current_stage)
+	{
+		$exists = OtherRelayStage::where('pv_id', $pv_id)->first();
+		if($exists)
+		{
+			$ORS = OtherRelayStage::where('pv_id', $pv_id)->update([
+				'current_stage' => $current_stage,
+				'updated_by' => Auth::id(),
+				'updated_at' => Carbon::now()
+			]);
+		}
+		else
+		{
+			$ORS = new OtherRelayStage();
+			$ORS->pv_id = $pv_id;
+			$ORS->current_stage = $current_stage;
+			$ORS->created_by = Auth::id();
+			$ORS->created_at = Carbon::now();
+			$ORS->save();
+		}
+
+		$ORST = new OtherRelayStageTracking();
+		$ORST->pv_id = $pv_id;
+		$ORST->stage_id = $current_stage;
+		$ORST->created_by = Auth::id();
+		$ORST->created_at = Carbon::now();
+		$ORST->save();
 	}
 
 }

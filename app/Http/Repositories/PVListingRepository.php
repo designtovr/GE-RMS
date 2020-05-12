@@ -12,10 +12,10 @@ use Illuminate\Support\Facades\DB;
 class PVListingRepository
 {
 
-	private function PVList($status_id, $service_type = array(), $receipt_status = array(1,2,3))
+	private function PVList($status_id, $service_type = array(), $receipt_status = array(), $cat = ['smp', 'omu'])
 	{
 		$pv = PhysicalVerificationMaster::
-				selectRaw('physical_verification.*, ROUND(UNIX_TIMESTAMP(physical_verification.pvdate) * 1000 +50000000) as date_unix ,receipt.gs_no, receipt.customer_id, rma.end_customer,pr.part_no, rma.service_type,pt.category,ma_pv_status.status, ma_pv_status.close_status, rmu.sw_version, rmu.rma_id, rmu.desc_of_fault as customer_comment, warranty.comment as manager_comment, tes.comment as testing_comment, jt.comment as repair_comment, aging.comment as aging_comment, tes.created_at as tes_created_at, IF(pvl.priority > 0, pvl.priority, 999999) as pvl_priority, IF(pvl.priority > 0, pvl.priority, "NA") as pvl_priority_for_display, ria.name as customer_name')
+				selectRaw('physical_verification.*, ROUND(UNIX_TIMESTAMP(physical_verification.pvdate) * 1000 +50000000) as date_unix ,receipt.gs_no, receipt.customer_id, rma.end_customer,pr.part_no, rma.service_type,pt.category,ma_pv_status.status, ma_pv_status.close_status, rmu.sw_version, rmu.rma_id, rmu.desc_of_fault as customer_comment, warranty.comment as manager_comment, tes.comment as testing_comment, jt.comment as repair_comment, aging.comment as aging_comment, tes.created_at as tes_created_at, IF(pvl.priority > 0, pvl.priority, 999999) as pvl_priority, IF(pvl.priority > 0, pvl.priority, "NA") as pvl_priority_for_display, ria.name as customer_name, rms.rack_id, ort.current_stage as ort_current_stage')
 				->leftJoin('receipt', 'physical_verification.receipt_id', 'receipt.id')
 				->leftJoin('ma_product as pr', 'pr.id', 'physical_verification.product_id')
 				->leftJoin('ma_product_type as pt', 'pt.id', 'physical_verification.producttype_id')
@@ -31,10 +31,22 @@ class PVListingRepository
 				->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'physical_verification.id')
 				->leftJoin('rma_delivery_address as rda', 'rda.rma_id', 'rma.id')
 				->leftJoin('rma_invoice_address as ria', 'ria.rma_id', 'rma.id')
+				->leftJoin('rms', 'rms.pv_id', 'physical_verification.id')
+				->leftJoin('other_relay_stage as ort', 'ort.pv_id', 'physical_verification.id')
 				->whereIn('pv_status.current_status_id', $status_id)
-				->whereIn('receipt.status', $receipt_status);
+				->whereIn('pt.category', $cat);
+		if(sizeof($receipt_status) > 0)
+			$pv = $pv->whereIn('receipt.status', $receipt_status);
 		if (sizeof($service_type) > 0)
 			$pv = $pv->whereIn('rma.service_type', $service_type);
+		if($cat == ['ge', 'boj', 'others'])
+			$pv = $pv->where('ort.current_stage', '!=', 5);
+
+		if(in_array(4, $status_id))
+		{
+			//getting pvs with rack_id entered
+			$pv = $pv->where('rms.rack_id', '!=', "");
+		}
 
 
 		$pv = $pv->orderBy('pvl_priority', 'asc')->orderBy('physical_verification.id')->get();
@@ -74,7 +86,7 @@ class PVListingRepository
 	public static function WithRma()
 	{
 		$status_id = array (2);
-		return (new self)->PVList($status_id);
+		return (new self)->PVList($status_id, [], []);
 	}
 
 	public static function WithRmaClosedReceipt()
@@ -209,6 +221,12 @@ class PVListingRepository
     {
     	$status_id = array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15, array(1, 2));
     	return (new self)->PVList($status_id);
+    }
+
+    public static function OtherRelay()
+    {
+    	$status_id = array(16);
+    	return (new self)->PVList($status_id, [], [], ['ge', 'boj', 'others']);
     }
 
     public static function DashBoardValues()

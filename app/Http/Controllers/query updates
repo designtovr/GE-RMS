@@ -102,3 +102,8 @@ ALTER TABLE `emails` CHANGE `send_mail_customers` `send_mail_to_customers` TINYI
 30/03/2020
 
 ALTER TABLE `dispatch` ADD `cc` VARCHAR(200) NULL AFTER `contact`;
+
+11/5/2020
+INSERT INTO `ma_pv_status` (`id`, `status`, `close_status`) VALUES (NULL, 'Other Relay Repair', NULL);
+
+CREATE TABLE `ge_rms`.`other_relay_stage_tracking` ( `pv_id` BIGINT NOT NULL , `stage_id` TINYINT NOT NULL , `created_by` TINYINT NOT NULL , `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ) ENGINE = InnoDB;
