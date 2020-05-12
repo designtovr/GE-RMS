@@ -18,14 +18,15 @@ app.service('ChangePVStatusService', function($http,Notification){
 		});
 	}
 
-	ChangeOtherRelayStatus = function(pv_id, status, callback)
+	ChangeOtherRelayStatus = function(pv_id, status, comments, callback)
 	{
 		$http({
 			method: 'POST',
 			url: '/ge/changeotherrelaystatus',
 			data: {
 				'pv_id': pv_id,
-				'stage': status
+				'stage': status,
+				'comments': comments
 			}
 		}).then(function success(response) {
 			callback(response);

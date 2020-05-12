@@ -1,7 +1,5 @@
 app.controller('OtherRelayController', ['$scope', '$http', 'Notification', 'ChangePVStatusService' , function($scope, $http , Notification, ChangePVStatusService){
-	$scope.rmsmodal = {};
-	$scope.rmsmodal.title = "RMS";
-	$scope.selectedpvs = [];
+	$scope.otherrelaymodal = {};
 	$scope.gridOptions = {
 		pagination: {
 			itemsPerPage: '10'
@@ -26,13 +24,32 @@ app.controller('OtherRelayController', ['$scope', '$http', 'Notification', 'Chan
 		});
 	}
 
-	$scope.ChangeOtherRelayStatus = function(pv_id, status)
+	$scope.OpenOtherRelayModal = function(formatted_pv_id, pv_id, status)
 	{
-		ChangePVStatusService.ChangeOtherRelayStatus(pv_id, status, function(response){
+		$scope.otherrelaymodal.formatted_pv_id = formatted_pv_id;
+		$scope.otherrelaymodal.pv_id = pv_id;
+		$scope.otherrelaymodal.status = status;
+		$scope.otherrelaymodal.comments = "";
+		$('#otherrelaymodal').modal({
+			show: true,
+			backdrop: 'static',
+		});
+	}
+
+	$scope.CloseOtherRelayModal = function()
+	{
+		$('#otherrelaymodal').modal('hide');
+	}
+
+	$scope.ChangeOtherRelayStatus = function()
+	{
+		ChangePVStatusService.ChangeOtherRelayStatus($scope.otherrelaymodal.pv_id, $scope.otherrelaymodal.status, $scope.otherrelaymodal.comments, function(response){
 			if (response.data.status == 'success')
 			{
 				Notification.success(response.data.message);
+				$scope.CloseOtherRelayModal();
 				$scope.OtherRelays();
+				$scope.otherrelaymodal = {};
 			}
 			else if (response.data.status == 'failure')
 			{

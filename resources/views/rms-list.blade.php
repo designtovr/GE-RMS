@@ -67,9 +67,7 @@
                                             </button>
                                         </th>
                                         <th>
-                                            <!-- <button type="button" class="btn btn-outline-primary btn-sm">
-                                                <i class="fa fa-search"></i>&nbsp; Search
-                                            </button> -->
+
                                         </th>
                                     </tr>
                                     </thead>

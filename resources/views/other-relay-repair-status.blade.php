@@ -149,10 +149,10 @@
 			                                <div class="btn-group">
 	                                            <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-info">Action</button>
 	                                            <div tabindex="-1" aria-hidden="true" role="menu" class="dropdown-menu">
-	                                                <button type="button" tabindex="0" class="dropdown-item" ng-click="ChangeOtherRelayStatus(item.id, 1)">Intimated to Procurement</button>
-	                                                <button type="button" tabindex="0" class="dropdown-item" ng-click="ChangeOtherRelayStatus(item.id, 2)">To be reworked by Supplier – In house</button>
-	                                                <button type="button" tabindex="0" class="dropdown-item" ng-click="ChangeOtherRelayStatus(item.id, 3)">Send to Supplier</button>
-	                                                <button type="button" tabindex="0" class="dropdown-item" ng-click="ChangeOtherRelayStatus(item.id, 4)">Return to customer</button>
+	                                                <button type="button" tabindex="0" class="dropdown-item" ng-click="OpenOtherRelayModal(item.formatted_pv_id,item.id, 1)">Intimated to Procurement</button>
+	                                                <button type="button" tabindex="0" class="dropdown-item" ng-click="OpenOtherRelayModal(item.formatted_pv_id,item.id, 2)">To be reworked by Supplier – In house</button>
+	                                                <button type="button" tabindex="0" class="dropdown-item" ng-click="OpenOtherRelayModal(item.formatted_pv_id,item.id, 3)">Send to Supplier</button>
+	                                                <button type="button" tabindex="0" class="dropdown-item" ng-click="OpenOtherRelayModal(item.formatted_pv_id,item.id, 4)">Return to customer</button>
 	                                            </div>
 	                                        </div>
 	                                    </div>
@@ -203,6 +203,58 @@
 	        </div>
 	    </div>
 	</div>
+	<!-- modal scroll -->
+    <div class="modal fade" id="otherrelaymodal" tabindex="-1" role="dialog" aria-labelledby="otherrelayLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="rmsmodalLabel">Change Status</h5>
+                    <button type="button" class="close" ng-click="CloseOtherRelayModal();" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <form action="" method="post" class="form-horizontal" name="AddUserForm" id="AddUserForm" novalidate>
+		                		<div class="row">
+		                			<div class="col-md-12">
+		                				<div class="row form-group">
+			                                <div class="col col-md-3">
+			                                    <label for="rid" class=" form-control-label"><b>RID</b></label>
+			                                </div>
+			                                <div class="col-12 col-md-9">
+			                                    <input type="text" id="rid" name="rid" ng-model = "otherrelaymodal.formatted_pv_id" placeholder="RID" class="form-control" disabled>
+			                                </div>
+			                            </div>
+		                			</div>
+		                			<div class="col-md-12">
+		                				<div class="row form-group">
+			                                <div class="col col-md-3">
+			                                    <label for="comment" class=" form-control-label"><b>Comments</b></label>
+			                                </div>
+			                                <div class="col-12 col-md-9">
+			                                    <textarea rows="4" id="comment" name="comment" ng-model = "otherrelaymodal.comments" placeholder="Comments" class="form-control"></textarea>
+			                                </div>
+			                            </div>
+		                			</div>
+		                		</div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger btn-sm" ng-click="CloseOtherRelayModal();">
+                        <i class="fa fa-ban"></i> Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary btn-sm"  ng-click="ChangeOtherRelayStatus();">
+                        <i class="fa fa-dot-circle-o"></i> Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end modal scroll -->
 </div>
 @endsection
 @section('scripts')

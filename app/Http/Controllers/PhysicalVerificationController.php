@@ -196,9 +196,10 @@ class PhysicalVerificationController extends Controller
     {
         $pv_id = $request->get('pv_id');
         $stage = $request->get('stage');
+        $comments = $request->get('comments');
         if($stage == 0)
             return response()->json(['status' => 'failure', 'message' => 'Not a Valid Stage'], 200);
-        PVStatusRepositories::SetOtherRelayStageValues($pv_id, $stage);
+        PVStatusRepositories::SetOtherRelayStageValues($pv_id, $stage, $comments);
 
         return response()->json(['status' => 'success', 'message' => 'Status Changed Successfully'], 200);
     }
