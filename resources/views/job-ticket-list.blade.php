@@ -12,7 +12,7 @@
 			    </div>
 
 				{{-- Search Start--}}
-				<div class="col-md-12 ">
+				<div class="col-md-12">
 					<div class="card-header card-title">
 						Search
 					</div>
@@ -95,9 +95,6 @@
 										</button>
 									</th>
 									<th>
-										<button type="button" class="btn btn-outline-primary btn-sm">
-											<i class="fa fa-search"></i>&nbsp; Search
-										</button>
 										<input id="userrole" name="userrole" type="hidden" ng-value="{{Auth::user()->Role()}}" ng-model="userrole">
 									</th>
 								</tr>

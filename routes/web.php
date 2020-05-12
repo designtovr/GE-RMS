@@ -105,7 +105,7 @@ Route::group(['middleware' => 'auth'], function(){
 		return view('add-rms');
 	});
 	Route::get('/other-relay-repair-status', function(){
-		return view('relay-repair-status-list');
+		return view('other-relay-repair-status');
 	});
 	Route::get('/add-relay-repair-status', function(){
 		return view('add-relay-repair-status');
@@ -403,4 +403,6 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::get('/setemailreceiptor/{value}', 'MailController@SetEmailReceptors');
 
 	Route::get('/getemailreceiptor', 'MailController@GetEmailReceptors');
+
+	Route::post('/changeotherrelaystatus', 'PhysicalVerificationController@ChangeOtherRelayStatus');
 });

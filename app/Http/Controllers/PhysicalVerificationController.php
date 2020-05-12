@@ -192,6 +192,17 @@ class PhysicalVerificationController extends Controller
         return response()->json(['status' => 'success', 'message' => 'Status Changed Successfully'], 200);
     }
 
+    public function ChangeOtherRelayStatus(Request $request)
+    {
+        $pv_id = $request->get('pv_id');
+        $stage = $request->get('stage');
+        if($stage == 0)
+            return response()->json(['status' => 'failure', 'message' => 'Not a Valid Stage'], 200);
+        PVStatusRepositories::SetOtherRelayStageValues($pv_id, $stage);
+
+        return response()->json(['status' => 'success', 'message' => 'Status Changed Successfully'], 200);
+    }
+
 	public function GetPhysicalVerification($id)
     {
         //$RMA = RMA::where('receipt_id', $physical ['receipt_id'])->first();

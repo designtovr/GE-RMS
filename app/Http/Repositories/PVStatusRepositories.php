@@ -169,6 +169,11 @@ class PVStatusRepositories
 			$ORS->save();
 		}
 
+		if($current_stage == 3 || $current_stage == 4)
+		{
+			(new self)->ChangeStatusToVerificationCompleted($pv_id);
+		}
+
 		$ORST = new OtherRelayStageTracking();
 		$ORST->pv_id = $pv_id;
 		$ORST->stage_id = $current_stage;

@@ -185,7 +185,7 @@ class PVListingRepository
 	public static function VerificationCompleted()
 	{
 		$status_id = array(11);
-		return (new self)->PVList($status_id);
+		return (new self)->PVList($status_id, [], [], ['smp', 'omu', 'ge', 'boj', 'others']);
 	}
 
 	public static function WaitingFOrDispatchApproval()
@@ -202,7 +202,7 @@ class PVListingRepository
 	public static function DispatchApproved()
     {
         $status_id = array(14);
-        return (new self)->PVList($status_id);
+        return (new self)->PVList($status_id, [], [], ['smp', 'omu', 'ge', 'boj', 'others']);
     }
 
     public static function InRepair()
@@ -219,13 +219,13 @@ class PVListingRepository
 
     public static function All()
     {
-    	$status_id = array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15, array(1, 2));
+    	$status_id = array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15, array(1, 2), [1,2,3], ['smp', 'omu', 'ge', 'boj', 'others']);
     	return (new self)->PVList($status_id);
     }
 
     public static function OtherRelay()
     {
-    	$status_id = array(16);
+    	$status_id = array(12, 14, 16);
     	return (new self)->PVList($status_id, [], [], ['ge', 'boj', 'others']);
     }
 
