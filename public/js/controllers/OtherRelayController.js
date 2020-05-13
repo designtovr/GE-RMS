@@ -1,4 +1,4 @@
-app.controller('OtherRelayController', ['$scope', '$http', 'Notification', 'ChangePVStatusService' , function($scope, $http , Notification, ChangePVStatusService){
+app.controller('OtherRelayController', ['$scope', '$http', 'Notification', 'ChangePVStatusService' , 'ExcelSave', function($scope, $http , Notification, ChangePVStatusService,ExcelSave){
 	$scope.otherrelaymodal = {};
 	$scope.gridOptions = {
 		pagination: {
@@ -66,5 +66,32 @@ app.controller('OtherRelayController', ['$scope', '$http', 'Notification', 'Chan
 			}
 		});
 	}
+
+	$scope.exportToExcelSave=function(tableId , filename)
+	{
+        ExcelSave.tableToExcel(tableId,filename);
+
+        $timeout(function(){
+
+        },100); // trigger download
+    }
+
+           $scope.Reset = function()
+            {
+            	$scope.filterid = '';
+            	$scope.filterrmaID = '';
+            	$scope.filterID = '';
+            	$scope.filterpartno = '';
+            	$scope.filterserialno = '';
+            	$scope.filterpvtodate = '';
+            	$scope.filterpvfromdate = '';
+            	$scope.filterCustomer = '';
+            	$scope.filterendCustomer = '';
+            	$scope.filterdocketdetails = '';
+            	$scope.filterrmaid = '';
+            	$scope.dateTo = '';
+            	$scope.dateFrom = '';
+            }
+
 
 }]);

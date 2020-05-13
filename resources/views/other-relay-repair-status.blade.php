@@ -102,6 +102,15 @@
 						</div>
 					</div>
 			    </div>
+			            <div class="col-md-12 p-b-20">
+                    <ul class="list-inline">
+                        <li>
+                            <button type="button" class="btn btn-primary btn-md float-right box m-r-10"  ng-click="exportToExcelSave('#otherrelayrepaittable' , 'OtherRelayRepairStatusReport.xls')">
+                                <i class="fa fa-file-excel-o"></i>&nbsp;Export
+                            </button>
+                        </li>
+                    </ul>
+                </div>
 	            <div class="col-md-12">
 	                <div grid-data grid-options="gridOptions" grid-actions="gridActions">
 						<!-- sample table layout goes below, but remember that you can you any mark-up here. -->
@@ -259,4 +268,21 @@
 @endsection
 @section('scripts')
 	<script type="text/javascript" src="{{url('public/js/controllers/OtherRelayController.js')}}"></script>
+
+	<script>
+    $(document).ready(function () {
+        $("#dateFromFilter").datepicker({
+            autoclose: true,
+            format: 'yyyy-mm-dd',
+            todayHighlight: true,
+        });
+
+        $("#dateToFilter").datepicker({
+            autoclose: true,
+            format: 'yyyy-mm-dd',
+            todayHighlight: true,
+        });
+
+    });
+</script>
 @endsection

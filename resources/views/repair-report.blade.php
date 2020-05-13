@@ -37,6 +37,11 @@
                                          <th>
                                         <input id="cusFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Customer" ng-change="gridActions.filter()" ng-model="customerFilter" filter-by="customer" filter-type="text">
                                     </th>
+
+
+                                         <th>
+                                        <input id="DisFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Dispatched" ng-change="gridActions.filter()" ng-model="current_status" filter-by="" filter-type="text">
+                                    </th>
                                 
                                     <th>
                                         <input type="text"
