@@ -273,7 +273,7 @@ class PVListingRepository
     	$pvs['wch'] = DB::table('physical_verification as pv')->selectRaw('pt.code as type_name, pt.id as pt_id, COUNT(*) as total')
     					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
     					->join('pv_status as sta', 'sta.pv_id', 'pv.id')
-    					->where('sta.current_status_id', 13)
+    					->whereIn('sta.current_status_id', [3, 4, 13])
     					->groupBy('pt.id')
     					->get();
     	//loop and add due count
@@ -285,7 +285,7 @@ class PVListingRepository
     			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
     			->join('ma_product_overdue_age as poa', 'poa.category', 'pt.category')
     			->where('pt.id', $wc->pt_id)
-    			->where('sta.current_status_id', 13)
+    			->whereIn('sta.current_status_id', [3, 4, 13])
     			->whereRaw('DATEDIFF("'. Carbon::now() .'", sta.created_at) > (poa.wch-1)')
     			->get();
 
@@ -302,7 +302,8 @@ class PVListingRepository
     	$pvs['for_test'] = DB::table('physical_verification as pv')->selectRaw('pt.code as type_name, pt.id as pt_id, COUNT(*) as total')
     					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
     					->join('pv_status as sta', 'sta.pv_id', 'pv.id')
-    					->whereIn('sta.current_status_id', [6, 7])
+    					->whereIn('sta.current_status_id', [7, 8, 9, 10])
+    					->whereIn('pt.category', ['smp', 'omu'])
     					->groupBy('pt.id')
     					->get();
     	//loop and add due count
@@ -314,7 +315,8 @@ class PVListingRepository
     			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
     			->join('ma_product_overdue_age as poa', 'poa.category', 'pt.category')
     			->where('pt.id', $test->pt_id)
-    			->whereIn('sta.current_status_id', [6, 7])
+    			->whereIn('sta.current_status_id', [7, 8, 9, 10])
+    			->whereIn('pt.category', ['smp', 'omu'])
     			->whereRaw('DATEDIFF("'. Carbon::now() .'", sta.created_at) > (poa.testing-1)')
     			->get();
 
@@ -332,7 +334,7 @@ class PVListingRepository
     	$pvs['for_pack'] = DB::table('physical_verification as pv')->selectRaw('pt.code as type_name, pt.id as pt_id, COUNT(*) as total')
     					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
     					->join('pv_status as sta', 'sta.pv_id', 'pv.id')
-    					->whereIn('sta.current_status_id', [14])
+    					->whereIn('sta.current_status_id', [11, 12, 14])
     					->groupBy('pt.id')
     					->get();
     	//loop and add due count
@@ -344,7 +346,7 @@ class PVListingRepository
     			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
     			->join('ma_product_overdue_age as poa', 'poa.category', 'pt.category')
     			->where('pt.id', $pack->pt_id)
-    			->whereIn('sta.current_status_id', [14])
+    			->whereIn('sta.current_status_id', [11, 12, 14])
     			->whereRaw('DATEDIFF("'. Carbon::now() .'", sta.created_at) > (poa.dispatch-1)')
     			->get();
 
@@ -356,15 +358,13 @@ class PVListingRepository
 			$pack->overdue = sizeof($pack->overdue_list);
     		$pvs['total_overdue']['for_pack'] += $pack->overdue;
     		unset($pack->overdue_list);
-
-			$pvs['total_overdue']['for_pack'] += $pack->overdue;
     	}
 
     	//data for repair
     	$pvs['for_repair'] = DB::table('physical_verification as pv')->selectRaw('pt.code as type_name, pt.id as pt_id, COUNT(*) as total')
     					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
     					->join('pv_status as sta', 'sta.pv_id', 'pv.id')
-    					->whereIn('sta.current_status_id', array(4,5,6,7,8))
+    					->whereIn('sta.current_status_id', array(4,5,6))
     					->groupBy('pt.id')
     					->get();
 		//loop and add due count
@@ -375,7 +375,7 @@ class PVListingRepository
     			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
     			->join('ma_product_overdue_age as poa', 'poa.category', 'pt.category')
     			->where('pt.id', $repair->pt_id)
-    			->whereIn('sta.current_status_id', array(4,5,6,7,8,9,10))
+    			->whereIn('sta.current_status_id', array(4,5,6))
     			->whereRaw('DATEDIFF("'. Carbon::now() .'", sta.created_at) > (poa.jt-1)')
     			->get();
 
@@ -435,7 +435,7 @@ class PVListingRepository
     				->leftJoin('rms', 'rms.pv_id', 'pv.id')
     				->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'pv.id')
     				->leftJoin('ma_pv_status as mps', 'mps.id', 'sta.current_status_id')
-    				->whereIn('sta.current_status_id', [3,4,5,6,7,8,9,10,11])
+    				->whereIn('sta.current_status_id', [1,2,3,4,5,6,7,8,9,10,11,13,14,16])
     				->where('pt.category', '!=', 'boj')
     				->orderBy('pvl_priority')->orderBy('pv.id')->get();
 
@@ -446,7 +446,7 @@ class PVListingRepository
     				->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'pv.id')
     				->leftJoin('ma_pv_status as mps', 'mps.id', 'sta.current_status_id')
     				->whereIn('sta.current_status_id', [4,5])
-    				->where('pt.category', '!=', 'boj')
+    				->whereIn('pt.category',['smp', 'omu'])
     				->orderBy('pvl_priority')->orderBy('pv.id')->get();
 
 		//today status

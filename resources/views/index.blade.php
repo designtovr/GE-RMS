@@ -96,7 +96,7 @@
                                            </div>
                                            <div class="col-sm-5">
                                                <h3 style="color: white; font-size: 22px;font-weight: 500;">
-                                                   Total Relays: <span style="font-weight: bolder;" ng-bind="dashboardvalues.repair_priority.length"></span>
+                                                   Total Relays: <span style="font-weight: bolder;" ng-bind="dashboardvalues.total_overdue.for_test"></span>
                                                </h3>
                                            </div>
                                        </div>
@@ -142,7 +142,7 @@
                                        </div>
                                        <div class="col-sm-5">
                                            <h3 style="color: white; font-size: 22px;font-weight: 500;">
-                                               Total Relays: <span style="font-weight: bolder;" ng-bind="dashboardvalues.repair_priority.length"></span>
+                                               Total Relays: <span style="font-weight: bolder;" ng-bind="dashboardvalues.total_overdue.for_pack"></span>
                                            </h3>
                                        </div>
                                    </div>
@@ -218,7 +218,7 @@
                                    </div>
                                    <div class="col-sm-5">
                                        <h3 style="color: white; font-size: 22px;font-weight: 500;">
-                                           Total Relays: <span style="font-weight: bolder;" ng-bind="dashboardvalues.repair_priority.length"></span>
+                                           Total Relays: <span style="font-weight: bolder;" ng-bind="dashboardvalues.total_overdue.for_pv"></span>
                                        </h3>
                                    </div>
                                </div>
@@ -262,7 +262,7 @@
                            </div>
                            <div class="col-sm-5">
                                <h3 style="color: white; font-size: 22px;font-weight: 500;">
-                                   Total Relays: <span style="font-weight: bolder;" ng-bind="dashboardvalues.repair_priority.length"></span>
+                                   Total Relays: <span style="font-weight: bolder;" ng-bind="dashboardvalues.total_overdue.wch"></span>
                                </h3>
                            </div>
                        </div>
@@ -306,7 +306,7 @@
                </div>
                <div class="col-sm-5">
                    <h3 style="color: white; font-size: 22px;font-weight: 500;">
-                       Total Relays: <span style="font-weight: bolder;" ng-bind="dashboardvalues.repair_priority.length"></span>
+                       Total Relays: <span style="font-weight: bolder;" ng-bind="dashboardvalues.priority.length"></span>
                    </h3>
                </div>
            </div>
@@ -355,7 +355,7 @@
                </div>
                <div class="col-sm-5">
                    <h3 style="color: white; font-size: 22px;font-weight: 500;">
-                       Total Relays: <span style="font-weight: bolder;" ng-bind="dashboardvalues.repair_priority.length"></span>
+                       Total Relays: <span style="font-weight: bolder;" ng-bind="dashboardvalues.receipt.length"></span>
                    </h3>
                </div>
            </div>
