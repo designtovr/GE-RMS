@@ -17,6 +17,8 @@ use App\Models\Aging;
 use App\Models\AgingTracking;
 use App\Models\VerificationCompletion;
 use App\Models\PVStatusTracking;
+use App\Models\OtherRelayStage;
+use App\Models\OtherRelayStageTracking;
 use App\Models\DispatchMaster;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -35,7 +37,7 @@ use Illuminate\Support\Facades\DB;
 
  	public function RelayStageReport($id)
  	{
- 		$relay = PhysicalVerificationMaster::selectRaw('physical_verification.*, c_user.name as created_by_name, u_user.name as updated_by_name, pro.part_no, pt.name as pro_type, mpvs.status as current_status')
+ 		$relay = PhysicalVerificationMaster::selectRaw('physical_verification.*, c_user.name as created_by_name, u_user.name as updated_by_name, pro.part_no, pt.name as pro_type, pt.category as product_category, mpvs.status as current_status')
  				->leftJoin('users as c_user', 'c_user.id', 'physical_verification.created_by')
 				->leftJoin('users as u_user', 'u_user.id', 'physical_verification.updated_by')
 				->leftJoin('ma_product as pro', 'pro.id', 'physical_verification.product_id')
@@ -82,6 +84,8 @@ use Illuminate\Support\Facades\DB;
 		$relay['dispatch_approval'] = PVStatusTracking::selectRaw('pv_status_tracking.*, c_user.name as created_by_name')->leftJoin('users as c_user', 'c_user.id', 'pv_status_tracking.created_by')->where('pv_id', $relay->id)->where('status_id', 14)->first();
 
 		$relay['dispatch'] = DispatchMaster::selectRaw('dispatch.*, c_user.name as created_by_name')->where('pv_id', $relay->id)->leftJoin('users as c_user', 'c_user.id', 'dispatch.created_by')->first();
+
+		$relay['other_relay_stage_tracking'] = OtherRelayStageTracking::selectRaw('stage_id, comments, c_user.name as created_by_name, other_relay_stage_tracking.created_at')->leftJoin('users as c_user', 'c_user.id', 'other_relay_stage_tracking.created_by')->where('pv_id', $relay->id)->get();
 
  		return $relay;
  	}

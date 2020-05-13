@@ -313,6 +313,7 @@
                         </div>
                     </div>
                 </div>
+                @if(strcasecmp('SMP', $product_category) == 0 || strcasecmp('OMU', $product_category) == 0)
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-header">
@@ -400,7 +401,9 @@
                         </div>
                     </div>
                 </div>
+                @endif
 			</div>
+            @if(strcasecmp('SMP', $product_category) == 0 || strcasecmp('OMU', $product_category) == 0)
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="card">
@@ -470,6 +473,8 @@
                     </div>
 				</div>
 			</div>
+            @endif
+            @if(strcasecmp('SMP', $product_category) == 0 || strcasecmp('OMU', $product_category) == 0)
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="card">
@@ -516,6 +521,8 @@
                     </div>
 				</div>
 			</div>
+            @endif
+            @if(strcasecmp('SMP', $product_category) == 0 || strcasecmp('OMU', $product_category) == 0)
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="card">
@@ -562,6 +569,8 @@
                     </div>
 				</div>
 			</div>
+            @endif
+            @if(strcasecmp('SMP', $product_category) == 0 || strcasecmp('OMU', $product_category) == 0)
 			<div class="row">
 				<div class="col-lg-6">
                     <div class="card">
@@ -661,6 +670,61 @@
                     </div>
                 </div>
 			</div>
+            @endif
+            @if(strcasecmp('SMP', $product_category) != 0 && strcasecmp('OMU', $product_category) != 0)
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong>Other Relay Stage Track</strong>
+                            <small> Details</small>
+                        </div>
+                        <div class="card-body card-block">
+                            <form action="" method="post" class="form-horizontal">
+                                <!-- DATA TABLE-->
+                                <div class="table-responsive m-b-40">
+                                    <table class="table table-borderless table-data3">
+                                        <thead>
+                                            <tr>
+                                                <th>S.No</th>
+                                                <th>Stage</th>
+                                                <th>Comment</th>
+                                                <th>Created by</th>
+                                                <th>Created at</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($other_relay_stage_tracking as $key => $orst)
+                                            <tr>
+                                                <td>{{$key+1}}</td>
+                                                <td>
+                                                    @if($orst['stage_id'] == 0)
+                                                        Not Initiated
+                                                    @elseif($orst['stage_id'] == 1)
+                                                        Intimated to Procurement
+                                                    @elseif($orst['stage_id'] == 2)
+                                                        To be reworked by Supplier – In house
+                                                    @elseif($orst['stage_id'] == 3)
+                                                        Send to supplier
+                                                    @elseif($orst['stage_id'] == 4)
+                                                        Return to customer
+                                                    @endif
+                                                </td>
+                                                <td>{{$orst['comments']}}</td>
+                                                <td>{{$orst['created_at']}}</td>
+                                                <td>{{$orst['created_by_name']}}</td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- END DATA TABLE-->
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
 			<div class="row">
 				<div class="col-lg-6">
                     <div class="card">
