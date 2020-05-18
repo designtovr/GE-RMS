@@ -8,7 +8,7 @@ set "HH=%dt:~8,2%" & set "Min=%dt:~10,2%" & set "Sec=%dt:~12,2%"
 SET backupdir=C:\xampp\htdocs\ge\backup
 SET mysqluername=backup_user
 SET mysqlpassword=123456
-SET database=ge_rms
+SET database=ge_rms_2
 SET fullstamp=%YYYY%-%MM%-%DD%_%HH%-%Min%-%Sec%
 
 C:\xampp\mysql\bin\mysqldump.exe -ubackup_user -p123456 %database% > %backupdir%\%database%_%fullstamp%.sql
