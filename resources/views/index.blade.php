@@ -571,7 +571,7 @@
                             <td ng-bind="list.formatted_pv_id"></td>
                             <td ng-bind="list.product_family"></td>
                             <td ng-bind="list.serial_no"></td>
-                            <td ng-bind="list.overdue_age"></td>
+                            <td ng-bind="list.stage_overdue"></td>
                             <td ng-bind="list.overall_due"></td>
                         </tr>
                     </tbody>

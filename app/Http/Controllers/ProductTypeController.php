@@ -79,6 +79,7 @@ class ProductTypeController extends Controller
             $POA->wch = $product['wch'];
             $POA->jt = $product['jt'];
             $POA->testing = $product['testing'];
+            $POA->aging = $product['aging'];
             $POA->dispatch = $product['dispatch'];
             $POA->updated_at = Carbon::now();
             $POA->updated_by = Auth::id();

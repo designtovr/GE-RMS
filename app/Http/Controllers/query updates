@@ -107,3 +107,18 @@ ALTER TABLE `dispatch` ADD `cc` VARCHAR(200) NULL AFTER `contact`;
 INSERT INTO `ma_pv_status` (`id`, `status`, `close_status`) VALUES (NULL, 'Other Relay Repair', NULL);
 
 CREATE TABLE `ge_rms`.`other_relay_stage_tracking` ( `pv_id` BIGINT NOT NULL , `stage_id` TINYINT NOT NULL , `created_by` TINYINT NOT NULL , `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ) ENGINE = InnoDB;
+
+18/05/2020
+ALTER TABLE `ma_product_overdue_age` ADD `aging` INT NOT NULL AFTER `testing`;
+
+SELECT MASTER.pv_id,DATEDIFF((SELECT created_at FROM `pv_status_tracking` WHERE status_id = 13 AND pv_id = MASTER.pv_id ORDER BY created_at DESC LIMIT 1),( SELECT created_at FROM `pv_status_tracking` WHERE (status_id = 2 OR status_id = 1) AND pv_id = MASTER.pv_id ORDER BY created_at ASC LIMIT 1)) AS phy_diff, DATEDIFF((SELECT created_at FROM `pv_status_tracking` WHERE status_id = 4 AND pv_id = MASTER.pv_id ORDER BY created_at DESC LIMIT 1),
+(SELECT created_at FROM `pv_status_tracking` WHERE status_id = 13 AND pv_id = MASTER.pv_id ORDER BY created_at ASC LIMIT 1)) AS wch_diff, 
+DATEDIFF((SELECT created_at FROM `pv_status_tracking` WHERE status_id = 6 AND pv_id = MASTER.pv_id ORDER BY created_at DESC LIMIT 1),
+(SELECT created_at FROM `pv_status_tracking` WHERE status_id = 4 AND pv_id = MASTER.pv_id ORDER BY created_at ASC LIMIT 1)) AS jt_diff,
+DATEDIFF((SELECT created_at FROM `pv_status_tracking` WHERE status_id = 8 AND pv_id = MASTER.pv_id ORDER BY created_at DESC LIMIT 1),
+(SELECT created_at FROM `pv_status_tracking` WHERE status_id = 6 AND pv_id = MASTER.pv_id ORDER BY created_at ASC LIMIT 1)) AS test_diff,
+DATEDIFF((SELECT created_at FROM `pv_status_tracking` WHERE status_id = 10 AND pv_id = MASTER.pv_id ORDER BY created_at DESC LIMIT 1),
+(SELECT created_at FROM `pv_status_tracking` WHERE status_id = 8 AND pv_id = MASTER.pv_id ORDER BY created_at ASC LIMIT 1)) AS aging_diff,
+DATEDIFF((SELECT created_at FROM `pv_status_tracking` WHERE status_id = 12 AND pv_id = MASTER.pv_id ORDER BY created_at DESC LIMIT 1),
+(SELECT created_at FROM `pv_status_tracking` WHERE status_id = 11 AND pv_id = MASTER.pv_id ORDER BY created_at ASC LIMIT 1)) AS dispatch_diff
+FROM `pv_status_tracking` AS MASTER WHERE 1 GROUP BY pv_id;

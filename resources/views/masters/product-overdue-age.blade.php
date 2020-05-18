@@ -32,6 +32,7 @@
                                         <th sortable="wch" class="sortable">W/Ch</th>
                                         <th sortable="jt" class="sortable">Job Ticket</th>
                                         <th sortable="testing" class="sortable">Testing</th>
+                                        <th sortable="aging" class="sortable">Aging</th>
                                         <th sortable="dispatch" class="sortable">Dispatch</th>
                                     </tr>
                                 </thead>
@@ -51,6 +52,7 @@
                                         <td ng-bind="item.wch"></td>
                                         <td ng-bind="item.jt"></td>
                                         <td ng-bind="item.testing"></td>
+                                        <td ng-bind="item.aging"></td>
                                         <td ng-bind="item.dispatch"></td>
                                     </tr>
                                 </tbody>
@@ -214,6 +216,32 @@
                                                 </span>
                                                 <span class="help-block"
                                                   ng-show="ProductTypeForm.testing.$error.pattern">
+                                                    Only Numbers Allowed
+                                                </span>
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-4">
+                                        <label for="aging" class=" form-control-label" >Aging<span class="mandatory">*</span></label>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <input
+                                            type="text"
+                                            id="aging"
+                                            name="aging"
+                                            ng-model="productoverdueage.aging"
+                                            placeholder="Testing"
+                                            class="form-control"
+                                            ng-pattern="/^[0-9]*$/"
+                                            required>
+                                            <div ng-show="ProductTypeForm.aging.$touched && ProductTypeForm.aging.$error">
+                                                <span class="help-block"
+                                                      ng-show="ProductTypeForm.aging.$error.required">
+                                                    Please Enter Value
+                                                </span>
+                                                <span class="help-block"
+                                                  ng-show="ProductTypeForm.aging.$error.pattern">
                                                     Only Numbers Allowed
                                                 </span>
                                             </div>

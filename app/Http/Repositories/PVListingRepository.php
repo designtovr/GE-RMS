@@ -12,6 +12,17 @@ use Illuminate\Support\Facades\DB;
 class PVListingRepository
 {
 
+	public static $overall_stage_query = 'DATEDIFF((SELECT created_at FROM `pv_status_tracking` WHERE status_id = 13 AND pv_id = pv.id ORDER BY created_at DESC LIMIT 1),( SELECT created_at FROM `pv_status_tracking` WHERE (status_id = 2 OR status_id = 1) AND pv_id = pv.id ORDER BY created_at ASC LIMIT 1)) - ((poa.pv-1)) AS phy_diff, DATEDIFF((SELECT created_at FROM `pv_status_tracking` WHERE status_id = 4 AND pv_id = pv.id ORDER BY created_at DESC LIMIT 1),
+			(SELECT created_at FROM `pv_status_tracking` WHERE status_id = 13 AND pv_id = pv.id ORDER BY created_at ASC LIMIT 1)) - ((poa.wch-1)) AS wch_diff, 
+			DATEDIFF((SELECT created_at FROM `pv_status_tracking` WHERE status_id = 6 AND pv_id = pv.id ORDER BY created_at DESC LIMIT 1),
+			(SELECT created_at FROM `pv_status_tracking` WHERE status_id = 4 AND pv_id = pv.id ORDER BY created_at ASC LIMIT 1)) - ((poa.jt-1)) AS jt_diff,
+			DATEDIFF((SELECT created_at FROM `pv_status_tracking` WHERE status_id = 8 AND pv_id = pv.id ORDER BY created_at DESC LIMIT 1),
+			(SELECT created_at FROM `pv_status_tracking` WHERE status_id = 6 AND pv_id = pv.id ORDER BY created_at ASC LIMIT 1)) - ((poa.testing-1)) AS test_diff,
+			DATEDIFF((SELECT created_at FROM `pv_status_tracking` WHERE status_id = 10 AND pv_id = pv.id ORDER BY created_at DESC LIMIT 1),
+			(SELECT created_at FROM `pv_status_tracking` WHERE status_id = 8 AND pv_id = pv.id ORDER BY created_at ASC LIMIT 1)) - ((poa.aging-1)) AS aging_diff,
+			DATEDIFF((SELECT created_at FROM `pv_status_tracking` WHERE status_id = 12 AND pv_id = pv.id ORDER BY created_at DESC LIMIT 1),
+			(SELECT created_at FROM `pv_status_tracking` WHERE status_id = 11 AND pv_id = pv.id ORDER BY created_at ASC LIMIT 1)) - ((poa.dispatch-1)) AS dispatch_diff';
+
 	private function PVList($status_id, $service_type = array(), $receipt_status = array(), $cat = ['smp', 'omu'])
 	{
 		$pv = PhysicalVerificationMaster::
@@ -280,7 +291,7 @@ class PVListingRepository
 		$pvs['total_overdue']['wch'] = 0;
 		$pvs['total_overdue']['wch_due_list'] = array();
     	foreach ($pvs['wch'] as $key => $wc) {
-    		$wc->overdue_list = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.id, pv.serial_no, poa.wch, DATEDIFF( "'.Carbon::now().'", pv.created_at) as overall_due, pt.code as product_family')
+    		$wc->overdue_list = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.id, pv.serial_no, poa.wch, DATEDIFF( "'.Carbon::now().'", pv.created_at) as stage_overdue, pt.code as product_family, '.self::$overall_stage_query)
     			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
     			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
     			->join('ma_product_overdue_age as poa', 'poa.category', 'pt.category')
@@ -293,6 +304,7 @@ class PVListingRepository
 			foreach ($wc->overdue_list as $key => $list) {
 				array_push($wc->due_list, $list);
 				array_push($pvs['total_overdue']['wch_due_list'], $list);
+				$list->overall_due = $list->phy_diff + $list->wch_diff + $list->jt_diff + $list->test_diff + $list->aging_diff + $list->dispatch_diff + $list->stage_overdue;
 			}
 			$wc->overdue = sizeof($wc->overdue_list);
     		$pvs['total_overdue']['wch'] += $wc->overdue;
@@ -302,7 +314,7 @@ class PVListingRepository
     	$pvs['for_test'] = DB::table('physical_verification as pv')->selectRaw('pt.code as type_name, pt.id as pt_id, COUNT(*) as total')
     					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
     					->join('pv_status as sta', 'sta.pv_id', 'pv.id')
-    					->whereIn('sta.current_status_id', [7, 8, 9, 10])
+    					->whereIn('sta.current_status_id', [6, 7, 8, 9, 10])
     					->whereIn('pt.category', ['smp', 'omu'])
     					->groupBy('pt.id')
     					->get();
@@ -315,7 +327,7 @@ class PVListingRepository
     			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
     			->join('ma_product_overdue_age as poa', 'poa.category', 'pt.category')
     			->where('pt.id', $test->pt_id)
-    			->whereIn('sta.current_status_id', [7, 8, 9, 10])
+    			->whereIn('sta.current_status_id', [6, 7, 8, 9, 10])
     			->whereIn('pt.category', ['smp', 'omu'])
     			->whereRaw('DATEDIFF("'. Carbon::now() .'", sta.created_at) > (poa.testing-1)')
     			->get();
@@ -331,22 +343,23 @@ class PVListingRepository
     	}
 
     	//data for packing
-    	$pvs['for_pack'] = DB::table('physical_verification as pv')->selectRaw('pt.code as type_name, pt.id as pt_id, COUNT(*) as total')
+    	$pvs['for_pack'] = DB::table('physical_verification as pv')->selectRaw('pv.id, pt.code as type_name, pt.id as pt_id, COUNT(*) as total')
     					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
     					->join('pv_status as sta', 'sta.pv_id', 'pv.id')
-    					->whereIn('sta.current_status_id', [11, 12, 14])
+    					->join('ma_product_overdue_age as poa', 'poa.category', 'pt.category')
+    					->whereIn('sta.current_status_id', [11, 14])
     					->groupBy('pt.id')
     					->get();
     	//loop and add due count
 		$pvs['total_overdue']['for_pack'] = 0;
 		$pvs['total_overdue']['for_pack_due_list'] = array();
     	foreach ($pvs['for_pack'] as $key => $pack) {
-    		$pack->overdue_list = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.id, pv.serial_no, poa.dispatch, DATEDIFF( "'.Carbon::now().'", pv.created_at) as overall_due, pt.code as product_family')
+    		$pack->overdue_list = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.id, pv.serial_no, poa.dispatch, pt.code as product_family, DATEDIFF( "'.Carbon::now().'", pv.created_at) as stage_overdue, '.self::$overall_stage_query)
     			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
     			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
     			->join('ma_product_overdue_age as poa', 'poa.category', 'pt.category')
     			->where('pt.id', $pack->pt_id)
-    			->whereIn('sta.current_status_id', [11, 12, 14])
+    			->whereIn('sta.current_status_id', [11, 14])
     			->whereRaw('DATEDIFF("'. Carbon::now() .'", sta.created_at) > (poa.dispatch-1)')
     			->get();
 
@@ -354,6 +367,7 @@ class PVListingRepository
 			foreach ($pack->overdue_list as $key => $list) {
 				array_push($pack->due_list, $list);
 				array_push($pvs['total_overdue']['for_pack_due_list'], $list);
+				$list->overall_due = $list->phy_diff + $list->wch_diff + $list->jt_diff + $list->test_diff + $list->aging_diff + $list->dispatch_diff + $list->stage_overdue;
 			}
 			$pack->overdue = sizeof($pack->overdue_list);
     		$pvs['total_overdue']['for_pack'] += $pack->overdue;
@@ -370,7 +384,7 @@ class PVListingRepository
 		//loop and add due count
 		$pvs['total_overdue']['for_repair'] = 0;
 		foreach ($pvs['for_repair'] as $key => $repair) {
-			$repair->overdue_list = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.id, pv.serial_no, poa.jt, DATEDIFF( "'.Carbon::now().'", pv.created_at) as overall_due, pt.code as product_family')
+			$repair->overdue_list = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.id, pv.serial_no, poa.jt, DATEDIFF( "'.Carbon::now().'", pv.created_at) as stage_overdue, pt.code as product_family, '.self::$overall_stage_query)
     			->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
     			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
     			->join('ma_product_overdue_age as poa', 'poa.category', 'pt.category')
@@ -382,6 +396,7 @@ class PVListingRepository
 			$repair->due_list = array();
 			foreach ($repair->overdue_list as $key => $list) {
 				array_push($repair->due_list, $list);
+				$list->overall_due = $list->phy_diff + $list->wch_diff + $list->jt_diff + $list->test_diff + $list->aging_diff + $list->dispatch_diff + $list->stage_overdue;
 			}
 			$repair->overdue = sizeof($repair->overdue_list);
     		$pvs['total_overdue']['for_repair'] += $repair->overdue;
