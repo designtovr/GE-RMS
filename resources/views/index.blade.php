@@ -119,7 +119,7 @@
                                                     <tr ng-repeat="test in dashboardvalues.for_test">
                                                         <td ng-bind="test.type_name"></td>
                                                         <td ng-bind="test.total"></td>
-                                                        <td style="cursor: pointer;" ng-click="ShowOverDueList('Test',test);"> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-10s" ng-bind="test.overdue"></span></td>
+                                                        <td style="cursor: pointer;" ng-click="ShowOverDueList('Testing and Aging',test);"> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-10s" ng-bind="test.overdue"></span></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -238,8 +238,8 @@
                                       <tbody>
                                           <tr ng-repeat="forpv in dashboardvalues.for_physical_verification">
                                               <td ng-bind="forpv.customer_name | uppercase"></td>
-                                              <td ng-bind="forpv.total"></td>
-                                              <td style="cursor: pointer;"  ><!-- ng-click="ShowOverDueList('Physical Verification',forpv);" --><span class="badge badge-danger badge-fs-15 animated infinite flash slower-10s" ng-bind="forpv.overdue"></span></td>
+                                              <td ng-bind="forpv.total_boxes"></td>
+                                              <td style="cursor: pointer;"  ><!-- ng-click="ShowOverDueList('Physical Verification',forpv);" --><span class="badge badge-danger badge-fs-15 animated infinite flash slower-10s" ng-bind="forpv.overdue_days"></span></td>
                                           </tr>
                                       </tbody>
                                   </table>

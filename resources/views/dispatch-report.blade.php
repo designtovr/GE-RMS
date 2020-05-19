@@ -29,7 +29,7 @@
 
 
                                          <th>
-                                        <input id="cusFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Category" ng-change="gridActions.filter()" ng-model="customerFilter" filter-by="customer" filter-type="text">
+                                        <input id="partNoFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Model No" ng-change="gridActions.filter()" ng-model="partNoFilter" filter-by="part_no" filter-type="text">
                                     </th>
 
                                          <th>
@@ -90,6 +90,7 @@
                                     <th sortable="formatted_pv_id" class="sortable">R Id</th>
                                         <th sortable="serial_no" class="sortable">Serial No.</th>
                                         <th sortable="part_no" class="sortable">Model No.</th>
+                                        <th sortable="category" class="sortable">Category</th>
                                         <th sortable="customer" class="sortable">Customer</th>
                                     <th sortable="created_date_unix" class="sortable">Dispatched at</th>
                                 </tr>
@@ -104,9 +105,10 @@
     	                                </div>
     	                            </td>
     	                            <td ng-bind="item.formatted_pv_id"></td>
-                                               <td ng-bind="item.customer"></td>
-                                        <td ng-bind="item.part_no"></td>
-                                        <td ng-bind="item.serial_no"></td>
+                                    <td ng-bind="item.serial_no"></td>
+                                    <td ng-bind="item.part_no"></td>
+                                    <td ng-bind="item.category | uppercase"></td>
+                                    <td ng-bind="item.customer"></td>
     	                            <td ng-bind="item.created_date_unix | date:'dd/MM/yyyy'"></td>
                                 </tr>
                             </tbody>

@@ -98,7 +98,6 @@
                             <table class="table table-borderless table-data3 table-responsive" id="repairreporttable" name="repairreporttable">
                                 <thead>
                                     <tr>
-                                        <th>Actions</th>
                                         <th sortable="formatted_receipt_id" class="sortable">RMA No</th>
                                         <th sortable="receipt_date" class="sortable">Receipt Date</th>
                                         <th sortable="customer" class="sortable">Customer</th>
@@ -106,7 +105,7 @@
                                         <th sortable="end_customer" class="sortable">End   Customer</th>
                                         <th sortable="current_status" class="sortable">Repair Status</th>
                                         <th sortable="code" class="sortable">Family</th>
-                                        <th sortable="wch_type" class="sortable">Warranty/Chargeable</th>
+                                        <th sortable="wch" class="sortable">Warranty/Chargeable</th>
                                         <th sortable="part_no" class="sortable">Model No.</th>
                                         <th sortable="serial_no" class="sortable">Serial No.</th>
                                         <th sortable="repair_initiated_date" class="sortable">Repair Initiation</th>
@@ -153,10 +152,11 @@
                                         <th sortable="pcb_new_pcb_12" class="sortable">PCB12 Healthy Ser no</th>
                                         <th sortable="existing_sw_version" class="sortable">EXISTING SOFTWARE</th>
                                         <th sortable="updated_sw_version" class="sortable">UPGRADED SOFTWARE</th>
-                                        <th sortable="download_customer_setting" class="sortable">Customer Setting Loaded</th>
+                                        <th sortable="restored_customer_setting" class="sortable">Customer Setting Loaded</th>
                                         <th sortable="remark_by_verification" class="sortable">REMARKS by Verification</th>
                                         <th sortable="repaired_by" class="sortable">REPAIRED BY</th>
                                         <th sortable="current_status" class="sortable">Repair Status</th>
+                                        <th sortable="dispatch" class="sortable">Dispatch</th>
                                         <th sortable="dc_no" class="sortable">DOCKET No</th>
                                         <th sortable="docket_details" class="sortable">Delivery Challan Detail</th>
                                         <th sortable="dispatched_at" class="sortable">Dispatch date</th>
@@ -164,13 +164,6 @@
                                 </thead>
                                 <tbody>
                                     <tr grid-item>
-                                        <td>
-                                            <div class="table-data-feature float-left">
-                                                <button class="item" data-toggle="tooltip" data-placement="top" title="Report" ng-click="GenerateReport(item.id)">
-                                                    <i class="zmdi zmdi-file-text"></i>
-                                                </button>
-                                            </div>
-                                        </td>
                                         <td ng-bind="item.formatted_rma_id"></td>
                                         <td ng-bind="item.receipt_date  | date:'dd/MM/yyyy'"></td>
                                         <td ng-bind="item.customer"></td>
@@ -178,14 +171,14 @@
                                         <td ng-bind="item.end_customer"></td>
                                         <td ng-bind="item.current_status"></td>
                                         <td ng-bind="item.code"></td>
-                                        <td ng-bind="item.wch_type"></td>
+                                        <td ng-bind="item.wch"></td>
                                         <td ng-bind="item.part_no"></td>
                                         <td ng-bind="item.serial_no"></td>
                                         <td ng-bind="item.repair_initiated_date"></td>
                                         <td ng-bind="item.repair_completed_at"></td>
                                         <td ng-bind="item.defect_by_customer"></td>
                                         <td ng-bind="item.power_on_test"></td>
-                                        <td ng-bind="item.download_customer_setting">12</td>
+                                        <td ng-bind="item.download_customer_setting"></td>
                                         <td ng-bind="item.pcb_part_no_1"></td>
                                         <td ng-bind="item.pcb_defective_pcb_1"></td>
                                         <td ng-bind="item.pcb_new_pcb_1"></td>
@@ -224,10 +217,11 @@
                                         <td ng-bind="item.pcb_new_pcb_12"></td>
                                         <td ng-bind="item.existing_sw_version"></td>
                                         <td ng-bind="item.updated_sw_version"></td>
-                                        <td ng-bind="item.download_customer_setting"></td>
+                                        <td ng-bind="item.restored_customer_setting"></td>
                                         <td ng-bind="item.remark_by_verification"></td>
                                         <td ng-bind="item.repaired_by"></td>
                                         <td ng-bind="item.current_status"></td>
+                                        <td ng-bind="item.dispatch"></td>
                                         <td ng-bind="item.dc_no"></td>
                                         <td ng-bind="item.docket_details"></td>
                                         <td ng-bind="item.dispatched_at"></td>
