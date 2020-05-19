@@ -17,6 +17,8 @@ app.controller('DailyReportController', ['$scope', '$http', 'Notification' , '$l
 
         });
     }
+    $scope.dateVariable = new Date();
+
     var warrantydata  = {
         labels: ["PX40", "C264" , "Agile" ,"Conventional" ],
         datasets: [
