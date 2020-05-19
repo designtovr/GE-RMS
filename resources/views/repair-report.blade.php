@@ -40,8 +40,16 @@
 
 
                                          <th>
-                                        <input id="DisFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Dispatched" ng-change="gridActions.filter()" ng-model="current_status" filter-by="" filter-type="text">
+                                                           <select name="select" id="DisFilter" class="form-control g-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Dispatched" ng-change="gridActions.filter()" ng-model="register.Dispatched" filter-by="dispatch" filter-type="text" ng-options="dispatchStats.id as dispatchStats.name for dispatchStats in register.dispatchStatus"><option value="" disabled selected>Dispatch Status</option></select>
+     
                                     </th>
+
+                                         <th>
+                                                           <select name="select" id="WarFilter" class="form-control g-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Warranty/Chargeable" ng-change="gridActions.filter()" ng-model="register.wch" filter-by="wch" filter-type="text" ng-options="dispatchStats.id as dispatchStats.name for dispatchStats in register.wchStatus"><option value="" disabled selected>W/Ch</option></select>
+     
+                                    </th>
+
+
                                 
                                     <th>
                                         <input type="text"

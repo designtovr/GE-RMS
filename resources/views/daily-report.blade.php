@@ -89,7 +89,7 @@
                                     <div class="au-card-title"  >
                                         <div class="bg-overlay bg-overlay--androidblue"></div>
                                         <h3>
-                                            <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>Total Relays Completed</h3>
+                                            <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>Total Relays Completed</h3> ({{test.month}})
 
                                     </div>
                                     <div class="au-task js-list-load">

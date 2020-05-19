@@ -52,10 +52,30 @@ app.controller('RepairReportController', ['$scope', '$http', '$window', 'ExcelSa
 		$scope.filterserialno = '';
 		$scope.filtercode = '';
 		$scope.filterSerialNo = '';
-		$scope.customerFilter = '';
+		$scope.customerFilter = ''; 
 		$scope.dateFrom = '';
 		$scope.dateTo = '';
-
+		$scope.current_status = "";
+  		$scope.register.Dispatched = "";
+  		$scope.register.wch = "";
+		 
 	}
 
+	  $scope.register = {};
+
+	$scope.register.dispatchStatus = [{
+          id: "Yes",
+          name: "Dispatched"
+        }, {
+          id: "No",
+          name: "NotDispatched"
+        }];
+     
+     	$scope.register.wchStatus = [{
+          id: "Warranty",
+          name: "Warranty"
+        }, {
+          id: "Chargeable",
+          name: "Chargeable"
+        }];
 }]);
