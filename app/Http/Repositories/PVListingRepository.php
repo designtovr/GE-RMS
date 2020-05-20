@@ -989,9 +989,9 @@ class PVListingRepository
 		foreach ($data['total_chargeable'] as $key => $list) {
 			$total += $list->total;
 		}
-		$obj = (object)[];
-		$obj->type_name = "Total";
-		$obj->total = $total;
+		$obj = array();
+		$obj['type_name'] = "Total";
+		$obj['total'] = $total;
 		$data['total_chargeable'] = $data['total_chargeable']->toArray();
 		array_push($data['total_chargeable'], $obj);
 
@@ -1014,9 +1014,9 @@ class PVListingRepository
 		foreach ($data['warranty_overdue'] as $key => $list) {
 			$total += $list->total;
 		}
-		$obj = (object)[];
-		$obj->type_name = "Total";
-		$obj->total = $total;
+		$obj = array();
+		$obj['type_name'] = "Total";
+		$obj['total'] = $total;
 		$data['warranty_overdue'] = $data['warranty_overdue']->toArray();
 		array_push($data['warranty_overdue'], $obj);
 
@@ -1035,9 +1035,9 @@ class PVListingRepository
 		foreach ($data['repair_lead_time'] as $key => $list) {
 			$average += $list->average;
 		}
-		$obj = (object)[];
-		$obj->type_name = "Total";
-		$obj->average = $average;
+		$obj = array();
+		$obj['type_name'] = "Total";
+		$obj['average'] = $average;
 		$data['repair_lead_time'] = $data['repair_lead_time']->toArray();
 		array_push($data['repair_lead_time'], $obj);
 

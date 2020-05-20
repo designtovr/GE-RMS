@@ -111,9 +111,9 @@
 							@else
 							<tr style="background-color: #DDEBF7;">
 							@endif
-								<td style="background-color: #5B9BD5">{{$relays->type_name}}</td>
-								<td >{{$relays->total}}</td>
-								<td >{{$relays->cumulative}}</td>
+								<td style="background-color: #5B9BD5">{{$relays['type_name']}}</td>
+								<td >{{$relays['total']}}</td>
+								<td >{{$relays['cumulative']}}</td>
 							</tr>
 							@endforeach
 						</tbody>
@@ -193,8 +193,8 @@
 							@else
 							<tr style="background-color: #E2EFDA;">
 							@endif
-								<td style="background-color: #96cb69">{{$relays->type_name}}</td>
-								<td >{{$relays->total}}</td>
+								<td style="background-color: #96cb69">{{$relays['type_name']}}</td>
+								<td >{{$relays['total']}}</td>
 							</tr>
 							@endforeach
 						</tbody>
@@ -204,7 +204,7 @@
 			<ul class="tablerowlist" id="tablerowlist" style ="width : 40%;float:left">
 				<li>
 					 <?php $dateObj = new DateTime(); $monthName = $dateObj->format('M');?>
-				<h2 class="h2-heading">Total Completed({{{{$monthName}} }})</h2>
+				<h2 class="h2-heading">Total Completed({{$monthName}})</h2>
 				<table>
 					<thead class="green">
 						<th>Conventional</th>
@@ -243,8 +243,8 @@
 							@else
 							<tr style="background-color: #DDEBF7;">
 							@endif
-							<td style="background-color: #5B9BD5">{{$relays->type_name}}</td>
-							<td >{{$relays->total}}</td>
+							<td style="background-color: #5B9BD5">{{$relays['type_name']}}</td>
+							<td >{{$relays['total']}}</td>
 						</tr>
 						@endforeach
 						</tbody>
@@ -262,8 +262,8 @@
 						<tbody class="orangebody">
 							@foreach ($repair_lead_time as $key => $relays)
 							<tr style="background-color: #FCE4D6">
-								<td >{{strtoupper($relays->type_name)}}</td>
-								<td >{{number_format($relays->average, 1, '.', ',')}}</td>
+								<td >{{strtoupper($relays['type_name'])}}</td>
+								<td >{{number_format($relays['average'], 1, '.', ',')}}</td>
 							</tr>
 							@endforeach
 						</tbody>
