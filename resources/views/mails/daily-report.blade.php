@@ -203,7 +203,8 @@
 			</ul>
 			<ul class="tablerowlist" id="tablerowlist" style ="width : 40%;float:left">
 				<li>
-				<h2 class="h2-heading">Total Completed</h2>
+					 <?php $dateObj = new DateTime(); $monthName = $dateObj->format('M');?>
+				<h2 class="h2-heading">Total Completed({{{{$monthName}} }})</h2>
 				<table>
 					<thead class="green">
 						<th>Conventional</th>

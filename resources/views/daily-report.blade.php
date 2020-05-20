@@ -296,8 +296,9 @@
                                  <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
                                      <div class="au-card-title"  >
                                          <div class="bg-overlay bg-overlay--androidblue"></div>
+                                   <?php $dateObj = new DateTime(); $monthName = $dateObj->format('M');?>
                                          <h3>
-                                             <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>Total Completed (@{{dateVariable | date:'MMMM'}})</h3>
+                                             <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>Total Completed ({{$monthName}})</h3>
 
                                      </div>
                                      <div class="au-task js-list-load">
