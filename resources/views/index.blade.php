@@ -320,15 +320,14 @@
                       <tr style="background-color: #333333;color: white;">
                         <th>Family</th>
                         <th>S.No</th>
-                        <th>Stage Overdue Days</th>
                         <th>Overall Overdue Days</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="pr in dashboardvalues.priority">
                         <td ng-bind="pr.type_name"></td>
-                        <td style="cursor: pointer;" ng-bind="pr.serial_no" ng-click="OnHoverShowStage(pr);"></td>
-                        <td ng-bind="pr.rack_id"></td>
+                        <td style="cursor: pointer;" ng-bind="pr.serial_no"></td>
+                        <td ng-bind="pr.overall_due"></td>
                     </tr>
                 </tbody>
             </table>

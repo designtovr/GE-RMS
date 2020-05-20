@@ -452,15 +452,20 @@ class PVListingRepository
     	}
 
     	//priority list
-    	$pvs['priority'] = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.id, pv.serial_no, pt.code as type_name, IF(pvl.priority > 0, pvl.priority, 999999) as pvl_priority, rms.rack_id, mps.status as current_stage')
+    	$pvs['priority'] = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.id, pv.serial_no, pt.code as type_name, IF(pvl.priority > 0, pvl.priority, 999999) as pvl_priority, rms.rack_id, mps.status as current_stage, '.self::$overall_stage_query)
     				->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
     				->join('pv_status as sta', 'sta.pv_id', 'pv.id')
     				->leftJoin('rms', 'rms.pv_id', 'pv.id')
     				->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'pv.id')
     				->leftJoin('ma_pv_status as mps', 'mps.id', 'sta.current_status_id')
+    				->join('ma_product_overdue_age as poa', 'poa.category', 'pt.category')
     				->whereIn('sta.current_status_id', [1,2,3,4,5,6,7,8,9,10,11,13,14,16])
     				->where('pt.category', '!=', 'boj')
     				->orderBy('pvl_priority')->orderBy('pv.id')->get();
+
+		foreach ($pvs['priority'] as $key => $list) {
+			$list->overall_due = $list->phy_diff + $list->wch_diff + $list->jt_diff + $list->test_diff + $list->aging_diff + $list->dispatch_diff + $list->stage_overdue;
+		}
 
 		$pvs['repair_priority'] = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.id, pv.serial_no, pt.code as type_name, IF(pvl.priority > 0, pvl.priority, 999999) as pvl_priority, rms.rack_id, mps.status as current_stage')
     				->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
@@ -980,6 +985,16 @@ class PVListingRepository
     					->groupBy('pt.code')
     					->get();
 
+    	$total = 0;
+		foreach ($data['total_chargeable'] as $key => $list) {
+			$total += $list->total;
+		}
+		$obj = (object)[];
+		$obj->type_name = "Total";
+		$obj->total = $total;
+		$data['total_chargeable'] = $data['total_chargeable']->toArray();
+		array_push($data['total_chargeable'], $obj);
+
 		$data['warranty_overdue'] = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pt.code as type_name, COUNT(*) as total')
     					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
     					->join('pv_status_tracking as pst', 'pst.pv_id', 'pv.id')
@@ -995,6 +1010,16 @@ class PVListingRepository
     					->groupBy('pt.code')
     					->get();
 
+		$total = 0;
+		foreach ($data['warranty_overdue'] as $key => $list) {
+			$total += $list->total;
+		}
+		$obj = (object)[];
+		$obj->type_name = "Total";
+		$obj->total = $total;
+		$data['warranty_overdue'] = $data['warranty_overdue']->toArray();
+		array_push($data['warranty_overdue'], $obj);
+
 		$data['repair_lead_time'] = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pt.category as type_name, AVG( datediff( end_pst.created_at, start_pst.created_at )) AS average')
     					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
     					->join('pv_status_tracking as start_pst', function($join){
@@ -1005,6 +1030,16 @@ class PVListingRepository
     					})
     					->groupBy('pt.category')
     					->get();
+
+		$average = 0;
+		foreach ($data['repair_lead_time'] as $key => $list) {
+			$average += $list->average;
+		}
+		$obj = (object)[];
+		$obj->type_name = "Total";
+		$obj->average = $average;
+		$data['repair_lead_time'] = $data['repair_lead_time']->toArray();
+		array_push($data['repair_lead_time'], $obj);
 
 		return $data;
     }

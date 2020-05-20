@@ -315,7 +315,7 @@
                                                      </tr>
                                                      </thead>
                                                      <tbody>
-                                                     <tr ">
+                                                     <tr>
                                                          <td ng-bind="dashboardvalues.total_completed.CONVENTIONAL"></td>
                                                          <td ng-bind="dashboardvalues.total_completed.NUMERICAL"></td>
                                                          <td ng-bind="dashboardvalues.total_completed.MULTILIN"></td>
