@@ -511,7 +511,7 @@ app.controller('DashBoardController', ['$scope', '$http', 'Notification' , '$loc
 
     $interval(function(){
         $scope.GetDashboardValues();
-    }, 15000);
+    }, 60000);
 
     $scope.OnHoverShowStage = function(relay)
     {

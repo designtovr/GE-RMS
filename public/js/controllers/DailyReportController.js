@@ -527,7 +527,7 @@ app.controller('DailyReportController', ['$scope', '$http', 'Notification' , '$l
 
     $interval(function(){
         $scope.GetDashboardValues();
-    }, 15000);
+    }, 60000);
 
     $scope.OnHoverShowStage = function(relay)
     {
