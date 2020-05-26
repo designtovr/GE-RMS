@@ -32,7 +32,7 @@ class RMAController extends Controller
 
 	public function GetRMAList($cat = 'all', $type = 'all')
 	{
-        $rmalist = RMA::selectRaw('rma.*, cus.name as customer_name')->leftJoin('ma_customer as cus', 'cus.id', 'rma.customer_address_id');
+        $rmalist = RMA::selectRaw('rma.*, IF(cus.name!=NULL, cus.name, ria.name) as customer_name')->leftJoin('ma_customer as cus', 'cus.id', 'rma.customer_address_id')->leftJoin('rma_invoice_address as ria', 'ria.rma_id', 'rma.id');
         if ($cat == 'open')
         {
             $rmalist = $rmalist->where('status', 1);

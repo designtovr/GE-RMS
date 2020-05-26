@@ -490,11 +490,15 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 		{
 			$scope.producttypemodal.title = 'Edit Product Type';
 			$scope.producttype.id = producttype.id;
-			$scope.producttype.category = producttype.category;
+			for (var i = 0; i < $scope.productoverdueage.length; i++) {
+				if($scope.productoverdueage[i].category == producttype.category.toUpperCase())
+					$scope.producttype.category = $scope.productoverdueage[i].category;
+			}
 			$scope.producttype.code = producttype.code;
 			$scope.producttype.name = producttype.name;
 			$scope.producttype.description = producttype.description;
 			$scope.producttype.edit = true;
+			console.log($scope.producttype)
 		}
 		$('#producttypemodal').modal({
 			show: true,
@@ -854,6 +858,8 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 
 	$scope.AddProductType = function()
 	{
+		console.log($scope.producttype);
+		return;
 		$http({
 			method: 'post',
 			url: '../addproducttype',

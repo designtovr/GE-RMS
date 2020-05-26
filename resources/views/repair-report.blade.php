@@ -4,7 +4,7 @@
 @section('title', 'Repair Report')
 @section('content')
 <div class="main-content" ng-controller="RepairReportController">
-    <div class="section__content section__content--p30" ng-init="GetRepairReport()">
+    <div class="section__content section__content--p30" ng-init="GetRepairReport();getproductoverdueage();">
         <div class="container-fluid">
             <div class="row" ng-show="!receiptform">
                 <div class="col-md-12">
@@ -20,12 +20,19 @@
                         <table class="table table-borderless table-data3 table-custom">
                             <thead>
                                 <tr>
-                               
+                                    <th>
+                                        <input id="ridFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="RID#" ng-change="gridActions.filter()" ng-model="filterrid" filter-by="formatted_pv_id" filter-type="text">
+                                    </th>
                                     <th>
                                         <input id="rmaidFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="RMA No #" ng-change="gridActions.filter()" ng-model="filterrmaid" filter-by="formatted_receipt_id" filter-type="text">
                                     </th>
                                        <th>
                                         <input id="family" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Family" ng-change="gridActions.filter()" ng-model="filtercode" filter-by="code" filter-type="text">
+                                    </th>
+                                    <th>
+                                        <select name="select" id="CategoryFilter" class="form-control g-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" ng-change="gridActions.filter()" ng-model="filterCategory" filter-by="category" filter-type="text" ng-options="product.category as product.category for product in productoverdueage"><option value="" selected>Category</option>
+                                        </select>
+     
                                     </th>
                                        <th>
                                         <input id="modelFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Model #" ng-change="gridActions.filter()" ng-model="filtermodelno" filter-by="part_no" filter-type="text">
@@ -37,15 +44,13 @@
                                          <th>
                                         <input id="cusFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Customer" ng-change="gridActions.filter()" ng-model="customerFilter" filter-by="customer" filter-type="text">
                                     </th>
-
-
                                          <th>
-                                                           <select name="select" id="DisFilter" class="form-control g-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Dispatched" ng-change="gridActions.filter()" ng-model="register.Dispatched" filter-by="dispatch" filter-type="text" ng-options="dispatchStats.id as dispatchStats.name for dispatchStats in register.dispatchStatus"><option value="" disabled selected>Dispatch Status</option></select>
+                                                           <select name="select" id="DisFilter" class="form-control g-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Dispatched" ng-change="gridActions.filter()" ng-model="filterDispatch" filter-by="dispatch" filter-type="text" ng-options="Stats.id as Stats.name for Stats in dispatchStatus"><option value="" selected>Dispatch Status</option></select>
      
                                     </th>
 
                                          <th>
-                                                           <select name="select" id="WarFilter" class="form-control g-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Warranty/Chargeable" ng-change="gridActions.filter()" ng-model="register.wch" filter-by="wch" filter-type="text" ng-options="dispatchStats.id as dispatchStats.name for dispatchStats in register.wchStatus"><option value="" disabled selected>W/Ch</option></select>
+                                                           <select name="select" id="WarFilter" class="form-control g-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Warranty/Chargeable" ng-change="gridActions.filter()" ng-model="filterwch" filter-by="wch" filter-type="text" ng-options="Stats.id as Stats.name for Stats in wchStatus"><option value="" selected>W/Ch</option></select>
      
                                     </th>
 
@@ -106,13 +111,15 @@
                             <table class="table table-borderless table-data3 table-responsive" id="repairreporttable" name="repairreporttable">
                                 <thead>
                                     <tr>
-                                        <th sortable="formatted_receipt_id" class="sortable">RMA No</th>
+                                        <th sortable="formatted_pv_id" class="sortable">R ID</th>
+                                        <th sortable="formatted_rma_id" class="sortable">RMA No</th>
                                         <th sortable="receipt_date" class="sortable">Receipt Date</th>
                                         <th sortable="customer" class="sortable">Customer</th>
                                         <th sortable="location" class="sortable">Location</th>
-                                        <th sortable="end_customer" class="sortable">End   Customer</th>
-                                        <th sortable="current_status" class="sortable">Repair Status</th>
+                                        <th sortable="end_customer" class="sortable">End Customer</th>
+                                        <th sortable="current_status" class="sortable">Current Status</th>
                                         <th sortable="code" class="sortable">Family</th>
+                                        <th sortable="category" class="sortable">Category</th>
                                         <th sortable="wch" class="sortable">Warranty/Chargeable</th>
                                         <th sortable="part_no" class="sortable">Model No.</th>
                                         <th sortable="serial_no" class="sortable">Serial No.</th>
@@ -163,7 +170,6 @@
                                         <th sortable="restored_customer_setting" class="sortable">Customer Setting Loaded</th>
                                         <th sortable="remark_by_verification" class="sortable">REMARKS by Verification</th>
                                         <th sortable="repaired_by" class="sortable">REPAIRED BY</th>
-                                        <th sortable="current_status" class="sortable">Repair Status</th>
                                         <th sortable="dispatch" class="sortable">Dispatch</th>
                                         <th sortable="dc_no" class="sortable">DOCKET No</th>
                                         <th sortable="docket_details" class="sortable">Delivery Challan Detail</th>
@@ -172,6 +178,7 @@
                                 </thead>
                                 <tbody>
                                     <tr grid-item>
+                                        <td ng-bind="item.formatted_pv_id"></td>
                                         <td ng-bind="item.formatted_rma_id"></td>
                                         <td ng-bind="item.receipt_date  | date:'dd/MM/yyyy'"></td>
                                         <td ng-bind="item.customer"></td>
@@ -179,6 +186,7 @@
                                         <td ng-bind="item.end_customer"></td>
                                         <td ng-bind="item.current_status"></td>
                                         <td ng-bind="item.code"></td>
+                                        <td ng-bind="item.category | uppercase"></td>
                                         <td ng-bind="item.wch"></td>
                                         <td ng-bind="item.part_no"></td>
                                         <td ng-bind="item.serial_no"></td>
@@ -228,7 +236,6 @@
                                         <td ng-bind="item.restored_customer_setting"></td>
                                         <td ng-bind="item.remark_by_verification"></td>
                                         <td ng-bind="item.repaired_by"></td>
-                                        <td ng-bind="item.current_status"></td>
                                         <td ng-bind="item.dispatch"></td>
                                         <td ng-bind="item.dc_no"></td>
                                         <td ng-bind="item.docket_details"></td>

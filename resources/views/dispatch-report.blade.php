@@ -2,7 +2,7 @@
 @section('title', 'Dispatch Report')
 @section('content')
 <div class="main-content" ng-controller="DispatchReportController">
-	<div class="section__content section__content--p30" ng-init="GetRelayForReport();">
+	<div class="section__content section__content--p30" ng-init="GetRelayForReport();getproductoverdueage();">
         <div class="container-fluid">
         	<div class="row">
         		<div class="col-md-12">
@@ -30,6 +30,11 @@
 
                                          <th>
                                         <input id="partNoFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Model No" ng-change="gridActions.filter()" ng-model="partNoFilter" filter-by="part_no" filter-type="text">
+                                    </th>
+                                    <th>
+                                        <select name="select" id="CategoryFilter" class="form-control g-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" ng-change="gridActions.filter()" ng-model="filterCategory" filter-by="category" filter-type="text" ng-options="product.category as product.category for product in productoverdueage"><option value="" selected>Category</option>
+                                        </select>
+     
                                     </th>
 
                                          <th>

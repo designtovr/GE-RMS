@@ -1,5 +1,17 @@
 app.controller('DispatchReportController', ['$scope', '$http', '$window', 'ExcelSave', function($scope, $http, $windows, ExcelSave){
 
+	$scope.productoverdueage = [];
+	$scope.getproductoverdueage = function()
+	{
+		$http({
+		  method: 'GET',
+		  url: '/ge/productoverdueage'
+		}).then(function success(response) {
+		    $scope.productoverdueage = response.data.data;
+		}, function error(response) {
+		});
+	}
+
 	$scope.gridOptions = {
 
 		pagination: {
@@ -41,10 +53,13 @@ app.controller('DispatchReportController', ['$scope', '$http', '$window', 'Excel
 
 	$scope.ResetSearch = function()
 	{
+		$scope.filterRId = '';
+		$scope.filterserialno = '';
+		$scope.partNoFilter = '';
+		$scope.filterCategory = '';
+		$scope.customerFilter = '';
 		$scope.dateFrom = '';
 		$scope.dateTo = '';
-		$scope.filterRId = '';
-		$scope.filterReceiptNo = '';
 	}
 
 	$scope.Back = function()

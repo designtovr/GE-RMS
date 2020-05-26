@@ -1,5 +1,17 @@
 app.controller('RepairReportController', ['$scope', '$http', '$window', 'ExcelSave', function($scope, $http, $windows, ExcelSave){
 
+	$scope.productoverdueage = [];
+	$scope.getproductoverdueage = function()
+	{
+		$http({
+		  method: 'GET',
+		  url: '/ge/productoverdueage'
+		}).then(function success(response) {
+		    $scope.productoverdueage = response.data.data;
+		}, function error(response) {
+		});
+	}
+
 	$scope.gridOptions = {
 
 		pagination: {
@@ -56,22 +68,23 @@ app.controller('RepairReportController', ['$scope', '$http', '$window', 'ExcelSa
 		$scope.dateFrom = '';
 		$scope.dateTo = '';
 		$scope.current_status = "";
-  		$scope.register.Dispatched = "";
-  		$scope.register.wch = "";
+  		$scope.filterDispatch = "";
+  		$scope.filterwch = "";
+  		$scope.filterCategory = "";
 		 
 	}
 
 	  $scope.register = {};
 
-	$scope.register.dispatchStatus = [{
-          id: "Yes",
+	$scope.dispatchStatus = [{
+          id: "Dispatched",
           name: "Dispatched"
         }, {
-          id: "No",
+          id: "NotDispatched",
           name: "NotDispatched"
         }];
      
-     	$scope.register.wchStatus = [{
+     	$scope.wchStatus = [{
           id: "Warranty",
           name: "Warranty"
         }, {
