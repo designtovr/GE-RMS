@@ -933,7 +933,7 @@ class PVListingRepository
     					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
     					->join('pv_status_tracking as pst', 'pst.pv_id', 'pv.id')
     					->where('pst.status_id', 12)
-    					->whereDate('pst.created_at', Carbon::today())
+    					->whereBetween('pst.created_at', [Carbon::now()->firstOfMonth(), Carbon::now()->lastOfMonth()])
     					->groupBy('pt.name')
     					->get();
 
