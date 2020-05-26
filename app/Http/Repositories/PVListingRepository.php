@@ -230,8 +230,8 @@ class PVListingRepository
 
     public static function All()
     {
-    	$status_id = array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15, array(1, 2), [1,2,3], ['smp', 'omu', 'ge', 'boj', 'others']);
-    	return (new self)->PVList($status_id);
+    	$status_id = array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15);
+    	return (new self)->PVList($status_id, array(1, 2), [1,2,3], ['smp', 'omu', 'ge', 'boj', 'others']);
     }
 
     public static function OtherRelay()
@@ -254,8 +254,7 @@ class PVListingRepository
     			->where(function($query){
     				$query->where('sta.current_status_id', 1);
     				$query->orWhere('sta.current_status_id', 2);
-    			})->whereRaw('DATEDIFF("'. Carbon::now() .'", pv.created_at) > (poa.pv-1)')
-    			->get();
+    			})->get();
     	//loop and add due count
 		$pvs['total_overdue']['for_pv'] = 0;
 		$pvs['total_overdue']['for_pv_due_list'] = array();
@@ -288,7 +287,7 @@ class PVListingRepository
     	$pvs['wch'] = DB::table('physical_verification as pv')->selectRaw('pt.code as type_name, pt.id as pt_id, COUNT(*) as total')
     					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
     					->join('pv_status as sta', 'sta.pv_id', 'pv.id')
-    					->whereIn('sta.current_status_id', [3, 4, 13])
+    					->whereIn('sta.current_status_id', [13])
     					->groupBy('pt.id')
     					->get();
     	//loop and add due count
@@ -300,7 +299,7 @@ class PVListingRepository
     			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
     			->join('ma_product_overdue_age as poa', 'poa.category', 'pt.category')
     			->where('pt.id', $wc->pt_id)
-    			->whereIn('sta.current_status_id', [3, 4, 13])
+    			->whereIn('sta.current_status_id', [13])
     			->whereRaw('DATEDIFF("'. Carbon::now() .'", sta.created_at) > (poa.wch-1)')
     			->get();
 
@@ -318,7 +317,7 @@ class PVListingRepository
     	$pvs['for_test'] = DB::table('physical_verification as pv')->selectRaw('pt.code as type_name, pt.id as pt_id, COUNT(*) as total')
     					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
     					->join('pv_status as sta', 'sta.pv_id', 'pv.id')
-    					->whereIn('sta.current_status_id', [6, 7, 8, 9, 10])
+    					->whereIn('sta.current_status_id', [6, 7, 8, 9])
     					->whereIn('pt.category', ['smp', 'omu'])
     					->groupBy('pt.id')
     					->get();
@@ -331,7 +330,7 @@ class PVListingRepository
     			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
     			->join('ma_product_overdue_age as poa', 'poa.category', 'pt.category')
     			->where('pt.id', $test->pt_id)
-    			->whereIn('sta.current_status_id', [6, 7, 8, 9, 10])
+    			->whereIn('sta.current_status_id', [6, 7, 8, 9])
     			->whereIn('pt.category', ['smp', 'omu'])
     			->where(function($query){
     				$query->whereRaw('DATEDIFF("'. Carbon::now() .'", sta.created_at) > (poa.testing-1)');
@@ -386,7 +385,7 @@ class PVListingRepository
     	$pvs['for_repair'] = DB::table('physical_verification as pv')->selectRaw('pt.code as type_name, pt.id as pt_id, COUNT(*) as total')
     					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
     					->join('pv_status as sta', 'sta.pv_id', 'pv.id')
-    					->whereIn('sta.current_status_id', array(4,5,6))
+    					->whereIn('sta.current_status_id', array(4,5))
     					->groupBy('pt.id')
     					->get();
 		//loop and add due count
@@ -397,7 +396,7 @@ class PVListingRepository
     			->join('pv_status as sta', 'sta.pv_id', 'pv.id')
     			->join('ma_product_overdue_age as poa', 'poa.category', 'pt.category')
     			->where('pt.id', $repair->pt_id)
-    			->whereIn('sta.current_status_id', array(4,5,6))
+    			->whereIn('sta.current_status_id', array(4,5))
     			->whereRaw('DATEDIFF("'. Carbon::now() .'", sta.created_at) > (poa.jt-1)')
     			->get();
 
@@ -473,7 +472,7 @@ class PVListingRepository
     				->leftJoin('rms', 'rms.pv_id', 'pv.id')
     				->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'pv.id')
     				->leftJoin('ma_pv_status as mps', 'mps.id', 'sta.current_status_id')
-    				->whereIn('sta.current_status_id', [4,5])
+    				->whereIn('sta.current_status_id', [4])
     				->whereIn('pt.category',['smp', 'omu'])
     				->orderBy('pvl_priority')->orderBy('pv.id')->get();
 
