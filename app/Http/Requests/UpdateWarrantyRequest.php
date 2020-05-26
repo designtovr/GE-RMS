@@ -31,9 +31,6 @@ class UpdateWarrantyRequest extends FormRequest
             'warranty.type' => 'required|numeric|digits_between:1,2',
             'warranty.move' => 'required|numeric|digits_between:1,5',
             'warranty.rca' => 'required|boolean',
-            'warranty.comment' => 'nullable|string|min:3|max:20',
-            'warranty.po' => 'nullable|string|min:3|max:20',
-            'warranty.wbs' => 'nullable|string|min:3|max:20',
         ];
     }
 

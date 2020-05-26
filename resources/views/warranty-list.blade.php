@@ -624,7 +624,7 @@
                                                         ng-model="warrantymodal.po"
                                                         class="form-control"
                                                         ng-minlength="3"
-                                                        ng-maxlength="100"
+                                                        ng-maxlength="200"
                                                         >
                                                         <div ng-show="AddWarrantyForm.po.$touched && AddWarrantyForm.po.$error">
                                                             <span class="help-block"
@@ -633,7 +633,7 @@
                                                             </span>
                                                             <span class="help-block"
                                                              ng-show="AddWarrantyForm.po.$error.maxlength">
-                                                                Maximum 100 Characters Allowed
+                                                                Maximum 200 Characters Allowed
                                                             </span>
                                                         </div>
                                                     </div>
@@ -656,7 +656,7 @@
                                                             ng-model = "warrantymodal.wbs"
                                                             class="form-control"
                                                             ng-minlength="3"
-                                                            ng-maxlength="100"
+                                                            ng-maxlength="200"
                                                             required>
                                                             <div ng-show="AddWarrantyForm.wbs.$touched && AddWarrantyForm.wbs.$error">
                                                                 <span class="help-block"
@@ -669,7 +669,7 @@
                                                                 </span>
                                                                 <span class="help-block"
                                                                  ng-show="AddWarrantyForm.wbs.$error.maxlength">
-                                                                    Maximum 100 Characters Allowed
+                                                                    Maximum 200 Characters Allowed
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -891,9 +891,7 @@
                         setDate: new Date(),
                         update: new Date()
                     });
-                });
-
-                $("#dateFromFilter").datepicker({
+                    $("#dateFromFilter").datepicker({
                     autoclose: true,
                     format: 'yyyy-mm-dd',
                     todayHighlight: true,
@@ -903,6 +901,7 @@
                     autoclose: true,
                     format: 'yyyy-mm-dd',
                     todayHighlight: true,
+                });
                 });
             </script>
             @endsection

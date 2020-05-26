@@ -269,6 +269,9 @@ app.controller('PhysicalVerificationController', ['$scope', '$http', 'Notificati
 
 			$scope.filterothersid = '';
 			$scope.filterreceiptid='';
+			$scope.filterreceiptid = '';
+			$scope.filterreceipt_datefrom = '';
+			$scope.filterreceipt_dateto = '';
 			$scope.filterpvdateothers = '';
 			$scope.filterCustomerothers = '';
 			$scope.filterEndCustomerothers = '';

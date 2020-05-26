@@ -212,7 +212,7 @@
                                         ng-model="user.email" 
                                         placeholder="Email" 
                                         class="form-control" 
-                                        ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/"
+                                        ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/"
                                         >
                                         <div ng-show="AddUserForm.email.$touched && AddUserForm.email.$error">
                                             <span class="help-block" ng-show="AddUserForm.email.$error.required">Please Enter Email</span>

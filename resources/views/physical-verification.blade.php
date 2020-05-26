@@ -22,10 +22,10 @@
                         <thead>
                             <tr>
                                 <th>
-                                    <input id="ridFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Receipt ID #" ng-change="pvgridActions.filter()" ng-model="filterreceiptid" filter-by="formatted_receipt_id" filter-type="text">
+                                    <input id="rcidFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Receipt ID #" ng-change="gridActions.filter()" ng-model="filterreceiptid" filter-by="formatted_receipt_id" filter-type="text">
                                 </th>
                                 <th ng-show="tab == 'started'">
-                                    <input id="ridFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="RID #" ng-change="pvgridActions.filter()" ng-model="filterothersid" filter-by="formatted_pv_id" filter-type="text">
+                                    <input id="ridFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="RID #" ng-change="gridActions.filter()" ng-model="filterothersid" filter-by="formatted_pv_id" filter-type="text">
                                 </th>
                                 <th>
                                     <input type="text"
@@ -38,9 +38,9 @@
                                     show-weeks="true"
                                     is-open="dateFromOpened"
                                     ng-click="dateFromOpened = true"
-                                    filter-by="receipt_date"
+                                    filter-by="date_unix"
                                     filter-type="dateFrom"
-                                    ng-change="pvgridActions.filter()"
+                                    ng-change="gridActions.filter()"
                                     close-text="Close"/>
                                 </th>
 
@@ -55,16 +55,16 @@
                                 show-weeks="true"
                                is-open="dateToOpened"
                                ng-click="dateToOpened = true"
-                               filter-by="receipt_date"
+                               filter-by="date_unix"
                                filter-type="dateTo"
                                ng-blur="gridActions.filter()"
                                ng-focus="gridActions.filter()"
                                show-weeks="false"
-                                    ng-change="pvgridActions.filter()"
+                                    ng-change="gridActions.filter()"
                                     close-text="Close"/>
                                 </th>
                                 <th>
-                                    <input id="customerFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Customer Name" ng-change="pvgridActions.filter()" ng-model="filterCustomerothers" filter-by="customer_name" filter-type="text">
+                                    <input id="customerFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Customer Name" ng-change="gridActions.filter()" ng-model="filterCustomerothers" filter-by="customer_name" filter-type="text">
                                 </th>
                                 <th>
                                     <button type="button" class="btn btn-outline-secondary btn-sm" ng-click="Reset();gridActions.filter()">Reset</button>
@@ -1135,7 +1135,6 @@
                 setDate: new Date(),
                 update: new Date()
             });
-            
             $("#dateFilter").datepicker({
                 autoclose: true,
                 format: 'yyyy-mm-dd',

@@ -267,7 +267,7 @@
 
                         placeholder="Email" 
                         class="form-control" 
-                        ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/"
+                        ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/"
                         >
                         <div ng-show="AddReceiptForm.email.$touched && AddReceiptForm.email.$error">
                             <span class="help-block" ng-show="AddReceiptForm.email.$error.pattern">Invalid Email</span>
