@@ -254,6 +254,7 @@ Route::group(['middleware' => ['auth']], function(){
 		return view('masters.user');
 	});
 	Route::get('getdashboardvalues', 'DashboardController@GetDashboardValues');
+	Route::get('get-dashboard-values', 'DashboardController@DashboardValuesNew');
 	Route::get('/customers','CustomerController@Customers');
 	Route::get('/endcustomers','CustomerController@EndCustomers');
 	Route::get('/products','ProductController@Products');

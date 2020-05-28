@@ -15,4 +15,13 @@ class DashboardController extends Controller
     		'data' => $result
     	], 200);
     }
+
+    public function DashboardValuesNew(Request $request)
+    {
+    	$result = PVListingRepository::DashboardValuesNew();
+    	return response()->json([
+    		'status' => 'success', 
+    		'data' => $result
+    	], 200);
+    }
 }

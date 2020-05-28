@@ -241,6 +241,49 @@ class PVListingRepository
     	return (new self)->PVList($status_id, [], [], ['ge', 'boj', 'others']);
     }
 
+    public static function DashboardValuesNew()
+    {
+    	$pvs = array();
+    	//get all the relays in the wch with group by family
+    	//find the no of overdue relays
+    	//show the individual relay with stage overdue days and overall overdue days
+    	$pvs['wch'] = DB::table('physical_verification as pv')->selectRaw('pt.code as type_name, pt.id as pt_id, (0) as overdue, COUNT(*) as total')
+    					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+    					->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+    					->join('ma_product_overdue_age as poa', 'poa.category', 'pt.category')
+    					->whereIn('sta.current_status_id', [13])
+    					->groupBy('pt.code')
+    					->get();
+
+		$wch_all = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.id, pv.serial_no, pt.code as type_name, pt.id as pt_id, sta.created_at as start_date, poa.wch as category_due_days, '.self::$overall_stage_query)
+    					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+    					->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+    					->join('ma_product_overdue_age as poa', 'poa.category', 'pt.category')
+    					->whereIn('sta.current_status_id', [13])
+    					->get();
+
+		foreach ($wch_all as $key => $all_relay) {
+			$all_relay->stage_overdue = Carbon::now()->diffInWeekdays($all_relay->start_date) - $all_relay->category_due_days - 1;
+			$all_relay->overall_due = $all_relay->phy_diff + $all_relay->phy_diff + $all_relay->phy_diff + $all_relay->phy_diff + $all_relay->phy_diff + $all_relay->phy_diff + $all_relay->stage_overdue;
+			if($all_relay->stage_overdue > $all_relay->category_due_days)
+			{
+				foreach ($pvs['wch'] as $key => $grp_relay) {
+					if($grp_relay->type_name == $all_relay->type_name)
+					{
+						$grp_relay->overdue += 1;
+						if(!isset($grp_relay->due_list))
+							$grp_relay->due_list = array();
+						array_push($grp_relay->due_list, $all_relay);
+						break;
+					}
+				}
+
+			}
+		}
+
+    	return $pvs;
+    }
+
     public static function DashBoardValues()
     {
     	$start = microtime(true);
@@ -981,7 +1024,6 @@ class PVListingRepository
     					->join('pv_status as ps', 'ps.pv_id', 'pv.id')
     					->where('ps.current_status_id', 4)
     					->where('wt.smp', 1)
-    					->where('wt.pcp', 1)
     					->groupBy('pt.code')
     					->get();
 
@@ -1004,7 +1046,7 @@ class PVListingRepository
     					->where('ps.current_status_id', 4)
     					->whereRaw('DATEDIFF("'. Carbon::now() .'", ps.created_at) > (poa.wch-1)')
     					->where(function($query){
-    						$query->where('wt.smp', 2)->orWhere('wt.pcp', 2);
+    						$query->where('wt.smp', 2);
     					})
     					->whereIn('pt.category', ["smp","omu"])
     					->groupBy('pt.code')
@@ -1020,15 +1062,21 @@ class PVListingRepository
 		$data['warranty_overdue'] = $data['warranty_overdue']->toArray();
 		array_push($data['warranty_overdue'], $obj);
 
-		$data['repair_lead_time'] = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pt.category as type_name, AVG( datediff( end_pst.created_at, start_pst.created_at )) AS average')
+		$data['repair_lead_time'] = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pt.name as type_name, AVG( datediff( end_pst.created_at, start_pst.created_at )) AS average')
     					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
     					->join('pv_status_tracking as start_pst', function($join){
-    						$join->on('start_pst.pv_id', 'pv.id')->where('start_pst.status_id', 5);
+    						$join->on('start_pst.pv_id', 'pv.id')->where('start_pst.status_id', 1)->orWhere('start_pst.status_id', 2);
     					})
     					->join('pv_status_tracking as end_pst', function($join){
-    						$join->on('end_pst.pv_id', 'pv.id')->where('end_pst.status_id', 12);
+    						$join->on('end_pst.pv_id', 'pv.id')
+    						->where('end_pst.status_id', 12)
+    						->where('end_pst.created_at', '>=', Carbon::now()->firstOfMonth())
+    						->where('end_pst.created_at', '<=', Carbon::now()->lastOfMonth());
     					})
-    					->groupBy('pt.category')
+    					->join('warranty as wt', 'wt.pv_id', 'pv.id')
+    					->where('wt.smp', 2)
+    					->whereIn('pt.name', ["CONVENTIONAL", "REASON", "MULTILIN", "NUMERICAL"])
+    					->groupBy('pt.name')
     					->get();
 
 		$average = 0;
