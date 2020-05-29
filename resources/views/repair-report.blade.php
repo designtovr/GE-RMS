@@ -1,12 +1,10 @@
-
-
 @extends('layouts.app')
 @section('title', 'Repair Report')
 @section('content')
 <div class="main-content" ng-controller="RepairReportController">
     <div class="section__content section__content--p30" ng-init="GetRepairReport();getproductoverdueage();">
         <div class="container-fluid">
-            <div class="row" ng-show="!receiptform">
+            <div class="row">
                 <div class="col-md-12">
                     <div class="overview-wrap">
                         <h6 class="pb-4 display-5">Repair Report</h6>
@@ -40,22 +38,17 @@
                                        <th>
                                         <input id="serial_noFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Serial #" ng-change="gridActions.filter()" ng-model="filterserialno" filter-by="serial_no" filter-type="text">
                                     </th>
-
-                                         <th>
+                                    <th>
                                         <input id="cusFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Customer" ng-change="gridActions.filter()" ng-model="customerFilter" filter-by="customer" filter-type="text">
                                     </th>
-                                         <th>
-                                                           <select name="select" id="DisFilter" class="form-control g-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Dispatched" ng-change="gridActions.filter()" ng-model="filterDispatch" filter-by="dispatch" filter-type="text" ng-options="Stats.id as Stats.name for Stats in dispatchStatus"><option value="" selected>Dispatch Status</option></select>
+                                    <th>
+                                        <select name="select" id="WarFilter" class="form-control g-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Warranty/Chargeable" ng-change="gridActions.filter()" ng-model="filterwch" filter-by="wch" filter-type="text" ng-options="Stats.id as Stats.name for Stats in wchStatus"><option value="" selected>W/Ch</option></select>
      
                                     </th>
-
-                                         <th>
-                                                           <select name="select" id="WarFilter" class="form-control g-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Warranty/Chargeable" ng-change="gridActions.filter()" ng-model="filterwch" filter-by="wch" filter-type="text" ng-options="Stats.id as Stats.name for Stats in wchStatus"><option value="" selected>W/Ch</option></select>
+                                    <th>
+                                        <select name="select" id="DisFilter" class="form-control g-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Dispatched" ng-change="gridActions.filter()" ng-model="filterDispatch" filter-by="dispatch_status" filter-type="text" ng-options="Stats.id as Stats.name for Stats in dispatchStatus"><option value="" selected>Dispatch Status</option></select>
      
                                     </th>
-
-
-                                
                                     <th>
                                         <input type="text"
                                         class="form-control"
@@ -82,12 +75,8 @@
                                         close-text="Close">
                                     </th>
                                     <th>
-                               
-                          
-                                <th>
-                                    <button type="button" class="btn btn-outline-secondary btn-sm" ng-click="ResetSearch();gridActions.filter()">Reset</button>
-                                </th>
-                     
+                                        <button type="button" class="btn btn-outline-secondary btn-sm" ng-click="ResetSearch();gridActions.filter()">Reset</button>
+                                    </th>
                                 </tr>
                             </thead>
                         </table>
@@ -170,7 +159,7 @@
                                         <th sortable="restored_customer_setting" class="sortable">Customer Setting Loaded</th>
                                         <th sortable="remark_by_verification" class="sortable">REMARKS by Verification</th>
                                         <th sortable="repaired_by" class="sortable">REPAIRED BY</th>
-                                        <th sortable="dispatch" class="sortable">Dispatch</th>
+                                        <th sortable="dispatch_status" class="sortable">Dispatched</th>
                                         <th sortable="dc_no" class="sortable">DOCKET No</th>
                                         <th sortable="docket_details" class="sortable">Delivery Challan Detail</th>
                                         <th sortable="dispatched_at" class="sortable">Dispatch date</th>
@@ -236,7 +225,7 @@
                                         <td ng-bind="item.restored_customer_setting"></td>
                                         <td ng-bind="item.remark_by_verification"></td>
                                         <td ng-bind="item.repaired_by"></td>
-                                        <td ng-bind="item.dispatch"></td>
+                                        <td ng-bind="item.dispatch_status"></td>
                                         <td ng-bind="item.dc_no"></td>
                                         <td ng-bind="item.docket_details"></td>
                                         <td ng-bind="item.dispatched_at"></td>

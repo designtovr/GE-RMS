@@ -76,19 +76,25 @@ app.controller('RepairReportController', ['$scope', '$http', '$window', 'ExcelSa
 
 	  $scope.register = {};
 
-	$scope.dispatchStatus = [{
-          id: "Dispatched",
-          name: "Dispatched"
-        }, {
-          id: "NotDispatched",
-          name: "NotDispatched"
-        }];
+	$scope.dispatchStatus = [
+		{
+          id: "Yes",
+          name: "Yes"
+        },
+        {
+          id: "No",
+          name: "No"
+        }
+    ];
      
-     	$scope.wchStatus = [{
-          id: "Warranty",
-          name: "Warranty"
-        }, {
-          id: "Chargeable",
-          name: "Chargeable"
-        }];
+ 	$scope.wchStatus = [
+	 	{
+	      id: "Warranty",
+	      name: "Warranty"
+	    },
+	    {
+	      id: "Chargeable",
+	      name: "Chargeable"
+	    }
+    ];
 }]);
