@@ -125,7 +125,7 @@ use Illuminate\Support\Facades\DB;
 
  	public function ListForDispatchReport()
  	{
- 		$dispatches = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.*, pro.part_no, pt.category, rc_customer.name as customer, ROUND(UNIX_TIMESTAMP(dis.created_at) * 1000 +50000000) as created_date_unix')
+ 		$dispatches = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.*, pro.part_no, pt.category, rc_customer.name as customer, (UNIX_TIMESTAMP(dis.dispatch_completed_at) * 1000) as created_date_unix')
  						->join('dispatch as dis', 'dis.pv_id', 'pv.id')
  						->leftJoin('ma_product as pro', 'pv.product_id', 'pro.id')
  						->leftJoin('ma_product_type as pt', 'pt.id', 'pv.producttype_id')

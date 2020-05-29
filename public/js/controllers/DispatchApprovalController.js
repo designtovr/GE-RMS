@@ -186,13 +186,7 @@ app.controller('DispatchApprovalController', ['$scope', '$http','$filter','Notif
 		}
 			
 		$scope.AddDispatch= function()
-		{
-			if(!$scope.ccValid)
-		   	{
-	      		Notification.error("Enter Valid CC");
-	      		return;
-		   	}
-            
+		{            
             if($scope.dispatch.cc == undefined)
             {
                   $scope.dispatch.cc = '';
