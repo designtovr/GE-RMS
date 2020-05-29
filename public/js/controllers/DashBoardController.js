@@ -551,7 +551,7 @@ app.controller('DashBoardController', ['$scope', '$http', 'Notification' , '$loc
     $scope.GetDashboardValues = function()
     {
         $http({
-            'url': '/ge/getdashboardvalues',
+            'url': '/ge/get-dashboard-values',
             'method': 'GET',
         }).then(function(response){
             if (response.data.status == 'success')

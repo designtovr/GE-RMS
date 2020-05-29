@@ -218,7 +218,7 @@
                                    </div>
                                    <div class="col-sm-5">
                                        <h3 style="color: white; font-size: 22px;font-weight: 500;">
-                                           Total Relays: <span style="font-weight: bolder;" ng-bind="dashboardvalues.total_overdue.for_pv"></span>
+                                           Total Relays: <span style="font-weight: bolder;" ng-bind="dashboardvalues.for_physical_verification.length"></span>
                                        </h3>
                                    </div>
                                </div>
@@ -475,7 +475,7 @@
                             <br>
                         </div>
                         <div class="carousel-item">
-                            <h3 class="card-title">Testing:</h3>
+                            <h3 class="card-title">Testing and Aging:</h3>
                             <br>
                             <h4 style="cursor: pointer;" ng-click="ShowTotalOverdue('Test', dashboardvalues.total_overdue.for_test_due_list)">Total Overdues: <b class="" ><span class="badge-danger badge-fs-25 animated infinite flash slower-10s p-md-l-10" ng-bind="dashboardvalues.total_overdue.for_test">2</span></b></h4>
                             <br>
