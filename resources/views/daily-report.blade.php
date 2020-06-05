@@ -25,8 +25,6 @@
                         <button type="button"  class="btn btn-lg btn-light m-l-10 m-b-10" ng-click="GoToReceipt();"><a class="zmdi animated zoomIn  slower zmdi-home "  href="#"></a>
                             <span class="badge badge-light"></span>
                         </button>
-      <!--                     <button type="button" class="btn btn-lg btn-danger m-l-10 m-b-10 animated infinite flash slower-10s">Live
-                            <span class="badge badge-light"></span></button> -->
 
                     </div>
                 </div>
@@ -334,120 +332,8 @@
                                  </div>
                              </div>
                       </div>
-<!--                           <div class="col-lg-4">
-                                <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
-                                    <div class="au-card-title"  >
-                                        <div class="bg-overlay bg-overlay--androidblue"></div>
-                                        <div class="row">
-                                             <div class="col-sm-6">
-                                                 <h3>
-                                                    <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>Repair
-                                                </h3>
-                                             </div> -->
-                                             <!-- <div class="col-sm-6">
-                                                 <h3 style="color: red; font-weight: bolder; font-size: 28px;">
-                                                     Total Relays: <span ng-bind="dashboardvalues.total_overdue.for_repair"></span>
-                                                 </h3>
-                                             </div> -->
-                 <!--                         </div>
-                                    </div>
-                                    <div class="au-task js-list-load">
-                                        <div class="au-task-list js-scrollbar3">
-                                            <div class="table-responsive m-b-40">
-                                                <table class="table table-borderless table-data3 table-data4 table-data3-blue">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Family</th>
-                                                        <th>Total Relays</th>
-                                                        <th>Over Due</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr ng-repeat="repair in dashboardvalues.for_repair track by $index">
-                                                        <td ng-bind="repair.type_name"></td>
-                                                        <td ng-bind="repair.total"></td>
-                                                        <td style="cursor: pointer;" ng-click="ShowOverDueList('Repair',repair);"> <span class="badge badge-danger badge-fs-15 animated infinite flash slower-10s" ng-bind="repair.overdue"></span></td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            END DATA TABLE -->
-                                       <!--  </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-         <!--            </div>
-                </div>
-                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </div> -->
 
         </div>
-           <!--  <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-header" style="background: -webkit-linear-gradient(90deg, #001235 0%, #0259b5 100%) !important">
-                            <strong class="card-title text-light" style="color: white">Live Updates
-                            </strong>
-                        </div>
-                        <div class="card-body">
-                            <div id="carouselExampleIndicators1" class="carousel slide" data-ride="carousel" data-interval="10000">
-                                <ol class="carousel-indicators">
-                                    <li data-target="#carouselExampleIndicators1" data-slide-to="0" class="active"></li>
-                                    <li data-target="#carouselExampleIndicators1" data-slide-to="1"></li>
-                                    <li data-target="#carouselExampleIndicators1" data-slide-to="2"></li>
-                                </ol>
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <h3 class="card-title">Physical Verification:</h3>
-                                        <br>
-                                        <h4 style="cursor: pointer;" ng-click="ShowTotalOverdue('Physical Verification', dashboardvalues.total_overdue.for_pv_due_list)">Total Overdues: <b ><span class="badge-danger badge-fs-25 animated infinite flash slower-10s p-md-l-10 p-md-r-10 p-md-t-10 p-md-b-10" ng-bind="dashboardvalues.total_overdue.for_pv"></span></b></h4>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                    </div>
-                                    <div class="carousel-item">
-                                        <h3 class="card-title">W/Ch. Declaration:</h3>
-                                        <br>
-                                        <h4 style="cursor: pointer;" ng-click="ShowTotalOverdue('W/Ch', dashboardvalues.total_overdue.wch_due_list)">Total Overdues: <b ><span class="badge-danger badge-fs-25 animated infinite flash slower-10s p-md-l-10 p-md-r-10 p-md-t-10 p-md-b-10" ng-bind="dashboardvalues.total_overdue.wch" ></span></b></h4>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                    </div>
-                                    <div class="carousel-item">
-                                        <h3 class="card-title">Testing:</h3>
-                                        <br>
-                                        <h4 style="cursor: pointer;" ng-click="ShowTotalOverdue('Test', dashboardvalues.total_overdue.for_test_due_list)">Total Overdues: <b class="" ><span class="badge-danger badge-fs-25 animated infinite flash slower-10s p-md-l-10" ng-bind="dashboardvalues.total_overdue.for_test">2</span></b></h4>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                    </div>
-                                </div>
-                                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Next</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
             </div>
             </div>
             <!-- modal small -->
