@@ -78,11 +78,10 @@ $scope.gridOptions = {
 
 	$scope.Reset = function()
 	{
-		$scope.filterid = '';
-		$scope.filterpvdate = '';
-		$scope.filterCustomer = '';
-		$scope.dateTo = '';
+		$scope.filterID = '';
+		$scope.filterreceipt_id = '';
 		$scope.dateFrom = '';
+		$scope.dateTo = '';
 	}
 
 	$scope.getRMS = function()
@@ -91,7 +90,6 @@ $scope.gridOptions = {
 			method: 'GET',
 			url: '/ge/getrms'
 		}).then(function success(response) {
-			$scope.receipts = response.data.data;
 			$scope.gridOptions.data =  response.data.data;
 		}, function error(response) {
 

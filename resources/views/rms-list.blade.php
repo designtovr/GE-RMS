@@ -115,7 +115,7 @@
                                 </td>
                                 <td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
                                 <td ng-bind="item.formatted_pv_id"></td>
-		                            <td ng-if="item.rack_type == 0">Dummy Rack</td>
+		                          <td ng-if="item.rack_type == 0">Dummy Rack</td>
                                  <td ng-if="item.rack_type == 1">Repair Rack</td>
                                  <td ng-if="item.rack_type == 2">Customer Rack</td>
                                  <td ng-if="item.rack_type == 3">Post Lab</td>
