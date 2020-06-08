@@ -272,7 +272,7 @@ app.controller('JobTicketController', ['$scope', '$http', 'Notification', 'Chang
 			}
 			else if($scope.jobticket.pcp == 2 && $scope.jobticket.smp == 2)
 			{
-				$scope.jobticket.wch_status = 1;
+				$scope.jobticket.wch_status = 2;
 			}
 			else if($scope.jobticket.pcp == 2 && $scope.jobticket.smp == 1)
 			{
