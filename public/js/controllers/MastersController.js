@@ -858,8 +858,6 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 
 	$scope.AddProductType = function()
 	{
-		console.log($scope.producttype);
-		return;
 		$http({
 			method: 'post',
 			url: '../addproducttype',
