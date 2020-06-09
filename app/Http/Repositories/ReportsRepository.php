@@ -29,7 +29,7 @@ use Illuminate\Support\Facades\DB;
  {
  	public function DataForRelaysStageReport()
  	{
- 		$relays = PhysicalVerificationMaster::selectRaw('physical_verification.*, rda.name as customer_name, ROUND(UNIX_TIMESTAMP(physical_verification.created_at) * 1000 +50000000) as created_date_unix')
+ 		$relays = PhysicalVerificationMaster::selectRaw('physical_verification.*, rda.name as customer_name, ROUND(UNIX_TIMESTAMP(physical_verification.created_at) * 1000) as created_date_unix')
  		->leftJoin('rma_unit_information as rui', 'rui.pv_id', 'physical_verification.id')
  		->leftJoin('rma_delivery_address as rda', 'rda.rma_id', 'rui.rma_id')->get();
  		return $relays;
@@ -92,7 +92,7 @@ use Illuminate\Support\Facades\DB;
 
  	public function ListForRMAReport()
  	{
- 		$rmas = RMA::selectRaw('rma.*, ROUND(UNIX_TIMESTAMP(rma.created_at) * 1000 +50000000) as created_date_unix')->get();
+ 		$rmas = RMA::selectRaw('rma.*, ROUND(UNIX_TIMESTAMP(rma.created_at) * 1000) as created_date_unix')->get();
 
  		return $rmas;
  	}

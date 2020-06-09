@@ -18,7 +18,7 @@ class RMSController extends Controller
 {
     public function RMS(Request $request)
     {
-        $rms = RMSMaster::selectRaw('rms.*  , ROUND(UNIX_TIMESTAMP(rms.moved_date) * 1000 +50000000) as date_unix')->get();
+        $rms = RMSMaster::selectRaw('rms.*  , ROUND(UNIX_TIMESTAMP(rms.moved_date) * 1000) as date_unix')->get();
         return response()->json(['data' => $rms, 'status' => 'success']);
     }
 

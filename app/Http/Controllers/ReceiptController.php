@@ -31,7 +31,7 @@ class ReceiptController extends Controller
 
     public function Receipts($cat='all')
     {
-        $receipt = ReceiptMaster::selectRaw('receipt.*,ROUND(UNIX_TIMESTAMP(receipt.receipt_date) * 1000 +50000000) as date_unix , receipt.id as receipt_id, rma.id as rma_id, receipt.site as site_name,receipt.site as location, cus.name as customer_name')->leftJoin('ma_customer as cus', 'cus.id', 'receipt.customer_id')->leftJoin('rma', 'rma.receipt_id', 'receipt.id');
+        $receipt = ReceiptMaster::selectRaw('receipt.*,ROUND(UNIX_TIMESTAMP(receipt.receipt_date) * 1000) as date_unix , receipt.id as receipt_id, rma.id as rma_id, receipt.site as site_name,receipt.site as location, cus.name as customer_name')->leftJoin('ma_customer as cus', 'cus.id', 'receipt.customer_id')->leftJoin('rma', 'rma.receipt_id', 'receipt.id');
         if ($cat == 'open')
         {
             $receipt = $receipt->where('receipt.status', 1)->orderBy('receipt.id')->get();
