@@ -901,7 +901,7 @@ app.controller('MastersController', ['$scope', '$http', 'Notification', '$ngConf
 			{
 				Notification.success(response.data.message)
 				$('#productmodal').modal('hide');
-				$scope.getproducttypes();
+				$scope.getproducts();
 			}
 			else if (response.data.status == 'failure')
 			{

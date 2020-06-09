@@ -25,8 +25,8 @@ class AddProductRequest extends FormRequest
     {
         return [
             'product.id' => 'nullable|exists:ma_product,id',
-            'product.part_no' => 'required|string|min:3|max:50|unique:ma_product,part_no',
-            'product.type' => 'required|numeric|exists:ma_product_type,id',
+            'product.part_no' => 'required',
+            'product.type' => 'required|exists:ma_product_type,id',
         ];
     }
 
