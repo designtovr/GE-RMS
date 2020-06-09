@@ -265,8 +265,6 @@ class PVListingRepository
     					->groupBy('pt.code')
     					->get();
 
-		//return $pvs['wch'];
-
 		$wch_all = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.id, pv.serial_no, pt.code as type_name, pt.id as pt_id, sta.created_at as start_date, pv_track.created_at as pv_start_date, wch_track.created_at as wch_start_date, jt_track.created_at as jt_start_date,test_track.created_at as test_start_date, aging_track.created_at as aging_start_date, vc_track.created_at as vc_start_date, poa.pv as pv_due_days, poa.wch as wch_due_days, poa.jt as jt_due_days, poa.testing as testing_due_days, poa.aging as aging_due_days, vc_track.created_at as vc_start_date, dispatch_track.created_at as dispatch_start_date, poa.dispatch as dispatch_due_days, poa.wch as category_due_days, sta.current_status_id, pt.code as product_family')
     					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
     					->join('pv_status as sta', 'sta.pv_id', 'pv.id')
@@ -289,8 +287,6 @@ class PVListingRepository
     					->whereIn('sta.current_status_id', [13])
     					->groupBy('pv.id')
     					->get();
-
-		//return $wch_all;
 
 		foreach ($wch_all as $key => $all_relay) {
 			$pv_start_date = (!is_null($all_relay->pv_start_date))?Carbon::createFromFormat('Y-m-d H:i:s', $all_relay->pv_start_date): null;
@@ -1522,7 +1518,6 @@ class PVListingRepository
 
 		$data['total_chargeable'] = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pt.code as type_name, COUNT(*) as total')
     					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
-    					->join('pv_status_tracking as pst', 'pst.pv_id', 'pv.id')
     					->join('warranty as wt', 'wt.pv_id', 'pv.id')
     					->join('pv_status as ps', 'ps.pv_id', 'pv.id')
     					->where('ps.current_status_id', 4)
@@ -1540,20 +1535,71 @@ class PVListingRepository
 		$data['total_chargeable'] = $data['total_chargeable']->toArray();
 		array_push($data['total_chargeable'], $obj);
 
-		$data['warranty_overdue'] = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pt.code as type_name, COUNT(*) as total')
+		/*$data['warranty_overdue'] = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pt.code as type_name, COUNT(*) as total')
     					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
-    					->join('pv_status_tracking as pst', 'pst.pv_id', 'pv.id')
     					->join('warranty as wt', 'wt.pv_id', 'pv.id')
     					->join('pv_status as ps', 'ps.pv_id', 'pv.id')
     					->join('ma_product_overdue_age as poa', 'poa.category', 'pt.category')
     					->where('ps.current_status_id', 4)
-    					->whereRaw('DATEDIFF("'. Carbon::now() .'", ps.created_at) > (poa.wch-1)')
+    					->where(function($query){
+    						$query->where('wt.smp', 2);
+    					})
+    					->whereIn('pt.category', ["smp","omu"])
+    					->groupBy('pt.code')
+    					->get();*/
+
+		$data['warranty'] = DB::table('physical_verification as pv')->selectRaw('pt.code as type_name, pt.id as pt_id, (0) as total')
+    					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+    					->join('warranty as wt', 'wt.pv_id', 'pv.id')
+    					->join('pv_status as ps', 'ps.pv_id', 'pv.id')
+    					->join('ma_product_overdue_age as poa', 'poa.category', 'pt.category')
+    					->where('ps.current_status_id', 4)
     					->where(function($query){
     						$query->where('wt.smp', 2);
     					})
     					->whereIn('pt.category', ["smp","omu"])
     					->groupBy('pt.code')
     					->get();
+
+		$data['warranty_all'] = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.id, pv.serial_no, pt.code as type_name, pt.id as pt_id, sta.created_at as start_date, wch_track.created_at as wch_start_date, poa.wch as category_due_days, sta.current_status_id, pt.code as product_family')
+    					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+    					->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+    					->join('ma_product_overdue_age as poa', 'poa.category', 'pt.category')
+    					->join('warranty as wt', 'wt.pv_id', 'pv.id')
+						->leftJoin('pv_status_tracking as wch_track',function($join){
+    						$join->on('wch_track.pv_id', 'pv.id')->whereIn('wch_track.status_id',[4]);
+    					})
+    					->whereIn('sta.current_status_id', [4])
+    					->where(function($query){
+    						$query->where('wt.smp', 2);
+    					})
+    					->whereIn('pt.category', ["smp","omu"])
+    					->groupBy('pv.id')
+    					->get();
+
+		foreach ($data['warranty_all'] as $key => $all_relay) {
+			$wch_start_date = (!is_null($all_relay->wch_start_date))?Carbon::createFromFormat('Y-m-d H:i:s', $all_relay->wch_start_date):null;
+			if(!is_null($wch_start_date))
+			{
+				$all_relay->wc_diff = $wch_start_date->diffInWeekdays(Carbon::now()) - $all_relay->wch_due_days - 1;
+				$all_relay->wc_diff = ($all_relay->wc_diff>0)?$all_relay->wc_diff:0;
+			}
+			else
+				$all_relay->wc_diff = 0;
+
+			$all_relay->stage_overdue = $all_relay->wc_diff;
+			if($all_relay->stage_overdue > $all_relay->category_due_days)
+			{
+				foreach ($data['warranty'] as $key => $grp_relay) {
+					if($grp_relay->type_name == $all_relay->type_name)
+					{
+						$grp_relay->total += 1;
+					}
+				}
+
+			}
+		}
+		$data['warranty_overdue'] = $data['warranty'];
 
 		$total = 0;
 		foreach ($data['warranty_overdue'] as $key => $list) {
