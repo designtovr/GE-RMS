@@ -258,7 +258,6 @@ class MailRepository
 			foreach ($Email as $key => $em) {
 				array_push($emails, $em->email);
 			}
-			$emails = array('srinivasktss@gmail.com');
 			$data['emails'] = $emails;
 			$data['cc'] = $this->GetCCAddress(null);
 			Mail::send('mails.daily-report', $data, function ($message) use ($data) {
