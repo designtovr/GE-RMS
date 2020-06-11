@@ -111,9 +111,9 @@
 							@else
 							<tr style="background-color: #DDEBF7;">
 							@endif
-								<td style="background-color: #5B9BD5">{{$received_relays[$i]->type_name}}</td>
-								<td >{{$received_relays[$i]->total}}</td>
-								<td >{{$received_relays[$i]->cumulative}}</td>
+								<td style="background-color: #5B9BD5">{{$received_relays[$i]['type_name']}}</td>
+								<td >{{$received_relays[$i]['total']}}</td>
+								<td >{{$received_relays[$i]['cumulative']}}</td>
 							</tr>
 							@endfor
 						</tbody>

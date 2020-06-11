@@ -1294,10 +1294,10 @@ class PVListingRepository
 		}
 		$data['received_relays'] = $data['received_relays']->toArray();
 		//$total_array = array("type_name"=>"Total", "total"=>$total, "cumulative" => $month_total);
-		$total_array = (object)[];
-		$total_array->type_name = "Total";
-		$total_array->total = $total;
-		$total_array->cumulative = $month_total;
+		$total_array = array();
+		$total_array['type_name'] = "Total";
+		$total_array['total'] = $total;
+		$total_array['cumulative'] = $month_total;
 		array_push($data['received_relays'], $total_array);
 
 		//Total Relays Completed
