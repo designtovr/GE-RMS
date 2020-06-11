@@ -1293,7 +1293,11 @@ class PVListingRepository
 			$month_total += $relay->cumulative;
 		}
 		$data['received_relays'] = $data['received_relays']->toArray();
-		$total_array = array("type_name"=>"Total", "total"=>$total, "cumulative" => $month_total);
+		//$total_array = array("type_name"=>"Total", "total"=>$total, "cumulative" => $month_total);
+		$total_array = (object)[];
+		$total_array->type_name = "Total";
+		$total_array->total = $total;
+		$total_array->cumulative = $month_total;
 		array_push($data['received_relays'], $total_array);
 
 		//Total Relays Completed
@@ -1548,7 +1552,8 @@ class PVListingRepository
     					->groupBy('pt.code')
     					->get();*/
 
-		$data['warranty'] = DB::table('physical_verification as pv')->selectRaw('pt.code as type_name, pt.id as pt_id, (0) as total')
+    	$pvs = (object)[];
+		$pvs->warranty = DB::table('physical_verification as pv')->selectRaw('pt.code as type_name, pt.id as pt_id, (0) as total')
     					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
     					->join('warranty as wt', 'wt.pv_id', 'pv.id')
     					->join('pv_status as ps', 'ps.pv_id', 'pv.id')
@@ -1561,7 +1566,7 @@ class PVListingRepository
     					->groupBy('pt.code')
     					->get();
 
-		$data['warranty_all'] = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.id, pv.serial_no, pt.code as type_name, pt.id as pt_id, sta.created_at as start_date, wch_track.created_at as wch_start_date, poa.wch as category_due_days, sta.current_status_id, pt.code as product_family')
+		$pvs->warranty_all = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.id, pv.serial_no, pt.code as type_name, pt.id as pt_id, sta.created_at as start_date, wch_track.created_at as wch_start_date, poa.wch as category_due_days, sta.current_status_id, pt.code as product_family')
     					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
     					->join('pv_status as sta', 'sta.pv_id', 'pv.id')
     					->join('ma_product_overdue_age as poa', 'poa.category', 'pt.category')
@@ -1577,7 +1582,7 @@ class PVListingRepository
     					->groupBy('pv.id')
     					->get();
 
-		foreach ($data['warranty_all'] as $key => $all_relay) {
+		foreach ($pvs->warranty_all as $key => $all_relay) {
 			$wch_start_date = (!is_null($all_relay->wch_start_date))?Carbon::createFromFormat('Y-m-d H:i:s', $all_relay->wch_start_date):null;
 			if(!is_null($wch_start_date))
 			{
@@ -1590,7 +1595,7 @@ class PVListingRepository
 			$all_relay->stage_overdue = $all_relay->wc_diff;
 			if($all_relay->stage_overdue > $all_relay->category_due_days)
 			{
-				foreach ($data['warranty'] as $key => $grp_relay) {
+				foreach ($pvs->warranty as $key => $grp_relay) {
 					if($grp_relay->type_name == $all_relay->type_name)
 					{
 						$grp_relay->total += 1;
@@ -1599,15 +1604,15 @@ class PVListingRepository
 
 			}
 		}
-		$data['warranty_overdue'] = $data['warranty'];
+		$data['warranty_overdue'] = $pvs->warranty;
 
 		$total = 0;
 		foreach ($data['warranty_overdue'] as $key => $list) {
 			$total += $list->total;
 		}
-		$obj = array();
-		$obj['type_name'] = "Total";
-		$obj['total'] = $total;
+		$obj = (object)[];
+		$obj->type_name = "Total";
+		$obj->total = $total;
 		$data['warranty_overdue'] = $data['warranty_overdue']->toArray();
 		array_push($data['warranty_overdue'], $obj);
 

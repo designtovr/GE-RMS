@@ -105,49 +105,49 @@
 							<th>Cumulative Relays</th>
 						</thead>
 						<tbody class="bluebody">
-							@foreach ($received_relays as $key => $relays)
-							@if($key % 2 == 0)
+							@for ($i = 0; $i < sizeof($received_relays); $i++)
+							@if($i % 2 == 0)
 							<tr style="background-color: #BDD7EE">
 							@else
 							<tr style="background-color: #DDEBF7;">
 							@endif
-								<td style="background-color: #5B9BD5">{{$relays['type_name']}}</td>
-								<td >{{$relays['total']}}</td>
-								<td >{{$relays['cumulative']}}</td>
+								<td style="background-color: #5B9BD5">{{$received_relays[$i]->type_name}}</td>
+								<td >{{$received_relays[$i]->total}}</td>
+								<td >{{$received_relays[$i]->cumulative}}</td>
 							</tr>
-							@endforeach
+							@endfor
 						</tbody>
 					</table>
 				</li>
 			</ul>
 			<ul class="tablerowlist" id="tablerowlist"style ="width : 40%;float:left">
-			<li>
-			<h2 class="h2-heading">Total Relays Completed</h2>
-				<table>
-				<thead class="green">
-					<th>Family</th>
-					<th>Repair</th>
-					<th>Test</th>
-					<th>Dispatch</th>
-					<th>Total</th>
-				</thead>
-				<tbody class="greenbody">
-					@foreach ($total_relays_completed as $key => $relays)
-					@if($key % 2 == 0)
-					<tr style="background-color: #C6E0B4">
-					@else
-					<tr style="background-color: #E2EFDA;">
-					@endif
-						<td >{{$relays->type_name}}</td>
-						<td >{{$relays->repair}}</td>
-						<td >{{$relays->test}}</td>
-						<td >{{$relays->dispatch}}</td>
-						<td >{{$relays->total}}</td>
-					</tr>
-					@endforeach
-				</tbody>
-				</table>
-			</li>
+				<li>
+				<h2 class="h2-heading">Total Relays Completed</h2>
+					<table>
+					<thead class="green">
+						<th>Family</th>
+						<th>Repair</th>
+						<th>Test</th>
+						<th>Dispatch</th>
+						<th>Total</th>
+					</thead>
+					<tbody class="greenbody">
+						@foreach ($total_relays_completed as $key => $relays)
+						@if($key % 2 == 0)
+						<tr style="background-color: #C6E0B4">
+						@else
+						<tr style="background-color: #E2EFDA;">
+						@endif
+							<td >{{$relays->type_name}}</td>
+							<td >{{$relays->repair}}</td>
+							<td >{{$relays->test}}</td>
+							<td >{{$relays->dispatch}}</td>
+							<td >{{$relays->total}}</td>
+						</tr>
+						@endforeach
+					</tbody>
+					</table>
+				</li>
 			</ul>
 			<ul class="tablerowlist" id="tablerowlist" style ="width : 40%;float:left">
 				<li>
@@ -237,16 +237,16 @@
 							<th>Overdues</th>
 						</thead>
 						<tbody class="bluebody">
-						@foreach ($warranty_overdue as $key => $relays)
-						@if($key % 2 == 0)
+						@for ($i = 0; $i < sizeof($warranty_overdue); $i++)
+						@if($i % 2 == 0)
 							<tr style="background-color: #BDD7EE">
 							@else
 							<tr style="background-color: #DDEBF7;">
 							@endif
-							<td style="background-color: #5B9BD5">{{$relays['type_name']}}</td>
-							<td >{{$relays['total']}}</td>
+							<td style="background-color: #5B9BD5">{{$warranty_overdue[$i]->type_name}}</td>
+							<td >{{$warranty_overdue[$i]->total}}</td>
 						</tr>
-						@endforeach
+						@endfor
 						</tbody>
 					</table>
 				</li>
@@ -260,12 +260,12 @@
 							<th>Days</th>
 						</thead>
 						<tbody class="orangebody">
-							@foreach ($repair_lead_time as $key => $relays)
+							@for ($i = 0; $i < sizeof($repair_lead_time); $i++)
 							<tr style="background-color: #FCE4D6">
-								<td >{{strtoupper($relays['type_name'])}}</td>
-								<td >{{number_format($relays['average'], 1, '.', ',')}}</td>
+								<td >{{strtoupper($repair_lead_time[$i]['type_name'])}}</td>
+								<td >{{number_format($repair_lead_time[$i]['average'], 1, '.', ',')}}</td>
 							</tr>
-							@endforeach
+							@endfor
 						</tbody>
 					</table>
 				</li>
