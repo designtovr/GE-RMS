@@ -532,6 +532,7 @@ class PVListingRepository
     					})->leftJoin('pv_status_tracking as vc_track',function($join){
     						$join->on('vc_track.pv_id', 'pv.id')->whereIn('vc_track.status_id',[10]);
     					})->whereIn('sta.current_status_id', [1,2,3,4,5,6,7,8,9,10,11,13,14,16])
+    					->groupBy('pv.id')
     					->get();
 
 		foreach ($pvs['priority'] as $key => $all_relay) {
