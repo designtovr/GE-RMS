@@ -94,6 +94,7 @@
 </head>
 <body style ="font-family: 'Poppins', sans-serif !important;">
 	<div class="main-content">
+		 <?php $dateObj = new DateTime(); $monthName = $dateObj->format('M');$datenow = $dateObj-> format('d-m-Y');?>
 		<div class="section__content section__content--p30">
 			<ul class="tablerowlist" id="tablerowlist" style ="width : 40%;float:left">
 				<li>
@@ -102,7 +103,7 @@
 						<thead class="blue">
 							<th>Family</th>
 							<th>Number of Relays Received</th>
-							<th>Cumulative Relays</th>
+							<th>Cumulative Relays({{$monthName}})</th>
 						</thead>
 						<tbody class="bluebody">
 							@for ($i = 0; $i < sizeof($received_relays); $i++)
@@ -122,7 +123,7 @@
 			</ul>
 			<ul class="tablerowlist" id="tablerowlist"style ="width : 40%;float:left">
 				<li>
-				<h2 class="h2-heading">Total Relays Completed</h2>
+				<h2 class="h2-heading">Total Relays Completed ({{$datenow}})</h2>
 					<table>
 					<thead class="green">
 						<th>Family</th>
@@ -203,7 +204,7 @@
 			</ul>
 			<ul class="tablerowlist" id="tablerowlist" style ="width : 40%;float:left">
 				<li>
-					 <?php $dateObj = new DateTime(); $monthName = $dateObj->format('M');?>
+					
 				<h2 class="h2-heading">Total Completed({{$monthName}})</h2>
 				<table>
 					<thead class="green">

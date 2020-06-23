@@ -62,10 +62,12 @@
                                              <div class="table-responsive m-b-40">
                                                  <table class="table table-borderless table-data3-blue table-data4">
                                                      <thead>
+                                                          <?php $dateObj = new DateTime(); $monthName = $dateObj->format('M'); 
+                                                          $datenow = $dateObj-> format('d-m-Y');?>
                                                      <tr style="background-color: #333333;color: white;">
                                                          <th>Family</th>
                                                          <th>Number of Relays Received</th>
-                                                         <th>Cumulative Relays</th>
+                                                         <th>Cumulative Relays({{$monthName}})</th>
                                                      </tr>
                                                      </thead>
                                                      <tbody>
@@ -87,7 +89,8 @@
                                     <div class="au-card-title"  >
                                         <div class="bg-overlay bg-overlay--androidblue"></div>
                                         <h3>
-                                            <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>Total Relays Completed </h3> 
+
+                                            <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>Total Relays Completed<span>({{$datenow}})</span></h3>  
 
                                     </div>
                                     <div class="au-task js-list-load">
