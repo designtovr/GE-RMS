@@ -149,7 +149,7 @@ use Illuminate\Support\Facades\DB;
  	public function RepairReportData()
  	{
  		$pvs = PhysicalVerificationMaster::
- 				with('jobticket.materials')->selectRaw('physical_verification.id,rc.receipt_date, rc_customer.name as customer, rma.end_customer , rc.site as location, pt.code, pt.category, wt.smp, wt.pcp, wt.type as wch_type, pro.part_no, physical_verification.serial_no
+ 				with('jobticket.materials')->selectRaw('physical_verification.id,ROUND(UNIX_TIMESTAMP(rc.receipt_date) * 1000) as receipt_date, rc_customer.name as customer, rma.end_customer , rc.site as location, pt.code, pt.category, wt.smp, wt.pcp, wt.type as wch_type, pro.part_no, physical_verification.serial_no
  					, repair_start_pst.created_at as repair_initiated_date, repair_end_pst.created_at as repair_completed_at, rui.desc_of_fault as defect_by_customer, IF(jt.download_customer_setting=1, "Yes", "No") as download_customer_setting, rui.sw_version as existing_sw_version, vc.updated_sw_version, IF(vc.restored_customer_setting=1, "Yes", "No") as restored_customer_setting, physical_verification.comment as remark_by_verification, repaired_us.username as repaired_by, mps.status as current_status, dis.dc_no, dis.docket_details, dis.dispatch_completed_at as dispatched_at, rma.service_type as rma_type')
  				->leftJoin('receipt as rc', 'rc.id', 'physical_verification.receipt_id')
  				->leftJoin('ma_customer as rc_customer', 'rc_customer.id', 'rc.customer_id')
