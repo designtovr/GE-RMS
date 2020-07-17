@@ -22,7 +22,7 @@
                                         <input id="ridFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="RID#" ng-change="gridActions.filter()" ng-model="filterrid" filter-by="formatted_pv_id" filter-type="text">
                                     </th>
                                     <th>
-                                        <input id="rmaidFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="RMA No #" ng-change="gridActions.filter()" ng-model="filterrmaid" filter-by="formatted_receipt_id" filter-type="text">
+                                        <input id="rmaidFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="RMA No #" ng-change="gridActions.filter()" ng-model="filterrmaid" filter-by="formatted_rma_id" filter-type="text">
                                     </th>
                                        <th>
                                         <input id="family" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Family" ng-change="gridActions.filter()" ng-model="filtercode" filter-by="code" filter-type="text">
@@ -64,7 +64,7 @@
                                     <th>
                                         <input type="text"
                                         placeholder="To Date"
-                                        filter-by="date_unix"
+                                        filter-by="receipt_date"
                                         ng-change="gridActions.filter();"
                                         id="dateToFilter"
                                         class="form-control"
@@ -82,7 +82,6 @@
                         </table>
                     </div>
                     <div class = "row">
-                        @if(Auth::user()->isTechnician() || Auth::user()->isAdmin())
                         <div class="col-md-12 p-b-20">
                             <ul class="list-inline">
                                 <li>
@@ -92,7 +91,6 @@
                                 </li>
                             </ul>
                         </div>
-                        @endif
                     </div>
                     <div class="col-md-12">
                         <!-- DATA TABLE-->
@@ -169,7 +167,7 @@
                                     <tr grid-item>
                                         <td ng-bind="item.formatted_pv_id"></td>
                                         <td ng-bind="item.formatted_rma_id"></td>
-                                        <td ng-bind="item.receipt_date  | date:'dd/MM/yyyy'"></td>
+                                        <td ng-bind="item.receipt_date | date:'dd/MM/yyyy'"></td>
                                         <td ng-bind="item.customer"></td>
                                         <td ng-bind="item.location"></td>
                                         <td ng-bind="item.end_customer"></td>
