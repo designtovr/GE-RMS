@@ -108,6 +108,7 @@
                                         <th sortable="code" class="sortable">Family</th>
                                         <th sortable="category" class="sortable">Category</th>
                                         <th sortable="wch" class="sortable">Warranty/Chargeable</th>
+                                        <th sortable="wch_type" class="sortable">Repair/Modification</th>
                                         <th sortable="part_no" class="sortable">Model No.</th>
                                         <th sortable="serial_no" class="sortable">Serial No.</th>
                                         <th sortable="repair_initiated_date" class="sortable">Repair Initiation</th>
@@ -142,14 +143,13 @@
                                         <th sortable="pcb_part_no_9" class="sortable">PCB9 Part No.</th>
                                         <th sortable="pcb_defective_pcb_9" class="sortable">PCB9 Defective Ser no</th>
                                         <th sortable="pcb_new_pcb_9" class="sortable">PCB9 Healthy Ser no</th>
-                     
-                                         <th sortable="pcb_part_no_10" class="sortable">PCB10 Part No.</th>
+                                        <th sortable="pcb_part_no_10" class="sortable">PCB10 Part No.</th>
                                         <th sortable="pcb_new_pcb_10" class="sortable">PCB9 Healthy Ser no</th>
                                         <th sortable="pcb_defective_pcb_10" class="sortable">PCB10 Defective Ser no</th>
                                         <th sortable="pcb_new_pcb_11" class="sortable">PCB11 Healthy Ser no</th>
-                                             <th sortable="pcb_part_no_11" class="sortable">PCB11 Part No.</th>
+                                        <th sortable="pcb_part_no_11" class="sortable">PCB11 Part No.</th>
                                         <th sortable="pcb_defective_pcb_11" class="sortable">PCB11 Defective Ser no</th>
-                                             <th sortable="pcb_part_no_12" class="sortable">PCB12 Part No.</th>
+                                        <th sortable="pcb_part_no_12" class="sortable">PCB12 Part No.</th>
                                         <th sortable="pcb_defective_pcb_12" class="sortable">PCB12 Defective Ser no</th>
                                         <th sortable="pcb_new_pcb_12" class="sortable">PCB12 Healthy Ser no</th>
                                         <th sortable="existing_sw_version" class="sortable">EXISTING SOFTWARE</th>
@@ -175,6 +175,7 @@
                                         <td ng-bind="item.code"></td>
                                         <td ng-bind="item.category | uppercase"></td>
                                         <td ng-bind="item.wch"></td>
+                                        <td ng-bind="item.wch_type"></td>
                                         <td ng-bind="item.part_no"></td>
                                         <td ng-bind="item.serial_no"></td>
                                         <td ng-bind="item.repair_initiated_date"></td>

@@ -95,6 +95,10 @@ app.controller('RepairReportController', ['$scope', '$http', '$window', 'ExcelSa
 	    {
 	      id: "Chargeable",
 	      name: "Chargeable"
+	    },
+	    {
+	    	id: "Not Declared",
+	    	name: "Not Declared"
 	    }
     ];
 }]);

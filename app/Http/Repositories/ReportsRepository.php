@@ -168,13 +168,23 @@ use Illuminate\Support\Facades\DB;
  				->leftJoin('users as repaired_us', 'repaired_us.id', 'repair_end_pst.created_by')
  				->leftJoin('pv_status as sta', 'sta.pv_id', 'physical_verification.id')
  				->leftJoin('ma_pv_status as mps', 'mps.id', 'sta.current_status_id')
- 				->leftJoin('dispatch as dis', 'dis.pv_id', 'physical_verification.id')->get();
+ 				->leftJoin('dispatch as dis', 'dis.pv_id', 'physical_verification.id')->groupBy('physical_verification.id')->get();
 
 		foreach ($pvs as $key => $pv) {
-			if($pv['smp'] == 2 && $pv['pcp'] == 2)
+
+			if(is_null($pv['smp']) || is_null($pv['pcp']))
+				$pv['wch'] = "Not Declared";
+			else if($pv['smp'] == 2 && $pv['pcp'] == 2)
 				$pv['wch'] = "Warranty";
 			else
 				$pv['wch'] = "Chargeable";
+
+			if($pv['wch_type'] == 1)
+				$pv['wch_type'] = "Repair";
+			else if($pv['wch_type'] == 2)
+				$pv['wch_type'] = "Modification";
+			else if($pv['wch_type'] == 3)
+				$pv['wch_type'] = "Investigation";
 
 			$pv['dispatch_status'] = (is_null($pv['dispatched_at']))?"No":"Yes";
 
