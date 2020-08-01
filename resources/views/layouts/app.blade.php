@@ -204,6 +204,9 @@
                             <li>
                                 <a href="{{url('/masters-page/product-overdue-age')}}">Product Overdue Age</a>
                             </li>
+                            <li>
+                                <a href="{{url('/masters-page/holidays')}}">Holidays</a>
+                            </li>
                             @if(Auth::user()->isAdmin())
                             <li>
                                 <a href="{{url('/masters-page/email-to-cc')}}">Email</a>

@@ -253,6 +253,11 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::get('masters-page/user', function(){
 		return view('masters.user');
 	});
+
+	Route::get('masters-page/holidays', function(){
+		return view('masters.holidays');
+	});
+
 	Route::get('getdashboardvalues', 'DashboardController@GetDashboardValues');
 	Route::get('get-dashboard-values', 'DashboardController@DashboardValuesNew');
 	Route::get('/customers','CustomerController@Customers');
