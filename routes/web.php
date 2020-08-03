@@ -280,6 +280,9 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::get('/roles','RoleController@Roles');
 	Route::get('/rmarefno', 'RMAController@GetRMARefNo');
 	Route::get('/emails','MailController@Emails');
+	Route::get('/getHolidays', 'HolidaysController@GetHolidays');
+	Route::post('/addHolidays', 'HolidaysController@AddHoliday');
+	Route::delete('/deleteHoliday/{id}', 'HolidaysController@DeleteHoliday');
 
 	Route::post('/addcustomers', 'CustomerController@AddCustomer');
 	Route::get('/getcustomer/{id}', 'CustomerController@GetCustomer');

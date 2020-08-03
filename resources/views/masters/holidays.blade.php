@@ -74,8 +74,8 @@
                      <table class="table table-borderless table-data3">
                          <thead>
                          <tr>
-                                
-                                <th sortable='date' class="sortable">
+                                <th>Actions</th>
+                                <th sortable='date_unix' class="sortable">
                                      Date
                                  </th>
                              <th sortable="description" class="sortable">
@@ -86,7 +86,18 @@
                          </thead>
                          <tbody>
                          <tr grid-item>
-                           
+                                <td>
+                                    <div class="table-data-feature float-left">
+                                        <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" ng-click="OpenHolidaysModal(item)">
+                                            <i class="zmdi zmdi-edit"></i>
+                                        </button>
+                                        @if(Auth::user()->isManager() || Auth::user()->isAdmin())
+                                        <button class="item" data-toggle="tooltip" data-placement="top" title="Delete" ng-click="DeleteHoliday(item.id);">
+                                            <i class="zmdi zmdi-delete"></i>
+                                        </button>
+                                        @endif
+                                    </div>
+                                </td>
                                 <td ng-bind="item.date_unix | date:'dd/MM/yyyy'"></td>
                                 <td ng-bind="item.description"></td>
                          </tr>
@@ -149,7 +160,7 @@
                                                    class="form-control"
                                                    placeholder="Date"
                                                    max-date="dateTo"
-                                                   ng-model = "Holidaysmodal.date"
+                                                   ng-model = "Holidaysmodal.holiday_date"
                                                    id="dateFilter"
                                             />
                                           <!-- <span class="help-block">Please Enter RID</span> -->
