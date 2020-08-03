@@ -252,7 +252,7 @@ class PVListingRepository
     				->leftJoin('pv_priority_list as pvl', 'pvl.pv_id', 'pv.id')
     				->leftJoin('ma_pv_status as mps', 'mps.id', 'sta.current_status_id')
     				->whereIn('sta.current_status_id', [4])
-    				->whereIn('pt.category',['smp', 'omu'])
+    				->whereIn('pt.category', ['smp', 'omu'])
     				->orderBy('pvl_priority')->orderBy('pv.id')->get();
 
 
@@ -334,6 +334,7 @@ class PVListingRepository
     					->join('pv_status as sta', 'sta.pv_id', 'pv.id')
     					->join('ma_product_overdue_age as poa', 'poa.category', 'pt.category')
     					->whereIn('sta.current_status_id', [4,5])
+    					->whereIn('pt.category', ['smp', 'omu'])
     					->groupBy('pt.code')
     					->get();
 
@@ -358,10 +359,13 @@ class PVListingRepository
     						$join->on('vc_track.pv_id', 'pv.id')->whereIn('vc_track.status_id',[10]);
     					})
     					->whereIn('sta.current_status_id', [4, 5])
+    					->whereIn('pt.category', ['smp', 'omu'])
     					->groupBy('pv.id')
     					->get();
 
+    	$pvs['for_repair']['total'] = 0;
 		foreach ($repair_all as $key => $all_relay) {
+			$pvs['for_repair']['total'] += 1;
 			$pv_start_date = (!is_null($all_relay->pv_start_date))?Carbon::createFromFormat('Y-m-d H:i:s', $all_relay->pv_start_date): null;
 			$wch_start_date = (!is_null($all_relay->wch_start_date))?Carbon::createFromFormat('Y-m-d H:i:s', $all_relay->wch_start_date):null;
 			$jt_start_date = (!is_null($all_relay->jt_start_date))?Carbon::createFromFormat('Y-m-d H:i:s', $all_relay->jt_start_date): null;
@@ -1404,8 +1408,299 @@ class PVListingRepository
 
 		unset($data['total_relays_completed_all']);
 
-		$overdues = PVListingRepository::DashboardValuesNew();
+		//$overdues = PVListingRepository::DashboardValuesNew();
 		$data['total_relays_overdues'] = array();
+		$overdues['total_overdue']['for_test'] = 0;
+		$overdues['for_repair'] = DB::table('physical_verification as pv')->selectRaw('pt.code as type_name, pt.id as pt_id, (0) as overdue, COUNT(*) as total')
+    					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+    					->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+    					->join('ma_product_overdue_age as poa', 'poa.category', 'pt.category')
+    					->whereIn('pt.category', ["smp", "omu"])
+    					->whereIn('sta.current_status_id', [4,5])
+    					->groupBy('pt.code')
+    					->get();
+
+		$repair_all = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.id, pv.serial_no, pt.code as type_name, pt.id as pt_id, sta.created_at as start_date, sta.current_status_id, pv_track.created_at as pv_start_date, wch_track.created_at as wch_start_date, jt_track.created_at as jt_start_date,test_track.created_at as test_start_date, aging_track.created_at as aging_start_date, vc_track.created_at as vc_start_date, poa.pv as pv_due_days, poa.wch as wch_due_days, poa.jt as jt_due_days, poa.testing as testing_due_days, poa.aging as aging_due_days, vc_track.created_at as vc_start_date, dispatch_track.created_at as dispatch_start_date, poa.dispatch as dispatch_due_days, poa.jt as category_due_days, pt.code as product_family')
+    					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+    					->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+    					->join('ma_product_overdue_age as poa', 'poa.category', 'pt.category')
+    					->join('pv_status as ps', 'ps.pv_id', 'pv.id')
+    					->leftJoin('pv_status_tracking as pv_track',function($join){
+    						$join->on('pv_track.pv_id', 'pv.id')->whereIn('pv_track.status_id',[1, 2]);
+    					})->leftJoin('pv_status_tracking as wch_track',function($join){
+    						$join->on('wch_track.pv_id', 'pv.id')->whereIn('wch_track.status_id',[13]);
+    					})->leftJoin('pv_status_tracking as jt_track',function($join){
+    						$join->on('jt_track.pv_id', 'pv.id')->whereIn('jt_track.status_id',[4]);
+    					})->leftJoin('pv_status_tracking as test_track',function($join){
+    						$join->on('test_track.pv_id', 'pv.id')->whereIn('test_track.status_id',[6]);
+    					})->leftJoin('pv_status_tracking as aging_track',function($join){
+    						$join->on('aging_track.pv_id', 'pv.id')->whereIn('aging_track.status_id',[8]);
+    					})->leftJoin('pv_status_tracking as dispatch_track',function($join){
+    						$join->on('dispatch_track.pv_id', 'pv.id')->whereIn('dispatch_track.status_id',[11]);
+    					})->leftJoin('pv_status_tracking as vc_track',function($join){
+    						$join->on('vc_track.pv_id', 'pv.id')->whereIn('vc_track.status_id',[10]);
+    					})
+    					->whereIn('pt.category', ["smp", "omu"])
+    					->whereIn('sta.current_status_id', [4, 5])
+    					->groupBy('pv.id')
+    					->get();
+
+		foreach ($repair_all as $key => $all_relay) {
+			$pv_start_date = (!is_null($all_relay->pv_start_date))?Carbon::createFromFormat('Y-m-d H:i:s', $all_relay->pv_start_date): null;
+			$wch_start_date = (!is_null($all_relay->wch_start_date))?Carbon::createFromFormat('Y-m-d H:i:s', $all_relay->wch_start_date):null;
+			$jt_start_date = (!is_null($all_relay->jt_start_date))?Carbon::createFromFormat('Y-m-d H:i:s', $all_relay->jt_start_date): null;
+			$test_start_date = (!is_null($all_relay->test_start_date))?Carbon::createFromFormat('Y-m-d H:i:s', $all_relay->test_start_date): null;
+			$aging_start_date = (!is_null($all_relay->aging_start_date))?Carbon::createFromFormat('Y-m-d H:i:s', $all_relay->aging_start_date): null;
+			$vc_start_date = (!is_null($all_relay->vc_start_date))?Carbon::createFromFormat('Y-m-d H:i:s', $all_relay->vc_start_date):null;
+			$dispatch_start_date = (!is_null($all_relay->dispatch_start_date))?Carbon::createFromFormat('Y-m-d H:i:s', $all_relay->dispatch_start_date): null;
+			if(!is_null($pv_start_date) && !is_null($wch_start_date))
+			{
+				$all_relay->pv_diff = $pv_start_date->diffInWeekdays($wch_start_date) - $all_relay->pv_due_days - 1;
+				$all_relay->pv_diff = ($all_relay->pv_diff>0)?$all_relay->pv_diff:0;
+			}
+			else
+				$all_relay->pv_diff = 0;
+			if(!is_null($jt_start_date) && !is_null($wch_start_date))
+			{
+				$all_relay->wc_diff = $wch_start_date->diffInWeekdays($jt_start_date) - $all_relay->wch_due_days - 1;
+				$all_relay->wc_diff = ($all_relay->wc_diff>0)?$all_relay->wc_diff:0;
+			}
+			else
+				$all_relay->wc_diff = 0;
+			if(!is_null($jt_start_date))
+			{
+				$all_relay->jt_diff = $jt_start_date->diffInWeekdays(Carbon::now()) - $all_relay->jt_due_days - 1;
+				$all_relay->jt_diff = ($all_relay->jt_diff>0)?$all_relay->jt_diff:0;
+			}
+			else
+				$all_relay->jt_diff = 0;
+
+				$all_relay->test_diff = 0;
+				$all_relay->aging_diff = 0;
+				$all_relay->dispatch_diff = 0;
+			$all_relay->stage_overdue = $all_relay->jt_diff;
+			$all_relay->overall_due = $all_relay->pv_diff + $all_relay->wc_diff + $all_relay->jt_diff + $all_relay->test_diff + $all_relay->aging_diff + $all_relay->dispatch_diff;
+			if($all_relay->stage_overdue > $all_relay->category_due_days)
+			{
+				foreach ($overdues['for_repair'] as $key => $grp_relay) {
+					if($grp_relay->type_name == $all_relay->type_name)
+					{
+						$grp_relay->overdue += 1;
+						if(!isset($grp_relay->due_list))
+							$grp_relay->due_list = array();
+						array_push($grp_relay->due_list, $all_relay);
+						break;
+					}
+				}
+
+			}
+		}
+
+		$overdues['total_overdue']['for_test'] = 0;
+		$overdues['for_test'] = DB::table('physical_verification as pv')->selectRaw('pt.code as type_name, pt.id as pt_id, (0) as overdue, COUNT(*) as total')
+    					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+    					->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+    					->join('ma_product_overdue_age as poa', 'poa.category', 'pt.category')
+    					->whereIn('pt.category', ["smp", "omu"])
+    					->whereIn('sta.current_status_id', [6, 7, 8, 9])
+    					->groupBy('pt.code')
+    					->get();
+
+		$test_all = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.id, pv.serial_no, pt.code as type_name, pt.id as pt_id, sta.created_at as start_date, sta.current_status_id, pv_track.created_at as pv_start_date, wch_track.created_at as wch_start_date, jt_track.created_at as jt_start_date,test_track.created_at as test_start_date, aging_track.created_at as aging_start_date, vc_track.created_at as vc_start_date, poa.pv as pv_due_days, poa.wch as wch_due_days, poa.jt as jt_due_days, poa.testing as testing_due_days, poa.aging as aging_due_days, vc_track.created_at as vc_start_date, dispatch_track.created_at as dispatch_start_date, poa.dispatch as dispatch_due_days, IF(sta.current_status_id<8,poa.testing,poa.aging) as category_due_days, pt.code as product_family')
+    					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+    					->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+    					->join('ma_product_overdue_age as poa', 'poa.category', 'pt.category')
+    					->join('pv_status as ps', 'ps.pv_id', 'pv.id')
+    					->leftJoin('pv_status_tracking as pv_track',function($join){
+    						$join->on('pv_track.pv_id', 'pv.id')->whereIn('pv_track.status_id',[1, 2]);
+    					})->leftJoin('pv_status_tracking as wch_track',function($join){
+    						$join->on('wch_track.pv_id', 'pv.id')->whereIn('wch_track.status_id',[13]);
+    					})->leftJoin('pv_status_tracking as jt_track',function($join){
+    						$join->on('jt_track.pv_id', 'pv.id')->whereIn('jt_track.status_id',[4]);
+    					})->leftJoin('pv_status_tracking as test_track',function($join){
+    						$join->on('test_track.pv_id', 'pv.id')->whereIn('test_track.status_id',[6]);
+    					})->leftJoin('pv_status_tracking as aging_track',function($join){
+    						$join->on('aging_track.pv_id', 'pv.id')->whereIn('aging_track.status_id',[8]);
+    					})->leftJoin('pv_status_tracking as dispatch_track',function($join){
+    						$join->on('dispatch_track.pv_id', 'pv.id')->whereIn('dispatch_track.status_id',[11]);
+    					})->leftJoin('pv_status_tracking as vc_track',function($join){
+    						$join->on('vc_track.pv_id', 'pv.id')->whereIn('vc_track.status_id',[10]);
+    					})
+    					->whereIn('pt.category', ["smp", "omu"])
+    					->whereIn('sta.current_status_id', [6, 7, 8, 9])
+    					->groupBy('pv.id')
+    					->get();
+
+		foreach ($test_all as $key => $all_relay) {
+			$pv_start_date = (!is_null($all_relay->pv_start_date))?Carbon::createFromFormat('Y-m-d H:i:s', $all_relay->pv_start_date): null;
+			$wch_start_date = (!is_null($all_relay->wch_start_date))?Carbon::createFromFormat('Y-m-d H:i:s', $all_relay->wch_start_date):null;
+			$jt_start_date = (!is_null($all_relay->jt_start_date))?Carbon::createFromFormat('Y-m-d H:i:s', $all_relay->jt_start_date): null;
+			$test_start_date = (!is_null($all_relay->test_start_date))?Carbon::createFromFormat('Y-m-d H:i:s', $all_relay->test_start_date): null;
+			$aging_start_date = (!is_null($all_relay->aging_start_date))?Carbon::createFromFormat('Y-m-d H:i:s', $all_relay->aging_start_date): null;
+			if(!is_null($pv_start_date) && !is_null($wch_start_date))
+			{
+				$all_relay->pv_diff = $pv_start_date->diffInWeekdays($wch_start_date) - $all_relay->pv_due_days - 1;
+				$all_relay->pv_diff = ($all_relay->pv_diff>0)?$all_relay->pv_diff:0;
+			}
+			else
+				$all_relay->pv_diff = 0;
+			if(!is_null($jt_start_date) && !is_null($wch_start_date))
+			{
+				$all_relay->wc_diff = $wch_start_date->diffInWeekdays($jt_start_date) - $all_relay->wch_due_days - 1;
+				$all_relay->wc_diff = ($all_relay->wc_diff>0)?$all_relay->wc_diff:0;
+			}
+			else
+				$all_relay->wc_diff = 0;
+			if(!is_null($jt_start_date) && !is_null($test_start_date))
+			{
+				$all_relay->jt_diff = $jt_start_date->diffInWeekdays($test_start_date) - $all_relay->jt_due_days - 1;
+				$all_relay->jt_diff = ($all_relay->jt_diff>0)?$all_relay->jt_diff:0;
+			}
+			else
+				$all_relay->jt_diff = 0;
+			if(!is_null($test_start_date) && !is_null($aging_start_date))
+			{
+				$all_relay->test_diff = $test_start_date->diffInWeekdays($aging_start_date) - $all_relay->testing_due_days;
+				$all_relay->test_diff = ($all_relay->test_diff>0)?$all_relay->test_diff:0;
+			}
+			else if(!is_null($test_start_date) && is_null($aging_start_date))
+			{
+				$all_relay->test_diff = $test_start_date->diffInWeekdays(Carbon::now()) - $all_relay->testing_due_days - 1;
+				$all_relay->test_diff = ($all_relay->test_diff>0)?$all_relay->test_diff:0;
+			}
+			else
+				$all_relay->test_diff = 0;
+			if(!is_null($aging_start_date))
+			{
+				$all_relay->aging_diff = $aging_start_date->diffInWeekdays(Carbon::now()) - $all_relay->aging_due_days - 1;
+				$all_relay->aging_diff = ($all_relay->aging_diff>0)?$all_relay->aging_diff:0;
+			}
+			else
+				$all_relay->aging_diff = 0;
+
+			$all_relay->dispatch_diff = 0;
+			$all_relay->stage_overdue = ($all_relay->current_status_id<8)?$all_relay->test_diff:$all_relay->aging_diff;
+			$all_relay->overall_due = $all_relay->pv_diff + $all_relay->wc_diff + $all_relay->jt_diff + $all_relay->test_diff + $all_relay->aging_diff + $all_relay->dispatch_diff;
+			if($all_relay->stage_overdue > $all_relay->category_due_days)
+			{
+				foreach ($overdues['for_test'] as $key => $grp_relay) {
+					if($grp_relay->type_name == $all_relay->type_name)
+					{
+						$grp_relay->overdue += 1;
+						$overdues['total_overdue']['for_test'] += 1;
+						if(!isset($grp_relay->due_list))
+							$grp_relay->due_list = array();
+						array_push($grp_relay->due_list, $all_relay);
+						break;
+					}
+				}
+
+			}
+		}
+
+		$overdues['total_overdue']['for_pack'] = 0;
+		$overdues['for_pack'] = DB::table('physical_verification as pv')->selectRaw('pt.code as type_name, pt.id as pt_id, (0) as overdue, COUNT(*) as total')
+    					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+    					->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+    					->join('ma_product_overdue_age as poa', 'poa.category', 'pt.category')
+    					->whereIn('pt.category', ["smp", "omu"])
+    					->whereIn('sta.current_status_id', [11, 14])
+    					->groupBy('pt.code')
+    					->get();
+
+		$all_dispatch = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pv.id, pv.serial_no, pt.code as type_name, pt.id as pt_id, sta.created_at as start_date, pv_track.created_at as pv_start_date, wch_track.created_at as wch_start_date, jt_track.created_at as jt_start_date,test_track.created_at as test_start_date, aging_track.created_at as aging_start_date, vc_track.created_at as vc_start_date, poa.pv as pv_due_days, poa.wch as wch_due_days, poa.jt as jt_due_days, poa.testing as testing_due_days, poa.aging as aging_due_days, vc_track.created_at as vc_start_date, dispatch_track.created_at as dispatch_start_date, poa.dispatch as dispatch_due_days, poa.dispatch as category_due_days, pt.code as product_family')
+    					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+    					->join('pv_status as sta', 'sta.pv_id', 'pv.id')
+    					->join('ma_product_overdue_age as poa', 'poa.category', 'pt.category')
+    					->join('pv_status as ps', 'ps.pv_id', 'pv.id')
+    					->leftJoin('pv_status_tracking as pv_track',function($join){
+    						$join->on('pv_track.pv_id', 'pv.id')->whereIn('pv_track.status_id',[1, 2]);
+    					})->leftJoin('pv_status_tracking as wch_track',function($join){
+    						$join->on('wch_track.pv_id', 'pv.id')->whereIn('wch_track.status_id',[13]);
+    					})->leftJoin('pv_status_tracking as jt_track',function($join){
+    						$join->on('jt_track.pv_id', 'pv.id')->whereIn('jt_track.status_id',[4]);
+    					})->leftJoin('pv_status_tracking as test_track',function($join){
+    						$join->on('test_track.pv_id', 'pv.id')->whereIn('test_track.status_id',[6]);
+    					})->leftJoin('pv_status_tracking as aging_track',function($join){
+    						$join->on('aging_track.pv_id', 'pv.id')->whereIn('aging_track.status_id',[8]);
+    					})->leftJoin('pv_status_tracking as dispatch_track',function($join){
+    						$join->on('dispatch_track.pv_id', 'pv.id')->whereIn('dispatch_track.status_id',[11]);
+    					})->leftJoin('pv_status_tracking as vc_track',function($join){
+    						$join->on('vc_track.pv_id', 'pv.id')->whereIn('vc_track.status_id',[10]);
+    					})->whereIn('pt.category', ["smp", "omu"])
+    					->whereIn('sta.current_status_id', [11, 14])
+    					->groupBy('pv.id')
+    					->get();
+
+		foreach ($all_dispatch as $key => $all_relay) {
+			$pv_start_date = (!is_null($all_relay->pv_start_date))?Carbon::createFromFormat('Y-m-d H:i:s', $all_relay->pv_start_date): null;
+			$wch_start_date = (!is_null($all_relay->wch_start_date))?Carbon::createFromFormat('Y-m-d H:i:s', $all_relay->wch_start_date):null;
+			$jt_start_date = (!is_null($all_relay->jt_start_date))?Carbon::createFromFormat('Y-m-d H:i:s', $all_relay->jt_start_date): null;
+			$test_start_date = (!is_null($all_relay->test_start_date))?Carbon::createFromFormat('Y-m-d H:i:s', $all_relay->test_start_date): null;
+			$aging_start_date = (!is_null($all_relay->aging_start_date))?Carbon::createFromFormat('Y-m-d H:i:s', $all_relay->aging_start_date): null;
+			$vc_start_date = (!is_null($all_relay->vc_start_date))?Carbon::createFromFormat('Y-m-d H:i:s', $all_relay->vc_start_date):null;
+			$dispatch_start_date = (!is_null($all_relay->dispatch_start_date))?Carbon::createFromFormat('Y-m-d H:i:s', $all_relay->dispatch_start_date): null;
+			if(!is_null($pv_start_date) && !is_null($wch_start_date))
+			{
+				$all_relay->pv_diff = $pv_start_date->diffInWeekdays($wch_start_date) - $all_relay->pv_due_days - 1;
+				$all_relay->pv_diff = ($all_relay->pv_diff>0)?$all_relay->pv_diff:0;
+			}
+			else
+				$all_relay->pv_diff = 0;
+			if(!is_null($jt_start_date) && !is_null($wch_start_date))
+			{
+				$all_relay->wc_diff = $wch_start_date->diffInWeekdays($jt_start_date) - $all_relay->wch_due_days - 1;
+				$all_relay->wc_diff = ($all_relay->wc_diff>0)?$all_relay->wc_diff:0;
+			}
+			else
+				$all_relay->wc_diff = 0;
+			if(!is_null($jt_start_date) && !is_null($test_start_date))
+			{
+				$all_relay->jt_diff = $jt_start_date->diffInWeekdays($test_start_date) - $all_relay->jt_due_days - 1;
+				$all_relay->jt_diff = ($all_relay->jt_diff>0)?$all_relay->jt_diff:0;
+			}
+			else
+				$all_relay->jt_diff = 0;
+			if(!is_null($test_start_date) && !is_null($aging_start_date))
+			{
+				$all_relay->test_diff = $test_start_date->diffInWeekdays($aging_start_date) - $all_relay->testing_due_days - 1;
+				$all_relay->test_diff = ($all_relay->test_diff>0)?$all_relay->test_diff:0;
+			}
+			else
+				$all_relay->test_diff = 0;
+			if(!is_null($aging_start_date) && !is_null($vc_start_date))
+			{
+				$all_relay->aging_diff = $aging_start_date->diffInWeekdays($vc_start_date) - $all_relay->aging_due_days - 1;
+				$all_relay->aging_diff = ($all_relay->aging_diff>0)?$all_relay->aging_diff:0;
+			}
+			else
+				$all_relay->aging_diff = 0;
+			if(!is_null($dispatch_start_date))
+			{
+				$all_relay->dispatch_diff = $dispatch_start_date->diffInWeekdays(Carbon::now()) - $all_relay->dispatch_due_days - 1;
+				$all_relay->dispatch_diff = ($all_relay->dispatch_diff>0)?$all_relay->dispatch_diff:0;
+			}
+			else
+				$all_relay->dispatch_diff = 0;
+			$all_relay->stage_overdue = $all_relay->dispatch_diff;
+			$all_relay->overall_due = $all_relay->pv_diff + $all_relay->wc_diff + $all_relay->jt_diff + $all_relay->test_diff + $all_relay->aging_diff + $all_relay->dispatch_diff;
+			if($all_relay->stage_overdue > $all_relay->category_due_days)
+			{
+				foreach ($overdues['for_pack'] as $key => $grp_relay) {
+					if($grp_relay->type_name == $all_relay->type_name)
+					{
+						$grp_relay->overdue += 1;
+						$overdues['total_overdue']['for_pack'] += 1;
+						if(!isset($grp_relay->due_list))
+							$grp_relay->due_list = array();
+						array_push($grp_relay->due_list, $all_relay);
+						break;
+					}
+				}
+
+			}
+		}
+
 		foreach ($overdues['for_repair'] as $key => $relay) {
 			$relay->item = (object)[];
 			$relay->item->type_name = $relay->type_name;
@@ -1476,6 +1771,25 @@ class PVListingRepository
 			$newobj->total += $relay->total;
 		}
 		array_push($data['total_relays_overdues'], $newobj);
+
+		$data['total_boj_pending'] = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pt.code as type_name, COUNT(*) as total')
+    					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
+    					->join('warranty as wt', 'wt.pv_id', 'pv.id')
+    					->join('pv_status as ps', 'ps.pv_id', 'pv.id')
+    					->whereIn('ps.current_status_id', [1, 2, 3, 4, 16, 11, 14])
+    					->whereIn('pt.category', ["boj"])
+    					->groupBy('pt.code')
+    					->get();
+
+    	$newobj = array();
+		$newobj['type_name'] = 'Total';
+		$newobj['total'] = 0;
+
+		foreach ($data['total_boj_pending'] as $key => $relay) {
+			$newobj['total'] += $relay->total;
+		}
+		$data['total_boj_pending'] = $data['total_boj_pending']->toArray();
+		array_push($data['total_boj_pending'], $newobj);
 
 		$data['total_completed_all'] = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pt.name as type_name, COUNT(*) as total')
     					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')

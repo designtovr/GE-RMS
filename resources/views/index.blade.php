@@ -395,7 +395,7 @@
                </div>
                <div class="col-sm-5">
                    <h3 style="color: white; font-size: 22px;font-weight: 500;">
-                       Total Relays: <span style="font-weight: bolder;" ng-bind="dashboardvalues.repair_priority.length"></span>
+                       Total Relays: <span style="font-weight: bolder;" ng-bind="dashboardvalues.for_repair.total"></span>
                    </h3>
                </div>
            </div>

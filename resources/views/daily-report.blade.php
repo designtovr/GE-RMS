@@ -29,16 +29,6 @@
                     </div>
                 </div>
             </div>
-
-          <!--   <div id="carouselExampleIndicators" class="carousel slide">
-                <ol class="carousel-indicators">
-                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                </ol>
-                <div class="carousel-inner">
-                    <div class="carousel-item active"> -->
                         <div class="row">
                             <div class="col-lg-4 h-25">
                                  <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
@@ -50,11 +40,6 @@
                                                      <i class="zmdi animated zoomIn infinite slower zmdi-assignment-alert"></i>Received Relays
                                                  </h3>
                                              </div>
-                                        <!--      <div class="col-sm-5">
-                                                 <h3 style="color: white; font-size: 22px;font-weight: 500;">
-                                                     Total Relays: <span style="font-weight: bolder;" ng-bind="dashboardvalues.repair_priority.length"></span>
-                                                 </h3>
-                                             </div> -->
                                          </div>
                                      </div>
                                      <div class="au-task js-list-load">
@@ -162,70 +147,39 @@
                                     </div>
                                 </div>
                             </div>
-                 <!--        </div>
-                    </div> -->
-                    <!-- <div class="carousel-item">
                         <div class="row">
-                            <div class="col-lg-4">
-                                <div class="au-card m-b-30">
-                                    <div class="au-card-inner">
-                                        <h3 class="title-2 m-b-40">Today And Monthly Status</h3>
-                                        <canvas id="TodayStatus"></canvas>
+                             <div class="col-lg-4 h-25">
+                                <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
+                                    <div class="au-card-title" style="background-image:url('images/bg-title-01.jpg');" >
+                                        <div class="bg-overlay bg-overlay--androidblue"></div>
+                                        <h3>
+                                            <i class="zmdi animated slideInLeft infinite slower-10s zmdi-seat"></i>Total Chargeable Relays</h3>
+
+                                    </div>
+                                    <div class="au-task js-list-load">
+                                        <div class="au-task-list js-scrollbar3 ">
+                                            <div class="table-responsive m-b-40">
+                                                <table class="table table-borderless table-data4 table-data3-blue">
+                                                    <thead>
+                                                    <tr style="background-color: #333333;color: white;">
+                                                        <th>Family</th>
+                                                        <th>Total</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr ng-repeat="test in dashboardvalues.total_chargeable">
+                                                          <td ng-bind="test.type_name"></td>
+                                                          <td ng-bind="test.total"></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4">
-                                <div class="au-card m-b-30">
-                                    <div class="au-card-inner">
-                                        <h3 class="title-2 m-b-40">Repair - Warranty</h3>
-                                        <canvas id="Warranty"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="au-card m-b-30 ">
-                                    <div class="au-card-inner">
-                                        <h3 class="title-2 m-b-40">Repair - Chargable</h3>
-                                        <canvas id="OutOfWarranty"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-   <!--                  <div class="carousel-item"> -->
-                        <div class="row">
-                                       <div class="col-lg-4 h-25">
-                                          <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
-                                              <div class="au-card-title" style="background-image:url('images/bg-title-01.jpg');" >
-                                                  <div class="bg-overlay bg-overlay--androidblue"></div>
-                                                  <h3>
-                                                      <i class="zmdi animated slideInLeft infinite slower-10s zmdi-seat"></i>Total Chargeable Relays</h3>
-
-                                              </div>
-                                              <div class="au-task js-list-load">
-                                                  <div class="au-task-list js-scrollbar3 ">
-                                                      <div class="table-responsive m-b-40">
-                                                          <table class="table table-borderless table-data4 table-data3-blue">
-                                                              <thead>
-                                                              <tr style="background-color: #333333;color: white;">
-                                                                  <th>Family</th>
-                                                                  <th>Total</th>
-                                                              </tr>
-                                                              </thead>
-                                                              <tbody>
-                                                              <tr ng-repeat="test in dashboardvalues.total_chargeable">
-                                                                    <td ng-bind="test.type_name"></td>
-                                                                    <td ng-bind="test.total"></td>
-                                                              </tr>
-                                                              </tbody>
-                                                          </table>
-                                                      </div>
-
-                                                  </div>
-
-                                              </div>
-                                          </div>
-                                      </div>
                            
                             <div class="col-lg-4 h-25">
                                 <div class="au-card au-card--no-shadow au-card--no-pad ">
@@ -259,10 +213,6 @@
                                     </div>
                                 </div>
                             </div>
-                  <!--       </div>
-                    </div> -->
-                    <!-- <div class="carousel-item"> -->
-                       <!--  <div class="row"> -->
                            <div class="col-lg-4 h-25">
                               <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
                                   <div class="au-card-title" style="background-image:url('images/bg-title-01.jpg');" >
@@ -334,6 +284,36 @@
                                      </div>
                                  </div>
                              </div>
+
+                             <div class="col-lg-4 h-25">
+                              <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
+                                  <div class="au-card-title" style="background-image:url('images/bg-title-01.jpg');" >
+                                      <div class="bg-overlay bg-overlay--androidblue"></div>
+                                      <h3>
+                                          <i class="zmdi animated slideInLeft infinite slower-10s zmdi-seat"></i>Total BOJ Pending</h3>
+                                  </div>
+                                  <div class="au-task js-list-load">
+                                      <div class="au-task-list js-scrollbar3 ">
+                                          <div class="table-responsive">
+                                              <table class="table table-borderless table-data4 table-data3-blue">
+                                                  <thead>
+                                                    <tr style="background-color: #333333;color: white;">
+                                                      <th>Family</th>
+                                                      <th>Total</th>
+                                                  </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                  <tr ng-repeat="rc in dashboardvalues.total_boj_pending">
+                                                    <td ng-bind="rc.type_name | uppercase"></td>
+                                                    <td ng-bind="rc.total"></td>
+                                                  </tr>
+                                                  </tbody>
+                                              </table>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
                       </div>
 
         </div>

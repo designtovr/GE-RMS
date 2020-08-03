@@ -271,6 +271,29 @@
 					</table>
 				</li>
 			</ul>
+			<ul class="tablerowlist" id="tablerowlist" style ="width : 40%;float:left">
+				<li>
+					<h2 class="h2-heading">Total BOJ Pending</h2>
+					<table>
+						<thead class="orange">
+							<th>Type / Category</th>
+							<th>Days</th>
+						</thead>
+						<tbody class="orangebody">
+							@for ($i = 0; $i < sizeof($total_boj_pending); $i++)
+							@if($i % 2 == 0)
+							<tr style="background-color: #D9D9D9">
+							@else
+							<tr style="background-color: #f2f2f2;">
+							@endif
+								<td >{{strtoupper($total_boj_pending[$i]['type_name'])}}</td>
+								<td >{{$total_boj_pending[$i]['total']}}</td>
+							</tr>
+							@endfor
+						</tbody>
+					</table>
+				</li>
+			</ul>
 		</div>
 	</div>
 </body>
