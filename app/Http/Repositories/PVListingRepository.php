@@ -7,6 +7,7 @@ use App\Models\ReceiptMaster;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use App\Models\HolidaysMaster;
 
 
 class PVListingRepository
@@ -241,6 +242,12 @@ class PVListingRepository
     	return (new self)->PVList($status_id, [], [], ['ge', 'boj', 'others']);
     }
 
+    public static function GetHolidaysCountBetweenDates($startDate, $endDate)
+    {
+    	$count = HolidaysMaster::whereBetween('holiday_date', [$startDate, $endDate])->get()->count();
+    	return $count;
+    }
+
     public static function DashboardValuesNew()
     {
     	$pvs = array();
@@ -293,14 +300,14 @@ class PVListingRepository
 			$wch_start_date = (!is_null($all_relay->wch_start_date))?Carbon::createFromFormat('Y-m-d H:i:s', $all_relay->wch_start_date):null;
 			if(!is_null($pv_start_date) && !is_null($wch_start_date))
 			{
-				$all_relay->pv_diff = $pv_start_date->diffInWeekdays($wch_start_date) - $all_relay->pv_due_days - 1;
+				$all_relay->pv_diff = $pv_start_date->diffInWeekdays($wch_start_date) - $all_relay->pv_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($pv_start_date, $wch_start_date);
 				$all_relay->pv_diff = ($all_relay->pv_diff>0)?$all_relay->pv_diff:0;
 			}
 			else
 				$all_relay->pv_diff = 0;
 			if(!is_null($wch_start_date))
 			{
-				$all_relay->wc_diff = $wch_start_date->diffInWeekdays(Carbon::now()) - $all_relay->wch_due_days - 1;
+				$all_relay->wc_diff = $wch_start_date->diffInWeekdays(Carbon::now()) - $all_relay->wch_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($wch_start_date, Carbon::now());
 				$all_relay->wc_diff = ($all_relay->wc_diff>0)?$all_relay->wc_diff:0;
 			}
 			else
@@ -375,21 +382,21 @@ class PVListingRepository
 			$dispatch_start_date = (!is_null($all_relay->dispatch_start_date))?Carbon::createFromFormat('Y-m-d H:i:s', $all_relay->dispatch_start_date): null;
 			if(!is_null($pv_start_date) && !is_null($wch_start_date))
 			{
-				$all_relay->pv_diff = $pv_start_date->diffInWeekdays($wch_start_date) - $all_relay->pv_due_days - 1;
+				$all_relay->pv_diff = $pv_start_date->diffInWeekdays($wch_start_date) - $all_relay->pv_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($pv_start_date, $wch_start_date);
 				$all_relay->pv_diff = ($all_relay->pv_diff>0)?$all_relay->pv_diff:0;
 			}
 			else
 				$all_relay->pv_diff = 0;
 			if(!is_null($jt_start_date) && !is_null($wch_start_date))
 			{
-				$all_relay->wc_diff = $wch_start_date->diffInWeekdays($jt_start_date) - $all_relay->wch_due_days - 1;
+				$all_relay->wc_diff = $wch_start_date->diffInWeekdays($jt_start_date) - $all_relay->wch_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($wch_start_date, $jt_start_date);
 				$all_relay->wc_diff = ($all_relay->wc_diff>0)?$all_relay->wc_diff:0;
 			}
 			else
 				$all_relay->wc_diff = 0;
 			if(!is_null($jt_start_date))
 			{
-				$all_relay->jt_diff = $jt_start_date->diffInWeekdays(Carbon::now()) - $all_relay->jt_due_days - 1;
+				$all_relay->jt_diff = $jt_start_date->diffInWeekdays(Carbon::now()) - $all_relay->jt_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($jt_start_date, Carbon::now());
 				$all_relay->jt_diff = ($all_relay->jt_diff>0)?$all_relay->jt_diff:0;
 			}
 			else
@@ -457,40 +464,40 @@ class PVListingRepository
 			$aging_start_date = (!is_null($all_relay->aging_start_date))?Carbon::createFromFormat('Y-m-d H:i:s', $all_relay->aging_start_date): null;
 			if(!is_null($pv_start_date) && !is_null($wch_start_date))
 			{
-				$all_relay->pv_diff = $pv_start_date->diffInWeekdays($wch_start_date) - $all_relay->pv_due_days - 1;
+				$all_relay->pv_diff = $pv_start_date->diffInWeekdays($wch_start_date) - $all_relay->pv_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($pv_start_date, $wch_start_date);
 				$all_relay->pv_diff = ($all_relay->pv_diff>0)?$all_relay->pv_diff:0;
 			}
 			else
 				$all_relay->pv_diff = 0;
 			if(!is_null($jt_start_date) && !is_null($wch_start_date))
 			{
-				$all_relay->wc_diff = $wch_start_date->diffInWeekdays($jt_start_date) - $all_relay->wch_due_days - 1;
+				$all_relay->wc_diff = $wch_start_date->diffInWeekdays($jt_start_date) - $all_relay->wch_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($wch_start_date, $jt_start_date);
 				$all_relay->wc_diff = ($all_relay->wc_diff>0)?$all_relay->wc_diff:0;
 			}
 			else
 				$all_relay->wc_diff = 0;
 			if(!is_null($jt_start_date) && !is_null($test_start_date))
 			{
-				$all_relay->jt_diff = $jt_start_date->diffInWeekdays($test_start_date) - $all_relay->jt_due_days - 1;
+				$all_relay->jt_diff = $jt_start_date->diffInWeekdays($test_start_date) - $all_relay->jt_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($jt_start_date, $test_start_date);
 				$all_relay->jt_diff = ($all_relay->jt_diff>0)?$all_relay->jt_diff:0;
 			}
 			else
 				$all_relay->jt_diff = 0;
 			if(!is_null($test_start_date) && !is_null($aging_start_date))
 			{
-				$all_relay->test_diff = $test_start_date->diffInWeekdays($aging_start_date) - $all_relay->testing_due_days;
+				$all_relay->test_diff = $test_start_date->diffInWeekdays($aging_start_date) - $all_relay->testing_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($test_start_date, $aging_start_date);
 				$all_relay->test_diff = ($all_relay->test_diff>0)?$all_relay->test_diff:0;
 			}
 			else if(!is_null($test_start_date) && is_null($aging_start_date))
 			{
-				$all_relay->test_diff = $test_start_date->diffInWeekdays(Carbon::now()) - $all_relay->testing_due_days - 1;
+				$all_relay->test_diff = $test_start_date->diffInWeekdays(Carbon::now()) - $all_relay->testing_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($test_start_date, Carbon::now());
 				$all_relay->test_diff = ($all_relay->test_diff>0)?$all_relay->test_diff:0;
 			}
 			else
 				$all_relay->test_diff = 0;
 			if(!is_null($aging_start_date))
 			{
-				$all_relay->aging_diff = $aging_start_date->diffInWeekdays(Carbon::now()) - $all_relay->aging_due_days - 1;
+				$all_relay->aging_diff = $aging_start_date->diffInWeekdays(Carbon::now()) - $all_relay->aging_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($aging_start_date, Carbon::now());
 				$all_relay->aging_diff = ($all_relay->aging_diff>0)?$all_relay->aging_diff:0;
 			}
 			else
@@ -550,12 +557,12 @@ class PVListingRepository
 
 			if(!is_null($pv_start_date) && !is_null($wch_start_date))
 			{
-				$all_relay->pv_diff = $pv_start_date->diffInWeekdays($wch_start_date) - $all_relay->pv_due_days - 1;
+				$all_relay->pv_diff = $pv_start_date->diffInWeekdays($wch_start_date) - $all_relay->pv_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($pv_start_date, $wch_start_date);
 				$all_relay->pv_diff = ($all_relay->pv_diff>0)?$all_relay->pv_diff:0;
 			}
 			else if(!is_null($pv_start_date) && is_null($wch_start_date))
 			{
-				$all_relay->pv_diff = $pv_start_date->diffInWeekdays(Carbon::now()) - $all_relay->pv_due_days - 1;
+				$all_relay->pv_diff = $pv_start_date->diffInWeekdays(Carbon::now()) - $all_relay->pv_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($pv_start_date, Carbon::now());
 				$all_relay->pv_diff = ($all_relay->pv_diff>0)?$all_relay->pv_diff:0;
 			}
 			else
@@ -564,12 +571,12 @@ class PVListingRepository
 
 			if(!is_null($jt_start_date) && !is_null($wch_start_date))
 			{
-				$all_relay->wc_diff = $wch_start_date->diffInWeekdays($jt_start_date) - $all_relay->wch_due_days - 1;
+				$all_relay->wc_diff = $wch_start_date->diffInWeekdays($jt_start_date) - $all_relay->wch_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($wch_start_date, $jt_start_date);
 				$all_relay->wc_diff = ($all_relay->wc_diff>0)?$all_relay->wc_diff:0;
 			}
 			else if(!is_null($wch_start_date) && is_null($jt_start_date))
 			{
-				$all_relay->wc_diff = $wch_start_date->diffInWeekdays(Carbon::now()) - $all_relay->wch_due_days - 1;
+				$all_relay->wc_diff = $wch_start_date->diffInWeekdays(Carbon::now()) - $all_relay->wch_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($wch_start_date, Carbon::now());
 				$all_relay->wc_diff = ($all_relay->wc_diff>0)?$all_relay->wc_diff:0;
 			}
 			else
@@ -578,12 +585,12 @@ class PVListingRepository
 
 			if(!is_null($jt_start_date) && !is_null($test_start_date))
 			{
-				$all_relay->jt_diff = $jt_start_date->diffInWeekdays($test_start_date) - $all_relay->jt_due_days - 1;
+				$all_relay->jt_diff = $jt_start_date->diffInWeekdays($test_start_date) - $all_relay->jt_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($jt_start_date, $test_start_date);
 				$all_relay->jt_diff = ($all_relay->jt_diff>0)?$all_relay->jt_diff:0;
 			}
 			else if(!is_null($jt_start_date) && is_null($test_start_date))
 			{
-				$all_relay->jt_diff = $jt_start_date->diffInWeekdays(Carbon::now()) - $all_relay->jt_due_days - 1;
+				$all_relay->jt_diff = $jt_start_date->diffInWeekdays(Carbon::now()) - $all_relay->jt_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($jt_start_date, Carbon::now());
 				$all_relay->jt_diff = ($all_relay->jt_diff>0)?$all_relay->jt_diff:0;
 			}
 			else
@@ -592,12 +599,12 @@ class PVListingRepository
 
 			if(!is_null($test_start_date) && !is_null($aging_start_date))
 			{
-				$all_relay->test_diff = $test_start_date->diffInWeekdays($aging_start_date) - $all_relay->testing_due_days - 1;
+				$all_relay->test_diff = $test_start_date->diffInWeekdays($aging_start_date) - $all_relay->testing_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($test_start_date, $aging_start_date);
 				$all_relay->test_diff = ($all_relay->test_diff>0)?$all_relay->test_diff:0;
 			}
 			else if(!is_null($test_start_date) && is_null($aging_start_date))
 			{
-				$all_relay->test_diff = $test_start_date->diffInWeekdays(Carbon::now()) - $all_relay->testing_due_days - 1;
+				$all_relay->test_diff = $test_start_date->diffInWeekdays(Carbon::now()) - $all_relay->testing_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($test_start_date, Carbon::now());
 				$all_relay->test_diff = ($all_relay->test_diff>0)?$all_relay->test_diff:0;
 			}
 			else
@@ -606,12 +613,12 @@ class PVListingRepository
 
 			if(!is_null($aging_start_date) && !is_null($vc_start_date))
 			{
-				$all_relay->aging_diff = $aging_start_date->diffInWeekdays($vc_start_date) - $all_relay->aging_due_days - 1;
+				$all_relay->aging_diff = $aging_start_date->diffInWeekdays($vc_start_date) - $all_relay->aging_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($aging_start_date, $vc_start_date);
 				$all_relay->aging_diff = ($all_relay->aging_diff>0)?$all_relay->aging_diff:0;
 			}
 			else if(!is_null($aging_start_date) && is_null($vc_start_date))
 			{
-				$all_relay->aging_diff = $aging_start_date->diffInWeekdays(Carbon::now()) - $all_relay->aging_due_days - 1;
+				$all_relay->aging_diff = $aging_start_date->diffInWeekdays(Carbon::now()) - $all_relay->aging_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($aging_start_date, Carbon::now());
 				$all_relay->aging_diff = ($all_relay->aging_diff>0)?$all_relay->aging_diff:0;
 			}
 			else
@@ -619,7 +626,7 @@ class PVListingRepository
 
 			if(!is_null($dispatch_start_date))
 			{
-				$all_relay->dispatch_diff = $dispatch_start_date->diffInWeekdays(Carbon::now()) - $all_relay->dispatch_due_days - 1;
+				$all_relay->dispatch_diff = $dispatch_start_date->diffInWeekdays(Carbon::now()) - $all_relay->dispatch_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($dispatch_start_date, Carbon::now());
 				$all_relay->dispatch_diff = ($all_relay->dispatch_diff>0)?$all_relay->dispatch_diff:0;
 			}
 			else
@@ -711,42 +718,42 @@ class PVListingRepository
 			$dispatch_start_date = (!is_null($all_relay->dispatch_start_date))?Carbon::createFromFormat('Y-m-d H:i:s', $all_relay->dispatch_start_date): null;
 			if(!is_null($pv_start_date) && !is_null($wch_start_date))
 			{
-				$all_relay->pv_diff = $pv_start_date->diffInWeekdays($wch_start_date) - $all_relay->pv_due_days - 1;
+				$all_relay->pv_diff = $pv_start_date->diffInWeekdays($wch_start_date) - $all_relay->pv_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($pv_start_date, $wch_start_date);
 				$all_relay->pv_diff = ($all_relay->pv_diff>0)?$all_relay->pv_diff:0;
 			}
 			else
 				$all_relay->pv_diff = 0;
 			if(!is_null($jt_start_date) && !is_null($wch_start_date))
 			{
-				$all_relay->wc_diff = $wch_start_date->diffInWeekdays($jt_start_date) - $all_relay->wch_due_days - 1;
+				$all_relay->wc_diff = $wch_start_date->diffInWeekdays($jt_start_date) - $all_relay->wch_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($wch_start_date, $jt_start_date);
 				$all_relay->wc_diff = ($all_relay->wc_diff>0)?$all_relay->wc_diff:0;
 			}
 			else
 				$all_relay->wc_diff = 0;
 			if(!is_null($jt_start_date) && !is_null($test_start_date))
 			{
-				$all_relay->jt_diff = $jt_start_date->diffInWeekdays($test_start_date) - $all_relay->jt_due_days - 1;
+				$all_relay->jt_diff = $jt_start_date->diffInWeekdays($test_start_date) - $all_relay->jt_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($jt_start_date, $test_start_date);
 				$all_relay->jt_diff = ($all_relay->jt_diff>0)?$all_relay->jt_diff:0;
 			}
 			else
 				$all_relay->jt_diff = 0;
 			if(!is_null($test_start_date) && !is_null($aging_start_date))
 			{
-				$all_relay->test_diff = $test_start_date->diffInWeekdays($aging_start_date) - $all_relay->testing_due_days - 1;
+				$all_relay->test_diff = $test_start_date->diffInWeekdays($aging_start_date) - $all_relay->testing_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($test_start_date, $aging_start_date);
 				$all_relay->test_diff = ($all_relay->test_diff>0)?$all_relay->test_diff:0;
 			}
 			else
 				$all_relay->test_diff = 0;
 			if(!is_null($aging_start_date) && !is_null($vc_start_date))
 			{
-				$all_relay->aging_diff = $aging_start_date->diffInWeekdays($vc_start_date) - $all_relay->aging_due_days - 1;
+				$all_relay->aging_diff = $aging_start_date->diffInWeekdays($vc_start_date) - $all_relay->aging_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($aging_start_date, $vc_start_date);
 				$all_relay->aging_diff = ($all_relay->aging_diff>0)?$all_relay->aging_diff:0;
 			}
 			else
 				$all_relay->aging_diff = 0;
 			if(!is_null($dispatch_start_date))
 			{
-				$all_relay->dispatch_diff = $dispatch_start_date->diffInWeekdays(Carbon::now()) - $all_relay->dispatch_due_days - 1;
+				$all_relay->dispatch_diff = $dispatch_start_date->diffInWeekdays(Carbon::now()) - $all_relay->dispatch_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($dispatch_start_date, Carbon::now());
 				$all_relay->dispatch_diff = ($all_relay->dispatch_diff>0)?$all_relay->dispatch_diff:0;
 			}
 			else
@@ -1455,21 +1462,21 @@ class PVListingRepository
 			$dispatch_start_date = (!is_null($all_relay->dispatch_start_date))?Carbon::createFromFormat('Y-m-d H:i:s', $all_relay->dispatch_start_date): null;
 			if(!is_null($pv_start_date) && !is_null($wch_start_date))
 			{
-				$all_relay->pv_diff = $pv_start_date->diffInWeekdays($wch_start_date) - $all_relay->pv_due_days - 1;
+				$all_relay->pv_diff = $pv_start_date->diffInWeekdays($wch_start_date) - $all_relay->pv_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($pv_start_date, $wch_start_date);
 				$all_relay->pv_diff = ($all_relay->pv_diff>0)?$all_relay->pv_diff:0;
 			}
 			else
 				$all_relay->pv_diff = 0;
 			if(!is_null($jt_start_date) && !is_null($wch_start_date))
 			{
-				$all_relay->wc_diff = $wch_start_date->diffInWeekdays($jt_start_date) - $all_relay->wch_due_days - 1;
+				$all_relay->wc_diff = $wch_start_date->diffInWeekdays($jt_start_date) - $all_relay->wch_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($wch_start_date, $jt_start_date);
 				$all_relay->wc_diff = ($all_relay->wc_diff>0)?$all_relay->wc_diff:0;
 			}
 			else
 				$all_relay->wc_diff = 0;
 			if(!is_null($jt_start_date))
 			{
-				$all_relay->jt_diff = $jt_start_date->diffInWeekdays(Carbon::now()) - $all_relay->jt_due_days - 1;
+				$all_relay->jt_diff = $jt_start_date->diffInWeekdays(Carbon::now()) - $all_relay->jt_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($jt_start_date, Carbon::now());
 				$all_relay->jt_diff = ($all_relay->jt_diff>0)?$all_relay->jt_diff:0;
 			}
 			else
@@ -1539,40 +1546,40 @@ class PVListingRepository
 			$aging_start_date = (!is_null($all_relay->aging_start_date))?Carbon::createFromFormat('Y-m-d H:i:s', $all_relay->aging_start_date): null;
 			if(!is_null($pv_start_date) && !is_null($wch_start_date))
 			{
-				$all_relay->pv_diff = $pv_start_date->diffInWeekdays($wch_start_date) - $all_relay->pv_due_days - 1;
+				$all_relay->pv_diff = $pv_start_date->diffInWeekdays($wch_start_date) - $all_relay->pv_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($pv_start_date, $wch_start_date);
 				$all_relay->pv_diff = ($all_relay->pv_diff>0)?$all_relay->pv_diff:0;
 			}
 			else
 				$all_relay->pv_diff = 0;
 			if(!is_null($jt_start_date) && !is_null($wch_start_date))
 			{
-				$all_relay->wc_diff = $wch_start_date->diffInWeekdays($jt_start_date) - $all_relay->wch_due_days - 1;
+				$all_relay->wc_diff = $wch_start_date->diffInWeekdays($jt_start_date) - $all_relay->wch_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($wch_start_date, $jt_start_date);
 				$all_relay->wc_diff = ($all_relay->wc_diff>0)?$all_relay->wc_diff:0;
 			}
 			else
 				$all_relay->wc_diff = 0;
 			if(!is_null($jt_start_date) && !is_null($test_start_date))
 			{
-				$all_relay->jt_diff = $jt_start_date->diffInWeekdays($test_start_date) - $all_relay->jt_due_days - 1;
+				$all_relay->jt_diff = $jt_start_date->diffInWeekdays($test_start_date) - $all_relay->jt_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($jt_start_date, $test_start_date);
 				$all_relay->jt_diff = ($all_relay->jt_diff>0)?$all_relay->jt_diff:0;
 			}
 			else
 				$all_relay->jt_diff = 0;
 			if(!is_null($test_start_date) && !is_null($aging_start_date))
 			{
-				$all_relay->test_diff = $test_start_date->diffInWeekdays($aging_start_date) - $all_relay->testing_due_days;
+				$all_relay->test_diff = $test_start_date->diffInWeekdays($aging_start_date) - $all_relay->testing_due_days - PVListingRepository::GetHolidaysCountBetweenDates($test_start_date, $aging_start_date);
 				$all_relay->test_diff = ($all_relay->test_diff>0)?$all_relay->test_diff:0;
 			}
 			else if(!is_null($test_start_date) && is_null($aging_start_date))
 			{
-				$all_relay->test_diff = $test_start_date->diffInWeekdays(Carbon::now()) - $all_relay->testing_due_days - 1;
+				$all_relay->test_diff = $test_start_date->diffInWeekdays(Carbon::now()) - $all_relay->testing_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($test_start_date, Carbon::now());
 				$all_relay->test_diff = ($all_relay->test_diff>0)?$all_relay->test_diff:0;
 			}
 			else
 				$all_relay->test_diff = 0;
 			if(!is_null($aging_start_date))
 			{
-				$all_relay->aging_diff = $aging_start_date->diffInWeekdays(Carbon::now()) - $all_relay->aging_due_days - 1;
+				$all_relay->aging_diff = $aging_start_date->diffInWeekdays(Carbon::now()) - $all_relay->aging_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($aging_start_date, Carbon::now());
 				$all_relay->aging_diff = ($all_relay->aging_diff>0)?$all_relay->aging_diff:0;
 			}
 			else
@@ -1642,42 +1649,42 @@ class PVListingRepository
 			$dispatch_start_date = (!is_null($all_relay->dispatch_start_date))?Carbon::createFromFormat('Y-m-d H:i:s', $all_relay->dispatch_start_date): null;
 			if(!is_null($pv_start_date) && !is_null($wch_start_date))
 			{
-				$all_relay->pv_diff = $pv_start_date->diffInWeekdays($wch_start_date) - $all_relay->pv_due_days - 1;
+				$all_relay->pv_diff = $pv_start_date->diffInWeekdays($wch_start_date) - $all_relay->pv_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($pv_start_date, $wch_start_date);
 				$all_relay->pv_diff = ($all_relay->pv_diff>0)?$all_relay->pv_diff:0;
 			}
 			else
 				$all_relay->pv_diff = 0;
 			if(!is_null($jt_start_date) && !is_null($wch_start_date))
 			{
-				$all_relay->wc_diff = $wch_start_date->diffInWeekdays($jt_start_date) - $all_relay->wch_due_days - 1;
+				$all_relay->wc_diff = $wch_start_date->diffInWeekdays($jt_start_date) - $all_relay->wch_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($wch_start_date, $jt_start_date);
 				$all_relay->wc_diff = ($all_relay->wc_diff>0)?$all_relay->wc_diff:0;
 			}
 			else
 				$all_relay->wc_diff = 0;
 			if(!is_null($jt_start_date) && !is_null($test_start_date))
 			{
-				$all_relay->jt_diff = $jt_start_date->diffInWeekdays($test_start_date) - $all_relay->jt_due_days - 1;
+				$all_relay->jt_diff = $jt_start_date->diffInWeekdays($test_start_date) - $all_relay->jt_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($jt_start_date, $test_start_date);
 				$all_relay->jt_diff = ($all_relay->jt_diff>0)?$all_relay->jt_diff:0;
 			}
 			else
 				$all_relay->jt_diff = 0;
 			if(!is_null($test_start_date) && !is_null($aging_start_date))
 			{
-				$all_relay->test_diff = $test_start_date->diffInWeekdays($aging_start_date) - $all_relay->testing_due_days - 1;
+				$all_relay->test_diff = $test_start_date->diffInWeekdays($aging_start_date) - $all_relay->testing_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($test_start_date, $aging_start_date);
 				$all_relay->test_diff = ($all_relay->test_diff>0)?$all_relay->test_diff:0;
 			}
 			else
 				$all_relay->test_diff = 0;
 			if(!is_null($aging_start_date) && !is_null($vc_start_date))
 			{
-				$all_relay->aging_diff = $aging_start_date->diffInWeekdays($vc_start_date) - $all_relay->aging_due_days - 1;
+				$all_relay->aging_diff = $aging_start_date->diffInWeekdays($vc_start_date) - $all_relay->aging_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($aging_start_date, $vc_start_date);
 				$all_relay->aging_diff = ($all_relay->aging_diff>0)?$all_relay->aging_diff:0;
 			}
 			else
 				$all_relay->aging_diff = 0;
 			if(!is_null($dispatch_start_date))
 			{
-				$all_relay->dispatch_diff = $dispatch_start_date->diffInWeekdays(Carbon::now()) - $all_relay->dispatch_due_days - 1;
+				$all_relay->dispatch_diff = $dispatch_start_date->diffInWeekdays(Carbon::now()) - $all_relay->dispatch_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($dispatch_start_date, Carbon::now());
 				$all_relay->dispatch_diff = ($all_relay->dispatch_diff>0)?$all_relay->dispatch_diff:0;
 			}
 			else
@@ -1924,12 +1931,12 @@ class PVListingRepository
 
 			if(!is_null($pv_start_date) && !is_null($wch_start_date))
 			{
-				$all_relay->pv_diff = $pv_start_date->diffInWeekdays($wch_start_date) - $all_relay->pv_due_days - 1;
+				$all_relay->pv_diff = $pv_start_date->diffInWeekdays($wch_start_date) - $all_relay->pv_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($pv_start_date, $wch_start_date);
 				$all_relay->pv_diff = ($all_relay->pv_diff>0)?$all_relay->pv_diff:0;
 			}
 			else if(!is_null($pv_start_date) && is_null($wch_start_date))
 			{
-				$all_relay->pv_diff = $pv_start_date->diffInWeekdays(Carbon::now()) - $all_relay->pv_due_days - 1;
+				$all_relay->pv_diff = $pv_start_date->diffInWeekdays(Carbon::now()) - $all_relay->pv_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($pv_start_date, Carbon::now());
 				$all_relay->pv_diff = ($all_relay->pv_diff>0)?$all_relay->pv_diff:0;
 			}
 			else
@@ -1938,12 +1945,12 @@ class PVListingRepository
 
 			if(!is_null($jt_start_date) && !is_null($wch_start_date))
 			{
-				$all_relay->wc_diff = $wch_start_date->diffInWeekdays($jt_start_date) - $all_relay->wch_due_days - 1;
+				$all_relay->wc_diff = $wch_start_date->diffInWeekdays($jt_start_date) - $all_relay->wch_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($wch_start_date, $jt_start_date);
 				$all_relay->wc_diff = ($all_relay->wc_diff>0)?$all_relay->wc_diff:0;
 			}
 			else if(!is_null($wch_start_date) && is_null($jt_start_date))
 			{
-				$all_relay->wc_diff = $wch_start_date->diffInWeekdays(Carbon::now()) - $all_relay->wch_due_days - 1;
+				$all_relay->wc_diff = $wch_start_date->diffInWeekdays(Carbon::now()) - $all_relay->wch_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($wch_start_date, Carbon::now());
 				$all_relay->wc_diff = ($all_relay->wc_diff>0)?$all_relay->wc_diff:0;
 			}
 			else
@@ -1952,12 +1959,12 @@ class PVListingRepository
 
 			if(!is_null($jt_start_date) && !is_null($test_start_date))
 			{
-				$all_relay->jt_diff = $jt_start_date->diffInWeekdays($test_start_date) - $all_relay->jt_due_days - 1;
+				$all_relay->jt_diff = $jt_start_date->diffInWeekdays($test_start_date) - $all_relay->jt_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($jt_start_date, $test_start_date);
 				$all_relay->jt_diff = ($all_relay->jt_diff>0)?$all_relay->jt_diff:0;
 			}
 			else if(!is_null($jt_start_date) && is_null($test_start_date))
 			{
-				$all_relay->jt_diff = $jt_start_date->diffInWeekdays(Carbon::now()) - $all_relay->jt_due_days - 1;
+				$all_relay->jt_diff = $jt_start_date->diffInWeekdays(Carbon::now()) - $all_relay->jt_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($jt_start_date, Carbon::now());
 				$all_relay->jt_diff = ($all_relay->jt_diff>0)?$all_relay->jt_diff:0;
 			}
 			else
@@ -1966,12 +1973,12 @@ class PVListingRepository
 
 			if(!is_null($test_start_date) && !is_null($aging_start_date))
 			{
-				$all_relay->test_diff = $test_start_date->diffInWeekdays($aging_start_date) - $all_relay->testing_due_days - 1;
+				$all_relay->test_diff = $test_start_date->diffInWeekdays($aging_start_date) - $all_relay->testing_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($test_start_date, $aging_start_date);
 				$all_relay->test_diff = ($all_relay->test_diff>0)?$all_relay->test_diff:0;
 			}
 			else if(!is_null($test_start_date) && is_null($aging_start_date))
 			{
-				$all_relay->test_diff = $test_start_date->diffInWeekdays(Carbon::now()) - $all_relay->testing_due_days - 1;
+				$all_relay->test_diff = $test_start_date->diffInWeekdays(Carbon::now()) - $all_relay->testing_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($test_start_date, Carbon::now());
 				$all_relay->test_diff = ($all_relay->test_diff>0)?$all_relay->test_diff:0;
 			}
 			else
@@ -1980,12 +1987,12 @@ class PVListingRepository
 
 			if(!is_null($aging_start_date) && !is_null($vc_start_date))
 			{
-				$all_relay->aging_diff = $aging_start_date->diffInWeekdays($vc_start_date) - $all_relay->aging_due_days - 1;
+				$all_relay->aging_diff = $aging_start_date->diffInWeekdays($vc_start_date) - $all_relay->aging_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($aging_start_date, $vc_start_date);
 				$all_relay->aging_diff = ($all_relay->aging_diff>0)?$all_relay->aging_diff:0;
 			}
 			else if(!is_null($aging_start_date) && is_null($vc_start_date))
 			{
-				$all_relay->aging_diff = $aging_start_date->diffInWeekdays(Carbon::now()) - $all_relay->aging_due_days - 1;
+				$all_relay->aging_diff = $aging_start_date->diffInWeekdays(Carbon::now()) - $all_relay->aging_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($aging_start_date, Carbon::now());
 				$all_relay->aging_diff = ($all_relay->aging_diff>0)?$all_relay->aging_diff:0;
 			}
 			else
@@ -1993,7 +2000,7 @@ class PVListingRepository
 
 			if(!is_null($dispatch_start_date))
 			{
-				$all_relay->dispatch_diff = $dispatch_start_date->diffInWeekdays(Carbon::now()) - $all_relay->dispatch_due_days - 1;
+				$all_relay->dispatch_diff = $dispatch_start_date->diffInWeekdays(Carbon::now()) - $all_relay->dispatch_due_days - 1 - PVListingRepository::GetHolidaysCountBetweenDates($dispatch_start_date, Carbon::now());
 				$all_relay->dispatch_diff = ($all_relay->dispatch_diff>0)?$all_relay->dispatch_diff:0;
 			}
 			else
@@ -2113,7 +2120,7 @@ class PVListingRepository
 				{
 					$start_date = (!is_null($relay_dates->start_date))?Carbon::createFromFormat('Y-m-d H:i:s', $relay_dates->start_date): null;
 					$end_date = (!is_null($relay_dates->end_date))?Carbon::createFromFormat('Y-m-d H:i:s', $relay_dates->end_date): null;
-					$date_diff = $start_date->diffInWeekdays($end_date) - 1;
+					$date_diff = $start_date->diffInWeekdays($end_date) - 1 - PVListingRepository::GetHolidaysCountBetweenDates($start_date, $end_date);
 					$date_diff = ($date_diff>0)?$date_diff:0;
 					$relay_all->total_date_diff += $date_diff;
 				}
@@ -2125,27 +2132,6 @@ class PVListingRepository
 		}
 
 		$data['repair_lead_time'] = $repair_lead_time_all;
-
-		/*$data['repair_lead_time'] = PhysicalVerificationMaster::from('physical_verification as pv')->selectRaw('pt.name as type_name, AVG( datediff( end_pst.created_at, start_pst.created_at )) AS average')
-    					->join('ma_product_type as pt', 'pt.id', 'pv.producttype_id')
-    					->join('pv_status_tracking as start_pst', function($join){
-    						$join->on('start_pst.pv_id', 'pv.id');
-    					})
-    					->join('pv_status_tracking as end_pst', function($join){
-    						$join->on('end_pst.pv_id', 'pv.id');
-    					})
-    					->join('warranty as wt', 'wt.pv_id', 'pv.id')
-    					->where('wt.smp', 2)
-    					->where(function($query){
-    						$query->where('start_pst.status_id', 1)->orWhere('start_pst.status_id', 2);
-    					})
-    					->where(function($query){
-    						$query->where('end_pst.created_at', '>=', Carbon::now()->firstOfMonth())
-    						->where('end_pst.created_at', '<=', Carbon::now()->lastOfMonth())->where('end_pst.status_id', 12);
-    					})
-    					->whereIn('pt.name', ["CONVENTIONAL", "REASON", "MULTILIN", "NUMERICAL"])
-    					->groupBy('pt.name')
-    					->get();*/
 
 		$average = 0;
 		foreach ($data['repair_lead_time'] as $key => $list) {
