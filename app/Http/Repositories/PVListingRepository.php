@@ -790,7 +790,11 @@ class PVListingRepository
 
 		$pvs['total_overdue']['for_pv'] = 0;
 
-		$pvs['receipt'] = ReceiptMaster::selectRaw('receipt.total_boxes, cus.name as customer_name, IF(receipt.status=1, "Open", "Started") as status, DATEDIFF("'. Carbon::now() .'",receipt.created_at) AS DateDiff')->leftJoin('ma_customer as cus', 'cus.id', 'receipt.customer_id')->whereIn('receipt.status', [1, 2])->orderBy('receipt.created_at', 'DESC')->get();
+		$pvs['receipt'] = ReceiptMaster::selectRaw('receipt.total_boxes, cus.name as customer_name, IF(receipt.status=1, "Open", "Started") as status, receipt.created_at, DATEDIFF("'. Carbon::now() .'",receipt.created_at) AS DateDiff')->leftJoin('ma_customer as cus', 'cus.id', 'receipt.customer_id')->whereIn('receipt.status', [1, 2])->orderBy('receipt.created_at', 'DESC')->get();
+
+		foreach ($pvs['receipt'] as $key => $receipt) {
+			$receipt->DateDiff  = $receipt->created_at->diffInWeekdays(Carbon::now()) - 1 - PVListingRepository::GetHolidaysCountBetweenDates($receipt->created_at, Carbon::now());
+		}
 
     	return $pvs;
     }
