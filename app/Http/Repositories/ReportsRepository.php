@@ -56,6 +56,9 @@ use Illuminate\Support\Facades\DB;
 			->leftJoin('users as c_user', 'c_user.id', 'rma.created_by')
 				->leftJoin('users as u_user', 'u_user.id', 'rma.updated_by')->where('pv_id', $relay->id)->first();
 
+		if(!$relay['rma'])
+			return $relay;
+
 		$relay['invoice_info'] = RMAInvoiceAddress::selectRaw('*')->where('rma_id', $relay['rma']->rma_id)->first();
 		$relay['delivery_info'] = RMADeliveryAddress::selectRaw('*')->where('rma_id', $relay['rma']->rma_id)->first();
 		$relay['warranty'] = WarrantyMaster::selectRaw('warranty.*, c_user.name as created_by_name, u_user.name as updated_by_name')->leftJoin('users as c_user', 'c_user.id', 'warranty.created_by')

@@ -244,6 +244,7 @@
                     </div>
                 </div>
 			</div>
+            @if(!is_null($rma))
 			<div class="row">
 				<div class="col-lg-6">
                     <div class="card">
@@ -779,6 +780,7 @@
                     </div>
                 </div>
 			</div>
+            @endif
         </div>
     </div>
 </div>

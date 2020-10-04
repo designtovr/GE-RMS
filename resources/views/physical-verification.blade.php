@@ -24,7 +24,7 @@
                                 <th>
                                     <input id="rcidFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="Receipt ID #" ng-change="gridActions.filter()" ng-model="filterreceiptid" filter-by="formatted_receipt_id" filter-type="text">
                                 </th>
-                                <th ng-show="tab == 'started'">
+                                <th ng-show="tab == 'started' || tab == 'all'">
                                     <input id="ridFilter" type="text" class="form-control ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched" placeholder="RID #" ng-change="gridActions.filter()" ng-model="filterothersid" filter-by="formatted_pv_id" filter-type="text">
                                 </th>
                                 <th>

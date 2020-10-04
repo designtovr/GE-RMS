@@ -51,6 +51,7 @@ app.controller('WarrantyController' ,['$scope', '$http','Notification' , 'DataSh
 	{ name: 'Stanley',    email: 'stanley.p.geoffrey@ge.com'},
 	{ name: 'Jyothi',   email: 'jyothi.seetharaman@ge.com'},
 	{ name: 'Balaji',   email: 'kannan.balaji1@ge.com'},
+	{ name: 'Srinivas', email: 'srinivasktss@gmail.com'},
 	];
 
 	$scope.loadedRIDs = [1234 , 54321 , 6578];
@@ -249,6 +250,8 @@ app.controller('WarrantyController' ,['$scope', '$http','Notification' , 'DataSh
 			Notification.error("Enter WBS");
 			return;
 		}
+		$scope.warrantymodal.addmailarray = [];
+		$scope.warrantymodal.addccarray = [];
 		if ($scope.warrantymodal.rca)
 		{
 			if ($scope.warrantymodal.selectedRID.length == 0)
@@ -357,6 +360,73 @@ app.controller('WarrantyController' ,['$scope', '$http','Notification' , 'DataSh
         {
               $scope.warrantymodal.addcc = '';
         }
+
+        $scope.warrantymodal.addmailarray = [];
+		$scope.warrantymodal.addccarray = [];
+		if ($scope.warrantymodal.rca)
+		{
+
+			if($scope.warrantymodal.addmail != null && $scope.warrantymodal.addmail != "" && $scope.warrantymodal.addmail != undefined)
+			{
+				var emails = $scope.warrantymodal.addmail.split(" ");
+				$scope.warrantymodal.temp = [];
+				console.log(emails)
+				for (var i = 0; i < emails.length; i++) {
+					console.log(emails[i]);
+					if(!/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/.test(emails[i]))
+					{
+						Notification.error("Enter Valid Mail Ids Seperated by <b>Space</b> in <b>Add Mail To Field</b>");
+						return;
+					}
+					else
+					{
+						$scope.warrantymodal.temp.push(emails[i]);
+					}
+				}
+				$scope.warrantymodal.addmailarray = $scope.warrantymodal.temp;
+				console.log($scope.warrantymodal.addmailarray)
+			}
+
+			if($scope.warrantymodal.addcc != null && $scope.warrantymodal.addcc != "" && $scope.warrantymodal.addcc != undefined)
+			{
+				var emails = $scope.warrantymodal.addcc.split(" ");
+				$scope.warrantymodal.temp = [];
+				console.log(emails)
+				for (var i = 0; i < emails.length; i++) {
+					console.log(emails[i]);
+					if(!/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/.test(emails[i]))
+					{
+						Notification.error("Enter Valid Mail Ids Seperated by <b>Space</b> in <b>Add CC Field</b>");
+						return;
+					}
+					else
+					{
+						$scope.warrantymodal.temp.push(emails[i]);
+					}
+				}
+				$scope.warrantymodal.addccarray = $scope.warrantymodal.temp;
+				console.log($scope.warrantymodal.addccarray)
+			}
+
+			if ($scope.warrantymodal.selectedPeople.length == 0)
+			{
+				Notification.error("Select CC");
+				return;
+			}
+
+			if ($scope.warrantymodal.selectedCCPeople.length == 0)
+			{
+				Notification.error("Select CC");
+				return;
+			}
+
+			if ($scope.warrantymodal.message == "" || $scope.warrantymodal.message == undefined)
+			{
+				Notification.error("Enter Message");
+				return;
+			}
+		}
+
 		$http({
 			method: 'post',
 			url: '/ge/updatewc',
